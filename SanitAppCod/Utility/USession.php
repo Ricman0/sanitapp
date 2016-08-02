@@ -1,0 +1,94 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of USession
+ *
+ * @package Utility
+ * @author Claudia Di Marco & Riccardo Mantini
+ */
+class USession {
+    
+    /**
+     * Costruttore della classe USession. 
+     * Inizia una sessione
+     * 
+     * @access public
+     */
+    public function __construct() 
+    {
+        /*
+         * Una sessione inizia grazie alla funzione session_start()
+         * Le variabili di sessione sono impostate nella variabile globale PHP
+         * $_SESSION
+         */
+        session_start();
+    }
+    
+    /**
+     * Metodo che terminare la Sessione
+     * 
+     * @access public
+     */
+    public function terminaSessione() 
+    {
+        
+        session_destroy();
+    }
+    
+    /**
+     * Metodo che consente di impostare il valore di una variabile di sessione
+     * 
+     * @access public
+     * @param string $chiave Variabile di sessione da impostare
+     * @param type $valore Valore che si vuole assegnare alla variabile di sessione $chiave
+     */
+    public function impostaVariabileSessione($chiave, $valore) 
+    { 
+        /*
+         * Le variabili di sessione sono contenute nell'array associativo $_SESSION 
+         * per cui per impostare il valore di una variabile di sessione, 
+         * bisogna avere la chiave e il valore
+         */
+        $_SESSION[$chiave] = $valore;
+    }
+    
+    /**
+     * Metodo che consente di ottenere il valore della variabile di sessione 
+     * passata come parametro se presente
+     * 
+     * @access public
+     * @param string $chiave Variabile di sessione di cui si vuole conoscere il valore
+     * @return mixed Se la variabile è stata definita precedentemente, ritorna il
+     *               valore della variabile di sessione, false altrimenti.
+     */
+    public function leggiVariabileSessione($chiave) 
+    {
+        //se una variabile è stata definita 
+        if(isset($_SESSION[$chiave]))
+        {
+            return $_SESSION[$chiave];
+        }
+        return false;   
+    }
+    
+    /**
+     * Metodo che consente di eliminare la variabile di sessione passata come 
+     * parametro se presente
+     * 
+     * @access public
+     * @param string $chiave Variabile di sessione da eliminare
+     */
+    public function eliminaVariabileSessione($chiave) 
+    {
+        if(isset($_SESSION[$chiave]))
+        {
+            unset($_SESSION[$chiave]);
+        }
+    }
+}

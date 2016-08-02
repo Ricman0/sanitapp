@@ -1,0 +1,54 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13-giu-2016, 20.18.44
+    Author     : Claudia Di Marco & Riccardo Mantini
+*/
+
+#elementiFormMainRicerca{
+    display: flex;
+    align-items: center;
+/*    justify-content: center;*/
+    /*margin-top: 0px;*/
+    margin-bottom: 40px;
+    margin-left: 10%;
+    float: left;
+}
+
+.mainRicerca{
+    margin-top: 50px;
+}
+
+.mainRicerca input{
+    display:block;
+    margin: 20px;
+    margin-top: 10px;
+    font-size: 15px; 
+    padding:8px;
+    width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;  
+}
+.mainRicerca i{
+    color:rgb(11, 190, 210);
+    transform: scale(10) rotate(90deg);
+    -webkit-transform: scale(10) rotate(90deg);
+    -moz-transform: scale(10) rotate(90deg);
+    -ms-transform: scale(10) rotate(90deg);
+    -o-transform: scale(10) rotate(90deg);
+    margin: 100px;
+    
+}
+/*
+#mainRicercaCerca{
+    width: 100px;
+    height: 40px;
+    position: relative;
+    left: 22.5%;
+    
+}*/
+

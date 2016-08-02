@@ -1,0 +1,67 @@
+<!--usare get se non invia dati densibili o se si fanno ricerche, usare post se si effettua l'upload di dati o si passano dati sensibili come password-->    
+        <form class= "formInserisci" name="inserisciUtente" method="post" id="inserisciUtente"> 
+            <div class="informazioni"> 
+                <div class="nome">            
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" placeholder="Mario" required/>
+                    <br>
+                </div>
+                <div class="cognome"> 
+                    <input type="text" name="cognome" id="cognome" placeholder="Rossi" required/>
+                    <label for="cognome">Cognome</label>
+                    <br>
+                </div>
+                <div class="codiceFiscale"> 
+                    <input type="text" name="codiceFiscale" id="codiceFiscale" placeholder="MRARSS67S42G438S" required/>
+                    <label for="codiceFiscale">Codice Fiscale</label>
+                    <br>
+                </div>
+            </div>
+            <div class ="indirizzo">
+                <div class="via">              
+                    <input type="text" name="indirizzo" id="indirizzo" placeholder="Via/C.da Acquaventina" required/>
+                    <label for="indirizzo">Indirizzo</label>
+                    <br>
+                </div>
+                <div class="numeroCivico">
+                    <input type="number" name="numeroCivico" id="numeroCivico" min="0" max="1000" placeholder="3"/>
+                    <label for="mumeroCivico">Numero Civico</label>
+                    <br>
+                </div>
+                <div class="CAP"> 
+                    <input type="text" name="CAP" id="CAP" placeholder="65017" required/>
+                    <label for="CAP">CAP</label>
+                    <br>
+                </div>
+            </div>
+                <!--type=email non supportato da safari-->
+            <div class="accesso">
+                <div class="email"> 
+                    <input type="email" name="email" id="email" placeholder="mario.rossi@example.it" required>
+                    <label for="email">Email</label>
+                    <br>
+                </div>
+                <div class="password"> 
+                    <input type="password" name="password" id="password" required >
+                    <label for="password">Password</label>
+                    <br>
+                </div>
+            </div>
+            <div class="submit" >
+                <input type="submit" value="Invia" id="submitRegistrazioneUtente">
+            </div>
+                <!-- se vogliamo possiamo aggiungerlo
+                Sesso:<br>
+                <input type="radio" name="sesso" value="M" checked>Maschio<br>
+                <input type="radio" name="sesso" value="F">Femmina<br>                
+
+                Encryption: <keygen name="security"><br>
+                
+                Data di nascita:<br>
+-->
+                <!--non supportato da firefox-->
+                <!-- se vogliamo possiamo aggiungerlo
+                <input type="date" name="dataNascita" required><br>
+                
+-->
+        </form>

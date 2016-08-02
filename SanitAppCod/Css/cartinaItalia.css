@@ -1,0 +1,56 @@
+
+/* MAPPA */
+#italy-map {
+    width: 458px;
+    height: 531px;
+    background:url(../Immagini/cartinaItalia.gif) no-repeat;
+    z-index:100;
+    float:left;
+    margin: -20px 0px 35px 9%;
+
+}
+
+#region-map{
+    width: 100%;
+    height: 100%;
+    z-index:105;
+    top:0;
+    left:0;
+    float:left;
+}
+#region-map img{
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.sprite_region {
+    background: url(../Immagini/sprite_map.gif) no-repeat;
+    width: 460px;
+    height: 531px;
+    z-index: 110;
+}
+
+.sprite_region_all{background:none; z-index:110;}
+.sprite_region_1 {background-position:-8280px 0px;}
+.sprite_region_2 {background-position:-5060px  0px;}
+.sprite_region_3 {background-position:-3220px  0px;}
+.sprite_region_4 {background-position:-3680px 0px;}
+.sprite_region_5 {background-position:-7360px 0px;}
+.sprite_region_6 {background-position:-8740px 0px;}
+.sprite_region_7 {background-position:-2300px 0px;}
+.sprite_region_8 {background-position:-1840px 0px;}
+.sprite_region_9 {background-position:-6900px 0px;}
+.sprite_region_10{background-position:-7820px 0px;}
+.sprite_region_11{background-position:-2760px 0px;}
+.sprite_region_12{background-position:-4140px 0px;}
+.sprite_region_13{background-position:0px 0px;}
+.sprite_region_14{background-position:-4600px 0px;}
+.sprite_region_15{background-position:-1380px 0px;}
+.sprite_region_16{background-position:-5520px 0px;}
+.sprite_region_17{background-position:-460px 0px;}
+.sprite_region_18{background-position:-920px 0px;}
+.sprite_region_19{background-position:-5980px 0px;}
+.sprite_region_20{background-position:-6440px 0px;}
+
+
