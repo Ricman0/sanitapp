@@ -78,6 +78,29 @@ class USession {
     }
     
     /**
+     * Metodo che consente di controllare se la variabile di sessione 
+     * passata come parametro è vuota o meno
+     * 
+     * @access public
+     * @param string $chiave Variabile di sessione 
+     * @return boolean True se la variabile è stata definita precedentemente, 
+     *                 False se non è stata definita oppure la variabile è false.
+     */
+    public function checkVariabileSessione($chiave) 
+    {
+        
+        if(!empty($_SESSION[$chiave]))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+    
+    /**
      * Metodo che consente di eliminare la variabile di sessione passata come 
      * parametro se presente
      * 

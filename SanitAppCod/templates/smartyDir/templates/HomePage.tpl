@@ -13,8 +13,8 @@
         <link rel="stylesheet" type="text/css" href="./Css/footer.css">
         <link rel="stylesheet" type="text/css" href="./Css/cartinaItalia.css"/>
         <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
-<!--<img src="./Immagini/cartinaItalia.gif" />
-  <!--      <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
+<!--<img src="./Immagini/cartinaItalia.gif" />-->
+        <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
         <link rel="stylesheet" type="text/css" href="./Css/inserisciMedico.css">
         
         
@@ -24,10 +24,11 @@
 
         <meta charset="UTF-8">
         
-        <script type="text/javascript" src="./jScript/adaptive-image.js"></script>
+        <script type="text/javascript" src="./jScript/adaptive-image.js"></script>-->
         <script type="text/javascript" src="./jScript/eventi_click.js"></script>
+        <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
         
--->
+
 
     <body>
         <!-- Classe container per l'intera pagina-->
@@ -46,7 +47,7 @@
             {$mainRicerca}
             {$cartina}
         </div> 
-        <!--
+        
         <div id="contenutiAjax">
             
         </div>

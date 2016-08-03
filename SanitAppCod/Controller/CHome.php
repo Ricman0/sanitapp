@@ -20,8 +20,19 @@ class CHome {
      */
     public function impostaPagina() 
     {
-        //secondo me la prima cosa da fare è creare la sessione
-        $session = USingleton::getInstance('USession');
+        $session = USingleton::getInstance("USession");
+        if($logIn)
+        {
+            // let the user access the main page
+        }
+        elseif(!empty($_POST['username']) && !empty($_POST['password']))
+        {
+            // let the user login
+        }
+        else
+        {
+            // display the login form
+        }
         $vHome= USingleton::getInstance('VHome');
         $controller= $vHome->getController();
         echo ($controller);// prova per vedere se contiene quello che dico io
@@ -79,6 +90,12 @@ class CHome {
                 
 
             case 'mySanitApp':
+                //secondo me la prima cosa da fare è creare la sessione
+                $session = USingleton::getInstance('USession');
+                // bisogna controllare se è stato effettuato il log in
+                $cAutenticazione = USingleton::getInstance("CAutenticazione");
+                $logIn = $cAutenticazione->logIn($session);
+
                 
                 break;
             default:
