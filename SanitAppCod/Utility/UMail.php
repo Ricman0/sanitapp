@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of UMail
  *
@@ -50,6 +44,8 @@ class UMail {
         $email->From = $emailConfig['from'];
         $email->FromName= $emailConfig['fromname'];
         $this->_email = $email;
+        // $this->_email->setLanguage('it','language/'); oppure
+        $this->_email->setLanguage('it', "./libs/PHPMailer/language/phpmailer.lang-it.php");
         
     }
     
@@ -60,10 +56,46 @@ class UMail {
      * @param string $destinatario Indirizzo email del destinatario
      * @param string $subject Oggetto della email
      * @param string $body Corpo della email
+     * @param array $allegati Gli allegati della email
      */
-    public function inviaEmail($destinatario, $subject, $body) 
+    public function inviaEmail($destinatario, $subject, $body, $allegati = NULL) 
     {
+        //aggiunge l'indirizzo email a cui inviare l'email ("to:")
+        $this->_email->addAddress($destinatario);
+        // imposto l'oggetto dell'email
+        $this->_email->Subject = $subject;
+        // imposto il body dell'email; stripslashes rimuove gli eventuali backslash
+        $this->_email->Body = stripslashes($body);
         
+        if($allegare !="")
+        {
+            //qui dovrai ciclare gli allegati se sono più di uno con il solito foreach 
+            $this->_email->AddAttachment($allegare); 
+        } 
+        if (!$this->_email->send())
+        {}
+        if(!$mail->send()) 
+        {
+            echo "Il messaggio non è stato spedito poichè c'è stato un errore: " . $this->errore();
+        } 
+        else 
+        {
+            echo "Il messaggio è stato inviato correttamente";
+        }
+        
+        
+    }
+    
+    /**
+     * Metodo che restituisce l'errore che si è avuto durante l'invio dell'email 
+     * 
+     * @access public
+     */
+    public function errore() 
+    {
+        //per avere il messaggio di errore in Italiano
+        $this->_email->setLanguage('it', "./libs/PHPMailer/language/phpmailer.lang-it.php");
+        return $this->_email->ErrorInfo;
     }
 }
     
