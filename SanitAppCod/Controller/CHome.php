@@ -21,17 +21,45 @@ class CHome {
     public function impostaPagina() 
     {
         $session = USingleton::getInstance("USession");
+        $logIn = $session->checkVariabileSessione("loggedIn");   
         if($logIn)
         {
             // let the user access the main page
         }
         elseif(!empty($_POST['username']) && !empty($_POST['password']))
         {
-            // let the user login
+            
+            
+            //non so se inserire un'entity ma non avei l'entity giusta
+            $fdb = USingleton::getInstance("FDatabase");
+            $username = $fdb->escapeStringa($_POST['username']);
+            $password = $fdb->escapeStringa(md5($_POST['password']));
+            $query = "SELECT * FROM Utente WHERE username = '$username' AND password = '$password' ";
+//            $query = "SELECT username, password FROM Utente
+//                      UNION ALL
+//                      SELECT username, password FROM Medico
+//                      UNION ALL
+//                      SELECT username, password FROM Clinica
+//                      ORDER BY username";
+            $risultato = $fdb->eseguiQuery($query);
+            $num = count($risultato);
+            if($num == 1)
+            {
+                
+                $_SESSION['Username'] = $username;
+                $_SESSION['LoggedIn'] = TRUE;
+                $logIn= TRUE;
+                echo "Benvenuto" + $username;
+            }
+            else 
+            {
+                echo "errore nell'effettuare il log in";
+            }
         }
         else
         {
             // display the login form
+            $logIn = false;
         }
         $vHome= USingleton::getInstance('VHome');
         $controller= $vHome->getController();

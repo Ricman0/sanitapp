@@ -113,12 +113,28 @@ class FDatabase {
     }
     
     /**
+     * Metodo che permette di effettuare l'escape dei caratteri speciali di una stringa
+     * 
+     * @final
+     * @access public
+     * @param string $string La stringa di cui si vuole effettuare l'escape
+     * @return string La stringa di cui si è fatto l'escape
+     */
+    final public function escapeStringa($string) 
+    {
+        $stringa = $this->_connessione->real_escape_string($string);
+        return $stringa;
+    }
+    
+    
+    
+    /**
      * Metodo che consente di eseguire una query 
      * 
      * @final
      * @access public
      * @param string $query La query da eseguire
-     * @return boolean|array Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
+     * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
      */
     final public function eseguiQuery($query) 
     {

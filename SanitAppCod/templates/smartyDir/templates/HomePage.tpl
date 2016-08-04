@@ -5,17 +5,24 @@
         <link rel="stylesheet" type="text/css" href="./Css/logo.css">
         <link rel="stylesheet" type="text/css" href="./Css/homePage.css">
         <link rel="icon" href="./Immagini/favicon.ico" />
-        <script type="text/javascript" src="./jScript/jquery-1.12.4.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
+        <link rel="stylesheet" type="text/css" href="./Css/inserisciMedico.css">
         <link rel="stylesheet" type="text/css" href="./Css/logIn.css">
-
         <link rel="stylesheet" type="text/css" href="./Css/navigationBar.css">
         <link rel="stylesheet" type="text/css" href="./Css/mainRicerca.css">  
         <link rel="stylesheet" type="text/css" href="./Css/footer.css">
         <link rel="stylesheet" type="text/css" href="./Css/cartinaItalia.css"/>
+        
+        <script type="text/javascript" src="./jScript/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
+        <script type="text/javascript" src="./jScript/eventi_click.js"></script>
+        <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
+        <script type="text/javascript" src="./jScript/clickLogIn.js"></script>
+       
+        
+        
 <!--<img src="./Immagini/cartinaItalia.gif" />-->
-        <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
-        <link rel="stylesheet" type="text/css" href="./Css/inserisciMedico.css">
+        
         
         
 
@@ -25,8 +32,6 @@
         <meta charset="UTF-8">
         
         <script type="text/javascript" src="./jScript/adaptive-image.js"></script>-->
-        <script type="text/javascript" src="./jScript/eventi_click.js"></script>
-        <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
         
 
 
