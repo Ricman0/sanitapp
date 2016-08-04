@@ -1,6 +1,6 @@
 
 <form id="logInForm">
-  <div>
+  
     <label>Username</label>
     <input type="text" id="usernameLogIn" placeholder="Enter Username" name="uname" required >
 
@@ -11,5 +11,5 @@
     <input type="checkbox" checked="checked"> Remember me
   
  <a href="#">Forgot password?</a>
-</div>  
+
 </form>

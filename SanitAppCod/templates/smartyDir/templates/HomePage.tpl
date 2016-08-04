@@ -4,10 +4,11 @@
         <link rel="stylesheet" type="text/css" href="./Css/font-awesome.css">
         <link rel="stylesheet" type="text/css" href="./Css/logo.css">
         <link rel="stylesheet" type="text/css" href="./Css/homePage.css">
-        <link rel="icon" href="./Immagini/favicon.ico" />
-        <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
-        <link rel="stylesheet" type="text/css" href="./Css/inserisciMedico.css">
+        <link rel="icon" href="./Immagini/favicon.ico" />       
         <link rel="stylesheet" type="text/css" href="./Css/logIn.css">
+
+<!--       <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
+        <link rel="stylesheet" type="text/css" href="./Css/inserisciMedico.css">-->
         <link rel="stylesheet" type="text/css" href="./Css/navigationBar.css">
         <link rel="stylesheet" type="text/css" href="./Css/mainRicerca.css">  
         <link rel="stylesheet" type="text/css" href="./Css/footer.css">

@@ -8,10 +8,18 @@ and open the template in the editor.
     Author     : Riccardo
 */
 
-input[type="text"], input[type="password"] {
+#logInForm{
+    font-size: 11px;
+    display: flex;
+    line-height: normal;
+    text-align: justify;
+}
+
+#logInForm input[type="text"], input[type="password"] {
     box-sizing: border-box;
     font-size: inherit;
     width: 10%;
+    padding:1px;
 }
 button {
     cursor: pointer;
@@ -20,12 +28,6 @@ button {
     width: 7%;
 }
 
-#logInForm{
-    font-size: 11px;
-    display: inline;
-    line-height: normal;
-    text-align: justify;
-}
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {

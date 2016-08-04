@@ -50,10 +50,8 @@ label{
     -webkit-border-radius: 3px;
 }
 
-input
+#inserisciUtente input
 {
-    padding:8px;
-    border: 1px solid #E5E5E5;
     width: 200px;
     color: #999999;
     box-shadow: rga(0, 0, 0, 0.1) 0px 0px 8px;
