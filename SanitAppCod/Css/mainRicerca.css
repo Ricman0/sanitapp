@@ -16,6 +16,7 @@ and open the template in the editor.
     margin-bottom: 40px;
     margin-left: 10%;
     float: left;
+    margin-right: 10%;
 }
 
 .mainRicerca{
@@ -42,6 +43,19 @@ and open the template in the editor.
     -o-transform: scale(10) rotate(90deg);
     margin: 100px;
     
+}
+
+@media only screen and (max-width: 1200px){
+    #elementiFormMainRicerca{
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+@media only screen and (max-width: 1100px){
+    #elementiFormMainRicerca{
+        margin-left: 2%;
+        margin-right: 2%;
+    }
 }
 /*
 #mainRicercaCerca{

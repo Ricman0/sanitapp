@@ -51,8 +51,9 @@
 
             <!-- Main della pagina-->
             <div id="main">
-
-                {$areaPersonale}
+                {$mainRicerca}
+                {$cartina}
+                
             </div> 
 
             <div id="contenutiAjax">

@@ -51,11 +51,12 @@ navigation bar per diplay >600px
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: rgb(11,190,210);
-    min-width: 17%;
+    background-color: rgb(11, 190, 210);
     border-radius: 0 0 4px 4px;
+    display: none;
+    width: calc(17% + 3px);
+    position: absolute;
+    min-width: inherit;
 }
 
 #registrazione:hover .dropdown-content {
