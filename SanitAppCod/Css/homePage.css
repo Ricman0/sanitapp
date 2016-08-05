@@ -9,15 +9,22 @@ and open the template in the editor.
     Author     : Claudia Di Marco & Riccardo Mantini
 */
 
+html,body{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    min-height: 500px;
+       
+}
 #wrapper {
     background-color: rgb(255, 255, 255);
     font-family: Verdana,sans-serif;
     text-decoration: none;
-    margin: 0;
     padding: 0;
     margin:2px auto; 
-    padding:0;
     text-align: center;
+    min-height: 100%;
+    position: relative;
 }
 
 #header{
@@ -25,7 +32,16 @@ and open the template in the editor.
     height:7em; 
     line-height:7em;
 }
-
+#main{
+    padding-bottom: 30px;
+}
+#footer{
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:30px;   /* Height of the footer */
+ 
+}
 button, input[type = 'submit']
 {
     color:white;
