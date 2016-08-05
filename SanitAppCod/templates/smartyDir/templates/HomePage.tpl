@@ -13,6 +13,7 @@
         <link rel="stylesheet" type="text/css" href="./Css/mainRicerca.css">  
         <link rel="stylesheet" type="text/css" href="./Css/footer.css">
         <link rel="stylesheet" type="text/css" href="./Css/cartinaItalia.css"/>
+        <link rel="stylesheet" type="text/css" href="./Css/areaPersonale.css"/>
         
         <script type="text/javascript" src="./jScript/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
@@ -50,8 +51,8 @@
         
             <!-- Main della pagina-->
         <div id="main">
-            {$mainRicerca}
-            {$cartina}
+            
+            {$areaPersonale}
         </div> 
         
         <div id="contenutiAjax">

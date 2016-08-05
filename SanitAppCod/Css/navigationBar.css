@@ -15,7 +15,7 @@ navigation bar per diplay >600px
 
 
 
-ul {
+#navigationBar ul {
     background-color: rgb(11, 190, 210);
     list-style-type: none;
     margin: 1px 0px ;
@@ -23,11 +23,11 @@ ul {
     padding: 0px;
     border-radius: 8px 4px 4px 25px;
 }
-li {
+#navigationBar li {
     float: left;
     width: 23%;
 }
-li a {
+#navigationBar li a {
     color: white;
     display: block;
     line-height: 35px;

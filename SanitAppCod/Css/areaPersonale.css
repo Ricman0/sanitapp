@@ -1,0 +1,80 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4-ago-2016, 18.00.34
+    Author     : Claudia Di Marco & Riccardo Mantini
+*/
+
+#sideNavBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+#sideNavBar li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+#sideNavBar li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#sideNavBar li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+
+
+/** quello che stava sul pc
+
+#sideNavBar li {
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(10, 190, 210);
+    border-bottom-style: solid;
+    border-bottom-right-radius: 30px;
+}
+#sideNavBar {
+    background-color: white;
+    image-rendering: 100%;
+    list-style-type: none;
+    margin-top: 20px;
+    overflow: auto;
+    padding: 0;
+    position: fixed;
+    width: 20%;
+    padding-top: 0px;
+    border-radius: 20px;
+    border-bottom: 8px;
+    border-bottom-color: black;
+}
+#sideNavBar li a {
+    color: #000;
+    display: block;
+    padding: 25px 16px;
+    text-decoration: none;
+    border-bottom: 10px;
+}
+#sideNavBar li a.active {
+    background-color: tomato;
+    color: white;
+}
+#sideNavBar li a:hover:not(.active) {
+    background-color: rgb(10, 190, 210);
+    color: white;
+}
+
+
+*/

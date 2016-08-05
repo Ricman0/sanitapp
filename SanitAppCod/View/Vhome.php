@@ -39,7 +39,7 @@ class Vhome extends View {
         $navBar = $this->prelevaTemplate("navigationBar");
         $main = $this->prelevaTemplate("mainRicerca");
         $cartina = $this->prelevaTemplate("cartinaItalia");
-
+        $areaPersonale = $this->prelevaTemplate("areaPersonale");
 //        $inserisci = $view->prelevaTemplate("inserisci");
 //        $inserisci = $this->prelevaTemplate("mainRicerca");
 //        $this->assegnaVariabiliTemplate("mainRicerca", $inserisci);
@@ -48,7 +48,7 @@ class Vhome extends View {
         $this->assegnaVariabiliTemplate("navigationBar", $navBar);
         $this->assegnaVariabiliTemplate("mainRicerca", $main);
         $this->assegnaVariabiliTemplate("cartina", $cartina);
-       
+        $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
         // visualizzo il template
         $this->visualizzaTemplate("HomePage");
         
