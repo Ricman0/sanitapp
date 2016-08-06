@@ -1,3 +1,7 @@
+<head>
+    <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
+</head>
+
 <form class="formInserisci" name="inserisciMedico" method="post" id="inserisciMedico">
     <!-- form uguale a inseirsci utente inizialmente per cui ora non lo scrivo-->
     <div class="PEC"> 

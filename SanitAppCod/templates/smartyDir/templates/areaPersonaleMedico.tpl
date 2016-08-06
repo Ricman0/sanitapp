@@ -1,8 +1,8 @@
 <ul class="sideNavBar" id="sideNavBarMedico">
-  <li><a href="#">Pazienti</a></li>
-  <li><a href="#">Prenotazioni</a></li>
-  <li><a class="active" href="#">Referti</a></li>
-  <li><a href="#">Impostazioni</a></li>
+  <li><a id="pazientiAreaPersonaleMedico" href="#">Pazienti</a></li>
+  <li><a prenotazioniAreaPersonaleMedico href="#">Prenotazioni</a></li>
+  <li><a refertiAreaPersonaleMedico class="active" href="#">Referti</a></li>
+  <li><a impostazioniAreaPersonaleMedico href="#">Impostazioni</a></li>
 </ul>
 
 <div class="contenutoAreaPersonale" id="contenutoAreaPersonaleMedico">

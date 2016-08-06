@@ -1,3 +1,7 @@
+<head>
+    <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
+</head>
+
 <form class="formInserisci" name="inserisciClinica" method="post" id="inserisciClinica">
     <div class="informazioniClinica" >   
         <div class="nomeClinica">            
