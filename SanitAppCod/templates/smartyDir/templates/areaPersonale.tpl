@@ -1,7 +1,7 @@
 <ul class="sideNavBar" id="sideNavBarUtente">
-  <li><a href="#">Prenotazioni</a></li>
-  <li><a class="active" href="#">Referti</a></li>
-  <li><a href="#">Impostazioni</a></li>
+  <li><a id="prenotazioniAreaPersonaleUtente" href="#">Prenotazioni</a></li>
+  <li><a id="refertiAreaPersonaleUtente" class="active" href="#">Referti</a></li>
+  <li><a id="impostazioniAreaPersonaleUtente" href="#">Impostazioni</a></li>
 </ul>
 
 <div class="contenutoAreaPersonale" id="contenutoAreaPersonaleUtente">

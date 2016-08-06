@@ -118,12 +118,12 @@ class CHome {
                 
 
             case 'mySanitApp':
-                //secondo me la prima cosa da fare è creare la sessione
-                $session = USingleton::getInstance('USession');
-                // bisogna controllare se è stato effettuato il log in
-                $cAutenticazione = USingleton::getInstance("CAutenticazione");
-                $logIn = $cAutenticazione->logIn($session);
-
+//                //secondo me la prima cosa da fare è creare la sessione
+//                $session = USingleton::getInstance('USession');
+//                // bisogna controllare se è stato effettuato il log in
+//                $cAutenticazione = USingleton::getInstance("CAutenticazione");
+//                $logIn = $cAutenticazione->logIn($session);
+                  $mySanitApp = USingleton::getInstance('CmySanitApp');
                 
                 break;
             default:
