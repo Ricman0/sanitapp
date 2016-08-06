@@ -18,7 +18,7 @@
         <script type="text/javascript" src="./jScript/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
         <script type="text/javascript" src="./jScript/eventi_click.js"></script>
-        <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
+        <!--<script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>-->
         <script type="text/javascript" src="./jScript/clickLogIn.js"></script>
 
 
@@ -35,7 +35,7 @@
         
         <script type="text/javascript" src="./jScript/adaptive-image.js"></script>-->
 
-
+    </head>
 
     <body>
         <!-- Classe container per l'intera pagina-->
@@ -48,11 +48,10 @@
                 {$logIn}
                 {$navigationBar}    <!-- Navigation bar della pagina-->
             </div>
-
+            <br>
             <!-- Main della pagina-->
             <div id="main">
-                {$mainRicerca}
-                {$cartina}
+                {$areaPersonale }
                 
             </div> 
 

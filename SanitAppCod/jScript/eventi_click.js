@@ -8,15 +8,15 @@
 $(document).ready(function () {
 
         $("#registrazioneUtente").click(function () {
-            inviaControllerTask('registrazione', 'utente', '#contenutiAjax' );
+            inviaControllerTask('registrazione', 'utente', '#main' );
         });
         
         $("#registrazioneMedico").click(function () {
-            inviaControllerTask('registrazione', 'medico', '#contenutiAjax' );
+            inviaControllerTask('registrazione', 'medico', '#main' );
         });
         
         $("#registrazioneClinica").click(function () {
-            inviaControllerTask('registrazione', 'clinica', '#contenutiAjax' );
+            inviaControllerTask('registrazione', 'clinica', '#main' );
         });
 });
 

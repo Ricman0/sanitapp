@@ -2,17 +2,17 @@ $(document).ready( function(){
     
     $('#submitRegistrazioneUtente').click(function(event){
         event.preventDefault(); 
-        inviaDatiRegistrazione('#inserisciUtente','registrazione', 'utente', '#contenutiAjax' );
+        inviaDatiRegistrazione('#inserisciUtente','registrazione', 'utente', '#main' );
     });
     
     $('#submitRegistrazioneMedico').click(function(event){
         event.preventDefault();
-        inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#contenutiAjax');
+        inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#main');
     });
     
     $('#submitRegistrazioneClinica').click(function(event){
         event.preventDefault();
-        inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#contenutiAjax');
+        inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#main');
     });
     
 });
@@ -29,7 +29,7 @@ function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
         type: 'POST',
         //url della risorsa alla quale viene inviata la richiesta
         //url:  "index.php",
-        url: controller1 + "/" + task1,
+        url: controller1 + "/" + task1 + "/",
         //che può essere un oggetto del tipo {chiave : valore, chiave2 : valore}, 
         //oppure una stringa del tipo "chiave=valore&chiave2=valore2"
         // contenente dei dati da inviare al server

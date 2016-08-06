@@ -1,5 +1,9 @@
 <!--usare get se non invia dati densibili o se si fanno ricerche, usare post se si effettua l'upload di dati o si passano dati sensibili come password-->    
-        <form class= "formInserisci" name="inserisciUtente" method="post" id="inserisciUtente"> 
+<head>        
+    <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
+</head>
+
+<form class= "formInserisci" name="inserisciUtente" method="post" id="inserisciUtente"> 
             <div class="informazioni"> 
                 <div class="nome">            
                     <label for="nome">Nome</label>

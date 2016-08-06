@@ -1,9 +1,12 @@
+
 <div id="italy-map"> 
-    <div id="region-map"> 
+    
+    <div id="region-map">
       <img src="./Immagini/transparent.gif"  title="Clicca su una regione per vedere le cliniche!" 
            alt="Clicca su una regione per vedere le cliniche!" usemap="#ItalyMap" /> 
     </div> 
-</div> 
+</div>
+
     
  
 <map id="ItalyMap"> 
