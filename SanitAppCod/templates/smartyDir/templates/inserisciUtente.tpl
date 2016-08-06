@@ -1,3 +1,7 @@
+
+<head>
+    <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
+</head>
 <!--usare get se non invia dati densibili o se si fanno ricerche, usare post se si effettua l'upload di dati o si passano dati sensibili come password-->    
 <head>        
     <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
@@ -43,6 +47,11 @@
                 <div class="email"> 
                     <input type="email" name="email" id="email" placeholder="mario.rossi@example.it" required>
                     <label for="email">Email</label>
+                    <br>
+                </div>
+                <div class="username">            
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="usernameUtente" pattern="^[a-z0-9]*$" title="Inserisci elementi alfanumerici" placeholder="Mario" required />
                     <br>
                 </div>
                 <div class="password"> 
