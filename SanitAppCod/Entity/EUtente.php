@@ -61,6 +61,12 @@ class EUtente
     private $_password;
     
     /**
+     * @var string $_username, variabile di tipo string, che contiene lo
+     *              username che l'utente inserisce per registrarsi
+     */
+    private $_username;
+    
+    /**
      * @var Array(EPrenotazione) $_prenotazioni array che contiente le 
      *                           prenotazioni a nome dell'utente
      */
@@ -77,7 +83,7 @@ class EUtente
      * @param string $email L'email dell'utente
      * @param string $password La password dell'utente
      */
-    public function __construct($nome, $cognome, $cf, $via, $cap, $email, $password) 
+    public function __construct($nome, $cognome, $cf, $via, $cap, $email, $username, $password) 
     {
         $this->_nome = $nome;
         $this->_cognome = $cognome; 
@@ -86,6 +92,7 @@ class EUtente
         $this->_numeroCivico = NULL; 
         $this->_CAP = $cap; 
         $this->_email = $email; 
+        $this->_username = $username;
         $this->_password = $password; 
         $this->_prenotazioni = new ArrayObject() ;// da vedere:array di oggetti o bastava semplicemente Array()??
     }
@@ -159,6 +166,16 @@ class EUtente
     public function getEmailUtente()
     {
         return $this->_email;
+    }
+    
+    /**
+     * Metodo per conoscere lo username dell'utente
+     * 
+     * @return string lo username dell'utente
+     */ 
+    public function getUsernameUtente()
+    {
+        return $this->_username;
     }
     
     /**
@@ -251,6 +268,16 @@ class EUtente
     public function setCAPUtente($cap)
     {
         $this->_CAP = $cap; 
+    }
+    
+    /**
+     * Metodo che permette di modificare lo username dell'utente
+     * 
+     * @param string $un Il nuovo username dell'utente
+     */
+    public function setUsernameUtente($un)
+    {
+        $this->_username = $un; 
     }
     
     /**

@@ -1,16 +1,16 @@
 $(document).ready( function(){
     
-    $('#submitRegistrazioneUtente').click(function(event){
+    $('#submitRegistrazioneUtente').submit(function(event){
         event.preventDefault(); 
         inviaDatiRegistrazione('#inserisciUtente','registrazione', 'utente', '#main' );
     });
     
-    $('#submitRegistrazioneMedico').click(function(event){
+    $('#submitRegistrazioneMedico').submit(function(event){
         event.preventDefault();
         inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#main');
     });
     
-    $('#submitRegistrazioneClinica').click(function(event){
+    $('#submitRegistrazioneClinica').submit(function(event){
         event.preventDefault();
         inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#main');
     });

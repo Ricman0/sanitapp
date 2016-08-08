@@ -26,14 +26,14 @@ class CHome {
         {
             // let the user access the main page
         }
-        elseif(!empty($_POST['username']) && !empty($_POST['password']))
+        elseif(!empty($_POST['usernameLogIn']) && !empty($_POST['passwordLogIn']))
         {
             
             
             //non so se inserire un'entity ma non avei l'entity giusta
             $fdb = USingleton::getInstance("FDatabase");
-            $username = $fdb->escapeStringa($_POST['username']);
-            $password = $fdb->escapeStringa(md5($_POST['password']));
+            $username = $fdb->escapeStringa($_POST['usernameLogIn']);
+            $password = $fdb->escapeStringa(md5($_POST['passwordLogIn']));
             $query = "SELECT * FROM Utente WHERE username = '$username' AND password = '$password' ";
 //            $query = "SELECT username, password FROM Utente
 //                      UNION ALL
@@ -46,7 +46,7 @@ class CHome {
             if($num == 1)
             {
                 
-                $_SESSION['Username'] = $username;
+                $_SESSION['usernameLogIn'] = $username;
                 $_SESSION['LoggedIn'] = TRUE;
                 $logIn= TRUE;
                 echo "Benvenuto" + $username;

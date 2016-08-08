@@ -21,7 +21,7 @@ and open the template in the editor.
     width: 20%;
     float:left;
 }
-.sideNavBar li a {
+.sideNavBar a {
     border-bottom: 1px solid #9e9e9e;
     border-bottom-right-radius: 50px;
     color: #000;

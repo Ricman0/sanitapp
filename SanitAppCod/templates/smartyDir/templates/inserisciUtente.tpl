@@ -46,13 +46,13 @@
                     <br>
                 </div>
                 <div class="username">            
-                    <label for="username">Username</label>
+                    <label for="usernameUtente">Username</label>
                     <input type="text" name="username" id="usernameUtente" pattern="^[a-z0-9]*$" title="Inserisci elementi alfanumerici" placeholder="Mario" required />
                     <br>
                 </div>
                 <div class="password"> 
-                    <input type="password" name="password" id="password" required >
-                    <label for="password">Password</label>
+                    <input type="password" name="passwordUtente" id="passwordUtente" required >
+                    <label for="passwordUtente">Password</label>
                     <br>
                 </div>
             </div>

@@ -157,8 +157,10 @@ class CRegistrazione {
        $via = $this->recuperaValore('via');
        $cap = $this->recuperaValore('cap');
        $email = $this->recuperaValore('email');
+       $username = $this->recuperaValore('username');
        $password = $this->recuperaValore('password');
-       $eUtente = new EUtente($nome, $cognome, $codiceFiscale, $via, $cap, $email, $password);
+       
+       $eUtente = new EUtente($nome, $cognome, $codiceFiscale, $via, $cap, $email, $username, $password);
        //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
        $eUtente->inserisciUtenteDB($eUtente); 
     }

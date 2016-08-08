@@ -56,7 +56,7 @@ class FDatabase {
     final public function __construct()
     {
         //se non esiste creo un'istanza della classe config (di config.php)
-        $config = USingleton::getInstace('Config'); 
+        $config = USingleton::getInstance('Config'); 
         //$dbConfig è un'array in cui memorizzo il necessario per poter
         //effettuare la connessione con il database
         $dbConfig = $config->getDBConfig();
@@ -99,7 +99,7 @@ class FDatabase {
         }
         else
         {
-            echo 'Connessione stabilita' . $this->_connessione->host_info . "\n";
+            echo 'Connessione stabilita ' . $this->_connessione->host_info . "\n";
             //imposto il set di caratteri utf8 per la connessione
             $this->_connessione->query("SET NAMES 'utf8'");
             return true; 

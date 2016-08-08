@@ -25,7 +25,7 @@ class FUtente extends FDatabase{
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
         $this->_attributiTabella = "Nome, " + "Cognome, " + "CodFiscale, " +
-                + "Via, " + "NumCivico, " + "CAP, "+"Email, " +"Password, ";
+                + "Via, " + "NumCivico, " + "CAP, "+"Email, " + "Username, " +"Password, ";
     }
     
     
@@ -61,7 +61,8 @@ class FUtente extends FDatabase{
                 +', '+ $utente->getViaUtente()+', '+
                 + $utente->getNumCivicoUtente()+', '+$utente->getCAPUtente()+', '+
                 + $utente->getCodiceFiscaleUtente() + ', '
-                + $utente->getEmailUtente() + ', ' + $utente->getPasswordUtente();
+                + $utente->getEmailUtente() + ', ' + $utente->getUsernameUtente() + 
+                + ', ' + $utente->getPasswordUtente();
         return $valoriAttributi;
     }
     

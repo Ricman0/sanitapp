@@ -1,10 +1,10 @@
 
 <form id="logInForm">
   
-    <label>Username</label>
+    <label for="usernameLogIn">Username</label>
     <input type="text" id="usernameLogIn" placeholder="Enter Username" name="uname" required >
 
-    <label>Password</label>
+    <label for="passwordLogIn">Password</label>
     <input type="password" id="passwordLogIn" placeholder="Enter Password" name="psw" required>
         
     <button type="submit" id="submitLogIn">Login</button>
