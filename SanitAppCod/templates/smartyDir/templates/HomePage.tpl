@@ -20,6 +20,7 @@
         <script type="text/javascript" src="./jScript/eventi_click.js"></script>
         <!--<script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>-->
         <script type="text/javascript" src="./jScript/clickLogIn.js"></script>
+        <script type="text/javascript" src="./jScript/prova.js"></script>
 
 
 

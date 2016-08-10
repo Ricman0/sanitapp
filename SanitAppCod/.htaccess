@@ -3,6 +3,9 @@
   RewriteEngine On
   RewriteRule ^(\w+)/(\w+)?$ index.php?controller=$1&task=$2 
 
+    RewriteCond %{REQUEST_METHOD} POST 
+    RewriteRule ^(\w+)/(\w+)?$ index.php 
+
   RewriteRule ^(\w+)?$ index.php?controller=$1
 
 

@@ -33,10 +33,10 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
     $.ajax({
         // definisco il tipo della chiamata
         type: 'GET' ,
+
         
         // specifico la URL della risorsa 
         url: controller1 + '/' + task1,
-
         
 //        data:{
 //            controller:controller1, 

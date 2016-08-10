@@ -4,6 +4,10 @@
 </head>
 
 <form class= "formInserisci" name="inserisciUtente" method="post" id="inserisciUtente"> 
+            <div>
+                    <input type="hidden" name="controller" value="registazione"/>
+                    <input type="hidden" name="task" value="utente"/>
+            </div>
             <div class="informazioni"> 
                 <div class="nome">            
                     <label for="nome">Nome</label>

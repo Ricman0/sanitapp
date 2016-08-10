@@ -53,7 +53,7 @@ class FDatabase {
      * @final
      * @access public
      */
-    final public function __construct()
+    public function __construct()
     {
         //se non esiste creo un'istanza della classe config (di config.php)
         $config = USingleton::getInstance('Config'); 

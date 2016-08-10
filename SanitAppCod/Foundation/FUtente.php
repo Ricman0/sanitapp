@@ -24,7 +24,7 @@ class FUtente extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
-        $this->_attributiTabella = "Nome, " + "Cognome, " + "CodFiscale, " +
+        $this->_attributiTabella = "Nome, " + "Cognome, " + "CodiceFiscale, " +
                 + "Via, " + "NumCivico, " + "CAP, "+"Email, " + "Username, " +"Password, ";
     }
     

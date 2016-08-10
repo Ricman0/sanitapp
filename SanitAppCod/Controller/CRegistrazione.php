@@ -64,7 +64,7 @@ class CRegistrazione {
      */
     public function inserisciRegistrazione()
     {
-        $vRegistrazione= USingleton::getInstace('VRegistrazione');
+        $vRegistrazione= USingleton::getInstance('VRegistrazione');
         $task= $vRegistrazione->getTask();
         switch ($task) 
         {
@@ -155,18 +155,18 @@ class CRegistrazione {
        $cognome = $this->recuperaValore('cognome');  
        $codiceFiscale = $this->recuperaValore('codiceFiscale');
        $via = $this->recuperaValore('via');
-       $cap = $this->recuperaValore('cap');
+       $cap = $this->recuperaValore('CAP');
        $email = $this->recuperaValore('email');
        $username = $this->recuperaValore('username');
        $password = $this->recuperaValore('password');
-       
+    
        $eUtente = new EUtente($nome, $cognome, $codiceFiscale, $via, $cap, $email, $username, $password);
        //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
        $eUtente->inserisciUtenteDB($eUtente); 
     }
     
     
-    private function recuperaValore($indice) 
+    private function  recuperaValore($indice) 
     {
         if(isset($_POST[$indice]))
        {
