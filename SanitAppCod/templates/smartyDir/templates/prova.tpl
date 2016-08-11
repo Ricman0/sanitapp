@@ -23,14 +23,11 @@
         <label for="indirizzo">Indirizzo</label>
         <br>
     </div>
-    <!--
     <div>
         <input type="number" name="numeroCivico" id="numeroCivico" min="0" max="1000" placeholder="3"/>
         <label for="mumeroCivico">Numero Civico</label>
         <br>
     </div>
-    -->
-    
     <div> 
         <input type="text" name="CAP" id="CAP" placeholder="65017" required/>
         <label for="CAP">CAP</label>
@@ -41,13 +38,23 @@
         <label for="email">Email</label>
         <br>
     </div>
-    <p>email</p>
-    <p><input type="email" name="email" id="email" required=""/></p>
-    <p>username</p>
-    <p><input type="text" name="username" id="usernameUtente" required=""/></p>
-    <p>password</p>
-    <p><input type="password" name="password" id="passwordUtente" required=""/></p>
-    <input type="button" id="bottone" value="Invia i dati">
+    <div>            
+        <input type="text" name="username" id="usernameUtente" pattern="^[a-z0-9]*$" title="Inserisci elementi alfanumerici" placeholder="Mario" required />
+        <label for="usernameUtente">Username</label>
+        <br>
+    </div>
+    <div> 
+        <input type="password" name="passwordUtente" id="passwordUtente" required >
+        <label for="passwordUtente">Password</label>
+        <br>
+    </div>
+        <input type="button" id="bottone" value="Invia">  
+    <div>
+        
+    <!--
+    <input type="button" id="bottone" value="Invia i dati">  
+    <input type="submit" value="Invia" id="submitRegistrazioneUtente">
+    -->
 </form>
 
 <div id="risultato"></div>
