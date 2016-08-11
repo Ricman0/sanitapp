@@ -154,7 +154,7 @@ class CRegistrazione {
        $nome = $this->recuperaValore('nome');
        $cognome = $this->recuperaValore('cognome');  
        $codiceFiscale = $this->recuperaValore('codiceFiscale');
-       $via = $this->recuperaValore('via');
+       $via = $this->recuperaValore('indirizzo');
        $cap = $this->recuperaValore('CAP');
        $email = $this->recuperaValore('email');
        $username = $this->recuperaValore('username');
