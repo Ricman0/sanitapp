@@ -50,7 +50,6 @@ class FDatabase {
     /**
      * Costruttore della classe FDatabase
      * 
-     * @final
      * @access public
      */
     public function __construct()
@@ -138,7 +137,7 @@ class FDatabase {
      */
     final public function eseguiQuery($query) 
     {
-        $this->_result = array();  // secondo me possiamo eliminare questa riga  dal momento che è già stato inizializzata così
+        //$this->_result = array();  // secondo me possiamo eliminare questa riga  dal momento che è già stato inizializzata così
         // eseguo la query e salvo il risultato in $queryResult
         $queryResult = $this->_connessione->query($query);
         // se il risultato della query è false

@@ -24,12 +24,13 @@
         <br>
     </div>
     <div>
-        <input type="number" name="numeroCivico" id="numeroCivico" min="0" max="1000" placeholder="3"/>
+        <input type="text" name="numeroCivico" id="numeroCivico" min="0" max="1000" placeholder="3"/>
         <label for="mumeroCivico">Numero Civico</label>
         <br>
-    </div>
+    </div> 
     <div> 
-        <input type="text" name="CAP" id="CAP" placeholder="65017" required/>
+        <input type="text" name="CAP" id="CAP" placeholder="65017" required/> 
+        <!--<input type="number" name="CAP" id="CAP" placeholder="65017" required/>-->
         <label for="CAP">CAP</label>
         <br>
     </div>

@@ -24,8 +24,8 @@ class FUtente extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
-        $this->_attributiTabella = "Nome, " + "Cognome, " + "CodiceFiscale, " +
-                + "Via, " + "NumCivico, " + "CAP, "+"Email, " + "Username, " +"Password, ";
+        $this->_attributiTabella = "Nome, Cognome, CodiceFiscale, Via, NumCivico, "
+                . "CAP, Email, Username, Password";
     }
     
     
@@ -42,7 +42,7 @@ class FUtente extends FDatabase{
         $valoriAttributi = $this->getAttributi($utente);
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = 'INSERT INTO '+ $this->_nomeTabella +'('. $this->_attributiTabella .') VALUES('. $valoriAttributi.')';
+        $query = "INSERT INTO ". $this->_nomeTabella ."( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi.")";
         // eseguo la query
         $this->eseguiQuery($query);
     }
@@ -57,12 +57,12 @@ class FUtente extends FDatabase{
      */
     private function getAttributi($utente) 
     {
-        $valoriAttributi = $utente->getNomeUtente()+', ' +$utente->getCognomeUtente()+
-                +', '+ $utente->getViaUtente()+', '+
-                + $utente->getNumCivicoUtente()+', '+$utente->getCAPUtente()+', '+
-                + $utente->getCodiceFiscaleUtente() + ', '
-                + $utente->getEmailUtente() + ', ' + $utente->getUsernameUtente() + 
-                + ', ' + $utente->getPasswordUtente();
+        $valoriAttributi = $utente->getNomeUtente()+", " +$utente->getCognomeUtente()+
+                +", " + $utente->getViaUtente()+", " +
+                + $utente->getNumCivicoUtente()+", " +$utente->getCAPUtente()+", " +
+                + $utente->getCodiceFiscaleUtente() + ", " 
+                + $utente->getEmailUtente() + ", "  + $utente->getUsernameUtente() + 
+                + ", " + $utente->getPasswordUtente() ;
         return $valoriAttributi;
     }
     

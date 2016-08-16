@@ -14,7 +14,7 @@ $(document).ready(function() {
     var cognome = $("#cognome").val();
     var codice = $("#codiceFiscale").val();
     var indirizzo = $("#indirizzo").val();
-    //var numeroCivico = $("#numeroCivico").val();
+    var numeroCivico = $("#numeroCivico").val();
     var CAP = $("#CAP").val();
     var email = $("#email").val();
     var username = $("#usernameUtente").val();
@@ -24,7 +24,7 @@ $(document).ready(function() {
       url: "registrazione/utente",
       data: "nome=" + nome + "&cognome=" + cognome + "&controller=" + controller
       +"&task=" + task+"&codiceFiscale=" + codice+"&indirizzo=" + indirizzo
-      //+"&numeroCivico=" + numeroCivico
+      +"&numeroCivico=" + numeroCivico
       +"&CAP=" + CAP+"&email=" + email
       +"&username=" + username+"&password=" + password,
       dataType: "html",

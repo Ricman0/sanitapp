@@ -79,17 +79,25 @@ class EUtente
      * @param string $cognome Il cognome dell'utente
      * @param string $cf Il codice fiscale dell'utente
      * @param string $via La via in cui risiede l'utente
+     * @param int $numeroCivico Ilnumero civico dell'utente
      * @param string $cap Il cap del paese in cui risiede l'utente
      * @param string $email L'email dell'utente
      * @param string $password La password dell'utente
      */
-    public function __construct($nome, $cognome, $cf, $via, $cap, $email, $username, $password) 
+    public function __construct($nome, $cognome, $cf, $via, $numeroCivico, $cap, $email, $username, $password) 
     {
         $this->_nome = $nome;
         $this->_cognome = $cognome; 
         $this->_codFiscale = $cf;
         $this->_via = $via;
-        $this->_numeroCivico = NULL; 
+        if(isset($numeroCivico))
+        {
+            $this->_numeroCivico = $numeroCivico; 
+        }
+        else{
+            $this->_numeroCivico = NULL; 
+        }
+        
         $this->_CAP = $cap; 
         $this->_email = $email; 
         $this->_username = $username;
