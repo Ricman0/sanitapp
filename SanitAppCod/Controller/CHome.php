@@ -118,6 +118,12 @@ class CHome {
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->impostaPaginaAutenticazione();
                 
+               break;
+            case 'esami':
+                $cEsami = USingleton::getInstance('CEsami');
+                $cEsami->impostaPaginaRicercaEsami();
+                break;
+                
 
             case 'mySanitApp':
 //                //secondo me la prima cosa da fare è creare la sessione

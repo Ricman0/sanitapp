@@ -24,7 +24,9 @@ $(document).ready(function(){
                 alert(datiRisposta);
                 $(ajaxdiv).html(datiRisposta);
             },
-            error:alert("Sbagliato MYSANITAPP")
+            error:function(){
+                alert("Sbagliato MYSANITAPP");
+            }
         });  
     }
     
@@ -38,7 +40,9 @@ $(document).ready(function(){
                             alert(datiRisposta);
                             $(ajaxdiv).html(datiRisposta);
                     },
-            error: alert("errore in area personale")
+            error: function(){
+                alert("errore in area personale");
+            }
         });
     }
 

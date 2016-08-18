@@ -44,6 +44,30 @@ html,body{
    height:30px;   /* Height of the footer */
  
 }
+.elementiForm{
+    display: flex;
+    align-items: center;
+/*    justify-content: center;*/
+    /*margin-top: 0px;*/
+    margin-bottom: 40px;
+    
+}
+
+.form{
+    margin: 50px auto;
+}
+
+.form input{
+    display:block;
+    margin: 20px;
+    margin-top: 10px;
+    font-size: 15px; 
+    padding:8px;
+    width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;  
+}
 button, input[type = 'submit']
 {
     color:white;

@@ -9,32 +9,11 @@ and open the template in the editor.
 */
 
 #elementiFormMainRicerca{
-    display: flex;
-    align-items: center;
-/*    justify-content: center;*/
-    /*margin-top: 0px;*/
-    margin-bottom: 40px;
     margin-left: 10%;
     float: left;
     margin-right: 10%;
 }
-
-.mainRicerca{
-    margin-top: 50px;
-}
-
-.mainRicerca input{
-    display:block;
-    margin: 20px;
-    margin-top: 10px;
-    font-size: 15px; 
-    padding:8px;
-    width: 200px;
-    box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
-    -moz-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;  
-}
-.mainRicerca i{
+#iconaMainRicercaRicerca {
     color:rgb(11, 190, 210);
     transform: scale(10) rotate(90deg);
     -webkit-transform: scale(10) rotate(90deg);

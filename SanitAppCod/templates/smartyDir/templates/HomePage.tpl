@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head> 
+        <link rel="stylesheet" type="text/css" href="./Css/normalize.css">
         <link rel="stylesheet" type="text/css" href="./Css/font-awesome.css">
-        <link rel="stylesheet" type="text/css" href="./Css/logo.css">
         <link rel="stylesheet" type="text/css" href="./Css/homePage.css">
+        <link rel="stylesheet" type="text/css" href="./Css/logo.css">
         <link rel="icon" href="./Immagini/favicon.ico" />       
         <link rel="stylesheet" type="text/css" href="./Css/logIn.css">
+       
 
         <!--       <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
                 <link rel="stylesheet" type="text/css" href="./Css/inserisciMedico.css">-->
@@ -21,7 +23,7 @@
         <!--<script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>-->
         <script type="text/javascript" src="./jScript/clickLogIn.js"></script>
         <script type="text/javascript" src="./jScript/prova.js"></script>
-
+        <script type="text/javascript" src="./jScript/clickEsami.js"></script>
 
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->

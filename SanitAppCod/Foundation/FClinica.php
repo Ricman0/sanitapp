@@ -35,7 +35,7 @@ class FClinica extends FDatabase{
      * per l'inserimento di una clinica nel database
      * 
      * @access private
-     * @param EClinica $clinica Il medico di cui si vogliono ottenere i valori degli attributi 
+     * @param EClinica $clinica la Clinica di cui si vogliono ottenere i valori degli attributi 
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
     private function getAttributi($clinica) 
