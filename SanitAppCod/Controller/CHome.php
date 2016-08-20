@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CHome
  *
@@ -117,12 +111,18 @@ class CHome {
             case 'autenticazione':
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->impostaPaginaAutenticazione();
-                
                break;
+           
             case 'esami':
                 $cEsami = USingleton::getInstance('CEsami');
                 $cEsami->impostaPaginaRicercaEsami();
                 break;
+            
+            case 'cliniche':
+                $cCliniche = USingleton::getInstance('CRicercaCliniche');
+                $cCliniche->impostaPaginaRicercaCliniche();
+                break;
+            
                 
 
             case 'mySanitApp':
@@ -154,7 +154,6 @@ class CHome {
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
                 //recupera dati e crea utente.
                 $cRegistrazione->inserisciRegistrazione();
-                
                 break;
 
             default:

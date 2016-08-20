@@ -24,11 +24,11 @@ class VRegistrazione extends View {
 
     public function restituisciFormClinica() 
     {
-        return $this->prelevaTemplate('inserisciClinica');
+        return $this->visualizzaTemplate('inserisciClinica');
     }
     
     public function restituisciFormMedico() 
     {
-        return $this->prelevaTemplate('inserisciMedico');
+        return $this->visualizzaTemplate('inserisciMedico');
     }
 }
