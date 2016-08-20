@@ -81,12 +81,29 @@ class FClinica extends FDatabase{
      * @param string $nome Il nome della clinica che si vuole cercare
      * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
      */
-    public function cercaClinica($luogo = NULL, $nome= NULL)
+    public function cercaClinica($luogo, $nome)
     {
+        if (!empty($luogo)&& !empty($nome))
+        {
+            $query = "SELECT * FROM ".$this->_nomeTabella." WHERE NomeClinica = '"
+                    . $nome . "' AND (Località =  '" . $luogo ."' OR Provincia='" . $luogo . "' OR CAP='" . $luogo . "')";
+        }
+        elseif(!empty ($luogo))
+        {
+            $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE (Località =  '" 
+                    . $luogo . "' OR Provincia='" . $luogo . "' OR CAP='" . $luogo . "')";
+            
+        }
+        elseif (!empty($nome)) 
+        {
+            $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE NomeClinica = '"
+                    . $nome . "'";
+        }
+        else
+        {
+            $query = "SELECT * FROM " . $this->_nomeTabella;
+        }
         
-        $query = "SELECT * FROM "+ $this->_nomeTabella + " WHERE NomeClinica='"
-                + $nome + "' AND Località='" + $luogo + "OR Provincia='" + $luogo
-                + "OR CAP='" + $luogo;
         return $this->eseguiQuery($query);
     }
 }

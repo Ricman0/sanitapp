@@ -25,8 +25,13 @@ class CRicercaCliniche {
     
     public function impostaPaginaRisultatoCliniche()
     {
+        $fCliniche = USingleton::getInstance('FClinica');
+        return $risultato = $fCliniche->cercaClinica($_POST['luogo'], $_POST['nome']);
+//        return $risultato = $fCliniche->cercaClinica($_GET['luogo'], $_GET['nome']);
+        
+        /*
         // se la form di ricerca possiede sia il nome che il luogo della clinica
-        if (isset($_POST['luogo'])&& isset($_POST['nome']))
+        if (!empty($_POST['luogo'])&& !empty($_POST['nome']))
         {
             echo "luogo e nome";
             $fCliniche = USingleton::getInstance('FClinica');
@@ -35,7 +40,7 @@ class CRicercaCliniche {
         else
         {
             //se possiede solo il luogo 
-            if (isset($_POST['luogo']))
+            if (!empty($_POST['luogo']))
             {
                 echo "luogo";
                 $fCliniche = USingleton::getInstance('FClinica');
@@ -43,7 +48,7 @@ class CRicercaCliniche {
             }
             else
             {
-                if (isset($_POST['nome']))
+                if (!empty($_POST['nome']))
                 {
                     echo "nome";
                     $fCliniche = USingleton::getInstance('FClinica');
@@ -59,7 +64,7 @@ class CRicercaCliniche {
             }
                 
             
-        }
+        }*/
         
     }
 }
