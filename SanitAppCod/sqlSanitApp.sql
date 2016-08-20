@@ -45,6 +45,8 @@ CREATE TABLE clinica (
   Via varchar(20) NOT NULL,
   NumCivico smallint(6) DEFAULT NULL,
   CAP mediumint(7) UNSIGNED NOT NULL,
+  Località varchar (40) NOT NULL,
+  Provincia varchar (20) NOT NULL,
   Email varchar(100) NOT NULL,
   Username varchar(10) NOT NULL,
   Password varchar(10) NOT NULL,
@@ -69,11 +71,11 @@ CREATE TABLE clinica (
 -- Dump dei dati per la tabella `clinica`
 --
 
-INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, 
-Email, Username, Password, PEC, Telefono, CapitaleSociale, OrarioAperturaAM, 
+INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
+Provincia, Email, Username, Password, PEC, Telefono, CapitaleSociale, OrarioAperturaAM, 
 OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato) VALUES
-('12345', ' appignano', ' riccardo', ' del carmine', 2, 32767, ' info@appignano.it', ' appi', ' 1234', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE),
-('12346', ' bisenti', ' lucio', ' del corso', 87, 32767, ' info@bisenti.it', ' bise', ' 1235', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE);
+('12345', 'appignano', 'riccardo', 'del carmine', 2, 32767, 'Penne', 'Pescara' ,'info@appignano.it', ' appi', ' 1234', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE),
+('12346', 'bisenti', 'lucio', 'del corso', 87, 32767,'Penne', 'Pescara' , 'info@bisenti.it', ' bise', ' 1235', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE);
 
 -- --------------------------------------------------------
 

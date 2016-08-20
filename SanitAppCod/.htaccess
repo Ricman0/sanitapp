@@ -5,6 +5,7 @@
   RewriteRule ^(\w+)?$ index.php?controller=$1
 
     RewriteCond %{REQUEST_METHOD} POST 
+    RewriteRule ^(\w+)/(\w+)/(\w+)?$ index.php
     RewriteRule ^(\w+)/(\w+)?$ index.php
     RewriteRule ^(\w+)?$ index.php
 

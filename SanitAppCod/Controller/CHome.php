@@ -159,6 +159,12 @@ class CHome {
                 $cEsami = USingleton::getInstance('CEsami');
                 $cEsami->impostaPaginaRisultatoEsami();
                 break;
+            
+            case 'cliniche':
+                $cCliniche = USingleton::getInstance('CRicercaCliniche');
+                $risultato = $cCliniche->impostaPaginaRisultatoCliniche();
+                //in $risultato c'è il risultato della query
+                break;
 
             default:
                 echo "ora non lo so che fargli fare";

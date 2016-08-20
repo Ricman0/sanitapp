@@ -159,8 +159,8 @@ class FDatabase {
                 {
                     $this->_result[] = $row;
                 }
-                // secondo me si può eliminare return $this->_result;
                 echo 'Query eseguita con successo: un nuovo utente è stato inserito';
+                return $this->_result;
 
             }
         

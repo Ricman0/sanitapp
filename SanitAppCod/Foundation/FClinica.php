@@ -74,5 +74,19 @@ class FClinica extends FDatabase{
         $this->eseguiQuery($query);
     }
     
-    
+    /**
+     * Metodo che permette di effettuare la ricerca di cliniche 
+     * 
+     * @param string $luogo Il luogo in cui si trova la clinica
+     * @param string $nome Il nome della clinica che si vuole cercare
+     * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
+     */
+    public function cercaClinica($luogo = NULL, $nome= NULL)
+    {
+        
+        $query = "SELECT * FROM "+ $this->_nomeTabella + " WHERE NomeClinica='"
+                + $nome + "' AND Località='" + $luogo + "OR Provincia='" + $luogo
+                + "OR CAP='" + $luogo;
+        return $this->eseguiQuery($query);
+    }
 }
