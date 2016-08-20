@@ -1,10 +1,10 @@
-<form class="form" method="POST">
+<form class="form" id="formRicercaEsami" method="POST">
     <div class="elementiForm" id="elementiFormRicercaEsami">
         <div class="form" id="inputRicercaEsami">
             <label for="esame">Nome Esame</label>
             <input type="text" name="esame" class="form"  target="_blank" 
                    placeholder="Raggi"/>
-            <label for="esame">Clinica</label>
+            <label for="clinica">Clinica</label>
             <input type="text" name="clinica" class="form" target="_blank" 
                    placeholder="Villa Serena"/>
             <label for="luogo">Luogo</label>

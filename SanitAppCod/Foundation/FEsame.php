@@ -66,5 +66,15 @@ class FEsame extends FDatabase{
         $this->eseguiQuery($query);
     }
     
+    /*
+     * 
+     */
+    public function recuperaEsami($nome, $clinica, $luogo){
+        
+        $query = 'SELECT * FROM esame WHERE nome = ' + "'" + $nome + "'";
+        return $this->eseguiQuery($query);
+        
+    }
+    
     
 }

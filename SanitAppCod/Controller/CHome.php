@@ -156,6 +156,10 @@ class CHome {
                 $cRegistrazione->inserisciRegistrazione();
                 
                 break;
+            case 'esami':
+                $cEsami = USingleton::getInstance('CEsami');
+                $cEsami->impostaPaginaRisultatoEsami();
+                break;
 
             default:
                 echo "ora non lo so che fargli fare";
