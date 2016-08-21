@@ -12,25 +12,57 @@ $(document).ready(function() {
     luogo = luogo.replace(" ", ""); 
     
     var url;
-    if (nome.length===0 || luogo.length===0 )
+//    if (nome.length===0 || luogo.length===0 )
+//    {
+//        if(nome.length===0)
+//        {
+//            url = controller + "/all/"+ luogo;
+//        }
+//        else
+//        {
+//            if(luogo.length===0)
+//            {
+//                url = controller + "/" + nome + "/all";
+//            }
+//            else
+//            {
+//                url = controller;
+//            }
+//        } 
+//    }
+//    else
+//    {
+//        url = controller +"/"+ nome + "/" +luogo  ;
+//    } 
+
+    if (nome.length===0 && luogo.length===0)
     {
-        if(nome.length===0)
+        url = controller;
+    }
+    else
+    {
+         if(nome.length===0 || luogo.length===0)
         {
-            url = controller + "/"+ luogo;
+            if(luogo.length===0)
+            {
+                url = controller + "/" + nome + "/all";
+            }
+            else
+            {
+                url = controller + "/all/"+ luogo;
+            }
+            
         }
         else
         {
-            url = controller +"/"+ nome;
+            url = controller +"/"+ nome + "/" +luogo  ;
         }
     }
-    else{
-        url = controller +"/"+ luogo + "/" + nome ;
-    } 
-    
     $.ajax({
-      type: "POST",
+      //type: "POST",
+      type: "GET",
       url: url,
-      data: "nome=" + nome + "&luogo=" + luogo + "&controller=" + controller,
+      //data: "nome=" + nome + "&luogo=" + luogo + "&controller=" + controller,
       dataType: "html",
       success: function(msg)
       {

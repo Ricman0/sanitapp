@@ -26,8 +26,9 @@ class CRicercaCliniche {
     public function impostaPaginaRisultatoCliniche()
     {
         $fCliniche = USingleton::getInstance('FClinica');
-        return $risultato = $fCliniche->cercaClinica($_POST['luogo'], $_POST['nome']);
-//        return $risultato = $fCliniche->cercaClinica($_GET['luogo'], $_GET['nome']);
+//        return $risultato = $fCliniche->cercaClinica($_POST['luogo'], $_POST['nome']);
+        
+        return $risultato = $fCliniche->cercaClinica($_GET['parametro1'], $_GET['parametro2']);
         
         /*
         // se la form di ricerca possiede sia il nome che il luogo della clinica

@@ -1,7 +1,13 @@
 <IfModule mod_rewrite.c>
   
   RewriteEngine On
-  RewriteRule ^(\w+)/(\w+)?$ index.php?controller=$1&task=$2 
+  RewriteCond %{REQUEST_METHOD} GET 
+  RewriteRule ^(ricercaCliniche)?$ index.php?controller=$1
+  RewriteRule ^(cliniche)/(\w+)/(\w+)?$ index.php?controller=$1&parametro1=$2&parametro2=$3
+  RewriteRule ^(cliniche)?$ index.php?controller=$1
+  RewriteRule ^(registrazione)/(utente)?$ index.php?controller=$1&task=$2 
+  RewriteRule ^(registrazione)/(medico)?$ index.php?controller=$1&task=$2 
+  RewriteRule ^(registrazione)/(clinica)?$ index.php?controller=$1&task=$2 
   RewriteRule ^(\w+)?$ index.php?controller=$1
 
     RewriteCond %{REQUEST_METHOD} POST 

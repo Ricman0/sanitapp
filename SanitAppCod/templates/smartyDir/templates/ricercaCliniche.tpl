@@ -1,4 +1,4 @@
-<form class="form" id="formRicercaCliniche" method="POST">
+<form class="form" id="formRicercaCliniche" method="GET">
     <div class="elementiForm" id="elementiFormRicercaCliniche">
         <div class="form" id="inputRicercaCliniche">
             <input type="hidden" name="controller" value="cliniche" id="controllerFormRicercaCliniche"/>        
