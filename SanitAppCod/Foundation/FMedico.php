@@ -42,7 +42,7 @@ class FMedico extends FDatabase {
         
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = 'INSERT INTO '+ $this->_nomeTabella +'('. $this->_attributiTabella .') VALUES('. $valoriAttributi.')';
+        $query = 'INSERT INTO ' . $this->_nomeTabella . '('. $this->_attributiTabella .') VALUES('. $valoriAttributi.')';
         // eseguo la query
         $this->eseguiQuery($query);
     }
@@ -57,13 +57,13 @@ class FMedico extends FDatabase {
      */
     private function getAttributi($medico) 
     {
-        $valoriAttributi = $medico->getNomeMedico()+', ' +$medico->getCognomeMedico()+
-                +', '+ $medico->getViaMedico()+', '+
-                + $medico->getNumCivicoMedico()+', '+$medico->getCAPMedico()+', '+
-                + $medico->getCodiceFiscaleMedico() + ', '
-                + $medico->getEmailMedico() + ', ' + $medico->getPasswordMedico()+
-                +', ' + $medico->getPECMedico()+ ', ' + $medico->getValidatoMedico()+
-                +', ' + $medico->getProvinciaAlboMedico()+ ', ' + $medico->getNumIscrizioneMedico();
+        $valoriAttributi = $medico->getNomeMedico() . ', ' +$medico->getCognomeMedico()
+                . ', ' . $medico->getViaMedico() . ', '
+                . $medico->getNumCivicoMedico() . ', ' . $medico->getCAPMedico() . ', '
+                . $medico->getCodiceFiscaleMedico() . ', '
+                . $medico->getEmailMedico() . ', ' .  $medico->getPasswordMedico()
+                . ', ' . $medico->getPECMedico() . ', ' . $medico->getValidatoMedico()
+                . ', ' . $medico->getProvinciaAlboMedico() . ', ' . $medico->getNumIscrizioneMedico();
         return $valoriAttributi;
     }
 }

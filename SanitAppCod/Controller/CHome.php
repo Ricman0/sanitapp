@@ -153,8 +153,10 @@ class CHome {
      */
     private function smistaControllerPOST($controller)
     {
+        echo ($controller);
         switch ($controller) 
         {
+            
             case 'registrazione':
                 
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');

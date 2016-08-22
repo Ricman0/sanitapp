@@ -27,17 +27,17 @@ function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
     var dati =  $(id).serialize();
 //    la riga successiva è una prova
 //    dati = dati + "&controller=" + controller1 + "&task=" + task1;
-    
+    alert (dati);
     //invia i dati usando il metodo post
     $.ajax({
-        
+        //il tipo di richiesta HTTP da effettuare, di default è GET
+        type: 'POST',
         
         //url della risorsa alla quale viene inviata la richiesta
         // url:  "index.php",
-        url: controller1 + "/" + task1 + "/",
+//        url: controller1 + "/" + task1 + "/",
+        url: "registrazione/utente",
         
-        //il tipo di richiesta HTTP da effettuare, di default è GET
-        type: 'POST',
         
         //che può essere un oggetto del tipo {chiave : valore, chiave2 : valore}, 
         //oppure una stringa del tipo "chiave=valore&chiave2=valore2"

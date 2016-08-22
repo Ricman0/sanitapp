@@ -24,8 +24,8 @@ class FUtente extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
-        $this->_attributiTabella = "Nome, Cognome, CodiceFiscale, Via, NumCivico, "
-                . "CAP, Email, Username, Password";
+        $this->_attributiTabella = "Nome, Cognome, CodFiscale, Via, NumCivico, "
+                . "CAP, Email, Username, Password, CodFiscaleMedico";
     }
     
     
@@ -39,10 +39,11 @@ class FUtente extends FDatabase{
     public function inserisciUtente($utente)
     {         
         //recupero i valori contenuti negli attributi
-        $valoriAttributi = $this->getAttributi($utente);
+        // aggiungo NULL per il codice fiscale del medico
+        $valoriAttributi = $this->getAttributi($utente) . ", NULL";
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = "INSERT INTO ". $this->_nomeTabella ."( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi.")";
+        $query = "INSERT INTO ". $this->_nomeTabella ."( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
         // eseguo la query
         $this->eseguiQuery($query);
     }
@@ -57,12 +58,21 @@ class FUtente extends FDatabase{
      */
     private function getAttributi($utente) 
     {
-        $valoriAttributi = $utente->getNomeUtente()+", " +$utente->getCognomeUtente()+
-                +", " + $utente->getViaUtente()+", " +
-                + $utente->getNumCivicoUtente()+", " +$utente->getCAPUtente()+", " +
-                + $utente->getCodiceFiscaleUtente() + ", " 
-                + $utente->getEmailUtente() + ", "  + $utente->getUsernameUtente() + 
-                + ", " + $utente->getPasswordUtente() ;
+//        $valoriAttributi = $$utente->getNomeUtente() . ", " . $utente->getCognomeUtente()
+//        . ", " . $utente->getViaUtente(). ", " 
+//        . $utente->getNumCivicoUtente() . ", " . $utente->getCAPUtente() . ", " 
+//        . $utente->getCodiceFiscaleUtente() . ", " 
+//        .   $utente->getEmailUtente() . ", "  . $utente->getUsernameUtente() 
+//        . ", " . $utente->getPasswordUtente() ;
+        $valoriAttributi = "'" . $this->escapeStringa($utente->getNomeUtente()) ."', '"  
+                . $this->escapeStringa($utente->getCognomeUtente()) . "', '"
+                . $this->escapeStringa($utente->getCodiceFiscaleUtente()) . "', '"
+        . $this->escapeStringa($utente->getViaUtente()) . "', '"
+        . $this->escapeStringa($utente->getNumCivicoUtente()) . "', '" 
+                . $this->escapeStringa($utente->getCAPUtente()) . "', '"
+        . $this->escapeStringa($utente->getEmailUtente()) . "', '"  
+                . $this->escapeStringa($utente->getUsernameUtente()) . "', '" 
+        . $this->escapeStringa($utente->getPasswordUtente()) . "'" ;
         return $valoriAttributi;
     }
     

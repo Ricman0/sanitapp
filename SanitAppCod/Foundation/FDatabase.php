@@ -147,19 +147,27 @@ class FDatabase {
             }
         else
             {
-                /*
-                 * una volta che si è sicuri che in $queryResult è contenuto il
-                 * risultato della query, si può usare tale variabile per 
-                 * estrarre i dati una alla volta usando il metodo fetch_assoc
-                 * dell'oggetto.
-                 * la funzione fetch_assoc() ritorna la riga successiva
-                 */
-                 
-                while ($row = $queryResult->fetch_assoc()) 
+                if($queryResult == TRUE)
                 {
-                    $this->_result[] = $row;
+                   echo 'Query eseguita con successo: un nuovo utente è stato inserito'; 
                 }
-                echo 'Query eseguita con successo: un nuovo utente è stato inserito';
+                else 
+                {
+/*
+                     * una volta che si è sicuri che in $queryResult è contenuto il
+                     * risultato della query, si può usare tale variabile per 
+                     * estrarre i dati una alla volta usando il metodo fetch_assoc
+                     * dell'oggetto.
+                     * la funzione fetch_assoc() ritorna la riga successiva
+                     */
+                 
+                    while ($row = $queryResult->fetch_assoc()) 
+                    {
+                        $this->_result[] = $row;
+                    }
+                 }
+                    
+                
                 return $this->_result;
 
             }

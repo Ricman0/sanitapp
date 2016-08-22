@@ -5,7 +5,7 @@
 
 <form class= "formInserisci" name="inserisciUtente" method="post" id="inserisciUtente"> 
             <div>
-                    <input type="hidden" name="controller" value="registazione"/>
+                    <input type="hidden" name="controller" value="registrazione"/>
                     <input type="hidden" name="task" value="utente"/>
             </div>
             <div class="informazioni"> 
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="submit" >
-                <input type="submit" value="Invia" id="submitRegistrazioneUtente">
+                <input type="button" value="Invia" id="submitRegistrazioneUtente">
             </div>
                 <!-- se vogliamo possiamo aggiungerlo
                 Sesso:<br>
