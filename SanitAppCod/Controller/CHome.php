@@ -129,6 +129,9 @@ class CHome {
                 //in $risultato c'è il risultato della query
                 break;
             
+            case 'validazione':
+                $cValidazione = USingleton::getInstance('CValidazione');
+                $risultato = $cValidazione->impostaPaginaRisultatoCliniche();
                 
 
             case 'mySanitApp':

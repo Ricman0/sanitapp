@@ -66,4 +66,28 @@ class FMedico extends FDatabase {
                 . ', ' . $medico->getProvinciaAlboMedico() . ', ' . $medico->getNumIscrizioneMedico();
         return $valoriAttributi;
     }
+    
+    /**
+     * Metodo che permette di controllare se un'email passata per parametro sia
+     * già esistente nella tabella medico
+     * 
+     * @access public
+     * @param string $email L'email da controllare
+     * @return boolean TRUE se esiste già un'email uguale a quella passata nel 
+     * parametro, FALSE altrimenti.
+     */
+    public function ricercaEmailMedico($email)
+    {
+        
+        $query = "SELECT Email FROM medico WHERE medico.Email=" . $email;
+        $risultato = $this->eseguiQuery($query);
+        if ($risultato === FALSE)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
 }

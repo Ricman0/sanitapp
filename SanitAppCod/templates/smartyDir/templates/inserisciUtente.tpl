@@ -58,10 +58,13 @@
                     <input type="password" name="passwordUtente" id="passwordUtente" required >
                     <label for="passwordUtente">Password</label>
                     <br>
+                    <input type="password" name="ripetiPasswordUtente" id="ripetiPasswordUtente" required >
+                    <label for="ripetiPasswordUtente">Ripeti Password</label>
+                    <br>
                 </div>
             </div>
             <div class="submit" >
-                <input type="button" value="Invia" id="submitRegistrazioneUtente">
+                <input type="submit" value="Invia" id="submitRegistrazioneUtente">
             </div>
                 <!-- se vogliamo possiamo aggiungerlo
                 Sesso:<br>

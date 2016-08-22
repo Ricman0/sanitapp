@@ -76,6 +76,29 @@ class FUtente extends FDatabase{
         return $valoriAttributi;
     }
     
+    /**
+     * Metodo che permette di controllare se un'email passata per parametro sia
+     * già esistente nella tabella utente
+     * 
+     * @access public
+     * @param string $email L'email da controllare
+     * @return boolean TRUE se esiste già un'email uguale a quella passata nel 
+     * parametro, FALSE altrimenti.
+     */
+    public function ricercaEmailUtente($email)
+    {
+        
+        $query = "SELECT Email FROM utente WHERE utente.Email=" . $email;
+        $risultato = $this->eseguiQuery($query);
+        if ($risultato === FALSE)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
     
     /**
      * Metodo che consente di eliminare un utente dal database
