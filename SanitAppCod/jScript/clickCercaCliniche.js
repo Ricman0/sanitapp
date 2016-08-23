@@ -3,14 +3,21 @@
 $(document).ready(function() {
     $("#main").on("click","#bottoneRicercaCliniche", function(){
 //  $("#ricercaClinicheCerca").click(function(){
+    inviaDati();
+  });
+});
+
+
+function inviaDati(){
+    
     var controller = $("#controllerFormRicercaCliniche").val();
-    controller = controller.replace(" ", ""); 
+//    controller = controller.replace(" ", ""); 
 
     var nome = $("#nomeClinicaFormRicercaCliniche").val();
-    nome= nome.replace(" ", ""); 
+//    nome= nome.replace(" ", ""); 
     
     var luogo = $("#luogoClinicaFormRicercaCliniche").val();
-    luogo = luogo.replace(" ", ""); 
+//    luogo = luogo.replace(" ", ""); 
     
     var url;
 //    if (nome.length===0 || luogo.length===0 )
@@ -74,9 +81,7 @@ $(document).ready(function() {
         alert("Chiamata fallita, si prega di riprovare...");
       }
     });
-  });
-});
-
+}
 /*
 function inviaController($controller, ajaxdiv, id)
 {

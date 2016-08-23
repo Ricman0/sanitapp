@@ -5,50 +5,82 @@
  */
 
 $(document).ready(function(){
-    $("#ricercaEsamiCerca").submit( function(event) {
-        event.preventDefault();
-        inviaDatiForm('#formRicercaEsami', 'esami', '#tabellaEsami');
+    $("#main").on("click","#ricercaEsamiCerca", function() {
+        inviaDatiForm();
     });
 });
 
-function inviaDatiForm(id, controller1, ajaxdiv)
+function inviaDatiForm()
 {
+    var controller = $("#controllerFormRicercaEsami").val();
+    var nome = $("#nomeClinicaFormRicercaEsami").val();
     
-    //recupera tutti i valori del form automaticamente
-    var dati =  $(id).serialize();
-    console.log(dati);
-//    la riga successiva è una prova
-//    dati = dati + "&controller=" + controller1 + "&task=" + task1;
+    var nomeEsame = $("#nomeEsameFormRicercaEsami").val();
+    var luogo = $("#luogoClinicaFormRicercaEsami").val();
+    var url;
     
-    //invia i dati usando il metodo post
+    url = controller;
+    //nome esame !=0
+    if(nomeEsame.length!==0)
+    {
+        //nome e luogo = 0
+        if( nome.length===0)
+        {
+            if(luogo.length===0)
+            {
+                url = url + "/" + nomeEsame;
+            }
+            else
+            {
+                url = url + "/" + nomeEsame + "/all/" + luogo;
+            }           
+        }
+        else
+        {
+            if(luogo.length===0)
+            {
+                url = url + "/" + nomeEsame + "/" + nome;
+            }
+            else
+            {
+                url = url + "/" + nomeEsame + "/"+nome + "/" + luogo;
+            } 
+        }    
+    }
+    //nome esame =0
+    else
+    {
+        if(nome.length!==0)
+        {
+            if(luogo.length===0)
+            {
+                url = url + "/all/" + nome;
+            }
+            else
+            {
+                url = url + "/all/" + nome + "/" + luogo;
+            }
+        }
+        else
+        {
+            url = url + "/all/all/" + luogo;
+        }
+    }
+    
     $.ajax({
         
         
         //url della risorsa alla quale viene inviata la richiesta
         // url:  "index.php",
-        url: controller1,
+        url: url,
         
         //il tipo di richiesta HTTP da effettuare, di default è GET
-        type: 'POST',
-        
-        //che può essere un oggetto del tipo {chiave : valore, chiave2 : valore}, 
-        //oppure una stringa del tipo "chiave=valore&chiave2=valore2"
-        // contenente dei dati da inviare al server
-        
-        //data: {datiDaInviare:  dati, controller:controller1, task:task1}, 
-        data: dati,
-        
-        
-        //success(data, textStatus, XMLHTTPRequest) : funzione che verrà 
-        //eseguita al successo della chiamata. I tre parametri sono, 
-        //rispettivamente, l’oggetto della richiesta, lo stato e la 
-        //descrizione testuale dell’errore rilevato
-        success: function(datiRisposta, dati)
+        type: 'GET',        
+        dataType: "html",
+        success: function(msg)
         {
-           
-           alert("Dati ricerca esame inviati per effettuare la registrazione"); 
-           $(ajaxdiv).html(datiRisposta);
-           
+            alert("Dati ricerca esame inviati per effettuare la registrazione");
+            $("#main").html(msg);
         },
         error: function()
         {

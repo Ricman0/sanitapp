@@ -103,6 +103,9 @@ class CHome {
     {
         switch ($controller) 
         {
+            case 'home':
+                $vHome->restituisciHomePage();
+                break;
             case 'registrazione':
                 $cRegistrazione = USingleton::getInstance('CRegistrazione');
                 $cRegistrazione->impostaPaginaRegistrazione(); // oppure echo $cRegistrazione->impostaPaginaRegistrazione(); ma poi devo prelevare il template e non visualizzarlo

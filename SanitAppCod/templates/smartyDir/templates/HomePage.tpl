@@ -28,6 +28,7 @@
         <script type="text/javascript" src="./jScript/clickCercaCliniche.js"></script>
         <script type="text/javascript" src="./jScript/jquery.validate.js"></script>
         <script type="text/javascript" src="./jScript/validazioneDati.js"></script>
+        <script type="text/javascript" src="./jScript/clickHome.js"></script>
         
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->
