@@ -1,6 +1,8 @@
 
 <head>
     <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
+    <script type="text/javascript" src="./jScript/jquery.validate.js"></script>
+    <script type="text/javascript" src="./jScript/validazioneDati.js"></script>
 </head>
 
 <form class= "formInserisci" name="inserisciUtente" method="post" id="inserisciUtente"> 

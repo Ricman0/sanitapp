@@ -1,4 +1,3 @@
-
 <form class="form" id="formRicercaCliniche" method="GET">
     <div class="elementiForm" id="elementiFormRicercaCliniche">
         <div class="form" id="inputRicercaCliniche">
@@ -9,7 +8,7 @@
             <label for="luogo">Luogo</label>
             <input type="text" name="luogo" class="form" target="_blank" 
                    placeholder="Roma" id="luogoClinicaFormRicercaCliniche"/>
-            <input type="button" class="form" id="ricercaClinicheCerca" value="Cerca">
+            <input type="button" class="form" value="Cerca" id="bottoneRicercaCliniche">
             <!--
             <input type="submit" class="form" id="ricercaClinicheCerca" value="Cerca">
             -->

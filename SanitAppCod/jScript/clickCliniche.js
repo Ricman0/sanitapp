@@ -18,8 +18,11 @@ function inviaController($controller, ajaxdiv)
         error:function()
         {
             alert("Sbagliato click su CLINICHE");
-        }
-        
+        },
+//        complete:
+//            function(){
+//                $.getScript("./jScript/clickCercaCliniche");
+//            }
     });
 }
 

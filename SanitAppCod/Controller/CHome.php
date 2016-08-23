@@ -131,7 +131,8 @@ class CHome {
             
             case 'validazione':
                 $cValidazione = USingleton::getInstance('CValidazione');
-                $risultato = $cValidazione->impostaPaginaRisultatoCliniche();
+                $risultato = $cValidazione->validaInserimento();
+                // da terminare
                 
 
             case 'mySanitApp':

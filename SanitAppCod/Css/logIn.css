@@ -22,7 +22,7 @@ and open the template in the editor.
     min-width: 80px;
     padding:1px;
 }
-button {
+#logInForm button {
     cursor: pointer;
     display: inline-flex;
     font-size: inherit;

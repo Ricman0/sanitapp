@@ -13,12 +13,23 @@
  */
 class CValidazione {
 
+    public function validaInserimento()
+    {
+        $vValidazione= USingleton::getInstance('VValidazione');
+        $task= $vValidazione->getTask();
+    }
+    
+    /**
+     * Metodo che consente di validare l'email inserita nella form
+     * 
+     * @access public
+     * @return boolean TRUE se esiste già l'email FALSE altrimenti.
+     */
     public function validaEmail(){
         
         $fUtente = USingleton::getInstance("FUtente");
         $email = $_GET['email'];
-        $fUtente->ricercaEmailUtente($email);
-        
+        return $fUtente->ricercaEmailUtente($email);   
     }
     
 }

@@ -1,7 +1,8 @@
-
+//
 
 $(document).ready(function() {
-  $("#ricercaClinicheCerca").click(function(){
+    $("#main").on("click","#bottoneRicercaCliniche", function(){
+//  $("#ricercaClinicheCerca").click(function(){
     var controller = $("#controllerFormRicercaCliniche").val();
     controller = controller.replace(" ", ""); 
 
