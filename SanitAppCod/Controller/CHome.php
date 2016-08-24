@@ -116,7 +116,7 @@ class CHome {
                 $cAutenticazione->impostaPaginaAutenticazione();
                break;
            
-            case 'esami':
+            case 'ricercaEsami':
                 $cEsami = USingleton::getInstance('CEsami');
                 $cEsami->impostaPaginaRicercaEsami();
                 break;
@@ -129,6 +129,12 @@ class CHome {
             case 'cliniche':
                 $cCliniche = USingleton::getInstance('CRicercaCliniche');
                 $risultato = $cCliniche->impostaPaginaRisultatoCliniche();
+                //in $risultato c'è il risultato della query
+                break;
+            
+            case 'esami':
+                $cEsami = USingleton::getInstance('CRicercaEsami');
+                $risultato = $cEsami->impostaPaginaRisultatoEsami();
                 //in $risultato c'è il risultato della query
                 break;
             

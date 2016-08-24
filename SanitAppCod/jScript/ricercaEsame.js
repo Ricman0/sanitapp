@@ -86,7 +86,6 @@ function inviaDatiForm()
         {
             alert("Chiamata fallita, si prega di riprovare...  ");
             
-        }
-        
- });
+        }   
+    });
 }

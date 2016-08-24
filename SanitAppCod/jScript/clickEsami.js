@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     $("#esami").click(function () {
-        inviaController('esami', '#main');
+        inviaController('ricercaEsami', '#main');
     });
 });
 
