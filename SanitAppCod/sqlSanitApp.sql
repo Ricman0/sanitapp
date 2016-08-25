@@ -121,6 +121,7 @@ CREATE TABLE medico (
   NumCivico smallint(6) DEFAULT NULL,
   CAP mediumint(7) UNSIGNED NOT NULL,
   Email varchar(320) NOT NULL,
+  Username varchar(15) NOT NULL,
   Password varchar(10) NOT NULL,
   PEC varchar(320) NOT NULL,
   Validato tinyint(1) DEFAULT '0',
@@ -128,6 +129,7 @@ CREATE TABLE medico (
   NumIscrizione smallint(6) NOT NULL,
   PRIMARY KEY (CodFiscale),
   UNIQUE (Email),
+  UNIQUE (Username),
   UNIQUE (PEC)
 );
 
@@ -135,10 +137,10 @@ CREATE TABLE medico (
 -- Dump dei dati per la tabella `medico`
 --
 
-INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email, 
+INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email, Username, 
 Password, PEC, Validato, ProvinciaAlbo, NumIscrizione) VALUES
 ('dmrcld89s42g438s', 'claudia', 'di marco', 'acquaventina', 30, 32767, 
-'clau@hotmail.it', 'clau', 'clau@dim.pec.it', 0, ' P', 5464);
+'clau@hotmail.it','claudim', 'clau', 'clau@dim.pec.it', 0, ' P', 5464);
 
 -- --------------------------------------------------------
 

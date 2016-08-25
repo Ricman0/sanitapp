@@ -19,6 +19,11 @@
             <label for="partitaIVA">Partita IVA</label>
             <br>
         </div>
+        <div class="email"> 
+            <input type="email" name="emailClinica" id="emailClinica" placeholder="villaserena@gmail.it" required>
+            <label for="emailClinica">Email</label>
+            <br>
+        </div>
         <div class="PEC"> 
             <input type="email" name="PECClinica" id="PECClinica" placeholder="villaserena@pec.it" required>
             <label for="PECClinica">PEC</label>
@@ -49,6 +54,16 @@
         <div class="CAP"> 
             <input type="text" name="CAPClinica" id="CAPClinica" placeholder="65017" required/>
             <label for="CAPClinica">CAP</label>
+            <br>
+        </div>
+        <div class="Località"> 
+            <input type="text" name="LocalitàClinica" id="localitàClinica" placeholder="Penne" required/>
+            <label for="localitàClinica">CAP</label>
+            <br>
+        </div>
+        <div class="Provincia"> 
+            <input type="text" name="ProvinciaClinica" id="provinciaClinica" placeholder="Pescara" required/>
+            <label for="provinciaClinica">CAP</label>
             <br>
         </div>
     </div>
@@ -83,6 +98,11 @@
         <div class="orarioChiusuraPomeriggio">            
             <input type="time" name="orarioChiusuraPomeriggio" id="orarioChiusuraPomeriggo" placeholder="19:00"/>
             <label for="orarioChiusuraPomeriggio">Orario Chiusura Pomeriggio</label>
+            <br>
+        </div>
+        <div class="orarioContinuato">            
+            <input type="checkbox"  name="orarioContinuato" id="orarioContinuato"/>
+            <label for="orarioContinuato">Orario Continuato</label>
             <br>
         </div>
     </div>

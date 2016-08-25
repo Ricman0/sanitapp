@@ -7,17 +7,17 @@
  */
 $(document).ready(function () {
 
-        $("#registrazioneUtente").click(function () {
-            inviaControllerTask('registrazione', 'utente', '#main' );
-        });
-        
-        $("#registrazioneMedico").click(function () {
-            inviaControllerTask('registrazione', 'medico', '#main' );
-        });
-        
-        $("#registrazioneClinica").click(function () {
-            inviaControllerTask('registrazione', 'clinica', '#main' );
-        });
+    $("#registrazioneUtente").click(function () {
+        inviaControllerTask('registrazione', 'utente', '#main');
+    });
+
+    $("#registrazioneMedico").click(function () {
+        inviaControllerTask('registrazione', 'medico', '#main');
+    });
+
+    $("#registrazioneClinica").click(function () {
+        inviaControllerTask('registrazione', 'clinica', '#main');
+    });
 });
 
 
@@ -28,16 +28,13 @@ $(document).ready(function () {
  * @param string ajaxdiv
  * @returns {undefined}
  */
-function inviaControllerTask(controller1, task1, ajaxdiv) 
+function inviaControllerTask(controller1, task1, ajaxdiv)
 {
     $.ajax({
         // definisco il tipo della chiamata
-        type: 'GET' ,
-
-        
+        type: 'GET',
         // specifico la URL della risorsa 
         url: controller1 + '/' + task1,
-        
 //        data:{
 //            controller:controller1, 
 //            task: task1
@@ -45,12 +42,16 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
 //        },
 
         // imposto azione per il caso di successo
-        success: function (datiRisposta) 
-                {
-                        alert(datiRisposta);
-                        $(ajaxdiv).html(datiRisposta);
+        success: function (datiRisposta)
+        {
+            alert(datiRisposta);
+            $(ajaxdiv).html(datiRisposta);
 
-                }
+        },
+        complete:function()
+        {
+            validazione(task1);
+        }
     });
 }
 

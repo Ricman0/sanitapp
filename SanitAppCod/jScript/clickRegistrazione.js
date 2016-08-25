@@ -1,83 +1,40 @@
-$(document).ready( function(){
-    //fissa un gestore di submit al form
-    $('#submitRegistrazioneUtente').submit(function(event){
-        //ferma la form dal normale submitting(sottoporre i dati del form)
-        event.preventDefault(); 
-        
-        inviaDatiRegistrazione('#inserisciUtente','registrazione', 'utente', '#main' );
-    });
-    
-    $('#submitRegistrazioneMedico').submit(function(event){
-        event.preventDefault();
-        inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#main');
-    });
-    
-    $('#submitRegistrazioneClinica').submit(function(event){
-        event.preventDefault();
-        inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#main');
-    });
-    
-});
-
+//$(document).ready(function () {
+//    //fissa un gestore di submit al form
+//
+//    $('#main').on("click", '#submitRegistrazioneUtente', function () {
+//        inviaDatiRegistrazione('#inserisciUtente', 'registrazione', 'utente', '#main');
+//    });
+//
+//    $('#main').on("click", '#submitRegistrazioneMedico', function () {
+//        inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#main');
+//    });
+//
+//    $('#main').on("click", '#submitRegistrazioneClinica', function () {
+//        inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#main');
+//    });
+//
+//});
+//
 
 function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
 {
-    
+
     //recupera tutti i valori del form automaticamente
-    var dati =  $(id).serialize();
-//    la riga successiva è una prova
-//    dati = dati + "&controller=" + controller1 + "&task=" + task1;
-    alert (dati);
-    //invia i dati usando il metodo post
+    var dati = $(id).serialize();
+    alert(dati);
     $.ajax({
-        //il tipo di richiesta HTTP da effettuare, di default è GET
-        type: 'POST',
-        
-        //url della risorsa alla quale viene inviata la richiesta
-        // url:  "index.php",
-//        url: controller1 + "/" + task1 + "/",
-        url: "registrazione/utente",
-        
-        
-        //che può essere un oggetto del tipo {chiave : valore, chiave2 : valore}, 
-        //oppure una stringa del tipo "chiave=valore&chiave2=valore2"
-        // contenente dei dati da inviare al server
-        
-        //data: {datiDaInviare:  dati, controller:controller1, task:task1}, 
+        type: "POST",
+        url: controller1 + "/" + task1,
         data: dati,
-        
-        
-        //success(data, textStatus, XMLHTTPRequest) : funzione che verrà 
-        //eseguita al successo della chiamata. I tre parametri sono, 
-        //rispettivamente, l’oggetto della richiesta, lo stato e la 
-        //descrizione testuale dell’errore rilevato
-        success: function()
+        dataType: "html",
+        success: function (msg)
         {
-           
-           alert("Dati clinica inviati per effettuare la registrazione"); 
+            alert("Chiamata eseguita");
+            $(ajaxdiv).html(msg);
         },
-        error: function()
+        error: function ()
         {
-            alert("Chiamata fallita, si prega di riprovare...  ");
-            
+            alert("Chiamata fallita, si prega di riprovare...");
         }
-        
- });
-
-//xhr.onreadystatechange = function() { alert(xhr.readyState); };
-
-//$.ajax({
-//    url: controller1 + "/" + task1 + "/",
-//    type:"POST",
-//    data: dati
-//})
-//        .done(alert("Dati utente inviati per effettuare la registrazione"))
-//        .fail(function(xhr, status, errorThrown){
-//            alert("sorry");
-//            console.log("error: "+ errorThrown);
-//            console.log("status: "+ status);
-//            console.dir(xhr);
-//        })
+    });
 }
-
-
