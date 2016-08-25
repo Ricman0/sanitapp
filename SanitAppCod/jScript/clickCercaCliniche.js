@@ -14,10 +14,10 @@ function inviaDati(){
 //    controller = controller.replace(" ", ""); 
 
     var nome = $("#nomeClinicaFormRicercaCliniche").val();
-//    nome= nome.replace(" ", ""); 
+    nome= nome.replace(" ", ""); 
     
     var luogo = $("#luogoClinicaFormRicercaCliniche").val();
-//    luogo = luogo.replace(" ", ""); 
+    luogo = luogo.replace(" ", ""); 
     
     var url;
 //    if (nome.length===0 || luogo.length===0 )

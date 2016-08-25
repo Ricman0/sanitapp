@@ -77,130 +77,168 @@ class FEsame extends FDatabase{
      */
     public function cercaEsame($nomeEsame, $nomeClinica, $luogo)
     {
-        if(!empty($nomeEsame))
-        {
-            if (!empty($luogo)&& !empty($nomeClinica))
-            {
-                $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
-                        . "NumPrestazioniSimultanee, NomeCategoria, "
-                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-                        . "OrarioChiusuraPM,OrarioContinuato "
-                        . " FROM " . $this->_nomeTabella . "INNER JOIN clinica ON "
-                        . "esame.PartivaIVAClinica = clinica.PartitaIVA "
-                        ." WHERE esame.Nome='" . $nomeEsame . "' AND NomeClinica='"
-                        . $nomeClinica . "' AND (clinica.Località =  '" 
-                        . $luogo ."' OR clinica.Provincia='" . $luogo . "' OR "
-                        . "clinica.CAP='" . $luogo . "')";
-            }
-            else
-            {
-                if (!empty($nomeClinica))
-                {
-                    if (empty($luogo))
-                    {
-                        $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
-                            . "NumPrestazioniSimultanee, NomeCategoria, "
-                            . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-                            . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-                            . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-                            . "OrarioChiusuraPM,OrarioContinuato "
-                            . " FROM " . $this->_nomeTabella . "INNER JOIN clinica ON "
-                            . "esame.PartivaIVAClinica = clinica.PartitaIVA "
-                            ." WHERE esame.Nome='" . $nomeEsame . "' AND NomeClinica='"
-                            . $nomeClinica . "'";
-                    } 
-                }
-                else
-                {
-                    if (empty($luogo))
-                    {
-                        $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
-                            . "NumPrestazioniSimultanee, NomeCategoria, "
-                            . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-                            . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-                            . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-                            . "OrarioChiusuraPM,OrarioContinuato "
-                            . " FROM " . $this->_nomeTabella . "INNER JOIN clinica ON "
-                            . "esame.PartivaIVAClinica = clinica.PartitaIVA "
-                            ." WHERE esame.Nome='" . $nomeEsame . "'";
-                    }
-                    else
-                    {
-                        $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
-                        . "NumPrestazioniSimultanee, NomeCategoria, "
-                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-                        . "OrarioChiusuraPM,OrarioContinuato "
-                        . " FROM " . $this->_nomeTabella . "INNER JOIN clinica ON "
-                        . "esame.PartivaIVAClinica = clinica.PartitaIVA "
-                        ." WHERE esame.Nome='" . $nomeEsame . "' AND (clinica.Località =  '" 
-                        . $luogo ."' OR clinica.Provincia='" . $luogo . "' OR clinica.CAP='" . $luogo . "')";
-                    }
-                }
-            }
-        }
-        else
-        {
-            if (!empty($nomeClinica))
-            {
-                if (empty($luogo))
-                {
-                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
-                        . "NumPrestazioniSimultanee, NomeCategoria, "
-                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-                        . "OrarioChiusuraPM,OrarioContinuato "
-                        . " FROM " . $this->_nomeTabella . "INNER JOIN clinica ON "
-                        . "esame.PartivaIVAClinica = clinica.PartitaIVA "
-                        ." WHERE NomeClinica='" . $nomeClinica . "'";
-                }
-                else
-                {
-                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
-                    . "NumPrestazioniSimultanee, NomeCategoria, "
-                    . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-                    . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-                    . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-                    . "OrarioChiusuraPM,OrarioContinuato "
-                    . " FROM " . $this->_nomeTabella . "INNER JOIN clinica ON "
-                    . "esame.PartivaIVAClinica = clinica.PartitaIVA "
-                    ." WHERE NomeClinica='" . $nomeClinica . "' AND (clinica.Località =  '" 
-                    . $luogo ."' OR clinica.Provincia='" . $luogo . "' OR clinica.CAP='" . $luogo . "')";
-                }
-            }
-            else
-            {
-                if (empty($luogo))
-                {
-                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
-                        . "NumPrestazioniSimultanee, NomeCategoria, "
-                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-                        . "OrarioChiusuraPM,OrarioContinuato "
-                        . " FROM " . $this->_nomeTabella . "INNER JOIN clinica ON "
-                        . "esame.PartivaIVAClinica = clinica.PartitaIVA ";
-                }
-                else
-                {
-                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
-                    . "NumPrestazioniSimultanee, NomeCategoria, "
-                    . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-                    . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-                    . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-                    . "OrarioChiusuraPM,OrarioContinuato "
-                    . " FROM " . $this->_nomeTabella . "INNER JOIN clinica ON "
-                    . "esame.PartivaIVAClinica = clinica.PartitaIVA "
-                    ." WHERE (clinica.Località =  '" . $luogo ."' OR clinica.Provincia='" 
-                    . $luogo . "' OR clinica.CAP='" . $luogo . "')";
-                }
-            }
-        }
+        $query="";
+//        if($nomeEsame==="all")
+//        {
+//           $nomeEsame=""; 
+//        }
+//        if($nomeClinica==="all")
+//        {
+//           $nomeClinica=""; 
+//        }
+//        if($luogo==="all")
+//        {
+//           $luogo=""; 
+//        }
+//        if(!empty($nomeEsame))
+//        {
+//            echo "si nomeesame";
+//            if (!empty($luogo)&& !empty($nomeClinica))
+//            {
+//                echo "si nomeesame, nomeclinica, luogo";
+//                $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
+//                        . "NumPrestazioniSimultanee, NomeCategoria, "
+//                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
+//                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
+//                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+//                        . "OrarioChiusuraPM,OrarioContinuato "
+//                        . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
+//                        . "'esame.PartivaIVAClinica'='clinica.PartitaIVA'"
+//                        . " WHERE 'esame.Nome'='" . $nomeEsame . "' AND NomeClinica='"
+//                        . $nomeClinica . "' AND ('clinica.Località'='" 
+//                        . $luogo ."' OR 'clinica.Provincia'='" . $luogo . "' OR "
+//                        . "'clinica.CAP'='" . $luogo . "')";
+//            }
+//            else
+//            {
+//                
+//                if (!empty($nomeClinica))
+//                {
+//                    
+//                    if (empty($luogo))
+//                    {
+//                        echo "si nomeesame, nomeclinica , no luogo";
+//                        $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
+//                            . "NumPrestazioniSimultanee, NomeCategoria, "
+//                            . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
+//                            . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
+//                            . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+//                            . "OrarioChiusuraPM,OrarioContinuato "
+//                            . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
+//                            . "'esame.PartivaIVAClinica'='clinica.PartitaIVA "
+//                            ." WHERE 'esame.Nome'='" . $nomeEsame . "' AND NomeClinica='"
+//                            . $nomeClinica . "'";
+//                    } 
+//                }
+//                else
+//                {
+//                    echo "si nomeesame, no nomeclinica, luogo";
+//                    if (empty($luogo))
+//                    {
+//                        $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
+//                            . "NumPrestazioniSimultanee, NomeCategoria, "
+//                            . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
+//                            . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
+//                            . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+//                            . "OrarioChiusuraPM,OrarioContinuato "
+//                            . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
+//                            . "'esame.PartivaIVAClinica'='clinica.PartitaIVA'"
+//                            . " WHERE 'esame.Nome'='" . $nomeEsame . "'";
+//                    }
+//                    else
+//                    {
+//                        echo "si nomeesame,luogo,  no nomeclinica ";
+//                        $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
+//                        . "NumPrestazioniSimultanee, NomeCategoria, "
+//                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
+//                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
+//                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+//                        . "OrarioChiusuraPM,OrarioContinuato "
+//                        . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
+//                        . "'esame.PartivaIVAClinica'='clinica.PartitaIVA'"
+//                        . " WHERE 'esame.Nome'='" . $nomeEsame . "' AND ('clinica.Località'='" 
+//                        . $luogo ."' OR 'clinica.Provincia'='" . $luogo . "' OR 'clinica.CAP'='" . $luogo . "')";
+//                    }
+//                }
+//            }
+//        }
+//        else
+//        {
+//             echo "no nomeesame ";
+//            if (!empty($nomeClinica))
+//            {
+//                 echo "no nomeesame,  si nomeclinica ";
+//                if (empty($luogo))
+//                {
+//                    echo "no nomeesame,luogo,  si nomeclinica ";
+//                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
+//                        . "NumPrestazioniSimultanee, NomeCategoria, "
+//                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
+//                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
+//                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+//                        . "OrarioChiusuraPM,OrarioContinuato "
+//                        . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
+//                        . "'esame.PartivaIVAClinica'='clinica.PartitaIVA'"
+//                        . " WHERE NomeClinica='" . $nomeClinica . "'";
+//                }
+//                else
+//                {
+//                    echo "no nomeesame,  si nomeclinica, luogo ";
+//                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
+//                    . "NumPrestazioniSimultanee, NomeCategoria, "
+//                    . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
+//                    . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
+//                    . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+//                    . "OrarioChiusuraPM,OrarioContinuato "
+//                    . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
+//                    . "'esame.PartivaIVAClinica'='clinica.PartitaIVA'"
+//                    . " WHERE NomeClinica='" . $nomeClinica . "' AND ('clinica.Località'='" 
+//                    . $luogo ."' OR 'clinica.Provincia'='" . $luogo . "' OR 'clinica.CAP'='" . $luogo . "')";
+//                }
+//            }
+//            else
+//            {
+//                echo "no nomeesame,   nomeclinica ";
+//                if (empty($luogo))
+//                {
+//                    echo "no nomeesame,   nomeclinica, luogo  ";
+//                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
+//                        . "NumPrestazioniSimultanee, NomeCategoria, "
+//                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
+//                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
+//                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+//                        . "OrarioChiusuraPM,OrarioContinuato "
+//                        . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
+//                        . "'esame.PartivaIVAClinica'='clinica.PartitaIVA' ";
+//                }
+//                else
+//                {
+//                    echo "no nomeesame,   nomeclinica, si luogo ";
+//                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
+//                    . "NumPrestazioniSimultanee, NomeCategoria, "
+//                    . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
+//                    . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
+//                    . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+//                    . "OrarioChiusuraPM,OrarioContinuato "
+//                    . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
+//                    . "'esame.PartivaIVAClinica'='clinica.PartitaIVA' "
+//                    . " WHERE ('clinica.Località'='" . $luogo ."' OR 'clinica.Provincia'='" 
+//                    . $luogo . "' OR 'clinica.CAP'='" . $luogo . "')";
+//                }
+//            }
+//        }
+//        
         
-        return $this->eseguiQuery($query);
+//        $risultato = $this->eseguiQuery("SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
+//                        . "NumPrestazioniSimultanee, NomeCategoria, "
+//                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
+//                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
+//                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+//                        . "OrarioChiusuraPM,OrarioContinuato "
+//                        . " FROM esame INNER JOIN clinica;");
+//        echo gettype($risultato);
+//        $this->stampaRisultatoQuery($risultato);
+        $risultato = $this->eseguiQuery("SELECT Nome, Prezzo FROM esame");
+        return $risultato;
     }
 }

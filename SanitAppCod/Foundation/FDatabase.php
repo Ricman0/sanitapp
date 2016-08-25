@@ -141,15 +141,28 @@ class FDatabase {
         // eseguo la query e salvo il risultato in $queryResult
         $queryResult = $this->_connessione->query($query);
         // se il risultato della query è false
+        
+        
+        //prova
+        if($queryResult->num_rows>0)
+        {
+            while($row =$queryResult->fetch_assoc() )
+            {
+                echo "<br> Nome: " . $row["Nome"] . "- Prezzo: " . $row["Prezzo"] . "<br>"; 
+            }
+        }
+        //fine prova
+        
+        
         if(!$queryResult)
             {
                 die ("Errore mysql durante l'esecuzione della query: " . $this->_connessione->error);
             }
         else
             {
-                if($queryResult == TRUE)
+                if($queryResult === TRUE)
                 {
-                   echo 'Query eseguita con successo: un nuovo utente è stato inserito'; 
+                   echo 'Query eseguita con successo'; 
                 }
                 else 
                 {
@@ -187,5 +200,30 @@ class FDatabase {
     {
         //clean up, chiusura della connessione
         $this->_connessione->close();
+    }
+    
+    
+    /**
+     * Metodo che permette di stampare un array ( risultato di una query)
+     * 
+     * @final
+     * @access public
+     * @param Array|boolean $risultato Il risultato di una query
+     */
+    final public function stampaRisultatoQuery($risultato) 
+    {
+        if(empty($risultato))
+        {
+           echo " array vuoto" ;
+        }
+        if(is_array($risultato) === TRUE)
+        {
+        
+        }
+        else
+        {
+            echo($risultato);
+            
+        } 
     }
 }

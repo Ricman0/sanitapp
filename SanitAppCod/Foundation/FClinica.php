@@ -104,6 +104,9 @@ class FClinica extends FDatabase{
             $query = "SELECT * FROM " . $this->_nomeTabella;
         }
         
-        return $this->eseguiQuery($query);
+        
+        $risultato = $this->eseguiQuery($query);
+        $this->stampaRisultatoQuery($risultato);
+        return $risultato;
     }
 }
