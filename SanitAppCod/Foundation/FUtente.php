@@ -64,15 +64,15 @@ class FUtente extends FDatabase{
 //        . $utente->getCodiceFiscaleUtente() . ", " 
 //        .   $utente->getEmailUtente() . ", "  . $utente->getUsernameUtente() 
 //        . ", " . $utente->getPasswordUtente() ;
-        $valoriAttributi = "'" . $this->escapeStringa($utente->getNomeUtente()) ."', '"  
-                . $this->escapeStringa($utente->getCognomeUtente()) . "', '"
-                . $this->escapeStringa($utente->getCodiceFiscaleUtente()) . "', '"
-        . $this->escapeStringa($utente->getViaUtente()) . "', '"
-        . $this->escapeStringa($utente->getNumCivicoUtente()) . "', '" 
-                . $this->escapeStringa($utente->getCAPUtente()) . "', '"
-        . $this->escapeStringa($utente->getEmailUtente()) . "', '"  
-                . $this->escapeStringa($utente->getUsernameUtente()) . "', '" 
-        . $this->escapeStringa($utente->getPasswordUtente()) . "'" ;
+        $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getNomeUtente()) ."', '"  
+                . $this->trimEscapeStringa($utente->getCognomeUtente()) . "', '"
+                . $this->trimEscapeStringa($utente->getCodiceFiscaleUtente()) . "', '"
+        . $this->trimEscapeStringa($utente->getViaUtente()) . "', '"
+        . $this->trimEscapeStringa($utente->getNumCivicoUtente()) . "', '" 
+                . $this->trimEscapeStringascapeStringa($utente->getCAPUtente()) . "', '"
+        . $this->trimEscapeStringa($utente->getEmailUtente()) . "', '"  
+                . $this->trimEscapeStringa($utente->getUsernameUtente()) . "', '" 
+        . $this->trimEscapeStringa($utente->getPasswordUtente()) . "'" ;
         return $valoriAttributi;
     }
     

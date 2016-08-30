@@ -12,6 +12,7 @@ class CValidazione {
     {
         $vValidazione= USingleton::getInstance('VValidazione');
         $task = $vValidazione->getTask();
+        echo ("$task");
     }
     
     /**

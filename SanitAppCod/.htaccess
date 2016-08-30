@@ -11,7 +11,7 @@
   RewriteRule ^(registrazione)/(utente)?$ index.php?controller=$1&task=$2 
   RewriteRule ^(registrazione)/(medico)?$ index.php?controller=$1&task=$2 
   RewriteRule ^(registrazione)/(clinica)?$ index.php?controller=$1&task=$2
-  RewriteRule ^(validazione)/(utente)/(\w+)?$ index.php?controller=$1&task=$2&parametro=$3
+  RewriteRule ^(validazione)/(codiceFiscale)/(\w+)?$ index.php?controller=$1&task=$2&parametro=$3
   RewriteRule ^(\w+)?$ index.php?controller=$1
 
 

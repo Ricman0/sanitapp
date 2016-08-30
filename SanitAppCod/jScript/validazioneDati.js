@@ -41,11 +41,12 @@ function validazioneUtente()
                                 required: true,
                                 maxlength: 16, 
                                 minlength: 16,
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/codiceFiscale/" + $("#codiceFiscale").val()  
-//                                        }
+                                remote:
+                                        { 
+                                           type: "GET",
+                                           url: "validazione/codiceFiscale/", 
+                                          
+                                        }
                             },
                     indirizzo:
                             {
@@ -76,6 +77,7 @@ function validazioneUtente()
                     usernameUtente:
                             {
                                 required: true,
+                                minlength: 2,
                                 maxlength: 15,
 //                                remote:
 //                                        { 
@@ -139,6 +141,7 @@ function validazioneUtente()
                     usernameUtente:
                             {
                                 required: "Inserire username",
+                                minlength: "La lunghezza minime dello username è 2",
                                 maxlength: "La lunghezza massima dello username è 15",
 //                                remote: "Username già esistente"
                             },
@@ -218,6 +221,7 @@ function validazioneMedico()
                     usernameMedico:
                             {
                                 required: true,
+                                minlength: 2,
                                 maxlength: 15,
 //                                remote:
 //                                        { 
@@ -244,12 +248,12 @@ function validazioneMedico()
                     provinciaAlbo:
                             {
                                 required: true,
-                                maxlength: 2
+                                rangelength: [2,2]
                             },
                     numeroIscrizione:
                             {
                                 required: true,
-                                rangelength: [2,2]
+                                rangelength: [6,6]
                             }          
                 },
         messages:
@@ -296,6 +300,7 @@ function validazioneMedico()
                     usernameMedico:
                             {
                                 required: "Inserire username",
+                                minlength: "La lunghezza minima dello username è 2",
                                 maxlength: "La lunghezza massima dello username è 15",
 //                                remote: "Username già esistente"
                             },
@@ -348,7 +353,7 @@ function validazioneClinica()
                     titolare:
                             {
                                 required: true,
-                                maxlength: 20
+                                maxlength: 50
                             },
                     partitaIVA:
                             {
@@ -410,6 +415,7 @@ function validazioneClinica()
                     usernameClinica:
                             {
                                 required: true,
+                                minlength: 2,
                                 maxlength: 15,
 //                                remote:
 //                                        { 
@@ -503,6 +509,7 @@ function validazioneClinica()
                     usernameMedico:
                             {
                                 required: "Inserire username",
+                                minlength: "La lunghezza minima dello username è 2",
                                 maxlength: "La lunghezza massima dello username è 15",
 //                                remote: "Username già esistente"
                             },

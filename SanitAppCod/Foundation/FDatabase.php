@@ -112,18 +112,22 @@ class FDatabase {
     }
     
     /**
-     * Metodo che permette di effettuare l'escape dei caratteri speciali di una stringa
+     * Metodo che permette di cancellare i separatori inizialie finali (trim)
+     * e di effettuare l'escape dei caratteri speciali di una stringa
      * 
      * @final
      * @access public
-     * @param string $string La stringa di cui si vuole effettuare l'escape
+     * @param string $string La stringa di cui si vuole effettuare l'escape e il trim
      * @return string La stringa di cui si è fatto l'escape
      */
-    final public function escapeStringa($string) 
+    final public function trimEscapeStringa($string) 
     {
-        $stringa = $this->_connessione->real_escape_string($string);
+        //trim per cancellare i separatori iniziali e finali
+        $stringa = trim($string);
+        $stringa = $this->_connessione->real_escape_string($stringa);
         return $stringa;
     }
+    
     
     
     
