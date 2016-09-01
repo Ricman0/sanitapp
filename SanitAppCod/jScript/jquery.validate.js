@@ -1447,7 +1447,7 @@ $.extend( $.validator, {
 			this.settings.messages[ element.name ][ method ] = previous.message;
 
 			param = typeof param === "string" && { url: param } || param;
-			optionDataString = $.param( $.extend( { data: value }, param.data ) );
+			optionDataString = $.param( $.extend( { data: value }, param.data ) ); //secondo me qui c'è l'errore dell'url remote
 			if ( previous.old === optionDataString ) {
 				return previous.valid;
 			}

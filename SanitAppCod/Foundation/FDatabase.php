@@ -145,19 +145,6 @@ class FDatabase {
         // eseguo la query e salvo il risultato in $queryResult
         $queryResult = $this->_connessione->query($query);
         // se il risultato della query è false
-        
-        
-        //prova
-        if($queryResult->num_rows>0)
-        {
-            while($row =$queryResult->fetch_assoc() )
-            {
-                echo "<br> Nome: " . $row["Nome"] . "- Prezzo: " . $row["Prezzo"] . "<br>"; 
-            }
-        }
-        //fine prova
-        
-        
         if(!$queryResult)
             {
                 die ("Errore mysql durante l'esecuzione della query: " . $this->_connessione->error);
@@ -182,6 +169,14 @@ class FDatabase {
                     {
                         $this->_result[] = $row;
                     }
+                    
+//                    if($queryResult->num_rows>0)
+//                    {
+//                        while($row =$queryResult->fetch_assoc() )
+//                        {
+//                            echo "<br> Nome: " . $row["Nome"] . "- Prezzo: " . $row["Prezzo"] . "<br>"; 
+//                        }
+//                    }
                  }
                     
                 

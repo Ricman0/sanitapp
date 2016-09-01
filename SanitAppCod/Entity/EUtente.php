@@ -316,12 +316,13 @@ class EUtente
      * 
      * @access public
      * @param EUtente $eUtente L'oggetto di tipo EUtente che si vuole memorizzare nel DB
+     * @return Array|boolean Description
      */
     public function inserisciUtenteDB($eUtente) 
     {
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
-        $fUtente->inserisciUtente($eUtente);
+        return $fUtente->inserisciUtente($eUtente);
     }
     
     

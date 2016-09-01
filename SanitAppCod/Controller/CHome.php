@@ -75,7 +75,7 @@ class CHome {
                 $this->smistaControllerGET($controller, $vHome);
                 break;
             case 'POST': echo "ciao post";
-                echo ("$controller");
+                echo ($controller);
                 $controller =$_POST['controller'];
                 echo ("$controller");
                 $this->smistaControllerPOST($controller);
@@ -174,7 +174,8 @@ class CHome {
                 
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
                 //recupera dati e crea utente.
-                $cRegistrazione->inserisciRegistrazione();
+                $inserito = $cRegistrazione->inserisciRegistrazione();
+                
                 break;
             case 'esami':
                 $cEsami = USingleton::getInstance('CEsami');

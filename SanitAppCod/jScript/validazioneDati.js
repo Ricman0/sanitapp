@@ -41,12 +41,12 @@ function validazioneUtente()
                                 required: true,
                                 maxlength: 16, 
                                 minlength: 16,
-                                remote:
-                                        { 
-                                           type: "GET",
-                                           url: "validazione/codiceFiscale/", 
-                                          
-                                        }
+//                                remote:
+//                                        { 
+//                                           type: "GET",
+//                                           url: "validazione/codiceFiscale/" + ($("#codiceFiscale").val()) + "/", 
+//                                           
+//                                        }
                             },
                     indirizzo:
                             {

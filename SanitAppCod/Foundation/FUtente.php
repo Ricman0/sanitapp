@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of FUtente
  *
@@ -35,6 +29,7 @@ class FUtente extends FDatabase{
      * 
      * @param EUtente $utente L'oggetto di tipo EUtente che si vuole salvare nella
      *                       tabella Utente
+     * @return Array|boolean Description
      */
     public function inserisciUtente($utente)
     {         
@@ -45,7 +40,7 @@ class FUtente extends FDatabase{
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
         $query = "INSERT INTO ". $this->_nomeTabella ."( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
         // eseguo la query
-        $this->eseguiQuery($query);
+        return $this->eseguiQuery($query);
     }
 
     /**
@@ -69,7 +64,7 @@ class FUtente extends FDatabase{
                 . $this->trimEscapeStringa($utente->getCodiceFiscaleUtente()) . "', '"
         . $this->trimEscapeStringa($utente->getViaUtente()) . "', '"
         . $this->trimEscapeStringa($utente->getNumCivicoUtente()) . "', '" 
-                . $this->trimEscapeStringascapeStringa($utente->getCAPUtente()) . "', '"
+                . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
         . $this->trimEscapeStringa($utente->getEmailUtente()) . "', '"  
                 . $this->trimEscapeStringa($utente->getUsernameUtente()) . "', '" 
         . $this->trimEscapeStringa($utente->getPasswordUtente()) . "'" ;
