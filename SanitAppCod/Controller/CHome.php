@@ -117,7 +117,7 @@ class CHome {
                break;
            
             case 'ricercaEsami':
-                $cEsami = USingleton::getInstance('CEsami');
+                $cEsami = USingleton::getInstance('CRicercaEsami');
                 $cEsami->impostaPaginaRicercaEsami();
                 break;
             
@@ -136,6 +136,7 @@ class CHome {
                 $cEsami = USingleton::getInstance('CRicercaEsami');
                 $risultato = $cEsami->impostaPaginaRisultatoEsami();
                 //in $risultato c'è il risultato della query
+                
                 break;
             
             case 'validazione':

@@ -7,7 +7,7 @@ $cHome= USingleton::getInstance('CHome');
 $cHome->impostaPagina();
 
 //        $query = "SELECT * FROM Utente";
-//        $cHome= USingleton::getInstance('CHome
+//        $cHome= USingleton::getInstance('CHome');
 //        $fdb= new FDatabase();
 //        $fdb->eseguiQuery($query);
 //        print_r($fdb);

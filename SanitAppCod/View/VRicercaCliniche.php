@@ -24,4 +24,5 @@ class VRicercaCliniche extends View{
     {
         return $this->visualizzaTemplate('ricercaCliniche');
     }
+    
 }
