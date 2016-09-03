@@ -13,7 +13,6 @@ function validazione(task1)
         case "clinica":
             validazioneClinica();
             break; 
-        
         default: break;
     }
 }
@@ -21,7 +20,6 @@ function validazione(task1)
 
 function validazioneUtente()
 {
-    
     $("#inserisciUtente").validate({
         rules:
                 {
@@ -29,7 +27,6 @@ function validazioneUtente()
                             {
                                 required: true,
                                 maxlength: 20
-
                             },
                     cognome:
                             {
@@ -51,7 +48,7 @@ function validazioneUtente()
                     indirizzo:
                             {
                                 required: true,
-                                maxlength: 20
+                                maxlength: 30
                             },
                     numeroCivico:
                             {
@@ -88,6 +85,7 @@ function validazioneUtente()
                     passwordUtente:
                             {
                                 required: true,
+                                pattern: /^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/,
                                 minlength: 6,
                                 maxlength: 10
                             },
@@ -119,7 +117,7 @@ function validazioneUtente()
                     indirizzo:
                             {
                                 required: "Inserire indirizzo",
-                                maxlength: "La lunghezza massima è 20"
+                                maxlength: "La lunghezza massima è 30"
                             },
                     numeroCivico:
                             {
@@ -129,13 +127,13 @@ function validazioneUtente()
                             {
                                 required: "Inserire il CAP",
                                 number: "Il CAP è un numero",
-                                minlength: "Il CAP è un numero lungo 5 caratteri",
-                                maxlength: "Il CAP è un numero lungo 5 caratteri"
+                                minlength: "Il CAP è un numero lungo 5",
+                                maxlength: "Il CAP è un numero lungo 5"
                             },
                     email:
                             {
                                 required: "Inserire l'email",
-                                email: "Inserire un'email valida",
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com",
 //                                remote: "Email già esistente"
                             },
                     usernameUtente:
@@ -148,6 +146,9 @@ function validazioneUtente()
                     passwordUtente:
                             {
                                 required: "Inserire password",
+                                pattern: "Inserire una password che contenga \n\
+                                         almeno un numero, una lettera maiuscola,\n\
+                                          una lettera minuscola",
                                 minlength: "La lunghezza minima della password è 6",
                                 maxlength: "La lunghezza massima della password è 10"
                             },
@@ -170,18 +171,18 @@ function validazioneMedico()
     $("#inserisciMedico").validate({
         rules:
                 {
-                    nome:
+                    nomeMedico:
                             {
                                 required: true,
                                 maxlength: 20
 
                             },
-                    cognome:
+                    cognomeMedico:
                             {
                                 required: true,
                                 maxlength: 20
                             },
-                    codiceFiscale:
+                    codiceFiscaleMedico:
                             {
                                 required: true,
                                 maxlength: 16, 
@@ -192,23 +193,23 @@ function validazioneMedico()
 //                                           url: "validazione/codiceFiscale/" + $("#codiceFiscale").val()  
 //                                        }
                             },
-                    indirizzo:
+                    indirizzoMedico:
                             {
                                 required: true,
                                 maxlength: 20
                             },
-                    numeroCivico:
+                    numeroCivicoMedico:
                             {
                                 number: true
                             },
-                    CAP:
+                    CAPMedico:
                             {
                                 required: true,
                                 number: true,
                                 minlength: 5,
                                 maxlength: 5
                             },
-                    email:
+                    emailMedico:
                             {
                                 required: true,
                                 email: true,
@@ -232,6 +233,7 @@ function validazioneMedico()
                     passwordMedico:
                             {
                                 required: true,
+                                pattern: /^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/,
                                 minlength: 6,
                                 maxlength: 10
                             },
@@ -258,40 +260,40 @@ function validazioneMedico()
                 },
         messages:
                 {
-                    nome:
+                    nomeMedico:
                             {
                                 required: "Inserire nome",
                                 maxlength: "La lunghezza massima è 20"
                             },
-                    cognome:
+                    cognomeMedico:
                             {
                                 required: "Inserire cognome",
                                 maxlength: "La lunghezza massima è 20"
                             },
-                    codiceFiscale:
+                    codiceFiscaleMedico:
                             {
                                 required: "Inserire il proprio codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
                                 minlength: "Il codice fiscale è lungo 16 caratteri",
 //                                remote: "Codice Fiscale già esistente"
                             },
-                    indirizzo:
+                    indirizzoMedico:
                             {
                                 required: "Inserire indirizzo",
                                 maxlength: "La lunghezza massima è 20"
                             },
-                    numeroCivico:
+                    numeroCivicoMedico:
                             {
                                 number: "Il numero civico è un numero"
                             },
-                    CAP:
+                    CAPMedico:
                             {
                                 required: "Inserire il CAP",
                                 number: "Il CAP è un numero",
                                 minlength: "Il CAP è un numero lungo 5 caratteri",
                                 maxlength: "Il CAP è un numero lungo 5 caratteri"
                             },
-                    email:
+                    emailMedico:
                             {
                                 required: "Inserire l'email",
                                 email: "Inserire un'email valida",
@@ -307,6 +309,9 @@ function validazioneMedico()
                     passwordMedico:
                             {
                                 required: "Inserire password",
+                                pattern: "Inserire una password che contenga \n\
+                                         almeno un numero, una lettera maiuscola,\n\
+                                          una lettera minuscola",
                                 minlength: "La lunghezza minima della password è 6",
                                 maxlength: "La lunghezza massima della password è 10"
                             },
@@ -348,7 +353,6 @@ function validazioneClinica()
                             {
                                 required: true,
                                 maxlength: 20
-
                             },
                     titolare:
                             {
@@ -366,30 +370,10 @@ function validazioneClinica()
 //                                           url: "validazione/codiceFiscale/" + $("#").val()  
 //                                        }
                             },
-                    emailClinica:
-                            {
-                                required: true,
-                                email: true,
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/email/" + $("#email").val()  
-//                                        }             
-                            },
-                    PECClinica:
-                            {
-                                required: true,
-                                email: true,
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/email/" + $("#email").val()  
-//                                        }             
-                            },
                     indirizzoClinica:
                             {
                                 required: true,
-                                maxlength: 20
+                                maxlength: 30
                             },
                     numeroCivicoClinica:
                             {
@@ -412,6 +396,27 @@ function validazioneClinica()
                                 required: true,
                                 maxlength: 20
                             },
+                    emailClinica:
+                            {
+                                required: true,
+                                email: true,
+//                                remote:
+//                                        { 
+//                                           type: "GET",
+//                                           url: "validazione/email/" + $("#email").val()  
+//                                        }             
+                            },
+                    PECClinica:
+                            {
+                                required: true,
+                                email: true,
+//                                remote:
+//                                        { 
+//                                           type: "GET",
+//                                           url: "validazione/email/" + $("#email").val()  
+//                                        }             
+                            },
+                    
                     usernameClinica:
                             {
                                 required: true,
@@ -426,6 +431,7 @@ function validazioneClinica()
                     passwordClinica:
                             {
                                 required: true,
+                                pattern: /^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/,
                                 minlength: 6,
                                 maxlength: 10
                             },
@@ -437,107 +443,144 @@ function validazioneClinica()
                     telefonoClinica:
                             {
                                 required: true,
-                                maxlength: 2
+                                maxlength: 10
                             },
                     capitaleSociale:
                             {
                                 required: true,
-                                rangelength: [2,2]
+                                maxlength: 11
                             },
                     orarioApertutaMattina:
                             {
-                                
+                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
                             },
                     orarioChiusuraMattina:
                             {
-                                
+                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
                             },
                     orarioApertutaPomeriggio:
                             {
-                                
+                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
                             },
                     orarioChiusuraPomeriggio:
                             {
-                                
+                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
                             },
                     orarioContinuato:
                             {
-                                
+                                boolean: true
                             }
                 },
         messages:
                 {
-                    nome:
+                    nomeClinica:
                             {
-                                required: "Inserire nome",
-                                maxlength: "La lunghezza massima è 20"
+                                required: "Inserire il nome della clinica",
+                                maxlength: "La sequenza di caratteri deve essere massimo 20"
                             },
-                    cognome:
+                    titolare:
                             {
-                                required: "Inserire cognome",
-                                maxlength: "La lunghezza massima è 20"
+                                required: "Inserire il nome e cognome del titolare",
+                                maxlength: "La sequenza di caratteri deve essere massimo 50"
                             },
-                    codiceFiscale:
+                    partitaIVA:
                             {
-                                required: "Inserire il proprio codice fiscale",
-                                maxlength: "Il codice fiscale è lungo 16 caratteri",
-                                minlength: "Il codice fiscale è lungo 16 caratteri",
-//                                remote: "Codice Fiscale già esistente"
+                                required: "Inserire la partita IVA",
+                                maxlength: "La sequenza massima di numeri è 11", 
+                                minlength: "La sequenza minima di numeri è 11",
+//                                remote:                                      
                             },
-                    indirizzo:
+                    indirizzoClinica:
                             {
-                                required: "Inserire indirizzo",
-                                maxlength: "La lunghezza massima è 20"
+                                required: "Inserire l'indirizzo della clinica",
+                                maxlength: "La sequenza massima di numeri è 30"
                             },
-                    numeroCivico:
+                    numeroCivicoClinica:
                             {
-                                number: "Il numero civico è un numero"
+                                number: "Deve essere un numero",
                             },
-                    CAP:
+                    CAPClinica:
                             {
-                                required: "Inserire il CAP",
-                                number: "Il CAP è un numero",
-                                minlength: "Il CAP è un numero lungo 5 caratteri",
-                                maxlength: "Il CAP è un numero lungo 5 caratteri"
+                                required: "Inserire il CAP della clinica",
+                                number: "Deve essere un numero",
+                                minlength: "La sequenza minima di numeri è 5",
+                                maxlength: "La sequenza massima di numeri è 5"
                             },
-                    email:
+                    localitàClinica:
                             {
-                                required: "Inserire l'email",
-                                email: "Inserire un'email valida",
-//                                remote: "Email già esistente"
+                                required: "Inserire la località della clinica",
+                                maxlength: "La sequenza massima di caratteri è 20"
                             },
-                    usernameMedico:
+                    provinciaClinica:
+                            {
+                                required: "Inserire la provincia della clinica",
+                                maxlength: "La sequenza massima di caratteri è 20"
+                            },
+                    emailClinica:
+                            {
+                                required: "Inserire l'email della clinica",
+                                email: "Deve essere un'email"
+//                                remote:
+//                                                    
+                            },
+                    PECClinica:
+                            {
+                                required: "Inserire l'indirizzo PEC della clinica",
+                                email: "Deve essere un'email"
+//                                remote:
+//                                                     
+                            },
+                    
+                    usernameClinica:
                             {
                                 required: "Inserire username",
-                                minlength: "La lunghezza minima dello username è 2",
-                                maxlength: "La lunghezza massima dello username è 15",
-//                                remote: "Username già esistente"
+                                minlength: "La sequenza alfanumerica minima  è 2",
+                                maxlength: "La sequenza alfanumerica massima è 15"
+//                                remote:
                             },
-                    passwordMedico:
+                    passwordClinica:
                             {
                                 required: "Inserire password",
-                                minlength: "La lunghezza minima della password è 6",
-                                maxlength: "La lunghezza massima della password è 10"
+                                pattern: "Inserire una password che contenga \n\
+                                         almeno un numero, una lettera maiuscola,\n\
+                                          una lettera minuscola",
+                                minlength: "La sequenza alfanumerica minima  è 6",
+                                maxlength: "La sequenza alfanumerica massima è 10"
                             },
-                    ripetiPasswordMedico:
+                    ripetiPasswordClinica:
                             {
-                                required: "Inserire nuovamente la password",
-                                equalTo: "La password deve essere sempre la stessa"
+                                required: "Ripetere password",
+                                equalTo: "La password ripetuta deve essere identica alla password appena inserita"
                             },
-                    PECMedico:
+                    telefonoClinica:
                             {
-                                required: "Inserire la PEC",
-                                email: "Inserire un'email valida"
+                                required: "Inserire il telefono",
+                                maxlength:"La sequenza massima di numeri è 10"
                             },
-                    provinciaAlbo:
+                    capitaleSociale:
                             {
-                                required: "Inserire la provincia dell'albo a cui si è iscritti",
-                                maxlength: "Inserire la sigla della provincia"
+                                required: "Inserire il capitale sociale della clinica",
+                                maxlength: "La sequenza massima di numeri è 11"
                             },
-                    numeroIscrizione:
+                    orarioApertutaMattina:
                             {
-                                required: "Inserire il numero di iscrizione",
-                                rangelength: "Deve avere 6 numeri",
+                                pattern: "Inserire un orario del tipo:  08:30 oppure 08:30:00"
+                            },
+                    orarioChiusuraMattina:
+                            {
+                                pattern: "Inserire un orario del tipo:  12:30 oppure 12:30:00"
+                            },
+                    orarioApertutaPomeriggio:
+                            {
+                                pattern: "Inserire un orario del tipo:  15:30 oppure 15:30:00"
+                            },
+                    orarioChiusuraPomeriggio:
+                            {
+                                pattern: "Inserire un orario del tipo:  19:30 oppure 19:30:00"
+                            },
+                    orarioContinuato:
+                            {
+                                boolean: "Deve essere un booleano"
                             }
                 },
         submitHandler:function(form) 

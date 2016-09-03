@@ -67,10 +67,12 @@ class CRegistrazione {
             case 'clinica':
                 $this->recuperaDatiECreaClinica();
 //                return $vRegistrazione->restituisciFormClinica();
+                break;
             
             case 'medico':
                 $this->recuperaDatiECreaMedico();
 //                return $vRegistrazione->restituisciFormMedico();
+                break;
 
             default:
                 //recupera dati dal form e crea un nuovo utente
@@ -151,8 +153,8 @@ class CRegistrazione {
        if($validi)
        {           
            $eMedico = new EMedico($datiMedico['nome'], $datiMedico['cognome'],
-                   $datiMedico['codiceFiscale'], $datiMedico['via'], 
-                   $datiMedico['cap'], $datiMedico['email'], $datiMedico['username'],
+                   $datiMedico['codiceFiscale'], $datiMedico['via'], $datiMedico['numeroCivico'],
+                   $datiMedico['CAP'], $datiMedico['email'], $datiMedico['username'],
                    $datiMedico['password'], $datiMedico['PEC'],
                    $datiMedico['provinciaAlbo'],$datiMedico['numeroIscrizione']);
            //eMedico richiama il metodo per creare FMedico poi FMedico aggiunge l'utente nel DB
@@ -211,21 +213,21 @@ class CRegistrazione {
     {
         $datiClinica = Array();
         $datiClinica['nomeClinica'] = $this->recuperaValore('nomeClinica');
-        $datiClinica['titolareClinica'] = $this->recuperaValore('titolareClinica'); 
+        $datiClinica['titolare'] = $this->recuperaValore('titolare'); 
         $datiClinica['partitaIVA'] = $this->recuperaValore('partitaIVA');
-        $datiClinica['via'] = $this->recuperaValore('via');
-        if(isset($_POST['numeroCivico']))
+        $datiClinica['via'] = $this->recuperaValore('indirizzoClinica');
+        if(isset($_POST['numeroCivicoClinica']))
         {
-            $datiClinica['numeroCivico'] = $this->recuperaValore('numeroCivico');
+            $datiClinica['numeroCivico'] = $this->recuperaValore('numeroCivicoClinica');
         }
-        $datiClinica['cap'] = $this->recuperaValore('cap');
+        $datiClinica['cap'] = $this->recuperaValore('CAPClinica');
         $datiClinica['localitàClinica'] = $this->recuperaValore('localitàClinica');
         $datiClinica['provinciaClinica'] = $this->recuperaValore('provinciaClinica');
-        $datiClinica['email'] = $this->recuperaValore('email');
-        $datiClinica['username'] = $this->recuperaValore('username');
-        $datiClinica['password'] = $this->recuperaValore('password');
-        $datiClinica['PEC'] = $this->recuperaValore('PEC');
-        $datiClinica['telefono'] = $this->recuperaValore('telefono');
+        $datiClinica['email'] = $this->recuperaValore('emailClinica');
+        $datiClinica['username'] = $this->recuperaValore('usernameClinica');
+        $datiClinica['password'] = $this->recuperaValore('passwordClinica');
+        $datiClinica['PEC'] = $this->recuperaValore('PECClinica');
+        $datiClinica['telefono'] = $this->recuperaValore('telefonoClinica');
         $datiClinica['capitaleSociale'] = $this->recuperaValore('capitaleSociale');
         $datiClinica['orarioAperturaAM'] = $this->recuperaValore('orarioAperturaAM');
         $datiClinica['orarioAperturaPM'] = $this->recuperaValore('orarioAperturaPM');
@@ -246,17 +248,21 @@ class CRegistrazione {
     private function recuperaDatiMedico()
     {
         $datiMedico = Array();
-        $datiMedico['nome'] = $this->recuperaValore('nome');
-        $datiMedico['cognome'] = $this->recuperaValore('cognome'); 
-        $datiMedico['codiceFiscale'] = $this->recuperaValore('codiceFiscale');
-        $datiMedico['via'] = $this->recuperaValore('via');
-        $datiMedico['cap'] = $this->recuperaValore('cap');
-        $datiMedico['email'] = $this->recuperaValore('email');
-        $datiMedico['username'] = $this->recuperaValore('username');
-        $datiMedico['password'] = $this->recuperaValore('password');
-        $datiMedico['PEC'] = $this->recuperaValore('PEC');
+        $datiMedico['nome'] = $this->recuperaValore('nomeMedico');
+        $datiMedico['cognome'] = $this->recuperaValore('cognomeMedico'); 
+        $datiMedico['codiceFiscale'] = $this->recuperaValore('codiceFiscaleMedico');
+        $datiMedico['via'] = $this->recuperaValore('indirizzoMedico');
+        if(isset($_POST['numeroCivicoMedico']))
+        {
+            $datiMedico['numeroCivico'] = $this->recuperaValore('numeroCivicoMedico');  
+        }
+        $datiMedico['CAP'] = $this->recuperaValore('CAPMedico');
+        $datiMedico['email'] = $this->recuperaValore('emailMedico');
+        $datiMedico['username'] = $this->recuperaValore('usernameMedico');
+        $datiMedico['password'] = $this->recuperaValore('passwordMedico');
+        $datiMedico['PEC'] = $this->recuperaValore('PECMedico');
         $datiMedico['provinciaAlbo'] = $this->recuperaValore('provinciaAlbo');
-        $datiMedico['numIscrizione'] = $this->recuperaValore('numeroIscrizione'); 
+        $datiMedico['numeroIscrizione'] = $this->recuperaValore('numeroIscrizione'); 
         return $datiMedico;
     }
 

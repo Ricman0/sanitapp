@@ -25,7 +25,7 @@ class FMedico extends FDatabase {
         // imposto il nome della tabella
         $this->_nomeTabella = "medico";
         $this->_attributiTabella = "Nome, Cognome, CodFiscale, Via, NumCivico, "
-                + "CAP, Email, Password, PEC, Validato, ProvinciaAlbo, NumIscrizione";
+                . "CAP, Email, Password, PEC, Validato, ProvinciaAlbo, NumIscrizione";
     }
     
     /**
@@ -42,12 +42,12 @@ class FMedico extends FDatabase {
         
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = 'INSERT INTO ' . $this->_nomeTabella . '('. $this->_attributiTabella .') VALUES('. $valoriAttributi.')';
+        $query = "INSERT INTO " . $this->_nomeTabella . " (". $this->_attributiTabella .") VALUES(" . $valoriAttributi.")";
         // eseguo la query
         $this->eseguiQuery($query);
     }
     
-    /**
+    /** 
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
      * per l'inserimento di un medico nel database
      * 
@@ -57,13 +57,19 @@ class FMedico extends FDatabase {
      */
     private function getAttributi($medico) 
     {
-        $valoriAttributi = $medico->getNomeMedico() . ', ' +$medico->getCognomeMedico()
-                . ', ' . $medico->getViaMedico() . ', '
-                . $medico->getNumCivicoMedico() . ', ' . $medico->getCAPMedico() . ', '
-                . $medico->getCodiceFiscaleMedico() . ', '
-                . $medico->getEmailMedico() . ', ' .  $medico->getPasswordMedico()
-                . ', ' . $medico->getPECMedico() . ', ' . $medico->getValidatoMedico()
-                . ', ' . $medico->getProvinciaAlboMedico() . ', ' . $medico->getNumIscrizioneMedico();
+        $valoriAttributi ="'" . $this->trimEscapeStringa($medico->getNomeMedico()) . "', '" 
+                . $this->trimEscapeStringa($medico->getCognomeMedico()) . "', '" 
+                . $this->trimEscapeStringa($medico->getCodiceFiscaleMedico()) . "', '"
+                . $this->trimEscapeStringa($medico->getViaMedico()) . "', '"
+                . $this->trimEscapeStringa($medico->getNumCivicoMedico()) . "', '" 
+                . $this->trimEscapeStringa($medico->getCAPMedico()) . "', '"
+                
+                . $this->trimEscapeStringa($medico->getEmailMedico()) . "', '" 
+                . $this->trimEscapeStringa($medico->getPasswordMedico()) . "', '"
+                . $this->trimEscapeStringa($medico->getPECMedico()) . "', '" 
+                . $this->trimEscapeStringa($medico->getValidatoMedico()) . "', '"
+                . $this->trimEscapeStringa($medico->getProvinciaAlboMedico()) . "', '" 
+                . $this->trimEscapeStringa($medico->getNumIscrizioneMedico()) . "'";
         return $valoriAttributi;
     }
     

@@ -159,6 +159,11 @@ class UValidazione {
                     $stringaErrore = "La" . $chiave . " deve essere una sequenza di caratteri. Massimo 30";
                     break;
                 
+                case 'numeroCivico':
+                    $pattern = '/^[0-9]{1,6}$/';
+                    $stringaErrore = "Il" . $chiave . " deve essere un numero";
+                    break;
+                
                 case 'CAP':
                     $pattern = '/^[0-9]{5}$/';
                     $stringaErrore = "Il" . $chiave . " deve essere una sequenza di 5 numeri";
@@ -322,6 +327,7 @@ class UValidazione {
      */
     private function validaDato($pattern, $chiave, $valore, $stringaErrore) 
     {
+        echo ($chiave);
         if (preg_match($pattern, $valore)) 
         {
             $this->dati_errati[$chiave] = FALSE;

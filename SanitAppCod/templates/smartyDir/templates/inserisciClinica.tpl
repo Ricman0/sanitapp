@@ -3,6 +3,10 @@
 </head>
 
 <form class="formInserisci" name="inserisciClinica" method="post" id="inserisciClinica">
+    <div>
+            <input type="hidden" name="controller" value="registrazione"/>
+            <input type="hidden" name="task" value="clinica"/>
+    </div>
     <div class="informazioniClinica" >   
         <div class="nomeClinica">            
             <input type="text" name="nomeClinica" id="nomeClinica" placeholder="Villa Serena" required/>
@@ -58,12 +62,12 @@
         </div>
         <div class="Località"> 
             <input type="text" name="LocalitàClinica" id="localitàClinica" placeholder="Penne" required/>
-            <label for="localitàClinica">CAP</label>
+            <label for="localitàClinica">Località</label>
             <br>
         </div>
         <div class="Provincia"> 
             <input type="text" name="ProvinciaClinica" id="provinciaClinica" placeholder="Pescara" required/>
-            <label for="provinciaClinica">CAP</label>
+            <label for="provinciaClinica">Provincia</label>
             <br>
         </div>
     </div>

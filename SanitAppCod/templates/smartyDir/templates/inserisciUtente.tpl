@@ -5,8 +5,8 @@
             </div>
             <div class="informazioni"> 
                 <div class="nome">            
-                    <label for="nome">Nome</label>
                     <input type="text" name="nome" id="nome" placeholder="Mario" required/>
+                    <label for="nome">Nome</label>
                     <br>
                 </div>
                 <div class="cognome"> 

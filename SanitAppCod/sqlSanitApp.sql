@@ -39,7 +39,7 @@ INSERT INTO categoria (Nome) VALUES
 --
 
 CREATE TABLE clinica (
-  PartitaIVA varchar(20) NOT NULL,
+  PartitaIVA varchar(11) NOT NULL,
   NomeClinica varchar(20) NOT NULL,
   Titolare varchar(50) NOT NULL,
   Via varchar(30) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE clinica (
   Username varchar(10) NOT NULL,
   Password varchar(10) NOT NULL,
   PEC varchar(320) NOT NULL,
-  Telefono smallint(6) DEFAULT NULL,
+  Telefono int(10) DEFAULT NULL,
   CapitaleSociale int(11) DEFAULT NULL,
   OrarioAperturaAM time DEFAULT NULL,
   OrarioChiusuraAM time DEFAULT NULL,
