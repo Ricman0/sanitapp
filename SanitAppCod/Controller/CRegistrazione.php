@@ -19,7 +19,27 @@ class CRegistrazione {
         $task= $vRegistrazione->getTask();
         switch ($task) 
         {
-            
+            //secondo me non dovrebbe stare in GET perchè il metodo che vorrei sarebbe PUT 
+            // ma il link solo il metodo GET
+            case 'conferma':
+                switch (getParametro())
+                {
+                    case 'utente':
+                        
+                        break;
+                    
+                    case 'medico':
+                        break;
+                    
+                    case 'clinica':
+                        break;
+                    
+                    default: 
+                        echo 'errore durante la conferma';
+                        break;
+                }
+                
+                break;
             case 'clinica':
                 return $vRegistrazione->restituisciFormClinica();
             
@@ -65,36 +85,83 @@ class CRegistrazione {
         {
             
             case 'clinica':
-                $this->recuperaDatiECreaClinica();
+                $inserito = $this->recuperaDatiECreaClinica();
 //                return $vRegistrazione->restituisciFormClinica();
+                if($inserito === TRUE)
+                    {
+                       //invia mail riscontro dell’avvenuta registrazione 
+                       //contenente informazioni riepilogative
+                       // e con link di conferma
+                       $mail = USingleton::getInstance('UMail');
+                       if ($mail->inviaMailRegistrazioneClinica() === TRUE)
+                       {
+                           // visualizzo che un'email è stata inviata sulla propria mail
+                           $vRegistrazione = USingleton::getInstance('VRegistrazione');
+                           $vRegistrazione->confermaInserimento();
+                       }                    
+                    }
+                else
+                    {
+                        // dati corretti ma errore nel database
+                        
+                        echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
+                        return $vRegistrazione->restituisciFormClinica();
+                    }
                 break;
             
             case 'medico':
-                $this->recuperaDatiECreaMedico();
+                $inserito = $this->recuperaDatiECreaMedico();
 //                return $vRegistrazione->restituisciFormMedico();
+                if($inserito === TRUE)
+                    {
+                       //invia mail riscontro dell’avvenuta registrazione 
+                       //contenente informazioni riepilogative
+                       // e con link di conferma
+                       $mail = USingleton::getInstance('UMail');
+                       if ($mail->inviaMailRegistrazioneMedico()  === TRUE)
+                       {
+                           // visualizzo che un'email è stata inviata sulla propria mail
+                           $vRegistrazione = USingleton::getInstance('VRegistrazione');
+                           $vRegistrazione->confermaInserimento();
+                       }
+                    }
+                else
+                    {
+                        // dati corretti ma errore nel database
+                        echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
+                        return $vRegistrazione->restituisciFormMedico();
+                    }
                 break;
 
             default:
                 //recupera dati dal form e crea un nuovo utente
                 $inserito = $this->recuperaDatiECreaUtente();
-                if(is_bool($inserito))
+                if($inserito === TRUE)
                 {
-                    if($inserito === TRUE)
-                    {
-                       //invia mail  
-                    }
-                    else
-                    {
-                        // dati corretti ma errore nel database
-                    }
-                    
+                    //accedo al DB per ottenere le informazioni sull'utente inserito o è sufficiente $POST?
+                    //messaggio di conferma
+
+                   //invia mail riscontro dell’avvenuta registrazione 
+                   //contenente informazioni riepilogative
+                   // e con link di conferma
+                   $mail = USingleton::getInstance('UMail'); 
+                   if($mail->inviaMailRegistrazioneUtente() === TRUE)
+                   {
+                       // visualizzo che un'email è stata inviata sulla propria mail
+                       $vRegistrazione = USingleton::getInstance('VRegistrazione');
+                       $vRegistrazione->confermaInserimento();
+                   }   
                 }
-                    else
+                else
                 {
-                    //visualizza errori
-//                    return $VRegistrazione->set_errori($Eutente->data_err,$caricamento,'registrazione');
+                    // dati corretti ma errore nel database
+
+                    echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
                     return $vRegistrazione->restituisciFormUtente();
                 }
+                    
+                    //visualizza errori
+    //                    return $VRegistrazione->set_errori($Eutente->data_err,$caricamento,'registrazione');
                 break;
         }
     }
@@ -309,6 +376,21 @@ class CRegistrazione {
         if(isset($_POST[$indice]))
        {
             $parametro = $_POST[$indice];
+       }
+       return $parametro;
+    }
+    
+    /**
+     * Metodo che permette di ottenere il parametro1
+     * 
+     * @access private
+     * @return string Il parametro1 
+     */
+    private function getParametro1()
+    {
+        if(isset($_REQUEST['parametro1']))
+       {
+            $parametro = $_REQUEST['parametro1'];
        }
        return $parametro;
     }

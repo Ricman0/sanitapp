@@ -73,6 +73,12 @@ class EMedico
     private $_numIscrizione;
     
     /**
+     * @var string $_confermato permette di capire se l'account del medico è 
+     * stato confermato(TRUE) o meno          
+     */
+    private $_confermato;
+    
+    /**
      * Costruttore della classe EMedico
      * 
      * @param string $nome Il nome del medico
@@ -100,6 +106,7 @@ class EMedico
         $this->_PEC = $PEC;
         $this->_provinciaAlbo = $provinciaAlbo;
         $this->_numIscrizione = $numIscrizione;
+        $this->_confermato = FALSE;
     }
     
     //metodi get
@@ -223,7 +230,15 @@ class EMedico
         return $this->_password;
     }
     
-    
+    /**
+     * Metodo che permette di capire se l'account è stato confermato o meno
+     * 
+     * @return boolean TRUE se l'account è stato confermato, FALSE altrimenti
+     */
+    public function getConfermatoMedico()
+    {
+        return $this->_confermato;
+    }
     //metodi set
     
     /**
@@ -345,6 +360,15 @@ class EMedico
         $this->_provinciaAlbo = $provinciaAlbo;
     }
     
+    /**
+     * Metodo che permette di impostare la conferma dell'account 
+     * 
+     * @param boolean $confermato Imposta la conferma dell'account 
+     */
+    public function setConfermatoMedico($confermato)
+    {
+        $this->_confermato= $confermato;
+    }
     
     
     /**

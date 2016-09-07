@@ -29,7 +29,7 @@ class FDatabase {
     
     /**
      * @access protected
-     * @var array $_result è un array contenente il risultato della query
+     * @var array|boolena $_result contiene il risultato della query
      */
     protected $_result = array();
 
@@ -137,7 +137,7 @@ class FDatabase {
      * @final
      * @access public
      * @param string $query La query da eseguire
-     * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
+     * @return array|boolean Il risultato della query.
      */
     final public function eseguiQuery($query) 
     {
@@ -154,6 +154,7 @@ class FDatabase {
                 if($queryResult === TRUE)
                 {
                    echo 'Query eseguita con successo'; 
+                   $this->_result = TRUE;
                 }
                 else 
                 {

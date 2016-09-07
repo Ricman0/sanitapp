@@ -7,10 +7,13 @@
  * @author Claudia Di Marco & Riccardo Mantini
  */
 
-require './libs/PHPMailer/class.phpmailer.php';
+require './libs/PHPMailer/PHPMailerAutoload.php';
+
 class UMail {
     
     /**
+     * La mail da inviare
+     * 
      * @access private
      * @var type Description
      */
@@ -25,8 +28,8 @@ class UMail {
     {
         //se non esiste già un'istanza di PHPMailer, crea un'istanza di PHPMailer
         // il riferimento per tale istanza è $email
-        $email = USingleton::getInstace('PHPMailer');
-        $config = USingleton::getInstace('Config');
+        $email = USingleton::getInstance('PHPMailer');
+        $config = USingleton::getInstance('Config');
         $emailConfig = $config->getEmailConfig();
         // si specifica il metodo da usare. 
         // si dice alla classe di voler usare SMTP
@@ -67,10 +70,14 @@ class UMail {
         // imposto il body dell'email; stripslashes rimuove gli eventuali backslash
         $this->_email->Body = stripslashes($body);
         
-        if($allegare !="")
+        if($allegati !="")
         {
+            foreach ($allegati as $key => $value) 
+            {
+                $this->_email->AddAttachment($allegati);
+            }
             //qui dovrai ciclare gli allegati se sono più di uno con il solito foreach 
-            $this->_email->AddAttachment($allegare); 
+             
         } 
         if (!$this->_email->send())
         {}
@@ -86,6 +93,112 @@ class UMail {
         
     }
     
+    
+    /**
+     * Metodo che permette l'invio di una mail all'utente contenente
+     * i dati inseriti nella form e un link per validare l'account.
+     * 
+     * @access public
+     * 
+     */
+    public function inviaMailRegistrazioneUtente()
+    {
+        //@param string $destinatario Il destinatario a cui inviare la mail riepilogativa con link //l'ho eliminato
+        //aggiunge l'indirizzo email a cui inviare l'email ("to:")
+        $this->_email->addAddress($_POST['email']);
+        // imposto l'oggetto dell'email
+        $this->_email->Subject = "Account SanitApp";// = $subject;
+        $testo = "Ciao, " . $_POST['nome'] . ", Benvenuto in SanitApp!"
+                . " Questa è un'email riepilogativa dei dati che hai inserito."
+                . " Nome: " . $_POST['nome'] ."\r\n"
+                . " Cognome: ". $_POST['cognome'] ."\r\n"
+                . " Codice Fiscale: " . $_POST['codiceFiscale'] ."\r\n"
+                . " Indirizzo: " . $_POST['indirizzo'] ."\r\n"
+                . " CAP: ". $_POST['CAP'] ."\r\n"
+                . " Email: ". $_POST['email'] . "\r\n"
+                . " Username: ". $_POST['username'] ."\r\n"
+                //devo inserire anche il link per la conferma
+                . " Per completare la registrazione, clicca sul link seguente: \n"
+                . "http://www.sanitapp/registrazione/conferma/utente/" . $_POST['username'] . "/";    
+        
+        $this->_email->Body = $testo;
+        $inviata = $this->_email->send();
+        if ($inviata ===TRUE)
+        {
+            echo "";
+        }
+    }
+    
+    /**
+     * Metodo che permette l'invio di una mail al medico contenente
+     * i dati inseriti nella form e un link per validare l'account.
+     * 
+     * @access public
+     */
+    public function inviaMailRegistrazioneMedico()
+    {
+        //aggiunge l'indirizzo email a cui inviare l'email ("to:")
+        $this->_email->addAddress($_POST['emailMedico']);
+        // imposto l'oggetto dell'email
+        $this->_email->Subject = "Account SanitApp";// = $subject;
+        $testo = " Benvenuto in SanitApp Dott." . $_POST['cognomeMedico'] . "!"
+                . " Questa è un'email riepilogativa dei dati che ha inserito."
+                . " Nome: " . $_POST['nomeMedico'] ."\r\n"
+                . " Cognome: ". $_POST['cognomeMedico'] ."\r\n"
+                . " Codice Fiscale: " . $_POST['codiceFiscaleMedico'] ."\r\n"
+                . " Indirizzo: " . $_POST['indirizzoMedico'] ."\r\n"
+                . " CAP: ". $_POST['CAPMedico'] ."\r\n"
+                . " Email: ". $_POST['emailMedico'] . "\r\n"
+                . " Username: ". $_POST['usernameMedico'] ."\r\n"
+                . " PEC: ". $_POST['PECMedico'] ."\r\n"
+                . " Provincia Albo: ". $_POST['provinciaAlbo'] ."\r\n"
+                . " Iscrizione numero: ". $_POST['numeroIscrizione'] ."\r\n"
+                //devo inserire anche il link per la conferma
+                . " Per completare la registrazione, clicca sul link seguente: \n"
+                . "http://www.sanitapp/registrazione/conferma/medico/" . $_POST['usernameMedico'] . "/";    
+        $this->_email->Body = $testo;
+        $inviata = $this->_email->send();
+        if ($inviata ===TRUE)
+        {
+            echo "";
+        }
+    }
+    
+     /**
+     * Metodo che permette l'invio di una mail alla clinica contenente
+     * i dati inseriti nella form e un link per validare l'account.
+     * 
+     * @access public
+     */
+    public function inviaMailRegistrazioneClinica()
+    {
+        //aggiunge l'indirizzo email a cui inviare l'email ("to:")
+        $this->_email->addAddress($_POST['emailClinica']);
+        // imposto l'oggetto dell'email
+        $this->_email->Subject = "Account SanitApp";// = $subject;
+        $testo = " Benvenuto in SanitApp clinca" . $_POST['nomeClinica'] . "!"
+                . " Questa è un'email riepilogativa dei dati che ha inserito."
+                . " Nome della clinica: " . $_POST['nomeClinica'] ."\r\n"
+                . " Titolare: ". $_POST['titolare'] ."\r\n"
+                . " Partita IVA: " . $_POST['partitaIVA'] ."\r\n"
+                . " Indirizzo: " . $_POST['indirizzoClinica'] ."\r\n"
+                . " CAP: " . $_POST['CAPClinica'] ."\r\n"
+                . " Località: " . $_POST['localitàClinica'] . "\r\n"
+                . " Provincia: " . $_POST['provinciaClinica'] . "\r\n"
+                . " Email: ". $_POST['emailClinica'] . "\r\n"
+                . " Username: ". $_POST['usernameClinica'] ."\r\n"
+                . " PEC: ". $_POST['PECClinica'] ."\r\n"
+                . " Telefono: ". $_POST['telefonoClinica'] ."\r\n"
+                //devo inserire anche il link per la conferma
+                . " Per completare la registrazione, clicca sul link seguente: \n"
+                . "http://www.sanitapp/registrazione/conferma/clinica/" . $_POST['usernameClinica'] . "/";    
+        $this->_email->Body = $testo;
+        $inviata = $this->_email->send();
+        if ($inviata ===TRUE)
+        {
+            echo "";
+        }
+    }
     /**
      * Metodo che restituisce l'errore che si è avuto durante l'invio dell'email 
      * 

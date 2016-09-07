@@ -86,6 +86,12 @@ class EClinica
      */
     private $_orarioContinuato;
     
+    /**
+     * @var string $_confermato permette di capire se l'account della clinica è 
+     * stato confermato(TRUE) o meno          
+     */
+    private $_confermato;
+    
     // costruttore
     
     /**
@@ -124,6 +130,7 @@ class EClinica
         $this->_orarioAperturaPM = $orarioAperturaPM;
         $this->_orarioChiusuraPM= $orarioChiusuraPM;
         $this->_orarioContinuato= $orarioContinuato;
+        $this->_confermato = FALSE;
     }
     
     // metodi get
@@ -299,6 +306,16 @@ class EClinica
         return $this->_orarioChiusuraPM;
     }
     
+    /**
+     * Metodo che permette di capire se l'account è stato confermato o meno
+     * 
+     * @return boolean TRUE se l'account è stato confermato, FALSE altrimenti
+     */
+    public function getConfermatoClinica()
+    {
+        return $this->_confermato;
+    }
+    
     //metodi set
     
     /**
@@ -439,6 +456,16 @@ class EClinica
     public function setTelefonoClinica($tel)
     {
         $this->_telefono = $tel;
+    }
+    
+    /**
+     * Metodo che permette di impostare la conferma dell'account 
+     * 
+     * @param boolean $confermato Imposta la conferma dell'account 
+     */
+    public function setConfermatoClinica($confermato)
+    {
+        $this->_confermato= $confermato;
     }
     
     /**

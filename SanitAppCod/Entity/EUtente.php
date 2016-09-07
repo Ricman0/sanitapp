@@ -67,6 +67,12 @@ class EUtente
     private $_username;
     
     /**
+     * @var string $_confermato permette di capire se l'account dell'utente è 
+     * stato confermato(TRUE) o meno         
+     */
+    private $_confermato;
+    
+    /**
      * @var Array(EPrenotazione) $_prenotazioni array che contiente le 
      *                           prenotazioni a nome dell'utente
      */
@@ -102,6 +108,7 @@ class EUtente
         $this->_email = $email; 
         $this->_username = $username;
         $this->_password = $password; 
+        $this->_confermato = FALSE;
         $this->_prenotazioni = new ArrayObject() ;// da vedere:array di oggetti o bastava semplicemente Array()??
     }
     
@@ -206,6 +213,16 @@ class EUtente
         return $this->_prenotazioni;
     }
     
+    /**
+     * Metodo che permette di capire se l'account è stato confermato o meno
+     * 
+     * @return boolean TRUE se l'account è stato confermato, FALSE altrimenti
+     */
+    public function getConfermatoUtente()
+    {
+        return $this->_confermato;
+    }
+    
     //metodi set
     
     /**
@@ -299,6 +316,16 @@ class EUtente
     }
     
     /**
+     * Metodo che permette di impostare la conferma dell'account 
+     * 
+     * @param boolean $confermato Imposta la conferma dell'account 
+     */
+    public function setConfermatoUtente($confermato)
+    {
+        $this->_confermato= $confermato;
+    }
+    
+    /**
      * Metodo che permette di aggiungere una prenotazione nell'array di 
      * prenotazioni dell'utente
      * 
@@ -316,7 +343,7 @@ class EUtente
      * 
      * @access public
      * @param EUtente $eUtente L'oggetto di tipo EUtente che si vuole memorizzare nel DB
-     * @return Array|boolean Description
+     * @return Boolean TRUE se l'utente è stato inserito correttamente nel DB, FALSE altrimenti.
      */
     public function inserisciUtenteDB($eUtente) 
     {
@@ -325,5 +352,7 @@ class EUtente
         return $fUtente->inserisciUtente($eUtente);
     }
     
+    
+   
     
 }

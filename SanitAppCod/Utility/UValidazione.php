@@ -66,6 +66,7 @@ class UValidazione {
      * 
      * @access public
      * @param Array $datiUtente Dati dell'utente da validare
+     * @return boolean TRUE se tutti i dati sono stati validati, FALSE altrimenti.
      */
     public function validaDatiUtente($datiUtente) 
     {
@@ -133,6 +134,7 @@ class UValidazione {
      * 
      * @access public
      * @param Array $datiMedico Dati del medico da validare
+     * @return boolean TRUE se tutti i dati sono stati validati, FALSE altrimenti.
      */
     public function validaDatiMedico($datiMedico) 
     {
@@ -212,6 +214,7 @@ class UValidazione {
      * 
      * @access public
      * @param Array $datiClinica Dati della clinica da validare
+     * @return boolean TRUE se tutti i dati sono stati validati, FALSE altrimenti.
      */
     public function validaDatiClinica($datiClinica) 
     {

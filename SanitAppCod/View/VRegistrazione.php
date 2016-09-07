@@ -31,4 +31,11 @@ class VRegistrazione extends View {
     {
         return $this->visualizzaTemplate('inserisciMedico');
     }
+    
+    public function confermaInserimento()
+    {
+        //perchè devo inserire il return???
+        
+        $this->visualizzaTemplate('mailInviata');
+    }
 }

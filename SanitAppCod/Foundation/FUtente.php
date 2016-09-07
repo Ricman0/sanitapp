@@ -29,7 +29,7 @@ class FUtente extends FDatabase{
      * 
      * @param EUtente $utente L'oggetto di tipo EUtente che si vuole salvare nella
      *                       tabella Utente
-     * @return Array|boolean Description
+     * @return Boolean TRUE se l'utente è stato inserito correttamente nel DB, FALSE altrimenti.
      */
     public function inserisciUtente($utente)
     {         
@@ -40,7 +40,15 @@ class FUtente extends FDatabase{
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
         $query = "INSERT INTO ". $this->_nomeTabella ."( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
         // eseguo la query
-        return $this->eseguiQuery($query);
+        if ($this->eseguiQuery($query)===TRUE)
+        {
+            return TRUE;
+        }
+        else 
+        {
+            return FALSE;
+        }
+         
     }
 
     /**

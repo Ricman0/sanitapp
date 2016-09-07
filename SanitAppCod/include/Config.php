@@ -137,13 +137,13 @@ class Config {
          * semicolon (;): "smtp.example.com;smtp2.example.com".
          *  If the first one fails, the second one will be used, instead.
          */
-        $this->emailConfig['host'] = '';
+        $this->emailConfig['host'] = 'smtp.server.com';// da inserire
         $this->emailConfig['SMTPSecure'] = 'tls';
         $this->emailConfig['port'] = 465;
         $this->emailConfig['SMTPAuth'] = TRUE;
-        $this->emailConfig['username'] = '';
-        $this->emailConfig['password'] = '';
-        $this->emailConfig['from'] = '';
+        $this->emailConfig['username'] = '';// da inserire
+        $this->emailConfig['password'] = '';// da inserire
+        $this->emailConfig['from'] = 'claudimarco@hotmail.it'; // da cambiare
         $this->emailConfig['fromname'] = 'SanitApp';
     }
 }

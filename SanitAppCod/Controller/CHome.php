@@ -139,10 +139,13 @@ class CHome {
                 
                 break;
             
-            case 'validazione':
-                $cValidazione = USingleton::getInstance('CValidazione');
-                $risultato = $cValidazione->validaInserimento();
-                // da terminare
+            
+                
+//            // secondo me è da eliminare CValidazione
+//            case 'validazione':
+//                $cValidazione = USingleton::getInstance('CValidazione');
+//                $risultato = $cValidazione->validaInserimento();
+//                // da terminare
                 
 
             case 'mySanitApp':
@@ -175,9 +178,9 @@ class CHome {
                 
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
                 //recupera dati e crea utente.
-                $inserito = $cRegistrazione->inserisciRegistrazione();
-                
+                $cRegistrazione->inserisciRegistrazione();
                 break;
+            
             case 'esami':
                 $cEsami = USingleton::getInstance('CEsami');
                 $cEsami->impostaPaginaRisultatoEsami();
