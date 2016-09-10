@@ -263,7 +263,11 @@ class CRegistrazione {
        }
        else
        {
+           // i dati errati
           $uValidazione->getDatiErrati(); 
+          // i dati validi
+          $uValidazione->getDatiValidi();
+          
        }
        return $inserito;
     }
@@ -295,12 +299,30 @@ class CRegistrazione {
         $datiClinica['password'] = $this->recuperaValore('passwordClinica');
         $datiClinica['PEC'] = $this->recuperaValore('PECClinica');
         $datiClinica['telefono'] = $this->recuperaValore('telefonoClinica');
-        $datiClinica['capitaleSociale'] = $this->recuperaValore('capitaleSociale');
-        $datiClinica['orarioAperturaAM'] = $this->recuperaValore('orarioAperturaAM');
-        $datiClinica['orarioAperturaPM'] = $this->recuperaValore('orarioAperturaPM');
-        $datiClinica['orarioChiusuraAM'] = $this->recuperaValore('orarioChiusuraAM');
-        $datiClinica['orarioChiusuraPM'] = $this->recuperaValore('orarioChiusuraPM');
-        $datiClinica['orarioContinuato'] = $this->recuperaValore('orarioContinuato'); 
+        if(isset($_POST['capitaleSociale']))
+        {
+            $datiClinica['capitaleSociale'] = $this->recuperaValore('capitaleSociale');
+        }
+        if(isset($_POST['orarioAperturaAM']))
+        {
+            $datiClinica['orarioAperturaAM'] = $this->recuperaValore('orarioAperturaAM');
+        }
+        if(isset($_POST['orarioAperturaPM']))
+        {
+            $datiClinica['orarioAperturaPM'] = $this->recuperaValore('orarioAperturaPM');
+        }
+        if(isset($_POST['orarioChiusuraAM']))
+        {
+            $datiClinica['orarioChiusuraAM'] = $this->recuperaValore('orarioChiusuraAM');
+        }
+        if(isset($_POST['orarioChiusuraPM']))
+        {
+            $datiClinica['orarioChiusuraPM'] = $this->recuperaValore('orarioChiusuraPM');
+        }
+        if(isset($_POST['orarioContinuato']))
+        {
+            $datiClinica['orarioContinuato'] = $this->recuperaValore('orarioContinuato');
+        }
         return $datiClinica;
     }
     

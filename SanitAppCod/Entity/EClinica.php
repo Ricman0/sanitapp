@@ -110,26 +110,76 @@ class EClinica
      */
     public function __construct($partitaIVA, $nomeClinica, $titolareClinica, 
             $via, $numeroCivico, $cap, $email,$PEC, $username, $password, 
-            $telefono, $capitaleSociale, $orarioAperturaAM, $orarioChiusuraAM,
+            $telefono, $capitaleSociale, $orarioAperturaAM , $orarioChiusuraAM,
             $orarioAperturaPM, $orarioChiusuraPM, $orarioContinuato) 
     {
         $this->_partitaIVA= $partitaIVA;
         $this->_nomeClinica = $nomeClinica;
         $this->_titolareClinica =$titolareClinica;
         $this->_via = $via;
-        $this->_numeroCivico = $numeroCivico;
+        if(isset($numeroCivico))
+        {
+            $this->_numeroCivico = $numeroCivico; 
+        }
+        else
+            {
+                $this->_numeroCivico = NULL; 
+            }
+       
         $this->_CAP = $cap;
         $this->_email = $email;
         $this->_PEC = $PEC;
         $this->_username = $username;
         $this->_password = $password;
         $this->_telefono = $telefono;
-        $this->_capitaleSociale = $capitaleSociale ;
-        $this->_orarioAperturaAM = $orarioAperturaAM;
-        $this->_orarioChiusuraAM = $orarioChiusuraAM;
-        $this->_orarioAperturaPM = $orarioAperturaPM;
-        $this->_orarioChiusuraPM= $orarioChiusuraPM;
-        $this->_orarioContinuato= $orarioContinuato;
+        if(isset($capitaleSociale))
+        {
+            $this->_capitaleSociale = $capitaleSociale; 
+        }
+        else
+            {
+                $this->_capitaleSociale= NULL; 
+            }
+        if(isset($orarioAperturaAM))
+        {
+            $this->_orarioAperturaAM = $orarioAperturaAM; 
+        }
+        else
+            {
+                $this->_orarioAperturaAM= NULL; 
+            }
+        if(isset($orarioChiusuraAM))
+        {
+            $this->_orarioChiusuraAM = $orarioChiusuraAM; 
+        }
+        else
+            {
+                $this->_orarioChiusuraAM = NULL; 
+            }
+        if(isset($orarioAperturaPM))
+        {
+            $this->_orarioAperturaPM = $orarioAperturaPM; 
+        }
+        else
+            {
+                $this->_orarioAperturaPM= NULL; 
+            }
+        if(isset($orarioChiusuraPM))
+        {
+            $this->_orarioChiusuraPM = $orarioChiusuraPM; 
+        }
+        else
+            {
+                $this->_orarioChiusuraPM= NULL; 
+            }
+        if(isset($orarioContinuato))
+        {
+            $this->_orarioContinuato = $orarioContinuato; 
+        }
+        else
+            {
+                $this->_orarioContinuato= FALSE; 
+            }
         $this->_confermato = FALSE;
     }
     

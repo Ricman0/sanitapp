@@ -12,6 +12,14 @@
 class UValidazione {
     
     /**
+     * Array contenente tutti gli input giusti/validati 
+     * 
+     * @access private
+     * @var Array Array contenente tutti gli input validati
+     */
+    private $datiValidi;
+    
+    /**
      * Array contenente tutti gli input sbagliati 
      * 
      * @access private
@@ -34,8 +42,20 @@ class UValidazione {
      */
     public function __construct() 
     {
+        $this->datiValidi = Array();
         $this->datiErrati = Array();
         $this->validati = TRUE;
+    }
+    
+    /**
+     * Metodo che consente di conoscere i dati  validati
+     * 
+     * @access public
+     * @return Array I dati validi
+     */
+    public function getDatiValidi() 
+    {
+        return $this->datiValidi;
     }
     
     /**
@@ -114,7 +134,7 @@ class UValidazione {
                     break;
                 
                 case "passwordUtente":
-                    $pattern = '/^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/';
+                    $pattern = '/^(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})$/';
                     $stringaErrore = "La password deve contenere almeno un "
                             . "numero, una lettera maiusola, "
                             . "una minuscola e deve essere lunga minimo 6 e massimo 10 ";
@@ -183,7 +203,7 @@ class UValidazione {
                     break;
                 
                 case 'password':
-                    $pattern = '/^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/';
+                    $pattern = '/^(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})$/';
                     $stringaErrore = "La password deve contenere almeno un "
                             . "numero, una lettera maiusola, "
                             . "una minuscola e deve essere lunga minimo 6 e massimo 10 ";
@@ -282,7 +302,7 @@ class UValidazione {
                     break;
                 
                 case 'password':
-                    $pattern = '/^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/';
+                    $pattern = '/^(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})$/';
                     $stringaErrore = "La password deve contenere almeno un "
                             . "numero, una lettera maiusola, "
                             . "una minuscola e deve essere lunga minimo 6 e massimo 10 ";
@@ -302,13 +322,12 @@ class UValidazione {
                 case 'orarioChiusuraAM':
                 case 'orarioAperturaPM':
                 case 'orarioChiusuraPM':
-                    $pattern = '/^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/';
+                    $pattern = '/^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?$/';
                     $stringaErrore = "L'orario deve avere un formato del tipo: 08:30:00 ";
                     break;
                 case 'orarioContinuato':
-                    //da controllare
-//                    $pattern = '/^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/';
-//                    $stringaErrore = "Il" . $chiave . "deve essere un numero";
+                    $pattern ="";
+                    $stringaErrore = "";
                     break;
                 
                 default:
@@ -333,14 +352,15 @@ class UValidazione {
         echo ($chiave);
         if (preg_match($pattern, $valore)) 
         {
-            $this->dati_errati[$chiave] = FALSE;
+            $this->datiErrati[$chiave] = FALSE;
+            $this->datiValidi[$chiave] = $valore;
             echo "OK";
         } 
         else
         {
             echo "NO";
-            $this->dati_errati[$chiave] = $stringaErrore;
-            echo ($this->dati_errati[$chiave]);
+            $this->datiErrati[$chiave] = $stringaErrore;
+            echo ($this->datiErrati[$chiave]);
             $this->validati = FALSE;
         }
     }

@@ -71,43 +71,46 @@
             <br>
         </div>
     </div>
-    <div class="autenticazione">
-        <div class="username">            
-            <input type="text" name="usernameClinica" id="usernameClinica" placeholder="clari" required/>
-            <label for="usernameClinica">Username</label>
-            <br>
-        </div>
-        <div class="password">            
-            <input type="text" name="passwordClinica" id="passwordClinica" placeholder="R5t6sg6I" required/>
-            <label for="passwordClinica">Password</label>
-            <br>
-        </div>
+    <div class="orarioContinuato">            
+        <input type="checkbox"  name="orarioContinuato" id="orarioContinuato" value="Orario Continuato"/>
+        <label for="orarioContinuato">Orario Continuato</label>
+        <br>
     </div>
-    <div class="orario">
-        <div class="orarioAperturaMattina">            
-            <input type="time" name="orarioAperturaMattina" id="orarioAperturaMattina" placeholder="09:00"/>
+    <div>
+        <div class="orario">            
+            <input type="time" name="orarioAperturaMattina" id="orarioAperturaMattina" class="orario" placeholder="09:00"/>
             <label for="orarioAperturaMattina">Orario Apertura Mattina</label>
             <br>
         </div>
-        <div class="orarioAperturaPomeriggio">            
-            <input type="time" name="orarioAperturaPomeriggio" id="orarioAperturaPomeriggo" placeholder="15:00"/>
+        <div class="orario">            
+            <input type="time" name="orarioAperturaPomeriggio" id="orarioAperturaPomeriggo" class="orario" placeholder="15:00"/>
             <label for="orarioAperturaPomeriggio">Orario Apertura Pomeriggio</label>
             <br>
         </div>
-        <div class="orarioChiusuraMattina">            
-            <input type="time" name="orarioChiusuraMattina" id="orarioChiusuraMattina" placeholder="13:00"/>
+        <div class="orario">            
+            <input type="time" name="orarioChiusuraMattina" id="orarioChiusuraMattina" class="orario" placeholder="13:00"/>
             <label for="orarioChiusuraMattina">Orario Chiusura Mattina</label>
             <br>
         </div>
-        <div class="orarioChiusuraPomeriggio">            
-            <input type="time" name="orarioChiusuraPomeriggio" id="orarioChiusuraPomeriggo" placeholder="19:00"/>
+        <div class="orario">            
+            <input type="time" name="orarioChiusuraPomeriggio" id="orarioChiusuraPomeriggo" class="orario" placeholder="19:00"/>
             <label for="orarioChiusuraPomeriggio">Orario Chiusura Pomeriggio</label>
             <br>
         </div>
-        <div class="orarioContinuato">            
-            <input type="checkbox"  name="orarioContinuato" id="orarioContinuato"/>
-            <label for="orarioContinuato">Orario Continuato</label>
-            <br>
+        <div class="autenticazione">
+            <div class="username">            
+                <input type="text" name="usernameClinica" id="usernameClinica" placeholder="clari" required/>
+                <label for="usernameClinica">Username</label>
+                <br>
+            </div>
+            <div class="password">            
+                <input type="password" name="passwordClinica" id="passwordClinica" placeholder="R5t6sg6I" required/>
+                <label for="passwordClinica">Password</label>
+                <br>
+                <input type="password" name="ripetiPasswordClinica" id="ripetiPasswordClinica" placeholder="R5t6sg6I" required/>
+                <label for="ripetiPasswordClinica">Ripeti Password</label>
+                <br>
+            </div>
         </div>
     </div>
     <div class="submit">

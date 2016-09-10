@@ -100,9 +100,10 @@ class EUtente
         {
             $this->_numeroCivico = $numeroCivico; 
         }
-        else{
-            $this->_numeroCivico = NULL; 
-        }
+        else
+            {
+                $this->_numeroCivico = NULL; 
+            }
         
         $this->_CAP = $cap; 
         $this->_email = $email; 

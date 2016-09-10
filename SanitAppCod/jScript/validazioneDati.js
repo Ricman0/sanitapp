@@ -20,6 +20,15 @@ function validazione(task1)
 
 function validazioneUtente()
 {
+    //aggiungo un metodo di validazione per poter validare correttamente la password
+    // il nome della classe, la funzione per validare e il messaggio in caso di errore
+    jQuery.validator.addMethod("password", function(valore){
+        //espressione regolare per la password
+        var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
+        return valore.match(regex);
+        }, "Inserire una password che contenga almeno un numero, una lettera \n\
+        maiuscola,una lettera minuscola");
+    
     $("#inserisciUtente").validate({
         rules:
                 {
@@ -37,7 +46,7 @@ function validazioneUtente()
                             {
                                 required: true,
                                 maxlength: 16, 
-                                minlength: 16,
+                                minlength: 16
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -64,7 +73,7 @@ function validazioneUtente()
                     email:
                             {
                                 required: true,
-                                email: true,
+                                email: true
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -75,7 +84,7 @@ function validazioneUtente()
                             {
                                 required: true,
                                 minlength: 2,
-                                maxlength: 15,
+                                maxlength: 15
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -85,9 +94,6 @@ function validazioneUtente()
                     passwordUtente:
                             {
                                 required: true,
-                                pattern: /^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/,
-                                minlength: 6,
-                                maxlength: 10
                             },
                     ripetiPasswordUtente:
                             {
@@ -111,7 +117,7 @@ function validazioneUtente()
                             {
                                 required: "Inserire il proprio codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
-                                minlength: "Il codice fiscale è lungo 16 caratteri",
+                                minlength: "Il codice fiscale è lungo 16 caratteri"
 //                                remote: "Codice Fiscale già esistente"
                             },
                     indirizzo:
@@ -133,24 +139,19 @@ function validazioneUtente()
                     email:
                             {
                                 required: "Inserire l'email",
-                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com",
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
 //                                remote: "Email già esistente"
                             },
                     usernameUtente:
                             {
                                 required: "Inserire username",
                                 minlength: "La lunghezza minime dello username è 2",
-                                maxlength: "La lunghezza massima dello username è 15",
+                                maxlength: "La lunghezza massima dello username è 15"
 //                                remote: "Username già esistente"
                             },
                     passwordUtente:
                             {
-                                required: "Inserire password",
-                                pattern: "Inserire una password che contenga \n\
-                                         almeno un numero, una lettera maiuscola,\n\
-                                          una lettera minuscola",
-                                minlength: "La lunghezza minima della password è 6",
-                                maxlength: "La lunghezza massima della password è 10"
+                                required: "Inserire password"
                             },
                     ripetiPasswordUtente:
                             {
@@ -161,6 +162,7 @@ function validazioneUtente()
         submitHandler:function(form) 
         { 
             alert('I dati sono stati inseriti correttamente');
+            // inviaDatiRegistrazione si trova in clickRegistrazione.js
             inviaDatiRegistrazione('#inserisciUtente', 'registrazione', 'utente', '#main');
         }
     });
@@ -168,6 +170,13 @@ function validazioneUtente()
 
 function validazioneMedico()
 {
+    jQuery.validator.addMethod("password", function(valore){
+        //espressione regolare per la password
+        var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
+        return valore.match(regex);
+        }, "Inserire una password che contenga almeno un numero, una lettera \n\
+        maiuscola,una lettera minuscola");
+    
     $("#inserisciMedico").validate({
         rules:
                 {
@@ -186,7 +195,7 @@ function validazioneMedico()
                             {
                                 required: true,
                                 maxlength: 16, 
-                                minlength: 16,
+                                minlength: 16
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -212,7 +221,7 @@ function validazioneMedico()
                     emailMedico:
                             {
                                 required: true,
-                                email: true,
+                                email: true
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -223,7 +232,7 @@ function validazioneMedico()
                             {
                                 required: true,
                                 minlength: 2,
-                                maxlength: 15,
+                                maxlength: 15
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -232,10 +241,7 @@ function validazioneMedico()
                             },
                     passwordMedico:
                             {
-                                required: true,
-                                pattern: /^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/,
-                                minlength: 6,
-                                maxlength: 10
+                                required: true
                             },
                     ripetiPasswordMedico:
                             {
@@ -274,7 +280,7 @@ function validazioneMedico()
                             {
                                 required: "Inserire il proprio codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
-                                minlength: "Il codice fiscale è lungo 16 caratteri",
+                                minlength: "Il codice fiscale è lungo 16 caratteri"
 //                                remote: "Codice Fiscale già esistente"
                             },
                     indirizzoMedico:
@@ -303,17 +309,12 @@ function validazioneMedico()
                             {
                                 required: "Inserire username",
                                 minlength: "La lunghezza minima dello username è 2",
-                                maxlength: "La lunghezza massima dello username è 15",
+                                maxlength: "La lunghezza massima dello username è 15"
 //                                remote: "Username già esistente"
                             },
                     passwordMedico:
                             {
-                                required: "Inserire password",
-                                pattern: "Inserire una password che contenga \n\
-                                         almeno un numero, una lettera maiuscola,\n\
-                                          una lettera minuscola",
-                                minlength: "La lunghezza minima della password è 6",
-                                maxlength: "La lunghezza massima della password è 10"
+                                required: "Inserire password"
                             },
                     ripetiPasswordMedico:
                             {
@@ -333,7 +334,7 @@ function validazioneMedico()
                     numeroIscrizione:
                             {
                                 required: "Inserire il numero di iscrizione",
-                                rangelength: "Deve avere 6 numeri",
+                                rangelength: "Deve avere 6 numeri"
                             }
                 },
         submitHandler:function(form) 
@@ -346,6 +347,19 @@ function validazioneMedico()
 
 function validazioneClinica()
 {
+    jQuery.validator.addMethod("password", function(valore){
+        //espressione regolare per la password
+        var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
+        return valore.match(regex);
+        }, "Inserire una password che contenga almeno un numero, una lettera \n\
+        maiuscola,una lettera minuscola");
+    
+    jQuery.validator.addMethod("orario", function(valore){
+        //espressione regolare per l'orario
+        var regex = /(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?/;
+        return valore.match(regex);
+        }, "Inserire un orario del tipo:  08:30 oppure 08:30:00");
+    
     $("#inserisciClinica").validate({
         rules:
                 {
@@ -363,7 +377,7 @@ function validazioneClinica()
                             {
                                 required: true,
                                 maxlength: 11, 
-                                minlength: 11,
+                                minlength: 11
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -399,7 +413,7 @@ function validazioneClinica()
                     emailClinica:
                             {
                                 required: true,
-                                email: true,
+                                email: true
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -409,7 +423,7 @@ function validazioneClinica()
                     PECClinica:
                             {
                                 required: true,
-                                email: true,
+                                email: true
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -421,7 +435,7 @@ function validazioneClinica()
                             {
                                 required: true,
                                 minlength: 2,
-                                maxlength: 15,
+                                maxlength: 15
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -430,10 +444,7 @@ function validazioneClinica()
                             },
                     passwordClinica:
                             {
-                                required: true,
-                                pattern: /^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/,
-                                minlength: 6,
-                                maxlength: 10
+                                required: true
                             },
                     ripetiPasswordClinica:
                             {
@@ -449,22 +460,6 @@ function validazioneClinica()
                             {
                                 required: true,
                                 maxlength: 11
-                            },
-                    orarioApertutaMattina:
-                            {
-                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
-                            },
-                    orarioChiusuraMattina:
-                            {
-                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
-                            },
-                    orarioApertutaPomeriggio:
-                            {
-                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
-                            },
-                    orarioChiusuraPomeriggio:
-                            {
-                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
                             },
                     orarioContinuato:
                             {
@@ -487,7 +482,7 @@ function validazioneClinica()
                             {
                                 required: "Inserire la partita IVA",
                                 maxlength: "La sequenza massima di numeri è 11", 
-                                minlength: "La sequenza minima di numeri è 11",
+                                minlength: "La sequenza minima di numeri è 11"
 //                                remote:                                      
                             },
                     indirizzoClinica:
@@ -497,7 +492,7 @@ function validazioneClinica()
                             },
                     numeroCivicoClinica:
                             {
-                                number: "Deve essere un numero",
+                                number: "Deve essere un numero"
                             },
                     CAPClinica:
                             {
@@ -540,12 +535,7 @@ function validazioneClinica()
                             },
                     passwordClinica:
                             {
-                                required: "Inserire password",
-                                pattern: "Inserire una password che contenga \n\
-                                         almeno un numero, una lettera maiuscola,\n\
-                                          una lettera minuscola",
-                                minlength: "La sequenza alfanumerica minima  è 6",
-                                maxlength: "La sequenza alfanumerica massima è 10"
+                                required: "Inserire password"
                             },
                     ripetiPasswordClinica:
                             {
@@ -562,22 +552,6 @@ function validazioneClinica()
                                 required: "Inserire il capitale sociale della clinica",
                                 maxlength: "La sequenza massima di numeri è 11"
                             },
-                    orarioApertutaMattina:
-                            {
-                                pattern: "Inserire un orario del tipo:  08:30 oppure 08:30:00"
-                            },
-                    orarioChiusuraMattina:
-                            {
-                                pattern: "Inserire un orario del tipo:  12:30 oppure 12:30:00"
-                            },
-                    orarioApertutaPomeriggio:
-                            {
-                                pattern: "Inserire un orario del tipo:  15:30 oppure 15:30:00"
-                            },
-                    orarioChiusuraPomeriggio:
-                            {
-                                pattern: "Inserire un orario del tipo:  19:30 oppure 19:30:00"
-                            },
                     orarioContinuato:
                             {
                                 boolean: "Deve essere un booleano"
@@ -586,7 +560,7 @@ function validazioneClinica()
         submitHandler:function(form) 
         { 
             alert('I dati sono stati inseriti correttamente');
-            inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#main');
+            inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#main');
         }
     });
 }
