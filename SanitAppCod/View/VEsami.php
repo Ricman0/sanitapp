@@ -17,8 +17,9 @@ class VEsami extends View{
         return $this->visualizzaTemplate('ricercaEsami');
     }
     
-    public function restituisciPaginaRisultatoEsami() 
+    public function restituisciPaginaRisultatoEsami($dati) 
     {
+        
         return $this->visualizzaTemplate('tabellaEsami');
     }
 }

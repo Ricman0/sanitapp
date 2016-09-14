@@ -3,8 +3,11 @@
   RewriteEngine On
   RewriteCond %{REQUEST_METHOD} GET 
   RewriteRule ^(ricercaEsami)?$ index.php?controller=$1
-  RewriteRule ^(esami)/(\w+)/(\w+)/(\w+)?$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=$4
-  RewriteRule ^(esami)?$ index.php?controller=$1
+  RewriteRule ^(esami)/(\w+)/(\w+)/(\w+)?$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=$4 [L]
+  RewriteRule ^(esami)/(\w+)/(\w+)?$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=all [L]
+  RewriteRule ^(esami)/(\w+)?$ index.php?controller=$1&parametro1=$2&parametro2=all&parametro3=all [L]
+  RewriteRule ^(esami)?$ index.php?controller=$1&parametro1=all&parametro2=all&parametro3=all [L]
+  RewriteRule ^(esami)?$ index.php?controller=$1 [L]
   RewriteRule ^(ricercaCliniche)?$ index.php?controller=$1
   RewriteRule ^(cliniche)/(\w+)/(\w+)?$ index.php?controller=$1&parametro1=$2&parametro2=$3
   RewriteRule ^(cliniche)?$ index.php?controller=$1

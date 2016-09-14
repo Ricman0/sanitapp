@@ -21,6 +21,7 @@ function validazione(task1)
 function validazioneUtente()
 {
     $("#inserisciUtente").validate({
+        onsubmit: false,
         rules:
                 {
                     nome:
@@ -37,7 +38,7 @@ function validazioneUtente()
                             {
                                 required: true,
                                 maxlength: 16, 
-                                minlength: 16,
+                                minlength: 16
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -64,7 +65,7 @@ function validazioneUtente()
                     email:
                             {
                                 required: true,
-                                email: true,
+                                email: true
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -75,7 +76,7 @@ function validazioneUtente()
                             {
                                 required: true,
                                 minlength: 2,
-                                maxlength: 15,
+                                maxlength: 15
 //                                remote:
 //                                        { 
 //                                           type: "GET",
@@ -85,7 +86,7 @@ function validazioneUtente()
                     passwordUtente:
                             {
                                 required: true,
-                                pattern: /^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/,
+                                pattern: "^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$",
                                 minlength: 6,
                                 maxlength: 10
                             },
@@ -111,7 +112,7 @@ function validazioneUtente()
                             {
                                 required: "Inserire il proprio codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
-                                minlength: "Il codice fiscale è lungo 16 caratteri",
+                                minlength: "Il codice fiscale è lungo 16 caratteri"
 //                                remote: "Codice Fiscale già esistente"
                             },
                     indirizzo:
@@ -133,14 +134,14 @@ function validazioneUtente()
                     email:
                             {
                                 required: "Inserire l'email",
-                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com",
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
 //                                remote: "Email già esistente"
                             },
                     usernameUtente:
                             {
                                 required: "Inserire username",
                                 minlength: "La lunghezza minime dello username è 2",
-                                maxlength: "La lunghezza massima dello username è 15",
+                                maxlength: "La lunghezza massima dello username è 15"
 //                                remote: "Username già esistente"
                             },
                     passwordUtente:
@@ -233,7 +234,7 @@ function validazioneMedico()
                     passwordMedico:
                             {
                                 required: true,
-                                pattern: /^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/,
+                                pattern: "^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$",
                                 minlength: 6,
                                 maxlength: 10
                             },
@@ -431,7 +432,7 @@ function validazioneClinica()
                     passwordClinica:
                             {
                                 required: true,
-                                pattern: /^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$/,
+                                pattern: "^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$",
                                 minlength: 6,
                                 maxlength: 10
                             },
@@ -452,19 +453,19 @@ function validazioneClinica()
                             },
                     orarioApertutaMattina:
                             {
-                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
+                                pattern: "^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$"
                             },
                     orarioChiusuraMattina:
                             {
-                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
+                                pattern: "^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$"
                             },
                     orarioApertutaPomeriggio:
                             {
-                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
+                                pattern: "^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$"
                             },
                     orarioChiusuraPomeriggio:
                             {
-                                pattern: /^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$/
+                                pattern: "^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$"
                             },
                     orarioContinuato:
                             {
