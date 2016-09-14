@@ -30,7 +30,6 @@ function validazioneUtente()
         maiuscola,una lettera minuscola");
     
     $("#inserisciUtente").validate({
-        onsubmit: false,
         rules:
                 {
                     nome:
@@ -95,12 +94,6 @@ function validazioneUtente()
                     passwordUtente:
                             {
                                 required: true,
-<<<<<<< HEAD
-                                pattern: "^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$",
-                                minlength: 6,
-                                maxlength: 10
-=======
->>>>>>> origin/master
                             },
                     ripetiPasswordUtente:
                             {
@@ -248,14 +241,7 @@ function validazioneMedico()
                             },
                     passwordMedico:
                             {
-<<<<<<< HEAD
-                                required: true,
-                                pattern: "^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$",
-                                minlength: 6,
-                                maxlength: 10
-=======
                                 required: true
->>>>>>> origin/master
                             },
                     ripetiPasswordMedico:
                             {
@@ -458,14 +444,7 @@ function validazioneClinica()
                             },
                     passwordClinica:
                             {
-<<<<<<< HEAD
-                                required: true,
-                                pattern: "^(((?=.*[0-9])(?=.*[a-zA-Z])).{6,10})$",
-                                minlength: 6,
-                                maxlength: 10
-=======
                                 required: true
->>>>>>> origin/master
                             },
                     ripetiPasswordClinica:
                             {
@@ -482,25 +461,6 @@ function validazioneClinica()
                                 required: true,
                                 maxlength: 11
                             },
-<<<<<<< HEAD
-                    orarioApertutaMattina:
-                            {
-                                pattern: "^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$"
-                            },
-                    orarioChiusuraMattina:
-                            {
-                                pattern: "^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$"
-                            },
-                    orarioApertutaPomeriggio:
-                            {
-                                pattern: "^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$"
-                            },
-                    orarioChiusuraPomeriggio:
-                            {
-                                pattern: "^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]?[0-9]{1})(:([0-5]?[0-9]))?$"
-                            },
-=======
->>>>>>> origin/master
                     orarioContinuato:
                             {
                                 boolean: true
