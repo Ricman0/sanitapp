@@ -13,13 +13,13 @@ $(document).ready(function(){
 function inviaDatiForm()
 {
     var controller = $("#controllerFormRicercaEsami").val();
-    var nomeClinica = $("#nomeClinicaFormRicercaEsami").val();
-    nomeClinica = nomeClinica.replace(" ", ""); 
+    var nomeClinica = ($("#nomeClinicaFormRicercaEsami").val()).toLowerCase();
+    nomeClinica = nomeClinica.replace(" ", "_"); 
     
-    var nomeEsame = $("#nomeEsameFormRicercaEsami").val();
-    nomeEsame = nomeEsame.replace(" ", ""); 
-    var luogo = $("#luogoClinicaFormRicercaEsami").val();
-    luogo = luogo.replace(" ", ""); 
+    var nomeEsame = ($("#nomeEsameFormRicercaEsami").val()).toLowerCase();
+    nomeEsame = nomeEsame.replace(" ", "_"); 
+    var luogo = ($("#luogoClinicaFormRicercaEsami").val()).toLowerCase(); 
+    luogo = luogo.replace(" ", "_"); 
     var url;
     
     url = controller;

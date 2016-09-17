@@ -66,6 +66,9 @@ CREATE TABLE clinica (
   UNIQUE (Telefono)
 );
 
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextNomeClinica(NomeClinica);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextLocalitàClinica(Località);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextProvinciaClinica(Provincia);
 
 
 --
@@ -98,6 +101,9 @@ CREATE TABLE esame(
   FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome),
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA)
 );
+
+ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(Nome);
+
 
 --
 -- Dump dei dati per la tabella `esame`

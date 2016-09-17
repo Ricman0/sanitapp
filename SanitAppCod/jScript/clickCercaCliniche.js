@@ -13,11 +13,11 @@ function inviaDati(){
     var controller = $("#controllerFormRicercaCliniche").val();
 //    controller = controller.replace(" ", ""); 
 
-    var nome = $("#nomeClinicaFormRicercaCliniche").val();
-    nome= nome.replace(" ", ""); 
+    var nome = ($("#nomeClinicaFormRicercaCliniche").val()).toLowerCase(); ;
+    nome= nome.replace(" ", "_"); 
     
-    var luogo = $("#luogoClinicaFormRicercaCliniche").val();
-    luogo = luogo.replace(" ", ""); 
+    var luogo = ($("#luogoClinicaFormRicercaCliniche").val()).toLowerCase(); ;
+    luogo = luogo.replace(" ", "_"); 
     
     var url;
 //    if (nome.length===0 || luogo.length===0 )
