@@ -13,36 +13,13 @@ function inviaDati(){
     var controller = $("#controllerFormRicercaCliniche").val();
 //    controller = controller.replace(" ", ""); 
 
-    var nome = ($("#nomeClinicaFormRicercaCliniche").val()).toLowerCase(); ;
-    nome= nome.replace(" ", "_"); 
+    var nome = (($("#nomeClinicaFormRicercaCliniche").val()).toLowerCase()).trim(); 
+    nome = nome.replace(" ", "_"); 
     
-    var luogo = ($("#luogoClinicaFormRicercaCliniche").val()).toLowerCase(); ;
+    var luogo = (($("#luogoClinicaFormRicercaCliniche").val()).toLowerCase()).trim(); 
     luogo = luogo.replace(" ", "_"); 
     
     var url;
-//    if (nome.length===0 || luogo.length===0 )
-//    {
-//        if(nome.length===0)
-//        {
-//            url = controller + "/all/"+ luogo;
-//        }
-//        else
-//        {
-//            if(luogo.length===0)
-//            {
-//                url = controller + "/" + nome + "/all";
-//            }
-//            else
-//            {
-//                url = controller;
-//            }
-//        } 
-//    }
-//    else
-//    {
-//        url = controller +"/"+ nome + "/" +luogo  ;
-//    } 
-
     if (nome.length===0 && luogo.length===0)
     {
         url = controller;
@@ -81,6 +58,37 @@ function inviaDati(){
         alert("Chiamata fallita, si prega di riprovare...");
       }
     });
+}
+
+function validainput()
+{
+    jQuery.validator.addMethod();
+    
+    $("#formRicercaCliniche").validate({
+        rules:
+                {
+                    nomeClinicaFormRicercaCliniche:
+                    {
+                        maxlength:30
+                    },
+                    luogoClinicaFormRicercaCliniche:
+                    {
+                        maxlength:40
+                    }  
+                },
+        messages:
+                {
+                    nomeClinicaFormRicercaCliniche:
+                    {
+                        maxlength:"La sequenza di caratteri può essere massimo 30"
+                    },
+                    luogoClinicaFormRicercaCliniche:
+                    {
+                        maxlength:"La sequenza di caratteri può essere massimo 40"
+                    } 
+                },
+        submitHandler:function(form){}
+     });
 }
 /*
 function inviaController($controller, ajaxdiv, id)

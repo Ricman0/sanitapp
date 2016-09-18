@@ -40,7 +40,7 @@ INSERT INTO categoria (Nome) VALUES
 
 CREATE TABLE clinica (
   PartitaIVA varchar(11) NOT NULL,
-  NomeClinica varchar(20) NOT NULL,
+  NomeClinica varchar(30) NOT NULL,
   Titolare varchar(50) NOT NULL,
   Via varchar(30) NOT NULL,
   NumCivico smallint(6) DEFAULT NULL,

@@ -397,7 +397,7 @@ function validazioneClinica()
                     nomeClinica:
                             {
                                 required: true,
-                                maxlength: 20
+                                maxlength: 30
                             },
                     titolare:
                             {
@@ -502,7 +502,7 @@ function validazioneClinica()
                     nomeClinica:
                             {
                                 required: "Inserire il nome della clinica",
-                                maxlength: "La sequenza di caratteri deve essere massimo 20"
+                                maxlength: "La sequenza di caratteri deve essere massimo 30"
                             },
                     titolare:
                             {
