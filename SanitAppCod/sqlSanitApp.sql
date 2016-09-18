@@ -40,7 +40,7 @@ INSERT INTO categoria (Nome) VALUES
 
 CREATE TABLE clinica (
   PartitaIVA varchar(11) NOT NULL,
-  NomeClinica varchar(20) NOT NULL,
+  NomeClinica varchar(30) NOT NULL,
   Titolare varchar(50) NOT NULL,
   Via varchar(30) NOT NULL,
   NumCivico smallint(6) DEFAULT NULL,
@@ -66,6 +66,9 @@ CREATE TABLE clinica (
   UNIQUE (Telefono)
 );
 
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextNomeClinica(NomeClinica);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextLocalitàClinica(Località);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextProvinciaClinica(Provincia);
 
 
 --
@@ -98,6 +101,9 @@ CREATE TABLE esame(
   FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome),
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA)
 );
+
+ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(Nome);
+
 
 --
 -- Dump dei dati per la tabella `esame`

@@ -29,6 +29,20 @@ function validazioneUtente()
         }, "Inserire una password che contenga almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
     
+    jQuery.validator.addMethod("codiceFiscale", function(valore){
+        //espressione regolare per codice fiscale
+        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        return valore.match(regex);
+        }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+    
+    jQuery.validator.addMethod("username", function(valore){
+        //espressione regolare per codice fiscale
+        var regex = /[0-9a-zA-Z\_\-]{2,15}/;
+        return valore.match(regex);
+        }, "Può contenere numeri, lettere maiuscole o minuscole");
+    
+    
+    
     $("#inserisciUtente").validate({
         rules:
                 {
@@ -177,6 +191,17 @@ function validazioneMedico()
         }, "Inserire una password che contenga almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
     
+    jQuery.validator.addMethod("codiceFiscale", function(valore){
+        //espressione regolare per codice fiscale
+        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        return valore.match(regex);
+        }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+        
+    jQuery.validator.addMethod("username", function(valore){
+        //espressione regolare per codice fiscale
+        var regex = /[0-9a-zA-Z\_\-]{2,15}/;
+        return valore.match(regex);
+        }, "Può contenere numeri, lettere maiuscole o minuscole");
     $("#inserisciMedico").validate({
         rules:
                 {
@@ -360,13 +385,19 @@ function validazioneClinica()
         return valore.match(regex);
         }, "Inserire un orario del tipo:  08:30 oppure 08:30:00");
     
+    jQuery.validator.addMethod("username", function(valore){
+        //espressione regolare per codice fiscale
+        var regex = /[0-9a-zA-Z\_\-]{2,15}/;
+        return valore.match(regex);
+        }, "Può contenere numeri, lettere maiuscole o minuscole");
+    
     $("#inserisciClinica").validate({
         rules:
                 {
                     nomeClinica:
                             {
                                 required: true,
-                                maxlength: 20
+                                maxlength: 30
                             },
                     titolare:
                             {
@@ -471,7 +502,7 @@ function validazioneClinica()
                     nomeClinica:
                             {
                                 required: "Inserire il nome della clinica",
-                                maxlength: "La sequenza di caratteri deve essere massimo 20"
+                                maxlength: "La sequenza di caratteri deve essere massimo 30"
                             },
                     titolare:
                             {

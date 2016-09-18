@@ -46,7 +46,11 @@
             <br>
         </div>
         <div class="username">        
+<<<<<<< HEAD
             <input type="text" name="username" id="usernameUtente" class="elementiForm" pattern="^[a-z0-9]*$" title="Inserisci elementi alfanumerici" placeholder="Mario" required />
+=======
+            <input type="text" name="username" id="usernameUtente" placeholder="Mario" required />
+>>>>>>> origin/master
             <label for="usernameUtente">Username</label>
             <br>
         </div>
