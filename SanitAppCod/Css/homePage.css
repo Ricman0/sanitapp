@@ -44,7 +44,7 @@ html,body{
    height:30px;   /* Height of the footer */
  
 }
-.elementiForm{
+.form{
     display: flex;
     align-items: center;
 /*    justify-content: center;*/
@@ -53,11 +53,14 @@ html,body{
     
 }
 
-.form{
-    margin: 50px auto;
+.elementiForm{
+    margin: 20px auto;
+}
+elementiForm label {
+    display: inline;
 }
 
-.form input{
+input.elementiForm {
     display:block;
     margin: 20px;
     margin-top: 10px;
@@ -68,7 +71,7 @@ html,body{
     -moz-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;  
 }
-button, input[type = 'submit']
+button, input[type = 'submit'], input[type='button']
 {
     color:white;
     background-color:rgb(11, 190, 210);
@@ -77,13 +80,18 @@ button, input[type = 'submit']
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
+button:hover, input[type = 'submit']:hover, input[type='button']:hover
+{
+    background-color:rgb(10, 170, 220);
+}
 
-input {
+input[type='text'], input[type='password'] {
         border: 1px solid #E5E5E5;
         border-radius: 3px;
         padding: 7px;
         margin-left: 1%;
         margin-right: 1%;
+        box-sizing: border-box;
 
 }
 #main{
