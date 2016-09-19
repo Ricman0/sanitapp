@@ -77,19 +77,28 @@ class FEsame extends FDatabase {
 //                . " FROM " . $this->_nomeTabella . ", clinica"
 //                . " WHERE esame.PartitaIVAClinica = clinica.PartitaIVA";
 
-        if ($nomeEsame == "all") {
+        if ($nomeEsame == "all") 
+        {
             $nomeEsame = "";
-        } else {
+        } 
+        else 
+        {
             $nomeEsame = str_replace("_", " ", $nomeEsame);
         }
-        if ($nomeClinica === "all") {
+        if ($nomeClinica === "all") 
+        {
             $nomeClinica = "";
-        } else {
+        } 
+        else 
+        {
             $nomeClinica = str_replace("_", " ", $nomeClinica);
         }
-        if ($luogo === "all") {
+        if ($luogo === "all") 
+        {
             $luogo = "";
-        } else {
+        } 
+        else
+        {
             $luogo = str_replace("_", " ", $luogo);
         }
         if (!empty($nomeEsame)) 
@@ -106,7 +115,8 @@ class FEsame extends FDatabase {
                             . "FROM esame, clinica WHERE ((MATCH (Nome) AGAINST ('$nomeEsame' IN BOOLEAN MODE)) "
                             . "AND (MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
                             . "AND ((MATCH (clinica.Località) AGAINST ('$luogo' IN BOOLEAN MODE)) "
-                            . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
+                            . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
+                            . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
                             . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
 //                $query .= " AND 'esame.Nome'='" . $nomeEsame . "' AND NomeClinica='"
 //                        . $nomeClinica . "' AND ('clinica.Località'='"
@@ -170,7 +180,8 @@ class FEsame extends FDatabase {
                             . "MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
                             . "FROM esame, clinica WHERE ((MATCH (Nome) AGAINST ('$nomeEsame' IN BOOLEAN MODE)) "
                             . "AND ((MATCH (clinica.Località) AGAINST ('$luogo' IN BOOLEAN MODE)) "
-                            . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
+                            . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
+                            . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
                             . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
                         
 //                        $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
@@ -235,7 +246,8 @@ class FEsame extends FDatabase {
                             . "MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
                             . "FROM esame, clinica WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
                             . "AND ((MATCH (clinica.Località) AGAINST ('$luogo' IN BOOLEAN MODE)) "
-                            . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
+                            . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
+                            . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
                             . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";      
                 }
             } 
@@ -249,7 +261,8 @@ class FEsame extends FDatabase {
                             . "MATCH (clinica.Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
                             . "MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
                             . "FROM esame, clinica WHERE ((MATCH (clinica.Località) AGAINST ('$luogo' IN BOOLEAN MODE)) "
-                            . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE))) "
+                            . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
+                            . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE))) "
                             . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
 
 //                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
@@ -290,13 +303,8 @@ class FEsame extends FDatabase {
 //        echo gettype($risultato);
 //        $this->stampaRisultatoQuery($risultato);
 
-
-
-
-
-
+        
         $risultato = $this->eseguiQuery($query);
-
         return $risultato;
     }
 

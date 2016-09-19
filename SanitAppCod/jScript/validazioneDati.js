@@ -80,7 +80,6 @@ function validazioneUtente()
                     CAP:
                             {
                                 required: true,
-                                number: true,
                                 minlength: 5,
                                 maxlength: 5
                             },
@@ -146,7 +145,6 @@ function validazioneUtente()
                     CAP:
                             {
                                 required: "Inserire il CAP",
-                                number: "Il CAP è un numero",
                                 minlength: "Il CAP è un numero lungo 5",
                                 maxlength: "Il CAP è un numero lungo 5"
                             },
@@ -239,7 +237,6 @@ function validazioneMedico()
                     CAPMedico:
                             {
                                 required: true,
-                                number: true,
                                 minlength: 5,
                                 maxlength: 5
                             },
@@ -320,7 +317,6 @@ function validazioneMedico()
                     CAPMedico:
                             {
                                 required: "Inserire il CAP",
-                                number: "Il CAP è un numero",
                                 minlength: "Il CAP è un numero lungo 5 caratteri",
                                 maxlength: "Il CAP è un numero lungo 5 caratteri"
                             },
@@ -427,7 +423,6 @@ function validazioneClinica()
                     CAPClinica:
                             {
                                 required: true,
-                                number: true,
                                 minlength: 5,
                                 maxlength: 5
                             },
@@ -528,7 +523,6 @@ function validazioneClinica()
                     CAPClinica:
                             {
                                 required: "Inserire il CAP della clinica",
-                                number: "Deve essere un numero",
                                 minlength: "La sequenza minima di numeri è 5",
                                 maxlength: "La sequenza massima di numeri è 5"
                             },

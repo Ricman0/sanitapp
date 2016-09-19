@@ -81,8 +81,73 @@ class FClinica extends FDatabase{
      * @param string $nome Il nome della clinica che si vuole cercare
      * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
      */
-    public function cercaClinica($luogo, $nome)
+    public function cercaClinica($nome, $luogo)
     {
+        if($nome == "all")
+        {
+            $nome = "";
+        }
+        else
+        {
+            $nome = str_replace("_", " ", $nome);
+        }
+        if($luogo == "all")
+        {
+            $luogo = "";
+        }
+        else
+        {
+            $luogo = str_replace("_", " ", $luogo);
+        }
+        
+        if(!empty($nome))
+        {
+            echo "si nomeClinica";
+            if(!empty($luogo))
+            {
+                echo " si nomeClinica, luogo";
+                $query =  "SELECT NomeClinica, Località, Provincia, "
+                        . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE), "
+                        . "MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
+                        . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "FROM clinica "
+                        . "WHERE (MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE) "
+                        . "AND (MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))";
+            }
+            else
+            {  
+                echo " si nomeClinica, no luogo";
+                $query =  "SELECT NomeClinica, Località, Provincia, "
+                        . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE) "
+                        . "FROM clinica "
+                        . "WHERE MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE)";
+            }
+        }
+        else
+        {
+            echo "no nomeClinica";
+            if(!empty($luogo))
+            {
+                echo "no nomeClinica, si luogo";
+                $query =  "SELECT NomeClinica, Località, Provincia, "
+                        . "MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
+                        . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "FROM clinica "
+                        . "WHERE (MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE))";
+            }
+            else
+            {
+                echo "no nomeClinica, no luogo";
+                $query = "SELECT NomeClinica, Località, Provincia FROM clinica";
+            }
+        }
+        
+        
+        /* vecchia versione
         if (!empty($luogo)&& !empty($nome))
         {
             $query = "SELECT * FROM ".$this->_nomeTabella." WHERE NomeClinica = '"
@@ -103,10 +168,9 @@ class FClinica extends FDatabase{
         {
             $query = "SELECT * FROM " . $this->_nomeTabella;
         }
-        
+        fine vecchia versione*/
         
         $risultato = $this->eseguiQuery($query);
-        $this->stampaRisultatoQuery($risultato);
         return $risultato;
     }
 }
