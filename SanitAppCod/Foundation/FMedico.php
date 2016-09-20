@@ -25,7 +25,7 @@ class FMedico extends FDatabase {
         // imposto il nome della tabella
         $this->_nomeTabella = "medico";
         $this->_attributiTabella = "Nome, Cognome, CodFiscale, Via, NumCivico, "
-                . "CAP, Email, Password, PEC, Validato, ProvinciaAlbo, NumIscrizione";
+                . "CAP, Email, Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, CodiceConferma";
     }
     
     /**
@@ -61,7 +61,7 @@ class FMedico extends FDatabase {
                 . $this->trimEscapeStringa($medico->getCognomeMedico()) . "', '" 
                 . $this->trimEscapeStringa($medico->getCodiceFiscaleMedico()) . "', '"
                 . $this->trimEscapeStringa($medico->getViaMedico()) . "', '"
-                . $this->trimEscapeStringa($medico->getNumCivicoMedico()) . "', '" 
+                . $medico->getNumCivicoMedico() . "', '" 
                 . $this->trimEscapeStringa($medico->getCAPMedico()) . "', '"
                 
                 . $this->trimEscapeStringa($medico->getEmailMedico()) . "', '" 
@@ -69,7 +69,9 @@ class FMedico extends FDatabase {
                 . $this->trimEscapeStringa($medico->getPECMedico()) . "', '" 
                 . $this->trimEscapeStringa($medico->getValidatoMedico()) . "', '"
                 . $this->trimEscapeStringa($medico->getProvinciaAlboMedico()) . "', '" 
-                . $this->trimEscapeStringa($medico->getNumIscrizioneMedico()) . "'";
+//                . $this->trimEscapeStringa($medico->getNumIscrizioneMedico()) . "', "
+                . $medico->getNumIscrizioneMedico() . "', "
+                . $this->trimEscapeStringa($medico->getCodiceConfermaMedico()) . "'";
         return $valoriAttributi;
     }
     

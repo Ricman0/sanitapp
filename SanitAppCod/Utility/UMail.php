@@ -99,15 +99,16 @@ class UMail {
      * i dati inseriti nella form e un link per validare l'account.
      * 
      * @access public
-     * 
+     * @param string $inserito Il codice per confermare l'account
+     * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
-    public function inviaMailRegistrazioneUtente()
+    public function inviaMailRegistrazioneUtente($inserito)
     {
         //@param string $destinatario Il destinatario a cui inviare la mail riepilogativa con link //l'ho eliminato
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($_POST['email']);
         // imposto l'oggetto dell'email
-        $this->_email->Subject = "Account SanitApp";// = $subject;
+        $this->_email->Subject = "Conferma Account SanitApp";// = $subject;
         $testo = "Ciao, " . $_POST['nome'] . ", Benvenuto in SanitApp!"
                 . " Questa è un'email riepilogativa dei dati che hai inserito."
                 . " Nome: " . $_POST['nome'] ."\r\n"
@@ -119,14 +120,24 @@ class UMail {
                 . " Username: ". $_POST['username'] ."\r\n"
                 //devo inserire anche il link per la conferma
                 . " Per completare la registrazione, clicca sul link seguente: \n"
-                . "http://www.sanitapp/registrazione/conferma/utente/" . $_POST['username'] . "/";    
+               /*
+                * Problema: la conferma deve essere di tipo PUT secondo me, 
+                * invece così sarà di tipo GET. Da controllare quindi se
+                * esiste un metodo per cambiare il metodo http del link sottostante
+                */
+                . "http://www.sanitapp/registrazione/conferma/utente/" . $_POST['username'] . "/" . $inserito . "/";    
         
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();
         if ($inviata ===TRUE)
         {
-            echo "";
+            echo "email inviata";
         }
+        else
+        {
+            echo "email non inviata";
+        }
+        return $inviata;
     }
     
     /**
@@ -134,8 +145,10 @@ class UMail {
      * i dati inseriti nella form e un link per validare l'account.
      * 
      * @access public
+     * @param string $inserito Il codice per confermare l'account
+     * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
-    public function inviaMailRegistrazioneMedico()
+    public function inviaMailRegistrazioneMedico($inserito)
     {
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($_POST['emailMedico']);
@@ -155,13 +168,18 @@ class UMail {
                 . " Iscrizione numero: ". $_POST['numeroIscrizione'] ."\r\n"
                 //devo inserire anche il link per la conferma
                 . " Per completare la registrazione, clicca sul link seguente: \n"
-                . "http://www.sanitapp/registrazione/conferma/medico/" . $_POST['usernameMedico'] . "/";    
+                . "http://www.sanitapp/registrazione/conferma/medico/" . $_POST['usernameMedico'] . "/". $inserito ."/";    
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();
         if ($inviata ===TRUE)
         {
-            echo "";
+            echo "email inviata";
         }
+        else
+        {
+            echo "email non inviata";
+        }
+        return $inviata;
     }
     
      /**
@@ -176,7 +194,7 @@ class UMail {
         $this->_email->addAddress($_POST['emailClinica']);
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Account SanitApp";// = $subject;
-        $testo = " Benvenuto in SanitApp clinca" . $_POST['nomeClinica'] . "!"
+        $testo = " Benvenuto in SanitApp clinica " . $_POST['nomeClinica'] . "!"
                 . " Questa è un'email riepilogativa dei dati che ha inserito."
                 . " Nome della clinica: " . $_POST['nomeClinica'] ."\r\n"
                 . " Titolare: ". $_POST['titolare'] ."\r\n"

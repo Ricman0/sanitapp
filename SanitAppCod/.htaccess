@@ -16,7 +16,7 @@
   RewriteRule ^(registrazione)/(clinica)?$ index.php?controller=$1&task=$2
   RewriteRule ^(validazione)/(codiceFiscale)/(\w+)?$ index.php?controller=$1&task=$2&parametro=$3
   RewriteRule ^(\w+)?$ index.php?controller=$1
-  RewriteRule ^(registrazione)/(conferma)/(utente|clinica|medico)/(\w+)?$ index.php?controller=$1&task=$2&parametro1=$3&parametro2=$4
+  RewriteRule ^(registrazione)/(conferma)/(utente|clinica|medico)/(\w+)?/(\w+)?$ index.php?controller=$1&task=$2&utente=$3&username=$4&codice=$5 (L)
 
 
     RewriteCond %{REQUEST_METHOD} POST 

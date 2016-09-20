@@ -18,6 +18,12 @@ class EClinica
      */
     
     /**
+     * @var string $_codiceConferma, variabile che contiente il codice per confermare 
+     * l'account della clinica
+     */
+    private $_codiceConferma; 
+    
+    /**
      * @var string $_partitaIVA PartitaIVA della clinica
      */
     private $_partitaIVA;
@@ -38,7 +44,7 @@ class EClinica
      */
     private $_numeroCivico;
     /**
-     * @var  int $_CAP CAP della città o paese in cui si trova la clinica
+     * @var  string $_CAP CAP della città o paese in cui si trova la clinica
      */
     private $_CAP;
     /**
@@ -107,11 +113,12 @@ class EClinica
      * @param string $PEC La PEC del medico
      * @param string $provinciaAlbo La provincia dell'albo in cui il medico è iscritto
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
+     * @param int o string? $cod Il codice per confermare l'account
      */
     public function __construct($partitaIVA, $nomeClinica, $titolareClinica, 
             $via, $numeroCivico, $cap, $email,$PEC, $username, $password, 
             $telefono, $capitaleSociale, $orarioAperturaAM , $orarioChiusuraAM,
-            $orarioAperturaPM, $orarioChiusuraPM, $orarioContinuato) 
+            $orarioAperturaPM, $orarioChiusuraPM, $orarioContinuato, $cod) 
     {
         $this->_partitaIVA= $partitaIVA;
         $this->_nomeClinica = $nomeClinica;
@@ -181,9 +188,19 @@ class EClinica
                 $this->_orarioContinuato= FALSE; 
             }
         $this->_confermato = FALSE;
+        $this->_codiceConferma = $cod;
     }
     
     // metodi get
+    /**
+     * Metodo per conoscere il codice di conferma della clinica
+     * 
+     * @return int/string Il codice della clinica
+     */
+    public function getCodiceConfermaClinica()
+    {
+        return $this->_codiceConferma;
+    }
     
     /**
      * Metodo che restituisce la partita IVA della clinica
@@ -519,6 +536,16 @@ class EClinica
     }
     
     /**
+     * Metodo che permette di modificare il codice di conferma della clinica
+     * 
+     * @param string o int? $cod Il nuovo codice per la conferma della clinica
+     */
+    public function setCodiceConfermaClinica($cod)
+    {
+        $this->_codiceConferma = $cod; 
+    }
+    
+    /**
      * Metodo che permette di inserire un oggetto di tipo EClinica nel DB
      * 
      * @access public
@@ -528,7 +555,7 @@ class EClinica
     {
         //crea un oggetto fClinica se non è esistente, si collega al DB e lo inserisce
         $fClinica = USingleton::getInstance('FClinica');
-        $fClinica->inserisciUtente($eClinica);
+        $fClinica->inserisciClinica($eClinica);
     }
 }
 ?>

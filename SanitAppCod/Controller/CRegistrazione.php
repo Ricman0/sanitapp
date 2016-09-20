@@ -22,50 +22,26 @@ class CRegistrazione {
             //secondo me non dovrebbe stare in GET perchè il metodo che vorrei sarebbe PUT 
             // ma il link solo il metodo GET
             case 'conferma':
-                switch (getParametro())
-                {
-                    case 'utente':
-                        
-                        break;
-                    
-                    case 'medico':
-                        break;
-                    
-                    case 'clinica':
-                        break;
-                    
-                    default: 
-                        echo 'errore durante la conferma';
-                        break;
-                }
                 
+//                     inserisco una nuova classe controller CConferma. dopo vediamo se eliminarla   
+                $cConferma = USingleton::getInstance('CConferma');
+                if($cConferma->confermaUser() === TRUE)
+                {
+                    //mandarlo all'area personale
+                }
+                else
+                {
+                    echo "account non confermato";
+                }
                 break;
+            
             case 'clinica':
                 return $vRegistrazione->restituisciFormClinica();
             
             case 'medico':
                 return $vRegistrazione->restituisciFormMedico();
 
-            default:
-                //prova
-//                switch ($_SERVER['REQUEST_METHOD'])  
-//                {
-//                    case 'GET':
-//                        return $vRegistrazione->restituisciFormUtente();     
-//                        break;
-//                    case 'POST': echo "ciao post nel get";
-//
-//                        ;
-//                        break;
-//                    case 'PUT':
-//                        ;
-//                        break;
-//                    case 'DELETE':
-//                        ;
-//                        break;
-//                    default:;
-//                }
-                //fine prova    
+            default:    
                 return $vRegistrazione->restituisciFormUtente();     
         }    
     }
@@ -87,7 +63,7 @@ class CRegistrazione {
             case 'clinica':
                 $inserito = $this->recuperaDatiECreaClinica();
 //                return $vRegistrazione->restituisciFormClinica();
-                if($inserito === TRUE)
+                if(is_string($inserito) === TRUE)
                     {
                        //invia mail riscontro dell’avvenuta registrazione 
                        //contenente informazioni riepilogative
@@ -112,7 +88,7 @@ class CRegistrazione {
             case 'medico':
                 $inserito = $this->recuperaDatiECreaMedico();
 //                return $vRegistrazione->restituisciFormMedico();
-                if($inserito === TRUE)
+                 if(is_string($inserito) === TRUE)
                     {
                        //invia mail riscontro dell’avvenuta registrazione 
                        //contenente informazioni riepilogative
@@ -136,7 +112,7 @@ class CRegistrazione {
             default:
                 //recupera dati dal form e crea un nuovo utente
                 $inserito = $this->recuperaDatiECreaUtente();
-                if($inserito === TRUE)
+                 if(is_string($inserito) === TRUE)
                 {
                     //accedo al DB per ottenere le informazioni sull'utente inserito o è sufficiente $POST?
                     //messaggio di conferma
@@ -145,7 +121,7 @@ class CRegistrazione {
                    //contenente informazioni riepilogative
                    // e con link di conferma
                    $mail = USingleton::getInstance('UMail'); 
-                   if($mail->inviaMailRegistrazioneUtente() === TRUE)
+                   if($mail->inviaMailRegistrazioneUtente($inserito) === TRUE)
                    {
                        // visualizzo che un'email è stata inviata sulla propria mail
                        $vRegistrazione = USingleton::getInstance('VRegistrazione');
@@ -175,6 +151,7 @@ class CRegistrazione {
      */
     private function recuperaDatiECreaClinica() 
     {
+        //variabile $inserito nel caso
         //recupero i dati 
        $datiClinica = $this->recuperaDatiClinica();
        //ho recuperato tutti i dati inseriti nella form di registrazione della clinica
@@ -184,6 +161,12 @@ class CRegistrazione {
        // se i dati sono validi
        if($validi)
        {           
+            //crea codice per conferma mail
+            $codRandom = rand();
+            echo ("$codRandom");
+           
+           
+           // crea la clinica inserendo anche il codicino
             $eClinica = new EClinica($datiClinica['partitaIVA'], $datiClinica['nomeClinica'],
                    $datiClinica['titolareClinica'], $datiClinica['via'], $datiClinica['numeroCivico'],
                    $datiClinica['cap'], $datiClinica['email'], $datiClinica['PEC'], $datiClinica['username'],
@@ -254,10 +237,14 @@ class CRegistrazione {
        // se i dati sono validi
        if($validi)
        {
+           // crea codice
+           $codiceConferma = uniqid(rand(0, 6));
+           echo "codice : $codiceConferma ";
+           // crea utente 
            $eUtente = new EUtente($datiUtente['nome'], $datiUtente['cognome'],
                    $datiUtente['codiceFiscale'], $datiUtente['indirizzo'], 
                    $datiUtente['numeroCivico'], $datiUtente['CAP'], 
-                   $datiUtente['email'], $datiUtente['username'], $datiUtente['passwordUtente']);
+                   $datiUtente['email'], $datiUtente['username'], $datiUtente['passwordUtente'], $codiceConferma);
            //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
            $inserito = $eUtente->inserisciUtenteDB($eUtente);
        }
@@ -303,21 +290,21 @@ class CRegistrazione {
         {
             $datiClinica['capitaleSociale'] = $this->recuperaValore('capitaleSociale');
         }
-        if(isset($_POST['orarioAperturaAM']))
+        if(isset($_POST['orarioAperturaMattina']))
         {
-            $datiClinica['orarioAperturaAM'] = $this->recuperaValore('orarioAperturaAM');
+            $datiClinica['orarioAperturaAM'] = $this->recuperaValore('orarioAperturaMattina');
         }
-        if(isset($_POST['orarioAperturaPM']))
+        if(isset($_POST['orarioAperturaPomeriggio']))
         {
-            $datiClinica['orarioAperturaPM'] = $this->recuperaValore('orarioAperturaPM');
+            $datiClinica['orarioAperturaPM'] = $this->recuperaValore('orarioAperturaPomeriggio');
         }
-        if(isset($_POST['orarioChiusuraAM']))
+        if(isset($_POST['orarioChiusuraMattina']))
         {
-            $datiClinica['orarioChiusuraAM'] = $this->recuperaValore('orarioChiusuraAM');
+            $datiClinica['orarioChiusuraAM'] = $this->recuperaValore('orarioChiusuraMattina');
         }
-        if(isset($_POST['orarioChiusuraPM']))
+        if(isset($_POST['orarioChiusuraPomeriggio']))
         {
-            $datiClinica['orarioChiusuraPM'] = $this->recuperaValore('orarioChiusuraPM');
+            $datiClinica['orarioChiusuraPM'] = $this->recuperaValore('orarioChiusuraPomeriggio');
         }
         if(isset($_POST['orarioContinuato']))
         {
@@ -402,18 +389,5 @@ class CRegistrazione {
        return $parametro;
     }
     
-    /**
-     * Metodo che permette di ottenere il parametro1
-     * 
-     * @access private
-     * @return string Il parametro1 
-     */
-    private function getParametro1()
-    {
-        if(isset($_REQUEST['parametro1']))
-       {
-            $parametro = $_REQUEST['parametro1'];
-       }
-       return $parametro;
-    }
+    
 }
