@@ -59,11 +59,13 @@ CREATE TABLE clinica (
   OrarioChiusuraPM time DEFAULT NULL,
   OrarioContinuato boolean DEFAULT FALSE,
   Confermato boolean DEFAULT FALSE,
+  CodiceConferma varchar (255) NOT NULL,
   PRIMARY KEY (PartitaIVA),
   UNIQUE (Email),
   UNIQUE (Username),
   UNIQUE (PEC),
-  UNIQUE (Telefono)
+  UNIQUE (Telefono), 
+  UNIQUE (CodiceConferma)
 );
 
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextNomeClinica(NomeClinica);
@@ -78,9 +80,9 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
 Provincia, Email, Username, Password, PEC, Telefono, CapitaleSociale, OrarioAperturaAM, 
-OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato, Confermato) VALUES
-('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara' ,'info@appignano.it', ' appi', ' 1234', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE, FALSE),
-('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'info@bisenti.it', ' bise', ' 1235', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, FALSE);
+OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato, Confermato, CodiceConferma) VALUES
+('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara' ,'info@appignano.it', ' appi', ' 1234', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE, FALSE, 's12'),
+('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'info@bisenti.it', ' bise', ' 1235', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, FALSE, 'w34');
 
 -- --------------------------------------------------------
 
@@ -136,10 +138,12 @@ CREATE TABLE medico (
   ProvinciaAlbo varchar(2) NOT NULL,
   NumIscrizione smallint(6) NOT NULL,
   Confermato boolean DEFAULT FALSE,
+  CodiceConferma varchar (255) NOT NULL,
   PRIMARY KEY (CodFiscale),
   UNIQUE (Email),
   UNIQUE (Username),
-  UNIQUE (PEC)
+  UNIQUE (PEC), 
+  UNIQUE (CodiceConferma)
 );
 
 --
@@ -147,9 +151,9 @@ CREATE TABLE medico (
 --
 
 INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email, Username, 
-Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, Confermato) VALUES
+Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, Confermato, CodiceConferma) VALUES
 ('dmrcld89s42g438s', 'claudia', 'di marco', 'acquaventina', 30, '65017', 
-'clau@hotmail.it','claudim', 'clau', 'clau@dim.pec.it', 0, ' P', 5464, FALSE);
+'clau@hotmail.it','claudim', 'clau', 'clau@dim.pec.it', 0, ' P', 5464, FALSE, 'm786f');
 
 -- --------------------------------------------------------
 
@@ -170,9 +174,11 @@ CREATE TABLE utente (
   Password varchar(10) NOT NULL,
   CodFiscaleMedico varchar(21) DEFAULT NULL,
   Confermato boolean DEFAULT FALSE,
+  CodiceConferma varchar (255) NOT NULL,
   PRIMARY KEY (CodFiscale),
   UNIQUE (Email),
   UNIQUE (Username),
+  UNIQUE (CodiceConferma),
   FOREIGN KEY (CodFiscaleMedico) REFERENCES medico (CodFiscale)
 ) ;
 
@@ -182,10 +188,10 @@ CREATE TABLE utente (
 --
 
 INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email,
- Username, Password, CodFiscaleMedico, Confermato) VALUES
-('dmntnna89s42g438s', ' anna', ' di matteo', ' acquaventina', 30, '65017', ' annadima@alice.it', 'annadima' , 'anna', 'dmrcld89s42g438s', FALSE),
-('mntrcr89h21a488l', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'onizuka-89@hotmail.it', 'ricman', 'riccardo', 'dmrcld89s42g438s', FALSE),
-('rndndt56s53t657o', 'rnd', 'ndt', 'bologna', 3, '64034', 'rnd@libero.it', 'rdnndt', 'rnd', 'dmrcld89s42g438s', FALSE);
+ Username, Password, CodFiscaleMedico, Confermato, CodiceConferma) VALUES
+('dmntnna89s42g438s', ' anna', ' di matteo', ' acquaventina', 30, '65017', ' annadima@alice.it', 'annadima' , 'anna', 'dmrcld89s42g438s', FALSE, 'u4728tdgd'),
+('mntrcr89h21a488l', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'onizuka-89@hotmail.it', 'ricman', 'riccardo', 'dmrcld89s42g438s', FALSE, 'sjsj474r8'),
+('rndndt56s53t657o', 'rnd', 'ndt', 'bologna', 3, '64034', 'rnd@libero.it', 'rdnndt', 'rnd', 'dmrcld89s42g438s', FALSE, 'jd784hfh58f');
 
 
 

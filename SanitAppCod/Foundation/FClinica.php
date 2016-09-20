@@ -27,7 +27,7 @@ class FClinica extends FDatabase{
         $this->_attributiTabella = "partitaIVA, nomeClinica, titolareClinica, via, "+
                 +"numeroCivico, CAP, email, PEC, username, password, telefono, "+
                 +"capitaleSociale, orarioAperturaAM, orarioChiusuraAM, orarioAperturaPM"+
-                +"orarioChiusuraPM, orarioContinuato"; 
+                +"orarioChiusuraPM, orarioContinuato, CodiceConferma"; 
     }
     
     /**
@@ -40,18 +40,24 @@ class FClinica extends FDatabase{
      */
     private function getAttributi($clinica) 
     {
-        $valoriAttributi = $clinica->getPartitaIVAClinica()+', ' +$clinica->getNomeClinica()+
-                +', '+ $clinica->getTitolareClinica()+', '+
-                + $clinica->getViaClinica()+', '+$clinica->getNumeroCivicoClinica()+', '+
-                + $clinica->getCAPClinica() + ', '
-                + $clinica->getEmailClinica() + ', ' + $clinica->getPECClinica()+
-                +', ' + $clinica->getUsernameClinica()+ ', ' + $clinica->getPasswordClinica()+ ", "
-                + $clinica->getTelefonoClinica()+', '+$clinica->getCapitaleSocialeClinica()+
-                +', '+ $clinica->getOrarioAperturaAMClinica()+
-                +', '+ $clinica->getOrarioChiusuraAMClinica()+', '+
-                +$clinica->getOrarioAperturaPMClinica()+', '+
-                $clinica->getOrarioChiusuraPMClinica()+', '+
-                +$clinica->getOrarioContinuatoClinica();
+        $valoriAttributi = "'" . $this->trimEscapeStringa($clinica->getPartitaIVAClinica()) . "', '" 
+                . $this->trimEscapeStringa($clinica->getNomeClinica()) . "', '" 
+                . $this->trimEscapeStringa($clinica->getTitolareClinica()) .  "', '" 
+                . $this->trimEscapeStringa($clinica->getViaClinica()). "', '" 
+                . $clinica->getNumeroCivicoClinica() . "', '" 
+                . $this->trimEscapeStringa($clinica->getCAPClinica()) . "', '" 
+                . $this->trimEscapeStringa($clinica->getEmailClinica()) .  "', '"  
+                . $this->trimEscapeStringa($clinica->getPECClinica()) .  "', '"
+                . $this->trimEscapeStringa($clinica->getUsernameClinica()) .  "', '" 
+                . $this->trimEscapeStringa($clinica->getPasswordClinica()) .  "', '"
+                . $clinica->getTelefonoClinica() .  "', '" 
+                . $clinica->getCapitaleSocialeClinica() . "', '" 
+                . $clinica->getOrarioAperturaAMClinica() . "', '" 
+                . $clinica->getOrarioChiusuraAMClinica() . "', '" 
+                . $clinica->getOrarioAperturaPMClinica() .  "', '" 
+                . $clinica->getOrarioChiusuraPMClinica() . "', '" 
+                . $clinica->getOrarioContinuatoClinica() .  "', '"
+                . $clinica->getCodiceConfermaClinica() .  "'" ;
         return $valoriAttributi;
     }
     

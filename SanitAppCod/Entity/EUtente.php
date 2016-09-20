@@ -42,7 +42,7 @@ class EUtente
     private $_numeroCivico; 
     
     /**
-     * @var int $_CAP, variabile di tipo intero, che contiente il CAP in cui 
+     * @var string $_CAP, variabile che contiente il CAP in cui 
      *          risiede l'utente
      */
     private $_CAP; 
@@ -67,6 +67,12 @@ class EUtente
     private $_username;
     
     /**
+     * @var string $_codiceConferma, variabile che contiente il codice per confermare 
+     * l'account dell'utente
+     */
+    private $_codiceConferma; 
+    
+    /**
      * @var string $_confermato permette di capire se l'account dell'utente è 
      * stato confermato(TRUE) o meno         
      */
@@ -77,6 +83,8 @@ class EUtente
      *                           prenotazioni a nome dell'utente
      */
     private $_prenotazioni; 
+    
+    
     
     /**
      * Costruttore della classe EUtente
@@ -89,8 +97,9 @@ class EUtente
      * @param string $cap Il cap del paese in cui risiede l'utente
      * @param string $email L'email dell'utente
      * @param string $password La password dell'utente
+     * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($nome, $cognome, $cf, $via, $numeroCivico, $cap, $email, $username, $password) 
+    public function __construct($nome, $cognome, $cf, $via, $numeroCivico, $cap, $email, $username, $password, $cod) 
     {
         $this->_nome = $nome;
         $this->_cognome = $cognome; 
@@ -109,6 +118,7 @@ class EUtente
         $this->_email = $email; 
         $this->_username = $username;
         $this->_password = $password; 
+        $this->_codiceConferma = $cod;
         $this->_confermato = FALSE;
         $this->_prenotazioni = new ArrayObject() ;// da vedere:array di oggetti o bastava semplicemente Array()??
     }
@@ -167,11 +177,21 @@ class EUtente
     /**
      * Metodo per conoscere il cap del paese in cui risiede l'utente
      * 
-     * @return int Il cap del paese in cui risiede l'utente
+     * @return string Il cap del paese in cui risiede l'utente
      */
     public function getCAPUtente()
     {
         return $this->_CAP;
+    }
+    
+    /**
+     * Metodo per conoscere il codice di conferma dell'utente
+     * 
+     * @return int/string Il codice dell'utente 
+     */
+    public function getCodiceConfermaUtente()
+    {
+        return $this->_codiceConferma;
     }
     
     /**
@@ -289,11 +309,21 @@ class EUtente
     /**
      * Metodo che permette di modificare il CAP dell'utente
      * 
-     * @param int $cap Il nuovo CAP dell'utente
+     * @param string $cap Il nuovo CAP dell'utente
      */
     public function setCAPUtente($cap)
     {
         $this->_CAP = $cap; 
+    }
+    
+    /**
+     * Metodo che permette di modificare il codice di conferma dell'utente
+     * 
+     * @param string o int? $cod Il nuovo codice per la conferma dell'utente
+     */
+    public function setCodiceConfermaUtente($cod)
+    {
+        $this->_codiceConferma = $cod; 
     }
     
     /**
@@ -344,13 +374,21 @@ class EUtente
      * 
      * @access public
      * @param EUtente $eUtente L'oggetto di tipo EUtente che si vuole memorizzare nel DB
-     * @return Boolean TRUE se l'utente è stato inserito correttamente nel DB, FALSE altrimenti.
+     * @return string|Boolean Il codice di conferma se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
      */
     public function inserisciUtenteDB($eUtente) 
     {
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
-        return $fUtente->inserisciUtente($eUtente);
+//        return $fUtente->inserisciUtente($eUtente);
+        if($fUtente->inserisciUtente($eUtente) === TRUE)
+        {
+            return $eUtente->getCodiceConfermaUtente();
+        }
+        else
+        {
+            return FALSE;
+        }
     }
     
     

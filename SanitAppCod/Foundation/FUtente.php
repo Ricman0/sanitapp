@@ -19,7 +19,7 @@ class FUtente extends FDatabase{
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
         $this->_attributiTabella = "Nome, Cognome, CodFiscale, Via, NumCivico, "
-                . "CAP, Email, Username, Password, CodFiscaleMedico";
+                . "CAP, Email, Username, Password, CodFiscaleMedico, CodiceConferma";
     }
     
     
@@ -67,15 +67,16 @@ class FUtente extends FDatabase{
 //        . $utente->getCodiceFiscaleUtente() . ", " 
 //        .   $utente->getEmailUtente() . ", "  . $utente->getUsernameUtente() 
 //        . ", " . $utente->getPasswordUtente() ;
-        $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getNomeUtente()) ."', '"  
+        $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getNomeUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getCognomeUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getCodiceFiscaleUtente()) . "', '"
-        . $this->trimEscapeStringa($utente->getViaUtente()) . "', '"
-        . $this->trimEscapeStringa($utente->getNumCivicoUtente()) . "', '" 
+                . $this->trimEscapeStringa($utente->getViaUtente()) . "', '"
+                . $utente->getNumCivicoUtente() . "', '"
                 . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
-        . $this->trimEscapeStringa($utente->getEmailUtente()) . "', '"  
-                . $this->trimEscapeStringa($utente->getUsernameUtente()) . "', '" 
-        . $this->trimEscapeStringa($utente->getPasswordUtente()) . "'" ;
+                . $this->trimEscapeStringa($utente->getEmailUtente()) . "', '"
+                . $this->trimEscapeStringa($utente->getUsernameUtente()) . "', '"
+                . $this->trimEscapeStringa($utente->getPasswordUtente()) . ", '"
+                . $this->trimEscapeStringa($utente->getCodiceConfermaUtente()) . ", '";
         return $valoriAttributi;
     }
     

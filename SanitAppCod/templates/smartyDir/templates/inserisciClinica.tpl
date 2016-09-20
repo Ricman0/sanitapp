@@ -61,12 +61,12 @@
             <br>
         </div>
         <div class="Località"> 
-            <input type="text" name="LocalitàClinica" id="localitàClinica" placeholder="Penne" required/>
+            <input type="text" name="localitàClinica" id="localitàClinica" placeholder="Penne" required/>
             <label for="localitàClinica">Località</label>
             <br>
         </div>
         <div class="Provincia"> 
-            <input type="text" name="ProvinciaClinica" id="provinciaClinica" placeholder="Pescara" required/>
+            <input type="text" name="provinciaClinica" id="provinciaClinica" placeholder="Pescara" required/>
             <label for="provinciaClinica">Provincia</label>
             <br>
         </div>

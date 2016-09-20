@@ -106,7 +106,7 @@ function validazioneUtente()
                             },
                     passwordUtente:
                             {
-                                required: true,
+                                required: true
                             },
                     ripetiPasswordUtente:
                             {
@@ -429,7 +429,7 @@ function validazioneClinica()
                     localitàClinica:
                             {
                                 required: true,
-                                maxlength: 20
+                                maxlength: 40
                             },
                     provinciaClinica:
                             {
@@ -529,7 +529,7 @@ function validazioneClinica()
                     localitàClinica:
                             {
                                 required: "Inserire la località della clinica",
-                                maxlength: "La sequenza massima di caratteri è 20"
+                                maxlength: "La sequenza massima di caratteri è 40"
                             },
                     provinciaClinica:
                             {

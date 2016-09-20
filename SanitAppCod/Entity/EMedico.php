@@ -15,6 +15,12 @@ class EMedico
 {
     //attributi della classe EMedico
     /**
+     * @var string $_codiceConferma, variabile che contiente il codice per confermare 
+     * l'account del medico
+     */
+    private $_codiceConferma; 
+    
+    /**
      * @var string $_codFiscale Il codice fiscale del medico
      */
     private $_codFiscale;
@@ -43,7 +49,7 @@ class EMedico
      */
     private $_numeroCivico;
     /**
-     * @var  int $_CAP CAP della città o paese in cui si trova il medico
+     * @var  string $_CAP CAP della città o paese in cui si trova il medico
      */
     private $_CAP;
     
@@ -91,8 +97,9 @@ class EMedico
      * @param string $PEC La PEC del medico
      * @param string $provinciaAlbo La provincia dell'albo in cui il medico è iscritto
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
+     * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($nome, $cognome, $cf, $via, $cap, $email, $password, $PEC, $provinciaAlbo, $numIscrizione) 
+    public function __construct($nome, $cognome, $cf, $via, $cap, $email, $password, $PEC, $provinciaAlbo, $numIscrizione, $cod) 
     {
         $this->_nome = $nome;
         $this->_cognome = $cognome; 
@@ -107,6 +114,7 @@ class EMedico
         $this->_provinciaAlbo = $provinciaAlbo;
         $this->_numIscrizione = $numIscrizione;
         $this->_confermato = FALSE;
+        $this->_codiceConferma = $cod;
     }
     
     //metodi get
@@ -168,6 +176,16 @@ class EMedico
     public function getCAPMedico()
     {
         return $this->_CAP;
+    }
+    
+    /**
+     * Metodo per conoscere il codice di conferma del medico
+     * 
+     * @return int/string Il codice del medico 
+     */
+    public function getCodiceConfermaMedico()
+    {
+        return $this->_codiceConferma;
     }
     
     /**
@@ -328,6 +346,16 @@ class EMedico
     public function setPECMedico($PEC)
     {
         $this->_PEC= $PEC;
+    }
+    
+    /**
+     * Metodo che permette di modificare il codice di conferma del medico
+     * 
+     * @param string o int? $cod Il nuovo codice per la conferma del medico
+     */
+    public function setCodiceConfermaMedico($cod)
+    {
+        $this->_codiceConferma = $cod; 
     }
     
     /**

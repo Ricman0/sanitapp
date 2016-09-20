@@ -255,7 +255,7 @@ class UValidazione {
                     $stringaErrore = "Il nome della clinica deve essere una sequenza di caratteri. Minimo 1 e massimo 20";
                     break;
                     
-                case 'titolareClinica':
+                case 'titolare':
                     // scrivere quello che c'è da fare
                     $pattern = '/^[a-zA-Zàèìùò\s]{2,50}$/' ;
                     $stringaErrore = "Il titolare della clinica deve essere una "
@@ -323,7 +323,7 @@ class UValidazione {
                 case 'orarioAperturaPM':
                 case 'orarioChiusuraPM':
                     $pattern = '/^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?$/';
-                    $stringaErrore = "L'orario deve avere un formato del tipo: 08:30:00 ";
+                    $stringaErrore = "L'orario deve avere un formato del tipo: 08:30:00 oppure  08:30";
                     break;
                 case 'orarioContinuato':
                     $pattern ="";
