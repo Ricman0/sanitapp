@@ -44,7 +44,7 @@ CREATE TABLE clinica (
   Titolare varchar(50) NOT NULL,
   Via varchar(30) NOT NULL,
   NumCivico smallint(6) DEFAULT NULL,
-  CAP mediumint(7) UNSIGNED NOT NULL,
+  CAP varchar(5) NOT NULL,
   Località varchar (40) NOT NULL,
   Provincia varchar (20) NOT NULL,
   Email varchar(320) NOT NULL,
@@ -69,6 +69,7 @@ CREATE TABLE clinica (
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextNomeClinica(NomeClinica);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextLocalitàClinica(Località);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextProvinciaClinica(Provincia);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 
 
 --
@@ -78,8 +79,8 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextProvinciaClinica(Provincia);
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
 Provincia, Email, Username, Password, PEC, Telefono, CapitaleSociale, OrarioAperturaAM, 
 OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato, Confermato) VALUES
-('12345', 'appignano', 'riccardo', 'del carmine', 2, 32767, 'Penne', 'Pescara' ,'info@appignano.it', ' appi', ' 1234', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE, FALSE),
-('12346', 'bisenti', 'lucio', 'del corso', 87, 32767,'Penne', 'Pescara' , 'info@bisenti.it', ' bise', ' 1235', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, FALSE);
+('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara' ,'info@appignano.it', ' appi', ' 1234', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE, FALSE),
+('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'info@bisenti.it', ' bise', ' 1235', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, FALSE);
 
 -- --------------------------------------------------------
 
@@ -126,7 +127,7 @@ CREATE TABLE medico (
   Cognome varchar(20) NOT NULL,
   Via varchar(30) NOT NULL,
   NumCivico smallint(6) DEFAULT NULL,
-  CAP mediumint(7) UNSIGNED NOT NULL,
+  CAP varchar(5) NOT NULL,
   Email varchar(320) NOT NULL,
   Username varchar(15) NOT NULL,
   Password varchar(10) NOT NULL,
@@ -147,7 +148,7 @@ CREATE TABLE medico (
 
 INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email, Username, 
 Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, Confermato) VALUES
-('dmrcld89s42g438s', 'claudia', 'di marco', 'acquaventina', 30, 32767, 
+('dmrcld89s42g438s', 'claudia', 'di marco', 'acquaventina', 30, '65017', 
 'clau@hotmail.it','claudim', 'clau', 'clau@dim.pec.it', 0, ' P', 5464, FALSE);
 
 -- --------------------------------------------------------
@@ -163,7 +164,7 @@ CREATE TABLE utente (
   Cognome varchar(20) NOT NULL,
   Via varchar(30) NOT NULL,
   NumCivico smallint(6) DEFAULT NULL,
-  CAP mediumint(7) UNSIGNED NOT NULL,
+  CAP varchar(5) NOT NULL,
   Email varchar(320) NOT NULL,
   Username varchar(15) NOT NULL,
   Password varchar(10) NOT NULL,
@@ -182,9 +183,9 @@ CREATE TABLE utente (
 
 INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email,
  Username, Password, CodFiscaleMedico, Confermato) VALUES
-('dmntnna89s42g438s', ' anna', ' di matteo', ' acquaventina', 30, 32767, ' annadima@alice.it', 'annadima' , 'anna', 'dmrcld89s42g438s', FALSE),
-('mntrcr89h21a488l', 'riccardo', 'mantini', 'del carmine', 31, 6403, 'onizuka-89@hotmail.it', 'ricman', 'riccardo', 'dmrcld89s42g438s', FALSE),
-('rndndt56s53t657o', 'rnd', 'ndt', 'bologna', 3, 32767, 'rnd@libero.it', 'rdnndt', 'rnd', 'dmrcld89s42g438s', FALSE);
+('dmntnna89s42g438s', ' anna', ' di matteo', ' acquaventina', 30, '65017', ' annadima@alice.it', 'annadima' , 'anna', 'dmrcld89s42g438s', FALSE),
+('mntrcr89h21a488l', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'onizuka-89@hotmail.it', 'ricman', 'riccardo', 'dmrcld89s42g438s', FALSE),
+('rndndt56s53t657o', 'rnd', 'ndt', 'bologna', 3, '64034', 'rnd@libero.it', 'rdnndt', 'rnd', 'dmrcld89s42g438s', FALSE);
 
 
 
