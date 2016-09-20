@@ -1,15 +1,16 @@
-<form class="form" id="formRicercaEsami" method="POST">
-    <div class="form" id="inputRicercaEsami">
+<form id="formRicercaEsami" method="POST">
+    <div  id="inputRicercaEsami">
         <input type="hidden" name="controller" value="esami" id="controllerFormRicercaEsami"/> 
-        <label for="esame">Nome Esame</label>
-        <input type="text" name="esame" class="elementiForm"  target="_blank" id="nomeEsameFormRicercaEsami"
+        <label for="esame" class="ricerca">Nome Esame</label>
+        <input type="text" name="esame" class="ricerca"  target="_blank" id="nomeEsameFormRicercaEsami"
                placeholder="Raggi"/>
-        <label for="clinica">Clinica</label>
-        <input type="text" name="clinica" class="elementiForm" target="_blank" id="nomeClinicaFormRicercaEsami"
+        <label for="clinica" class="ricerca">Clinica</label>
+        <input type="text" name="clinica" class="ricerca" target="_blank" id="nomeClinicaFormRicercaEsami"
                placeholder="Villa Serena"/>
-        <label for="luogo">Luogo</label>
-        <input type="text" name="luogo" class="elementiForm" target="_blank" id="luogoClinicaFormRicercaEsami"
+        <label for="luogo" class="ricerca">Luogo</label>
+        <input type="text" name="luogo" class="ricerca" target="_blank" id="luogoClinicaFormRicercaEsami"
                placeholder="Roma"/>
-        <input type="button" class="elementiForm" id="ricercaEsamiCerca" value="Cerca">
+        <br>
+        <input type="button" id="ricercaEsamiCerca" value="Cerca">
     </div>
 </form>

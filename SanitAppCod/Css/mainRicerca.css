@@ -12,16 +12,19 @@ and open the template in the editor.
     margin-left: 10%;
     float: left;
     margin-right: 10%;
+    margin-top: 80px;
+    /*    -webkit-transition: margin 0.1s;  Safari 
+        transition: margin 0.1s;*/
+
+}
+#inputMainRicerca{
+    float:left;
 }
 #iconaMainRicercaRicerca {
-    color:rgb(11, 190, 210);
-    transform: scale(10) rotate(90deg);
-    -webkit-transform: scale(10) rotate(90deg);
-    -moz-transform: scale(10) rotate(90deg);
-    -ms-transform: scale(10) rotate(90deg);
-    -o-transform: scale(10) rotate(90deg);
-    margin: 100px;
-    
+    margin: 50px;
+    float:left;
+    /*    -webkit-transition: margin 0.1s;  Safari 
+        transition: margin 0.1s;*/
 }
 
 @media only screen and (max-width: 1200px){
@@ -29,11 +32,18 @@ and open the template in the editor.
         margin-left: 5%;
         margin-right: 5%;
     }
+    #iconaMainRicercaRicerca {
+        margin: 50px 35px;
+    }
+
 }
-@media only screen and (max-width: 1100px){
+@media only screen and (max-width: 1000px){
     #elementiFormMainRicerca{
         margin-left: 2%;
         margin-right: 2%;
+    }
+    #iconaMainRicercaRicerca {
+        margin: 50px 20px;
     }
 }
 /*

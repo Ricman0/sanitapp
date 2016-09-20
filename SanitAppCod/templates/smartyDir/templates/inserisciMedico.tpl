@@ -1,79 +1,71 @@
-<form class="formInserisci" name="inserisciMedico" method="post" id="inserisciMedico">
-    <div>
-            <input type="hidden" name="controller" value="registrazione"/>
-            <input type="hidden" name="task" value="medico"/>
-    </div>
-    <div class="informazioni"> 
-        <div class="nome">            
-            <input type="text" name="nomeMedico" id="nomeMedico" placeholder="Mario" required/>
-            <label for="nomeMedico">Nome</label>
-            <br>
-        </div>
-        <div class="cognomeMedico"> 
-            <input type="text" name="cognomeMedico" id="cognomeMedico" placeholder="Rossi" required/>
-            <label for="cognomeMedico">Cognome</label>
-            <br>
-        </div>
-        <div class="codiceFiscale"> 
-            <input type="text" name="codiceFiscaleMedico" id="codiceFiscaleMedico" placeholder="MRARSS67S42G438S" required/>
-            <label for="codiceFiscaleMedico">Codice Fiscale</label>
-            <br>
-        </div>
-    </div>
-    <div class ="indirizzo">
-        <div class="via">              
-            <input type="text" name="indirizzoMedico" id="indirizzoMedico" placeholder="Via/C.da Acquaventina" />
-            <label for="indirizzoMedico">Indirizzo</label>
-            <br>
-        </div>
-        <div class="numeroCivico">              
-            <input type="number" name="numeroCivicoMedico" id="numeroCivicoMedico" placeholder="30" required/>
-            <label for="numeroCivicoMedico">Numero Civico</label>
-            <br>
-        </div>
-        <div class="CAP"> 
-            <input type="text" name="CAPMedico" id="CAPMedico" placeholder="65017" required/>
-            <label for="CAPMedico">CAP</label>
-            <br>
-        </div>
-    </div>
-    <div class="numeroIscrizione"> 
-        <input type="text" name="numeroIscrizione" id="numeroIscrizione" placeholder="03693" required/>
-        <label for="numeroIscrizione">Numero Iscrizione</label>
+<form name="inserisciMedico" method="post" id="inserisciMedico">
+
+    <input type="hidden" name="controller" value="registrazione"/>
+    <input type="hidden" name="task" value="medico"/>
+
+    <label for="nomeMedico" class="elementiForm">Nome</label>
+    <input type="text" name="nomeMedico" class="elementiForm" id="nomeMedico" placeholder="Mario" required/>
+
+    <br>
+
+    <label for="cognomeMedico" class="elementiForm">Cognome</label>
+    <input type="text" name="cognomeMedico" class="elementiForm" id="cognomeMedico" placeholder="Rossi" required/>
+
+    <br>
+    <label for="codiceFiscaleMedico" class="elementiForm">Codice Fiscale</label>
+    <input type="text" name="codiceFiscaleMedico" class="elementiForm" id="codiceFiscaleMedico" placeholder="MRARSS67S42G438S" required/>
+
+    <br>
+
+    <label for="indirizzoMedico" class="elementiForm">Indirizzo</label>
+    <input type="text" name="indirizzoMedico" class="elementiForm" id="indirizzoMedico" placeholder="Via/C.da Acquaventina" />
+
+    <br>
+
+    <label for="numeroCivicoMedico" class="elementiForm">Numero Civico</label>
+    <input type="number" name="numeroCivicoMedico" class="elementiForm" id="numeroCivicoMedico" placeholder="30" required/>
+
+    <br>
+    <label for="CAPMedico" class="elementiForm">CAP</label>
+    <input type="text" name="CAPMedico" class="elementiForm" id="CAPMedico" placeholder="65017" required/>
+
+    <br>
+    <label for="numeroIscrizione" class="elementiForm">Numero Iscrizione</label>
+    <input type="text" name="numeroIscrizione" class="elementiForm" id="numeroIscrizione" placeholder="03693" required/>
+
+    <br>
+
+    <label for="provinciaAlbo" class="elementiForm">Provincia Albo</label>
+    <input type="text" name="provinciaAlbo" class="elementiForm" id="provinciaAlbo" placeholder="PE" required/>
+
+    <br>
+
+    <!--type=email non supportato da safari-->
+    <label for="emailMedico" class="elementiForm">Email</label>
+    <input type="email" name="emailMedico" class="elementiForm" id="emailMedico" placeholder="mario.rossi@example.it" required>
+
+    <br>
+    <label for="PECMedico" class="elementiForm">PEC</label>
+    <input type="email" name="PECMedico" class="elementiForm" id="PECMedico" placeholder="mario.rossi@pec.it" required>
+
+    <br>
+
+    <div class="username">            
+        <label for="usernameMedico" class="elementiForm">Username</label>
+        <input type="text" name="usernameMedico" class="elementiForm" id="usernameMedico" pattern="^[a-z0-9]*$" title="Inserisci elementi alfanumerici" placeholder="Mario" required />
         <br>
     </div>
-    <div class="provinciaAlbo"> 
-        <input type="text" name="provinciaAlbo" id="provinciaAlbo" placeholder="PE" required/>
-        <label for="provinciaAlbo">Provincia Albo</label>
+    <div class="password"> 
+        <label for="passwordMedico" class="elementiForm">Password</label>
+        <input type="password" name="passwordMedico" class="elementiForm" id="passwordMedico" required >
+
+        <br>
+        <label for="ripetiPasswordMedico" class="elementiForm">Ripeti Password</label>
+        <input type="password" name="ripetiPasswordMedico" class="elementiForm" id="ripetiPasswordMedico" required >
+
         <br>
     </div>
-        <!--type=email non supportato da safari-->
-    <div class="accesso">
-        <div class="email"> 
-            <input type="email" name="emailMedico" id="emailMedico" placeholder="mario.rossi@example.it" required>
-            <label for="emailMedico">Email</label>
-            <br>
-        </div>
-        <div class="PEC"> 
-            <input type="email" name="PECMedico" id="PECMedico" placeholder="mario.rossi@pec.it" required>
-            <label for="PECMedico">PEC</label>
-            <br>
-        </div>
-        <div class="username">            
-            <label for="usernameMedico">Username</label>
-            <input type="text" name="usernameMedico" id="usernameMedico" pattern="^[a-z0-9]*$" title="Inserisci elementi alfanumerici" placeholder="Mario" required />
-            <br>
-        </div>
-        <div class="password"> 
-            <input type="password" name="passwordMedico" id="passwordMedico" required >
-            <label for="passwordMedico">Password</label>
-            <br>
-            <input type="password" name="ripetiPasswordMedico" id="ripetiPasswordMedico" required >
-            <label for="ripetiPasswordMedico">Ripeti Password</label>
-            <br>
-        </div>
-    </div>
-    
+
     <div class="submit">
         <input type="submit" value="Invia" id="submitRegistrazioneMedico">
     </div>

@@ -1,4 +1,3 @@
-
 <form id="logInForm">
   
     <label for="usernameLogIn">Username</label>

@@ -1,114 +1,106 @@
-<head>
-    <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
-</head>
-
 <form class="formInserisci" name="inserisciClinica" method="post" id="inserisciClinica">
-    <div>
-            <input type="hidden" name="controller" value="registrazione"/>
-            <input type="hidden" name="task" value="clinica"/>
-    </div>
-    <div class="informazioniClinica" >   
-        <div class="nomeClinica">            
-            <input type="text" name="nomeClinica" id="nomeClinica" placeholder="Villa Serena" required/>
-            <label for="nomeClinica">Nome</label>
-            <br>
-        </div>
-        <div class="titolare">            
-            <input type="text" name="titolare" id="titolare" placeholder="Mario Rossi" required/>
-            <label for="titolare">Titolare</label>
-            <br>
-        </div>
-        <div class="partitaIVA">            
-            <input type="text" name="partitaIVA" id="partitaIVA" placeholder="JAJF59382YHC3930" required/>
-            <label for="partitaIVA">Partita IVA</label>
-            <br>
-        </div>
-        <div class="email"> 
-            <input type="email" name="emailClinica" id="emailClinica" placeholder="villaserena@gmail.it" required>
-            <label for="emailClinica">Email</label>
-            <br>
-        </div>
-        <div class="PEC"> 
-            <input type="email" name="PECClinica" id="PECClinica" placeholder="villaserena@pec.it" required>
-            <label for="PECClinica">PEC</label>
-            <br>
-        </div>
-        <div class="telefono"> 
-            <input type="tel" name="telefonoClinica" id="telefonoClinica" placeholder="085821345" required/>
-            <label for="telefonoClinica">Telefono</label>
-            <br>
-        </div>
-        <div class="capitaleSociale">            
-            <input type="text" name="capitaleSociale" id="capitaleSociale" placeholder="320.000€" />
-            <label for="capitaleSociale">Capitale Sociale</label>
-            <br>
-        </div>
-    </div>
-    <div class="indirizzoClinica">
-        <div class="indirizzo"> 
-            <input type="text" name="indirizzoClinica" id="indirizzoClinica" placeholder="Via/C.da Acquaventina" required/>
-            <label for="indirizzoClinica">Indirizzo</label>
-            <br>
-        </div>    
-        <div class="numeroCivicoClinica">
-            <input type="number" name="numeroCivicoClinica" id="numeroCivicoClinica" min="0" max="1000" placeholder="3"/>
-            <label for="mumeroCivicoClinica">Numero Civico</label>
-            <br>
-        </div>
-        <div class="CAP"> 
-            <input type="text" name="CAPClinica" id="CAPClinica" placeholder="65017" required/>
-            <label for="CAPClinica">CAP</label>
-            <br>
-        </div>
-        <div class="Località"> 
-            <input type="text" name="LocalitàClinica" id="localitàClinica" placeholder="Penne" required/>
-            <label for="localitàClinica">Località</label>
-            <br>
-        </div>
-        <div class="Provincia"> 
-            <input type="text" name="ProvinciaClinica" id="provinciaClinica" placeholder="Pescara" required/>
-            <label for="provinciaClinica">Provincia</label>
-            <br>
-        </div>
-    </div>
+
+    <input type="hidden" name="controller" value="registrazione"/>
+    <input type="hidden" name="task" value="clinica"/>
+
+    <label for="nomeClinica" class="elementiForm">Nome</label>
+    <input type="text" name="nomeClinica" class="elementiForm" id="nomeClinica" placeholder="Villa Serena" required/>
+
+    <br>
+
+    <label for="titolare" class="elementiForm">Titolare</label>
+    <input type="text" name="titolare" class="elementiForm" id="titolare" placeholder="Mario Rossi" required/>
+
+    <br>
+    <label for="partitaIVA" class="elementiForm">Partita IVA</label>
+    <input type="text" name="partitaIVA" class="elementiForm" id="partitaIVA" placeholder="JAJF59382YHC3930" required/>
+
+    <br>
+    <label for="emailClinica" class="elementiForm">Email</label>
+    <input type="email" name="emailClinica" class="elementiForm" id="emailClinica" placeholder="villaserena@gmail.it" required>
+
+    <br>
+    <label for="PECClinica" class="elementiForm">PEC</label>
+    <input type="email" name="PECClinica" class="elementiForm" id="PECClinica" placeholder="villaserena@pec.it" required>
+
+    <br>
+    <label for="telefonoClinica" class="elementiForm">Telefono</label>
+    <input type="tel" name="telefonoClinica" class="elementiForm" id="telefonoClinica" placeholder="085821345" required/>
+
+    <br>
+    <label for="capitaleSociale" class="elementiForm">Capitale Sociale</label>
+    <input type="text" name="capitaleSociale" class="elementiForm" id="capitaleSociale" placeholder="320.000€" />
+
+    <br>
+
+    <label for="indirizzoClinica" class="elementiForm">Indirizzo</label>
+    <input type="text" name="indirizzoClinica" class="elementiForm" id="indirizzoClinica" placeholder="Via/C.da Acquaventina" required/>
+
+    <br>
+    <label for="mumeroCivicoClinica" class="elementiForm">Numero Civico</label>
+    <input type="number" name="numeroCivicoClinica" class="elementiForm" id="numeroCivicoClinica" min="0" max="1000" placeholder="3"/>
+
+    <br>
+    <label for="CAPClinica" class="elementiForm">CAP</label>
+    <input type="text" name="CAPClinica" class="elementiForm" id="CAPClinica" placeholder="65017" required/>
+
+    <br>
+    <label for="localitàClinica" class="elementiForm">Località</label>
+    <input type="text" name="LocalitàClinica" class="elementiForm" id="localitàClinica" placeholder="Penne" required/>
+
+    <br>
+    <label for="provinciaClinica" class="elementiForm">Provincia</label>
+    <input type="text" name="ProvinciaClinica" class="elementiForm" id="provinciaClinica" placeholder="Pescara" required/>
+
+    <br>
+
     <div class="orarioContinuato">            
-        <input type="checkbox"  name="orarioContinuato" id="orarioContinuato" value="Orario Continuato"/>
-        <label for="orarioContinuato">Orario Continuato</label>
+
+        <label for="orarioContinuato" class="elementiForm">Orario Continuato</label>
+        <input type="checkbox"  name="orarioContinuato" class="elementiForm" id="orarioContinuato" value="Orario Continuato"/>
+
         <br>
     </div>
     <div>
         <div class="orario">            
-            <input type="time" name="orarioAperturaMattina" id="orarioAperturaMattina" class="orario" placeholder="09:00"/>
-            <label for="orarioAperturaMattina">Orario Apertura Mattina</label>
+            <label for="orarioAperturaMattina" class="elementiForm">Orario Apertura Mattina</label>
+            <input type="time" name="orarioAperturaMattina" class="elementiForm" id="orarioAperturaMattina" class="orario" placeholder="09:00"/>
+
             <br>
         </div>
         <div class="orario">            
-            <input type="time" name="orarioAperturaPomeriggio" id="orarioAperturaPomeriggo" class="orario" placeholder="15:00"/>
-            <label for="orarioAperturaPomeriggio">Orario Apertura Pomeriggio</label>
+            <label for="orarioAperturaPomeriggio" class="elementiForm">Orario Apertura Pomeriggio</label>
+            <input type="time" name="orarioAperturaPomeriggio" class="elementiForm" id="orarioAperturaPomeriggo" class="orario" placeholder="15:00"/>
+
             <br>
         </div>
         <div class="orario">            
-            <input type="time" name="orarioChiusuraMattina" id="orarioChiusuraMattina" class="orario" placeholder="13:00"/>
-            <label for="orarioChiusuraMattina">Orario Chiusura Mattina</label>
+            <label for="orarioChiusuraMattina" class="elementiForm">Orario Chiusura Mattina</label>
+            <input type="time" name="orarioChiusuraMattina" class="elementiForm" id="orarioChiusuraMattina" class="orario" placeholder="13:00"/>
+
             <br>
         </div>
         <div class="orario">            
-            <input type="time" name="orarioChiusuraPomeriggio" id="orarioChiusuraPomeriggo" class="orario" placeholder="19:00"/>
-            <label for="orarioChiusuraPomeriggio">Orario Chiusura Pomeriggio</label>
+            <label for="orarioChiusuraPomeriggio" class="elementiForm">Orario Chiusura Pomeriggio</label>
+            <input type="time" name="orarioChiusuraPomeriggio" class="elementiForm" id="orarioChiusuraPomeriggo" class="orario" placeholder="19:00"/>
+
             <br>
         </div>
         <div class="autenticazione">
             <div class="username">            
-                <input type="text" name="usernameClinica" id="usernameClinica" placeholder="clari" required/>
-                <label for="usernameClinica">Username</label>
+                <label for="usernameClinica" class="elementiForm">Username</label>
+                <input type="text" name="usernameClinica" class="elementiForm" id="usernameClinica" placeholder="clari" required/>
+
                 <br>
             </div>
             <div class="password">            
-                <input type="password" name="passwordClinica" id="passwordClinica" placeholder="R5t6sg6I" required/>
-                <label for="passwordClinica">Password</label>
+                <label for="passwordClinica" class="elementiForm">Password</label>
+                <input type="password" name="passwordClinica" class="elementiForm" id="passwordClinica" placeholder="R5t6sg6I" required/>
+
                 <br>
-                <input type="password" name="ripetiPasswordClinica" id="ripetiPasswordClinica" placeholder="R5t6sg6I" required/>
-                <label for="ripetiPasswordClinica">Ripeti Password</label>
+                <label for="ripetiPasswordClinica" class="elementiForm">Ripeti Password</label>
+                <input type="password" name="ripetiPasswordClinica" class="elementiForm" id="ripetiPasswordClinica" placeholder="R5t6sg6I" required/>
+
                 <br>
             </div>
         </div>

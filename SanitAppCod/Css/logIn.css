@@ -15,7 +15,7 @@ and open the template in the editor.
     text-align: justify;
 }
 
-#logInForm input[type="text"], input[type="password"] {
+#logInForm input[type="text"], #logInForm input[type="password"] {
     box-sizing: border-box;
     font-size: inherit;
     width: 10%;
