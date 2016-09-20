@@ -46,11 +46,11 @@
 
     <br>
     <label for="localitàClinica" class="elementiForm">Località</label>
-    <input type="text" name="LocalitàClinica" class="elementiForm" id="localitàClinica" placeholder="Penne" required/>
+    <input type="text" name="localitàClinica" class="elementiForm" id="localitàClinica" placeholder="Penne" required/>
 
     <br>
     <label for="provinciaClinica" class="elementiForm">Provincia</label>
-    <input type="text" name="ProvinciaClinica" class="elementiForm" id="provinciaClinica" placeholder="Pescara" required/>
+    <input type="text" name="provinciaClinica" class="elementiForm" id="provinciaClinica" placeholder="Pescara" required/>
 
     <br>
 
