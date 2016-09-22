@@ -75,7 +75,8 @@ function validazioneUtente()
                             },
                     numeroCivico:
                             {
-                                number: true
+                                number: true,
+                                min:0
                             },
                     CAP:
                             {
@@ -140,7 +141,8 @@ function validazioneUtente()
                             },
                     numeroCivico:
                             {
-                                number: "Il numero civico è un numero"
+                                number: "Il numero civico è un numero",
+                                min: "Inserire un numero maggiore o uguale a zero"
                             },
                     CAP:
                             {
@@ -232,7 +234,8 @@ function validazioneMedico()
                             },
                     numeroCivicoMedico:
                             {
-                                number: true
+                                number: true,
+                                min:0
                             },
                     CAPMedico:
                             {
@@ -312,7 +315,8 @@ function validazioneMedico()
                             },
                     numeroCivicoMedico:
                             {
-                                number: "Il numero civico è un numero"
+                                number: "Il numero civico è un numero",
+                                min: "Inserire un numero maggiore o uguale a zero"
                             },
                     CAPMedico:
                             {
@@ -419,7 +423,8 @@ function validazioneClinica()
                             },
                     numeroCivicoClinica:
                             {
-                                number: true
+                                number: true,
+                                min:0
                             },
                     CAPClinica:
                             {
@@ -538,7 +543,8 @@ function validazioneClinica()
                             },
                     numeroCivicoClinica:
                             {
-                                number: "Deve essere un numero"
+                                number: "Deve essere un numero",
+                                min: "Inserire un numero maggiore o uguale a zero"
                             },
                     CAPClinica:
                             {
@@ -605,7 +611,7 @@ function validazioneClinica()
                             {
                                 required:"Non è necessario"
                             },
-                    orarioAperturaM: 
+                    orarioAperturaPM: 
                             {
                                 required:"Non è necessario"
                             },

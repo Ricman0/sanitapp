@@ -51,7 +51,7 @@
     <br>
     <label for="provinciaClinica" class="elementiForm">Provincia</label>
     <select type="text" name="provinciaClinica" class="elementiForm" id="provinciaClinica" required>
-        <option disabled selected value> -- select an option -- </option>
+        <option disabled selected value=""> -- select an option -- </option>
         <option value=”AG”>AGRIGENTO</option>
         <option value=”AL”>ALESSANDRIA</option>
         <option value=”AN”>ANCONA</option>
@@ -73,7 +73,7 @@
         <option value=”CA”>CAGLIARI</option>
         <option value=”CL”>CALTANISSETTA</option>
         <option value=”CB”>CAMPOBASSO</option>
-        <option value=”CI”>Carbonia-Iglesias</option>
+        <option value=”CI”>CARBONIA-IGLESIAS</option>
         <option value=”CE”>CASERTA</option>
         <option value=”CT”>CATANIA</option>
         <option value=”CZ”>CATANZARO</option>
@@ -107,7 +107,7 @@
         <option value=”MN”>MANTOVA</option>
         <option value=”MS”>MASSA-CARRARA</option>
         <option value=”MT”>MATERA</option>
-        <option value=”VS”> MEDIO CAMPIDANO</option>
+        <option value=”VS”>MEDIO CAMPIDANO</option>
         <option value=”ME”>MESSINA</option>
         <option value=”MI”>MILANO</option>
         <option value=”MO”>MODENA</option>
@@ -175,25 +175,26 @@
     <div>
         <div class="orario">            
             <label for="orarioAperturaMattina" class="elementiForm">Orario Apertura Mattina</label>
-            <input type="time" name="orarioAperturaMattina" class="elementiForm" id="orarioAperturaMattina" class="orario" placeholder="09:00"/>
-
-            <br>
-        </div>
-        <div class="orario">            
-            <label for="orarioAperturaPomeriggio" class="elementiForm">Orario Apertura Pomeriggio</label>
-            <input type="time" name="orarioAperturaPomeriggio" class="elementiForm" id="orarioAperturaPomeriggo" class="orario" placeholder="15:00"/>
+            <input type="time" name="orarioAperturaAM" class="elementiForm" id="orarioAperturaMattina" class="orario" placeholder="09:00"/>
 
             <br>
         </div>
         <div class="orario">            
             <label for="orarioChiusuraMattina" class="elementiForm">Orario Chiusura Mattina</label>
-            <input type="time" name="orarioChiusuraMattina" class="elementiForm" id="orarioChiusuraMattina" class="orario" placeholder="13:00"/>
+            <input type="time" name="orarioChiusuraAM" class="elementiForm" id="orarioChiusuraMattina" class="orario" placeholder="13:00"/>
 
             <br>
         </div>
         <div class="orario">            
+            <label for="orarioAperturaPomeriggio" class="elementiForm">Orario Apertura Pomeriggio</label>
+            <input type="time" name="orarioAperturaPM" class="elementiForm" id="orarioAperturaPomeriggo" class="orario" placeholder="15:00"/>
+
+            <br>
+        </div>
+        
+        <div class="orario">            
             <label for="orarioChiusuraPomeriggio" class="elementiForm">Orario Chiusura Pomeriggio</label>
-            <input type="time" name="orarioChiusuraPomeriggio" class="elementiForm" id="orarioChiusuraPomeriggo" class="orario" placeholder="19:00"/>
+            <input type="time" name="orarioChiusuraPM" class="elementiForm" id="orarioChiusuraPomeriggo" class="orario" placeholder="19:00"/>
 
             <br>
         </div>
