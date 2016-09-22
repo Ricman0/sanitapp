@@ -82,6 +82,17 @@ class UValidazione {
     }
    
     /**
+     * Metodo che consente di impostare  validati a true
+     * 
+     * @access private
+     * @param boolean TRUE dati validi, FALSE almeno un dato non era valido
+     */
+    private function setValidati($validati) 
+    {
+        $this->validati = $validati;
+    }
+    
+    /**
      * Metodo che permette la validazione di tutti i dati dell'utente
      * 
      * @access public
@@ -90,6 +101,7 @@ class UValidazione {
      */
     public function validaDatiUtente($datiUtente) 
     {
+        $this->setValidati(TRUE);
         foreach ($datiUtente as $chiave => $valore) 
         {
             $pattern = "";
@@ -158,7 +170,7 @@ class UValidazione {
      */
     public function validaDatiMedico($datiMedico) 
     {
-        $validati = TRUE;
+        $this->setValidati(TRUE);
         foreach ($datiMedico as $chiave => $valore) 
         {
             $pattern = "";
@@ -226,7 +238,7 @@ class UValidazione {
    
             $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
         }
-        return $validati;
+        return $this->validati;
     }
     
     /**
@@ -238,7 +250,7 @@ class UValidazione {
      */
     public function validaDatiClinica($datiClinica) 
     {
-//        $validati = TRUE;
+        $this->setValidati(TRUE);
         foreach ($datiClinica as $chiave => $valore) 
         {
             $pattern = "";
@@ -336,7 +348,7 @@ class UValidazione {
             }
             $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
         }
-        $this->validati;
+        return $this->validati;
     }
     /**
      * Metodo che permette di effettuare la validazione di un dato 

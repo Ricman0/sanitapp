@@ -333,7 +333,7 @@ class CRegistrazione {
             case 'TERNI':
                 $regione = 'UMBRIA';
                 break;
-            case "VALLE D'AOSTA":
+            case 'AOSTA':
                 $regione = "VALLE D'AOSTA";
                 break;
             case 'BELLUNO':
