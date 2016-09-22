@@ -165,7 +165,7 @@ class CRegistrazione {
            $codiceConferma = uniqid(rand(0, 6));
            echo "codice : $codiceConferma ";
            // trovare la regione a cui appartiene la provincia inserita nella form dalla clinica
-           $regione = "";
+           $regione = $this->trovaRegione($datiClinica['provincia']);
            // crea la clinica inserendo anche il codicino
             $eClinica = new EClinica($datiClinica['partitaIVA'], $datiClinica['nomeClinica'],
                    $datiClinica['titolareClinica'], $datiClinica['via'], $datiClinica['numeroCivico'],
@@ -186,6 +186,166 @@ class CRegistrazione {
           
        }
        return $inserito; 
+    }
+    
+    /**
+     * Metodo che trova la regione in base alla provincia inserita dall'utente
+     */
+    private function trovaRegione($provincia)
+    {
+        switch ($provincia)
+        {
+            case 'CHIETI':
+            case 'PESCARA':
+            case "L'AQUILA":
+            case 'TEREMO':
+                $regione = 'ABRUZZO';
+                break;
+            case 'MATERA':
+            case 'POTENZA':            
+                $regione = 'BASILICATA';
+                break;
+            case 'CATANZARO':
+            case 'COSENZA': 
+            case 'CROTONE':
+            case 'REGGIO DI CALABRIA':
+            case 'VIBO VALENTIA':
+                $regione = 'CALABRIA';
+                break;
+            case 'AVELLINO':
+            case 'BENEVENTO': 
+            case 'CASERTA':
+            case 'NAPOLI':
+            case 'SALERNO':
+                $regione = 'CAMPANIA';
+                break;
+            case 'BOLOGNA':
+            case 'FERRARA': 
+            case 'FORLI’-CESENA':
+            case 'MODENA':
+            case 'PARMA':
+            case 'PIACENZA':
+            case 'RAVENNA': 
+            case "REGGIO NELL'EMILIA":
+            case 'RIMINI':
+                $regione = 'EMILIA ROMAGNA';
+                break;
+            case 'GORIZIA':
+            case 'PORDENONE': 
+            case 'TRIESTE':
+            case 'UDINE':
+                $regione = 'FRIULI VENEZIA GIULIA';
+                break;
+            case 'FROSINONE':
+            case 'LATINA': 
+            case 'RIETI':
+            case 'ROMA':
+            case 'VITERBO':
+                $regione = 'LAZIO';
+                break;
+            case 'GENOVA':
+            case 'IMPERIA': 
+            case 'LA SPEZIA':
+            case 'SAVONA':
+                $regione = 'LIGURIA';
+                break;
+            case 'BERGAMO':
+            case 'BRESCIA': 
+            case 'COMO':
+            case 'CREMONA':
+            case 'LECCO':
+            case 'LODI': 
+            case 'MANTOVA':
+            case 'MILANO':
+            case 'MONZA E DELLA BRIANZA':
+            case 'PAVIA': 
+            case 'SONDRIO':
+            case 'VARESE':
+                $regione = 'LOMBARDIA';
+                break;
+            case 'ANCONA':
+            case 'ASCOLI PICENO': 
+            case 'FERMO':
+            case 'MACERATA':
+            case 'PESARO E URBINO':
+                $regione = 'MARCHE';
+                break;
+            case 'CAMPOBASSO':
+            case 'ISERNIA':
+                $regione = 'MOLISE';
+                break;
+            case 'ALESSANDRIA':
+            case 'ASTI': 
+            case 'BIELLA':
+            case 'CUNEO':
+            case 'NOVARA':
+            case 'TORINO': 
+            case 'VERBANO-CUSIO-OSSOLA':
+            case 'VERCELLI':
+                $regione = 'PIEMONTE';
+                break;
+            case 'BARI':
+            case 'BARLETTA-ANDRIA-TRANI': 
+            case 'BRINDISI':
+            case 'FOGGIA':
+            case 'LECCE':
+            case 'TARANTO': 
+                $regione = 'PUGLIA';
+                break;
+            case 'CAGLIARI':
+            case 'CARBONIA-IGLESIAS': 
+            case 'MEDIO CAMPIDANO':
+            case 'NUORO':
+            case 'OGLIASTRA':
+            case 'OLBIA-TEMPIO': 
+            case 'ORISTANO':
+            case 'SASSARI':
+                $regione = 'SARDEGNA';
+                break;
+            case 'AGRIGENTO':
+            case 'CALTANISSETTA': 
+            case 'CATANIA':
+            case 'ENNA':
+            case 'MESSINA':
+            case 'PALERMO': 
+            case 'RAGUSA':
+            case 'SIRACUSA':
+            case 'TRAPANI':
+                $regione = 'SICILIA';
+                break;
+            case 'AREZZO':
+            case 'FIRENZE': 
+            case 'GROSSETO':
+            case 'LIVORNO':
+            case 'LUCCA':
+            case 'MASSA-CARRARA': 
+            case 'PISA':
+            case 'PISTOIA':
+            case 'PRATO':
+            case 'SIENA':
+                $regione = 'TOSCANA';
+                break;
+            case 'BOLZANO':
+            case 'TRENTO':
+                $regione = 'TRENTINO ALTO ADIGE';
+                break;
+            case 'PERUGIA':
+            case 'TERNI':
+                $regione = 'UMBRIA';
+                break;
+            case "VALLE D'AOSTA":
+                $regione = "VALLE D'AOSTA";
+                break;
+            case 'BELLUNO':
+            case 'PADOVA': 
+            case 'ROVIGO':
+            case 'TREVISO':
+            case 'VENEZIA':
+            case 'VERONA': 
+            case 'VICENZA':
+                $regione = 'VENETO';
+                break;             
+        }
     }
     
     /**

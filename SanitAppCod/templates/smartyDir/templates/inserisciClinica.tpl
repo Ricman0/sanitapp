@@ -61,7 +61,7 @@
         <option value=”AT”>ASTI</option>
         <option value=”AV”>AVELLINO</option>
         <option value=”BA”>BARI</option>
-        <option value=”BT”>Barletta-Andria-Trani</option>
+        <option value=”BT”>BARLETTA-ANDRIA-TRANI</option>
         <option value=”BL”>BELLUNO</option>
         <option value=”BN”>BENEVENTO</option>
         <option value=”BG”>BERGAMO</option>
