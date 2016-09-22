@@ -47,6 +47,7 @@ CREATE TABLE clinica (
   CAP varchar(5) NOT NULL,
   Località varchar (40) NOT NULL,
   Provincia varchar (20) NOT NULL,
+  Regione varchar (20) NOT NULL,
   Email varchar(320) NOT NULL,
   Username varchar(10) NOT NULL,
   Password varchar(10) NOT NULL,
@@ -71,6 +72,7 @@ CREATE TABLE clinica (
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextNomeClinica(NomeClinica);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextLocalitàClinica(Località);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextProvinciaClinica(Provincia);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextRegioneClinica(Regione);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 
 
@@ -79,10 +81,10 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 --
 
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
-Provincia, Email, Username, Password, PEC, Telefono, CapitaleSociale, OrarioAperturaAM, 
+Provincia, Regione, Email, Username, Password, PEC, Telefono, CapitaleSociale, OrarioAperturaAM, 
 OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato, Confermato, CodiceConferma) VALUES
-('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara' ,'info@appignano.it', ' appi', ' 1234', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE, FALSE, 's12'),
-('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'info@bisenti.it', ' bise', ' 1235', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, FALSE, 'w34');
+('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'info@appignano.it', ' appi', ' 1234', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE, FALSE, 's12'),
+('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'info@bisenti.it', ' bise', ' 1235', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, FALSE, 'w34');
 
 -- --------------------------------------------------------
 

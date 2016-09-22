@@ -409,6 +409,14 @@ class EMedico
     {
         //crea un oggetto fMedico se non è esistente, si collega al DB e lo inserisce
         $fMedico = USingleton::getInstance('FMedico');
-        $fMedico->inserisciMedico($eMedico);
+        
+        if($fMedico->inserisciMedico($eMedico) === TRUE)
+        {
+            return $eMedico->getCodiceConfermaMedico();
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 }

@@ -48,6 +48,18 @@ class EClinica
      */
     private $_CAP;
     /**
+     * @var  string $_località Città o paese in cui si trova la clinica
+     */
+    private $_località;
+    /**
+     * @var  string $_provincia Provincia della città o paese in cui si trova la clinica
+     */
+    private $_provincia;
+    /**
+     * @var  string $_regione regione della città o paese in cui si trova la clinica
+     */
+    private $_regione;
+    /**
      * @var string $_email L'email della clinica
      */
     private $_email;
@@ -108,6 +120,9 @@ class EClinica
      * @param string $cf Il codice fiscale del medico
      * @param string $via La via in cui risiede il medico
      * @param string $cap Il cap del paese in cui risiede il medico
+     * @param string $località Città o paese in cui risiede la clinica
+     * @param string $provincia Provincia della città o paese in cui risiede la clinica
+     * @param string $regione Regione della città o paese in cui risiede la clinica
      * @param string $email L'email del medico
      * @param string $password La password del medico
      * @param string $PEC La PEC del medico
@@ -116,7 +131,7 @@ class EClinica
      * @param int o string? $cod Il codice per confermare l'account
      */
     public function __construct($partitaIVA, $nomeClinica, $titolareClinica, 
-            $via, $numeroCivico, $cap, $email,$PEC, $username, $password, 
+            $via, $numeroCivico, $cap,$località, $provincia, $regione, $email,$PEC, $username, $password, 
             $telefono, $capitaleSociale, $orarioAperturaAM , $orarioChiusuraAM,
             $orarioAperturaPM, $orarioChiusuraPM, $orarioContinuato, $cod) 
     {
@@ -134,6 +149,9 @@ class EClinica
             }
        
         $this->_CAP = $cap;
+        $this->_località = $località;
+        $this->_provincia = $provincia;
+        $this->_regione = $regione;
         $this->_email = $email;
         $this->_PEC = $PEC;
         $this->_username = $username;
@@ -255,11 +273,41 @@ class EClinica
     /**
      * Metodo che restituisce il CAP della città o paese in cui è collocata la clinica
      * 
-     * @return int Il CAP della città o paese della clinica
+     * @return string Il CAP della città o paese della clinica
      */
     public function getCAPClinica()
     {
         return $this->_CAP;
+    }
+    
+    /**
+     * Metodo che restituisce la città o paese in cui è collocata la clinica
+     * 
+     * @return string La città o paese della clinica
+     */
+    public function getLocalitàClinica()
+    {
+        return $this->_località;
+    }
+    
+    /**
+     * Metodo che restituisce la provincia della città o paese in cui è collocata la clinica
+     * 
+     * @return string La provincia della città o paese della clinica
+     */
+    public function getProvinciaClinica()
+    {
+        return $this->_provincia;
+    }
+    
+    /**
+     * Metodo che restituisce la regione della città o paese in cui è collocata la clinica
+     * 
+     * @return string La regione della città o paese della clinica
+     */
+    public function getRegioneClinica()
+    {
+        return $this->_regione;
     }
     
     /**
@@ -468,11 +516,41 @@ class EClinica
     /**
      * Metodo che imposta il CAP della clinica
      * 
-     * @param int CAP della clinica
+     * @param string CAP della clinica
      */
     public function setCAPClinica($cap)
     {
         $this->_CAP = $cap;
+    }
+    
+    /**
+     * Metodo che imposta la città o paese della clinica
+     * 
+     * @param string Località della clinica
+     */
+    public function setLocalitàClinica($località)
+    {
+        $this->_località = $località;
+    }
+    
+    /**
+     * Metodo che imposta la provincia della città o paese della clinica
+     * 
+     * @param string Provincia della clinica
+     */
+    public function setProvinciaClinica($provincia)
+    {
+        $this->_provincia = $provincia;
+    }
+    
+    /**
+     * Metodo che imposta la regione della città o paese della clinica
+     * 
+     * @param string Regione della clinica
+     */
+    public function setRegioneClinica($regione)
+    {
+        $this->_regione = $regione;
     }
     
     /**

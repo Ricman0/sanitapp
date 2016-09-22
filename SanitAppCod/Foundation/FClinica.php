@@ -24,10 +24,10 @@ class FClinica extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "clinica";
-        $this->_attributiTabella = "partitaIVA, nomeClinica, titolareClinica, via, "+
-                +"numeroCivico, CAP, email, PEC, username, password, telefono, "+
-                +"capitaleSociale, orarioAperturaAM, orarioChiusuraAM, orarioAperturaPM"+
-                +"orarioChiusuraPM, orarioContinuato, CodiceConferma"; 
+        $this->_attributiTabella = "PartitaIVA, NomeClinica, TitolareClinica, Via, "+
+                +"NumCivico, CAP, Località, Provincia, Regione, Email, Username, Password, PEC, Telefono, "+
+                +"CapitaleSociale, OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM"+
+                +"OrarioChiusuraPM, OrarioContinuato, Confermato, CodiceConferma"; 
     }
     
     /**
@@ -46,10 +46,13 @@ class FClinica extends FDatabase{
                 . $this->trimEscapeStringa($clinica->getViaClinica()). "', '" 
                 . $clinica->getNumeroCivicoClinica() . "', '" 
                 . $this->trimEscapeStringa($clinica->getCAPClinica()) . "', '" 
+                . $this->trimEscapeStringa($clinica->getLocalitàClinica()). "', '"
+                . $this->trimEscapeStringa($clinica->getProvinciaClinica()). "', '"
+                . $this->trimEscapeStringa($clinica->getRegioneClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getEmailClinica()) .  "', '"  
-                . $this->trimEscapeStringa($clinica->getPECClinica()) .  "', '"
                 . $this->trimEscapeStringa($clinica->getUsernameClinica()) .  "', '" 
                 . $this->trimEscapeStringa($clinica->getPasswordClinica()) .  "', '"
+                . $this->trimEscapeStringa($clinica->getPECClinica()) .  "', '"
                 . $clinica->getTelefonoClinica() .  "', '" 
                 . $clinica->getCapitaleSocialeClinica() . "', '" 
                 . $clinica->getOrarioAperturaAMClinica() . "', '" 
@@ -57,6 +60,7 @@ class FClinica extends FDatabase{
                 . $clinica->getOrarioAperturaPMClinica() .  "', '" 
                 . $clinica->getOrarioChiusuraPMClinica() . "', '" 
                 . $clinica->getOrarioContinuatoClinica() .  "', '"
+                . $clinica->getConfermatoClinica() .  "', '"
                 . $clinica->getCodiceConfermaClinica() .  "'" ;
         return $valoriAttributi;
     }
@@ -115,11 +119,14 @@ class FClinica extends FDatabase{
                 $query =  "SELECT NomeClinica, Località, Provincia, "
                         . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE), "
                         . "MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
-                        . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
+                        . "MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "FROM clinica "
                         . "WHERE (MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE) "
                         . "AND (MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "OR MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))";
             }
             else
@@ -139,10 +146,13 @@ class FClinica extends FDatabase{
                 echo "no nomeClinica, si luogo";
                 $query =  "SELECT NomeClinica, Località, Provincia, "
                         . "MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
-                        . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
+                        . "MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE), "
+                        . "MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "FROM clinica "
                         . "WHERE (MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "OR MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE))";
             }
             else
