@@ -69,7 +69,7 @@ class CRegistrazione {
                        //contenente informazioni riepilogative
                        // e con link di conferma
                        $mail = USingleton::getInstance('UMail');
-                       if ($mail->inviaMailRegistrazioneClinica() === TRUE)
+                       if ($mail->inviaMailRegistrazioneClinica($inserito) === TRUE)
                        {
                            // visualizzo che un'email è stata inviata sulla propria mail
                            $vRegistrazione = USingleton::getInstance('VRegistrazione');
@@ -94,7 +94,7 @@ class CRegistrazione {
                        //contenente informazioni riepilogative
                        // e con link di conferma
                        $mail = USingleton::getInstance('UMail');
-                       if ($mail->inviaMailRegistrazioneMedico()  === TRUE)
+                       if ($mail->inviaMailRegistrazioneMedico($inserito)  === TRUE)
                        {
                            // visualizzo che un'email è stata inviata sulla propria mail
                            $vRegistrazione = USingleton::getInstance('VRegistrazione');
@@ -161,25 +161,29 @@ class CRegistrazione {
        // se i dati sono validi
        if($validi)
        {           
-            //crea codice per conferma mail
-            $codRandom = rand();
-            echo ("$codRandom");
-           
-           
+            // crea codice per la conferma della mail
+           $codiceConferma = uniqid(rand(0, 6));
+           echo "codice : $codiceConferma ";
+           // trovare la regione a cui appartiene la provincia inserita nella form dalla clinica
+           $regione = "";
            // crea la clinica inserendo anche il codicino
             $eClinica = new EClinica($datiClinica['partitaIVA'], $datiClinica['nomeClinica'],
                    $datiClinica['titolareClinica'], $datiClinica['via'], $datiClinica['numeroCivico'],
-                   $datiClinica['cap'], $datiClinica['email'], $datiClinica['PEC'], $datiClinica['username'],
+                   $datiClinica['cap'],$datiClinica['località'], $datiClinica['provincia'], $regione, $datiClinica['email'], $datiClinica['PEC'], $datiClinica['username'],
                    $datiClinica['password'], $datiClinica['telefono'],
                    $datiClinica['capitaleSociale'],$datiClinica['orarioAperturaAM'],
                    $datiClinica['orarioChiusuraAM'], $datiClinica['orarioAperturaPM'],
-                   $datiClinica['orarioChiusuraPM'],$datiClinica['orarioContinuato']);
+                   $datiClinica['orarioChiusuraPM'],$datiClinica['orarioContinuato'], $codiceConferma);
             //eClinica richiama il metodo per creare FClinica poi FClinica aggiunge l'utente nel DB
             $inserito = $eClinica->inserisciClinicaDB($eClinica); 
        }
        else
        {
+           echo "dati inseriti sbagliati";
+          //
           $uValidazione->getDatiErrati(); 
+          $inserito = FALSE;
+          
        }
        return $inserito; 
     }
@@ -202,17 +206,22 @@ class CRegistrazione {
        // se i dati sono validi
        if($validi)
        {           
+           // crea codice
+           $codiceConferma = uniqid(rand(0, 6));
+           echo "codice : $codiceConferma ";
+           // crea utente 
            $eMedico = new EMedico($datiMedico['nome'], $datiMedico['cognome'],
                    $datiMedico['codiceFiscale'], $datiMedico['via'], $datiMedico['numeroCivico'],
                    $datiMedico['CAP'], $datiMedico['email'], $datiMedico['username'],
                    $datiMedico['password'], $datiMedico['PEC'],
-                   $datiMedico['provinciaAlbo'],$datiMedico['numeroIscrizione']);
+                   $datiMedico['provinciaAlbo'],$datiMedico['numeroIscrizione'], $codiceConferma);
            //eMedico richiama il metodo per creare FMedico poi FMedico aggiunge l'utente nel DB
            $inserito = $eMedico->inserisciMedicoDB($eMedico);
        }
        else
        {
           $uValidazione->getDatiErrati(); 
+          $inserito = FALSE;
        }
        return $inserito;  
     }

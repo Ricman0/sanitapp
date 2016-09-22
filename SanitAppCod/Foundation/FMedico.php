@@ -25,7 +25,7 @@ class FMedico extends FDatabase {
         // imposto il nome della tabella
         $this->_nomeTabella = "medico";
         $this->_attributiTabella = "Nome, Cognome, CodFiscale, Via, NumCivico, "
-                . "CAP, Email, Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, CodiceConferma";
+                . "CAP, Email, Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, Confermato, CodiceConferma";
     }
     
     /**
@@ -42,9 +42,18 @@ class FMedico extends FDatabase {
         
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = "INSERT INTO " . $this->_nomeTabella . " (". $this->_attributiTabella .") VALUES(" . $valoriAttributi.")";
+        $query = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella .") VALUES( " . $valoriAttributi . ")";
         // eseguo la query
-        $this->eseguiQuery($query);
+        if ($this->eseguiQuery($query)===TRUE)
+        {
+            echo " FMedico inseritooo ";
+            return TRUE;
+        }
+        else 
+        {
+            echo " FMedico non inseritooo ";
+            return FALSE;
+        }
     }
     
     /** 
@@ -62,16 +71,17 @@ class FMedico extends FDatabase {
                 . $this->trimEscapeStringa($medico->getCodiceFiscaleMedico()) . "', '"
                 . $this->trimEscapeStringa($medico->getViaMedico()) . "', '"
                 . $medico->getNumCivicoMedico() . "', '" 
-                . $this->trimEscapeStringa($medico->getCAPMedico()) . "', '"
-                
+                . $this->trimEscapeStringa($medico->getCAPMedico()) . "', '"              
                 . $this->trimEscapeStringa($medico->getEmailMedico()) . "', '" 
                 . $this->trimEscapeStringa($medico->getPasswordMedico()) . "', '"
                 . $this->trimEscapeStringa($medico->getPECMedico()) . "', '" 
                 . $this->trimEscapeStringa($medico->getValidatoMedico()) . "', '"
                 . $this->trimEscapeStringa($medico->getProvinciaAlboMedico()) . "', '" 
 //                . $this->trimEscapeStringa($medico->getNumIscrizioneMedico()) . "', "
-                . $medico->getNumIscrizioneMedico() . "', "
-                . $this->trimEscapeStringa($medico->getCodiceConfermaMedico()) . "'";
+                . $medico->getNumIscrizioneMedico() . "', '"
+                . $medico->getConfermatoMedico() . "', '"
+                . $this->trimEscapeStringa($medico->getCodiceConfermaMedico()) ."'";
+                
         return $valoriAttributi;
     }
     

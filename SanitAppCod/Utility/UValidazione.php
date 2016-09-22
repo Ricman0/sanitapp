@@ -238,7 +238,7 @@ class UValidazione {
      */
     public function validaDatiClinica($datiClinica) 
     {
-        $validati = TRUE;
+//        $validati = TRUE;
         foreach ($datiClinica as $chiave => $valore) 
         {
             $pattern = "";
@@ -358,9 +358,10 @@ class UValidazione {
         } 
         else
         {
-            echo "NO";
+            
             $this->datiErrati[$chiave] = $stringaErrore;
             echo ($this->datiErrati[$chiave]);
+            echo "NO";
             $this->validati = FALSE;
         }
     }

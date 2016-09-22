@@ -375,11 +375,12 @@ function validazioneClinica()
         }, "Inserire una password che contenga almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
     
+
     jQuery.validator.addMethod("orario", function(valore){
-        //espressione regolare per l'orario
-        var regex = /(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?/;
-        return valore.match(regex);
-        }, "Inserire un orario del tipo:  08:30 oppure 08:30:00");
+            //espressione regolare per l'orario
+            var regex = /(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?/;
+            return  valore.match(regex);        
+        }, "Inserire un orario del tipo: 08:30 oppure 08:30:00");    
     
     jQuery.validator.addMethod("username", function(valore){
         //espressione regolare per codice fiscale
@@ -456,7 +457,6 @@ function validazioneClinica()
 //                                           url: "validazione/email/" + $("#email").val()  
 //                                        }             
                             },
-                    
                     usernameClinica:
                             {
                                 required: true,
@@ -487,10 +487,30 @@ function validazioneClinica()
                                 required: true,
                                 maxlength: 11
                             },
-                    orarioContinuato:
+                    orarioAperturaAM: 
                             {
-                                boolean: true
-                            }
+                                required: true,
+                                orario:true
+                            },
+                    orarioChiusuraAM: 
+                            {
+                                required: true,
+                                orario:true
+                            },
+                    orarioAperturaPM: 
+                            {
+                                required: true,
+                                orario:true
+                            },
+                    orarioChiusuraPM: 
+                            {
+                                required: true,
+                                orario:true
+                            },        
+//                    orarioContinuato:
+//                            {
+//                                boolean: true
+//                            }
                 },
         messages:
                 {
@@ -577,10 +597,26 @@ function validazioneClinica()
                                 required: "Inserire il capitale sociale della clinica",
                                 maxlength: "La sequenza massima di numeri è 11"
                             },
-                    orarioContinuato:
+                    orarioAperturaAM: 
                             {
-                                boolean: "Deve essere un booleano"
-                            }
+                                required:"Non è necessario"
+                            },
+                    orarioChiusuraAM: 
+                            {
+                                required:"Non è necessario"
+                            },
+                    orarioAperturaM: 
+                            {
+                                required:"Non è necessario"
+                            },
+                    orarioChiusuraPM: 
+                            {
+                                required:"Non è necessario"
+                            }, 
+//                    orarioContinuato:
+//                            {
+//                                boolean: "Deve essere un booleano"
+//                            }
                 },
         submitHandler:function(form) 
         { 

@@ -19,7 +19,7 @@ class FUtente extends FDatabase{
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
         $this->_attributiTabella = "Nome, Cognome, CodFiscale, Via, NumCivico, "
-                . "CAP, Email, Username, Password, CodFiscaleMedico, CodiceConferma";
+                . "CAP, Email, Username, Password, Confermato, CodiceConferma, CodFiscaleMedico";
     }
     
     
@@ -38,14 +38,16 @@ class FUtente extends FDatabase{
         $valoriAttributi = $this->getAttributi($utente) . ", NULL";
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = "INSERT INTO ". $this->_nomeTabella ."( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
+        $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
         // eseguo la query
         if ($this->eseguiQuery($query)===TRUE)
         {
+            echo " FUtente inseritooo ";
             return TRUE;
         }
         else 
         {
+            echo " FUtente non inseritooo ";
             return FALSE;
         }
          
@@ -70,13 +72,14 @@ class FUtente extends FDatabase{
         $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getNomeUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getCognomeUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getCodiceFiscaleUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getViaUtente()) . "', '"
-                . $utente->getNumCivicoUtente() . "', '"
+                . $this->trimEscapeStringa($utente->getViaUtente()) . "', "
+                . $utente->getNumCivicoUtente() . ", '"
                 . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getEmailUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getUsernameUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getPasswordUtente()) . ", '"
-                . $this->trimEscapeStringa($utente->getCodiceConfermaUtente()) . ", '";
+                . $this->trimEscapeStringa($utente->getPasswordUtente()) . "', '"
+                . $utente->getConfermatoUtente() . "', '"
+                . $this->trimEscapeStringa($utente->getCodiceConfermaUtente()) . "'";
         return $valoriAttributi;
     }
     
