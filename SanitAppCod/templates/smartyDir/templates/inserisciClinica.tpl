@@ -52,42 +52,155 @@
     <label for="provinciaClinica" class="elementiForm">Provincia</label>
     <select type="text" name="provinciaClinica" class="elementiForm" id="provinciaClinica" required>
         <option disabled selected value=""> -- select an option -- </option>
-        <option value=”AG”>AGRIGENTO</option>
-        <option value=”AL”>ALESSANDRIA</option>
-        <option value=”AN”>ANCONA</option>
-        <option value=”AO”>AOSTA</option>
-        <option value=”AR”>AREZZO</option>
-        <option value=”AP”>ASCOLI PICENO</option>
-        <option value=”AT”>ASTI</option>
-        <option value=”AV”>AVELLINO</option>
-        <option value=”BA”>BARI</option>
-        <option value=”BT”>BARLETTA-ANDRIA-TRANI</option>
-        <option value=”BL”>BELLUNO</option>
-        <option value=”BN”>BENEVENTO</option>
-        <option value=”BG”>BERGAMO</option>
-        <option value=”BI”>BIELLA</option>
-        <option value=”BO”>BOLOGNA</option>
-        <option value=”BZ”>BOLZANO</option>
-        <option value=”BS”>BRESCIA</option>
-        <option value=”BR”>BRINDISI</option>
-        <option value=”CA”>CAGLIARI</option>
-        <option value=”CL”>CALTANISSETTA</option>
-        <option value=”CB”>CAMPOBASSO</option>
-        <option value=”CI”>CARBONIA-IGLESIAS</option>
-        <option value=”CE”>CASERTA</option>
-        <option value=”CT”>CATANIA</option>
-        <option value=”CZ”>CATANZARO</option>
-        <option value=”CH”>CHIETI</option>
-        <option value=”CO”>COMO</option>
-        <option value=”CS”>COSENZA</option>
-        <option value=”CR”>CREMONA</option>
-        <option value=”KR”>CROTONE</option>
-        <option value=”CN”>CUNEO</option>
-        <option value=”EN”>ENNA</option>
-        <option value=”FM”>FERMO</option>
-        <option value=”FE”>FERRARA</option>
-        <option value=”FI”>FIRENZE</option>
-        <option value=”FG”>FOGGIA</option>
+        <option>AGRIGENTO</option>
+        <option>ALESSANDRIA</option>
+        <option>ANCONA</option>
+        <option>AOSTA</option>
+        <option>AREZZO</option>
+        <option>ASCOLI PICENO</option>
+        <option>ASTI</option>
+        <option>AVELLINO</option>
+        <option>BARI</option>
+        <option>BARLETTA-ANDRIA-TRANI</option>
+        <option>BELLUNO</option>
+        <option>BENEVENTO</option>
+        <option>BERGAMO</option>
+        <option>BIELLA</option>
+        <option>BOLOGNA</option>
+        <option>BOLZANO</option>
+        <option>BRESCIA</option>
+        <option>BRINDISI</option>
+        <option>CAGLIARI</option>
+        <option>CALTANISSETTA</option>
+        <option>CAMPOBASSO</option>
+        <option>CARBONIA-IGLESIAS</option>
+        <option>CASERTA</option>
+        <option>CATANIA</option>
+        <option>CATANZARO</option>
+        <option>CHIETI</option>
+        <option>COMO</option>
+        <option>COSENZA</option>
+        <option>CREMONA</option>
+        <option>CROTONE</option>
+        <option>CUNEO</option>
+        <option>ENNA</option>
+        <option>FERMO</option>
+        <option>FERRARA</option>
+        <option>FIRENZE</option>
+        <option>FOGGIA</option>
+        <option>FORLI’-CESENA</option>
+        <option>FROSINONE</option>
+        <option>GENOVA</option>
+        <option>GORIZIA</option>
+        <option>GROSSETO</option>
+        <option>IMPERIA</option>
+        <option>ISERNIA</option>
+        <option>LA SPEZIA</option>
+        <option>L’AQUILA</option>
+        <option>LATINA</option>
+        <option>LECCE</option>
+        <option>LECCO</option>
+        <option>LIVORNO</option>
+        <option>LODI</option>
+        <option>LUCCA</option>
+        <option>MACERATA</option>
+        <option>MANTOVA</option>
+        <option>MASSA-CARRARA</option>
+        <option>MATERA</option>
+        <option>MEDIO CAMPIDANO</option>
+        <option>MESSINA</option>
+        <option>MILANO</option>
+        <option>MODENA</option>
+        <option>MONZA E DELLA BRIANZA</option>
+        <option>NAPOLI</option>
+        <option>NOVARA</option>
+        <option>NUORO</option>
+        <option>OGLIASTRA</option>
+        <option>OLBIA-TEMPIO</option>
+        <option>ORISTANO</option>
+        <option>PADOVA</option>
+        <option>PALERMO</option>
+        <option>PARMA</option>
+        <option>PAVIA</option>
+        <option>PERUGIA</option>
+        <option>PESARO E URBINO</option>
+        <option>PESCARA</option>
+        <option>PIACENZA</option>
+        <option>PISA</option>
+        <option>PISTOIA</option>
+        <option>PORDENONE</option>
+        <option>POTENZA</option>
+        <option>PRATO</option>
+        <option>RAGUSA</option>
+        <option>RAVENNA</option>
+        <option>REGGIO DI CALABRIA</option>
+        <option>REGGIO NELL’EMILIA</option>
+        <option>RIETI</option>
+        <option>RIMINI</option>
+        <option>ROMA</option>
+        <option>ROVIGO</option>
+        <option>SALERNO</option>
+        <option>SASSARI</option>
+        <option>SAVONA</option>
+        <option>SIENA</option>
+        <option>SIRACUSA</option>
+        <option>SONDRIO</option>
+        <option>TARANTO</option>
+        <option>TERAMO</option>
+        <option>TERNI</option>
+        <option>TORINO</option>
+        <option>TRAPANI</option>
+        <option>TRENTO</option>
+        <option>TREVISO</option>
+        <option>TRIESTE</option>
+        <option>UDINE</option>
+        <option>VARESE</option>
+        <option>VENEZIA</option>
+        <option>VERBANO-CUSIO-OSSOLA</option>
+        <option>VERCELLI</option>
+        <option>VERONA</option>
+        <option>VIBO VALENTIA</option>
+        <option>VICENZA</option>
+        <option>VITERBO</option>
+    </select>
+    <br>
+<!-- 
+<option value=”AGRIGENTO”>AGRIGENTO</option>
+        <option value=”ALESSANDRIA”>ALESSANDRIA</option>
+        <option value=”ANCONA”>ANCONA</option>
+        <option value=”AOSTA”>AOSTA</option>
+        <option value=”AREZZO”>AREZZO</option>
+        <option value=”ASCOLIPICENO”>ASCOLI PICENO</option>
+        <option value=”ASTI”>ASTI</option>
+        <option value=”AVELLINO”>AVELLINO</option>
+        <option value=”BARI”>BARI</option>
+        <option value=”BARLETTA-ANDRIA-TRANI”>BARLETTA-ANDRIA-TRANI</option>
+        <option value=”BELLUNO”>BELLUNO</option>
+        <option value=”BENEVENTO”>BENEVENTO</option>
+        <option value=”BERGAMO”>BERGAMO</option>
+        <option value=”BIELLA”>BIELLA</option>
+        <option value=”BOLOGNA”>BOLOGNA</option>
+        <option value=”BOLZANO”>BOLZANO</option>
+        <option value=”BRESCIA”>BRESCIA</option>
+        <option value=”BRINDISI”>BRINDISI</option>
+        <option value=”CAGLIARI”>CAGLIARI</option>
+        <option value=”CALTANISSETTA”>CALTANISSETTA</option>
+        <option value=”CAMPOBASSO”>CAMPOBASSO</option>
+        <option value=”CARBONIA-IGLESIAS”>CARBONIA-IGLESIAS</option>
+        <option value=”CASERTA”>CASERTA</option>
+        <option value=”CATANIA”>CATANIA</option>
+        <option value=”CATANZARO”>CATANZARO</option>
+        <option value=”CHIETI”>CHIETI</option>
+        <option value=”COMO”>COMO</option>
+        <option value=”COSENZA”>COSENZA</option>
+        <option value=”CREMONA”>CREMONA</option>
+        <option value=”CROTONE”>CROTONE</option>
+        <option value=”CUNEO”>CUNEO</option>
+        <option value=”ENNA”>ENNA</option>
+        <option value=”FERMO”>FERMO</option>
+        <option value=”FERRARA”>FERRARA</option>
+        <option value=”FIRENZE”>FIRENZE</option>
+        <option value=”FOGGIA”>FOGGIA</option>
         <option value=”FC”>FORLI’-CESENA</option>
         <option value=”FR”>FROSINONE</option>
         <option value=”GE”>GENOVA</option>
@@ -162,8 +275,7 @@
         <option value=”VV”>VIBO VALENTIA</option>
         <option value=”VI”>VICENZA</option>
         <option value=”VT”>VITERBO</option>
-    </select>
-    <br>
+-->
 
     <div class="orarioContinuato">            
 

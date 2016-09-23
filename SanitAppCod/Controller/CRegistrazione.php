@@ -165,11 +165,12 @@ class CRegistrazione {
            $codiceConferma = uniqid(rand(0, 6));
            echo "codice : $codiceConferma ";
            // trovare la regione a cui appartiene la provincia inserita nella form dalla clinica
-           $regione = $this->trovaRegione($datiClinica['provincia']);
+           $regione = $this->trovaRegione($datiClinica['provinciaClinica']);
+           echo "ciao $regione";
            // crea la clinica inserendo anche il codicino
             $eClinica = new EClinica($datiClinica['partitaIVA'], $datiClinica['nomeClinica'],
-                   $datiClinica['titolareClinica'], $datiClinica['via'], $datiClinica['numeroCivico'],
-                   $datiClinica['cap'],$datiClinica['località'], $datiClinica['provincia'], $regione, $datiClinica['email'], $datiClinica['PEC'], $datiClinica['username'],
+                   $datiClinica['titolare'], $datiClinica['via'], $datiClinica['numeroCivico'],
+                   $datiClinica['cap'],$datiClinica['localitàClinica'], $datiClinica['provinciaClinica'], $regione, $datiClinica['email'], $datiClinica['PEC'], $datiClinica['username'],
                    $datiClinica['password'], $datiClinica['telefono'],
                    $datiClinica['capitaleSociale'],$datiClinica['orarioAperturaAM'],
                    $datiClinica['orarioChiusuraAM'], $datiClinica['orarioAperturaPM'],
@@ -346,6 +347,7 @@ class CRegistrazione {
                 $regione = 'VENETO';
                 break;             
         }
+        return $regione;
     }
     
     /**
@@ -459,25 +461,17 @@ class CRegistrazione {
         {
             $datiClinica['capitaleSociale'] = $this->recuperaValore('capitaleSociale');
         }
-        if(isset($_POST['orarioAperturaMattina']))
-        {
-            $datiClinica['orarioAperturaAM'] = $this->recuperaValore('orarioAperturaMattina');
-        }
-        if(isset($_POST['orarioAperturaPomeriggio']))
-        {
-            $datiClinica['orarioAperturaPM'] = $this->recuperaValore('orarioAperturaPomeriggio');
-        }
-        if(isset($_POST['orarioChiusuraMattina']))
-        {
-            $datiClinica['orarioChiusuraAM'] = $this->recuperaValore('orarioChiusuraMattina');
-        }
-        if(isset($_POST['orarioChiusuraPomeriggio']))
-        {
-            $datiClinica['orarioChiusuraPM'] = $this->recuperaValore('orarioChiusuraPomeriggio');
-        }
+        $datiClinica['orarioAperturaAM'] = $this->recuperaValore('orarioAperturaAM');
+        $datiClinica['orarioAperturaPM'] = $this->recuperaValore('orarioAperturaPM');
+        $datiClinica['orarioChiusuraAM'] = $this->recuperaValore('orarioChiusuraAM');
+        $datiClinica['orarioChiusuraPM'] = $this->recuperaValore('orarioChiusuraPM');
         if(isset($_POST['orarioContinuato']))
         {
             $datiClinica['orarioContinuato'] = $this->recuperaValore('orarioContinuato');
+        }
+        else
+        {
+            $datiClinica['orarioContinuato'] = FALSE;
         }
         return $datiClinica;
     }

@@ -251,6 +251,7 @@ class UValidazione {
     public function validaDatiClinica($datiClinica) 
     {
         $this->setValidati(TRUE);
+        echo ($this->getValidati());
         foreach ($datiClinica as $chiave => $valore) 
         {
             $pattern = "";
@@ -298,7 +299,7 @@ class UValidazione {
                     break;
                 
                 case 'provinciaClinica':
-                    $pattern = '/^[a-zA-Z\s]{1,20}$/';
+                    $pattern = '/^[A-Z\s]{1,20}$/';
                     $stringaErrore = "La provincia deve essere una sequenza di caratteri";
                     break;
                 
@@ -338,15 +339,18 @@ class UValidazione {
                     $stringaErrore = "L'orario deve avere un formato del tipo: 08:30:00 oppure  08:30";
                     break;
                 case 'orarioContinuato':
-                    $pattern ="";
-                    $stringaErrore = "";
+                    $pattern ='/^(FALSE|TRUE)$/';
+                    $stringaErrore = "Errore in orario continuato";
                     break;
                 
                 default:
                     echo "c'è qualcosa di sbagliato UValidazione validaDatiClinica";
                     break;
             }
-            $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
+            if($chiave !== "orarioContinuato")
+            {
+                $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
+            }
         }
         return $this->validati;
     }
@@ -364,9 +368,11 @@ class UValidazione {
         echo ($chiave);
         if (preg_match($pattern, $valore)) 
         {
+            echo ($valore);
             $this->datiErrati[$chiave] = FALSE;
             $this->datiValidi[$chiave] = $valore;
             echo "OK";
+            echo ($this->getValidati());
         } 
         else
         {
@@ -375,6 +381,7 @@ class UValidazione {
             echo ($this->datiErrati[$chiave]);
             echo "NO";
             $this->validati = FALSE;
+            echo ($this->getValidati());
         }
     }
 }

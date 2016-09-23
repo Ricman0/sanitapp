@@ -24,10 +24,10 @@ class FClinica extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "clinica";
-        $this->_attributiTabella = "PartitaIVA, NomeClinica, TitolareClinica, Via, "+
-                +"NumCivico, CAP, Località, Provincia, Regione, Email, Username, Password, PEC, Telefono, "+
-                +"CapitaleSociale, OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM"+
-                +"OrarioChiusuraPM, OrarioContinuato, Confermato, CodiceConferma"; 
+        $this->_attributiTabella = "PartitaIVA, NomeClinica, Titolare, Via, " 
+                . "NumCivico, CAP, Località, Provincia, Regione, Email, Username, Password, PEC, Telefono, "
+                . "CapitaleSociale, OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
+                . "OrarioChiusuraPM, OrarioContinuato, Confermato, CodiceConferma"; 
     }
     
     /**
@@ -79,7 +79,7 @@ class FClinica extends FDatabase{
         
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = 'INSERT INTO '+ $this->_nomeTabella +'('. $this->_attributiTabella .') VALUES('. $valoriAttributi.')';
+        $query = "INSERT INTO " . $this->_nomeTabella . " (" . $this->_attributiTabella . ") VALUES(" . $valoriAttributi . ")";
         // eseguo la query
         $this->eseguiQuery($query);
     }
