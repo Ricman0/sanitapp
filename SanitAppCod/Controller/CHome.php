@@ -14,8 +14,19 @@ class CHome {
      */
     public function impostaPagina() 
     {
-        $session = USingleton::getInstance("USession");
-        $logIn = $session->checkVariabileSessione("loggedIn");   
+        //avvia o riesuma la sessione 
+        $sessione = USingleton::getInstance("USession");
+        $cAutenticazione = USingleton::getInstance('CAutenticazione');
+        $sessione = $cAutenticazione->autenticazioneUser($sessione);
+        /*
+        if ($cAutenticazione->logIn($session)=== TRUE)
+        {
+            //utente già autenticato
+            // utente può accedere a qualsiasi pagina dipende dal tipo di utente
+        }
+        
+        
+//        $logIn = $session->checkVariabileSessione("loggedIn");   
         if($logIn)
         {
             // let the user access the main page
@@ -55,20 +66,20 @@ class CHome {
             // display the login form
             $logIn = false;
         }
+        */
+
         $vHome= USingleton::getInstance('VHome');
+        if($sessione->checkVariabileSessione('LoggedIn') === TRUE)
+        {
+            $vHome->impostaHeader("logOut", "navigationBarLogged");
+        }
+        else
+        {
+            $vHome->impostaHeader("logIn", "navigationBar");
+        }
+        
         $controller= $vHome->getController();
         echo ($controller);// prova per vedere se contiene quello che dico io
-//        switch ($controller) 
-//        {
-//            case 'registrazione':
-//                $cRegistrazione= USingleton::getInstace('CRegistrazione');
-//                echo $cRegistrazione->impostaPaginaRegistrazione();
-//                break;
-//
-//            default:
-//                $vHome->restituisciHomePage();
-//                break;
-//        }
         switch ($_SERVER['REQUEST_METHOD'])  
         {
             case 'GET':
@@ -103,7 +114,7 @@ class CHome {
     {
         switch ($controller) 
         {
-            case 'home':
+            case 'home':            
                 $vHome->restituisciHomePage();
                 break;
             case 'registrazione':
@@ -197,6 +208,7 @@ class CHome {
 //                $vHome->restituisciHomePage();
                 break;
         }
+        
     }
     
     

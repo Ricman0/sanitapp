@@ -37,8 +37,12 @@ class USession {
      */
     public function terminaSessione() 
     {
-        
+        // con session_destroy() si distruggono  i dati di sessione sul disco
         session_destroy();
+        // con setcookie si cancella il cookie di sessione
+        setcookie(session_name(), '', time()-3600);
+        //distruggere l'array superglobale $_SESSION per cancellare i dati associati alla sessione
+        $_SESSION = array();
     }
     
     /**
@@ -91,11 +95,11 @@ class USession {
         
         if(!empty($_SESSION[$chiave]))
         {
-            return true;
+            return TRUE;
         }
         else
         {
-            return false;
+            return FALSE;
         }
         
     }

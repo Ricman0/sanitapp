@@ -117,15 +117,16 @@ class FDatabase {
      * 
      * @final
      * @access public
-     * @param string $string La stringa di cui si vuole effettuare l'escape e il trim
+     * @param string $stringa La stringa di cui si vuole effettuare l'escape e il trim
      * @return string La stringa di cui si è fatto l'escape
      */
-    final public function trimEscapeStringa($string) 
+    final public function trimEscapeStringa($stringa) 
     {
         //trim per cancellare i separatori iniziali e finali
-        $stringa = trim($string);
-        $stringa = $this->_connessione->real_escape_string($stringa);
-        return $stringa;
+//        $stringa = trim($stringa);
+//        $stringa = $this->_connessione->real_escape_string($stringa);
+//        return $stringa;
+        return $this->_connessione->real_escape_string(trim($stringa));
     }
     
     
@@ -158,19 +159,16 @@ class FDatabase {
                 }
                 else 
                 {
-/*
-                     * una volta che si è sicuri che in $queryResult è contenuto il
+                    /* una volta che si è sicuri che in $queryResult è contenuto il
                      * risultato della query, si può usare tale variabile per 
                      * estrarre i dati una alla volta usando il metodo fetch_assoc
                      * dell'oggetto.
                      * la funzione fetch_assoc() ritorna la riga successiva
                      */
-                 
                     while ($row = $queryResult->fetch_assoc()) 
                     {
                         $this->_result[] = $row;
                     }
-                    
 //                    if($queryResult->num_rows>0)
 //                    {
 //                        while($row =$queryResult->fetch_assoc() )
@@ -179,15 +177,66 @@ class FDatabase {
 //                        }
 //                    }
                  }
-                    
-                
                 return $this->_result;
-
             }
         
     }
 
-
+    /**
+     * Metodo che consente di eseguire più query contemporaneamente
+     * 
+     * @final
+     * @access public
+     * @param string $query Le query da eseguire
+     * @return array|boolean Il risultato della query, FALSE nel caso in cui la query non abbia prodotto risultato
+     */
+    final public function eseguiQueryMultiple($query)
+    {
+//        // eseguo la query e salvo il risultato in $multiQueryResult
+//        $multiQueryResult = $this->_connessione->multi_query($query); 
+        $this->_connessione->multi_query($query);
+        //cicla fino a quando c'è un risultato successivo della multi query
+        do
+            {
+                /*
+                 * la funzione store_result() ritorna l'oggetto risultato 
+                 * oppure FALSE. False può significare che c'è stato un errore
+                 * (allora in questo caso la stringa error non sarà vuota) oppure
+                 * che la query non prodotto alcun risultato.
+                 */
+                $queryResult = $this->_connessione->store_result();
+                if ($queryResult === FALSE)
+                {
+                    //o c'è stato un errore o la query non ritorna un risultato
+                    if(empty($this->_connessione->error))
+                    {
+                        echo "la query non ha prodotto risultato";
+                        $this->_result = FALSE;
+                    }
+                    else
+                    {
+                        die ("Errore mysql durante l'esecuzione della query: " . $this->_connessione->error);
+                    }
+                }
+                else 
+                {
+                    //la query ha prodotto un risultato che deve essere catturato
+                         // dal momento che o nessuna delle query o solo una delle tre 
+                        // avrà un solo risultato, non inserisco un ciclo 
+                        // all'interno di questo ciclo
+                    while ($row = $queryResult->fetch_assoc()) 
+                    {
+                        //memorizzo la riga del risultato  nell'array _result[]
+                        $this->_result[] = $row;
+                    }
+                    // si libera la memoria associato a quel risultato
+                    $queryResult->free();
+                }
+            }while($this->_connessione->next_result());
+            return $this->_result;
+            
+        }
+    
     
     /**
      * Metodo per chiudere la connessione con il database

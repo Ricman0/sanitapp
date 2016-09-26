@@ -74,6 +74,8 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextLocalitàClinica(Località);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextProvinciaClinica(Provincia);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextRegioneClinica(Regione);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextUsernameClinica(Username);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextPasswordClinica(Password);
 
 
 --
@@ -148,6 +150,8 @@ CREATE TABLE medico (
   UNIQUE (CodiceConferma)
 );
 
+ALTER TABLE medico ADD FULLTEXT INDEX fullTextUsernameMedico(Username);
+ALTER TABLE medico ADD FULLTEXT INDEX fullTextPasswordMedico(Password);
 --
 -- Dump dei dati per la tabella `medico`
 --
@@ -184,7 +188,8 @@ CREATE TABLE utente (
   FOREIGN KEY (CodFiscaleMedico) REFERENCES medico (CodFiscale)
 ) ;
 
-
+ALTER TABLE utente ADD FULLTEXT INDEX fullTextUsernameUtente(Username);
+ALTER TABLE utente ADD FULLTEXT INDEX fullTextPasswordUtente(Password);
 --
 -- Dump dei dati per la tabella `utente`
 --
