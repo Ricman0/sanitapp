@@ -124,4 +124,131 @@ class CAutenticazione {
         }
         return $sessione;
     }
+    
+    
+    
+    
+    public function autenticaUser()
+    {
+        $sessione = USingleton::getInstance('USession');
+        $tentativi = USingleton::getInstance('UCookie');
+        $vAutenticazione = USingleton::getInstance('VAutenticazione');
+        $username = $vAutenticazione->getDatoLogIn('uname');
+        $password = $vAutenticazione->getDatoLogIn('psw');
+        if($username!==FALSE && $password!==FALSE)
+        {
+            
+//            $datiLogIn = array();
+//            $datiLogIn['username'] = $username;
+//            $datiLogIn['password'] = $password;
+            $datiLogIn = array('username' => $username, 'password' => $password);
+            $validazione = USingleton::getInstance('UValidazione');
+            if($validazione->validaDatiLogIn($datiLogIn) === TRUE)
+            {
+                //username e password validi
+                //cerco nel db se esistono
+                $fDatabase = USingleton::getInstance('FDatabase');
+                $username = $fDatabase->trimEscapeStringa($username);
+                $password = $fDatabase->trimEscapeStringa($password);
+                $query =  "SELECT Username, Password, 'Utente', "
+                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
+                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
+                    . "FROM utente WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
+                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)); "
+                    . "SELECT Username, Password, 'Medico', "
+                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
+                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
+                    . "FROM medico WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
+                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)); "
+                    . "SELECT Username, Password, 'Clinica', "
+                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
+                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
+                    . "FROM clinica WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
+                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE));";
+                $risultato = $fDatabase->eseguiQueryMultiple($query);
+                
+//                foreach($risultato  as $row)
+//                    {
+//                      foreach($row  as $chiave => $valore)
+//                      {
+//                          
+//                          echo $chiave . " " . $valore . " ";
+//                      }
+//                    }
+                if ($risultato === FALSE)
+                {
+                    echo "errore nell'effettuare il log in";
+                    // incremento il tentativo nel cookie?
+                    $tentativi->incrementaCookie();  
+                    // 3 tentativi
+                    if($tentativi < 4)
+                    {
+                        // pagina di log in
+                    }
+                    else
+                    {
+                        // pagina recupero credenziali 
+                    }
+                }
+                else
+                {
+                    
+                    $sessione->impostaVariabileSessione('usernameLogIn', $username);
+                    $sessione->impostaVariabileSessione('LoggedIn', TRUE);
+                    /*    usato per capire come è strutturato il risutlato
+                    foreach($risultato  as $row)
+                    {
+                      foreach($row  as $chiave => $valore)
+                      {
+                          echo $chiave . " " . $valore . " ";
+                      }
+                    }     */
+                    if(isset($risultato[0]['Utente']))
+                    {
+                        $tipo = $risultato[0]['Utente']; 
+                    }
+                    if(isset($risultato[0]['Medico']))
+                    {
+                        $tipo = $risultato[0]['Medico']; 
+                    }
+                    if(isset($risultato[0]['Clinica']))
+                    {
+                        $tipo = $risultato[0]['Clinica']; 
+                    }
+                    echo $tipo;
+                    $sessione->impostaVariabileSessione('tipoUser', $tipo);
+                    echo " Benvenuto " . $username;
+                    // mostrare la pagina personale
+                    
+//                    $vAutenticazione->visualizzaTemplate("areaPersonale");  
+                }
+            }            
+        }
+        else
+        {
+            // il cookie tentativi aumenta di uno e ritorna la form per effettuare il log in
+            echo "errore ";
+            $tentativi->incrementaCookie();
+            // questo ramo non dovrebbe esserci perchè lato client richiedo necessariamente i due input
+        }
+        echo " QWERTY ";
+        if($sessione->leggiVariabileSessione('LoggedIn')===TRUE && $sessione->leggiVariabileSessione('usernameLogIn')===$username)
+        {
+            $tentativi->eliminaCookie('Tentativi');
+            $vAutenticazione->impostaPaginaPersonale($sessione->leggiVariabileSessione('tipoUser'));
+        }
+        else 
+        {
+            if($tentativi<4)
+            {
+                //pagina Log in
+                $vAutenticazione->impostaPaginaLogIn();
+            }
+            else
+            {
+                // recupera Credenziali
+                $vAutenticazione->impostaPaginaRecuperoCredenziali();
+            }
+        }
+    }
 }

@@ -59,9 +59,9 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
 function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
 {
 
-//    //recupera tutti i valori del form automaticamente
-//    var dati = $(id).serialize();
-//    alert(dati);
+    //recupera tutti i valori del form automaticamente
+    var dati = $(id).serialize();
+    alert(dati);
    
     
     $.ajax({

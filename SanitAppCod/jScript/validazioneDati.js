@@ -13,10 +13,60 @@ function validazione(task1)
         case "clinica":
             validazioneClinica();
             break; 
+            
+        case "autenticazione":
+            validazioneLogIn();
+            break;
         default: break;
     }
 }
 
+function validazioneLogIn()
+{
+    jQuery.validator.addMethod("password", function(valore){
+        //espressione regolare per la password
+        var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
+        return valore.match(regex);
+        }, "La password consta da 6 a 10 caratteri, contiene almeno un numero, una lettera \n\
+        maiuscola,una lettera minuscola. ");
+    jQuery.validator.addMethod("username", function(valore){
+        //espressione regolare per codice fiscale
+        var regex = /[0-9a-zA-Z\_\-]{2,15}/;
+        return valore.match(regex);
+        }, "L'username contiene solo _ , - , numeri, lettere maiuscole o minuscole");
+    $("#logInForm").validate({
+        rules:
+                {
+                    uname:
+                                {
+                                    required:true,
+                                    username: true
+                                },
+                    passwordLogIn:
+                                {
+                                    required:true,
+                                    password: true
+                                },
+                },
+        messages:
+                {
+                    uname:
+                                {
+                                    required: "Inserire username"
+                                },
+                    passwordLogIn:
+                                {
+                                    required: "Inserire password"
+                                },
+                },
+        submitHandler:function(form) 
+        { 
+            alert('I dati log in sono stati inseriti correttamente');
+            // inviaDatiRegistrazione si trova in clickRegistrazione.js
+            inviaDatiLogIn('#logInForm', '#main' );
+        }
+    });
+}
 
 function validazioneUtente()
 {
@@ -26,7 +76,7 @@ function validazioneUtente()
         //espressione regolare per la password
         var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
         return valore.match(regex);
-        }, "Inserire una password che contenga almeno un numero, una lettera \n\
+        }, "Inserire da 6 a 10 caratteri che contengano almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
     
     jQuery.validator.addMethod("codiceFiscale", function(valore){

@@ -1,5 +1,6 @@
 <form id="logInForm">
-  
+    <input type="hidden" name="controller" value="autenticazione"/>
+    
     <label for="usernameLogIn">Username</label>
     <input type="text" id="usernameLogIn" placeholder="Enter Username" name="uname" required >
 

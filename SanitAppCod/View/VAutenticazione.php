@@ -12,5 +12,73 @@
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VAutenticazione extends View{
-    //put your code here
+    
+    /**
+     * Metodo che permette di conoscere il dato di log in (ad esempio password o
+     * username) richiesto.
+     * 
+     * @access public
+     * @param string $datoLogIn Il dato del log in che si richiede
+     * @return string|boolean Il dato del log in richiesto se impostato, FALSE altrimenti
+     */
+    public function getDatoLogIn($datoLogIn) 
+    {
+        if (isset($_REQUEST[$datoLogIn])) 
+            {
+                return $_REQUEST[$datoLogIn];
+            } 
+        else 
+            {
+                return FALSE;
+            }
+    }
+    
+    /**
+     * Metodo che consente di impostare la giusta area personale a seconda del tipo 
+     * di user che si è autenticato.
+     * 
+     * @access public
+     * @param string $tipoUser Il tipo di user di cui si vuole impostare la pagin personale
+     */
+    public function impostaPaginaPersonale($tipoUser)
+    {
+        switch($tipoUser)
+        {
+            case 'Utente':
+//                //prelevo  i template
+//                $logIn= $this->prelevaTemplate("logOut");
+//                $navBar = $this->prelevaTemplate("navigationBarAutenticato");
+                $areaPersonale = $this->prelevaTemplate("areaPersonale");
+////                //assegno le variabili ai template
+//                $this->assegnaVariabiliTemplate("logIn", $logIn);
+//                $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+                $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
+//                // visualizzo il template
+//                $this->visualizzaTemplate("areaPersonale");  
+                $this->visualizzaTemplate('areaPersonale');
+                break;
+            
+            case 'Medico':
+                $this->visualizzaTemplate("areaPersonaleMedico"); 
+                break;
+            
+            case 'Clinica':
+                $this->visualizzaTemplate("areaPersonaleClinica"); 
+                break;
+            
+            default: 
+                echo " errore in VAutenticazione impostaPaginaPersonale";
+                break;
+        }
+    }
+    
+    /**
+     * Metodo che consente di impostare la pagina di Log In
+     * 
+     * @access public
+     */
+    public function impostaPaginaLogIn()
+    {
+        $this->visualizzaTemplate("logIn"); 
+    }
 }

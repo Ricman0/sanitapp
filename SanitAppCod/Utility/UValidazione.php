@@ -161,6 +161,43 @@ class UValidazione {
         return $this->validati;
     }
     
+     /**
+     * Metodo che permette la validazione dei dati di Log In
+     * 
+     * @access public
+     * @param Array $datiLogIn Dati del log in da validare
+     * @return boolean TRUE se tutti i dati sono stati validati, FALSE altrimenti.
+     */
+    public function validaDatiLogIn($datiLogIn) 
+    {
+        $this->setValidati(TRUE);
+        foreach ($datiLogIn as $chiave => $valore) 
+        {
+            $pattern = "";
+            $stringaErrore = "";
+            switch ($chiave) 
+            {
+                case "username":
+                    $pattern = '/^[0-9a-zA-Z\_\-]{2,15}$/';
+                    $stringaErrore = "Il" . $chiave . "deve essere una sequenza alfanumerica";
+                    break;
+                
+                case "password":
+                    $pattern = '/^(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})$/';
+                    $stringaErrore = "La password deve contenere almeno un "
+                            . "numero, una lettera maiusola, "
+                            . "una minuscola e deve essere lunga minimo 6 e massimo 10 ";
+                    break;
+                
+                default:
+                    echo "c'è qualcosa di sbagliato UValidazione validaDatiLogIn";
+                    break;  
+            }
+            $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
+        }
+        return $this->validati;
+    }
+    
     /**
      * Metodo che permette la validazione di tutti i dati del medico
      * 
@@ -354,6 +391,9 @@ class UValidazione {
         }
         return $this->validati;
     }
+    
+    
+    
     /**
      * Metodo che permette di effettuare la validazione di un dato 
      * 

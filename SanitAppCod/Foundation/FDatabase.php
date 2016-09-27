@@ -205,8 +205,10 @@ class FDatabase {
                  * che la query non prodotto alcun risultato.
                  */
                 $queryResult = $this->_connessione->store_result();
+                
                 if ($queryResult === FALSE)
                 {
+                    echo "  echo !  ";
                     //o c'è stato un errore o la query non ritorna un risultato
                     if(empty($this->_connessione->error))
                     {

@@ -17,7 +17,7 @@ class VHome extends View {
      * Metodo che permette di conoscere il valore di controller dell'URL
      * 
      * @access public
-     * @return mixed Ritorna il valore di controller, se è settato. False altrimenti
+     * @return mixed Ritorna il valore di controller, se è settato. FALSE altrimenti
      */
     public function getController() 
     {
@@ -27,7 +27,7 @@ class VHome extends View {
             } 
         else 
             {
-                return false;
+                return FALSE;
             }
     }
     
