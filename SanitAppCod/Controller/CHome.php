@@ -90,6 +90,7 @@ class CHome {
                 $this->smistaControllerPOST($controller);
                 break;
             case 'PUT':
+                $this->smistaControllerPUT($controller);
                 ;
                 break;
             case 'DELETE':
@@ -102,11 +103,35 @@ class CHome {
     }
     
     /**
-     * Metodo che consente di scegliere il caso giusto in base al controller
+     * Metodo che consente di scegliere il caso giusto in base al controller se 
+     * il  metodo di richiesta è PUT
      * 
      * @access private
-     * @param type $name Description
-     * @param type $name Description
+     * @param string $controller 
+     */
+    private function smistaControllerPUT($controller) 
+    {
+        switch ($controller) 
+        {
+            case 'modifica':
+                
+                break;
+
+            default:
+                break;
+        }
+    }
+    
+    
+    
+    
+    /**
+     * Metodo che consente di scegliere il caso giusto in base al controller se 
+     * il  metodo di richiesta è GET
+     * 
+     * @access private
+     * @param string $controller 
+     * @param VHome $vHome Oggetto della classe VHome
      */
     private function smistaControllerGET($controller, $vHome) 
     {

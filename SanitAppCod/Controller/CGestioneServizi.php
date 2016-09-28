@@ -29,15 +29,16 @@ class CGestioneServizi {
      * 
      * 
      */
-    public function gestisciAzione($vServizi, $azione, $usernameClinica)
+    private function gestisciAzione($vServizi, $azione, $usernameClinica)
     {
         switch ($azione)
         {
             case 'aggiungi':
                 $vServizi->restituisciFormAggiungiServizi();
                 break;
-            
+       
             case 'modifica':
+                
                 break;
             case 'disabilita':
                 break;

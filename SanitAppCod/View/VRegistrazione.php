@@ -17,19 +17,47 @@ class VRegistrazione extends View {
 
     
     
-    public function restituisciFormUtente() 
+    public function restituisciFormUtente($datiValidi=NULL) 
     {
-        return $this->visualizzaTemplate('inserisciUtente');  
+        if($datiValidi=== NULL)
+        {
+            return $this->visualizzaTemplate('inserisciUtente');  
+        }
+        else
+        {
+            $this->prelevaTemplate('inserisciUtente');
+            $this->assegnaVariabiliTemplate('datiValidi', $datiValidi);
+            return $this->visualizzaTemplate('inserisciUtente');
+        }
+      
     }
 
-    public function restituisciFormClinica() 
+    public function restituisciFormClinica($datiValidi=NULL) 
     {
-        return $this->visualizzaTemplate('inserisciClinica');
+        if($datiValidi=== NULL)
+        {
+            return $this->visualizzaTemplate('inserisciClinica');  
+        }
+        else
+        {
+            $this->prelevaTemplate('inserisciClinica');
+            $this->assegnaVariabiliTemplate('datiValidi', $datiValidi);
+            return $this->visualizzaTemplate('inserisciClinica', $datiValidi);
+        }
     }
     
-    public function restituisciFormMedico() 
+    public function restituisciFormMedico($datiValidi=NULL) 
     {
-        return $this->visualizzaTemplate('inserisciMedico');
+        if($datiValidi=== NULL)
+        {
+            return $this->visualizzaTemplate('inserisciMedico');  
+        }
+        else
+        {
+            $this->prelevaTemplate('inserisciMedico');
+            $this->assegnaVariabiliTemplate('datiValidi', $datiValidi);
+            return $this->visualizzaTemplate('inserisciMedico', $datiValidi);
+        }
     }
     
     public function confermaInserimento()

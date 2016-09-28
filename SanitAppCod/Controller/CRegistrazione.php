@@ -81,7 +81,7 @@ class CRegistrazione {
                         // dati corretti ma errore nel database
                         
                         echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                        return $vRegistrazione->restituisciFormClinica();
+                        return $vRegistrazione->restituisciFormClinica($inserito);
                     }
                 break;
             
@@ -105,7 +105,7 @@ class CRegistrazione {
                     {
                         // dati corretti ma errore nel database
                         echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                        return $vRegistrazione->restituisciFormMedico();
+                        return $vRegistrazione->restituisciFormMedico($inserito);
                     }
                 break;
 
@@ -133,7 +133,7 @@ class CRegistrazione {
                     // dati corretti ma errore nel database
 
                     echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                    return $vRegistrazione->restituisciFormUtente();
+                    return $vRegistrazione->restituisciFormUtente($inserito);
                 }
                     
                     //visualizza errori
@@ -181,9 +181,10 @@ class CRegistrazione {
        else
        {
            echo "dati inseriti sbagliati";
-          //
-          $uValidazione->getDatiErrati(); 
-          $inserito = FALSE;
+          
+//          $datiErrati = $uValidazione->getDatiErrati(); 
+          
+          $inserito = $uValidazione->getDatiValidi();
           
        }
        return $inserito; 
@@ -382,8 +383,8 @@ class CRegistrazione {
        }
        else
        {
-          $uValidazione->getDatiErrati(); 
-          $inserito = FALSE;
+           
+          $inserito = $uValidazione->getDatiValidi();
        }
        return $inserito;  
     }
@@ -424,7 +425,7 @@ class CRegistrazione {
            // i dati errati
           $uValidazione->getDatiErrati(); 
           // i dati validi
-          $uValidazione->getDatiValidi();
+          $inserito = $uValidazione->getDatiValidi();
           
        }
        return $inserito;

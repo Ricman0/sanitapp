@@ -59,10 +59,14 @@ class VAutenticazione extends View{
                 break;
             
             case 'Medico':
+                $areaPersonale = $this->prelevaTemplate("areaPersonaleMedico");
+                $this->assegnaVariabiliTemplate("areaPersonaleMedico", $areaPersonale);
                 $this->visualizzaTemplate("areaPersonaleMedico"); 
                 break;
             
             case 'Clinica':
+                $areaPersonale = $this->prelevaTemplate("areaPersonaleClinica");
+                $this->assegnaVariabiliTemplate("areaPersonaleClinica", $areaPersonale);
                 $this->visualizzaTemplate("areaPersonaleClinica"); 
                 break;
             

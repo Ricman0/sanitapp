@@ -4,53 +4,53 @@
     <input type="hidden" name="task" value="clinica"/>
 
     <label for="nomeClinica" class="elementiForm">Nome</label>
-    <input type="text" name="nomeClinica" class="elementiForm" id="nomeClinica" placeholder="Villa Serena" required/>
+    <input type="text" name="nomeClinica" class="elementiForm" id="nomeClinica" placeholder="Villa Serena" value="{if isset($datiValidi.nomeClinica)}{$datiValidi.nomeClinica}{/if}" required/>
 
     <br>
 
     <label for="titolare" class="elementiForm">Titolare</label>
-    <input type="text" name="titolare" class="elementiForm" id="titolare" placeholder="Mario Rossi" required/>
+    <input type="text" name="titolare" class="elementiForm" id="titolare" placeholder="Mario Rossi" value="{if isset($datiValidi.titolare)}{$datiValidi.titolare}{/if}" required/>
 
     <br>
     <label for="partitaIVA" class="elementiForm">Partita IVA</label>
-    <input type="text" name="partitaIVA" class="elementiForm" id="partitaIVA" placeholder="JAJF59382YHC3930" required/>
+    <input type="text" name="partitaIVA" class="elementiForm" id="partitaIVA" placeholder="JAJF59382YHC3930" value="{if isset($datiValidi.partitaIVA)}{$datiValidi.partitaIVA}{/if}" required/>
 
     <br>
     <label for="emailClinica" class="elementiForm">Email</label>
-    <input type="email" name="emailClinica" class="elementiForm" id="emailClinica" placeholder="villaserena@gmail.it" required>
+    <input type="email" name="emailClinica" class="elementiForm" id="emailClinica" placeholder="villaserena@gmail.it" value="{if isset($datiValidi.email)}{$datiValidi.email}{/if}" required>
 
     <br>
     <label for="PECClinica" class="elementiForm">PEC</label>
-    <input type="email" name="PECClinica" class="elementiForm" id="PECClinica" placeholder="villaserena@pec.it" required>
+    <input type="email" name="PECClinica" class="elementiForm" id="PECClinica" placeholder="villaserena@pec.it" value="{if isset($datiValidi.PEC)}{$datiValidi.PEC}{/if}" required>
 
     <br>
     <label for="telefonoClinica" class="elementiForm">Telefono</label>
-    <input type="tel" name="telefonoClinica" class="elementiForm" id="telefonoClinica" placeholder="085821345" required/>
+    <input type="tel" name="telefonoClinica" class="elementiForm" id="telefonoClinica" placeholder="085821345" value="{if isset($datiValidi.telefono)}{$datiValidi.telefono}{/if}" required/>
 
     <br>
     <label for="capitaleSociale" class="elementiForm">Capitale Sociale</label>
-    <input type="text" name="capitaleSociale" class="elementiForm" id="capitaleSociale" placeholder="320.000€" />
+    <input type="text" name="capitaleSociale" class="elementiForm" id="capitaleSociale" placeholder="320.000€" value="{if isset($datiValidi.capitaleSociale)}{$datiValidi.capitaleSociale}{/if}" />
 
     <br>
 
     <label for="indirizzoClinica" class="elementiForm">Indirizzo</label>
-    <input type="text" name="indirizzoClinica" class="elementiForm" id="indirizzoClinica" placeholder="Via/C.da Acquaventina" required/>
+    <input type="text" name="indirizzoClinica" class="elementiForm" id="indirizzoClinica" placeholder="Via/C.da Acquaventina" value="{if isset($datiValidi.via)}{$datiValidi.via}{/if}" required/>
 
     <br>
     <label for="mumeroCivicoClinica" class="elementiForm">Numero Civico</label>
-    <input type="number" name="numeroCivicoClinica" class="elementiForm" id="numeroCivicoClinica" min="0" max="1000" placeholder="3"/>
+    <input type="number" name="numeroCivicoClinica" class="elementiForm" id="numeroCivicoClinica" min="0" max="1000" placeholder="3" value="{if isset($datiValidi.numeroCivico)}{$datiValidi.numeroCivico}{/if}"/>
 
     <br>
     <label for="CAPClinica" class="elementiForm">CAP</label>
-    <input type="text" name="CAPClinica" class="elementiForm" id="CAPClinica" placeholder="65017" required/>
+    <input type="text" name="CAPClinica" class="elementiForm" id="CAPClinica" placeholder="65017" value="{if isset($datiValidi.cap)}{$datiValidi.cap}{/if}" required/>
 
     <br>
     <label for="localitàClinica" class="elementiForm">Località</label>
-    <input type="text" name="localitàClinica" class="elementiForm" id="localitàClinica" placeholder="Penne" required/>
+    <input type="text" name="localitàClinica" class="elementiForm" id="localitàClinica" placeholder="Penne" value="{if isset($datiValidi.localitàClinica)}{$datiValidi.localitàClinica}{/if}" required/>
 
     <br>
     <label for="provinciaClinica" class="elementiForm">Provincia</label>
-    <select type="text" name="provinciaClinica" class="elementiForm" id="provinciaClinica" required>
+    <select type="text" name="provinciaClinica" class="elementiForm" id="provinciaClinica" value="{if isset($datiValidi.provinciaClinica)}{$datiValidi.provinciaClinica}{/if}" required>
         <option disabled selected value=""> -- select an option -- </option>
         <option>AGRIGENTO</option>
         <option>ALESSANDRIA</option>
@@ -287,33 +287,33 @@
     <div>
         <div class="orario">            
             <label for="orarioAperturaMattina" class="elementiForm">Orario Apertura Mattina</label>
-            <input type="time" name="orarioAperturaAM" class="elementiForm" id="orarioAperturaMattina" class="orario" placeholder="09:00"/>
+            <input type="time" name="orarioAperturaAM" class="elementiForm" id="orarioAperturaMattina" class="orario" placeholder="09:00" value="{if isset($datiValidi.orarioAperturaAM)}{$datiValidi.orarioAperturaAM}{/if}"/>
 
             <br>
         </div>
         <div class="orario">            
             <label for="orarioChiusuraMattina" class="elementiForm">Orario Chiusura Mattina</label>
-            <input type="time" name="orarioChiusuraAM" class="elementiForm" id="orarioChiusuraMattina" class="orario" placeholder="13:00"/>
+            <input type="time" name="orarioChiusuraAM" class="elementiForm" id="orarioChiusuraMattina" class="orario" placeholder="13:00" value="{if isset($datiValidi.orarioChiusuraAM)}{$datiValidi.orarioChiusuraAM}{/if}"/>
 
             <br>
         </div>
         <div class="orario">            
             <label for="orarioAperturaPomeriggio" class="elementiForm">Orario Apertura Pomeriggio</label>
-            <input type="time" name="orarioAperturaPM" class="elementiForm" id="orarioAperturaPomeriggo" class="orario" placeholder="15:00"/>
+            <input type="time" name="orarioAperturaPM" class="elementiForm" id="orarioAperturaPomeriggo" class="orario" placeholder="15:00" value="{if isset($datiValidi.orarioAperturaPM)}{$datiValidi.orarioAperturaPM}{/if}"/>
 
             <br>
         </div>
         
         <div class="orario">            
             <label for="orarioChiusuraPomeriggio" class="elementiForm">Orario Chiusura Pomeriggio</label>
-            <input type="time" name="orarioChiusuraPM" class="elementiForm" id="orarioChiusuraPomeriggo" class="orario" placeholder="19:00"/>
+            <input type="time" name="orarioChiusuraPM" class="elementiForm" id="orarioChiusuraPomeriggo" class="orario" placeholder="19:00" value="{if isset($datiValidi.orarioChiusuraPM)}{$datiValidi.orarioChiusuraPM}{/if}"/>
 
             <br>
         </div>
         <div class="autenticazione">
             <div class="username">            
                 <label for="usernameClinica" class="elementiForm">Username</label>
-                <input type="text" name="usernameClinica" class="elementiForm" id="usernameClinica" placeholder="clari" required/>
+                <input type="text" name="usernameClinica" class="elementiForm" id="usernameClinica" placeholder="clari" value="{if isset($datiValidi.username)}{$datiValidi.username}{/if}" required/>
 
                 <br>
             </div>
