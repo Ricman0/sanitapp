@@ -67,7 +67,6 @@ class CHome {
             $logIn = false;
         }
         */
-
         $vHome= USingleton::getInstance('VHome');
         if($sessione->checkVariabileSessione('LoggedIn') === TRUE)
         {
@@ -77,12 +76,11 @@ class CHome {
         {
             $vHome->impostaHeader("logIn", "navigationBar");
         }
-        
         $controller= $vHome->getController();
-        echo ($controller);// prova per vedere se contiene quello che dico io
         switch ($_SERVER['REQUEST_METHOD'])  
         {
             case 'GET':
+                echo ($controller);
                 $this->smistaControllerGET($controller, $vHome);
                 break;
             case 'POST': echo "ciao post";
@@ -184,9 +182,7 @@ class CHome {
         echo ($controller);
         switch ($controller) 
         {
-            
             case 'registrazione':
-                
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
                 //recupera dati e crea utente.
                 $cRegistrazione->inserisciRegistrazione();
@@ -199,10 +195,15 @@ class CHome {
             
             case 'cliniche':
                 $cCliniche = USingleton::getInstance('CRicercaCliniche');
-                $risultato = $cCliniche->impostaPaginaRisultatoCliniche();
+                $cCliniche->impostaPaginaRisultatoCliniche();
                 //in $risultato c'è il risultato della query
                 break;
 
+            case 'autenticazione':
+                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+                $cAutenticazione->autenticaUser();
+                
+                break;
             default:
                 echo "ora non lo so che fargli fare";
 //                $vHome->restituisciHomePage();

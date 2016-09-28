@@ -82,7 +82,7 @@ class UCookie {
             return $_COOKIE[$name];
         }
         else
-            return false;
+            return FALSE;
     }
     
     
@@ -118,4 +118,25 @@ class UCookie {
                 return false;
             }
    }
+   
+   /**
+    * Metodo che consente di incrementare il cookie "tentativi" nel caso in cui
+    * i dati di log in immessi sono errati.
+    * 
+    * @access public
+    */
+    public function incrementaCookie() 
+    {
+        $cookie = USingleton::getInstaces('UCookie');
+        $tentativi = $cookie->getCookie('Tentativi');
+        if (is_bool($tentativi))
+        {
+            $cookie->setcookie('tentativi', '1', time() + 15 * 60);
+        } 
+        else 
+        {
+            $valoreTentativi = $tentativi + 1;
+            $cookie->setcookie('tentativi', $valoreTentativi, time() + 15 * 60);
+        }
+    }
 }
