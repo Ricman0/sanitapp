@@ -1,4 +1,4 @@
-<table>
+<table id="tabellaEsami" class="tablesorter">
     <thead>
         <th>Nome</th>
         <th>Descrizione</th>

@@ -1,4 +1,4 @@
-<table>
+<table id="tabellaCliniche" class="tablesorter">
     <thead>
         <th>Clinica</th>
         <th>Località</th>

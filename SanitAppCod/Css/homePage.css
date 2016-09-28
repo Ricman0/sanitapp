@@ -38,6 +38,7 @@ html,body{
 #main{
     padding-bottom: 30px;
     min-width: 970px;
+    min-height: 450px;
 }
 #footer{
     position:relative;
@@ -101,3 +102,4 @@ input, select{
     margin: auto;
     width: 100%;
 }
+

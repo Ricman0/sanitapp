@@ -88,6 +88,7 @@ function inviaDatiForm()
         {
             alert("Dati ricerca esame inviati per effettuare la registrazione");
             $("#main").html(msg);
+            $("#tabellaEsami").tablesorter();
         },
         error: function()
         {

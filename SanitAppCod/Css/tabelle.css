@@ -1,0 +1,42 @@
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+}
+th{
+    background-color: rgb(11,190,210);
+    color: white;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+    
+    border: 1px solid #fff;
+}
+
+table.tablesorter thead tr .header {
+    background-image: url("../immagini/bg.gif");
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+table.tablesorter tbody td {
+
+    vertical-align: top;
+}
+
+table.tablesorter thead tr .headerSortUp {
+    background-image: url("../immagini/asc.gif");
+}
+table.tablesorter thead tr .headerSortDown {
+    background-image: url("../immagini/desc.gif");
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+    background-color: rgb(10, 170, 220);
+}

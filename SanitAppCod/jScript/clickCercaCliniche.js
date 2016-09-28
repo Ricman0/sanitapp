@@ -52,6 +52,7 @@ function inviaDati(){
       success: function(msg)
       {
         $("#main").html(msg);
+        $("#tabellaCliniche").tablesorter();
       },
       error: function()
       {

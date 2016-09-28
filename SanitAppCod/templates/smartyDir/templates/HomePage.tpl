@@ -16,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="./Css/footer.css">
         <link rel="stylesheet" type="text/css" href="./Css/cartinaItalia.css"/>
         <link rel="stylesheet" type="text/css" href="./Css/areaPersonale.css"/>
+        <link rel="stylesheet" type="text/css" href="./Css/tabelle.css"/>
 
         <script type="text/javascript" src="./jScript/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
@@ -29,7 +30,8 @@
         <script type="text/javascript" src="./jScript/jquery.validate.js"></script>
         <script type="text/javascript" src="./jScript/validazioneDati.js"></script>
         <script type="text/javascript" src="./jScript/clickHome.js"></script>
-        
+        <script type="text/javascript" src="./jScript/jquery.tablesorter.js"></script>
+        <script type="text/javascript" src="./jScript/ordinaTabella.js"></script>
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->
 
