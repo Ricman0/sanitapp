@@ -147,15 +147,6 @@ class CHome {
                 //in $risultato c'è il risultato della query
                 
                 break;
-            
-            
-                
-//            // secondo me è da eliminare CValidazione
-//            case 'validazione':
-//                $cValidazione = USingleton::getInstance('CValidazione');
-//                $risultato = $cValidazione->validaInserimento();
-//                // da terminare
-                
 
             case 'mySanitApp':
 //                //secondo me la prima cosa da fare è creare la sessione
@@ -164,8 +155,12 @@ class CHome {
 //                $cAutenticazione = USingleton::getInstance("CAutenticazione");
 //                $logIn = $cAutenticazione->logIn($session);
                   $mySanitApp = USingleton::getInstance('CmySanitApp');
+                break;
+            
+            case 'servizi':
                 
                 break;
+            
             default:
                 $vHome->restituisciHomePage();
                 break;

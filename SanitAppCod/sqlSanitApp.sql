@@ -85,8 +85,8 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextPasswordClinica(Password);
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
 Provincia, Regione, Email, Username, Password, PEC, Telefono, CapitaleSociale, OrarioAperturaAM, 
 OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato, Confermato, CodiceConferma) VALUES
-('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'info@appignano.it', ' appi', ' 1234', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE, FALSE, 's12'),
-('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'info@bisenti.it', ' bise', ' 1235', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, FALSE, 'w34');
+('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'info@appignano.it', ' appi', 'Appig4', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE, FALSE, 's12'),
+('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'info@bisenti.it', ' bise', 'Bisenti5', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, FALSE, 'w34');
 
 -- --------------------------------------------------------
 
@@ -159,7 +159,7 @@ ALTER TABLE medico ADD FULLTEXT INDEX fullTextPasswordMedico(Password);
 INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email, Username, 
 Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, Confermato, CodiceConferma) VALUES
 ('dmrcld89s42g438s', 'claudia', 'di marco', 'acquaventina', 30, '65017', 
-'clau@hotmail.it','claudim', 'clau', 'clau@dim.pec.it', 0, ' P', 5464, FALSE, 'm786f');
+'clau@hotmail.it','claudim', 'Clau89', 'clau@dim.pec.it', 0, ' P', 5464, FALSE, 'm786f');
 
 -- --------------------------------------------------------
 
@@ -196,9 +196,9 @@ ALTER TABLE utente ADD FULLTEXT INDEX fullTextPasswordUtente(Password);
 
 INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email,
  Username, Password, CodFiscaleMedico, Confermato, CodiceConferma) VALUES
-('dmntnna89s42g438s', ' anna', ' di matteo', ' acquaventina', 30, '65017', ' annadima@alice.it', 'annadima' , 'anna', 'dmrcld89s42g438s', FALSE, 'u4728tdgd'),
-('mntrcr89h21a488l', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'onizuka-89@hotmail.it', 'ricman', 'riccardo', 'dmrcld89s42g438s', FALSE, 'sjsj474r8'),
-('rndndt56s53t657o', 'rnd', 'ndt', 'bologna', 3, '64034', 'rnd@libero.it', 'rdnndt', 'rnd', 'dmrcld89s42g438s', FALSE, 'jd784hfh58f');
+('dmntnna89s42g438s', ' anna', ' di matteo', ' acquaventina', 30, '65017', ' annadima@alice.it', 'annadima' , 'Anna49', 'dmrcld89s42g438s', FALSE, 'u4728tdgd'),
+('mntrcr89h21a488l', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'onizuka-89@hotmail.it', 'ricman', 'Riccardo89', 'dmrcld89s42g438s', FALSE, 'sjsj474r8'),
+('rndndt56s53t657o', 'rnd', 'ndt', 'bologna', 3, '64034', 'rnd@libero.it', 'rdnndt', 'Rndnd89', 'dmrcld89s42g438s', FALSE, 'jd784hfh58f');
 
 
 
