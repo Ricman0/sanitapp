@@ -131,7 +131,8 @@ class CAutenticazione {
     public function autenticaUser()
     {
         $sessione = USingleton::getInstance('USession');
-        $tentativi = USingleton::getInstance('UCookie');
+        $uTentativi = USingleton::getInstance('UCookie');
+        $uUsername =  USingleton::getInstance('UCookie');
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         $username = $vAutenticazione->getDatoLogIn('uname');
         $password = $vAutenticazione->getDatoLogIn('psw');
@@ -179,9 +180,9 @@ class CAutenticazione {
                 {
                     echo "errore nell'effettuare il log in";
                     // incremento il tentativo nel cookie?
-                    $tentativi->incrementaCookie();  
+                    $uTentativi->incrementaCookie();  
                     // 3 tentativi
-                    if($tentativi < 4)
+                    if($uTentativi < 4)
                     {
                         // pagina di log in
                     }
@@ -194,6 +195,7 @@ class CAutenticazione {
                 {
                     
                     $sessione->impostaVariabileSessione('usernameLogIn', $username);
+                    $uUsername->impostaCookie('username', $username, time() + 15 * 60);
                     $sessione->impostaVariabileSessione('LoggedIn', TRUE);
                     /*    usato per capire come è strutturato il risutlato
                     foreach($risultato  as $row)
@@ -228,18 +230,18 @@ class CAutenticazione {
         {
             // il cookie tentativi aumenta di uno e ritorna la form per effettuare il log in
             echo "errore ";
-            $tentativi->incrementaCookie();
+            $uTentativi->incrementaCookie();
             // questo ramo non dovrebbe esserci perchè lato client richiedo necessariamente i due input
         }
         echo " QWERTY ";
         if($sessione->leggiVariabileSessione('LoggedIn')===TRUE && $sessione->leggiVariabileSessione('usernameLogIn')===$username)
         {
-            $tentativi->eliminaCookie('Tentativi');
+            $uTentativi->eliminaCookie('Tentativi');
             $vAutenticazione->impostaPaginaPersonale($sessione->leggiVariabileSessione('tipoUser'));
         }
         else 
         {
-            if($tentativi<4)
+            if($uTentativi<4)
             {
                 //pagina Log in
                 $vAutenticazione->impostaPaginaLogIn();

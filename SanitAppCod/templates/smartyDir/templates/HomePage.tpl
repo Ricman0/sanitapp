@@ -31,7 +31,7 @@
         <script type="text/javascript" src="./jScript/validazioneDati.js"></script>
         <script type="text/javascript" src="./jScript/clickHome.js"></script>
         <script type="text/javascript" src="./jScript/jquery.tablesorter.js"></script>
-        <script type="text/javascript" src="./jScript/ordinaTabella.js"></script>
+        <script type="text/javascript" src="./jScript/clickGestisciServizi.js"></script>
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->
 

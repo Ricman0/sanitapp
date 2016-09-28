@@ -20,7 +20,38 @@ class UCookie {
     const MESE = 2592000;
     const ANNO = 31536000;
     
+    /**
+     * Costruttore di UCookie
+     *  
+     * @access public
+     * @param string $name Nome del cookie
+     * @param string $value Valore del cookie
+     * @param time $expire Il tempo in cui il cookie scade
+     * @param string $path Il percorso sul server in cui il cookie sarà disponibile.
+     * @param string $domain Il (sotto)dominio in cui il cookie è disponibile.
+     * @param boolean $secure Indica se il cookie sarà trasmesso su HTTPS( se TRUE) o anche su HTTP (se FALSE)
+     * @param boolean $httponly Quando è TRUE vuol dire che il cookie è trasmesso solo su HTTP.
+     */
     public function __construct($name = 'cookieDefault', $value = 'valoreDefault',
+            $expire = self::ORA , $path = '/', $domain = 'sanitapp.it', 
+            $secure = 'FALSE', $httponly = 'FALSE')
+    {
+        setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+    }
+    
+    /**
+     * Metodo che consente di impostare un cookie
+     * 
+     * @access public
+     * @param string $name Nome del cookie
+     * @param string $value Valore del cookie
+     * @param time $expire Il tempo in cui il cookie scade
+     * @param string $path Il percorso sul server in cui il cookie sarà disponibile.
+     * @param string $domain Il (sotto)dominio in cui il cookie è disponibile.
+     * @param boolean $secure Indica se il cookie sarà trasmesso su HTTPS( se TRUE) o anche su HTTP (se FALSE)
+     * @param boolean $httponly Quando è TRUE vuol dire che il cookie è trasmesso solo su HTTP.
+     */
+    public function impostaCookie($name = 'cookieDefault', $value = 'valoreDefault',
             $expire = self::ORA , $path = '/', $domain = 'sanitapp.it', 
             $secure = 'FALSE', $httponly = 'FALSE')
     {
@@ -33,17 +64,17 @@ class UCookie {
      * 
      * @access public
      * @param string $name Il nome del cookie
-     * @return boolean True se il cookie esiste, false altrimenti
+     * @return boolean TRUE se il cookie esiste, FALSE altrimenti
      */
     public function esisteCookie($name)
     {
         if(isset($_COOKIE[$name]))
         {
-            return true;
+            return TRUE;
         }
         else
         {
-            return false;
+            return FALSE;
         }
     }
     
@@ -53,18 +84,18 @@ class UCookie {
      * 
      * @access public
      * @param string $name Il nome del cookie
-     * @return boolean True se il cookie è vuoto o se non esiste alcun 
-     *                 cookie con questo nome, false altrimenti
+     * @return boolean TRUE se il cookie è vuoto o se non esiste alcun 
+     *                 cookie con questo nome, FALSE altrimenti
      */
     public function cookieVuoto($name)
     {
         if(empty($_COOKIE[$name]))
         {
-            return true;
+            return TRUE;
         }
         else
         {
-            return false;
+            return FALSE;
         }
     }
  
@@ -73,7 +104,7 @@ class UCookie {
      * 
      * @access public
      * @param string $name Il nome del cookie 
-     * @return mixed Valore del cookie se esiste, false altrimenti.
+     * @return mixed Valore del cookie se esiste, FALSE altrimenti.
      */
     public function getCookie($name) 
     {

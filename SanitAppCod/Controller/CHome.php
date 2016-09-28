@@ -158,7 +158,8 @@ class CHome {
                 break;
             
             case 'servizi':
-                
+                $cServizi = USingleton::getInstance('CGestioneServizi');
+                $cServizi->gestisciServizi();
                 break;
             
             default:
