@@ -40,29 +40,32 @@ class VAutenticazione extends View{
      * @access public
      * @param string $tipoUser Il tipo di user di cui si vuole impostare la pagin personale
      */
-    public function impostaPaginaPersonale($tipoUser)
+    public function impostaPaginaPersonale($tipoUser, $tastiLaterali)
     {
         switch($tipoUser)
         {
             case 'Utente':
 //                //prelevo  i template
-                $areaPersonale = $this->prelevaTemplate("areaPersonale");
+                $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
 ////                //assegno le variabili ai template
+                $this->assegnaVariabiliTemplate("tastiLaterali", $tastiLaterali);
                 $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
 //                // visualizzo il template 
-                $this->visualizzaTemplate('areaPersonale');
+                $this->visualizzaTemplate('areaPersonaleGenerale');
                 break;
             
             case 'Medico':
-                $areaPersonale = $this->prelevaTemplate("areaPersonaleMedico");
-                $this->assegnaVariabiliTemplate("areaPersonaleMedico", $areaPersonale);
-                $this->visualizzaTemplate("areaPersonaleMedico"); 
+                $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
+                $this->assegnaVariabiliTemplate("tastiLaterali", $tastiLaterali);
+                $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
+                $this->visualizzaTemplate("areaPersonaleGenerale"); 
                 break;
             
             case 'Clinica':
-                $areaPersonale = $this->prelevaTemplate("areaPersonaleClinica");
-                $this->assegnaVariabiliTemplate("areaPersonaleClinica", $areaPersonale);
-                $this->visualizzaTemplate("areaPersonaleClinica"); 
+                $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
+                $this->assegnaVariabiliTemplate("tastiLaterali", $tastiLaterali);
+                $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
+                $this->visualizzaTemplate("areaPersonaleGenerale"); 
                 break;
             
             default: 

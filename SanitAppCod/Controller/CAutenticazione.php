@@ -136,6 +136,7 @@ class CAutenticazione {
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         $username = $vAutenticazione->getDatoLogIn('uname');
         $password = $vAutenticazione->getDatoLogIn('psw');
+        $tastiLaterali = Array();
         if($username!==FALSE && $password!==FALSE)
         {
             
@@ -208,16 +209,28 @@ class CAutenticazione {
                     if(isset($risultato[0]['Utente']))
                     {
                         $tipo = $risultato[0]['Utente']; 
+                        $tastiLaterali['prenotazioniAreaPersonaleUtente'] = "Prenotazioni";
+                        $tastiLaterali['refertiAreaPersonaleUtente'] = "Referti";
+                        $tastiLaterali['impostazioniAreaPersonaleUtente'] = "Impostazioni";
                     }
                     if(isset($risultato[0]['Medico']))
                     {
                         $tipo = $risultato[0]['Medico']; 
+                        $tastiLaterali['pazientiAreaPersonaleMedico'] = "Pazienti";
+                        $tastiLaterali['prenotazioniAreaPersonaleMedico'] = "Prenotazioni";
+                        $tastiLaterali['refertiAreaPersonaleMedico'] = "Referti";
+                        $tastiLaterali['impostazioniAreaPersonaleMedico'] = "Impostazioni";
                     }
                     if(isset($risultato[0]['Clinica']))
                     {
                         $tipo = $risultato[0]['Clinica'];
                         $nome = $risultato[0]['NomeClinica'];
                         $sessione->impostaVariabileSessione('nomeClinica', $nome);
+                        $tastiLaterali['serviziAreaPersonaleClinica'] = "Servizi";
+                        $tastiLaterali['prenotazioniAreaPersonaleClinica'] = "Prenotazioni";
+                        $tastiLaterali['refertiAreaPersonaleClinica'] = "Referti";
+                        $tastiLaterali['clientiAreaPersonaleClinica'] = "Clienti";
+                        $tastiLaterali['impostazioniAreaPersonaleClinica'] = "Impostazioni";
                     }
                     echo $tipo;
                     $sessione->impostaVariabileSessione('tipoUser', $tipo);
@@ -239,7 +252,7 @@ class CAutenticazione {
         if($sessione->leggiVariabileSessione('LoggedIn')===TRUE && $sessione->leggiVariabileSessione('usernameLogIn')===$username)
         {
             $uTentativi->eliminaCookie('Tentativi');
-            $vAutenticazione->impostaPaginaPersonale($sessione->leggiVariabileSessione('tipoUser'));
+            $vAutenticazione->impostaPaginaPersonale($sessione->leggiVariabileSessione('tipoUser'), $tastiLaterali);
         }
         else 
         {
