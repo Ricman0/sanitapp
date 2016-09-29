@@ -79,11 +79,11 @@ function validazioneUtente()
         }, "Inserire da 6 a 10 caratteri che contengano almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
     
-//    jQuery.validator.addMethod("codiceFiscale", function(valore){
-//        //espressione regolare per codice fiscale
-//        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
-//        return valore.match(regex);
-//        }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+    jQuery.validator.addMethod("codiceFiscale", function(valore){
+        //espressione regolare per codice fiscale
+        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        return valore.match(regex);
+        }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
     
     jQuery.validator.addMethod("username", function(valore){
         //espressione regolare per codice fiscale
@@ -109,7 +109,7 @@ function validazioneUtente()
                     codiceFiscale:
                             {
                                 required: true,
-//                                codiceFiscale:true,
+                                codiceFiscale:true,
                                 maxlength: 16, 
                                 minlength: 16
 //                                remote:

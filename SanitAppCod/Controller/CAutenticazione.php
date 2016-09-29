@@ -161,7 +161,7 @@ class CAutenticazione {
                     . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
                     . "FROM medico WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
                     . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)); "
-                    . "SELECT Username, Password, 'Clinica', "
+                    . "SELECT Username, Password, 'Clinica',NomeClinica, "
                     . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
                     . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
                     . "FROM clinica WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
@@ -215,7 +215,9 @@ class CAutenticazione {
                     }
                     if(isset($risultato[0]['Clinica']))
                     {
-                        $tipo = $risultato[0]['Clinica']; 
+                        $tipo = $risultato[0]['Clinica'];
+                        $nome = $risultato[0]['NomeClinica'];
+                        $sessione->impostaVariabileSessione('nomeClinica', $nome);
                     }
                     echo $tipo;
                     $sessione->impostaVariabileSessione('tipoUser', $tipo);

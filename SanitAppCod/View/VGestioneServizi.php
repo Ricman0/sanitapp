@@ -17,4 +17,11 @@ class VGestioneServizi extends View{
     {
         return $this->visualizzaTemplate('aggiungiEsame'); 
     }
+    
+    public function visualizzaEsami($risultato)
+    {
+        $this->assegnaVariabiliTemplate('dati', $risultato);
+        $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
+        return $this->visualizzaTemplate('tabellaEsami');
+    }
 }

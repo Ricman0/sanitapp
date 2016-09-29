@@ -7,6 +7,6 @@
 $(document).ready(function(){
 
     $('#main').on("click","#serviziAreaPersonaleClinica", function() {
-        inviaControllerTask('servizi', 'aggiungi', "#contenutoAreaPersonaleClinica");
+        inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonaleClinica");
     });
 });

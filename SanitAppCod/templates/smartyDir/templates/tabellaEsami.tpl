@@ -10,6 +10,12 @@
         <th>Località</th>
     </thead>
     <tbody>
+        <br>
+        {if isset($tastoAggiungi)}
+            <i class="fa fa-plus-circle fa-2x" id="icona-aggiungi" aria-hidden="true" ></i>
+        {/if}
+        <br>
+        
         {foreach from=$dati item=curr_row}
             <tr>
                 <td>{$curr_row['Nome']}</td>

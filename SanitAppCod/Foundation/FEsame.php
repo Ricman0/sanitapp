@@ -70,14 +70,14 @@ class FEsame extends FDatabase {
      * @param string $luogo Il luogo in cui si trova la clinica
      * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
      */
-    public function cercaEsame($nomeEsame, $nomeClinica, $luogo) {
+    public function cercaEsame($nomeEsame="all", $nomeClinica="all", $luogo="all") {
 
 //        $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
 //                . "NomeCategoria, NomeClinica, clinica.Località"
 //                . " FROM " . $this->_nomeTabella . ", clinica"
 //                . " WHERE esame.PartitaIVAClinica = clinica.PartitaIVA";
 
-        if ($nomeEsame == "all") 
+        if ($nomeEsame === "all") 
         {
             $nomeEsame = "";
         } 

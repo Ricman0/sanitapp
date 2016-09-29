@@ -17,10 +17,10 @@ class CGestioneServizi {
     public function gestisciServizi() 
     {
         $sessione = USingleton::getInstance('USession');
-        $usernameClinica = $sessione->leggiVariabileSessione('usernameLogIn');
+        $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
         $vServizi = USingleton::getInstance('VGestioneServizi');
         $task = $vServizi->getTask();
-        $this->gestisciAzione($vServizi, $task, $usernameClinica);
+        $this->gestisciAzione($vServizi, $task, $nomeClinica);
         
     }
     
@@ -29,7 +29,7 @@ class CGestioneServizi {
      * 
      * 
      */
-    private function gestisciAzione($vServizi, $azione, $usernameClinica)
+    private function gestisciAzione($vServizi, $azione, $nomeClinica)
     {
         switch ($azione)
         {
@@ -38,14 +38,22 @@ class CGestioneServizi {
                 break;
        
             case 'modifica':
-                
                 break;
+            
             case 'disabilita':
                 break;
+            
             case 'cancella':
                 break;
+            
             default:
                 // caso in cui si vogliono solo visualizzare i servizi
+//                $esami = USingleton::getInstance('CRicercaEsami');
+//                $esami->
+                $esami = USingleton::getInstance('FEsame');
+                //cerco tutti gli esami della clinica di cui passo il nome
+                $risultato = $esami->cercaEsame($nomeClinica);
+                $vServizi->visualizzaEsami($risultato);
                 
                 break;
         }

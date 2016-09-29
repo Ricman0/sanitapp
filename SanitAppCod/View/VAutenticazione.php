@@ -46,15 +46,10 @@ class VAutenticazione extends View{
         {
             case 'Utente':
 //                //prelevo  i template
-//                $logIn= $this->prelevaTemplate("logOut");
-//                $navBar = $this->prelevaTemplate("navigationBarAutenticato");
                 $areaPersonale = $this->prelevaTemplate("areaPersonale");
 ////                //assegno le variabili ai template
-//                $this->assegnaVariabiliTemplate("logIn", $logIn);
-//                $this->assegnaVariabiliTemplate("navigationBar", $navBar);
                 $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
-//                // visualizzo il template
-//                $this->visualizzaTemplate("areaPersonale");  
+//                // visualizzo il template 
                 $this->visualizzaTemplate('areaPersonale');
                 break;
             
