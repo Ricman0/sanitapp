@@ -14,9 +14,19 @@
     {if isset($contenutoAreaPersonale)}
         {$contenutoAreaPersonale}
     {else}
-        <h1>Ciao   <h1>
-        <p>Benvenuto nella tua area personale, da qui potrai gestire le tue prenotazioni
+        {if count($tastiLaterali)==3}
+            <h1>Ciao UTENTE <h1>
+            <p>Benvenuto nella tua area personale, da qui potrai gestire le tue prenotazioni
                 e consultare i referti o, se vuoi, condividerli con il tuo medico curante</p>
+        {elseif count($tastiLaterali)==5}
+        <h1>Ciao CLINICA <h1>
+        <p>Benvenuto nella tua area personale, da qui potrai gestire i servizi, le prenotazioni, 
+            i pazienti, i referti e le tue impostazioni.</p>
+        {else}
+        <h1>Ciao DOTTORE   <h1>
+        <p>Benvenuto nella tua area personale, da qui potrai gestire le prenotazioni, 
+            i pazienti e i referti.</p>
+        {/if}        
     {/if}
     
 </div>

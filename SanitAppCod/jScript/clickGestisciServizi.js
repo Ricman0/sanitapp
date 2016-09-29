@@ -6,7 +6,7 @@
 
 $(document).ready(function(){
 
-    $('#main').on("click","#serviziAreaPersonaleClinica", function() {
-        inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonaleClinica");
+    $('#main').on("click", "#serviziAreaPersonaleClinica", function() {
+        inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
 });
