@@ -18,6 +18,7 @@ class CGestioneServizi {
     {
         $sessione = USingleton::getInstance('USession');
         $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
+        echo "nome clinica: " . $nomeClinica;
         $vServizi = USingleton::getInstance('VGestioneServizi');
         $task = $vServizi->getTask();
         $this->gestisciAzione($vServizi, $task, $nomeClinica);
@@ -52,7 +53,7 @@ class CGestioneServizi {
 //                $esami->
                 $esami = USingleton::getInstance('FEsame');
                 //cerco tutti gli esami della clinica di cui passo il nome
-                $risultato = $esami->cercaEsame($nomeClinica);
+                $risultato = $esami->cercaEsame("",$nomeClinica,"");
                 $vServizi->visualizzaEsami($risultato);
                 
                 break;
