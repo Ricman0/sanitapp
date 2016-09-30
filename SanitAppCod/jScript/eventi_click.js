@@ -47,6 +47,7 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
             alert(datiRisposta);
             $(ajaxdiv).html(datiRisposta);
             $(".tablesorter").tablesorter();
+            
 
         },
         complete:function()

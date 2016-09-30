@@ -129,6 +129,25 @@ class FUtente extends FDatabase{
     }
     
     /**
+     * Metodo che consente di trovare un utente passando come parametro l'username
+     * dell'utente
+     * 
+     * @access public
+     * @param string $username Username dell'utente da cercare
+     * @return type L'utente cercato
+     */
+    public function cercaUtente($username)
+    {
+        $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE Username='" . $username . "'";
+        $risultato = $this->eseguiQuery($query);
+        echo "count: ". count($risultato);        
+        return $risultato;
+        
+    }
+    
+    
+    
+    /**
      * Metodo che permette di modificare un attributo di una tupla utente
      * 
      * @param string $attributo Il nome della colonna nella tabella utente 

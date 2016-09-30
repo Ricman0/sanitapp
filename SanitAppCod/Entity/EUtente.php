@@ -99,28 +99,58 @@ class EUtente
      * @param string $password La password dell'utente
      * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($nome, $cognome, $cf, $via, $numeroCivico, $cap, $email, $username, $password, $cod) 
+    public function __construct($nome="", $cognome="", $cf="", $via="", $numeroCivico="", $cap="", $email="", $username="", $password="", $cod="") 
     {
-        $this->_nome = $nome;
-        $this->_cognome = $cognome; 
-        $this->_codFiscale = $cf;
-        $this->_via = $via;
-        if(isset($numeroCivico))
+        $sessione = USingleton::getInstance('USession');
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        if((NULL !== $username))
         {
-            $this->_numeroCivico = $numeroCivico; 
+            $fUtente = USingleton::getInstance('FUtente');
+            $risultato = $fUtente->cercaUtente($username);
+            if(!is_bool($risultato))
+            {
+                
+                // esiste quell'utente
+                $this->setNomeUtente($risultato[0]['Nome']);
+                $this->setCognomeUtente($risultato[0]['Cognome']);
+                $this->_codFiscale = $risultato[0]['CodFiscale'];
+                $this->setViaUtente($risultato[0]['Via']);
+                if(isset($risultato[0]['NumCivico']))
+                {
+                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);   
+                }
+                $this->setCAPUtente($risultato[0]['CAP']);
+                $this->setEmailUtente($risultato[0]['Email']);
+                $this->setUsernameUtente($risultato[0]['Username']);
+                $this->setPasswordUtente($risultato[0]['Password']);
+                $this->setConfermatoUtente($risultato[0]['Confermato']);
+                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
+            }
         }
         else
+        {
+            $this->_nome = $nome;
+            $this->_cognome = $cognome; 
+            $this->_codFiscale = $cf;
+            $this->_via = $via;
+            if(isset($numeroCivico))
             {
-                $this->_numeroCivico = NULL; 
+                $this->_numeroCivico = $numeroCivico; 
             }
+            else
+                {
+                    $this->_numeroCivico = NULL; 
+                }
+
+            $this->_CAP = $cap; 
+            $this->_email = $email; 
+            $this->_username = $username;
+            $this->_password = $password; 
+            $this->_codiceConferma = $cod;
+            $this->_confermato = FALSE;
+            $this->_prenotazioni = new ArrayObject() ;// da vedere:array di oggetti o bastava semplicemente Array()??
+        }
         
-        $this->_CAP = $cap; 
-        $this->_email = $email; 
-        $this->_username = $username;
-        $this->_password = $password; 
-        $this->_codiceConferma = $cod;
-        $this->_confermato = FALSE;
-        $this->_prenotazioni = new ArrayObject() ;// da vedere:array di oggetti o bastava semplicemente Array()??
     }
     
     //metodi get
