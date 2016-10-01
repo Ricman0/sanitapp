@@ -10,7 +10,6 @@ class CRicercaEsami {
     public function impostaPaginaRisultatoEsami() 
     {
         $fEsami = USingleton::getInstance('FEsame');
-        
         $risultato =  $fEsami->cercaEsame($_GET['parametro1'], $_GET['parametro2'], $_GET['parametro3']);
         $vEsami = USingleton::getInstance('VRicercaEsami');
         $vEsami->restituisciPaginaRisultatoEsami($risultato);

@@ -165,15 +165,15 @@ class FDatabase {
                      * dell'oggetto.
                      * la funzione fetch_assoc() ritorna la riga successiva
                      */
-                        while ($row =$queryResult->fetch_assoc())
-                        {
-                            $this->_result[] = $row;                       
-                        }
-                   
+                    while ($row =$queryResult->fetch_assoc())
+                    {
+                        $this->_result[] = $row;                       
+                    }
+                    // si libera la memoria associato a quel risultato
+                    $queryResult->free();
                     
                  }                
-                // si libera la memoria associato a quel risultato
-                $queryResult->free();
+                
                 return $this->_result;
             }
         

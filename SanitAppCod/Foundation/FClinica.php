@@ -120,7 +120,7 @@ class FClinica extends FDatabase{
                         . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE), "
                         . "MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
-                        . "MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "FROM clinica "
                         . "WHERE (MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE) "

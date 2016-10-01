@@ -59,6 +59,12 @@ class EMedico
     private $_PEC;
     
     /**
+     * @var string $_username, variabile di tipo string, che contiene lo
+     *              username che il medico inserisce per registrarsi
+     */
+    private $_username;
+    
+    /**
      * @var string $_password Password scelta e usata dal medico per accedere al sistema
      */
     private $_password;
@@ -99,17 +105,25 @@ class EMedico
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
      * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($nome, $cognome, $cf, $via, $cap, $email, $password, $PEC, $provinciaAlbo, $numIscrizione, $cod) 
+    public function __construct($nome, $cognome, $cf, $via, $numeroCivico, $cap, $email, $username, $password, $PEC, $provinciaAlbo, $numIscrizione, $cod) 
     {
         $this->_nome = $nome;
         $this->_cognome = $cognome; 
         $this->_codFiscale = $cf;
         $this->_via = $via;
-        $this->_numeroCivico = NULL; 
+        if(isset($numeroCivico))
+        {
+            $this->_numeroCivico = $numeroCivico; 
+        }
+        else
+            {
+                $this->_numeroCivico = NULL; 
+            }
+
         $this->_CAP = $cap; 
         $this->_email = $email; 
+        $this->_username = $username;
         $this->_password = $password; 
-        $this->_validato = FALSE;
         $this->_PEC = $PEC;
         $this->_provinciaAlbo = $provinciaAlbo;
         $this->_numIscrizione = $numIscrizione;
@@ -239,6 +253,16 @@ class EMedico
     }
     
     /**
+     * Metodo per conoscere lo username del medico
+     * 
+     * @return string lo username del medico
+     */ 
+    public function getUsernameMedico()
+    {
+        return $this->_username;
+    }
+    
+    /**
      * Metodo per conoscere la password del medico
      * 
      * @return string La password del medico
@@ -326,6 +350,16 @@ class EMedico
     public function setCAPMedico($cap)
     {
         $this->_CAP = $cap; 
+    }
+    
+    /**
+     * Metodo che permette di modificare lo username del medico
+     * 
+     * @param string $un Il nuovo username del medico
+     */
+    public function setUsernameMedico($un)
+    {
+        $this->_username = $un; 
     }
     
     /**

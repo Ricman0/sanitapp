@@ -25,7 +25,7 @@ class FMedico extends FDatabase {
         // imposto il nome della tabella
         $this->_nomeTabella = "medico";
         $this->_attributiTabella = "Nome, Cognome, CodFiscale, Via, NumCivico, "
-                . "CAP, Email, Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, Confermato, CodiceConferma";
+                . "CAP, Email, Username, Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, Confermato, CodiceConferma";
     }
     
     /**
@@ -73,6 +73,7 @@ class FMedico extends FDatabase {
                 . $medico->getNumCivicoMedico() . "', '" 
                 . $this->trimEscapeStringa($medico->getCAPMedico()) . "', '"              
                 . $this->trimEscapeStringa($medico->getEmailMedico()) . "', '" 
+                . $this->trimEscapeStringa($medico->getUsernameMedico()) . "', '" 
                 . $this->trimEscapeStringa($medico->getPasswordMedico()) . "', '"
                 . $this->trimEscapeStringa($medico->getPECMedico()) . "', '" 
                 . $this->trimEscapeStringa($medico->getValidatoMedico()) . "', '"

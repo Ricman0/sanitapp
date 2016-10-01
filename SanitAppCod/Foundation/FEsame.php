@@ -216,8 +216,8 @@ class FEsame extends FDatabase {
                     echo "no nomeesame,luogo,  si nomeclinica ";
                     $query = "SELECT Nome, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Località, "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)"
-                            . "FROM esame, clinica WHERE MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
+                            . "FROM esame, clinica WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA)) ";
 //                    $query = "SELECT DISTINCT Nome, Descrizione, Prezzo, Durata, MedicoEsame, "
 //                        . "NumPrestazioniSimultanee, NomeCategoria, "
 //                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "

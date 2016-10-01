@@ -101,31 +101,34 @@ class EUtente
      */
     public function __construct($nome="", $cognome="", $cf="", $via="", $numeroCivico="", $cap="", $email="", $username="", $password="", $cod="") 
     {
-        $sessione = USingleton::getInstance('USession');
-        $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        if((NULL !== $username))
+        if(NULL == $cf)
         {
-            $fUtente = USingleton::getInstance('FUtente');
-            $risultato = $fUtente->cercaUtente($username);
-            if(!is_bool($risultato))
+            $sessione = USingleton::getInstance('USession');
+            $username = $sessione->leggiVariabileSessione('usernameLogIn');
+            if((NULL !== $username))
             {
-                
-                // esiste quell'utente
-                $this->setNomeUtente($risultato[0]['Nome']);
-                $this->setCognomeUtente($risultato[0]['Cognome']);
-                $this->_codFiscale = $risultato[0]['CodFiscale'];
-                $this->setViaUtente($risultato[0]['Via']);
-                if(isset($risultato[0]['NumCivico']))
+                $fUtente = USingleton::getInstance('FUtente');
+                $risultato = $fUtente->cercaUtente($username);
+                if(!is_bool($risultato))
                 {
-                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);   
+
+                    // esiste quell'utente
+                    $this->setNomeUtente($risultato[0]['Nome']);
+                    $this->setCognomeUtente($risultato[0]['Cognome']);
+                    $this->_codFiscale = $risultato[0]['CodFiscale'];
+                    $this->setViaUtente($risultato[0]['Via']);
+                    if(isset($risultato[0]['NumCivico']))
+                    {
+                        $this->setNumCivicoUtente($risultato[0]['NumCivico']);   
+                    }
+                    $this->setCAPUtente($risultato[0]['CAP']);
+                    $this->setEmailUtente($risultato[0]['Email']);
+                    $this->setUsernameUtente($risultato[0]['Username']);
+                    $this->setPasswordUtente($risultato[0]['Password']);
+                    $this->setConfermatoUtente($risultato[0]['Confermato']);
+                    $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
                 }
-                $this->setCAPUtente($risultato[0]['CAP']);
-                $this->setEmailUtente($risultato[0]['Email']);
-                $this->setUsernameUtente($risultato[0]['Username']);
-                $this->setPasswordUtente($risultato[0]['Password']);
-                $this->setConfermatoUtente($risultato[0]['Confermato']);
-                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
-            }
+            }        
         }
         else
         {
