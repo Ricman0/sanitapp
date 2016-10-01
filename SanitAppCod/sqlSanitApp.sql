@@ -190,6 +190,7 @@ CREATE TABLE utente (
 
 ALTER TABLE utente ADD FULLTEXT INDEX fullTextUsernameUtente(Username);
 ALTER TABLE utente ADD FULLTEXT INDEX fullTextPasswordUtente(Password);
+ALTER TABLE utente ADD FULLTEXT INDEX fullTextCodFiscaleUtente(CodFiscale);
 --
 -- Dump dei dati per la tabella `utente`
 --

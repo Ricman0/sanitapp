@@ -17,6 +17,8 @@
   RewriteRule ^(registrazione)/(conferma)/(utente|clinica|medico)/(\w+)?/(\w+)?$ index.php?controller=$1&task=$2&utente=$3&username=$4&codice=$5 [L]
   RewriteRule ^(autenticazione)?$ index.php?controller=$1
   RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(prenotazioni|referti|impostazioni)/(utente)?$ index.php?controller=$1&task=$2 [L]
+
 
     RewriteCond %{REQUEST_METHOD} POST 
     RewriteRule ^(\w+)/(\w+)/(\w+)?$ index.php

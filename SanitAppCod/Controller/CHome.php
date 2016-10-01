@@ -187,6 +187,15 @@ class CHome {
                 $cServizi->gestisciServizi();
                 break;
             
+            case 'prenotazioni':
+                $cPrenotazioni = USingleton::getInstance('CPrenotazione');
+                $cPrenotazioni->visualizzaPrenotazioni();
+                break;
+            
+            case 'referti':
+                break;
+            case 'impostazioni':
+                break;
             default:
                 $vHome->restituisciHomePage();
                 break;

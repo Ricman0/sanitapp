@@ -48,6 +48,7 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
             $(ajaxdiv).html(datiRisposta);
             $(".tablesorter").tablesorter();
             
+
             $('#durataEsame').timepicker({
                 'timeFormat': 'H:i',
                 'step': 15,

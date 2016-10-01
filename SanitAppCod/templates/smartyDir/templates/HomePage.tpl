@@ -33,8 +33,12 @@
         <script type="text/javascript" src="./jScript/clickHome.js"></script>
         <script type="text/javascript" src="./jScript/jquery.tablesorter.js"></script>
         <script type="text/javascript" src="./jScript/clickGestisciServizi.js"></script>
+
         <script type="text/javascript" src="./jScript/jquery.timepicker.min.js"></script>
         <script type="text/javascript" src="./jScript/jquery.datepair.min.js"></script>
+
+        <script type="text/javascript" src="./jScript/clickUtente.js"></script>
+
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->
 
