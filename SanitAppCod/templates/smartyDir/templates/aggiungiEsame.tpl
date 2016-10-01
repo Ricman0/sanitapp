@@ -31,11 +31,11 @@
     <textarea form="aggiungiEsame" name="descrizioneEsame" id="descrizioneEsame" class="elementiForm" maxlength="200" placeholder="Breve descrizione dell'esame" required></textarea>
     <br>
 
-    <div id="aggiungiEsame" >
+    <span id="aggiungiEsame" >
         <input type="submit" value="Aggiungi" id="submitAggiungiEsame">
-    </div>
+    </span>
     
-    <div id="annullaEsame" >
+    <span id="annullaEsame" >
         <input type="button" value="Annulla" id="annullaAggiungiEsame">
-    </div>
+    </span>
 </form>

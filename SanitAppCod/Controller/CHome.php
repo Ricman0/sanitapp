@@ -83,7 +83,7 @@ class CHome {
                 echo ($controller);
                 $this->smistaControllerGET($controller, $vHome);
                 break;
-            case 'POST': echo "ciao post";
+            case 'POST': echo "ciao post ";
                 echo ($controller);
                 $controller =$_POST['controller'];
                 echo ("$controller");
@@ -224,6 +224,10 @@ class CHome {
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->autenticaUser();
                 
+                break;
+            case 'servizi':
+                $cServizi = USingleton::getInstance('CGestioneServizi');
+                $cServizi->gestisciServiziPost();
                 break;
             default:
                 echo "ora non lo so che fargli fare";

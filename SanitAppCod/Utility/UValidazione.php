@@ -279,6 +279,58 @@ class UValidazione {
     }
     
     /**
+     * Metodo che permette la validazione di tutti i dati dell'esame
+     * 
+     * @access public
+     * @param Array $datiEsame Dati dell'esame da validare
+     * @return boolean TRUE se tutti i dati sono stati validati, FALSE altrimenti.
+     */
+    public function validaDatiEsame($datiEsame) 
+    {
+        $this->setValidati(TRUE);
+        foreach ($datiEsame as $chiave => $valore) 
+        {
+            $pattern = "";
+            $stringaErrore = "";
+            switch ($chiave) 
+            {
+                case 'nomeEsame':
+                case 'medicoEsame':
+                    // scrivere quello che c'è da fare
+                    $pattern = '/^[a-zA-Zàèìùò\s]{2,20}$/' ;
+                    $stringaErrore = "Il " . $chiave . " deve essere una sequenza di caratteri. Minimo 2 e massimo 20";
+                    break;
+                
+                case 'categoriaEsame':
+                    $pattern = '/^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/' ;
+                    $stringaErrore = "Il " . $chiave .  " è una sequenza di alfanumerica del tipo DMRCLD89S42G438S ";
+                    break;
+                
+                case 'prezzoEsame':
+                    $pattern = '/^[a-zA-Zàèìùò\s]{1,30}$/' ;
+                    $stringaErrore = "Il " . $chiave . " deve essere un numero";
+                    break;
+                
+                case 'durataEsame':
+                    $pattern = '/(0?\d|1[0-2]):(0\d|[0-5]\d)';
+                    $stringaErrore = "La " . $chiave . " deve essere una durata valida";
+                    break;
+                
+                case "numPrestazioniSimultanee":
+                    $pattern = '/^[0-9]{2}$/';
+                    $stringaErrore = "Il" . $chiave . " deve essere una sequenza di 2 numeri";
+                    break;
+                
+                default:
+                    echo "c'è qualcosa di sbagliato UValidazione validaDatiUtente";
+                    break;  
+            }
+            $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
+        }
+        return $this->validati;
+    }
+    
+    /**
      * Metodo che permette la validazione di tutti i dati della clinica
      * 
      * @access public

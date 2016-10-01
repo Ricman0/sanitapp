@@ -23,9 +23,9 @@ class FEsame extends FDatabase {
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "esame";
-        $this->_attributiTabella = "IDEsame, Nome, Descrizione, Prezzo, " +
-                +"Durata, MedicoEsame, NumPrestazioniSimultanee,"
-                . " NomeCategoria, PartitaIVAClinica";
+        $this->_attributiTabella = "IDEsame, Nome, Descrizione, Prezzo, " .
+                "Durata, MedicoEsame, NumPrestazioniSimultanee, " .
+                "NomeCategoria, PartitaIVAClinica";
     }
 
     /**
@@ -37,10 +37,11 @@ class FEsame extends FDatabase {
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
     private function getAttributi($esame) {
-        $valoriAttributi = $esame->getNomeEsame() +
-                +', ' + $esame->getDescrizioneEsame() + ', ' +
-                + $esame->getPrezzoEsame() + ', ' + $esame->getDurataEsame() + ', ' +
-                + $esame->getMedicoEsame() + ', ' + $esame->getNumeroPrestazioniSimultaneeEsame() + ', ' + $esame->getNomeCategoriaEsame();
+        $valoriAttributi = $esame->getNomeEsame() . ', ' .
+                $esame->getDescrizioneEsame() . ', ' .
+                $esame->getPrezzoEsame() . ', ' . $esame->getDurataEsame() . ', ' .
+                $esame->getMedicoEsame() . ', ' . $esame->getNumeroPrestazioniSimultaneeEsame() . ', ' .
+                $esame->getNomeCategoriaEsame();
         return $valoriAttributi;
     }
 
@@ -57,7 +58,7 @@ class FEsame extends FDatabase {
 
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = 'INSERT INTO ' + $this->_nomeTabella + '(' . $this->_attributiTabella . ') VALUES(' . $valoriAttributi . ')';
+        $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
         // eseguo la query
         $this->eseguiQuery($query);
     }

@@ -17,6 +17,9 @@ function validazione(task1)
         case "autenticazione":
             validazioneLogIn();
             break;
+        case "esame":
+            validazioneEsame();
+            break;
         default: break;
     }
 }
@@ -562,7 +565,7 @@ function validazioneClinica()
                             {
                                 required: true,
                                 orario:true
-                            },        
+                            }        
 //                    orarioContinuato:
 //                            {
 //                                boolean: true
@@ -669,7 +672,7 @@ function validazioneClinica()
                     orarioChiusuraPM: 
                             {
                                 required:"Non è necessario"
-                            }, 
+                            }
 //                    orarioContinuato:
 //                            {
 //                                boolean: "Deve essere un booleano"
@@ -683,3 +686,91 @@ function validazioneClinica()
     });
 }
 
+function validazioneEsame()
+{    
+    
+    $("#aggiungiEsame").validate({
+        rules:
+                {
+                    nomeEsame:
+                            {
+                                required: true,
+                                maxlength: 50
+                            },
+                    medicoEsame:
+                            {
+                                required: true,
+                                maxlength: 40
+                            },
+                    categoriaEsame:
+                            {
+                                required: true,
+                                maxlength: 30
+                            },
+                    prezzoEsame:
+                            {
+                                required: true,
+                                maxlength: 3
+                            },
+                    durataEsame:
+                            {
+                                required: true
+                            },
+                    numPrestazioniSimultanee:
+                            {
+                                required: true,
+                                number: true,
+                                maxlength: 2
+                            },
+                    descrizioneEsame:
+                            {
+                                required: true,
+                                maxlenght: 200
+                            }
+ 
+                },
+        messages:
+                {
+                    nomeEsame:
+                            {
+                                required: "Inserire nome",
+                                maxlength: "La lunghezza massima è 50"
+                            },
+                    medicoEsame:
+                            {
+                                required: "Inserire medico",
+                                maxlength: "La lunghezza massima è 40"
+                            },
+                    categoriaEsame:
+                            {
+                                required: "Inserire la categoria",
+                                maxlength: "La lunghezza massima è 30"
+                            },
+                    prezzoEsame:
+                            {
+                                required: "Inserire il prezzo",
+                                maxlength: "Massimo tre cifre"
+                            },
+                    durataEsame:
+                            {
+                                required: "Selezionare la durata"
+                            },
+                    numPrestazioniSimultanee:
+                            {
+                                required: "Selezionare un numero",
+                                number: "Deve essere un numero",
+                                maxlength: "Massimo due cifre"
+                            },
+                    descrizioneEsame:
+                            {
+                                required: "Inserisci una breve descrizione"
+                            }
+                },
+        submitHandler:function(form) 
+        { 
+            alert('I dati sono stati inseriti correttamente');
+            // inviaDatiEsame si trova in clickGestisciServizi.js
+            inviaDatiEsame('#aggiungiEsame', 'servizi', 'aggiungi', '#main');
+        }
+    });
+}

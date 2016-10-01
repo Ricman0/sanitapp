@@ -96,10 +96,10 @@ OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato, Conferma
 
 CREATE TABLE esame(
   IDEsame int(11) NOT NULL,
-  Nome varchar(20) NOT NULL,
+  Nome varchar(50) NOT NULL,
   Descrizione varchar(200) DEFAULT NULL,
   Prezzo float NOT NULL,
-  Durata smallint(6) NOT NULL,
+  Durata time NOT NULL,
   MedicoEsame varchar(40) NOT NULL,
   NumPrestazioniSimultanee smallint(6) NOT NULL,
   NomeCategoria varchar(30) NOT NULL,
@@ -118,8 +118,8 @@ ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(Nome);
 
 INSERT INTO esame (IDEsame, Nome, Descrizione, Prezzo, Durata, MedicoEsame, 
 NumPrestazioniSimultanee, NomeCategoria, PartitaIVAClinica) VALUES
-(1, 'raggi braccio', 'raggi al braccio', 30, 15, 'Riga', 1, 'Raggi', '12345'),
-(2, 'raggi piede', 'raggi al piede', 30, 15, 'Riga', 1, 'Raggi', '12345');
+(1, 'raggi braccio', 'raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345'),
+(2, 'raggi piede', 'raggi al piede', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345');
 
 -- --------------------------------------------------------
 

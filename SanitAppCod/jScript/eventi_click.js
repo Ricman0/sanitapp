@@ -47,6 +47,13 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
             alert(datiRisposta);
             $(ajaxdiv).html(datiRisposta);
             $(".tablesorter").tablesorter();
+            
+            $('#durataEsame').timepicker({
+                'timeFormat': 'H:i',
+                'step': 15,
+                'maxTime': '06:00'
+
+            });
 
         },
         complete:function()
