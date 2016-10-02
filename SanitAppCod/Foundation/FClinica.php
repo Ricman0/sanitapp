@@ -85,6 +85,33 @@ class FClinica extends FDatabase{
     }
     
     /**
+     * Metodo che consente di cercare la partita IVA della clinica il cui nome
+     * è passato come paramentro 
+     * 
+     * @access public
+     * @param string $nomeClinica Il nome della clinica
+     * @return string|boolean Il codice fiscale della clinica, FALSE altrimenti.
+     */
+    public function cercaPartitaIVAClinica($nomeClinica)
+    {
+        $nomeClinica = $this->trimEscapeStringa($nomeClinica);
+        $query = "SELECT PartitaIVA,"
+                . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE) "
+                . "FROM " . $this->_nomeTabella . " WHERE ((NomeClinica='" . $nomeClinica . "') "
+                . "AND (MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)))";
+        $risultato = $this->eseguiQuery($query);
+        if(is_array($risultato))
+        {
+            $codiceFiscaleClinica = $risultato;
+        } 
+        else
+        {
+            $codiceFiscaleClinica = FALSE;
+        }
+        return $codiceFiscaleClinica;
+    }
+  
+    /**
      * Metodo che permette di effettuare la ricerca di cliniche 
      * 
      * @param string $luogo Il luogo in cui si trova la clinica

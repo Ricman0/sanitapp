@@ -37,11 +37,25 @@ class FEsame extends FDatabase {
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
     private function getAttributi($esame) {
-        $valoriAttributi = $esame->getNomeEsame() . ', ' .
-                $esame->getDescrizioneEsame() . ', ' .
-                $esame->getPrezzoEsame() . ', ' . $esame->getDurataEsame() . ', ' .
-                $esame->getMedicoEsame() . ', ' . $esame->getNumeroPrestazioniSimultaneeEsame() . ', ' .
-                $esame->getNomeCategoriaEsame();
+        //devo trovare la partita IVA della clinica che vuole inserire l'esame
+        $sessione = USingleton::getInstance('USession');
+        $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
+        echo " nome clinica: " . $nomeClinica;
+        $fClinica = USingleton::getInstance('FClinica');
+        $partitaIVA = $fClinica->cercaPartitaIVAClinica($nomeClinica);
+        
+        
+        
+        $valoriAttributi = "'" . $esame->getIDEsame() . "', '" 
+                . $this->trimEscapeStringa($esame->getNomeEsame()) . "', '" 
+                . $this->trimEscapeStringa($esame->getDescrizioneEsame()) . "', '" 
+                . $esame->getPrezzoEsame() . "', '" 
+                . $esame->getDurataEsame() . "', '" 
+                . $this->trimEscapeStringa($esame->getMedicoEsame()) . "', '" 
+                . $esame->getNumeroPrestazioniSimultaneeEsame() . "', '"  
+                . $this->trimEscapeStringa($esame->getNomeCategoriaEsame()) . "', '" 
+                . $partitaIVA . "'"; 
+                // manca la partita IVA della clinica;
         return $valoriAttributi;
     }
 

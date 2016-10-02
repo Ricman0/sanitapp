@@ -24,11 +24,15 @@ class CGestioneServizi {
         $this->gestisciAzione($vServizi, $task, $nomeClinica);
         
     }
+    
+    
     public function gestisciServiziPost() 
     {
         $sessione = USingleton::getInstance('USession');
         $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
         echo " nome clinica: " . $nomeClinica;
+//        $fClinica = USingleton::getInstance('FClinica');
+//        $partitaIVA = $fClinica->cercaClinica($nomeClinica);
         $vServizi = USingleton::getInstance('VGestioneServizi');
         $task = $vServizi->getTask();
         if($task==="aggiungi")
@@ -81,95 +85,7 @@ class CGestioneServizi {
         }
         
     }
-    public function inserisciServizio()
-    {
-        $vGestioneServizi= USingleton::getInstance('VGestioneServizi');
-        $task= $vGestioneServizi->getTask();
-        echo ($task);
-        switch ($task) 
-        {
-            
-            case '':
-                $inserito = $this->recuperaDatiECreaClinica();
-//                return $vRegistrazione->restituisciFormClinica();
-                if(is_string($inserito) === TRUE)
-                    {
-                       //invia mail riscontro dell’avvenuta registrazione 
-                       //contenente informazioni riepilogative
-                       // e con link di conferma
-                       $mail = USingleton::getInstance('UMail');
-                       if ($mail->inviaMailRegistrazioneClinica($inserito) === TRUE)
-                       {
-                           // visualizzo che un'email è stata inviata sulla propria mail
-                           $vRegistrazione = USingleton::getInstance('VRegistrazione');
-                           $vRegistrazione->confermaInserimento();
-                       }                    
-                    }
-                else
-                    {
-                        // dati corretti ma errore nel database
-                        
-                        echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                        return $vRegistrazione->restituisciFormClinica($inserito);
-                    }
-                break;
-            
-            case 'medico':
-                $inserito = $this->recuperaDatiECreaMedico();
-//                return $vRegistrazione->restituisciFormMedico();
-                 if(is_string($inserito) === TRUE)
-                    {
-                       //invia mail riscontro dell’avvenuta registrazione 
-                       //contenente informazioni riepilogative
-                       // e con link di conferma
-                       $mail = USingleton::getInstance('UMail');
-                       if ($mail->inviaMailRegistrazioneMedico($inserito)  === TRUE)
-                       {
-                           // visualizzo che un'email è stata inviata sulla propria mail
-                           $vRegistrazione = USingleton::getInstance('VRegistrazione');
-                           $vRegistrazione->confermaInserimento();
-                       }
-                    }
-                else
-                    {
-                        // dati corretti ma errore nel database
-                        echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                        return $vRegistrazione->restituisciFormMedico($inserito);
-                    }
-                break;
-
-            default:
-                //recupera dati dal form e crea un nuovo utente
-                $inserito = $this->recuperaDatiECreaUtente();
-                 if(is_string($inserito) === TRUE)
-                {
-                    //accedo al DB per ottenere le informazioni sull'utente inserito o è sufficiente $POST?
-                    //messaggio di conferma
-
-                   //invia mail riscontro dell’avvenuta registrazione 
-                   //contenente informazioni riepilogative
-                   // e con link di conferma
-                   $mail = USingleton::getInstance('UMail'); 
-                   if($mail->inviaMailRegistrazioneUtente($inserito) === TRUE)
-                   {
-                       // visualizzo che un'email è stata inviata sulla propria mail
-                       $vRegistrazione = USingleton::getInstance('VRegistrazione');
-                       $vRegistrazione->confermaInserimento();
-                   }   
-                }
-                else
-                {
-                    // dati corretti ma errore nel database
-
-                    echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                    return $vRegistrazione->restituisciFormUtente($inserito);
-                }
-                    
-                    //visualizza errori
-    //                    return $VRegistrazione->set_errori($Eutente->data_err,$caricamento,'registrazione');
-                break;
-        }
-    }
+    
     
     /**
      * Metodo che recupera i tutti i dati di un esame dalla form 
@@ -191,7 +107,6 @@ class CGestioneServizi {
        $datiEsame['durata'] = $this->recuperaValore('durataEsame')."00";
        $datiEsame['numPrestazioniSimultanee'] = $this->recuperaValore('numPrestazioniSimultanee');
        $datiEsame['descrizione'] = $this->recuperaValore('descrizioneEsame');
-       
        return $datiEsame;
     }
     

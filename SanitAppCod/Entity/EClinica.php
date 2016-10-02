@@ -110,6 +110,10 @@ class EClinica
      */
     private $_confermato;
     
+    /**
+     * @var Array(EEsame) $_esami array che contiente gli esami/servizi che la clinica fornisce
+     */
+    private $_esami; 
     // costruttore
     
     /**
@@ -129,11 +133,12 @@ class EClinica
      * @param string $provinciaAlbo La provincia dell'albo in cui il medico è iscritto
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
      * @param int o string? $cod Il codice per confermare l'account
+     * @param array $esami Array di esami/servizi che la clinica fornisce
      */
     public function __construct($partitaIVA, $nomeClinica, $titolareClinica, 
-            $via, $numeroCivico, $cap,$località, $provincia, $regione, $email,$PEC, $username, $password, 
+            $via, $numeroCivico=NULL, $cap,$località, $provincia, $regione, $email,$PEC, $username, $password, 
             $telefono, $capitaleSociale, $orarioAperturaAM , $orarioChiusuraAM,
-            $orarioAperturaPM, $orarioChiusuraPM, $orarioContinuato, $cod) 
+            $orarioAperturaPM, $orarioChiusuraPM, $orarioContinuato, $cod, $esami=NULL) 
     {
         $this->_partitaIVA= $partitaIVA;
         $this->_nomeClinica = $nomeClinica;
@@ -207,9 +212,25 @@ class EClinica
             }
         $this->_confermato = FALSE;
         $this->_codiceConferma = $cod;
+        $this->_esami = Array();
+        if(isset($esami))
+        {
+            $this->_esami = $esami; 
+        }
+        
     }
     
     // metodi get
+    /**
+     * Metodo per conoscere gli esami/servizi chev a clinica fornisce
+     * 
+     * @return Array Gli esami/servizi che la clinica forniscw
+     */
+    public function getEsamiClinica()
+    {
+        return $this->_esami;
+    }
+    
     /**
      * Metodo per conoscere il codice di conferma della clinica
      * 
@@ -621,6 +642,16 @@ class EClinica
     public function setCodiceConfermaClinica($cod)
     {
         $this->_codiceConferma = $cod; 
+    }
+    
+    /**
+     * Metodo che permette di modificare gli esami/servizi che la clinica offre
+     * 
+     * @param Array $esami Esami/servizi della clinica
+     */
+    public function setEsamiClinica($esami)
+    {
+        $this->_esami = $esami; 
     }
     
     /**

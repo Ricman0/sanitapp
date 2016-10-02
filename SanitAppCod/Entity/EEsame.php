@@ -63,73 +63,26 @@ class EEsame
     /**
      * Costruttore di EEsame
      * 
-     * @param string $id
-     * @param string $nomeEsame
-     * @param float $prezzo
-     * @param int $durata
-     * @param string $medico
-     * @param string $nomeCategoria
-     * @param string $descrizione Description
+     * @param string $nomeEsame Il nome dell'esame
+     * @param string $medico Il nome e cognome del medico che effettua l'esame
+     * @param string $nomeCategoria La categoria a cui appartiene l'esame
+     * @param type $prezzo Il prezzo dell'esame
+     * @param type $durata La durata dell'esame
+     * @param int $numPrestazioniSimultanee Il numero di prestazioni simultanee dell'esame
+     * @param string $descrizione Breve descrizione dell'esame
      */
-    public function __construct($nomeEsame, $prezzo, $durata, $medico, $nomeCategoria,$descrizione) 
+    public function __construct($nomeEsame, $medico, $nomeCategoria, $prezzo, $durata, $numPrestazioniSimultanee=1, $descrizione='') 
     {
         $this->_idEsame = rand();
         $this->_nomeEsame = $nomeEsame;
-        $this->_descrizione = '';
+        $this->_medicoEsame = $medico;
+        $this->_nomeCategoria = $nomeCategoria;  
         $this->_prezzo = $prezzo;
         $this->_durata = $durata;
-        $this->_medicoEsame = $medico;
-        $this->_numeroPrestazioniSimultanee = 1;
-        $this->_nomeCategoria = $nomeCategoria;  
+        $this->_numeroPrestazioniSimultanee = $numPrestazioniSimultanee;
         $this->_descrizione = $descrizione;
     }
-//    
-//    /**
-//     * Costruttore di EEsame
-//     * 
-//     * @param string $nomeEsame
-//     * @param string $descrizione
-//     * @param float $prezzo
-//     * @param int $durata
-//     * @param string $medico
-//     * @param string $nomeCategoria
-//     * 
-//     */
-//    public function __construct($nomeEsame, $descrizione, $prezzo, $durata, $medico, $nomeCategoria) 
-//    {
-//        $this->_nomeEsame = $nomeEsame;
-//        $this->_descrizione = $descrizione;
-//        $this->_prezzo = $prezzo;
-//        $this->_durata = $durata;
-//        $this->_medicoEsame = $medico;
-//        $this->_numeroPrestazioniSimultanee = 1;
-//        $this->_nomeCategoria = $nomeCategoria;  
-//    }
-//    
-//    /**
-//     * Costruttore di EEsame
-//     * 
-//     * @param string $nomeEsame
-//     * @param string $descrizione
-//     * @param float $prezzo
-//     * @param int $durata
-//     * @param string $medico
-//     * @param int $numPrestazioni
-//     * @param string $nomeCategoria
-//     * 
-//     */
-//    public function __construct($nomeEsame, $descrizione, $prezzo, $durata,
-//            $medico,$numPrestazioni,  $nomeCategoria) 
-//    {
-//        $this->_nomeEsame = $nomeEsame;
-//        $this->_descrizione = $descrizione;
-//        $this->_prezzo = $prezzo;
-//        $this->_durata = $durata;
-//        $this->_medicoEsame = $medico;
-//        $this->_numeroPrestazioniSimultanee = $numPrestazioni;
-//        $this->_nomeCategoria = $nomeCategoria;  
-//    }
-//    
+  
     
     /**
      * Metodo che permette di inserire un oggetto di tipo EEsame nel DB
@@ -153,6 +106,15 @@ class EEsame
         }
     }
     
+    /**
+     * Metodo che restituisce l'id dell'esame
+     * 
+     * @return string l'id dell'esame
+     */
+    public function getIDEsame()
+    {
+        return $this->_idEsame;
+    }
     
     /**
      * Metodo che restituisce il nome dell'esame
