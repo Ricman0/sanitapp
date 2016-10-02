@@ -234,9 +234,9 @@ CREATE TABLE prenotazione (
 INSERT INTO prenotazione (IDPrenotazione, IDEsame, PartitaIVAClinica, Tipo, 
 Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsame,
 CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
-(1, 1, '12345', 'M', NULL, NULL, 'dmntnna89s42g438', 'dmrcld89s42g438s', NULL, '2016-04-26 09:25:54'),
+(1, 1, '12345', 'M', 0, 0, 'dmntnna89s42g438', 'dmrcld89s42g438s', NULL, '2016-04-26 09:25:54'),
 (2, 1, '12345', 'M', 0, 0, 'mntrcr89h21a488l', 'dmrcld89s42g438s', NULL, '2016-04-27 15:03:40'),
-(3, 2, '12346', 'U', 0, NULL, 'mntrcr89h21a488l', NULL, 'mntrcr89h21a488l', '2016-04-29 12:00:00'),
+(3, 2, '12346', 'U', 0, 0, 'mntrcr89h21a488l', NULL, 'mntrcr89h21a488l', '2016-04-29 12:00:00'),
 (5, 2, '12345', 'U', 1, 0, 'rndndt56s53t657o', NULL, 'rndndt56s53t657o', '2016-04-28 08:00:00');
 
 -- --------------------------------------------------------
