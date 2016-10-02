@@ -406,17 +406,16 @@ class EUtente
      * Metodo che permette di inserire un oggetto di tipo EUtente nel DB
      * 
      * @access public
-     * @param EUtente $eUtente L'oggetto di tipo EUtente che si vuole memorizzare nel DB
      * @return string|Boolean Il codice di conferma se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
      */
-    public function inserisciUtenteDB($eUtente) 
+    public function inserisciUtenteDB() 
     {
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);
-        if($fUtente->inserisciUtente($eUtente) === TRUE)
+        if($fUtente->inserisciUtente($this) === TRUE)
         {
-            return $eUtente->getCodiceConfermaUtente();
+            return $this->getCodiceConfermaUtente();
         }
         else
         {

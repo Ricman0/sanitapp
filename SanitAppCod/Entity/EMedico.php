@@ -437,16 +437,16 @@ class EMedico
      * Metodo che permette di inserire un oggetto di tipo EMedico nel DB
      * 
      * @access public
-     * @param EMedico $eMedico L'oggetto di tipo EMedico che si vuole memorizzare nel DB
+     * @return string|Boolean Il codice di conferma se il medico è stato inserito correttamente, altrimenti FALSE (il medico non è stato inserito correttamente nel DB)
      */
-    public function inserisciMedicoDB($eMedico) 
+    public function inserisciMedicoDB() 
     {
         //crea un oggetto fMedico se non è esistente, si collega al DB e lo inserisce
         $fMedico = USingleton::getInstance('FMedico');
         
-        if($fMedico->inserisciMedico($eMedico) === TRUE)
+        if($fMedico->inserisciMedico($this) === TRUE)
         {
-            return $eMedico->getCodiceConfermaMedico();
+            return $this->getCodiceConfermaMedico();
         }
         else
         {

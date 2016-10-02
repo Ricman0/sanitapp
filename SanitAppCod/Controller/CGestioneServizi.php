@@ -130,7 +130,7 @@ class CGestioneServizi {
                    $datiEsame['descrizione']);
            
         //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
-           $inserito = $eEsame->inserisciEsameDB($eEsame);
+           $inserito = $eEsame->inserisciEsameDB();
 //       }
 //       else
 //       {

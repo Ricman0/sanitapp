@@ -176,7 +176,7 @@ class CRegistrazione {
                    $datiClinica['orarioChiusuraAM'], $datiClinica['orarioAperturaPM'],
                    $datiClinica['orarioChiusuraPM'],$datiClinica['orarioContinuato'], $codiceConferma);
             //eClinica richiama il metodo per creare FClinica poi FClinica aggiunge l'utente nel DB
-            $inserito = $eClinica->inserisciClinicaDB($eClinica); 
+            $inserito = $eClinica->inserisciClinicaDB(); 
        }
        else
        {
@@ -379,7 +379,7 @@ class CRegistrazione {
                    $datiMedico['password'], $datiMedico['PEC'],
                    $datiMedico['provinciaAlbo'],$datiMedico['numeroIscrizione'], $codiceConferma);
            //eMedico richiama il metodo per creare FMedico poi FMedico aggiunge l'utente nel DB
-           $inserito = $eMedico->inserisciMedicoDB($eMedico);
+           $inserito = $eMedico->inserisciMedicoDB();
        }
        else
        {
@@ -418,7 +418,7 @@ class CRegistrazione {
                    $datiUtente['numeroCivico'], $datiUtente['CAP'], 
                    $datiUtente['email'], $datiUtente['username'], $datiUtente['passwordUtente'], $codiceConferma);
            //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
-           $inserito = $eUtente->inserisciUtenteDB($eUtente);
+           $inserito = $eUtente->inserisciUtenteDB();
        }
        else
        {

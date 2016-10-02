@@ -658,13 +658,21 @@ class EClinica
      * Metodo che permette di inserire un oggetto di tipo EClinica nel DB
      * 
      * @access public
-     * @param EClinica $eClinica L'oggetto di tipo EClinica che si vuole memorizzare nel DB
+     * @return string|Boolean Il codice di conferma se la clinica è stata inserita correttamente, altrimenti FALSE (la clinica non è stata inserita correttamente nel DB)
      */
-    public function inserisciClinicaDB($eClinica) 
+    public function inserisciClinicaDB() 
     {
         //crea un oggetto fClinica se non è esistente, si collega al DB e lo inserisce
         $fClinica = USingleton::getInstance('FClinica');
-        $fClinica->inserisciClinica($eClinica);
+        ;
+        if( $fClinica->inserisciClinica($this) === TRUE)
+        {
+            return $this->getCodiceConfermaClinica();
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 }
 ?>

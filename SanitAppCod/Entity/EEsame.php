@@ -88,15 +88,14 @@ class EEsame
      * Metodo che permette di inserire un oggetto di tipo EEsame nel DB
      * 
      * @access public
-     * @param EEsame $eEsame L'oggetto di tipo EEsame che si vuole memorizzare nel DB
-     * @return Boolean TRUE se l'easme è stato inserito correttamente, altrimenti FALSE
+     * @return Boolean TRUE se l'esame è stato inserito correttamente, altrimenti FALSE
      */
-    public function inserisciEsameDB($eEsame) 
+    public function inserisciEsameDB() 
     {
         //crea un oggetto fEsame se non è esistente, si collega al DB e lo inserisce
         $fEsame = USingleton::getInstance('FEsame');
         
-        if($fEsame->inserisciEsame($eEsame) === TRUE)
+        if($fEsame->inserisciEsame($this) === TRUE)
         {
             return TRUE;
         }
