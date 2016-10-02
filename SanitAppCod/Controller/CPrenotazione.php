@@ -8,7 +8,7 @@
 class CPrenotazione {
     
     
-    public function visualizzaPrenotazioni()
+    public function gestisciPrenotazioni()
     {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
@@ -41,7 +41,9 @@ class CPrenotazione {
                 }
 
                 break;
-
+            
+            case 'aggiungi':
+                $vPrenotazioni->restituisciPaginaAggiungiPrenotazione();
             default:
                 break;
         }

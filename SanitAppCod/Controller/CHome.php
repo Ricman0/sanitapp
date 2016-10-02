@@ -189,7 +189,7 @@ class CHome {
             
             case 'prenotazioni':
                 $cPrenotazioni = USingleton::getInstance('CPrenotazione');
-                $cPrenotazioni->visualizzaPrenotazioni();
+                $cPrenotazioni->gestisciPrenotazioni();
                 break;
             
             case 'referti':

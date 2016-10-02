@@ -18,6 +18,7 @@
   RewriteRule ^(autenticazione)?$ index.php?controller=$1
   RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|referti|impostazioni)/(utente)?$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(prenotazioni)/(aggiungi)?$ index.php?controller=$1&task=$2 [L]
 
 
     RewriteCond %{REQUEST_METHOD} POST 

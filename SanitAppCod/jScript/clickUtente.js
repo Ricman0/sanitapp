@@ -17,6 +17,10 @@ $(document).ready(function(){
     $('#main').on("click", "#impostazioniAreaPersonaleUtente", function(){
         inviaControllerTask('impostazioni', 'utente', "#contenutoAreaPersonale");
     });
+    
+    $('#contenutoAreaPersonale').on("click", "#iconaAggiungiPrenotazione", function(){
+        inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
+    });
 });
 
 
