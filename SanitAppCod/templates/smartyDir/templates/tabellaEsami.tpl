@@ -12,7 +12,7 @@
     <tbody>
         <br>
         {if isset($tastoAggiungi)}
-            <i class="fa fa-plus-circle fa-2x" id="iconaAggiungi" aria-hidden="true" ></i>
+            <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungi" aria-hidden="true" ></i>
         {/if}
         <br>
         
