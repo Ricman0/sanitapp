@@ -102,7 +102,7 @@ class FClinica extends FDatabase{
         $risultato = $this->eseguiQuery($query);
         if(is_array($risultato))
         {
-            $codiceFiscaleClinica = $risultato;
+            $codiceFiscaleClinica = $risultato[0]['PartitaIVA'];
         } 
         else
         {

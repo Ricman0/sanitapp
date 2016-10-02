@@ -105,8 +105,9 @@ CREATE TABLE esame(
   NomeCategoria varchar(30) NOT NULL,
   PartitaIVAClinica varchar(20) NOT NULL,
   PRIMARY KEY (IDEsame,PartitaIVAClinica),
-  FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome),
-  FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA)
+  FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
+  FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome)
+
 );
 
 ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(Nome);
