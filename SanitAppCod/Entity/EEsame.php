@@ -73,7 +73,7 @@ class EEsame
      */
     public function __construct($nomeEsame, $medico, $nomeCategoria, $prezzo, $durata, $numPrestazioniSimultanee=1, $descrizione='') 
     {
-        $this->_idEsame = rand();
+        $this->_idEsame = uniqid();
         $this->_nomeEsame = $nomeEsame;
         $this->_medicoEsame = $medico;
         $this->_nomeCategoria = $nomeCategoria;  

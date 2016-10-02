@@ -95,7 +95,7 @@ OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato, Conferma
 --
 
 CREATE TABLE esame(
-  IDEsame int(11) NOT NULL,
+  IDEsame varchar(13) NOT NULL,
   Nome varchar(50) NOT NULL,
   Descrizione varchar(200) DEFAULT NULL,
   Prezzo float NOT NULL,

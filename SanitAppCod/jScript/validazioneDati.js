@@ -17,7 +17,7 @@ function validazione(task1)
         case "autenticazione":
             validazioneLogIn();
             break;
-        case "esame":
+        case "aggiungi":
             validazioneEsame();
             break;
         default: break;
@@ -381,7 +381,7 @@ function validazioneMedico()
                     emailMedico:
                             {
                                 required: "Inserire l'email",
-                                email: "Inserire un'email valida",
+                                email: "Inserire un'email valida"
 //                                remote: "Email già esistente"
                             },
                     usernameMedico:
@@ -688,6 +688,11 @@ function validazioneClinica()
 
 function validazioneEsame()
 {    
+    jQuery.validator.addMethod("time", function(valore){
+        //espressione regolare per la durata
+        var regex = /([0-2][0-3]):([0-5]\d):([0-5]\d)/;
+        return valore.match(regex);
+        }, "La durata è nel formato hh:mm:ss");
     
     $("#aggiungiEsame").validate({
         rules:
@@ -709,18 +714,23 @@ function validazioneEsame()
                             },
                     prezzoEsame:
                             {
+                                number: true,
                                 required: true,
-                                maxlength: 3
+                                max: 10000,
+                                min: 1
+                                
                             },
                     durataEsame:
                             {
-                                required: true
+                                required: true,
+                                time:true
                             },
                     numPrestazioniSimultanee:
                             {
                                 required: true,
                                 number: true,
-                                maxlength: 2
+                                max: 20,
+                                min: 1
                             },
                     descrizioneEsame:
                             {
@@ -748,8 +758,10 @@ function validazioneEsame()
                             },
                     prezzoEsame:
                             {
+                                number: "Inserire un numero",
                                 required: "Inserire il prezzo",
-                                maxlength: "Massimo tre cifre"
+                                max: "Massimo 10000€",
+                                min: "Minimo 1"
                             },
                     durataEsame:
                             {
@@ -759,7 +771,8 @@ function validazioneEsame()
                             {
                                 required: "Selezionare un numero",
                                 number: "Deve essere un numero",
-                                maxlength: "Massimo due cifre"
+                                min: "Minimo 1",
+                                max: "Massimo 20"
                             },
                     descrizioneEsame:
                             {

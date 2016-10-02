@@ -104,7 +104,7 @@ class CGestioneServizi {
        $datiEsame['medico'] = $this->recuperaValore('medicoEsame'); 
        $datiEsame['categoria'] = $this->recuperaValore('categoriaEsame');
        $datiEsame['prezzo'] =$this->recuperaValore('prezzoEsame');
-       $datiEsame['durata'] = $this->recuperaValore('durataEsame')."00";
+       $datiEsame['durata'] = $this->recuperaValore('durataEsame');
        $datiEsame['numPrestazioniSimultanee'] = $this->recuperaValore('numPrestazioniSimultanee');
        $datiEsame['descrizione'] = $this->recuperaValore('descrizioneEsame');
        return $datiEsame;

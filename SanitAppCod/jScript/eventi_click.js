@@ -50,9 +50,9 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
             
 
             $('#durataEsame').timepicker({
-                'timeFormat': 'H:i',
+                'timeFormat': 'H:i:s',
                 'step': 15,
-                'maxTime': '06:00'
+                'maxTime': '06:00:00'
 
             });
 
