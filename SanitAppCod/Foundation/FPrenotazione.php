@@ -43,15 +43,12 @@ class FPrenotazione extends FDatabase{
      */
     public function cercaPrenotazioni($codiceFiscaleUtente)
     {
-        $query =  "SELECT IDPrenotazione, prenotazione.IDEsame, esame.Nome, clinica.NomeClinica, "
-                . "DataEOra, Confermata, Eseguita, Tipo, esame.MedicoEsame, "
-                . "MATCH (prenotazione.CodFiscaleUtenteEffettuaEsame) AGAINST ('$codiceFiscaleUtente' IN BOOLEAN MODE), "
+        $query =  "SELECT IDPrenotazione, esame.Nome, clinica.NomeClinica, "
+                . "DataEOra, Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
-                . "(esame.PartitaIVAClinica=prenotazione.PartitaIVAClinica) AND "
                 . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
-                . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "') AND "
-                . "(MATCH (prenotazione.CodFiscaleUtenteEffettuaEsame) AGAINST ('$codiceFiscaleUtente' IN BOOLEAN MODE)))";
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "')) ";                
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
