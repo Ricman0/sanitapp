@@ -13,8 +13,9 @@
  */
 class VGestioneServizi extends View{
     
-    public function restituisciFormAggiungiServizi()
+    public function restituisciFormAggiungiServizi($listaCategorie)
     {
+        $this->assegnaVariabiliTemplate('categorie', $listaCategorie);
         return $this->visualizzaTemplate('aggiungiEsame'); 
     }
     

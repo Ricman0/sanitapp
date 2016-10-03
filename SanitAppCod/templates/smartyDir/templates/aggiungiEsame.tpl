@@ -12,7 +12,14 @@
     <br>
     
     <label for="categoriaEsame" class="elementiForm">Categoria</label>
-    <input type="text" name="categoriaEsame" id="categoriaEsame" class="elementiForm" placeholder="Raggi" required/>
+    <select  name="categoriaEsame" id="categoriaEsame" class="elementiForm" required>
+            <option disabled selected value=""> -- select an option -- </option>
+        {foreach from=$categorie item=curr_row}
+            <option value={$curr_row['Nome']}>{$curr_row['Nome']}</option>
+        {/foreach}
+
+    </select>
+
     <br>
     
     <label for="prezzoEsame" class="elementiForm">Prezzo</label>    

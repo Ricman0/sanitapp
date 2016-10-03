@@ -60,7 +60,10 @@ class CGestioneServizi {
         switch ($azione)
         {
             case 'aggiungi':
-                $vServizi->restituisciFormAggiungiServizi();
+                //vai a fare la query per recuperare le categorie
+                $categorie = USingleton::getInstance('FCategoria');
+                $listaCategorie = $categorie->getCategorie();
+                $vServizi->restituisciFormAggiungiServizi($listaCategorie);
                 break;
        
             case 'modifica':
