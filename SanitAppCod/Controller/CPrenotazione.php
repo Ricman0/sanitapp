@@ -17,7 +17,7 @@ class CPrenotazione {
         $codiceFiscaleUtente = "";
         switch ($task) {
             case 'visualizza':
-                
+                  $id = $vPrenotazioni->getId();
                
                
 //                $fUtente = USingleton::getInstance('FUtente');
