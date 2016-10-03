@@ -18,8 +18,10 @@ $(document).ready(function(){
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
     
-    var id = $('.rigaEsame').attr('id');
-    $('#main').on("click", ".rigaEsame", function() {        
+   
+    
+    $('#main').on("click", ".rigaEsame", function(event) { 
+        var id = $(this).attr('id');
         clickRiga('servizi', 'visualizza', id, "#contenutoAreaPersonale");
         
     });
