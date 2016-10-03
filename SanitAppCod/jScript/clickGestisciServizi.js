@@ -9,11 +9,18 @@ $(document).ready(function(){
     $('#main').on("click", "#serviziAreaPersonaleClinica", function() {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
+    
     $('#main').on("click", "#iconaAggiungi", function() {
         inviaControllerTask('servizi', 'aggiungi', "#contenutoAreaPersonale");
     });
+    
     $('#main').on("click", "#annullaAggiungiEsame", function() {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
+    });
+    
+    var id = $('.rigaEsame').attr('id');
+    $('#main').on("click", ".rigaEsame", function() {        
+        clickRiga('servizi', 'visualizza', id, "#contenutoAreaPersonale");
         
     });
 
