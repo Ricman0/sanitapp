@@ -2,8 +2,16 @@
     
     <ul class="sideNavBar" id="sideNavBar">
         {foreach from=$tastiLaterali key=id item=tasto}
-            <li><a id="{$id}" href="#">{$tasto}</a></li>
-        {/foreach}
+            <li><a id="{$id}" href="#">{$tasto}</a>
+                {if $tasto=="Impostazioni"}
+                    <div class="dropside-content">
+                        <a id="modificaCredenzialiUtente" href="#"> Modifica Credenziali</a>
+                        <a id="modificaMedicoCurante" href="#"> Modifica Medico Curante</a>
+                        <a id="modificaDatiUtente" href="#"> Modifica dati personali</a>
+                    </div>
+                {/if}
+            </li>
+        {/foreach}         
     </ul>
     
 </div>    

@@ -15,7 +15,7 @@
         <br>
         
         {foreach from=$dati item=curr_row}
-            <tr>
+            <tr {$curr_row['IDPrenotazione']}>
                 <td>{$curr_row['IDPrenotazione']}</td>
                 <td>{$curr_row['Nome']}</td>
                 <td>{$curr_row['NomeClinica']}</td>

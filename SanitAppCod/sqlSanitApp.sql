@@ -209,7 +209,7 @@ INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email,
 --
 
 CREATE TABLE prenotazione (
-  IDPrenotazione int(11) NOT NULL,
+  IDPrenotazione varchar(13) NOT NULL,
   IDEsame varchar(13) NOT NULL,
   PartitaIVAClinica varchar(20) NOT NULL,
   Tipo varchar(1) NOT NULL,
@@ -247,7 +247,7 @@ CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
 
 CREATE TABLE referto (
   IDReferto int(11) NOT NULL,
-  IDPrenotazione int(11) DEFAULT NULL,
+  IDPrenotazione varchar(13) DEFAULT NULL,
   IDEsame varchar(13) DEFAULT NULL,
   PartitaIVAClinica varchar(20) DEFAULT NULL,
   Contenuto longblob NOT NULL,
