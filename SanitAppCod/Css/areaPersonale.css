@@ -45,7 +45,25 @@ and open the template in the editor.
 {
     display: inline;
 }
+/*
+.dropside-content a:hover {
+    background-color: white;
+    color:rgb(11,190,210);
+}
 
+*/
+.dropside-content {
+    background-color: rgb(11, 190, 210);
+    border-radius: 0 0 4px 4px;
+    display: none;
+    width: calc(17% + 3px);
+    position: absolute;
+    min-width: inherit;
+}
+
+#pulsanteDropdown:hover .dropside-content {
+    display: block;
+}
 /** quello che stava sul pc
 
 #sideNavBar li {
