@@ -65,6 +65,10 @@ class CGestioneServizi {
                 $listaCategorie = $categorie->getCategorie();
                 $vServizi->restituisciFormAggiungiServizi($listaCategorie);
                 break;
+            
+            case 'visualizza':
+                
+                break;
        
             case 'modifica':
                 break;
