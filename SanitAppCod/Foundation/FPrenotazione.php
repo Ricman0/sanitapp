@@ -41,14 +41,31 @@ class FPrenotazione extends FDatabase{
      * @return boolean|array Il risultato della query
      * 
      */
-    public function cercaPrenotazioni($codiceFiscaleUtente)
+    public function cercaPrenotazioni($codiceFiscaleUtente, $idPrenotazione)
     {
-        $query =  "SELECT IDPrenotazione, esame.Nome, clinica.NomeClinica, "
+        if($idPrenotazione!==FALSE)
+        {
+            // si vuole visualizzare una prenotazione dell'utente
+            $query =  "SELECT IDPrenotazione, esame.Nome, clinica.NomeClinica, "
                 . "DataEOra, Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
-                . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "')) ";                
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "') "
+                . "AND (IDPrenotazione='" . $idPrenotazione . "')) ";
+        }
+        else
+        {
+            // solo il codice fiscale quindi si vogliono visualizzare tutte le 
+            //prenotazioni di un utente
+            $query =  "SELECT IDPrenotazione, esame.Nome, clinica.NomeClinica, "
+                . "DataEOra, Eseguita, esame.MedicoEsame "
+                . "FROM prenotazione, esame, clinica "
+                . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
+                . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "')) ";
+        }
+                        
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }

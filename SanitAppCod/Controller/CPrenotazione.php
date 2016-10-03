@@ -15,31 +15,36 @@ class CPrenotazione {
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazioni->getTask();
         $codiceFiscaleUtente = "";
-        switch ($task) {
+        switch ($task) 
+        {
             case 'visualizza':
-                  $id = $vPrenotazioni->getId();
-               
-               
-//                $fUtente = USingleton::getInstance('FUtente');
-//                $risultato = $fUtente->cercaUtente($username);
-//                if(!is_bool($risultato))
-//                {
-//                    // esiste quell'utente
-//                    $codiceFiscaleUtente = $risultato[0]['CodFiscale'];
-//                }
-                $eUtente = new EUtente();
-                $codiceFiscaleUtente= $eUtente->getCodiceFiscaleUtente();
-                $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-                $risultato = $fPrenotazioni->cercaPrenotazioni($codiceFiscaleUtente);
-                if(!is_bool($risultato))
-                {
-                    $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($risultato);
-                }
-                else
-                {
-                    echo "errore in Cprenotazione VisualizzaPrenotazioni";
-                }
-
+                
+                
+                    //caso in cui si vogliono visualizzare tutte le prenotazioni
+                   
+//                    $fUtente = USingleton::getInstance('FUtente');
+                
+//                    $risultato = $fUtente->cercaUtente($username);
+//                    if(!is_bool($risultato))
+//                    {
+//                        // esiste quell'utente
+//                        $codiceFiscaleUtente = $risultato[0]['CodFiscale'];
+//                    }
+                    $eUtente = new EUtente();
+                    $codiceFiscaleUtente= $eUtente->getCodiceFiscaleUtente();
+                    $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+                    $id = $vPrenotazioni->getId();
+                    $risultato = $fPrenotazioni->cercaPrenotazioni($codiceFiscaleUtente,$id);
+                    if(!is_bool($risultato))
+                    {
+                        $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($risultato);
+                    }
+                    else
+                    {
+                        echo "errore in Cprenotazione VisualizzaPrenotazioni";
+                    }
+                
+                
                 break;
             
             case 'aggiungi':
@@ -48,4 +53,6 @@ class CPrenotazione {
                 break;
         }
     }
+    
+    
 }
