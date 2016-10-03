@@ -140,5 +140,24 @@ class View extends Smarty{
                 return false;
             }
     }
+    
+    /**
+     *  Metodo che permette di conoscere il valore dell'ID dell'URL
+     * 
+     * @access public
+     * @final
+     * @return mixed Ritorna il valore (stringa) dell'ID. False altrimenti.
+     */
+    final public function getId()
+    {
+        if (isset($_REQUEST['id'])) 
+            {
+                return $_REQUEST['id'];
+            } 
+        else 
+            {
+                return false;
+            }
+    }
 }
 

@@ -22,10 +22,12 @@ $(document).ready(function(){
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
     
-    var id = $(".rigaPrenotazione").attr('id');
-    $('#contenutoAreaPersonale').on("click", ".rigaPrenotazione" , function(){
+    var id = $(this).attr('id');
+    $('#main').on("click", ".rigaPrenotazione" , function(){
         clickRiga('prenotazioni', 'visualizza', id, "#contenutoAreaPersonale");
     });
+        
+     
 });
 
 
