@@ -16,7 +16,7 @@ class CPrenotazione {
         $task = $vPrenotazioni->getTask();
         $codiceFiscaleUtente = "";
         switch ($task) {
-            case 'utente':
+            case 'visualizza':
                 
                
                

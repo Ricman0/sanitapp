@@ -7,7 +7,7 @@
 $(document).ready(function(){
     $('#main').on("click", "#prenotazioniAreaPersonaleUtente", function(){
 //        $( "#prenotazioniAreaPersonaleUtente").addClass("Attivo");
-        inviaControllerTask('prenotazioni', 'utente', "#contenutoAreaPersonale"); 
+        inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale"); 
     });
     
     $('#main').on("click", "#refertiAreaPersonaleUtente", function(){
@@ -18,9 +18,15 @@ $(document).ready(function(){
         inviaControllerTask('impostazioni', 'utente', "#contenutoAreaPersonale");
     });
     
-    $('#contenutoAreaPersonale').on("click", "#iconaAggiungiPrenotazione", function(){
+    $('#main').on("click", "#iconaAggiungiPrenotazione", function(){
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
+    
+    var id = $(".rigaPrenotazione").attr('id');
+    $('#contenutoAreaPersonale').on("click", ".rigaPrenotazione" , function(){
+        clickRiga('prenotazioni', 'visualizza', id, "#contenutoAreaPersonale");
+    });
 });
+
 
 
