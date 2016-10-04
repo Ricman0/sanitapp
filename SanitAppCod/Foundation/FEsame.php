@@ -76,6 +76,22 @@ class FEsame extends FDatabase {
         // eseguo la query
         $this->eseguiQuery($query);
     }
+    
+    
+    /**
+     * 
+     * @param string $id L'id dell'esame da cercare
+     * @return array|boolean un esame false se non ci sono esami
+     */
+    public function cercaEsameById($id) {
+        
+        $query = "SELECT *"
+                . " FROM " . $this->_nomeTabella 
+                . " WHERE esame.IDEsame = $id";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+        
+    }
 
     /**
      * Metodo che permette di effettuare la ricerca di esami 
