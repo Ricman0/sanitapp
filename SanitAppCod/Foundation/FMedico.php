@@ -109,4 +109,16 @@ class FMedico extends FDatabase {
             return FALSE;
         }
     }
+    
+    /**
+     * Metodo che permette di conoscere quali sono i pazienti di un medico
+     * 
+     * @access public
+     * @param string $usernameMedico L'username del medico
+     * @return type Description
+     */
+    public function cercaPazienti($usernameMedico) 
+    {
+        $query = "SELECT ";
+    }
 }

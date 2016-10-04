@@ -210,6 +210,10 @@ class CHome {
                 break;
             case 'impostazioni':
                 break;
+            
+            case 'pazienti':
+                $cPazienti = USingleton::getInstance('CGestisciPazienti');
+                $cPazienti->visualizzaPazienti();
             default:
                 $vHome->restituisciHomePage();
                 break;
