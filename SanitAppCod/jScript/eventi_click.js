@@ -18,7 +18,29 @@ $(document).ready(function () {
     $("#registrazioneClinica").click(function () {
         inviaControllerTask('registrazione', 'clinica', '#main');
     });
+    
+    $('#main').on("click", "#mySanitApp", function(){
+        inviaController('mySanitApp', "#contenutoAreaPersonale");
+    });
 });
+
+
+function inviaController(controller1, ajaxdiv)
+{
+    $.ajax({
+        // definisco il tipo della chiamata
+        type: 'GET',
+        // specifico la URL della risorsa 
+        url: controller1 + '/' ,
+
+        // imposto azione per il caso di successo
+        success: function (datiRisposta)
+        {
+            alert(datiRisposta);
+            $(ajaxdiv).html(datiRisposta);
+        }
+    });
+}
 
 
 function clickRiga(controller1, task1, id, ajaxdiv)

@@ -76,6 +76,7 @@ class CAutenticazione {
         if($sessione->checkVariabileSessione("loggedIn") === TRUE)
         {
             //user autenticato
+            
             // questo if può essere eliminato se faccio ritornare $sessione
         }
         elseif (!empty($_POST['usernameLogIn']) && !empty($_POST['passwordLogIn'])) 
@@ -108,7 +109,7 @@ class CAutenticazione {
             else
             {
                 $sessione->impostaVariabileSessione('usernameLogIn', $username);
-                $sessione->impostaVariabileSessione('LoggedIn', TRUE);
+                $sessione->impostaVariabileSessione('loggedIn', TRUE);
                 $tipo = $risultato[2]; // ??? è giusto così?
                 $sessione->impostaVariabileSessione('tipoUtente', $tipo);
                 echo "Benvenuto" + $username;
@@ -119,7 +120,7 @@ class CAutenticazione {
             // display the login form
             
             //imposto la variabile di sessione LoggedIn a False
-            $sessione->impostaVariabileSessione('LoggedIn', FALSE);
+            $sessione->impostaVariabileSessione('loggedIn', FALSE);
             
         }
         return $sessione;

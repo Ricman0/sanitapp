@@ -18,6 +18,17 @@ class CHome {
         $sessione = USingleton::getInstance("USession");
         $cAutenticazione = USingleton::getInstance('CAutenticazione');
         $sessione = $cAutenticazione->autenticazioneUser($sessione);
+        $vHome= USingleton::getInstance('VHome');
+        if (NULL == $sessione->leggiVariabileSessione('usernameLogIn'))
+        {
+            $vHome->impostaHeader();
+        }
+        else
+        {
+            $username = $sessione->leggiVariabileSessione('usernameLogIn');
+            $vAutenticazione = USingleton::getInstance('VAutenticazione');
+            $vAutenticazione->impostaHeader($username);
+        }
         /*
         if ($cAutenticazione->logIn($session)=== TRUE)
         {
@@ -67,15 +78,16 @@ class CHome {
             $logIn = false;
         }
         */
-        $vHome= USingleton::getInstance('VHome');
-        if($sessione->checkVariabileSessione('LoggedIn') === TRUE)
-        {
-            $vHome->impostaHeader("logOut", "navigationBarLogged");
-        }
-        else
-        {
-            $vHome->impostaHeader("logIn", "navigationBar");
-        }
+        
+//        if($sessione->checkVariabileSessione('loggedIn') === TRUE)
+//        {
+//            $vHome->impostaHeader("logOut", "navigationBarLogged");
+//        }
+//        else
+//        {
+//            $vHome->impostaHeader("logIn", "navigationBar");
+//        }
+        echo ($sessione->checkVariabileSessione('LoggedIn'));
         $controller= $vHome->getController();
         switch ($_SERVER['REQUEST_METHOD'])  
         {
@@ -179,7 +191,9 @@ class CHome {
 //                // bisogna controllare se è stato effettuato il log in
 //                $cAutenticazione = USingleton::getInstance("CAutenticazione");
 //                $logIn = $cAutenticazione->logIn($session);
-                  $mySanitApp = USingleton::getInstance('CmySanitApp');
+                $mySanitApp = USingleton::getInstance('CmySanitApp');
+                $mySanitApp->impostaPaginaPersonale();
+                
                 break;
             
             case 'servizi':

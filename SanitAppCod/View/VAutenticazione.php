@@ -14,6 +14,21 @@
 class VAutenticazione extends View{
     
     /**
+     * Metodo che permette di impostare il giusto header se l'utente è autenticato
+     * 
+     * @access public
+     * @param string $username L'username dell'user loggato
+     */
+    public function impostaHeader($username)
+    {
+        $log= $this->prelevaTemplate("logOut");
+        $navBar = $this->prelevaTemplate("navigationBar");
+        $this->assegnaVariabiliTemplate('username', $username);
+        $this->assegnaVariabiliTemplate("logIn", $log);
+        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+    }
+    
+    /**
      * Metodo che permette di conoscere il dato di log in (ad esempio password o
      * username) richiesto.
      * 
@@ -39,6 +54,7 @@ class VAutenticazione extends View{
      * 
      * @access public
      * @param string $tipoUser Il tipo di user di cui si vuole impostare la pagin personale
+     * @param Array $tastiLaterali Array di stringhe. Ogni stringa contiene il testo di un tasto della side bar
      */
     public function impostaPaginaPersonale($tipoUser, $tastiLaterali)
     {
