@@ -19,9 +19,10 @@ $(document).ready(function () {
         inviaControllerTask('registrazione', 'clinica', '#main');
     });
     
-    $('#main').on("click", "#mySanitApp", function(){
-        inviaController('mySanitApp', "#contenutoAreaPersonale");
+    $("#mySanitApp").click(function () {
+        inviaController('mySanitApp', '#main');
     });
+    
 });
 
 
