@@ -26,20 +26,24 @@ $(document).ready(function () {
 });
 
 
-function inviaController(controller1, ajaxdiv)
+function inviaController($controller, ajaxdiv)
 {
     $.ajax({
-        // definisco il tipo della chiamata
         type: 'GET',
-        // specifico la URL della risorsa 
-        url: controller1 + '/' ,
-
-        // imposto azione per il caso di successo
-        success: function (datiRisposta)
+        url:$controller,
+        success: function(datiRisposta)
         {
             alert(datiRisposta);
             $(ajaxdiv).html(datiRisposta);
+        },
+        error:function()
+        {
+            alert("Sbagliato click ");
         }
+//        complete:
+//            function(){
+//                $.getScript("./jScript/clickCercaCliniche");
+//            }
     });
 }
 

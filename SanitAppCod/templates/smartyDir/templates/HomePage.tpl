@@ -38,6 +38,7 @@
         <script type="text/javascript" src="./jScript/jquery.datepair.min.js"></script>
 
         <script type="text/javascript" src="./jScript/clickUtente.js"></script>
+        <script type="text/javascript" src="./jScript/clickMedico.js"></script>
 
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->

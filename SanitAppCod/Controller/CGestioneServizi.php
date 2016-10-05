@@ -67,22 +67,7 @@ class CGestioneServizi {
                 break;
             
             case 'visualizza':
-                echo " visualizza ";
-                $idEsame = $vServizi->getId();
-                $esami = USingleton::getInstance('FEsame');
-                if($idEsame === FALSE)
-                {
-                    echo "visualizza tutti gli esami ";
-                //cerco tutti gli esami della clinica di cui passo il nome
-                    $risultato = $esami->cercaEsame("",$nomeClinica,"");
-                    $vServizi->visualizzaEsami($risultato);
-                }
-                else
-                {
-                    echo ' visualizza un solo esame ';
-                    $esameCercato = $esami->cercaEsameById($idEsame);
-                    $vServizi->visualizzaInfoEsame($esameCercato[0]);
-                }
+                
                 break;
        
             case 'modifica':
@@ -98,11 +83,11 @@ class CGestioneServizi {
                 // caso in cui si vogliono solo visualizzare i servizi
 //                $esami = USingleton::getInstance('CRicercaEsami');
 //                $esami->
-//                $esami = USingleton::getInstance('FEsame');
-//                //cerco tutti gli esami della clinica di cui passo il nome
-//                $risultato = $esami->cercaEsame("",$nomeClinica,"");
-//                print_r($risultato);
-//                $vServizi->visualizzaEsami($risultato);
+                $esami = USingleton::getInstance('FEsame');
+                //cerco tutti gli esami della clinica di cui passo il nome
+                $risultato = $esami->cercaEsame("",$nomeClinica,"");
+                print_r($risultato);
+                $vServizi->visualizzaEsami($risultato);
                 
                 break;
         }

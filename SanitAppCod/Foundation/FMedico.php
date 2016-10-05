@@ -119,6 +119,10 @@ class FMedico extends FDatabase {
      */
     public function cercaPazienti($usernameMedico) 
     {
-        $query = "SELECT ";
+        $query =  "SELECT utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, utente.Email, utente.CodFiscale "
+                . "FROM utente, medico "
+                . "WHERE codFiscaleMedico=medico.codFiscale AND medico.Username='" . $usernameMedico . "'";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
     }
 }

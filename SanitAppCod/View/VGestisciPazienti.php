@@ -12,5 +12,12 @@
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VGestisciPazienti extends View{
-    //put your code here
+    
+    public function visualizzaPazienti($risultato) 
+    {
+        echo "visualizzaPazienti";
+        $this->assegnaVariabiliTemplate('dati', $risultato);
+        $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
+        return $this->visualizzaTemplate('tabellaPazienti');
+    }
 }
