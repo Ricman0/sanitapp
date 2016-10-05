@@ -4,7 +4,7 @@ $(document).ready(function() {
     $("#main").on("click","#bottoneRicercaCliniche", function(){
 //  $("#ricercaClinicheCerca").click(function(){
     inviaDati();
-  });
+    });
 });
 
 
