@@ -1,4 +1,3 @@
-        
 <nav id="navigationBar">
     <ul class="nav">
         <li class="nav" id="home">
@@ -27,5 +26,5 @@
                 </div>
             </li>
         {/if}
-    </ul
+    </ul>
 </nav>
