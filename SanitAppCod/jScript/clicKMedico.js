@@ -22,10 +22,12 @@ $(document).ready(function(){
 //        inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
 //    });
 //    
-//    var id = $(this).attr('id');
-//    $('#main').on("click", ".rigaPrenotazione" , function(){
-//        clickRiga('prenotazioni', 'visualizza', id, "#contenutoAreaPersonale");
-//    });
+    
+    
+    $('#main').on("click", ".rigaPaziente" , function(){
+        var id = $(this).attr('id');
+        clickRiga('pazienti', 'visualizza', id, "#contenutoAreaPersonale");
+    });
         
      
 });
