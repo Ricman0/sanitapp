@@ -58,6 +58,54 @@ class FEsame extends FDatabase {
                 // manca la partita IVA della clinica;
         return $valoriAttributi;
     }
+    
+    
+    /**
+     * 
+     * @param string $id L'id dell'esame da cercare
+     * @return array|boolean un esame false se non ci sono esami
+     */
+    public function cercaEsameById($id) {
+        
+        $query = "SELECT *"
+                . " FROM " . $this->_nomeTabella 
+                . " WHERE esame.IDEsame = $id";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+        
+    }
+    
+    
+    /**
+     * 
+     * @param string $id L'id dell'esame da cercare
+     * @return array|boolean un esame false se non ci sono esami
+     */
+    public function cercaEsameById($id) {
+        
+        $query = "SELECT *"
+                . " FROM " . $this->_nomeTabella 
+                . " WHERE esame.IDEsame = $id";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+        
+    }
+    
+    
+    /**
+     * 
+     * @param string $id L'id dell'esame da cercare
+     * @return array|boolean un esame false se non ci sono esami
+     */
+    public function cercaEsameById($id) {
+        
+        $query = "SELECT *"
+                . " FROM " . $this->_nomeTabella 
+                . " WHERE esame.IDEsame = $id";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+        
+    }
 
     /**
      * Metodo per inserire nella tabella Esame una nuova riga ovvero
@@ -75,6 +123,22 @@ class FEsame extends FDatabase {
         $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
         // eseguo la query
         $this->eseguiQuery($query);
+    }
+    
+    
+    /**
+     * 
+     * @param string $id L'id dell'esame da cercare
+     * @return array|boolean un esame false se non ci sono esami
+     */
+    public function cercaEsameById($id) {
+        
+        $query = "SELECT *"
+                . " FROM " . $this->_nomeTabella 
+                . " WHERE esame.IDEsame = $id";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+        
     }
 
     /**
