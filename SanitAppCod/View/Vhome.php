@@ -39,12 +39,20 @@ class VHome extends View {
      * @param string $nav Il nome del template da assegnare alla variabile navigationBar in HomePage.tpl 
      * 
      */
-    public function impostaHeader() 
+    public function impostaHeader($username=NULL) 
     {
-        $logIn= $this->prelevaTemplate("logIn");
+        if($username !== NULL)
+        {
+            // bisogna prima assegnare la variabili interne del template e poi prelevare il template
+            $this->assegnaVariabiliTemplate('user', $username);
+            $this->assegnaVariabiliTemplate('username', $username);
+            
+        }
+       
+        $log = $this->prelevaTemplate("log");
         $navBar = $this->prelevaTemplate("navigationBar");
         
-        $this->assegnaVariabiliTemplate("logIn", $logIn);
+        $this->assegnaVariabiliTemplate("logIn", $log);
         $this->assegnaVariabiliTemplate("navigationBar", $navBar);
     }
     

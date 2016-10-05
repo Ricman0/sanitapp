@@ -19,16 +19,21 @@ class CHome {
         $cAutenticazione = USingleton::getInstance('CAutenticazione');
         $sessione = $cAutenticazione->autenticazioneUser($sessione);
         $vHome= USingleton::getInstance('VHome');
+        
         if (NULL == $sessione->leggiVariabileSessione('usernameLogIn'))
         {
             $vHome->impostaHeader();
         }
         else
         {
+            echo(" dovremmo essere autenticati ");
             $username = $sessione->leggiVariabileSessione('usernameLogIn');
-            $vAutenticazione = USingleton::getInstance('VAutenticazione');
-            $vAutenticazione->impostaHeader($username);
+            echo ($username);
+            $vHome->impostaHeader($username);
         }
+        
+        
+        
         /*
         if ($cAutenticazione->logIn($session)=== TRUE)
         {

@@ -19,14 +19,16 @@ class VAutenticazione extends View{
      * @access public
      * @param string $username L'username dell'user loggato
      */
-    public function impostaHeader($username)
-    {
-        $log= $this->prelevaTemplate("logOut");
-        $navBar = $this->prelevaTemplate("navigationBar");
-        $this->assegnaVariabiliTemplate('username', $username);
-        $this->assegnaVariabiliTemplate("logIn", $log);
-        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
-    }
+//    public function impostaHeader($username)
+//    {
+//        $log = $this->prelevaTemplate("logOut");
+//        $navBar = $this->prelevaTemplate("navigationBar");
+//        
+//        $this->assegnaVariabiliTemplate('username', $username);
+//        $this->assegnaVariabiliTemplate("logIn", $log);
+//        $this->assegnaVariabiliTemplate('user', $username);
+//        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+//    }
     
     /**
      * Metodo che permette di conoscere il dato di log in (ad esempio password o
