@@ -1,8 +1,10 @@
 {if isset($user)}
+    <div class="log">
     <span>Ciao {$user}</span>
     <button id="logOutButton">Logout</button>
+    </div>
 {else}
-    <form id="logInForm">
+    <form class="log" id="logInForm">
         <input type="hidden" name="controller" value="autenticazione"/>
 
         <label for="usernameLogIn">Username</label>
@@ -18,5 +20,3 @@
 
     </form>
 {/if}
-
-
