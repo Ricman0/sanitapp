@@ -29,6 +29,8 @@ class VGestioneServizi extends View{
     
     public function visualizzaInfoEsame($esame) 
     {
+        echo " visualizzaInfoEsame ";
+        print_r($esame);
         $this->prelevaTemplate("infoEsame");
         $this->assegnaVariabiliTemplate('esame', $esame);
         return $this->visualizzaTemplate("infoEsame");

@@ -85,9 +85,9 @@ class FEsame extends FDatabase {
      */
     public function cercaEsameById($id) {
         
-        $query = "SELECT *"
-                . " FROM " . $this->_nomeTabella 
-                . " WHERE esame.IDEsame = $id";
+        $query =  "SELECT * "
+                . "FROM esame " 
+                . "WHERE IDEsame ='" . $id . "'";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
         

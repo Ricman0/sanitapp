@@ -19,7 +19,8 @@
   RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|referti|impostazioni)/(utente)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|pazienti)/(aggiungi|visualizza)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(prenotazioni|esami|pazienti)/(visualizza)/([[:alnum:]]{13})?$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]{13})?$ index.php?controller=$1&task=$2&id=$3 [L]
+ RewriteRule ^(servizi)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
 
 
     RewriteCond %{REQUEST_METHOD} POST 
