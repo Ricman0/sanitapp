@@ -27,16 +27,7 @@ class CGestisciPazienti {
         $task =$vPazienti->getTask();
         switch ($task) {
             case 'visualizza':
-                
-                echo "case visualizza di gestione pazienti in CGestionePazienti";
-//                $this->visualizza($vPazienti,$usernameMedico);
-                $medico = USingleton::getInstance('FMedico');
-                $risultato = $medico->cercaPazienti($usernameMedico);  
-                if (is_array($risultato))
-                {
-                    $vPazienti->visualizzaPazienti($risultato);
-                }
-                else { "problema in cerca esami";}
+                $this->visualizza($vPazienti,$usernameMedico);
                 break;
 
             default:
@@ -65,6 +56,10 @@ class CGestisciPazienti {
         else
             {
              // si cerca un solo paziente
-            }
+//                $eMedico = new Medico();
+                    $futente = USingleton::getInstance('FUtente');
+                    $utenteCercato = $futente->cercaUtenteByCF($cf);
+                    $vPazienti->visualizzaInfoUtente($utenteCercato[0]);
+            }            
     }
 }

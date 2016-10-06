@@ -134,7 +134,7 @@ class FUtente extends FDatabase{
      * 
      * @access public
      * @param string $username Username dell'utente da cercare
-     * @return type L'utente cercato
+     * @return array|boolean Un array contenente l'utente cercato 
      */
     public function cercaUtente($username)
     {
@@ -145,7 +145,21 @@ class FUtente extends FDatabase{
         
     }
     
-    
+    /**
+     * Metodo che consente di cercare un utente passando alla funzione solo il 
+     * codice fiscale
+     * 
+     * @access public
+     * @param string $cf Il codice fiscale dell'utente da cercare
+     * @return array|boolean Array contenente l'utente cercato
+     */
+    public function cercaUtenteByCF($cf) 
+    {
+        $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE CodFiscale='" . $cf . "'";
+        $risultato = $this->eseguiQuery($query);
+        echo "count: ". count($risultato);        
+        return $risultato;
+    }
     
     /**
      * Metodo che permette di modificare un attributo di una tupla utente

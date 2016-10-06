@@ -16,7 +16,7 @@
         <br>
         
         {foreach from=$dati item=curr_row}
-            <tr id="{$curr_row['CodFiscale']}" class="rigaEsame">
+            <tr id="{$curr_row['CodFiscale']}" class="rigaPaziente">
                 <td>{$curr_row['Nome']}</td>
                 <td>{$curr_row['Cognome']}</td>
                 <td>{$curr_row['Via']}, {$curr_row['NumCivico']}</td>
