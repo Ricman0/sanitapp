@@ -37,7 +37,7 @@ function inviaRegione(nomeRegione) {
         success: function (msg)
         {
             $("#main").html(msg);
-            $("#tabellaCliniche").tablesorter();
+            $(".tablesorter").tablesorter();
         },
         error: function ()
         {

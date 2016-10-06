@@ -22,10 +22,11 @@ and open the template in the editor.
     min-width: 80px;
     padding:1px;
 }
-#logInForm button, #logOutButton {
+.logButton {
     cursor: pointer;
     display: inline-flex;
     font-size: inherit;
+    min-width: 76px;
     width: 8%;
 }
 

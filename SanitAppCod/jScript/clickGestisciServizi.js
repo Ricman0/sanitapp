@@ -4,26 +4,27 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $('#main').on("click", "#serviziAreaPersonaleClinica", function() {
+    $('#main').on("click", "#serviziAreaPersonaleClinica", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
-    
-    $('#main').on("click", "#iconaAggiungi", function() {
+
+    $('#main').on("click", "#iconaAggiungi", function () {
         inviaControllerTask('servizi', 'aggiungi', "#contenutoAreaPersonale");
     });
-    
-    $('#main').on("click", "#annullaAggiungiEsame", function() {
+
+    $('#main').on("click", "#annullaAggiungiEsame", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
-    
-   
-    
-    $('#main').on("click", ".rigaEsame", function(event) { 
+
+
+
+    $('#main').on("click", ".rigaEsame", function () {
         var id = $(this).attr('id');
-        clickRiga('servizi', 'visualizza', id, "#contenutoAreaPersonale");
-        
+        var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
+        clickRiga('servizi', 'visualizza', id, contenitore);
+
     });
 
 
@@ -36,8 +37,8 @@ function inviaDatiEsame(id, controller1, task1, ajaxdiv)
     //recupera tutti i valori del form automaticamente
     var dati = $(id).serialize();
     alert(dati);
-   
-    
+
+
     $.ajax({
         type: "POST",
         url: controller1 + "/" + task1,
