@@ -214,6 +214,8 @@ class CHome {
             case 'referti':
                 break;
             case 'impostazioni':
+                $cImpostazioni = USingleton::getInstance('CImpostazioni');
+                $cImpostazioni->gestisciImpostazioni();
                 break;
             
             case 'pazienti':

@@ -84,8 +84,17 @@ class EUtente
      */
     private $_prenotazioni; 
     
-    
-    
+    // non so se sia giusto inserirlo
+    /**
+     * @var string $_medicoCurante, variabile che contiente il codice fiscale del medico curante dell'utente
+     */
+    private  $_medicoCurante;
+
+
+
+
+
+
     /**
      * Costruttore della classe EUtente
      * 
@@ -99,7 +108,7 @@ class EUtente
      * @param string $password La password dell'utente
      * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($nome="", $cognome="", $cf="", $via="", $numeroCivico="", $cap="", $email="", $username="", $password="", $cod="") 
+    public function __construct($nome="", $cognome="", $cf="", $via="", $numeroCivico="", $cap="", $email="", $username="", $password="", $cod="", $medico="") 
     {
         if(NULL == $cf)
         {
@@ -127,6 +136,7 @@ class EUtente
                     $this->setPasswordUtente($risultato[0]['Password']);
                     $this->setConfermatoUtente($risultato[0]['Confermato']);
                     $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
+                    $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
                 }
             }        
         }
@@ -152,6 +162,14 @@ class EUtente
             $this->_codiceConferma = $cod;
             $this->_confermato = FALSE;
             $this->_prenotazioni = new ArrayObject() ;// da vedere:array di oggetti o bastava semplicemente Array()??
+            if(isset($medico))
+            {
+                $this->_medicoCurante = $medico; 
+            }
+            else
+                {
+                    $this->_medicoCurante = NULL; 
+                }
         }
         
     }
@@ -167,6 +185,15 @@ class EUtente
         return $this->_nome;
     }
     
+    /**
+     * Metodo per conoscere il codice fiscale del medico curante dell'utente
+     * 
+     * @return string Il cf del medico dell'utente
+     */ 
+    public function getMedicoUtente()
+    {
+        return $this->_medicoCurante;
+    }
     /**
      * Metodo per conoscere il cognome dell'utente
      * 
