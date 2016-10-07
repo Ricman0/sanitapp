@@ -1,3 +1,5 @@
+<input type="hidden" name="controller" id="controllerTabella" value={$controller} />
+
 <table id="tabellaEsami" class="tablesorter">
     <thead>
         <th>Nome</th>

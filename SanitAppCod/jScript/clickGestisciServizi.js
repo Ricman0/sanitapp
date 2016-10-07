@@ -23,7 +23,12 @@ $(document).ready(function () {
     $('#main').on("click", ".rigaEsame", function () {
         var id = $(this).attr('id');
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
-        clickRiga('servizi', 'visualizza', id, contenitore);
+        var controller = $("#controllerTabella").attr('value');
+        alert(controller);
+        if(controller==="servizi")
+        {
+            clickRiga(controller, 'visualizza', id, contenitore);
+        }
 
     });
 

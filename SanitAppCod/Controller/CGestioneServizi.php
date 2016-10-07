@@ -81,7 +81,7 @@ class CGestioneServizi {
                 {
                     echo ' visualizza un solo esame ';
                     $esameCercato = $esami->cercaEsameById($idEsame);
-                    $vServizi->visualizzaInfoEsame($esameCercato[0]);
+                    $vServizi->visualizzaInfoEsame($esameCercato[0], TRUE);
                 }
                 break;
        

@@ -63,6 +63,7 @@ class EEsame
     /**
      * Costruttore di EEsame
      * 
+     * @param string $id ID dell'esame
      * @param string $nomeEsame Il nome dell'esame
      * @param string $medico Il nome e cognome del medico che effettua l'esame
      * @param string $nomeCategoria La categoria a cui appartiene l'esame
@@ -71,8 +72,27 @@ class EEsame
      * @param int $numPrestazioniSimultanee Il numero di prestazioni simultanee dell'esame
      * @param string $descrizione Breve descrizione dell'esame
      */
-    public function __construct($nomeEsame, $medico, $nomeCategoria, $prezzo, $durata, $numPrestazioniSimultanee=1, $descrizione='') 
+  
+    public function __construct($id=NULL, $nomeEsame="", $medico="", $nomeCategoria="", $prezzo="", $durata="", $numPrestazioniSimultanee=1, $descrizione='') 
     {
+        if(isset($id))
+        {
+            $fEsame = USingleton::getInstance('FEsame');
+            $attributiEsame = $fEsame->cercaEsameById($id);
+            if(is_array($attributiEsame) && count($attributiEsame)==1)
+            {
+                $this->_idEsame = $id;
+                $this->_nomeEsame = $attributiEsame[0]["Nome"];
+                $this->_medicoEsame = $attributiEsame[0]["MedicoEsame"];
+                $this->_nomeCategoria = $attributiEsame[0]["NomeCategoria"];  
+                $this->_prezzo = $attributiEsame[0]["Prezzo"];
+                $this->_durata = $attributiEsame[0]["Durata"];
+                $this->_numeroPrestazioniSimultanee = $attributiEsame[0]["NumPrestazioniSimultanee"];
+                $this->_descrizione = $attributiEsame[0]["Descrizione"];
+            }
+        }
+        else
+        {
         $this->_idEsame = uniqid();
         $this->_nomeEsame = $nomeEsame;
         $this->_medicoEsame = $medico;
@@ -81,8 +101,8 @@ class EEsame
         $this->_durata = $durata;
         $this->_numeroPrestazioniSimultanee = $numPrestazioniSimultanee;
         $this->_descrizione = $descrizione;
+        }
     }
-  
     
     /**
      * Metodo che permette di inserire un oggetto di tipo EEsame nel DB

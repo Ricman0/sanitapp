@@ -22,17 +22,19 @@ class VGestioneServizi extends View{
     public function visualizzaEsami($risultato)
     {
         $this->assegnaVariabiliTemplate('dati', $risultato);
+        $this->assegnaVariabiliTemplate("controller", "servizi");
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         return $this->visualizzaTemplate('tabellaEsami');
     }
     
     
-    public function visualizzaInfoEsame($esame) 
+    public function visualizzaInfoEsame($esame, $servizi) 
     {
         echo " visualizzaInfoEsame ";
         print_r($esame);
         $this->prelevaTemplate("infoEsame");
         $this->assegnaVariabiliTemplate('esame', $esame);
+        $this->assegnaVariabiliTemplate('tipo', $servizi);
         return $this->visualizzaTemplate("infoEsame");
         
     }
