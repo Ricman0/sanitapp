@@ -18,6 +18,24 @@ class CRicercaEsami {
 //        return $risultato;
     }
     
+    public function gestisciEsami() {
+        $vEsami = USingleton::getInstance('VRicercaEsami');
+        $task = $vEsami->getTask();
+        switch($task)
+        { 
+            case 'visualizza':
+                $id = $vEsami->getId();
+                if(isset($id))
+                {
+                    $eEsame = new EEsame($id);
+                    $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE);
+                }
+            break;
+            default :
+                break;
+        }
+    }
+    
     public function impostaPaginaRicercaEsami(){
         $vEsami = USingleton::getInstance('VRicercaEsami');
         $vEsami->restituisciFormRicercaEsami();

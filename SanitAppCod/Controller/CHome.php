@@ -185,7 +185,8 @@ class CHome {
             
             case 'esami':
                 $cEsami = USingleton::getInstance('CRicercaEsami');
-                $risultato = $cEsami->impostaPaginaRisultatoEsami();
+                $cEsami->gestisciEsami();
+//                $risultato = $cEsami->impostaPaginaRisultatoEsami();
                 //in $risultato c'è il risultato della query
                 
                 break;
