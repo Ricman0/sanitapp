@@ -10,7 +10,7 @@ class CRicercaEsami {
     public function impostaPaginaRisultatoEsami() 
     {
         $fEsami = USingleton::getInstance('FEsame');
-        $risultato =  $fEsami->cercaEsame($_GET['parametro1'], $_GET['parametro2'], $_GET['parametro3']);
+        $risultato = $fEsami->cercaEsame($_GET['parametro1'], $_GET['parametro2'], $_GET['parametro3']);
         $vEsami = USingleton::getInstance('VRicercaEsami');
         $vEsami->restituisciPaginaRisultatoEsami($risultato);
         
@@ -28,10 +28,11 @@ class CRicercaEsami {
                 if(isset($id))
                 {
                     $eEsame = new EEsame($id);
-                    $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE);
+                    $vEsami->visualizzaInfoEsameOspite($eEsame, "FALSE");
                 }
             break;
             default :
+                $this->impostaPaginaRisultatoEsami();
                 break;
         }
     }

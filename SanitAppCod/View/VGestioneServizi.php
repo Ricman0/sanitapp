@@ -32,9 +32,8 @@ class VGestioneServizi extends View{
     {
         echo " visualizzaInfoEsame ";
         print_r($esame);
-        $this->prelevaTemplate("infoEsame");
         $this->assegnaVariabiliTemplate('esame', $esame);
-        $this->assegnaVariabiliTemplate('tipo', $servizi);
+        $this->assegnaVariabiliTemplate('servizi', $servizi);
         return $this->visualizzaTemplate("infoEsame");
         
     }

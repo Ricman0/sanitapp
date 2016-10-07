@@ -9,7 +9,10 @@ $(document).ready(function () {
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
         var controller = $("#controllerTabella").attr('value');
         alert(controller);
-        clickRiga(controller, 'visualizza', id, contenitore);
+        if(controller==="visualizza")
+        {
+            clickRiga(controller, 'visualizza', id, contenitore);
+        }
 
     });
 });
