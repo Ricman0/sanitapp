@@ -1,4 +1,4 @@
-function validazione(task1)
+function validazione(task1, controller1)
 {
     switch (task1)
     {
@@ -11,18 +11,31 @@ function validazione(task1)
             break;
         
         case "clinica":
-            validazioneClinica();
+            if(controller1 == "impostazioni")
+            {
+                validazioneImpostazioniClinica();
+            }
+            else
+            {
+                validazioneClinica();
+            }
             break; 
             
         case "autenticazione":
             validazioneLogIn();
             break;
+            
         case "aggiungi":
             validazioneEsame();
             break;
+            
+        
+            
         default: break;
     }
 }
+
+
 
 function validazioneLogIn()
 {
@@ -686,6 +699,103 @@ function validazioneClinica()
     });
 }
 
+
+function validazioneImpostazioniClinica()
+{    
+    jQuery.validator.addMethod("time", function(valore){
+        //espressione regolare per la durata
+        var regex = /([0-2][0-3]):([0-5]\d):([0-5]\d)/;
+        return valore.match(regex);
+        }, "La durata è nel formato hh:mm:ss");
+    $.validator.addClassRules({
+        time:
+                {
+                    required: true,
+                    time: true, 
+                    messages:{required:"Inserire orario"}
+                }
+    });
+    
+    $("workingPlan").validate({
+        
+//        messages:
+//                {
+//                    LunedìStart:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    MartedìStart:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    MercoledìStart:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    GiovedìStart:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    VenerdìStart:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    SabatoStart:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    DomenicaStart:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    LunedìEnd:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    MartedìEnd:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    MercoledìEnd:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    GiovedìEnd:
+//                            {
+//                                required: true,
+//                                time: true
+//                            },
+//                    VenerdìEnd:
+//                            {
+//                                required: true
+//                            },
+//                    SabatoEnd:
+//                            {
+//                                required: true
+//                            },
+//                    DomenicaEnd:
+//                            {
+//                                required: true
+//                            } 
+//                },
+        submitHandler:function(form) 
+        { 
+            alert('Impostazioni inserite correttamente');
+            // inviaDatiEsame si trova in clickGestisciServizi.js
+            inviaImpostazioniClinica('#aggiungiEsame', 'servizi', 'aggiungi', '#main');
+        }
+    });  
+}
 function validazioneEsame()
 {    
     jQuery.validator.addMethod("time", function(valore){
