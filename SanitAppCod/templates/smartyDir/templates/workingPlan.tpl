@@ -25,8 +25,8 @@
                                             <label for="Lunedì">Lunedì</label>
                                         </div>
                                     </td>
-                                    <td><input type="text" id="LunedìStart" class="orari" /></td>
-                                    <td><input type="text" id="LunedìEnd" class="orari" /></td>
+                                    <td><input type="text" id="LunedìStart" class="time" /></td>
+                                    <td><input type="text" id="LunedìEnd" class="time" /></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -35,8 +35,8 @@
                                             <label for="Martedì">Martedì</label>
                                         </div>
                                     </td>
-                                    <td><input type="text" id="MartedìStart" class="orari" /></td>
-                                    <td><input type="text" id="MartedìEnd" class="orari" /></td>
+                                    <td><input type="text" id="MartedìStart" class="time" /></td>
+                                    <td><input type="text" id="MartedìEnd" class="time" /></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -45,8 +45,8 @@
                                             <label for="Mercoledì">Mercoledì</label>
                                         </div>
                                     </td>
-                                    <td><input type="text" id="MercoledìStart" class="orari" /></td>
-                                    <td><input type="text" id="MercoledìEnd" class="orari" /></td>
+                                    <td><input type="text" id="MercoledìStart" class="time" /></td>
+                                    <td><input type="text" id="MercoledìEnd" class="time" /></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -55,8 +55,8 @@
                                             <label for="Giovedì">Giovedì</label>
                                         </div>
                                     </td>
-                                    <td><input type="text" id="GiovedìStart" class="orari" /></td>
-                                    <td><input type="text" id="GiovedìEnd" class="orari" /></td>
+                                    <td><input type="text" id="GiovedìStart" class="time" /></td>
+                                    <td><input type="text" id="GiovedìEnd" class="time" /></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -65,8 +65,8 @@
                                             <label for="Venerdì">Venerdì</label>
                                         </div>
                                     </td>
-                                    <td><input type="text" id="VenerdìStart" class="orari" /></td>
-                                    <td><input type="text" id="VenerdìEnd" class="orari" /></td>
+                                    <td><input type="text" id="VenerdìStart" class="time" /></td>
+                                    <td><input type="text" id="VenerdìEnd" class="time" /></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -75,8 +75,8 @@
                                             <label for="Sabato">Sabato</label>
                                         </div>
                                     </td>
-                                    <td><input type="text" id="SabatoStart" class="orari" /></td>
-                                    <td><input type="text" id="SabatoEnd" class="orari" /></td>
+                                    <td><input type="text" id="SabatoStart" class="time" /></td>
+                                    <td><input type="text" id="SabatoEnd" class="time" /></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -85,8 +85,8 @@
                                             <label for="Domenica">Domenica</label>
                                         </div>
                                     </td>
-                                    <td><input type="text" id="DomenicaStart" class="orari" /></td>
-                                    <td><input type="text" id="DomenicaEnd" class="orari" /></td>
+                                    <td><input type="text" id="DomenicaStart" class="time" /></td>
+                                    <td><input type="text" id="DomenicaEnd" class="time" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -99,7 +99,7 @@
                         </span>
                         <div class="form-group">
                             <label for="tempoLimite">Tempo Limite</label>
-                            <input type="text" id="tempoLimite" name="tempoLimite" />
+                            <input type="text" id="tempoLimite" name="tempoLimite" class="time" />
                         </div>
                     </div>
                     <div class="col-md-5 breaks-wrapper">
