@@ -98,7 +98,11 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
                 'timeFormat': 'H:i:s',
                 'step': 15,
                 'maxTime': '06:00:00'
-
+            });
+            
+            $('.orari').timepicker({
+                'timeFormat': 'H:i:s',
+                'step': 15
             });
 
         },
