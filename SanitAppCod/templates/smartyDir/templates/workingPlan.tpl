@@ -1,5 +1,5 @@
-<div id="workingPlan">
-        <form>
+<div>
+        <form id="workingPlan">
             <fieldset>
                 <div class="row-fluid">
                     <div class="col-md-7 working-plan-wrapper">
@@ -130,5 +130,6 @@
                     </div>
                 </div>
             </fieldset>
+            <input type="button" id="salvaImpostazioniClinica" value="Salva" />
         </form>
 </div>
