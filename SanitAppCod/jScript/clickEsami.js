@@ -7,10 +7,11 @@ $(document).ready(function () {
     $('#main').on("click", ".rigaEsame", function () {
         var id = $(this).attr('id');
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
-        var controller = $("#controllerTabella").attr('value');
+        var controller = $("#controllerTabella").attr("value");
         alert(controller);
-        if(controller==="visualizza")
+        if(controller == "esami")
         {
+            alert("ciao");
             clickRiga(controller, 'visualizza', id, contenitore);
         }
 

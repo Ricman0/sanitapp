@@ -78,5 +78,7 @@
             </span>
             <br>
             <span>Descrizione: {$esame->getDescrizioneEsame()}</span>
+            <br>
+            <input type="button" id="aggiungiPrenotazioneButton" value="Prenota" />
         </div>
     {/if}

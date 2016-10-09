@@ -20,9 +20,30 @@ class CImpostazioni {
         switch ($task) {
             case 'utente':
                 $eUtente = new EUtente();
-                $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
-
+              
+                $task2 = $vImpostazioni->getTask2();
+                echo ($task2);
+                // per ora non metto isset ma solo se è = a modifica
+                if ($task2 == "modifica")
+                {
+                    echo "modifica informazioni";
+                    $modificaImpostazioni = $vImpostazioni->getTask3();
+                    $vImpostazioni->modificaImpostazioniUtente($utente, $modificaInformazioni);
+                    
+                     
+                }
+                else
+                {
+                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
+                }
                 break;
+            
+            case 'clinica':
+//                $eClinica = new EClinica();
+                
+            {
+                $vImpostazioni->visualizzaImpostazioniClinica();
+            }
 
             default:
                 break;

@@ -1,5 +1,5 @@
 <div id="impostazioniUtente">
-    <div>
+    <div id="informazioniGeneraliUtente">
         <h4>
             INFORMAZIONI GENERALI
         </h4>
@@ -33,7 +33,7 @@
                 <label for name="CAP">CAP :</label>
                 <input type="text" name="CAP" value ="{$utente->getCAPUtente()}" readonly>
                 <br>
-                <input type="button" id="#modificaIndirizzoUtente" value="Modifica Indirizzo">  
+                <input type="button" id="modificaIndirizzoUtente" value="Modifica Indirizzo">  
             {/if}
         {/if}
     </div>
@@ -46,9 +46,9 @@
             <label for name="medicoUtente">Medico :</label>
             <input type="text" name="medicoUtente" value ="{$utente->getMedicoUtente()}" readonly>
             <br>
-            <input type="button" id="#modificaMedicoUtente" value="Modifica Medico">  
+            <input type="button" id="modificaMedicoUtente" value="Modifica Medico">  
         {else}
-            <input type="button" id="#aggiungiMedicoUtente" value="Aggiungi Medico">     
+            <input type="button" id="aggiungiMedicoUtente" value="Aggiungi Medico">     
         {/if}
     </div>
 
@@ -65,12 +65,12 @@
                 <label for name="ripetiPassword">Ripeti Password :</label>
                 <input type="password" name="ripetiPassword" >
                 <br>
-                <input type="button" id="#inviaNuovaPasswordUtente" value="Invia Nuova Password">
+                <input type="button" id="inviaNuovaPasswordUtente" value="Invia Nuova Password">
             {else}  
                 <label for name="username">Username :</label>
                 <input type="text" name="username" value ="{$utente->getUsernameUtente()}" readonly>
                 <br>
-                <input type="button" id="#modificaPasswordUtente" value="Modifica Credenziali">
+                <input type="button" id="modificaPasswordUtente" value="Modifica Credenziali">
             {/if}
         {/if}
     </div>

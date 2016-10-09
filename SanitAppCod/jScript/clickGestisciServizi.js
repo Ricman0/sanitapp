@@ -18,7 +18,9 @@ $(document).ready(function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
 
-
+     $('#main').on("click", "#impostazioniAreaPersonaleClinica", function () {
+        inviaControllerTask('impostazioni', 'clinica', "#contenutoAreaPersonale");
+    });
 
     $('#main').on("click", ".rigaEsame", function () {
         var id = $(this).attr('id');

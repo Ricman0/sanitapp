@@ -26,9 +26,24 @@ $(document).ready(function(){
     $('#main').on("click", ".rigaPrenotazione" , function(){
         clickRiga('prenotazioni', 'visualizza', id, "#contenutoAreaPersonale");
     });
-        
+     
+    $('#main').on("click", "#modificaIndirizzoUtente", function(){
+        clickModificaImpostazioni('impostazioni', 'utente', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
+    });
      
 });
 
+function clickModificaImpostazioni(controller, task, task2, task3, ajaxdiv)
+{
+    $.ajax({
+        type : 'GET',
+        url : controller + '/' + task + '/' + task2 + '/' + task3 + '/',
+        success: function(datiRisposta)
+        {
+            alert(datiRisposta);
+            $(ajaxdiv).html(datiRisposta);
+        }
+    });
+}
 
 

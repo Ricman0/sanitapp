@@ -108,7 +108,7 @@ class EUtente
      * @param string $password La password dell'utente
      * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($nome="", $cognome="", $cf="", $via="", $numeroCivico="", $cap="", $email="", $username="", $password="", $cod="", $medico="") 
+    public function __construct($nome="", $cognome="", $cf=NULL, $via="", $numeroCivico="", $cap="", $email="", $username="", $password="", $cod="", $medico="") 
     {
         if(NULL == $cf)
         {
