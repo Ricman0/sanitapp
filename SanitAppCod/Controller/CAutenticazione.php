@@ -119,7 +119,7 @@ class CAutenticazione {
         {
             // display the login form
             
-            //imposto la variabile di sessione LoggedIn a False
+            //imposto la variabile di sessione loggedIn a False
             $sessione->impostaVariabileSessione('loggedIn', FALSE);
             
         }
@@ -198,7 +198,7 @@ class CAutenticazione {
                     
                     $sessione->impostaVariabileSessione('usernameLogIn', $username);
                     $uUsername->impostaCookie('username', $username, time() + 15 * 60);
-                    $sessione->impostaVariabileSessione('LoggedIn', TRUE);
+                    $sessione->impostaVariabileSessione('loggedIn', TRUE);
                     /*    usato per capire come è strutturato il risutlato
                     foreach($risultato  as $row)
                     {
@@ -250,7 +250,7 @@ class CAutenticazione {
             // questo ramo non dovrebbe esserci perchè lato client richiedo necessariamente i due input
         }
         echo " QWERTY ";
-        if($sessione->leggiVariabileSessione('LoggedIn')===TRUE && $sessione->leggiVariabileSessione('usernameLogIn')===$username)
+        if($sessione->leggiVariabileSessione('loggedIn')===TRUE && $sessione->leggiVariabileSessione('usernameLogIn')===$username)
         {
             $uTentativi->eliminaCookie('Tentativi');
             $vAutenticazione->impostaPaginaPersonale($sessione->leggiVariabileSessione('tipoUser'), $tastiLaterali);

@@ -110,7 +110,23 @@ class FClinica extends FDatabase{
         }
         return $codiceFiscaleClinica;
     }
-  
+    
+    /**
+     * Metodo che consente di trovare la clinica il cui username è passato come
+     * parametro
+     * 
+     * @access public
+     * @param string $username L'username della clinica
+     * @return Array|boolean Array contenente solo la clinica cercata, FALSE altrimenti
+     */
+    public function cercaClinicaByUsername($username) 
+    {
+        $query = "SELECT *,"
+                . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
+                . "FROM " . $this->_nomeTabella . " WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE))";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+    }
     /**
      * Metodo che permette di effettuare la ricerca di cliniche 
      * 
@@ -213,6 +229,25 @@ class FClinica extends FDatabase{
         }
         fine vecchia versione*/
         
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+    }
+    
+    /**
+     * Metodo che consente il salvataggio del working plan
+     * 
+     * @access public
+     * @param string $workingPlan il working plan della clinica
+     * @param string $partitaIVAClinica La partita IVA della Clinica
+     * @return type Description
+     */
+    public function salvaWorkingPlan($workingPlan,$partitaIVAClinica) 
+    {
+        $query="UPDATE clinica "
+                . "SET WorkingPlan='" . $workingPlan . "' "
+                . "WHERE PartitaIVA= '" . $partitaIVAClinica . "'";
+        
+//        $query = "UPDATE clinica SET WorkingPlan= 'Ciaociao' WHERE PartitaIVA = '12345'";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
