@@ -97,10 +97,20 @@ button, input[type = 'submit'], input[type='button']
     padding-right: 20px;
     box-sizing: border-box;
 }
+button:disabled, input[type = 'submit' ]:disabled, input[type='button']:disabled{
+    
+    opacity: 0.50;
+    cursor:not-allowed;
+    
+}
+.fa{
+    color:rgb(11, 190, 210);
+}
 button:hover, input[type = 'submit']:hover, input[type='button']:hover
 {
     background-color:rgb(10, 170, 220);
 }
+
 
 input, select{
     border: 1px solid #E5E5E5;

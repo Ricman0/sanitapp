@@ -1,10 +1,14 @@
-//
-
 $(document).ready(function() {
-    $("#main").on("click","#bottoneRicercaCliniche", function(){
-//  $("#ricercaClinicheCerca").click(function(){
-    inviaDati();
+    
+     
+    $("#cliniche").click(function () {
+        inviaController('ricercaCliniche', '#main');
     });
+    
+    $("#main").on("click","#bottoneRicercaCliniche", function(){
+        inviaDati();
+    });
+    
 });
 
 

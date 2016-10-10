@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+
 $(document).ready(function () {
 
     $('#main').on("click", "#serviziAreaPersonaleClinica", function () {
@@ -24,6 +25,13 @@ $(document).ready(function () {
     
     $('#main').on("click", "#salvaImpostazioniClinica", function () {
         inviaImpostazioniClinica('#workingPlan','impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
+    });
+    
+    $('#main').on("click", "#aggiungiPausaButton", function () {
+        formPausa();
+    });
+    $('#main').on("click", "#scartaPausa", function () {
+        scartaPausa();
     });
 
     $('#main').on("click", ".rigaEsame", function () {
@@ -66,6 +74,40 @@ function inviaImpostazioniClinica(id, controller1, task1,task2, ajaxdiv)
         }
     });
 }
+function formPausa()
+{
+    
+  
+    var tr ='<tr><td><form><select name="value">' +
+        '<option value="Lunedì" selected="selected">Lunedì</option>' +
+        '<option value="Martedì">Martedì</option>' +
+        '<option value="Mercoledì">Mercoledì</option>' +
+        '<option value="Giovedì">Giovedì</option>' +
+        '<option value="Venerdì">Venerdì</option>' +
+        '<option value="Sabato">Sabato</option>' +
+        '<option value="Domenica">Domenica</option>' +
+        '</select></form></td>' +
+        '<td><form><input autocomplete="off" name="oraInizio" class="time"></form></td>'+
+        '<td><form><input autocomplete="off" name="oraFine" class="time"></form></td>'+
+        '<td><a href="#"><i class="fa fa-check fa-lg"  aria-hidden="true"></i></a> &nbsp'+
+        '<a id="scartaPausa"><i class="fa fa-ban fa-lg" aria-hidden="true"></i></a></td></form></tr>';
+        $('#aggiungiPausaButton').prop('disabled', true);
+        $('#tabellaPause').prepend(tr);
+        $('.time').timepicker({
+                'timeFormat': 'H:i:s',
+                'step': 15
+            });
+        
+        
+        
+    };
+    
+    function scartaPausa(){
+        $('#aggiungiPausaButton').prop('disabled', false);
+        $('.bodyTabellaPause tr:first-child').remove();
+        
+    }
+
 
 function inviaDatiEsame(id, controller1, task1, ajaxdiv)
 {

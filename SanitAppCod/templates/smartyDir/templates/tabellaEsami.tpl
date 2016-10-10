@@ -17,7 +17,7 @@
             <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungi" aria-hidden="true" ></i>
         {/if}
         <br>
-        
+        {if isset($dati)}
         {foreach from=$dati item=curr_row}
             <tr id="{$curr_row['IDEsame']}" class="rigaEsame">
                 <td>{$curr_row['Nome']}</td>
@@ -30,5 +30,6 @@
                 <td>{$curr_row['Località']}</td>
             </tr>
         {/foreach}
+        {/if}
     </tbody>
 </table>
