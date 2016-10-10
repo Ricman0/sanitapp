@@ -43,5 +43,29 @@ class CImpostazioni {
                 break;
         }
     }
+    
+    
+    public function gestisciImpostazioniPOST()
+    {
+        $vImpostazioni = USingleton::getInstance('VImpostazioni');
+        $task = $vImpostazioni->getTask();
+        switch ($task) {
+            case 'clinica':
+                $task2 = $vImpostazioni->getTask2();
+                if($task2 === "workingPlan")
+                {
+                    foreach ($_POST as $key => $value) 
+                    {
+                        echo "chiave: " . $key . ", valore:" . $value . " "; 
+                    }
+//                    $vImpostazioni->recuperaWorkingPlan();
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
 
 }

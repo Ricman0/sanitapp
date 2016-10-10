@@ -18,8 +18,12 @@ $(document).ready(function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
 
-     $('#main').on("click", "#impostazioniAreaPersonaleClinica", function () {
+    $('#main').on("click", "#impostazioniAreaPersonaleClinica", function () {
         inviaControllerTask('impostazioni', 'clinica', "#contenutoAreaPersonale");
+    });
+    
+    $('#main').on("click", "#salvaImpostazioniClinica", function () {
+        inviaImpostazioniClinica('#workingPlan','impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
     });
 
     $('#main').on("click", ".rigaEsame", function () {
@@ -37,6 +41,31 @@ $(document).ready(function () {
 
 
 });
+
+function inviaImpostazioniClinica(id, controller1, task1,task2, ajaxdiv)
+{
+
+    //recupera tutti i valori del form automaticamente
+    var dati = $(id).serialize();
+    alert(dati);
+   
+    
+    $.ajax({
+        type: "POST",
+        url: controller1 + "/" + task1 + "/" + task2,
+        data: dati,
+        dataType: "html",
+        success: function (msg)
+        {
+            alert("Chiamata eseguita");
+            $(ajaxdiv).html(msg);
+        },
+        error: function ()
+        {
+            alert("Chiamata fallita, si prega di riprovare...");
+        }
+    });
+}
 
 function inviaDatiEsame(id, controller1, task1, ajaxdiv)
 {

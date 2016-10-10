@@ -265,6 +265,12 @@ class CHome {
                 $cServizi = USingleton::getInstance('CGestioneServizi');
                 $cServizi->gestisciServiziPost();
                 break;
+            
+            case 'impostazioni':
+                $cImpostazioni = USingleton::getInstance('CImpostazioni');
+                $cImpostazioni->gestisciImpostazioniPOST();
+                break;
+            
             default:
                 echo "ora non lo so che fargli fare";
 //                $vHome->restituisciHomePage();

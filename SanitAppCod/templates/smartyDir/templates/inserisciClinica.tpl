@@ -1,7 +1,7 @@
 <form class="formInserisci" name="inserisciClinica" method="post" id="inserisciClinica">
 
-    <input type="hidden" name="controller" value="registrazione"/>
-    <input type="hidden" name="task" value="clinica"/>
+    <input type="hidden" name="controller" value="registrazione" />
+    <input type="hidden" name="task" value="clinica" />
 
     <label for="nomeClinica" class="elementiForm">Nome</label>
     <input type="text" name="nomeClinica" class="elementiForm" id="nomeClinica" placeholder="Villa Serena" value="{if isset($datiValidi.nomeClinica)}{$datiValidi.nomeClinica}{/if}" required/>

@@ -108,4 +108,81 @@ class VImpostazioni extends View{
                 return false;
             }
     }
+    
+    /**
+     * Metodo che consente di recuperare le impostazioni del working plan inserite
+     * dalla clinica.
+     * 
+     * @access public
+     */
+    public function recuperaWorkingPlan() 
+    {
+        $workingPlanText = "{";
+        
+//        foreach ($_POST as $key => $value) 
+//        {
+//            if($key!=="controller")
+//            {
+//                $workingPlanText = "'" . $key . ":{'";
+//            }
+//        }
+        
+        if (isset($_POST['Lunedì']))
+        {
+           $workingPlanText = "'Lunedì': {'LunedìStart':'" . $_POST['LunedìStart'] . "','LunedìEnd':'" . $_POST['LunedìEnd'] . "', '";
+        }
+        else
+        {
+            $workingPlanText = $workingPlanText . NULL . ", ";
+        }
+        if (isset($_POST['Martedì']))
+        {
+           $workingPlanText = "'Martedì': {'MartedìStart':'" . $_POST['MartedìStart'] . "','MartedìEnd':'" . $_POST['MartedìEnd'] . "', '";
+        }
+        else
+        {
+            $workingPlanText = $workingPlanText . NULL . ", ";
+        } 
+        if (isset($_POST['Mercoledì']))
+        {
+           $workingPlanText = "'Mercoledì': {'MercoledìStart':'" . $_POST['MercoledìStart'] . "','MercoledìEnd':'" . $_POST['MercoledìEnd'] . "', '";
+        }
+        else
+        {
+            $workingPlanText = $workingPlanText . NULL . ", ";
+        }
+        if (isset($_POST['Giovedì']))
+        {
+           $workingPlanText = "'Giovedì': {'GiovedìStart':'" . $_POST['GiovedìStart'] . "','GiovedìEnd':'" . $_POST['GiovedìEnd'] . "', '";
+        }
+        else
+        {
+            $workingPlanText = $workingPlanText . NULL . ", ";
+        }
+        if (isset($_POST['Venerdì']))
+        {
+           $workingPlanText = "'Venerdì': {'VenerdìStart':'" . $_POST['VenerdìStart'] . "','VenerdìEnd':'" . $_POST['VenerdìEnd'] . "', '";
+        }
+        else
+        {
+            $workingPlanText = $workingPlanText . NULL . ", ";
+        }
+        if (isset($_POST['Sabato']))
+        {
+           $workingPlanText = "'Sabato': {'SabatoStart':'" . $_POST['SabatoStart'] . "','SabatoEnd':'" . $_POST['SabatoEnd'] . "', '";
+        }
+        else
+        {
+            $workingPlanText = $workingPlanText . NULL . ", ";
+        }
+        if (isset($_POST['Domenica']))
+        {
+           $workingPlanText = "'Domenica': {'DomenicaStart':'" . $_POST['DomenicaStart'] . "','DomenicaEnd':'" . $_POST['DomenicaEnd'] . "', '";
+        }
+        else
+        {
+            $workingPlanText = $workingPlanText . NULL . ", ";
+        }
+        return $workingPlanText;
+    }
 }

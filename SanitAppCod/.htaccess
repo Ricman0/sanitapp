@@ -28,6 +28,7 @@
 
 
     RewriteCond %{REQUEST_METHOD} POST 
+    RewriteRule ^(impostazioni)/(clinica)/(workingPlan|credenziali|informazioni)?$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(\w+)/(\w+)/(\w+)?$ index.php
     RewriteRule ^(\w+)/(\w+)?$ index.php
     RewriteRule ^(\w+)?$ index.php
