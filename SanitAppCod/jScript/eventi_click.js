@@ -100,7 +100,7 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
                 'maxTime': '06:00:00'
             });
             
-            $('.orari').timepicker({
+            $('.time').timepicker({
                 'timeFormat': 'H:i:s',
                 'step': 15
             });
