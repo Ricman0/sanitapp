@@ -31,13 +31,18 @@ $(document).ready(function () {
         formPausa();
     });
     $('#main').on("click", "#scartaPausa", function () {
-        scartaPausa();
+        
+        scartaPausa(this);//this si riferisce al pulsante scartapausa
     });
     
      $('#main').on("click", "#accettaPausa", function () {
         accettaPausa();
     });
-
+    
+    $('#main').on("click", "#eliminaPausa", function () {
+       
+        eliminaPausa(this);
+    });
 
     $('#main').on("click", ".rigaEsame", function () {
         var id = $(this).attr('id');
@@ -92,10 +97,10 @@ function formPausa()
         '<option value="Sabato">Sabato</option>' +
         '<option value="Domenica">Domenica</option>' +
         '</select></form></td>' +
-        '<td><form><input autocomplete="off" name="oraInizio" class="time"></form></td>'+
-        '<td><form><input autocomplete="off" name="oraFine" class="time"></form></td>'+
-        '<td><a id="accettaPausa"><i class="fa fa-check fa-lg faAzzurro"  aria-hidden="true"></i></a> &nbsp'+
-        '<a id="scartaPausa"><i class="fa fa-ban fa-lg faAzzurro" aria-hidden="true"></i></a></td></form></tr>';
+        '<td><form><input autocomplete="off" id="oraInizio" name="oraInizio" class="time"></form></td>'+
+        '<td><form><input autocomplete="off" id="oraFine" name="oraFine" class="time"></form></td>'+
+        '<td><div id="azioniPausa"><a id="accettaPausa"><i class="fa fa-check fa-lg faAzzurro"  aria-hidden="true"></i></a> &nbsp'+
+        '<a id="scartaPausa"><i class="fa fa-ban fa-lg faAzzurro" aria-hidden="true"></i></a></div></td></form></tr>';
         $('#aggiungiPausaButton').prop('disabled', true);
         $('#tabellaPause').prepend(tr);
         $('.time').timepicker({
@@ -109,17 +114,30 @@ function formPausa()
     
     
     function accettaPausa(){
+        if( $('#oraFine').val().length ===0 || $('#oraInizio').val().length ===0  ) 
+        {
+            alert("Inserire gli orari");
+      }
+      else{
+
         $('#aggiungiPausaButton').prop('disabled', false);
         $('option:not(:selected)').prop('disabled', true);
         $(".bodyTabellaPause :input").prop('readonly', true);
+        $("#azioniPausa").html('<a id="eliminaPausa"><i class="fa fa-close fa-lg faAzzurro"  aria-hidden="true"></i></a>');
         
+      }   
+    }
+    
+    function scartaPausa(param){
+        $('#aggiungiPausaButton').prop('disabled', false);
+        $(param).closest('tr').remove();
         
     }
     
-    function scartaPausa(){
-        $('#aggiungiPausaButton').prop('disabled', false);
-        $('.bodyTabellaPause tr:first-child').remove();
+    function eliminaPausa(param)
+    {
         
+       $(param).closest("tr").remove();
     }
 
 
