@@ -36,7 +36,7 @@ class VImpostazioni extends View{
      */
     public function visualizzaImpostazioniClinica()
     {  
-       $giorni = Array("Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica");
+       $giorni = Array("Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica");
        $this->assegnaVariabiliTemplate('giorniSettimanali', $giorni);
        return $this->visualizzaTemplate('workingPlan'); 
     }
@@ -111,48 +111,42 @@ class VImpostazioni extends View{
             }
     }
     
-    /**
-     * Metodo che consente di recuperare le impostazioni del working plan inserite
-     * dalla clinica.
-     * 
-     * @access public
-     * @return string Il working plan sottoforma di testo
-     */
-    public function recuperaWorkingPlan() 
-    {
-        $giorniSettimanali = Array("Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica");
-        $workingPlanText = "{";
-        foreach ($giorniSettimanali as $giorno) 
-        {
-            if (isset($_POST[$giorno]))
-            {
-               $workingPlanText .=  " " .  $giorno . " : {" .  $giorno . "Start : " . $_POST["$giorno" . "Start"] . ", " . $giorno . "End: " . $_POST["$giorno" . "End"] ;
-               if($giorno == "Domenica")
-                {
-                    $workingPlanText .= "}";
-                }
-                else 
-                {
-                    $workingPlanText .= " , ";
-                }
-            }
-            else
-            {
-                if($giorno==="Domenica")
-                {
-                    $workingPlanText .= $giorno . ": NULL}";
-                }
-                else 
-                {
-                    $workingPlanText .= $giorno . ": NULL, ";
-                }
-            }
-            
-        }
-
-        echo $workingPlanText;
-        return $workingPlanText;
-    }
+    
+//    public function recuperaWorkingPlan() 
+//    {
+//        $giorniSettimanali = Array("Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica");
+//        $workingPlanText = "{";
+//        foreach ($giorniSettimanali as $giorno) 
+//        {
+//            if (isset($_POST[$giorno]))
+//            {
+//               $workingPlanText .=  " " .  $giorno . " : {" .  $giorno . "Start : " . $_POST["$giorno" . "Start"] . ", " . $giorno . "End: " . $_POST["$giorno" . "End"] ;
+//               if($giorno == "Domenica")
+//                {
+//                    $workingPlanText .= "}";
+//                }
+//                else 
+//                {
+//                    $workingPlanText .= " , ";
+//                }
+//            }
+//            else
+//            {
+//                if($giorno==="Domenica")
+//                {
+//                    $workingPlanText .= $giorno . ": NULL}";
+//                }
+//                else 
+//                {
+//                    $workingPlanText .= $giorno . ": NULL, ";
+//                }
+//            }
+//            
+//        }
+//
+//        echo $workingPlanText;
+//        return $workingPlanText;
+//    }
     
     /**
      * Metodo che invia come risposta TRUE se il salvataggio è stato effettuato, FALSE altrimenti
@@ -164,5 +158,33 @@ class VImpostazioni extends View{
     public function setSalvato($salvato) 
     {
         return $salvato;
+    }
+    
+    
+    /**
+     * Metodo che consente di recuperare le impostazioni del working plan inserite
+     * dalla clinica.
+     * 
+     * @access public
+     * @return string Il working plan sottoforma di testo json
+     */
+    public function recuperaWorkingPlan() 
+    {
+        $giorniSettimanali = Array("Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica");
+        $workingPlan = Array();
+        foreach ($giorniSettimanali as $giorno) 
+        {
+            if (isset($_POST[$giorno]))
+            {
+                $inizioFine = Array ('Start' => $_POST[$giorno . 'Start'] , 'End' => $_POST[$giorno . 'End']);
+                $workingPlan ["$giorno"]= $inizioFine; 
+            }
+            else
+            {
+                $workingPlan ["$giorno"]= NULL;
+                
+            }
+        }
+        return json_encode($workingPlan);        
     }
 }
