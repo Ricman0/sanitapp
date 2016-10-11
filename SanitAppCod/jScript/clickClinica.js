@@ -86,8 +86,7 @@ function inviaImpostazioniClinica(id, controller1, task1,task2, ajaxdiv)
 }
 function formPausa()
 {
-    
-  
+
     var tr ='<tr><td><form><select name="value">' +
         '<option value="Lunedì" selected="selected">Lunedì</option>' +
         '<option value="Martedì">Martedì</option>' +
@@ -100,7 +99,7 @@ function formPausa()
         '<td><form><input autocomplete="off" id="oraInizio" name="oraInizio" class="time"></form></td>'+
         '<td><form><input autocomplete="off" id="oraFine" name="oraFine" class="time"></form></td>'+
         '<td><div id="azioniPausa"><a id="accettaPausa"><i class="fa fa-check fa-lg faAzzurro"  aria-hidden="true"></i></a> &nbsp'+
-        '<a id="scartaPausa"><i class="fa fa-ban fa-lg faAzzurro" aria-hidden="true"></i></a></div></td></form></tr>';
+        '<a id="scartaPausa"><i class="fa fa-ban fa-lg faAzzurro" aria-hidden="true"></i></a></div></td></tr>';
         $('#aggiungiPausaButton').prop('disabled', true);
         $('#tabellaPause').prepend(tr);
         $('.time').timepicker({

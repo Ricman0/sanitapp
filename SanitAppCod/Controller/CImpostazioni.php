@@ -56,29 +56,19 @@ class CImpostazioni {
                 echo ($task2);
                 if($task2 === "workingPlan")
                 {
-//                    foreach ($_POST as $key => $value) 
-//                    {
-//                        echo "chiave: " . $key . ", valore:" . $value . " "; 
-//                    }
-                    print_r($_POST);
-                    echo " recupero da S_POST ";
+//                
                     $workingPlanText = $vImpostazioni->recuperaWorkingPlan();
-                    echo " recuperato da S_POST ";
                     $sessione = USingleton::getInstance('USession');
                     $usernameClinica = $sessione->leggiVariabileSessione('usernameLogIn');
-                    echo " creo Clinica ";
                     $eClinica = new EClinica($usernameClinica);
-                    echo " eClinica->salvaWorkingPlanClinica ";
                     $salvato = $eClinica->salvaWorkingPlanClinica($workingPlanText);
                     if ($salvato === "TRUE")
                     {
                         echo "set salvato ";
                         //$vImpostazioni->setSalvato(TRUE);
                         $vImpostazioni->visualizzaImpostazioniClinica();
-                    }
-                    
+                    }                    
                 }
-
                 break;
 
             default:
