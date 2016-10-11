@@ -36,7 +36,8 @@ class VImpostazioni extends View{
      */
     public function visualizzaImpostazioniClinica()
     {  
-//       $this->assegnaVariabiliTemplate('utente', $utente);
+       $giorni = Array("Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica");
+       $this->assegnaVariabiliTemplate('giorniSettimanali', $giorni);
        return $this->visualizzaTemplate('workingPlan'); 
     }
     
