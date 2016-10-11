@@ -33,7 +33,7 @@
     RewriteRule ^(\w+)/(\w+)?$ index.php
     RewriteRule ^(\w+)?$ index.php
 
-  
+    
 
 
   # Adaptive-Images -----------------------------------------------------------------------------------

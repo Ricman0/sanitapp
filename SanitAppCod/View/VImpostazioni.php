@@ -120,73 +120,36 @@ class VImpostazioni extends View{
      */
     public function recuperaWorkingPlan() 
     {
+        $giorniSettimanali = Array("Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica");
         $workingPlanText = "{";
-        
-//        foreach ($_POST as $key => $value) 
-//        {
-//            if($key!=="controller")
-//            {
-//                $workingPlanText = "'" . $key . ":{'";
-//            }
-//        }
-        
-        if (isset($_POST['Lunedì']))
+        foreach ($giorniSettimanali as $giorno) 
         {
-           $workingPlanText .=  " Lunedì : {LunedìStart : " . $_POST['LunedìStart'] . ", LunedìEnd: " . $_POST['LunedìEnd'] . " , ";
-           
+            if (isset($_POST[$giorno]))
+            {
+               $workingPlanText .=  " " .  $giorno . " : {" .  $giorno . "Start : " . $_POST["$giorno" . "Start"] . ", " . $giorno . "End: " . $_POST["$giorno" . "End"] ;
+               if($giorno == "Domenica")
+                {
+                    $workingPlanText .= "}";
+                }
+                else 
+                {
+                    $workingPlanText .= " , ";
+                }
+            }
+            else
+            {
+                if($giorno==="Domenica")
+                {
+                    $workingPlanText .= $giorno . ": NULL}";
+                }
+                else 
+                {
+                    $workingPlanText .= $giorno . ": NULL, ";
+                }
+            }
+            
         }
-        else
-        {
-            $workingPlanText .= "Lunedì: NULL, ";
-        }
-        if (isset($_POST['Martedì']))
-        {
-           $workingPlanText .= " Martedì : {MartedìStart: " . $_POST['MartedìStart'] . ", MartedìEnd: " . $_POST['MartedìEnd'] . ", ";
-        }
-        else
-        {
-            $workingPlanText .=  "Martedì: NULL, ";
-        } 
-        if (isset($_POST['Mercoledì']))
-        {
-           $workingPlanText .= " Mercoledì: {MercoledìStart: " . $_POST['MercoledìStart'] . ", MercoledìEnd: " . $_POST['MercoledìEnd'] . ", ";
-        }
-        else
-        {
-            $workingPlanText .=  "Mercoledì:NULL, ";
-        }
-        if (isset($_POST['Giovedì']))
-        {
-           $workingPlanText .= " Giovedì: {GiovedìStart: " . $_POST['GiovedìStart'] . ", GiovedìEnd: " . $_POST['GiovedìEnd'] . ", ";
-        }
-        else
-        {
-            $workingPlanText .=  "Giovedì:NULL, ";
-        }
-        if (isset($_POST['Venerdì']))
-        {
-           $workingPlanText .= " Venerdì: {VenerdìStart: " . $_POST['VenerdìStart'] . ", VenerdìEnd: " . $_POST['VenerdìEnd'] . ", ";
-        }
-        else
-        {
-            $workingPlanText .=  "Venerdì:NULL, ";
-        }
-        if (isset($_POST['Sabato']))
-        {
-           $workingPlanText .= " Sabato: {SabatoStart: " . $_POST['SabatoStart'] . ", SabatoEnd: " . $_POST['SabatoEnd'] . ", ";
-        }
-        else
-        {
-            $workingPlanText .=  "Sabato:NULL, ";
-        }
-        if (isset($_POST['Domenica']))
-        {
-           $workingPlanText .= " Domenica: {DomenicaStart: " . $_POST['DomenicaStart'] . ", DomenicaEnd: " . $_POST['DomenicaEnd'] . "}";
-        }
-        else
-        {
-            $workingPlanText.=  "Domenica:NULL }";
-        }
+
         echo $workingPlanText;
         return $workingPlanText;
     }

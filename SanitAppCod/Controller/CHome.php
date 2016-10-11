@@ -130,8 +130,11 @@ class CHome {
     {
         switch ($controller) 
         {
-            case 'modifica':
-                
+           
+            case 'impostazioni':
+                echo ($controller);
+                $cImpostazioni = USingleton::getInstance('CImpostazioni');
+                $cImpostazioni->gestisciImpostazioniPUT();
                 break;
 
             default:

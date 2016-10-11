@@ -60,6 +60,7 @@ class CImpostazioni {
 //                    {
 //                        echo "chiave: " . $key . ", valore:" . $value . " "; 
 //                    }
+                    print_r($_POST);
                     echo " recupero da S_POST ";
                     $workingPlanText = $vImpostazioni->recuperaWorkingPlan();
                     echo " recuperato da S_POST ";
