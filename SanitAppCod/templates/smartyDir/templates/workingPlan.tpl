@@ -27,8 +27,8 @@
                                             <label for="{$giorno}">{$giorno}</label>
                                         </div>
                                     </td>
-                                    <td><input type="text" id="{$giorno}.Start" class="time" /></td>
-                                    <td><input type="text" id="{$giorno}.End" class="time" /></td>
+                                    <td><input type="text" id="{$giorno}Start" name="{$giorno}Start" class="time" /></td>
+                                    <td><input type="text" id="{$giorno}End"  name="{$giorno}End" class="time" /></td>
                                 </tr>
                             {/foreach}   
                             </tbody>
