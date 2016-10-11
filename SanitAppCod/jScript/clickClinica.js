@@ -33,6 +33,11 @@ $(document).ready(function () {
     $('#main').on("click", "#scartaPausa", function () {
         scartaPausa();
     });
+    
+     $('#main').on("click", "#accettaPausa", function () {
+        accettaPausa();
+    });
+
 
     $('#main').on("click", ".rigaEsame", function () {
         var id = $(this).attr('id');
@@ -89,8 +94,8 @@ function formPausa()
         '</select></form></td>' +
         '<td><form><input autocomplete="off" name="oraInizio" class="time"></form></td>'+
         '<td><form><input autocomplete="off" name="oraFine" class="time"></form></td>'+
-        '<td><a href="#"><i class="fa fa-check fa-lg"  aria-hidden="true"></i></a> &nbsp'+
-        '<a id="scartaPausa"><i class="fa fa-ban fa-lg" aria-hidden="true"></i></a></td></form></tr>';
+        '<td><a id="accettaPausa"><i class="fa fa-check fa-lg faAzzurro"  aria-hidden="true"></i></a> &nbsp'+
+        '<a id="scartaPausa"><i class="fa fa-ban fa-lg faAzzurro" aria-hidden="true"></i></a></td></form></tr>';
         $('#aggiungiPausaButton').prop('disabled', true);
         $('#tabellaPause').prepend(tr);
         $('.time').timepicker({
@@ -101,6 +106,15 @@ function formPausa()
         
         
     };
+    
+    
+    function accettaPausa(){
+        $('#aggiungiPausaButton').prop('disabled', false);
+        $('option:not(:selected)').prop('disabled', true);
+        $(".bodyTabellaPause :input").prop('readonly', true);
+        
+        
+    }
     
     function scartaPausa(){
         $('#aggiungiPausaButton').prop('disabled', false);
