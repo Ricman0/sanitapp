@@ -149,7 +149,7 @@ function formPausa()
                     }
                     else
                     {
-                        var c = $('#LunediPausa').val()
+                        var c = $('#LunediPausa').val();
                         i = c.length - 2;
                         c = c.slice(0, i);
                         alert(c);
@@ -168,7 +168,7 @@ function formPausa()
                     }
                     else
                     {
-                        var c = $('#MartediPausa').val()
+                        var c = $('#MartediPausa').val();
                         i = c.length - 2;
                         c = c.slice(0, i);
                         alert(c);
@@ -186,7 +186,7 @@ function formPausa()
                     }
                     else
                     {
-                        var c = $('#MercolediPausa').val()
+                        var c = $('#MercolediPausa').val();
                         i = c.length - 2;
                         c = c.slice(0, i);
                         alert(c);
@@ -204,7 +204,7 @@ function formPausa()
                     }
                     else
                     {
-                        var c = $('#GiovediPausa').val()
+                        var c = $('#GiovediPausa').val();
                         i = c.length - 2;
                         c = c.slice(0, i);
                         alert(c);
@@ -222,7 +222,7 @@ function formPausa()
                     }
                     else
                     {
-                        var c = $('#VenerdiPausa').val()
+                        var c = $('#VenerdiPausa').val();
                         i = c.length - 2;
                         c = c.slice(0, i);
                         alert(c);
@@ -240,7 +240,7 @@ function formPausa()
                     }
                     else
                     {
-                        var c = $('#SabatoPausa').val()
+                        var c = $('#SabatoPausa').val();
                         i = c.length - 2;
                         c = c.slice(0, i);
                         alert(c);
@@ -258,7 +258,7 @@ function formPausa()
                     }
                     else
                     {
-                        var c = $('#DomenicaPausa').val()
+                        var c = $('#DomenicaPausa').val();
                         i = c.length - 2;
                         c = c.slice(0, i);
                         alert(c);
