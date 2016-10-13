@@ -145,7 +145,7 @@ class EClinica
 //            $via, $numeroCivico=NULL, $cap,$località, $provincia, $regione, $email,$PEC, $username, $password, 
 //            $telefono, $capitaleSociale, $orarioAperturaAM , $orarioChiusuraAM,
 //            $orarioAperturaPM, $orarioChiusuraPM, $orarioContinuato, $cod, $esami=NULL) 
-    public function __construct($username, $partitaIVA=NULL, $nomeClinica=NULL, $titolareClinica=NULL, 
+    public function __construct($username=NULL, $partitaIVA=NULL, $nomeClinica=NULL, $titolareClinica=NULL, 
             $via=NULL, $numeroCivico=NULL, $cap=NULL,$località=NULL, $provincia=NULL, $regione=NULL, $email=NULL,$PEC=NULL, $password=NULL, 
             $telefono=NULL, $capitaleSociale=NULL,$workingPlan=NULL, $cod=NULL, $esami=NULL) 
     {
@@ -236,7 +236,7 @@ class EClinica
         else 
         {
             $fClinica = USingleton::getInstance('FClinica');
-            if($username!=NULL)
+            if($username!==NULL)
             {
                 $attributiClinica = $fClinica->cercaClinicaByUsername($username);
             }

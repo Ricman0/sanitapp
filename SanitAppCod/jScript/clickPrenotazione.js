@@ -5,7 +5,8 @@
  */
 $(document).ready(function (){
     $('#main').on("click", "#aggiungiPrenotazioneButton", function(){
-        prenotazione('prenotazione','esame', 'id', "#contenutoAreaPersonale"); 
+        var id = $("#aggiungiPrenotazioneButton").attr("data-idEsame");
+        prenotazione('prenotazione', 'esame', id, "#contenutoAreaPersonale"); 
     });
 });
 

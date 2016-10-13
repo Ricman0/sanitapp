@@ -20,12 +20,22 @@ class CPrenotazione {
         {
            $id = $vPrenotazione->getId();
            $eEsame = new EEsame($id);
-           $partitaIVAClinica=$eEsame->getPartitaIVAClinicaEsame();
-           $eClinica = new EClinica($partitaIVAClinica);
+           $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+           $eClinica = new EClinica(NULL, $partitaIVAClinica);
+           $workingPlan = $eClinica->getWorkingPlanClinica();
+           print_r($workingPlan);
+           $workingPlan = json_decode($workingPlan);
+           print_r($workingPlan);
            
            $nomeEsame =$eEsame->getNomeEsame();
+           $nomeClinica = $eClinica->getNomeClinica();
+           $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+           $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinica($id, $partitaIVAClinica);
+           if(is_array($prenotazioni) || (!is_bool($prenotazioni)))
+           {
+               $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $workingPlan, $prenotazioni);
+           }
            
-           $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica);
            
         }
     }

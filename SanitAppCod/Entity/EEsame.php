@@ -61,10 +61,10 @@ class EEsame
     private $_nomeCategoria; 
     
     /**
-     * @var string $_nomeClinica Il nome della clinica a cui appartiene 
+     * @var string $_partitaIVAClinica La partita IVA della clinica a cui appartiene 
      * tale esame
      */
-    private $_nomeClinica; 
+    private $_partitaIVAClinica; 
     
     /**
      * Costruttore di EEsame
