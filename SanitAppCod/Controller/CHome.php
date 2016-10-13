@@ -226,6 +226,20 @@ class CHome {
                 $cPazienti = USingleton::getInstance('CGestisciPazienti');
                 $cPazienti->gestisciPazienti();
                 break;
+            
+            case 'prenotazione':
+                $sessione = USingleton::getInstance('USession');
+                if($sessione->checkVariabileSessione('LoggedIn'))
+                {
+                    $cPrenotazione = USingleton::getInstance('CPrenotazione');
+                    $cPrenotazione->gestisciPrenotazione();
+                }
+                else
+                {
+                    //ritorna la pagina per autenticarsi o registrarsi
+                }
+                    
+                break;
             default:
                 $vHome->restituisciHomePage();
                 break;

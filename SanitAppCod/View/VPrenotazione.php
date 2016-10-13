@@ -26,7 +26,7 @@ class VPrenotazione extends View{
      * 
      * @access public
      */
-    public function restituisciPaginaAggiungiPrenotazione()
+    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica)
     {
         
     }

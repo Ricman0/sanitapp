@@ -842,11 +842,11 @@ function validazioneEsame()
                                 max: 20,
                                 min: 1
                             },
-                    descrizioneEsame:
-                            {
-                                required: true,
-                                maxlenght: 200
-                            }
+//                    descrizioneEsame:
+//                            {
+//                                required: true,
+//                                maxlenght: 200
+//                            }
  
                 },
         messages:
@@ -884,12 +884,14 @@ function validazioneEsame()
                                 min: "Minimo 1",
                                 max: "Massimo 20"
                             },
-                    descrizioneEsame:
-                            {
-                                required: "Inserisci una breve descrizione"
-                            }
+//                    descrizioneEsame:
+//                            {
+//                                required: "Inserisci una breve descrizione",
+//                                maxlenght:"Max 200 caratteri"
+//                        
+//                            }
                 },
-        submitHandler:function(form) 
+        submitHandler:function() 
         { 
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiEsame si trova in clickGestisciServizi.js

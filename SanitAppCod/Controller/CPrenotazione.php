@@ -7,7 +7,30 @@
  */
 class CPrenotazione {
     
-    
+    /**
+     * Metodo che consente di gestire una prenotazione
+     */
+    public function gestisciPrenotazione()
+    {
+        $sessione = USingleton::getInstance('USession');
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $vPrenotazioni = USingleton::getInstance('VPrenotazione');
+        $task = $vPrenotazione->getTask();
+        if ($task==="esame")
+        {
+           $id = $vPrenotazione->getId();
+           $eEsame = new EEsame($id);
+           $partitaIVAClinica=$eEsame->getPartitaIVAClinicaEsame();
+           $eClinica = new EClinica($partitaIVAClinica);
+           
+           $nomeEsame =$eEsame->getNomeEsame();
+           
+           $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica);
+           
+        }
+    }
+
+
     public function gestisciPrenotazioni()
     {
         $sessione = USingleton::getInstance('USession');

@@ -112,6 +112,22 @@ class FClinica extends FDatabase{
     }
     
     /**
+     * Metodo che consente di trovare la clinica la cui partita IVA è passata come
+     * parametro
+     * 
+     * @access public
+     * @param string $partitaIVA La partitaIVA della clinica
+     * @return Array|boolean Array contenente solo la clinica cercata, FALSE altrimenti
+     */
+    public function cercaClinicaByPartitaIVA($partitaIVA) 
+    {
+        $query = "SELECT *,"
+                . "FROM " . $this->_nomeTabella . " WHERE (PartitaIVA ='" . $partitaIVA. "')";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+    }
+    
+    /**
      * Metodo che consente di trovare la clinica il cui username è passato come
      * parametro
      * 

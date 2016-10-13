@@ -149,7 +149,7 @@ class EClinica
             $via=NULL, $numeroCivico=NULL, $cap=NULL,$località=NULL, $provincia=NULL, $regione=NULL, $email=NULL,$PEC=NULL, $password=NULL, 
             $telefono=NULL, $capitaleSociale=NULL,$workingPlan=NULL, $cod=NULL, $esami=NULL) 
     {
-        if($partitaIVA!==NULL)
+        if($partitaIVA!==NULL && $username!==NULL)
         {
             $this->_partitaIVA= $partitaIVA;
             $this->_nomeClinica = $nomeClinica;
@@ -236,7 +236,14 @@ class EClinica
         else 
         {
             $fClinica = USingleton::getInstance('FClinica');
-            $attributiClinica = $fClinica->cercaClinicaByUsername($username);
+            if($username!=NULL)
+            {
+                $attributiClinica = $fClinica->cercaClinicaByUsername($username);
+            }
+            else
+            {
+                 $attributiClinica = $fClinica->cercaClinicaByPartitaIVA($partitaIVA);
+            }
             if(is_array($attributiClinica) && count($attributiClinica)==1)
             {
                 $this->_partitaIVA = $attributiClinica[0]["PartitaIVA"];

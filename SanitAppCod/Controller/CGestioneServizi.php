@@ -147,7 +147,7 @@ class CGestioneServizi {
 //       {
            
            
-           $eEsame = new EEsame($datiEsame['nome'], $datiEsame['medico'],
+           $eEsame = new EEsame(NULL, $datiEsame['nome'], $datiEsame['medico'],
                    $datiEsame['categoria'], $datiEsame['prezzo'], 
                    $datiEsame['durata'], $datiEsame['numPrestazioniSimultanee'], 
                    $datiEsame['descrizione']);

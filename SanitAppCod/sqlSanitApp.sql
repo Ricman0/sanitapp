@@ -267,10 +267,10 @@ CREATE TABLE referto (
 --
 -- Dump dei dati per la tabella `referto`
 --
-
-INSERT INTO referto (IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, 
-Contenuto, MedicoReferto, DataReferto) VALUES
-(1, 1, 1, '12345', 0x696c207265666572746f20, 'Riga', '2016-04-26');
+-- 
+-- INSERT INTO referto (IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, 
+-- Contenuto, MedicoReferto, DataReferto) VALUES
+-- (1, 1, 1, '12345', 0x696c207265666572746f20, 'Riga', '2016-04-26');
 
 -- --------------------------------------------------------
 

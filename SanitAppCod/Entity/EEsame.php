@@ -61,6 +61,12 @@ class EEsame
     private $_nomeCategoria; 
     
     /**
+     * @var string $_nomeClinica Il nome della clinica a cui appartiene 
+     * tale esame
+     */
+    private $_nomeClinica; 
+    
+    /**
      * Costruttore di EEsame
      * 
      * @param string $id ID dell'esame
@@ -73,7 +79,7 @@ class EEsame
      * @param string $descrizione Breve descrizione dell'esame
      */
   
-    public function __construct($id=NULL, $nomeEsame="", $medico="", $nomeCategoria="", $prezzo="", $durata="", $numPrestazioniSimultanee=1, $descrizione='') 
+    public function __construct($id=NULL, $nomeEsame="", $medico="", $nomeCategoria="", $prezzo="", $durata="", $numPrestazioniSimultanee=1, $descrizione='', $PartitaIVAClinica="") 
     {
         if(isset($id))
         {
@@ -89,6 +95,7 @@ class EEsame
                 $this->_durata = $attributiEsame[0]["Durata"];
                 $this->_numeroPrestazioniSimultanee = $attributiEsame[0]["NumPrestazioniSimultanee"];
                 $this->_descrizione = $attributiEsame[0]["Descrizione"];
+                $this->_partitaIVA= $attributiEsame[0]["PartitaIVA"];
             }
         }
         else
@@ -101,6 +108,7 @@ class EEsame
         $this->_durata = $durata;
         $this->_numeroPrestazioniSimultanee = $numPrestazioniSimultanee;
         $this->_descrizione = $descrizione;
+        $this->_PartitaIVA = $PartitaIVAClinica;
         }
     }
     
@@ -145,6 +153,15 @@ class EEsame
         return $this->_nomeEsame;
     }
     
+    /**
+     * Metodo che restituisce la partita IVA della clinica
+     * 
+     * @return string La partita IVA della clinica 
+     */
+    public function getPartitaIVAClinicaEsame()
+    {
+        return $this->_partitaIVAClinica;
+    }
     
     /**
      * Metodo che restituisce la descrizione dell'esame
