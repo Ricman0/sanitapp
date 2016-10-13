@@ -26,6 +26,7 @@
                                             <input type="checkbox" id="{$giorno}" name="{$giorno}" />
                                             <label for="{$giorno}">{$giorno}</label>
                                         </div>
+                                        <input type="hidden" id="{$giorno}Pausa" name="{$giorno}Pausa" value="" />
                                     </td>
                                     <td><input type="text" id="{$giorno}Start" name="{$giorno}Start" class="time" /></td>
                                     <td><input type="text" id="{$giorno}End"  name="{$giorno}End" class="time" /></td>

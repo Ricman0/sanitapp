@@ -177,6 +177,8 @@ class VImpostazioni extends View{
             if (isset($_POST[$giorno]))
             {
                 $inizioFine = Array ('Start' => $_POST[$giorno . 'Start'] , 'End' => $_POST[$giorno . 'End']);
+//                if
+                $inizioFine['Pause'] = $_POST[$giorno . 'Pausa'];
                 $workingPlan ["$giorno"]= $inizioFine; 
             }
             else
