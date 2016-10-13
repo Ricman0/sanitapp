@@ -75,6 +75,8 @@ function clickRiga(controller1, task1, id, ajaxdiv)
  */
 function inviaControllerTask(controller1, task1, ajaxdiv)
 {
+    $('.time').datepicker("destroy");
+    $('#ui-datepicker-div').remove();
     $.ajax({
         // definisco il tipo della chiamata
         type: 'GET',
@@ -93,16 +95,8 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
             $(ajaxdiv).html(datiRisposta);
             $(".tablesorter").tablesorter();
             
-
-            $('#durataEsame').timepicker({
-                'timeFormat': 'H:i:s',
-                'step': 15,
-                'maxTime': '06:00:00'
-            });
-            
             $('.time').timepicker({
-                'timeFormat': 'H:i:s',
-                'step': 15
+                stepMinute: 10
             });
 
         },

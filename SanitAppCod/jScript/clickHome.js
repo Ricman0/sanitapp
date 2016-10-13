@@ -7,7 +7,9 @@ $(document).ready(function(){
             success: function(msg)
               {
                 $("#wrapper").html(msg);
+                
               },
+              
             error: function()
               {
                 alert("Chiamata fallita, si prega di riprovare...");

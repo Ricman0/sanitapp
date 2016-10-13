@@ -17,9 +17,15 @@
         <link rel="stylesheet" type="text/css" href="./Css/cartinaItalia.css"/>
         <link rel="stylesheet" type="text/css" href="./Css/areaPersonale.css"/>
         <link rel="stylesheet" type="text/css" href="./Css/tabelle.css"/>
-        <link rel="stylesheet" type="text/css" href="./Css/jquery.timepicker.css"/>
+        <link rel="stylesheet" type="text/css" href="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.css"/>
+        <link rel="stylesheet" type="text/css" href="./plugins/jquery-ui/jquery-ui.min.css"/>
 
-        <script type="text/javascript" src="./jScript/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="./plugins/jquery-1.12.4.js"></script>
+        <script type="text/javascript" src="./plugins/jquery-ui/jquery-ui.min.js"></script>        
+        <script type="text/javascript" src="./plugins/jquery.validate.js"></script>
+        <script type="text/javascript" src="./plugins/jquery.tablesorter.js"></script>
+        <script type="text/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>
+        
         <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
         <script type="text/javascript" src="./jScript/eventi_click.js"></script>
         <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
@@ -27,15 +33,9 @@
         <script type="text/javascript" src="./jScript/clickEsami.js"></script>
         <script type="text/javascript" src="./jScript/clickCercaCliniche.js"></script>
         <script type="text/javascript" src="./jScript/clickCercaEsami.js"></script>
-        <script type="text/javascript" src="./jScript/jquery.validate.js"></script>
         <script type="text/javascript" src="./jScript/validazioneDati.js"></script>
         <script type="text/javascript" src="./jScript/clickHome.js"></script>
-        <script type="text/javascript" src="./jScript/jquery.tablesorter.js"></script>
         <script type="text/javascript" src="./jScript/clickClinica.js"></script>
-
-        <script type="text/javascript" src="./jScript/jquery.timepicker.min.js"></script>
-        <script type="text/javascript" src="./jScript/jquery.datepair.min.js"></script>
-
         <script type="text/javascript" src="./jScript/clickUtente.js"></script>
         <script type="text/javascript" src="./jScript/clickMedico.js"></script>
 

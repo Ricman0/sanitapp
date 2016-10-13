@@ -26,11 +26,9 @@
     <input type="text" name="prezzoEsame" id="prezzoEsame" class="elementiForm" placeholder="35.50" required/>
     <br>
     
-    <div class="time">
     <label for="durataEsame" class="elementiForm">Durata</label>
-    <input type="text" name="durataEsame" id="durataEsame" class="elementiForm"  placeholder="3" required/>
+    <input type="text" name="durataEsame" id="durataEsame" class="elementiForm time"  placeholder="3" required/>
     <br>
-    </div>
     
     <label for="numPrestazioniSimultanee" class="elementiForm">Numero Prestazioni Simultanee</label>
     <input type="number" name="numPrestazioniSimultanee" id="numPrestazioniSimultanee" class="elementiForm" min="1" max="1000" placeholder="1" required>

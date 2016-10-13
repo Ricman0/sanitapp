@@ -21,6 +21,7 @@ $(document).ready(function () {
 
     $('#main').on("click", "#impostazioniAreaPersonaleClinica", function () {
         inviaControllerTask('impostazioni', 'clinica', "#contenutoAreaPersonale");
+        
     });
     
     $('#main').on("click", "#salvaImpostazioniClinica", function () {
@@ -111,10 +112,6 @@ function formPausa()
         $('#aggiungiPausaButton').prop('disabled', true);
 //        $(tr).appendTo('#tabellaPause');
         $('#tabellaPause').prepend(tr);
-        $('.time').timepicker({
-                'timeFormat': 'H:i:s',
-                'step': 15
-            });
         
         
         

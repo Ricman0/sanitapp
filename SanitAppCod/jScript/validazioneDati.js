@@ -800,9 +800,9 @@ function validazioneEsame()
 {    
     jQuery.validator.addMethod("time", function(valore){
         //espressione regolare per la durata
-        var regex = /([0-2][0-3]):([0-5]\d):([0-5]\d)/;
+        var regex = /([0-2][0-3]):([0-5]\d)/;
         return valore.match(regex);
-        }, "La durata è nel formato hh:mm:ss");
+        }, "La durata è nel formato hh:mm");
     
     $("#aggiungiEsame").validate({
         rules:
