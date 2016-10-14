@@ -30,6 +30,8 @@ class VPrenotazione extends View{
     {
         $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
         $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
-        
+        $this->assegnaVariabiliTemplate('workingPlan', $workingPlan);
+        $this->assegnaVariabiliTemplate('prenotazioni', $prenotazioni);
+        return $this->visualizzaTemplate('prenotaEsame');
     }
 }

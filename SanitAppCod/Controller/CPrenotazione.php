@@ -14,7 +14,7 @@ class CPrenotazione {
     {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        $vPrenotazioni = USingleton::getInstance('VPrenotazione');
+        $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazione->getTask();
         if ($task==="esame")
         {
@@ -34,6 +34,10 @@ class CPrenotazione {
            if(is_array($prenotazioni) || (!is_bool($prenotazioni)))
            {
                $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $workingPlan, $prenotazioni);
+           }
+           else
+           {
+              echo "ciao";
            }
            
            

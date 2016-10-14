@@ -8,7 +8,6 @@
         <link rel="icon" href="./Immagini/favicon.ico" />       
         <link rel="stylesheet" type="text/css" href="./Css/log.css">
        
-
         <!--       <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
                 <link rel="stylesheet" type="text/css" href="./Css/inserisciMedico.css">-->
         <link rel="stylesheet" type="text/css" href="./Css/navigationBar.css">
@@ -19,6 +18,7 @@
         <link rel="stylesheet" type="text/css" href="./Css/tabelle.css"/>
         <link rel="stylesheet" type="text/css" href="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.css"/>
         <link rel="stylesheet" type="text/css" href="./plugins/jquery-ui/jquery-ui.min.css"/>
+        <link rel='stylesheet' href='plugins/fullcalendar/fullcalendar.css' />
 
         <script type="text/javascript" src="./plugins/jquery-1.12.4.js"></script>
         <script type="text/javascript" src="./plugins/jquery-ui/jquery-ui.min.js"></script>        
@@ -38,8 +38,13 @@
         <script type="text/javascript" src="./jScript/clickClinica.js"></script>
         <script type="text/javascript" src="./jScript/clickUtente.js"></script>
         <script type="text/javascript" src="./jScript/clickMedico.js"></script>
+<<<<<<< HEAD
         <script type="text/javascript" src="./jScript/clickPrenotazione.js"></script>
 
+=======
+        <script src='plugins/moment.js'></script>
+        <script src='plugins/fullcalendar/fullcalendar.js'></script>
+>>>>>>> origin/master
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->
 

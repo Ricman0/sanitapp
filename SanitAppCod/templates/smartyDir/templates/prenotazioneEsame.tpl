@@ -1,8 +1,8 @@
 <div>
-    <p>Nome Clinica: {nomeClinica}</p>
+    <p>Nome Clinica: {$nomeClinica}</p>
     <input type="hidden" name="partitaIVAClinica" value="" />
     <br>
-    <p>Nome Esame: {nomeEsame}</p>
+    <p>Nome Esame: {$nomeEsame}</p>
     <input type="hidden" name="idEsame" value="" />
 </div>
 <div id="calendarioPrenotazioneEsame">
@@ -10,6 +10,7 @@
 </div>
 <div>
     ciclo per ottenere tutti gli orari
-    {orariDisponibili}  
+    {$workingPlan}  
+    {$prenotazioni}
 </div>
 <input type="button" id="nextPrenotazioneEsame" value="next" />
