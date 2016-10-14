@@ -38,13 +38,9 @@
         <script type="text/javascript" src="./jScript/clickClinica.js"></script>
         <script type="text/javascript" src="./jScript/clickUtente.js"></script>
         <script type="text/javascript" src="./jScript/clickMedico.js"></script>
-<<<<<<< HEAD
         <script type="text/javascript" src="./jScript/clickPrenotazione.js"></script>
-
-=======
         <script src='plugins/moment.js'></script>
         <script src='plugins/fullcalendar/fullcalendar.js'></script>
->>>>>>> origin/master
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->
 

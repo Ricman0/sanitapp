@@ -19,6 +19,7 @@ function prenotazione(controller, task, id, ajaxDiv)
         {
             alert(datiRisposta);
             $(ajaxDiv).html(datiRisposta);
+            $("#calendarioPrenotazioneEsame").fullCalendar();
         },
         error:function()
         {
