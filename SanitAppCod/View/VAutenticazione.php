@@ -100,6 +100,6 @@ class VAutenticazione extends View{
      */
     public function impostaPaginaLogIn()
     {
-        $this->visualizzaTemplate("logIn"); 
+        $this->visualizzaTemplate("log"); 
     }
 }
