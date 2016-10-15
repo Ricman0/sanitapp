@@ -96,7 +96,7 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
             $(".tablesorter").tablesorter();
             
             $('.time').timepicker({
-                stepMinute: 10
+                stepMinute: 5
             });
 
         },

@@ -37,7 +37,7 @@ $(document).ready(function () {
     });
     
      $('#main').on("click", "#accettaPausa", function () {
-        accettaPausa();
+        accettaPausa(this);
     });
     
     $('#main').on("click", "#eliminaPausa", function () {
@@ -94,9 +94,12 @@ function inviaImpostazioniClinica(id, controller1, task1,task2, ajaxdiv)
  */
 function formPausa()
 {
+    $('#aggiungiPausaButton').prop('disabled', true);
+    $('#salvaImpostazioniClinica').prop('disabled', true);
     var idOraInizio = $.now(); //$.now() ritorna l'istante attuale
     var idOraFine =  idOraInizio + 1;
-    var tr ='<tr><td class="pausaGiorno"><form><select name="value">' +
+    
+    var tr ='<tr><td class="pausaGiorno"><form><select class="selezioneGiornoPausa" name="value">' +
         '<option value="Lunedi" selected="selected">Lunedi</option>' +
         '<option value="Martedi">Martedi</option>' +
         '<option value="Mercoledi">Mercoledi</option>' +
@@ -107,12 +110,14 @@ function formPausa()
         '</select></form></td>' +
         '<td class="pausaInizio"><form><input autocomplete="off" id="' + idOraInizio + '" class="time"></form></td>'+
         '<td class="pausaFine"><form><input autocomplete="off" id="' + idOraFine + '" class="time"></form></td>'+
-        '<td><div><a id="accettaPausa"><i class="fa fa-check fa-lg faAzzurro"  aria-hidden="true"></i></a> &nbsp'+
+        '<td><div id="azioniPausa"><a id="accettaPausa"><i class="fa fa-check fa-lg faAzzurro"  aria-hidden="true"></i></a> &nbsp'+
         '<a id="scartaPausa"><i class="fa fa-ban fa-lg faAzzurro" aria-hidden="true"></i></a></div></td></tr>';
-        $('#aggiungiPausaButton').prop('disabled', true);
+        
 //        $(tr).appendTo('#tabellaPause');
         $('#tabellaPause').prepend(tr);
-        
+        $('.time').timepicker({
+                stepMinute: 5
+            });
         
         
     };
@@ -120,14 +125,16 @@ function formPausa()
     
     function scartaPausa(param){
         $('#aggiungiPausaButton').prop('disabled', false);
+        $('#salvaImpostazioniClinica').prop('disabled', false);
         $(param).closest('tr').remove();  
     }
-    
     // accetta pausa è da modificare
     function accettaPausa(param){
-        var oraInizio= $(param).closest(".pausaInizio > form > input").attr("id");
-        alert(oraInizio);
-        if( $('#oraFine').val().length ===0 || $('#oraInizio').val().length ===0  ) 
+        var oraInizioId= "#" + $(param).closest('tr').find('td.pausaInizio form input').attr('id');
+        var oraFineId= "#" + $(param).closest('tr').find('td.pausaFine form input').attr('id');
+
+        alert(oraInizioId +" " +oraFineId);
+        if( $(oraFineId).val().length ===0 || $(oraInizioId).val().length ===0  ) 
         {
             alert("Inserire gli orari");
         }
@@ -135,11 +142,34 @@ function formPausa()
         {
 
             $('#aggiungiPausaButton').prop('disabled', false);
+            $('#salvaImpostazioniClinica').prop('disabled', false);
             $('option:not(:selected)').prop('disabled', true);
-            $(".bodyTabellaPause :input").prop('readonly', true);
-            
+            $(oraInizioId).attr('readonly',true).datepicker("option", "showOn", "off");
+            $(oraFineId).attr('readonly',true).datepicker("option", "showOn", "off");
             //aggiunto successivamente
-            switch ($("#nomeGiornoPausa").val())
+            $(".selezioneGiornoPausa > option").each(function() {
+            alert(this.value);
+
+             if ($(this).val().length==0)
+                            {
+                                $('.selezioneGiornoPausa').val( '{"Pause":[{"OraInizio":"' 
+                                        + $(".oraInizio").val() + '","OraFine":"' + $(".oraFine").val() + '" }]}');
+                            }
+                            else
+                            {
+                                var c = $('.selezioneGiornoPausa').val();
+                                i = c.length - 2;
+                                c = c.slice(0, i);
+                                alert(c);
+                                c = c + ', {"OraInizio":"' 
+                                        + $(".oraInizio").val() + '","OraFine":"' + $(".oraFine").val() + '" }]}';
+                                alert(c);
+                                $('#LunediPausa').val(c);
+                            }
+
+        });
+            
+            switch ($(".selezioneGiornoPausa").val())
             {
                 case 'Lunedi':
                     if ($('#LunediPausa').val().length==0)
@@ -279,11 +309,11 @@ function formPausa()
     // elimina pausa è da modificare
     function eliminaPausa(param)
     {
-       // nomeSelect.options[nomeSelect.selectedIndex].value;
+//        nomeSelect.options[nomeSelect.selectedIndex].value;
 //        var giorno = giornoPausa.options[giornoPausa.selectedIndex].value;
 //         var giorno = $('#nomeGiornoPausa').val();
 //        var giorno = $(param).closest('#nomeGiornoPausa').;
-        alert(giorno);
+//        alert(giorno);
         
 //        var inizioPausa =  $(param).closest('tr').closest('#oraInizio').val();
 //        var finePausa =  $(param).closest('tr').closest('#oraFine').val();
