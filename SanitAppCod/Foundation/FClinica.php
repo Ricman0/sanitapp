@@ -121,7 +121,7 @@ class FClinica extends FDatabase{
      */
     public function cercaClinicaByPartitaIVA($partitaIVA) 
     {
-        $query = "SELECT *,"
+        $query = "SELECT * "
                 . "FROM " . $this->_nomeTabella . " WHERE (PartitaIVA ='" . $partitaIVA. "')";
         $risultato = $this->eseguiQuery($query);
         return $risultato;

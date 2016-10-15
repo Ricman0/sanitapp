@@ -5,7 +5,8 @@
  */
 $(document).ready(function (){
     $('#main').on("click", "#aggiungiPrenotazioneButton", function(){
-        prenotazione('prenotazione','esame', 'id', "#contenutoAreaPersonale"); 
+        var id = $("#aggiungiPrenotazioneButton").attr("data-idEsame");
+        prenotazione('prenotazione', 'esame', id, "#main"); 
     });
 });
 
@@ -13,11 +14,12 @@ function prenotazione(controller, task, id, ajaxDiv)
 {
     $.ajax({
         type: 'GET',
-        url : controller + "/" + task + "/" + id + "/",
+        url : controller + "/" + task + "/" + id ,
         success: function(datiRisposta)
         {
             alert(datiRisposta);
             $(ajaxDiv).html(datiRisposta);
+            $("#calendarioPrenotazioneEsame").fullCalendar();
         },
         error:function()
         {

@@ -68,7 +68,7 @@ class CHome {
             {
                 
                 $_SESSION['usernameLogIn'] = $username;
-                $_SESSION['LoggedIn'] = TRUE;
+                $_SESSION['loggedIn'] = TRUE;
                 $logIn= TRUE;
                 echo "Benvenuto" + $username;
             }
@@ -92,7 +92,7 @@ class CHome {
 //        {
 //            $vHome->impostaHeader("logIn", "navigationBar");
 //        }
-        echo ($sessione->checkVariabileSessione('LoggedIn'));
+        echo ($sessione->checkVariabileSessione('loggedIn'));
         $controller= $vHome->getController();
         switch ($_SERVER['REQUEST_METHOD'])  
         {
@@ -228,14 +228,17 @@ class CHome {
                 break;
             
             case 'prenotazione':
+                echo " prenotazione ";
                 $sessione = USingleton::getInstance('USession');
-                if($sessione->checkVariabileSessione('LoggedIn'))
+                if($sessione->checkVariabileSessione('loggedIn'))
                 {
+                    echo " loggato in prenotazione ";
                     $cPrenotazione = USingleton::getInstance('CPrenotazione');
                     $cPrenotazione->gestisciPrenotazione();
                 }
                 else
                 {
+                    echo " non sei autenticato quindi niente prenotazione ";
                     //ritorna la pagina per autenticarsi o registrarsi
                 }
                     

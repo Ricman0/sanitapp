@@ -61,10 +61,10 @@ class EEsame
     private $_nomeCategoria; 
     
     /**
-     * @var string $_nomeClinica Il nome della clinica a cui appartiene 
+     * @var string $_partitaIVAClinica La partita IVA della clinica a cui appartiene 
      * tale esame
      */
-    private $_nomeClinica; 
+    private $_partitaIVAClinica; 
     
     /**
      * Costruttore di EEsame
@@ -95,7 +95,7 @@ class EEsame
                 $this->_durata = $attributiEsame[0]["Durata"];
                 $this->_numeroPrestazioniSimultanee = $attributiEsame[0]["NumPrestazioniSimultanee"];
                 $this->_descrizione = $attributiEsame[0]["Descrizione"];
-                $this->_partitaIVA= $attributiEsame[0]["PartitaIVA"];
+                $this->_partitaIVA= $attributiEsame[0]["PartitaIVAClinica"];
             }
         }
         else

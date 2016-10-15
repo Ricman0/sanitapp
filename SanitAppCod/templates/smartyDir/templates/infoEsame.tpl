@@ -55,7 +55,6 @@
 
 
     {else}
-        <input type="hidden" name="nomeClinica" value="{}"
         <div id="infoEsame">
             <span>
                 Nome: {$esame->getNomeEsame()}
@@ -80,6 +79,6 @@
             <br>
             <span>Descrizione: {$esame->getDescrizioneEsame()}</span>
             <br>
-            <input type="button" id="aggiungiPrenotazioneButton" value="Prenota" esame="{$esame->getNomeEsame()}" clinica="" />
+            <input type="button" id="aggiungiPrenotazioneButton" value="Prenota" data-idEsame="{$esame->getIDEsame()}"/>
         </div>
     {/if}

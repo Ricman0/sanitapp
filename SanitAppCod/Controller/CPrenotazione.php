@@ -14,18 +14,32 @@ class CPrenotazione {
     {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        $vPrenotazioni = USingleton::getInstance('VPrenotazione');
+        $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazione->getTask();
         if ($task==="esame")
         {
            $id = $vPrenotazione->getId();
            $eEsame = new EEsame($id);
-           $partitaIVAClinica=$eEsame->getPartitaIVAClinicaEsame();
-           $eClinica = new EClinica($partitaIVAClinica);
+           $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+           $eClinica = new EClinica(NULL, $partitaIVAClinica);
+           $workingPlan = $eClinica->getWorkingPlanClinica();
+           print_r($workingPlan);
+           $workingPlan = json_decode($workingPlan);
+           print_r($workingPlan);
            
            $nomeEsame =$eEsame->getNomeEsame();
+           $nomeClinica = $eClinica->getNomeClinica();
+           $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+           $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinica($id, $partitaIVAClinica);
+           if(is_array($prenotazioni) || (!is_bool($prenotazioni)))
+           {
+               $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $workingPlan, $prenotazioni);
+           }
+           else
+           {
+              echo "ciao";
+           }
            
-           $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica);
            
         }
     }
