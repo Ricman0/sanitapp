@@ -21,7 +21,8 @@
         <link rel='stylesheet' href='plugins/fullcalendar/fullcalendar.css' />
 
         <script type="text/javascript" src="./plugins/jquery-1.12.4.js"></script>
-        <script type="text/javascript" src="./plugins/jquery-ui/jquery-ui.min.js"></script>        
+        <script type="text/javascript" src="./plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="./plugins/jquery-ui/datepicker-It.js"></script>        
         <script type="text/javascript" src="./plugins/jquery.validate.js"></script>
         <script type="text/javascript" src="./plugins/jquery.tablesorter.js"></script>
         <script type="text/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>
