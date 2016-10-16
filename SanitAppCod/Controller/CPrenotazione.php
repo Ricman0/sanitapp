@@ -66,19 +66,14 @@ class CPrenotazione {
                $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinicaData($id, $partitaIVAClinica, $data);
                if (is_array($prenotazioni) || !is_bool($prenotazioni))
                {
+                    $i=0;
                     foreach ($prenotazioni as $prenotazione)
                     {
-                        foreach ($prenotazione as $key => $value)
-                        {
-                        // per ogni prenotazione prendere la data e mettere in $date in maniera da poter 
-                        // ritornare le date non disponibili 
-                            if($key==="DataEOra")
-                            {
-                                $date[] = $value ;
-                                
-                            }
-                        }
+                        
+                        $date = array("prenotazione" . $i => $prenotazione["DataEOra"]);
+                        $i++;
                     }
+//                    $data = array("dataEOra" => json_encode($date));
                }
                else
                {
@@ -86,7 +81,7 @@ class CPrenotazione {
                }
             }
             $date = json_encode($date);
-            print_r($date);
+//            print_r($date);
             $vPrenotazione->inviaDate($date);
             
         }

@@ -8,7 +8,10 @@
     <p> Scegli la data della tua prenotazione: </p>
 <div id="calendarioPrenotazioneEsame">   
 </div>
-<div id="dateDisponibili">   
+<div id="dateDisponibili">
+    {if isset($orariDisponibili)}
+        {$orariDisponibili}
+    {/if}
 </div>
 
 <input type="button" id="nextPrenotazioneEsame" value="next" />
