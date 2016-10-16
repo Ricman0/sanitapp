@@ -26,12 +26,13 @@ class VPrenotazione extends View{
      * 
      * @access public
      */
-    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $workingPlan, $prenotazioni)
+    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $workingPlan, $prenotazioni, $durataEsame)
     {
         $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
         $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
         $this->assegnaVariabiliTemplate('workingPlan', $workingPlan);
         $this->assegnaVariabiliTemplate('prenotazioni', $prenotazioni);
-        return $this->visualizzaTemplate('prenotaEsame');
+        $this->assegnaVariabiliTemplate('durataEsame', $durataEsame);
+        return $this->visualizzaTemplate('prenotazioneEsame');
     }
 }

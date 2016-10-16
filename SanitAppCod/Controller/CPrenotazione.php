@@ -24,16 +24,19 @@ class CPrenotazione {
            $eClinica = new EClinica(NULL, $partitaIVAClinica);
            $workingPlan = $eClinica->getWorkingPlanClinica();
            print_r($workingPlan);
-           $workingPlan = json_decode($workingPlan);
+//           $workingPlan = json_decode($workingPlan);
            print_r($workingPlan);
            
            $nomeEsame =$eEsame->getNomeEsame();
+           $durataEsame = $eEsame->getDurataEsame();
            $nomeClinica = $eClinica->getNomeClinica();
+           echo ($nomeClinica);
            $fPrenotazioni = USingleton::getInstance('FPrenotazione');
            $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinica($id, $partitaIVAClinica);
            if(is_array($prenotazioni) || (!is_bool($prenotazioni)))
            {
-               $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $workingPlan, $prenotazioni);
+               $prenotazioni = json_encode($prenotazioni);
+               $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $workingPlan, $prenotazioni, $durataEsame);
            }
            else
            {
