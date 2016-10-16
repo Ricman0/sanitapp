@@ -26,6 +26,8 @@
   RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]{13})?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(pazienti)/(visualizza)/([[:alnum:]]{16})?$ index.php?controller=$1&task=$2&id=$3 [L]
  RewriteRule ^(servizi)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(prenotazione)/(\w+)/(\w+)/(\w+)/(\w+)?$ index.php?controller=$1&clinica=$2&esame=$3&giorno=$4&data=&5 [L]
+
 
 
     RewriteCond %{REQUEST_METHOD} POST 

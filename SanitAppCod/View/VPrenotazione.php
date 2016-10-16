@@ -7,6 +7,34 @@
  */
 class VPrenotazione extends View{
     
+    public function inviaDate($date) 
+    {   
+        return $date;
+    }
+    
+    public function getPartitaIVA()
+    {
+        if (isset($_REQUEST['clinica'])) 
+            {
+                return $_REQUEST['clinica'];
+            } 
+        else 
+            {
+                return FALSE;
+            }
+    }
+    
+    public function getGiorno() 
+    {
+        if (isset($_REQUEST['giorno'])) 
+            {
+                return $_REQUEST['giorno'];
+            } 
+        else 
+            {
+                return FALSE;
+            }
+    }
     /**
      * Metodo che consente di restituire tutte le prenotazioni associate ad un utente
      * 
@@ -26,13 +54,12 @@ class VPrenotazione extends View{
      * 
      * @access public
      */
-    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $workingPlan, $prenotazioni, $durataEsame)
+    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame)
     {
         $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
         $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
-        $this->assegnaVariabiliTemplate('workingPlan', $workingPlan);
-        $this->assegnaVariabiliTemplate('prenotazioni', $prenotazioni);
-        $this->assegnaVariabiliTemplate('durataEsame', $durataEsame);
+        $this->assegnaVariabiliTemplate('idEsame', $idEsame);
+        $this->assegnaVariabiliTemplate('partitaIVA', $partitaIVAClinica);
         return $this->visualizzaTemplate('prenotazioneEsame');
     }
 }

@@ -5,13 +5,13 @@ $(document).ready(function () {
     });
     
     $('#main').on("click", ".rigaEsame", function () {
-        var id = $(this).attr('id');
+        var id = $(this).attr('id');// id della riga che coincide con l'id dell'esame
+//        var nomeClinica = $('.rigaNomeClinica').html();
+//        alert(nomeClinica);
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
         var controller = $("#controllerTabella").attr("value");
-        alert(controller);
         if(controller == "esami")
         {
-            alert("ciao");
             clickRiga(controller, 'visualizza', id, contenitore);
         }
 

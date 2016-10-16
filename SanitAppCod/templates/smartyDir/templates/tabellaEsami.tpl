@@ -26,7 +26,7 @@
                 <td>{$curr_row['Durata']}</td>
                 <td>{$curr_row['MedicoEsame']}</td>
                 <td>{$curr_row['NomeCategoria']}</td>
-                <td>{$curr_row['NomeClinica']}</td>
+                <td class="rigaNomeClinica">{$curr_row['NomeClinica']}</td>
                 <td>{$curr_row['Località']}</td>
             </tr>
         {/foreach}

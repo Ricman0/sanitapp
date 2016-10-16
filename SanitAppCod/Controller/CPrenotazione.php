@@ -16,35 +16,70 @@ class CPrenotazione {
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazione->getTask();
-        if ($task==="esame")
+        if ($task!=="FALSE")
         {
-           $id = $vPrenotazione->getId();
-           $eEsame = new EEsame($id);
-           $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
-           $eClinica = new EClinica(NULL, $partitaIVAClinica);
-           $workingPlan = $eClinica->getWorkingPlanClinica();
-           print_r($workingPlan);
-//           $workingPlan = json_decode($workingPlan);
-           print_r($workingPlan);
-           
-           $nomeEsame =$eEsame->getNomeEsame();
-           $durataEsame = $eEsame->getDurataEsame();
-           $nomeClinica = $eClinica->getNomeClinica();
-           echo ($nomeClinica);
-           $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-           $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinica($id, $partitaIVAClinica);
-           if(is_array($prenotazioni) || (!is_bool($prenotazioni)))
-           {
-               $prenotazioni = json_encode($prenotazioni);
-               $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $workingPlan, $prenotazioni, $durataEsame);
-           }
-           else
-           {
-              echo "ciao";
-           }
-           
-           
+            if ($task==="esame")
+            {
+                $id = $vPrenotazione->getId();
+                $eEsame = new EEsame($id);
+                $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+                echo ($partitaIVAClinica);
+                $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                $nomeEsame =$eEsame->getNomeEsame();
+                $nomeClinica = $eClinica->getNomeClinica();
+                $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id);
+            }
+            else
+            {
+               echo "ciao";
+            }
+            
         }
+        else
+        {
+            $partitaIVAClinica = $vPrenotazione->getPartitaIVA(); 
+            $eClinica = new EClinica(NULL, $partitaIVAClinica);
+            $workingPlan= $eClinica->getWorkingPlanClinica();// ora è di tipo json
+            $workingPlan = json_decode($workingPlan);
+            $nomeGiorno = $vPrenotazione->getGiorno();
+            $date = "";
+            if ($workingPlan["$nomeGiorno"]=="null")
+            {
+                $date = "non è possibile prenotarsi il $nomeGiorno";
+            }
+            else
+            {
+               $id = $vPrenotazione->getId();
+               $eEsame = new EEsame($id);
+               $durata = $eEsame->getDurataEsame();
+               $orainizio = $workingPlan["$nomeGiorno"]["start"];
+               $fineinizio = $workingPlan["$nomeGiorno"]["fine"];
+               $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+               $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinica($id, $partitaIVAClinica);
+               if (is_array($prenotazioni) || !is_bool($prenotazioni))
+               {
+                    foreach ($prenotazioni as $prenotazione)
+                    {
+                        foreach ($prenotazione as $key => $value)
+                        {
+                        // per ogni prenotazione prendere la data e mettere in $date in maniera da poter 
+                        // ritornare le date non disponibili 
+                            if($key==="DataEOra")
+                            {
+                                $date[] = $value ;
+                            }
+                        }
+                    }
+               }
+               else
+               {
+                   echo "errore";
+               }
+            }
+            $vPrenotazione->inviaDate($date);
+            
+        }
+        
     }
 
 

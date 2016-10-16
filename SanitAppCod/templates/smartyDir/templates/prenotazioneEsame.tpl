@@ -1,20 +1,14 @@
 <div>
     <p>Nome Clinica: {$nomeClinica}</p>
-    <input type="hidden" name="partitaIVAClinica" value="" />
+    <input type="hidden" id="partitaIVAClinicaPrenotazioneEsame" name="partitaIVAClinicaPrenotazioneEsame" value="{$partitaIVA}" />
     <br>
     <p>Nome Esame: {$nomeEsame}</p>
-    <input type="hidden" name="idEsame" value="" />
+    <input type="hidden" id="idEsame" name="idEsame" value="{$idEsame}" />
 </div>
     <p> Scegli la data della tua prenotazione: </p>
-<div id="calendarioPrenotazioneEsame">
-    {ldelim} var prenotazioni ={$prenotazioni}; {rdelim}
-    {ldelim} var workingPlan ={$workingPlan}; {rdelim}
-    {ldelim} var durata ={$durataEsame}; {rdelim}
+<div id="calendarioPrenotazioneEsame">   
 </div>
-<div>
-    ciclo per ottenere tutti gli orari
-    <!--
-    {$workingPlan}  
-    {$prenotazioni} -->
+<div id="dateDisponibili">   
 </div>
+
 <input type="button" id="nextPrenotazioneEsame" value="next" />

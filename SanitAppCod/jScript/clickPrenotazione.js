@@ -33,9 +33,20 @@ function prenotazione(controller, task, id, ajaxDiv)
                     dayNames: [ "Domenica", "Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato" ],
                     monthNames: [ "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
                     onSelect: function(dateText, inst) { 
-                    var dateAsString = dateText; //the first parameter of this function
-                    alert(dateAsString);
-                    var dateAsObject = $(this).datepicker( 'getDate' ); //the getDate method
+                    var data = dateText; //the first parameter of this function
+                    alert(data);
+                    
+                    var dataObject = $(this).datepicker( 'getDate' ); //the getDate method
+                    alert(dataObject);
+                    
+                    var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
+                    alert(nomeGiorno);
+                    var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
+                    alert("PartitaIVA: " + partitaIVAClinica);
+                    var idEsame = $("#idEsame").val();
+                    dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
+                    
+                    
                     }});
 //             $( "#calendarioPrenotazioneEsame .selector" ).datepicker( "dialog", "15/10/2015" );
            
@@ -71,6 +82,27 @@ function prenotazione(controller, task, id, ajaxDiv)
         error:function()
         {
             alert("Sbagliato click prenotaEsame ");
+        }
+    });
+    
+    
+}
+
+function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
+{
+    $.ajax({
+        type: 'GET',
+        url: "prenotazione/" + partitaIVAClinica + "/" + idEsame + "/" + nomeGiorno + "/" + data,
+        dataType: "json",
+        success:function(datiHTMLRisposta)
+        {
+            alert(datiHTMLRisposta);
+            $("#dateDisponibili").html(datiHTMLRisposta);
+            
+        },
+        error:function()
+        {
+            alert(" errore nel ricevere le date disponibili ");
         }
     });
 }

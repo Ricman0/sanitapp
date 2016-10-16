@@ -95,7 +95,8 @@ class EEsame
                 $this->_durata = $attributiEsame[0]["Durata"];
                 $this->_numeroPrestazioniSimultanee = $attributiEsame[0]["NumPrestazioniSimultanee"];
                 $this->_descrizione = $attributiEsame[0]["Descrizione"];
-                $this->_partitaIVA= $attributiEsame[0]["PartitaIVAClinica"];
+                $this->_partitaIVAClinica= $attributiEsame[0]["PartitaIVAClinica"];
+                
             }
         }
         else

@@ -127,7 +127,7 @@ class View extends Smarty{
      * 
      * @access public
      * @final
-     * @return mixed Ritorna il valore (stringa) di task. False altrimenti.
+     * @return mixed Ritorna il valore (stringa) di task. FALSE altrimenti.
      */
     final public function getTask() 
     {
@@ -137,7 +137,7 @@ class View extends Smarty{
             } 
         else 
             {
-                return false;
+                return FALSE;
             }
     }
     
