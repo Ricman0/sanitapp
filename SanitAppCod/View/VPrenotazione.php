@@ -35,6 +35,19 @@ class VPrenotazione extends View{
                 return FALSE;
             }
     }
+    
+    public function getData() 
+    {
+        if (isset($_REQUEST['data'])) 
+            {
+                return $_REQUEST['data'];
+            } 
+        else 
+            {
+                return FALSE;
+            }
+    }
+    
     /**
      * Metodo che consente di restituire tutte le prenotazioni associate ad un utente
      * 

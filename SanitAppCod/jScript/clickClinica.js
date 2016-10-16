@@ -24,8 +24,11 @@ $(document).ready(function () {
         
     });
     
+//    $('#main').on("click", "#salvaImpostazioniClinica", function () {
+//        inviaImpostazioniClinica('#workingPlan','#giornoPausa','#inizioPausa','#finePausa','impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
+//    });
     $('#main').on("click", "#salvaImpostazioniClinica", function () {
-        inviaImpostazioniClinica('#workingPlan','#giornoPausa','#inizioPausa','#finePausa','impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
+        inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
     });
     
     $('#main').on("click", "#aggiungiPausaButton", function () {

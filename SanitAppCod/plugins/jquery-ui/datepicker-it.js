@@ -21,7 +21,7 @@ datepicker.regional.it = {
 		"Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre" ],
 	monthNamesShort: [ "Gen","Feb","Mar","Apr","Mag","Giu",
 		"Lug","Ago","Set","Ott","Nov","Dic" ],
-	dayNames: [ "Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato" ],
+	dayNames: [ "Domenica","Lunedi","Martedi","Mercoledi","Giovedi","Venerdi","Sabato" ],
 	dayNamesShort: [ "Dom","Lun","Mar","Mer","Gio","Ven","Sab" ],
 	dayNamesMin: [ "Do","Lu","Ma","Me","Gi","Ve","Sa" ],
 	weekHeader: "Sm",

@@ -87,9 +87,9 @@ INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Loc
 Provincia, Regione, Email, Username, Password, PEC, Telefono, CapitaleSociale, OrarioAperturaAM, 
 OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato, WorkingPlan, Confermato, CodiceConferma) VALUES
 ('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'info@appignano.it', ' appi', 'Appig4', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE,
- '{"monday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"tuesday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"wednesday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"thursday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"friday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"saturday":null,"sunday":null}', FALSE, 's12'),
+ '{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}', FALSE, 's12'),
 ('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'info@bisenti.it', ' bise', 'Bisenti5', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, 
-'{"monday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"tuesday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"wednesday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"thursday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"friday":{"start":"09:00","end":"18:00","breaks":[{"start":"14:30","end":"15:00"}]},"saturday":null,"sunday":null}', FALSE, 'w34');
+'{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}', FALSE, 'w34');
 
 -- --------------------------------------------------------
 
@@ -221,7 +221,7 @@ CREATE TABLE prenotazione (
   CodFiscaleUtenteEffettuaEsame varchar(16) NOT NULL,
   CodFiscaleMedicoPrenotaEsame varchar(16) DEFAULT NULL,
   CodFiscaleUtentePrenotaEsame varchar(16) DEFAULT NULL,
-  DataEOra timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  DataEOra DATETIME NOT NULL,
   PRIMARY KEY (IDPrenotazione, IDEsame, PartitaIVAClinica),
   FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame),
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
@@ -237,10 +237,10 @@ CREATE TABLE prenotazione (
 INSERT INTO prenotazione (IDPrenotazione, IDEsame, PartitaIVAClinica, Tipo, 
 Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsame,
 CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
-(1, 1, '12345', 'M', 0, 0, 'dmntnna89s42g438', 'dmrcld89s42g438s', NULL, '2016-04-26 09:25:54'),
-(2, 1, '12345', 'M', 0, 0, 'mntrcr89h21a488l', 'dmrcld89s42g438s', NULL, '2016-04-27 15:03:40'),
-(3, 2, '12346', 'U', 0, 0, 'mntrcr89h21a488l', NULL, 'mntrcr89h21a488l', '2016-04-29 12:00:00'),
-(5, 2, '12345', 'U', 1, 0, 'rndndt56s53t657o', NULL, 'rndndt56s53t657o', '2016-04-28 08:00:00');
+(1, 1, '12345', 'M', 0, 0, 'dmntnna89s42g438', 'dmrcld89s42g438s', NULL, '2016-10-17 09:30:00'),
+(2, 1, '12345', 'M', 0, 0, 'mntrcr89h21a488l', 'dmrcld89s42g438s', NULL, '2016-10-17 10:00:00'),
+(3, 2, '12346', 'U', 0, 0, 'mntrcr89h21a488l', NULL, 'mntrcr89h21a488l', '2016-11-29 12:00:00'),
+(5, 2, '12345', 'U', 1, 0, 'rndndt56s53t657o', NULL, 'rndndt56s53t657o', '2016-12-28 08:00:00');
 
 -- --------------------------------------------------------
 

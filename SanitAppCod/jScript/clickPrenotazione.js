@@ -94,10 +94,13 @@ function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
         type: 'GET',
         url: "prenotazione/" + partitaIVAClinica + "/" + idEsame + "/" + nomeGiorno + "/" + data,
         dataType: "json",
-        success:function(datiHTMLRisposta)
+        contentType: "application/json; charset=utf-8",
+        success:function(datiRisposta)
         {
-            alert(datiHTMLRisposta);
-            $("#dateDisponibili").html(datiHTMLRisposta);
+            alert(datiRisposta);
+            var arr = eval('(' + JSON.stringify(datiRisposta) + ')');
+            alert(datiRisposta);
+            $("#dateDisponibili").html(datiRisposta);
             
         },
         error:function()

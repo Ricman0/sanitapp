@@ -79,4 +79,19 @@ class FPrenotazione extends FDatabase{
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
+    
+    public function cercaPrenotazioniEsameClinicaData($idEsame, $partitaIVA, $data) 
+    {
+        //da stringa a data
+        $data = strtotime($data);
+        //cambio il formato della data per poterlo confrontare con quella nel db
+        $data = date("Y-m-d", $data);
+        echo($data);
+        $query =  "SELECT prenotazione.* "
+                . "FROM prenotazione, esame, clinica "
+                . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
+                . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND (DATE(DataEOra)='" . $data . "'))";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+    }
 }

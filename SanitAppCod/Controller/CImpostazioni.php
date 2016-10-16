@@ -58,6 +58,7 @@ class CImpostazioni {
                 {
 //                
                     $workingPlanText = $vImpostazioni->recuperaWorkingPlan();
+                    print_r($workingPlanText);
                     $sessione = USingleton::getInstance('USession');
                     $usernameClinica = $sessione->leggiVariabileSessione('usernameLogIn');
                     $eClinica = new EClinica($usernameClinica);

@@ -16,7 +16,7 @@ class CPrenotazione {
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazione->getTask();
-        if ($task!=="FALSE")
+        if ($task!==FALSE)
         {
             if ($task==="esame")
             {
@@ -41,21 +41,29 @@ class CPrenotazione {
             $eClinica = new EClinica(NULL, $partitaIVAClinica);
             $workingPlan= $eClinica->getWorkingPlanClinica();// ora è di tipo json
             $workingPlan = json_decode($workingPlan);
+            print_r($workingPlan);
+            //$workingPlan è un oggetto 
+            // ora lo rendo un array
+            $workingPlan = get_object_vars($workingPlan);
             $nomeGiorno = $vPrenotazione->getGiorno();
-            $date = "";
-            if ($workingPlan["$nomeGiorno"]=="null")
+            $date="" ;
+            if (($workingPlan[$nomeGiorno])==NULL) 
             {
-                $date = "non è possibile prenotarsi il $nomeGiorno";
+                echo "non impostato $nomeGiorno";
+                $date[] = null; 
             }
             else
             {
                $id = $vPrenotazione->getId();
                $eEsame = new EEsame($id);
                $durata = $eEsame->getDurataEsame();
-               $orainizio = $workingPlan["$nomeGiorno"]["start"];
-               $fineinizio = $workingPlan["$nomeGiorno"]["fine"];
+               //all'interno di workingPlan ad ogni giorno è associato un oggetto con attributi Start, End, Pausa
+               $orainizio = $workingPlan[$nomeGiorno]->Start;
+               $fineinizio = $workingPlan[$nomeGiorno]->End;
+               $data = $vPrenotazione->getData(); 
+               print_r($data);
                $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-               $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinica($id, $partitaIVAClinica);
+               $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinicaData($id, $partitaIVAClinica, $data);
                if (is_array($prenotazioni) || !is_bool($prenotazioni))
                {
                     foreach ($prenotazioni as $prenotazione)
@@ -67,6 +75,7 @@ class CPrenotazione {
                             if($key==="DataEOra")
                             {
                                 $date[] = $value ;
+                                
                             }
                         }
                     }
@@ -76,6 +85,8 @@ class CPrenotazione {
                    echo "errore";
                }
             }
+            $date = json_encode($date);
+            print_r($date);
             $vPrenotazione->inviaDate($date);
             
         }
