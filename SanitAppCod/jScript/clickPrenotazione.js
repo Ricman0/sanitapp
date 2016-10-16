@@ -30,8 +30,7 @@ function prenotazione(controller, task, id, ajaxDiv)
                     firstDay:1,
                     dateFormat: "dd-mm-yy",
                     regional: "it",
-                    dayNames: [ "Domenica", "Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato" ],
-                    monthNames: [ "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
+                    minDate: 0,
                     onSelect: function(dateText, inst) { 
                     var data = dateText; //the first parameter of this function
                     alert(data);
