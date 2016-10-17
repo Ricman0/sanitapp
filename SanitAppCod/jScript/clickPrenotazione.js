@@ -13,6 +13,11 @@ $(document).ready(function (){
         var currentDate = $( "#calendarioPrenotazioneEsame").datepicker( "getDate" );
         alert (currentDate);
     });
+
+    $('#main').on('click', '.orarioDisponibile', function() {
+        $('.orarioSelezionato').removeClass('orarioSelezionato');
+        $(this).addClass('orarioSelezionato');
+    });
     
     
 });
