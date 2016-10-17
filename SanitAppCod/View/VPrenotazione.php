@@ -9,7 +9,8 @@ class VPrenotazione extends View{
     
     public function inviaDate($date) 
     {   
-        $this->assegnaVariabiliTemplate('orariDisponibili', $date);
+        echo $this->json_encode($date);
+           
     }
     
     public function getPartitaIVA()
