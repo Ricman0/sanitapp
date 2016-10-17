@@ -89,8 +89,9 @@ class FPrenotazione extends FDatabase{
 //        echo($data);
         $query =  "SELECT prenotazione.* "
                 . "FROM prenotazione, esame, clinica "
-                . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
-                . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND (DATE(DataEOra)='" . $data . "'))";
+                . "WHERE ((prenotazione.IDEsame='" . $idEsame . "') AND "
+                . "(prenotazione.PartitaIVAClinica='" . $partitaIVA . "') AND "
+                . "(DATE(DataEOra)='" . $data . "'))";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }

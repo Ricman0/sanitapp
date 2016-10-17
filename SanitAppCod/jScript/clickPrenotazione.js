@@ -9,10 +9,6 @@ $(document).ready(function (){
         prenotazione('prenotazione', 'esame', id, "#main"); 
     });
     
-    $('#main').on("click", "#calendarioPrenotazioneEsame", function(){
-        var currentDate = $( "#calendarioPrenotazioneEsame").datepicker( "getDate" );
-        alert (currentDate);
-    });
 
     $('#main').on('click', '.orarioDisponibile', function() {
         $('.orarioSelezionato').removeClass('orarioSelezionato');
@@ -35,7 +31,7 @@ function prenotazione(controller, task, id, ajaxDiv)
                     firstDay:1,
                     dateFormat: "dd-mm-yy",
                     regional: "it",
-                    minDate: 0,
+                    minDate: 1,
                     onSelect: function(dateText, inst) { 
                     var data = dateText; //the first parameter of this function
                     alert(data);
@@ -101,12 +97,21 @@ function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
 //        contentType: "application/json; charset=utf-8",
         success:function(datiRisposta)
         {
+            alert(datiRisposta);
+            // converto i dati risposta json in un oggetto javascript
+//            var orariDisponibili = $.parseJSON(datiRisposta);
             
-//            var arr = eval(datiRisposta);
-            alert ("siamo in success");
-            alert(datiRisposta);
-            var arr = eval('(' + JSON.stringify(datiRisposta) + ')');
-            alert(datiRisposta);
+            $.each(datiRisposta, function( key, array ) 
+            {
+                $.each( array, function( index, value )
+                {
+                    $( "#orariDisponibili" ).append( '<span>' + value + '</span><br>');
+
+                });
+            });
+
+
+            
             $("#dateDisponibili").html(datiRisposta);
             
         },
