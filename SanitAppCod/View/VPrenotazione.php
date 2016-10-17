@@ -7,10 +7,30 @@
  */
 class VPrenotazione extends View{
     
+    public function restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario)
+    {
+        
+    }
+    
     public function inviaDate($date) 
     {   
         echo $this->json_encode($date);
            
+    }
+    
+    /**
+     * Metodo che consente di recuperare l'orario dall'url
+     */
+    public function getOrario()
+    {
+        if (isset($_REQUEST['orario'])) 
+            {
+                return $_REQUEST['orario'];
+            } 
+        else 
+            {
+                return FALSE;
+            }
     }
     
     public function getPartitaIVA()

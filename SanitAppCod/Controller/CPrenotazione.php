@@ -20,21 +20,37 @@ class CPrenotazione {
         $task = $vPrenotazione->getTask();
         if ($task!==FALSE)
         {
-            if ($task==="esame")
-            {
-                $id = $vPrenotazione->getId();
-                $eEsame = new EEsame($id);
-                $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
-//                echo ($partitaIVAClinica);
-                $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                $nomeEsame =$eEsame->getNomeEsame();
-                $nomeClinica = $eClinica->getNomeClinica();
-                $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id);
+            switch ($task) {
+                case 'esame':
+                    $id = $vPrenotazione->getId();
+                    $eEsame = new EEsame($id);
+                    $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+    //                echo ($partitaIVAClinica);
+                    $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                    $nomeEsame =$eEsame->getNomeEsame();
+                    $nomeClinica = $eClinica->getNomeClinica();
+                    $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id);
+
+                    break;
+                
+                case 'riepilogo':
+                    $idEsame = $vPrenotazione->getId();
+                    $eEsame = new EEsame($idEsame);
+                    $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+                    $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                    $data = $vPrenotazione->getData();
+                    $orario = $vPrenotazione->getOrario();
+                    $eUtente = new EUtente(NULL, $username);
+                    $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario);
+                    
+                    
+                    break;
+
+                default:
+                    echo "erroe";
+                    break;
             }
-            else
-            {
-               echo "ciao";
-            }
+            
             
         }
         else

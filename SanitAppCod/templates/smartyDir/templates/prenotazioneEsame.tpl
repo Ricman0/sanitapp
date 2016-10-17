@@ -11,4 +11,4 @@
 <div id="orariDisponibili">
 </div>
 
-<input type="button" id="nextPrenotazioneEsame" value="next" />
+<input type="button" id="nextPrenotazioneEsame" value="next" data-idEsame="{$idEsame}" data-idClinica="{$partitaIVA}" data-orario="" data-data="" />
