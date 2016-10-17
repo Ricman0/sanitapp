@@ -97,19 +97,24 @@ function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
     $.ajax({
         type: 'GET',
         url: "prenotazione/" + partitaIVAClinica + "/" + idEsame + "/" + nomeGiorno + "/" + data,
-        dataType: 'json',
-        contentType: "application/json",
+        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
         success:function(datiRisposta)
         {
+            
+//            var arr = eval(datiRisposta);
+            alert ("siamo in success");
             alert(datiRisposta);
             var arr = eval('(' + JSON.stringify(datiRisposta) + ')');
             alert(datiRisposta);
             $("#dateDisponibili").html(datiRisposta);
             
         },
-        error:function(jqXHR, textStatus, errorThrown)
+        error: function(xhr, status, error) 
         {
-            alert(" errore nel ricevere le date disponibili " + jqXHR +" "+ textStatus +" "+errorThrown);
+            alert(xhr.responseText);
+            alert(error);
+            alert(" errore nel ricevere le date disponibili ");
         }
     });
 }

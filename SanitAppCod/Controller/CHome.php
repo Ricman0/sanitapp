@@ -26,9 +26,9 @@ class CHome {
         }
         else
         {
-            echo(" dovremmo essere autenticati ");
+//            echo(" dovremmo essere autenticati ");
             $username = $sessione->leggiVariabileSessione('usernameLogIn');
-            echo ($username);
+//            echo ($username);
             $vHome->impostaHeader($username);
         }
         
@@ -92,18 +92,18 @@ class CHome {
 //        {
 //            $vHome->impostaHeader("logIn", "navigationBar");
 //        }
-        echo ($sessione->checkVariabileSessione('loggedIn'));
+//        echo ($sessione->checkVariabileSessione('loggedIn'));
         $controller= $vHome->getController();
         switch ($_SERVER['REQUEST_METHOD'])  
         {
             case 'GET':
-                echo ($controller);
+//                echo ($controller);
                 $this->smistaControllerGET($controller, $vHome);
                 break;
             case 'POST': echo "ciao post ";
-                echo ($controller);
+//                echo ($controller);
                 $controller =$_POST['controller'];
-                echo ("$controller");
+//                echo ("$controller");
                 $this->smistaControllerPOST($controller);
                 break;
             case 'PUT':
@@ -228,11 +228,11 @@ class CHome {
                 break;
             
             case 'prenotazione':
-                echo " prenotazione ";
+//                echo " prenotazione ";
                 $sessione = USingleton::getInstance('USession');
                 if($sessione->checkVariabileSessione('loggedIn'))
                 {
-                    echo " loggato in prenotazione ";
+//                    echo " loggato in prenotazione ";
                     $cPrenotazione = USingleton::getInstance('CPrenotazione');
                     $cPrenotazione->gestisciPrenotazione();
                 }
@@ -256,7 +256,7 @@ class CHome {
      */
     private function smistaControllerPOST($controller)
     {
-        echo ($controller);
+//        echo ($controller);
         switch ($controller) 
         {
             case 'registrazione':

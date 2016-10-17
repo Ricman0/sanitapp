@@ -12,6 +12,8 @@ class CPrenotazione {
      */
     public function gestisciPrenotazione()
     {
+        $orari = Array();
+        $date;
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
@@ -23,7 +25,7 @@ class CPrenotazione {
                 $id = $vPrenotazione->getId();
                 $eEsame = new EEsame($id);
                 $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
-                echo ($partitaIVAClinica);
+//                echo ($partitaIVAClinica);
                 $eClinica = new EClinica(NULL, $partitaIVAClinica);
                 $nomeEsame =$eEsame->getNomeEsame();
                 $nomeClinica = $eClinica->getNomeClinica();
@@ -41,48 +43,90 @@ class CPrenotazione {
             $eClinica = new EClinica(NULL, $partitaIVAClinica);
             $workingPlan= $eClinica->getWorkingPlanClinica();// ora è di tipo json
             $workingPlan = json_decode($workingPlan);
-            print_r($workingPlan);
+//            print_r($workingPlan);
             //$workingPlan è un oggetto 
             // ora lo rendo un array
             $workingPlan = get_object_vars($workingPlan);
             $nomeGiorno = $vPrenotazione->getGiorno();
-            $date="" ;
             if (($workingPlan[$nomeGiorno])==NULL) 
             {
-                echo "non impostato $nomeGiorno";
-                $date[] = null; 
+//                echo "non impostato $nomeGiorno";
+                $date = Array("orari" => "NULL"); 
             }
             else
             {
+               
                $id = $vPrenotazione->getId();
+               
                $eEsame = new EEsame($id);
                $durata = $eEsame->getDurataEsame();
                //all'interno di workingPlan ad ogni giorno è associato un oggetto con attributi Start, End, Pausa
                $orainizio = $workingPlan[$nomeGiorno]->Start;
                $fineinizio = $workingPlan[$nomeGiorno]->End;
                $data = $vPrenotazione->getData(); 
-               print_r($data);
+//               print_r($data);
                $fPrenotazioni = USingleton::getInstance('FPrenotazione');
                $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinicaData($id, $partitaIVAClinica, $data);
                if (is_array($prenotazioni) || !is_bool($prenotazioni))
                {
-                    $i=0;
-                    foreach ($prenotazioni as $prenotazione)
+                   
+//        foreach ($giorniSettimanali as $giorno) 
+//        {
+//            if (isset($_POST[$giorno]))
+//            {
+//                $inizioFine = Array ('Start' => $_POST[$giorno . 'Start'] , 'End' => $_POST[$giorno . 'End']);
+////                if
+//                $inizioFine['Pause'] = $_POST[$giorno . 'Pausa'];
+//                $workingPlan ["$giorno"]= $inizioFine; 
+//            }
+//            else
+//            {
+//                $workingPlan ["$giorno"]= NULL;
+//                
+//            }
+//        }
+//        return json_encode($workingPlan); 
+                   
+//                    foreach ($prenotazioni as $prenotazione)
+//                    {
+////                        $i=0;
+//                        foreach ($prenotazione as $key => $value)
+//                        {
+//                            
+//                            if($key==="DataEOra")
+//                            {
+//                                $date[] = $value ;
+//                            }
+//                        }
+//                        $i++;
+//                    }
+//                    $data ["Prenotazioni"]= $date;
+                   
+                   foreach ($prenotazioni as $prenotazione)
                     {
-                        
-                        $date = array("prenotazione" . $i => $prenotazione["DataEOra"]);
-                        $i++;
+                        foreach ($prenotazione as $key => $value)
+                        {                            
+                            if($key==="DataEOra")
+                            {
+                                $value = substr($value, 11, 5);
+                                $orari[]=Array('orario' =>$value);
+                            }
+                        }
                     }
-//                    $data = array("dataEOra" => json_encode($date));
+                    $date = Array('orari' => $orari, 'durataEsame' => $durata);
                }
                else
                {
                    echo "errore";
                }
             }
-            $date = json_encode($date);
+//            $date = Array('orari' => $orari, 'durataEsame' => $eEsame->getDurataEsame());
+            
+//            print_r(json_encode($date));
+            echo json_encode($date);
+//            $date = json_encode($date);
 //            print_r($date);
-            $vPrenotazione->inviaDate($date);
+//            $vPrenotazione->inviaDate($date);
             
         }
         

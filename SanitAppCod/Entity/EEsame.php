@@ -87,6 +87,7 @@ class EEsame
             $attributiEsame = $fEsame->cercaEsameById($id);
             if(is_array($attributiEsame) && count($attributiEsame)==1)
             {
+                
                 $this->_idEsame = $id;
                 $this->_nomeEsame = $attributiEsame[0]["Nome"];
                 $this->_medicoEsame = $attributiEsame[0]["MedicoEsame"];

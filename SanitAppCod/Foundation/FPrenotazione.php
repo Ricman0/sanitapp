@@ -86,7 +86,7 @@ class FPrenotazione extends FDatabase{
         $data = strtotime($data);
         //cambio il formato della data per poterlo confrontare con quella nel db
         $data = date("Y-m-d", $data);
-        echo($data);
+//        echo($data);
         $query =  "SELECT prenotazione.* "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
