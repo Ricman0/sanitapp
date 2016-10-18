@@ -22,7 +22,7 @@ $(document).ready(function (){
         var idEsame = $('#nextPrenotazioneEsame').attr('data-idEsame');
         var orarioPrenotazione = $('#nextPrenotazioneEsame').attr('data-orario');
         var dataPrenotazione = $('#nextPrenotazioneEsame').attr('data-data');
-        inviaControllerTaskId('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, "#contenutoAreaPersonale");
+        inviaControllerTaskId('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, "#main");
     });
     
     
@@ -38,6 +38,7 @@ function inviaControllerTaskId(controller, task,  idEsame , dataPrenotazione, or
         success: function (datiRisposta)
         {
             alert(datiRisposta);
+            $(ajaxDiv).html(datiRisposta);
         },
         error: function(xhr, status, error) 
         {

@@ -118,9 +118,10 @@ class EUtente
             {
                 $fUtente = USingleton::getInstance('FUtente');
                 $risultato = $fUtente->cercaUtente($username);
+                echo "Utente trovato";
                 if(!is_bool($risultato))
                 {
-
+                    print_r($risultato);
                     // esiste quell'utente
                     $this->setNomeUtente($risultato[0]['Nome']);
                     $this->setCognomeUtente($risultato[0]['Cognome']);

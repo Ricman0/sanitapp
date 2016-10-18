@@ -40,10 +40,12 @@ class CPrenotazione {
                     $eClinica = new EClinica(NULL, $partitaIVAClinica);
                     $data = $vPrenotazione->getData();
                     $orario = $vPrenotazione->getOrario();
-                    $eUtente = new EUtente(NULL, $username);
-                    $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario);
-                    
-                    
+                    print_r($_SESSION);
+                    if($sessione->leggiVariabileSessione('tipoUser')==='Utente')
+                    {
+                        $eUtente = new EUtente();
+                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario);
+                    }
                     break;
 
                 default:

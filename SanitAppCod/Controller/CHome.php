@@ -14,6 +14,7 @@ class CHome {
      */
     public function impostaPagina() 
     {
+        
         //avvia o riesuma la sessione 
         $sessione = USingleton::getInstance("USession");
         $cAutenticazione = USingleton::getInstance('CAutenticazione');
@@ -22,6 +23,7 @@ class CHome {
         
         if (NULL == $sessione->leggiVariabileSessione('usernameLogIn'))
         {
+            
             $vHome->impostaHeader();
         }
         else

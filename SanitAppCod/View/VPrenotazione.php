@@ -10,6 +10,12 @@ class VPrenotazione extends View{
     public function restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario)
     {
         
+        $this->assegnaVariabiliTemplate('utente', $eUtente);
+        $this->assegnaVariabiliTemplate('orario', $orario);
+        $this->assegnaVariabiliTemplate('data', $data);
+        $this->assegnaVariabiliTemplate('clinica', $eClinica);
+        $this->assegnaVariabiliTemplate('esame', $eEsame);
+        return $this->visualizzaTemplate('riepilogoPrenotazione');
     }
     
     public function inviaDate($date) 
