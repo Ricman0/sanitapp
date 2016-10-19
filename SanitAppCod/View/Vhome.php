@@ -27,7 +27,7 @@ class VHome extends View {
             } 
         else 
             {
-                return FALSE;
+                return "FALSE";
             }
     }
     

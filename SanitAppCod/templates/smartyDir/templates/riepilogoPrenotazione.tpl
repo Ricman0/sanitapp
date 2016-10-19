@@ -2,9 +2,9 @@
 <div>
     <span>Nome Esame:{$esame->getNomeEsame()}</span>
     <br>
-    <span>Data:{$data}</span>
+    <span id="dataPrenotazione">Data:{$data}</span>
     <br>
-    <span>Orario:{$orario}</span>
+    <span id="orarioPrenotazione">Orario:{$orario}</span>
     <br>
     <span>Durata:{$esame->getDurataEsame()}</span>
     <br>
@@ -30,4 +30,4 @@
     <span>Indirizzo:{$utente->getViaUtente()}</span>
     <br>
 </div>
-<input type="button" id="confermaPrenotazione" value="Conferma" />
+<input type="button" id="confermaPrenotazione" value="Conferma" data-codice="{$codice}"data-idClinica="{$clinica->getPartitaIVAClinica()}" data-idEsame="{$esame->getIDEsame()}"/>

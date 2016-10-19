@@ -155,7 +155,7 @@ class FDatabase {
                 if($queryResult === TRUE)
                 {
                    echo 'Query eseguita con successo'; 
-                   $this->_result = TRUE;
+                   $this->_result = "TRUE";
                 }
                 else 
                 {

@@ -26,10 +26,10 @@ class FPrenotazione extends FDatabase{
         // imposto il nome della tabella
         $this->_nomeTabella = "prenotazione";
         // imposto gli attributiTabella
-        $this->_attributiTabella = "IDPrenotazione, " + "IDEsame, " + "PartitaIVAclinica, " +
-                + "Tipo, " + "Confermata, " + "Eseguita, "+ "CodFiscaleUtenteEffettuaEsame, " 
-                + "CodFiscaleMedicoPrenotaEsame, "+ "CodFiscaleUtentePrenotaEsame, "
-                + "DataEOra";
+        $this->_attributiTabella = "IDPrenotazione, IDEsame, PartitaIVAclinica, " 
+                . "Tipo, Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, " 
+                . "CodFiscaleMedicoPrenotaEsame, CodFiscaleUtentePrenotaEsame, "
+                . "DataEOra";
     }
     
     /**
@@ -95,4 +95,33 @@ class FPrenotazione extends FDatabase{
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
+    
+    public function aggiungiPrenotazione($ePrenotazione) 
+    {
+        $valoriAttributi = $ePrenotazione->getValoriAttributi();
+        echo " in aggiungi Prenotazione ";
+        //la query da eseguire è la seguente:
+        // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
+        $query = "INSERT INTO " . $this->_nomeTabella . " (" . $this->_attributiTabella . ") VALUES(" . $valoriAttributi . ")";
+        // eseguo la query
+//        $query = "INSERT INTO prenotazione ()"
+        return $risultato = $this->eseguiQuery($query);
+    }
+    
+//    public function getAttributi($ePrenotazione) 
+//    {
+//        print_r($ePrenotazione);
+//        
+//        
+       
+//        foreach($ePrenotazione as $attributo => $valore) 
+//        {
+//            echo " $attributo ". " $valore ";
+//            $valoriAttributi = $valoriAttributi . $valore . "', '" ;
+//        }
+//        $c = (strlen($valoriAttributi))-3;
+//        print_r($c);
+//        $valoriAttributi = substr($valoriAttributi, 0, $c);
+//        print_r($valoriAttributi);
+//    }
 }
