@@ -20,21 +20,46 @@ class CPrenotazione {
         $task = $vPrenotazione->getTask();
         if ($task!==FALSE)
         {
-            if ($task==="esame")
-            {
-                $id = $vPrenotazione->getId();
-                $eEsame = new EEsame($id);
-                $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
-//                echo ($partitaIVAClinica);
-                $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                $nomeEsame =$eEsame->getNomeEsame();
-                $nomeClinica = $eClinica->getNomeClinica();
-                $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id);
+            switch ($task) {
+                case 'esame':
+                    $id = $vPrenotazione->getId();
+                    $eEsame = new EEsame($id);
+                    $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+    //                echo ($partitaIVAClinica);
+                    $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                    $nomeEsame =$eEsame->getNomeEsame();
+                    $nomeClinica = $eClinica->getNomeClinica();
+                    $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id);
+
+                    break;
+                
+                case 'riepilogo':
+                    $idEsame = $vPrenotazione->getId();
+                    $eEsame = new EEsame($idEsame);
+                    $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+                    $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                    $data = $vPrenotazione->getData();
+                    $orario = $vPrenotazione->getOrario();
+                    print_r($_SESSION);
+                    if($sessione->leggiVariabileSessione('tipoUser')==='Utente')
+                    {
+                        $eUtente = new EUtente();
+                        $codice = $eUtente->getCodiceFiscaleUtente();
+                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
+                    }
+                    elseif($sessione->leggiVariabileSessione('tipoUser')==='Medico')
+                    {
+                        
+                    }
+                    else
+                    {}
+                    break;
+
+                default:
+                    echo "erroe";
+                    break;
             }
-            else
-            {
-               echo "ciao";
-            }
+            
             
         }
         else
@@ -181,4 +206,43 @@ class CPrenotazione {
     }
     
     
+    public function gestisciPrenotazionePOST()
+    {
+        $vPrenotazione = USingleton::getInstance('VPrenotazione');
+        $task = $vPrenotazione->getTask();
+        switch ($task) 
+        {
+            case 'conferma':
+                $sessione = USingleton::getInstance('USession');
+                $tipo = $sessione->leggiVariabileSessione('tipoUser');
+                $username = $sessione->leggiVariabileSessione('username');
+                if($tipo === 'Utente')
+                {
+                    $eUtente  = new EUtente(NULL, $username);
+                    $codFiscaleUtenteEffettuaEsame = $eUtente->getCodiceFiscaleUtente();
+                    $codFiscalePrenotaEsame = $eUtente->getCodiceFiscaleUtente();
+                }
+                else
+                {
+                    $eMedico = new EMedico(NULL, $username);
+                    $codFiscalePrenotaEsame = $eMedico->getCodiceFiscaleMedico();
+                    $codFiscaleUtenteEffettuaEsame = $vPrenotazione->getCodice();
+                }
+                
+                $idEsame = $vPrenotazione->getId();
+                $partitaIVAClinica = $vPrenotazione->getPartitaIVA();
+                $data = $vPrenotazione->getData();
+                $ora = $vPrenotazione->getOrario();
+                $dataEOra = $data . " " . $ora;
+                $ePrenotazione = new EPrenotazione(NULL, $idEsame, $partitaIVAClinica, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
+                echo " prneotazione creata ma ancora da aggiunrere ";
+                $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB($ePrenotazione);
+                $vPrenotazione->appuntamentoAggiunto($risultatoQuery);
+
+                break;
+
+            default:
+                break;
+        }
+    }
 }

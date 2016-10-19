@@ -7,10 +7,41 @@
  */
 class VPrenotazione extends View{
     
+    public function appuntamentoAggiunto($risultato) 
+    {
+        $this->assegnaVariabiliTemplate('risultato', $risultato);
+        return $this->visualizzaTemplate('prenotazioneAggiunta');
+    }
+    public function restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice)
+    {
+        $this->assegnaVariabiliTemplate('codice', $codice);
+        $this->assegnaVariabiliTemplate('utente', $eUtente);
+        $this->assegnaVariabiliTemplate('orario', $orario);
+        $this->assegnaVariabiliTemplate('data', $data);
+        $this->assegnaVariabiliTemplate('clinica', $eClinica);
+        $this->assegnaVariabiliTemplate('esame', $eEsame);
+        return $this->visualizzaTemplate('riepilogoPrenotazione');
+    }
+    
     public function inviaDate($date) 
     {   
         echo $this->json_encode($date);
            
+    }
+    
+    /**
+     * Metodo che consente di recuperare l'orario dall'url
+     */
+    public function getOrario()
+    {
+        if (isset($_REQUEST['orario'])) 
+            {
+                return $_REQUEST['orario'];
+            } 
+        else 
+            {
+                return "FALSE";
+            }
     }
     
     public function getPartitaIVA()
@@ -21,7 +52,7 @@ class VPrenotazione extends View{
             } 
         else 
             {
-                return FALSE;
+                return "FALSE";
             }
     }
     
@@ -33,7 +64,21 @@ class VPrenotazione extends View{
             } 
         else 
             {
-                return FALSE;
+                return "FALSE";
+            }
+    }
+    
+    
+    
+    public function getCodice() 
+    {
+        if (isset($_REQUEST['codice'])) 
+            {
+                return $_REQUEST['codice'];
+            } 
+        else 
+            {
+                return "FALSE";
             }
     }
     
@@ -45,7 +90,7 @@ class VPrenotazione extends View{
             } 
         else 
             {
-                return FALSE;
+                return "FALSE";
             }
     }
     

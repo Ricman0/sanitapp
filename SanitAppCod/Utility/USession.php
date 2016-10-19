@@ -95,11 +95,11 @@ class USession {
         
         if(!empty($_SESSION[$chiave]))
         {
-            return TRUE;
+            return "TRUE";
         }
         else
         {
-            return FALSE;
+            return "FALSE";
         }
         
     }

@@ -8,15 +8,79 @@ $(document).ready(function (){
         var id = $("#aggiungiPrenotazioneButton").attr("data-idEsame");
         prenotazione('prenotazione', 'esame', id, "#main"); 
     });
-    
 
     $('#main').on('click', '.orarioDisponibile', function() {
         $('.orarioSelezionato').removeClass('orarioSelezionato');
         $(this).addClass('orarioSelezionato');
+        var orarioSelezionato = $(".orarioSelezionato").text();
+        $('#nextPrenotazioneEsame').attr('data-orario', orarioSelezionato);
+        
     });
     
+    $('#main').on("click", "#nextPrenotazioneEsame", function(){
+        var idEsame = $('#nextPrenotazioneEsame').attr('data-idEsame');
+        var orarioPrenotazione = $('#nextPrenotazioneEsame').attr('data-orario');
+        var dataPrenotazione = $('#nextPrenotazioneEsame').attr('data-data');
+        inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, "#main");
+    });
     
+    $('#main').on("click", "#confermaPrenotazione", function(){
+        confermaPrenotazione('prenotazione', 'conferma', "#main");
+    });
+    
+    $('#main').on("click", "#prenotazioneAggiunta", function(){; 
+        inviaController('mySanitApp', '#main');
+    });
 });
+
+function confermaPrenotazione(controller1, task, ajaxDiv)
+{
+        var codice = $('#confermaPrenotazione').attr('data-codice');
+        var clinica = $('#confermaPrenotazione').attr('data-idClinica');
+        var idEsame = $('#confermaPrenotazione').attr('data-idEsame');
+        var orarioPrenotazione = $('#orarioPrenotazione').text();
+        orarioPrenotazione = orarioPrenotazione.slice(7,12);
+        var dataPrenotazione = $('#dataPrenotazione').text();
+        dataPrenotazione = dataPrenotazione.slice(5,15);
+        dati ={id : idEsame, orario : orarioPrenotazione, data : dataPrenotazione, clinica : clinica, codice: codice};
+        $.ajax({
+            type: 'POST',
+            url: controller1 + '/' + task,
+            data:dati,
+            success:function(datiRisposta)
+            {
+                alert(datiRisposta);
+                $(ajaxDiv).html(datiRisposta);
+            },
+            error: function(xhr, status, error) 
+            {
+                alert(xhr.responseText);
+                alert(error);
+                alert(" errore nella conferma prenotazione ");
+            }
+        });
+}
+
+function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, orarioPrenotazione, ajaxDiv)
+{
+    $.ajax({
+        
+        type: 'GET',
+        url: controller + '/' + task + '/' + idEsame +  '/' + dataPrenotazione + '/' + orarioPrenotazione ,
+   
+        success: function (datiRisposta)
+        {
+            alert(datiRisposta);
+            $(ajaxDiv).html(datiRisposta);
+        },
+        error: function(xhr, status, error) 
+        {
+            alert(xhr.responseText);
+            alert(error);
+            alert(" errore nel riepilogo ");
+        }
+    });
+}
 
 function prenotazione(controller, task, id, ajaxDiv)
 {
@@ -34,6 +98,7 @@ function prenotazione(controller, task, id, ajaxDiv)
                     minDate: 1,
                     onSelect: function(dateText, inst) { 
                     var data = dateText; //the first parameter of this function
+                    $('#nextPrenotazioneEsame').attr('data-data', data);
                     alert(data);
                     
                     var dataObject = $(this).datepicker( 'getDate' ); //the getDate method
@@ -109,8 +174,6 @@ function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
                 $("#orariDisponibili").append('<div id="colonna1" class="colonna"></div>');
                 $.each(datiRisposta, function( key, array ) 
                 {
-
-
                     $.each( array, function( index, value )
                     {       
 

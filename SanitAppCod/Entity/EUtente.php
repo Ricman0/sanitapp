@@ -108,7 +108,7 @@ class EUtente
      * @param string $password La password dell'utente
      * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($nome="", $cognome="", $cf=NULL, $via="", $numeroCivico="", $cap="", $email="", $username="", $password="", $cod="", $medico="") 
+    public function __construct($cf=NULL,$username="", $nome="", $cognome="",  $via="", $numeroCivico="", $cap="", $email="", $password="", $cod="", $medico="") 
     {
         if(NULL == $cf)
         {
@@ -118,9 +118,10 @@ class EUtente
             {
                 $fUtente = USingleton::getInstance('FUtente');
                 $risultato = $fUtente->cercaUtente($username);
+                echo "Utente trovato";
                 if(!is_bool($risultato))
                 {
-
+                    print_r($risultato);
                     // esiste quell'utente
                     $this->setNomeUtente($risultato[0]['Nome']);
                     $this->setCognomeUtente($risultato[0]['Cognome']);

@@ -14,6 +14,7 @@ class CHome {
      */
     public function impostaPagina() 
     {
+        
         //avvia o riesuma la sessione 
         $sessione = USingleton::getInstance("USession");
         $cAutenticazione = USingleton::getInstance('CAutenticazione');
@@ -22,6 +23,7 @@ class CHome {
         
         if (NULL == $sessione->leggiVariabileSessione('usernameLogIn'))
         {
+            
             $vHome->impostaHeader();
         }
         else
@@ -101,9 +103,9 @@ class CHome {
                 $this->smistaControllerGET($controller, $vHome);
                 break;
             case 'POST': echo "ciao post ";
-//                echo ($controller);
-                $controller =$_POST['controller'];
-//                echo ("$controller");
+
+                $controller = $vHome->getController();
+                
                 $this->smistaControllerPOST($controller);
                 break;
             case 'PUT':
@@ -291,6 +293,11 @@ class CHome {
                 $cImpostazioni->gestisciImpostazioniPOST();
                 break;
             
+            case 'prenotazione':
+                $cPrenotazione = USingleton::getInstance('CPrenotazione');
+                $cPrenotazione->gestisciPrenotazionePOST();
+                break;
+                
             default:
                 echo "ora non lo so che fargli fare";
 //                $vHome->restituisciHomePage();

@@ -1,7 +1,10 @@
 <IfModule mod_rewrite.c>
-  
+#  data : ([0-9-]+)
+# orario: ([0-2][0-3][:][0-5][0-9])   
   RewriteEngine On
   RewriteCond %{REQUEST_METHOD} GET 
+
+  RewriteRule ^(prenotazione)/(riepilogo)/([[:alnum:]]+)/((3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4})/([0-9:]+)?$ index.php?controller=$1&task=$2&id=$3&data=$4&orario=$7 [L]
   RewriteRule ^(ricercaEsami)?$ index.php?controller=$1
   RewriteRule ^(prenotazione)/(esame)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(impostazioni)/(clinica)?$ index.php?controller=$1&task=$2 [L]
@@ -26,11 +29,13 @@
   RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]{13})?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(pazienti)/(visualizza)/([[:alnum:]]{16})?$ index.php?controller=$1&task=$2&id=$3 [L]
  RewriteRule ^(servizi)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+  
   RewriteRule ^(prenotazione)/(\w+)/(\w+)/(\w+)/([\d-]+)?$ index.php?controller=$1&clinica=$2&id=$3&giorno=$4&data=$5 [L]
 
 
 
     RewriteCond %{REQUEST_METHOD} POST 
+    RewriteRule ^(prenotazione)/(conferma)?$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(impostazioni)/(clinica)/(workingPlan|credenziali|informazioni)?$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(\w+)/(\w+)/(\w+)?$ index.php
     RewriteRule ^(\w+)/(\w+)?$ index.php

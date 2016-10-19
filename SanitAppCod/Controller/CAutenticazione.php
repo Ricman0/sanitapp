@@ -73,7 +73,7 @@ class CAutenticazione {
     public function autenticazioneUser($sessione) 
     {
 //        if($this->logIn($sessione) === TRUE)
-        if($sessione->checkVariabileSessione("loggedIn") === TRUE)
+        if($sessione->checkVariabileSessione("loggedIn") === "TRUE")
         {
             //user autenticato
             
@@ -81,6 +81,7 @@ class CAutenticazione {
         }
         elseif (!empty($_POST['usernameLogIn']) && !empty($_POST['passwordLogIn'])) 
         {
+            echo "eccomi";
             $fDatabase = USingleton::getInstance('FDatabase');
             $username = $fDatabase->trimEscapeStringa($_POST['usernameLogIn']);
             $password = $fDatabase->trimEscapeStringa($_POST['passwordLogIn']);
@@ -109,10 +110,11 @@ class CAutenticazione {
             else
             {
                 $sessione->impostaVariabileSessione('usernameLogIn', $username);
-                $sessione->impostaVariabileSessione('loggedIn', TRUE);
+                $sessione->impostaVariabileSessione('loggedIn', "TRUE");
                 $tipo = $risultato[2]; // ??? è giusto così?
-                $sessione->impostaVariabileSessione('tipoUtente', $tipo);
+                $sessione->impostaVariabileSessione('tipoUser', $tipo);
                 echo "Benvenuto" + $username;
+                print_r($_SESSION);
             }
         }
         else
@@ -120,7 +122,7 @@ class CAutenticazione {
             // display the login form
             
             //imposto la variabile di sessione loggedIn a False
-            $sessione->impostaVariabileSessione('loggedIn', FALSE);
+            $sessione->impostaVariabileSessione('loggedIn', "FALSE");
             
         }
         return $sessione;
@@ -198,7 +200,7 @@ class CAutenticazione {
                     
                     $sessione->impostaVariabileSessione('usernameLogIn', $username);
                     $uUsername->impostaCookie('username', $username, time() + 15 * 60);
-                    $sessione->impostaVariabileSessione('loggedIn', TRUE);
+                    $sessione->impostaVariabileSessione('loggedIn', "TRUE");
                     /*    usato per capire come è strutturato il risutlato
                     foreach($risultato  as $row)
                     {
@@ -235,6 +237,7 @@ class CAutenticazione {
                     }
                     echo $tipo;
                     $sessione->impostaVariabileSessione('tipoUser', $tipo);
+                    print_r($_SESSION);
                     echo " Benvenuto " . $username;
                     // mostrare la pagina personale
                     
@@ -250,7 +253,7 @@ class CAutenticazione {
             // questo ramo non dovrebbe esserci perchè lato client richiedo necessariamente i due input
         }
         echo " QWERTY ";
-        if($sessione->leggiVariabileSessione('loggedIn')===TRUE && $sessione->leggiVariabileSessione('usernameLogIn')===$username)
+        if($sessione->leggiVariabileSessione('loggedIn')==="TRUE" && $sessione->leggiVariabileSessione('usernameLogIn')===$username)
         {
             $uTentativi->eliminaCookie('Tentativi');
             $vAutenticazione->impostaPaginaPersonale($sessione->leggiVariabileSessione('tipoUser'), $tastiLaterali);
