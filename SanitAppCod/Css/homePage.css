@@ -144,6 +144,20 @@ input, select{
     float: left;
 }
 
+#orariDisponibili{
+    width: 400px;
+}
+.orarioDisponibile{
+    
+    padding: 1px;
+    display:inline-block;
+    
+}
+.orarioDisponibile:hover{
+    font-weight: bold;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 1200px){
     #main{
         padding-left: 5%;

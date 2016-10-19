@@ -178,8 +178,8 @@ function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
                     {       
 
 
-                            $("#colonna" + i).append( '<span class="orariDisponibili">' + value + '</span> &nbsp <br>');
-                            if(Number.isInteger(j/12))
+                            $("#colonna" + i).append( '<span class="orarioDisponibile">' + value + '</span> &nbsp');
+                            if(Number.isInteger(j/11))
                             {
                                 i++;
                                 $("#orariDisponibili").append('<div id="colonna' + i + '" class="colonna"></div>');
