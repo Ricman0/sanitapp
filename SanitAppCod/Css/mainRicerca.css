@@ -9,49 +9,30 @@ and open the template in the editor.
 */
 
 #elementiFormMainRicerca{
-    margin-left: 10%;
+    
     float: left;
-    margin-right: 10%;
     margin-top: 80px;
-    /*    -webkit-transition: margin 0.1s;  Safari 
-        transition: margin 0.1s;*/
+    margin-right: 20px;
 
 }
+
 #inputMainRicerca{
     float:left;
 }
 #iconaMainRicercaRicerca {
     margin: 50px;
     float:left;
-    /*    -webkit-transition: margin 0.1s;  Safari 
-        transition: margin 0.1s;*/
 }
 
 @media only screen and (max-width: 1200px){
-    #elementiFormMainRicerca{
-        margin-left: 5%;
-        margin-right: 5%;
-    }
     #iconaMainRicercaRicerca {
         margin: 50px 35px;
     }
 
 }
+
 @media only screen and (max-width: 1000px){
-    #elementiFormMainRicerca{
-        margin-left: 2%;
-        margin-right: 2%;
-    }
     #iconaMainRicercaRicerca {
         margin: 50px 20px;
     }
 }
-/*
-#mainRicercaCerca{
-    width: 100px;
-    height: 40px;
-    position: relative;
-    left: 22.5%;
-    
-}*/
-

@@ -41,9 +41,13 @@ fieldset{
     line-height:7em;
 }
 #main{
-    padding-bottom: 30px;
+    padding: 10px 4% 30px 14%;
     min-width: 970px;
     min-height: 450px;
+    margin: auto;
+    width: 100%;
+    box-sizing: border-box;
+    
 }
 #footer{
     position:relative;
@@ -121,8 +125,35 @@ input, select{
     box-sizing: border-box;
 
 }
-#main{
+
+.affiancati
+{
+    float: left;
     margin: auto;
-    width: 100%;
+}
+#dateEOrariDisponibili{
+    display: inline-flex;
 }
 
+#calendarioPrenotazioneEsame{
+    margin-right: 10%;
+}
+
+.colonna{
+    width: 60px;
+    float: left;
+}
+
+@media only screen and (max-width: 1200px){
+    #main{
+        padding-left: 5%;
+        padding-right: 1%;
+    }
+
+}
+@media only screen and (max-width: 1000px){
+    #main{
+        padding-left: 2%;
+        padding-right: 1%;
+    }
+}

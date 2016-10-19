@@ -71,6 +71,7 @@
             </div>
             <br>
             <!-- Main della pagina-->
+            
             <div id="main">
                 {$mainRicerca}
                 {$cartina}

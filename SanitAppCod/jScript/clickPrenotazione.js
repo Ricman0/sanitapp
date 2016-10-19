@@ -97,18 +97,37 @@ function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
 //        contentType: "application/json; charset=utf-8",
         success:function(datiRisposta)
         {
+            $("#orariDisponibili").empty();
+            
             alert(datiRisposta);
             // converto i dati risposta json in un oggetto javascript
 //            var orariDisponibili = $.parseJSON(datiRisposta);
-            
-            $.each(datiRisposta, function( key, array ) 
+            var i=1;
+            var j =1;
+            if(Object.keys(datiRisposta).length > 0)
             {
-                $.each( array, function( index, value )
+                $("#orariDisponibili").append('<div id="colonna1" class="colonna"></div>');
+                $.each(datiRisposta, function( key, array ) 
                 {
-                    $( "#orariDisponibili" ).append( '<span>' + value + '</span><br>');
 
+
+                    $.each( array, function( index, value )
+                    {       
+
+
+                            $("#colonna" + i).append( '<span class="orariDisponibili">' + value + '</span> &nbsp <br>');
+                            if(Number.isInteger(j/12))
+                            {
+                                i++;
+                                $("#orariDisponibili").append('<div id="colonna' + i + '" class="colonna"></div>');
+
+                            }
+                            j++;
+
+
+                    });
                 });
-            });
+            }
 
 
             
