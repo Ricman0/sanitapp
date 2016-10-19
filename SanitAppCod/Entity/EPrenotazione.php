@@ -63,7 +63,7 @@ class EPrenotazione {
     private $_codFisMedicoPrenotaEsame;
     
     /**
-     * @var DateTime $_dataEOra La data e l'ora della prenotazione
+     * @var string $_dataEOra La data e l'ora della prenotazione
      */
     private $_dataEOra;
     
@@ -88,7 +88,7 @@ class EPrenotazione {
                 $this->_codFisUtenteEffettuaEsame = $attributiPrenotazione[0]["CodFiscaleUtenteEffettuaEsame"];
                 $this->_codFisUtentePrenotaEsame = $attributiPrenotazione[0]["CodFiscaleEffettuaPrenotaEsame"];
                 $this->_codFisMedicoPrenotaEsame= $attributiPrenotazione[0]["CodFiscaleMedicoPrenotaEsame"];
-                $this->_dataEOra =  new DateTime($attributiPrenotazione[0]["DataEOra"]);
+                $this->_dataEOra = $attributiPrenotazione[0]["DataEOra"];
                 
             }
         }
@@ -102,18 +102,19 @@ class EPrenotazione {
             {
                 $this->_codFisUtentePrenotaEsame = NULL;
                 $this->_codFisMedicoPrenotaEsame = $codFiscalePrenotaEsame;
-                $this->_confermata = "FALSE";
+                $this->_confermata = FALSE;
             }
             else
             {
                 $this->_codFisUtentePrenotaEsame = $codFiscalePrenotaEsame;
                 $this->_codFisMedicoPrenotaEsame = NULL;
-                $this->_confermata = "TRUE";
+                $this->_confermata = TRUE;
             }
             
-            $this->_eseguita = "FALSE";
+            $this->_eseguita = FALSE;
             $this->_codFisUtenteEffettuaEsame = $codFiscaleUtenteEffettuaEsame;
-            $this->_dataEOra = $this->setDataEOra($dataEOra);
+            $this->setDataEOra($dataEOra);
+            
         }
     }
     
@@ -220,6 +221,7 @@ class EPrenotazione {
         return $this->_codFisMedicoPrenotaEsame;
     }
     
+    
     /**
      * Metodo che permette di conoscere la data e l'ora della prenotazione nel formato dd-mm-yyyy hh:mm
      * 
@@ -229,32 +231,11 @@ class EPrenotazione {
     public function getDataEOra() 
     {
         
-        return $this->_dataEOra->format('d-m-Y H:i');
+        return $this->_dataEOra;
                
     }
     
-    /**
-     * Metodo che permette di conoscere la data della prenotazione nel formato dd-mm-yyyy hh:mm
-     * 
-     * @access public
-     * @return string La data e l'orario della prenotazione 
-     */
-    public function getData() 
-    { 
-        return $this->_dataEOra->format('d-m-Y');
-    }
-    
-    /**
-     * Metodo che permette di conoscere l'ora della prenotazione nel formato dd-mm-yyyy hh:mm
-     * 
-     * @access public
-     * @return string La data e l'orario della prenotazione 
-     */
-    public function getOra() 
-    {
-        
-        return $this->_dataEOra->format('H:i');
-    }
+   
     
     /**
      * Metodo che consente di ottenere in forma di stringa tutti i valori degli attributi
@@ -275,11 +256,12 @@ class EPrenotazione {
         }
         else 
         {
-            $valoriAttributi = $valoriAttributi . "'". $this->getUtentePrenotaEsamePrenotazione() . "', NULL ,'";
+            $valoriAttributi = $valoriAttributi . "'". $this->getUtentePrenotaEsamePrenotazione() . "', NULL , '";
         }
                 
                 
                 $valoriAttributi =$valoriAttributi . $this->getDataEOra() . "'";
+                echo ($this->getDataEOra());
         return $valoriAttributi;
     }
     /*
@@ -389,42 +371,15 @@ class EPrenotazione {
      * Metodo che permette di impostare la data e l'ora della prenotazione
      * 
      * @access public
-     * @parame string La data e l'orario della prenotazione in formato dd-mm-yyyy hh:ii
+     * @param string La data e l'orario della prenotazione in formato dd-mm-yyyy hh:ii
      */
     public function setDataEOra($dataEOra) 
     {
-        $this->setData($dataEOra);
-        $this->setOra($dataEOra);
-        
-    }
-    
-    /**
-     * Metodo che permette di impostare la data  della prenotazione
-     * 
-     * @access public
-     * @param string La data e l'ora della prenotazione in formato dd-mm-yyyy hh:ii
-     */
-    public function setData($dataEOra) 
-    {
-        $data = new DateTime();
-        $anno = substr($dataEOra, 6, 4);
-        $mese = substr($dataEOra, 3, 2);
         $giorno = substr($dataEOra, 0, 2);
-        $this->_dataEOra = $data->setDate( $anno , $mese, $giorno );
-    }
-    
-    /**
-     * Metodo che permette di impostare l'ora della prenotazione
-     * 
-     * @access public
-     * @param string La data e l'ora della prenotazione in formato dd-mm-yyyy hh:ii
-     */
-    public function setOra($dataEOra) 
-    {
-        $data = new DateTime();
-        $ora = substr($dataEOra, 14, 2);
-        $minuto = substr($dataEOra, 11, 2);
-        $this->_dataEOra = $data->setTime($ora , $minuto);
+        $anno = substr($dataEOra, 6, 4);
+        $dataEOra = str_replace($anno, $giorno, $dataEOra);
+        $dataEOra = $anno . substr($dataEOra, 2);      
+        $this->_dataEOra = $dataEOra;
     }
     
     /*

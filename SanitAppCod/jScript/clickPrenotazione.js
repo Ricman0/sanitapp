@@ -28,7 +28,7 @@ $(document).ready(function (){
         confermaPrenotazione('prenotazione', 'conferma', "#main");
     });
     
-    $('#main').on("click", "#prenotazioneAggiunta", function(){; 
+    $('#main').on("click", "#prenotazioneAggiunta", function(){
         inviaController('mySanitApp', '#main');
     });
 });
