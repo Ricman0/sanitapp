@@ -26,7 +26,7 @@
   RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|referti|impostazioni)/(utente)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(impostazioni)/(utente)/(modifica)/(informazioni)?$ index.php?controller=$1&task=$2&task2=$3&task3=$4 [L]
-  RewriteRule ^(prenotazioni|pazienti)/(aggiungi|visualizza)?$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(prenotazioni|pazienti|referti)/(aggiungi|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]{13})?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(pazienti)/(visualizza)/([[:alnum:]]{16})?$ index.php?controller=$1&task=$2&id=$3 [L]
  RewriteRule ^(servizi)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]

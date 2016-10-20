@@ -18,6 +18,10 @@ $(document).ready(function(){
         inviaControllerTask('impostazioni', 'utente', "#contenutoAreaPersonale");
     });
     
+    $('#main').on("click", "#refertiAreaPersonaleUtente", function () {
+        inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
+    });
+    
     $('#main').on("click", "#iconaAggiungiPrenotazione", function(){
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });

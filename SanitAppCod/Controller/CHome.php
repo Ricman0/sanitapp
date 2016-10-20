@@ -218,7 +218,10 @@ class CHome {
                 break;
             
             case 'referti':
+                $cReferti = USingleton::getInstance('CReferti');
+                $cReferti->gestisciReferti();
                 break;
+            
             case 'impostazioni':
                 $cImpostazioni = USingleton::getInstance('CImpostazioni');
                 $cImpostazioni->gestisciImpostazioni();

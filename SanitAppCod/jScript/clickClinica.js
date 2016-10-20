@@ -14,6 +14,10 @@ $(document).ready(function () {
     $('#main').on("click", "#prenotazioniAreaPersonaleClinica", function () {
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
     });
+    
+    $('#main').on("click", "#refertiAreaPersonaleClinica", function () {
+        inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
+    });
 
     $('#main').on("click", "#iconaAggiungi", function () {
         inviaControllerTask('servizi', 'aggiungi', "#contenutoAreaPersonale");

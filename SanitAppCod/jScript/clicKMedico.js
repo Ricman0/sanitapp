@@ -10,6 +10,9 @@ $(document).ready(function(){
         inviaControllerTask('pazienti', 'visualizza', "#contenutoAreaPersonale"); 
     });
     
+    $('#main').on("click", "#refertiAreaPersonaleMedico", function () {
+        inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
+    });
 //    $('#main').on("click", "#refertiAreaPersonaleUtente", function(){
 //        inviaControllerTask('referti', 'utente', "#contenutoAreaPersonale");
 //    });
