@@ -16,7 +16,6 @@ html,body{
     min-height: 600px;
     min-width: 800px;
     width: 100%;
-    text-align: center;
 
 }
 
@@ -48,7 +47,6 @@ fieldset{
     margin: auto;
     width: 100%;
     box-sizing: border-box;
-    text-align: center;
     
 }
 #footer{
@@ -147,19 +145,13 @@ input, select{
 }
 
 #orariDisponibili{
-    width: 500px;
+    width: 400px;
 }
 .orarioDisponibile{
     
-    color:grey;
     padding: 1px;
     display:inline-block;
     
-}
-.orarioSelezionato{
-    color:rgb(10,170,200);
-    text-decoration: underline;
-    font-weight: bold;
 }
 .orarioDisponibile:hover{
     font-weight: bold;

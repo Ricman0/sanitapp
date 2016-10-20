@@ -89,7 +89,7 @@ class EEsame
             {
                 
                 $this->_idEsame = $id;
-                $this->_nomeEsame = $attributiEsame[0]["Nome"];
+                $this->_nomeEsame = $attributiEsame[0]["NomeEsame"];
                 $this->_medicoEsame = $attributiEsame[0]["MedicoEsame"];
                 $this->_nomeCategoria = $attributiEsame[0]["NomeCategoria"];  
                 $this->_prezzo = $attributiEsame[0]["Prezzo"];

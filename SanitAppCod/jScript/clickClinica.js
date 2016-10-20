@@ -10,6 +10,10 @@ $(document).ready(function () {
     $('#main').on("click", "#serviziAreaPersonaleClinica", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
+    
+    $('#main').on("click", "#prenotazioniAreaPersonaleClinica", function () {
+        inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
+    });
 
     $('#main').on("click", "#iconaAggiungi", function () {
         inviaControllerTask('servizi', 'aggiungi', "#contenutoAreaPersonale");

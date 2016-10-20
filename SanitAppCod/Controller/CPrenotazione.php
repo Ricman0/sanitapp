@@ -170,30 +170,63 @@ class CPrenotazione {
         {
             case 'visualizza':
                 
-                
-                    //caso in cui si vogliono visualizzare tutte le prenotazioni
-                   
-//                    $fUtente = USingleton::getInstance('FUtente');
-                
-//                    $risultato = $fUtente->cercaUtente($username);
-//                    if(!is_bool($risultato))
-//                    {
-//                        // esiste quell'utente
-//                        $codiceFiscaleUtente = $risultato[0]['CodFiscale'];
-//                    }
-                    $eUtente = new EUtente();
-                    $codiceFiscaleUtente= $eUtente->getCodiceFiscaleUtente();
-                    $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-                    $id = $vPrenotazioni->getId();
-                    $risultato = $fPrenotazioni->cercaPrenotazioni($codiceFiscaleUtente,$id);
-                    if(!is_bool($risultato))
+                    $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
+                    switch ($tipoUser) 
                     {
-                        $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($risultato);
+                        case 'Utente':
+                                    //caso in cui si vogliono visualizzare tutte le prenotazioni
+
+        //                    $fUtente = USingleton::getInstance('FUtente');
+
+        //                    $risultato = $fUtente->cercaUtente($username);
+        //                    if(!is_bool($risultato))
+        //                    {
+        //                        // esiste quell'utente
+        //                        $codiceFiscaleUtente = $risultato[0]['CodFiscale'];
+        //                    }
+                            $eUtente = new EUtente();
+                            $codiceFiscaleUtente= $eUtente->getCodiceFiscaleUtente();
+                            $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+                            $id = $vPrenotazioni->getId();
+                            $risultato = $fPrenotazioni->cercaPrenotazioni($codiceFiscaleUtente,$id);
+                            if(!is_bool($risultato))
+                            {
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($risultato);
+                            }
+                            else
+                            {
+                                echo "errore in Cprenotazione VisualizzaPrenotazioni in utente";
+                            }
+
+
+                            break;
+                            
+                        case 'Clinica':
+                            $eClinica = new EClinica($username);
+                            $partitaIVAClinica = $eClinica->getPartitaIVAClinica();
+                            $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+                            $risultato = $fPrenotazioni->cercaPrenotazioniClinica($partitaIVAClinica);
+                            if(!is_bool($risultato))
+                            {
+                                print_r($risultato);
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioniClinica($risultato);
+                            }
+                            else
+                            {
+                                echo "errore in Cprenotazione VisualizzaPrenotazioni in clinica";
+                            }
+                            
+                            
+                            break;
+
+                        case 'Medico':
+                            break;
+                        
+                        default:
+                            echo "che tipo utente hai??";
+                            break;
                     }
-                    else
-                    {
-                        echo "errore in Cprenotazione VisualizzaPrenotazioni";
-                    }
+                    
                 
                 
                 break;

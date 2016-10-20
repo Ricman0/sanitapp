@@ -46,7 +46,7 @@ class FPrenotazione extends FDatabase{
         if($idPrenotazione!==FALSE)
         {
             // si vuole visualizzare una prenotazione dell'utente
-            $query =  "SELECT IDPrenotazione, esame.Nome, clinica.NomeClinica, "
+            $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "
                 . "DataEOra, Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
@@ -58,7 +58,7 @@ class FPrenotazione extends FDatabase{
         {
             // solo il codice fiscale quindi si vogliono visualizzare tutte le 
             //prenotazioni di un utente
-            $query =  "SELECT IDPrenotazione, esame.Nome, clinica.NomeClinica, "
+            $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "
                 . "DataEOra, Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
@@ -67,6 +67,20 @@ class FPrenotazione extends FDatabase{
         }
                         
         $risultato = $this->eseguiQuery($query);
+        return $risultato;
+    }
+    
+    public function cercaPrenotazioniClinica($partitaIVAClinica)
+    {
+        //si vogliono visualizzare tutte le prenotazioni di una clinica
+        $query =   "SELECT IDPrenotazione, prenotazione.IDEsame, esame.NomeEsame, utente.Nome, utente.Cognome, "
+                . "DataEOra, utente.CodFiscale "
+                . "FROM prenotazione, esame, utente "
+                . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
+                . "(prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "')) ";
+        $risultato = $this->eseguiQuery($query);
+        print_r($risultato);
         return $risultato;
     }
     

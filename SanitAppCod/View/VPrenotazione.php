@@ -108,6 +108,13 @@ class VPrenotazione extends View{
         return $this->visualizzaTemplate('tabellaPrenotazioni');
     }
     
+    public function restituisciPaginaRisultatoPrenotazioniClinica($risultato) 
+    {
+        $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
+        $this->assegnaVariabiliTemplate('dati', $risultato);
+        return $this->visualizzaTemplate('tabellaPrenotazioniClinica');
+    }
+    
     /**
      * Metodo che consente di resituire la form per aggiungere una nuova prenotazione
      * 
