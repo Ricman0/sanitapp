@@ -156,7 +156,7 @@ class View extends Smarty{
             } 
         else 
             {
-                return false;
+                return FALSE;
             }
     }
 }

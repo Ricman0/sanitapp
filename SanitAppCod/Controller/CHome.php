@@ -222,6 +222,11 @@ class CHome {
                 $cReferti->gestisciReferti();
                 break;
             
+            case 'clienti':
+                $cClienti = USingleton::getInstance('CGestisciClienti');
+                $cClienti->gestisciClienti();
+                break;
+            
             case 'impostazioni':
                 $cImpostazioni = USingleton::getInstance('CImpostazioni');
                 $cImpostazioni->gestisciImpostazioni();

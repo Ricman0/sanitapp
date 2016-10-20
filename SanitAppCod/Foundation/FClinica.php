@@ -267,4 +267,22 @@ class FClinica extends FDatabase{
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
+    
+    /**
+     * Metodo che permette di conoscere quali sono i clienti di una clinica
+     * 
+     * @access public
+     * @param string $username L'username della clinica
+     * @return Array Array contenente il risultato della query.
+     */
+    public function cercaClienti($username) 
+    {
+        $query =  "SELECT utente.CodFiscale, utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, utente.Email "
+                . "FROM utente, clinica, prenotazione "
+                . "WHERE ((utente.CodFiscale=prenotazione.CodFiscaleUtenteEffettuaEsame) AND "
+                . "(clinica.PartitaIVA=prenotazione.PartitaIVAClinica) AND "
+                . "(clinica.Username='" . $username . "'))";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato;
+    }
 }
