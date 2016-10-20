@@ -111,7 +111,12 @@ class VPrenotazione extends View{
     public function restituisciPaginaRisultatoPrenotazioniClinica($risultato) 
     {
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
-        $this->assegnaVariabiliTemplate('dati', $risultato);
+        if(count($risultato)>0)
+            {
+                $this->assegnaVariabiliTemplate('prenotazioni', TRUE);
+                $this->assegnaVariabiliTemplate('dati', $risultato);
+            }
+        
         return $this->visualizzaTemplate('tabellaPrenotazioniClinica');
     }
     
