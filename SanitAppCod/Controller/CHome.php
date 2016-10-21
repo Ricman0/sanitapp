@@ -96,6 +96,7 @@ class CHome {
 //        }
 //        echo ($sessione->checkVariabileSessione('loggedIn'));
         $controller= $vHome->getController();
+                
         switch ($_SERVER['REQUEST_METHOD'])  
         {
             case 'GET':

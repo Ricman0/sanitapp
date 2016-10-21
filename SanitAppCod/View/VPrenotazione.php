@@ -133,4 +133,17 @@ class VPrenotazione extends View{
         $this->assegnaVariabiliTemplate('partitaIVA', $partitaIVAClinica);
         return $this->visualizzaTemplate('prenotazioneEsame');
     }
+    
+    public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $tipoUtente) 
+    {
+        echo " visualizzaInfoPrenotazione ";
+        print_r($prenotazione);
+        $this->assegnaVariabiliTemplate('prenotazione', $prenotazione);        
+        $this->assegnaVariabiliTemplate('tipoUtente', $tipoUtente);
+        $this->assegnaVariabiliTemplate('nomeUtente', $nomeUtente);
+        $this->assegnaVariabiliTemplate('cognomeUtente', $cognomeUtente);
+        $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
+        return $this->visualizzaTemplate("infoPrenotazione");
+        
+    }
 }

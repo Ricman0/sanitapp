@@ -26,9 +26,10 @@ $(document).ready(function(){
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
     
-    var id = $(this).attr('id');
     $('#main').on("click", ".rigaPrenotazione" , function(){
-        clickRiga('prenotazioni', 'visualizza', id, "#contenutoAreaPersonale");
+        var id = $(this).attr('id');
+        var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
+        clickRiga('prenotazioni', 'visualizza', id, contenitore);
     });
      
     $('#main').on("click", "#modificaIndirizzoUtente", function(){
