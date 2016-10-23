@@ -26,6 +26,10 @@ $(document).ready(function () {
     $('#main').on("click", "#iconaAggiungi", function () {
         inviaControllerTask('servizi', 'aggiungi', "#contenutoAreaPersonale");
     });
+    
+    $('#main').on("click", "#iconaAggiungiPrenotazioneClinica", function () {
+        inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
+    });
 
     $('#main').on("click", "#annullaAggiungiEsame", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");

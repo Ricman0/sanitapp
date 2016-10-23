@@ -137,13 +137,14 @@ class CPrenotazione {
     public function gestisciPrenotazioni() {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazioni->getTask();
         $codiceFiscaleUtente = "";
         switch ($task) {
             case 'visualizza':
                 
-                $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
+                
                 echo $tipoUser;
                 switch ($tipoUser) {
                     case 'Utente':
@@ -218,9 +219,21 @@ class CPrenotazione {
 
                 break;
 
-            case 'aggiungi':
-                $vPrenotazioni->restituisciPaginaAggiungiPrenotazione();
-                break;
+//            case 'aggiungi':
+//                $vPrenotazioni->restituisciPaginaAggiungiPrenotazione();
+//                break;
+                    case 'aggiungi':
+                        switch ($tipoUser) 
+                        {
+                            case 'Clinica':
+                                // visualizzo una pagina per cercareil cliente o l'utente registrato del sistema per cui in seguito vorrò effettuare una prenotazione
+                                $vPrenotazioni->impostaPaginaCercaUtente();
+
+                                break;
+
+                            default:
+                                break;
+                        }
             default:
                 break;
         }
