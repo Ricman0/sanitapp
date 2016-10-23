@@ -168,9 +168,9 @@ class CRegistrazione {
            $regione = $this->trovaRegione($datiClinica['provinciaClinica']);
            echo "ciao $regione";
            // crea la clinica inserendo anche il codicino
-            $eClinica = new EClinica($datiClinica['partitaIVA'], $datiClinica['nomeClinica'],
+            $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], $datiClinica['nomeClinica'],
                    $datiClinica['titolare'], $datiClinica['via'], $datiClinica['numeroCivico'],
-                   $datiClinica['cap'],$datiClinica['localitàClinica'], $datiClinica['provinciaClinica'], $regione, $datiClinica['email'], $datiClinica['PEC'], $datiClinica['username'],
+                   $datiClinica['cap'],$datiClinica['localitàClinica'], $datiClinica['provinciaClinica'], $regione, $datiClinica['email'], $datiClinica['PEC'], 
                    $datiClinica['password'], $datiClinica['telefono'],
                    $datiClinica['capitaleSociale'],$datiClinica['orarioAperturaAM'],
                    $datiClinica['orarioChiusuraAM'], $datiClinica['orarioAperturaPM'],

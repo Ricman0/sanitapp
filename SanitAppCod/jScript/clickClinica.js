@@ -30,6 +30,10 @@ $(document).ready(function () {
     $('#main').on("click", "#iconaAggiungiPrenotazioneClinica", function () {
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
+    
+//    $('#main').on("click", "#submitRicercaUtente", function () {
+//        inviaControllerTask('ricerca', 'utente', "#contenutoAreaPersonale");
+//    });
 
     $('#main').on("click", "#annullaAggiungiEsame", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
@@ -394,6 +398,29 @@ function inviaDatiEsame(id, controller1, task1, ajaxdiv)
         type: "POST",
         url: controller1 + "/" + task1,
         data: dati,
+        dataType: "html",
+        success: function (msg)
+        {
+            alert("Chiamata eseguita");
+            $(ajaxdiv).html(msg);
+        },
+        error: function ()
+        {
+            alert("Chiamata fallita, si prega di riprovare...");
+        }
+    });
+}
+
+function inviaCodiceFiscale(id, controller1, task1, ajaxdiv)
+{
+    var codiceFiscale = $(id).serialize();
+    alert(dati);
+
+
+    $.ajax({
+        type: "POST",
+        url: controller1 + "/" + task1,
+        data: codiceFiscale,
         dataType: "html",
         success: function (msg)
         {

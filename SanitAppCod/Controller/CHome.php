@@ -309,6 +309,11 @@ class CHome {
                 $cPrenotazione->gestisciPrenotazionePOST();
                 break;
                 
+             case 'ricerca':
+                $cRicerca = USingleton::getInstance('CRicerca');
+                $cRicerca->gestisciRicerca();
+                break;
+                
             default:
                 echo "ora non lo so che fargli fare";
 //                $vHome->restituisciHomePage();

@@ -93,6 +93,38 @@ class UValidazione {
     }
     
     /**
+     * Metodo che permette la validazione del codice fiscale
+     * 
+     * @access public
+     * @param string $codiceFiscale Il codice fiscale da validare
+     * @return boolean TRUE codice fiscale valido, False altrimenti
+     */
+    public function validaCodiceFiscale($codiceFiscale) 
+    {
+        $this->setValidati(TRUE);
+        $pattern = '/^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/' ;
+        $stringaErrore = "Il codice fiscale è una sequenza di alfanumerica del tipo DMRCLD89S42G438S ";
+        if (preg_match($pattern, $codiceFiscale)) 
+        {
+            $this->datiErrati['codiceFiscale'] = FALSE;
+            $this->datiValidi['codiceFiscale'] = $codiceFiscale;
+            echo "OK";
+            echo ($this->getValidati());
+        } 
+        else
+        {
+            
+            $this->datiErrati['codiceFiscale'] = $stringaErrore;
+            echo ($this->datiErrati['codiceFiscale']);
+            echo "NO";
+            $this->validati = FALSE;
+            echo ($this->getValidati());
+        }
+        return $this->validati;
+        
+    }
+    
+    /**
      * Metodo che permette la validazione di tutti i dati dell'utente
      * 
      * @access public
