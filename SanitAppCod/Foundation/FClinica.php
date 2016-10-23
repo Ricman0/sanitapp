@@ -277,12 +277,16 @@ class FClinica extends FDatabase{
      */
     public function cercaClienti($username) 
     {
-        $query =  "SELECT utente.CodFiscale, utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, utente.Email "
+        $query =  "SELECT utente.CodFiscale, utente.Nome, utente.Cognome, utente.Via,"
+                . "utente.NumCivico, utente.CAP, utente.Email, "
+                . "MATCH (clinica.Username) AGAINST ('$username' IN BOOLEAN MODE) "
                 . "FROM utente, clinica, prenotazione "
-                . "WHERE ((utente.CodFiscale=prenotazione.CodFiscaleUtenteEffettuaEsame) AND "
+                . "WHERE (utente.CodFiscale=prenotazione.CodFiscaleUtenteEffettuaEsame) AND "
                 . "(clinica.PartitaIVA=prenotazione.PartitaIVAClinica) AND "
-                . "(clinica.Username='" . $username . "'))";
+                . "(MATCH (clinica.Username) AGAINST ('$username' IN BOOLEAN MODE))";
+                
         $risultato = $this->eseguiQuery($query);
+        print_r($risultato);
         return $risultato;
     }
 }

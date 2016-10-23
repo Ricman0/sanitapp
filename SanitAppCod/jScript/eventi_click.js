@@ -48,13 +48,13 @@ function inviaController($controller, ajaxdiv)
 }
 
 
-function clickRiga(controller1, task1, id, ajaxdiv)
+function clickRiga(controller, task, id, ajaxdiv)
 {
     $.ajax({
         // definisco il tipo della chiamata
         type: 'GET',
         // specifico la URL della risorsa 
-        url: controller1 + '/' + task1 + '/' + id,
+        url: controller + '/' + task + '/' + id,
 
         // imposto azione per il caso di successo
         success: function (datiRisposta)

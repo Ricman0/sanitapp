@@ -134,7 +134,7 @@ class VPrenotazione extends View{
         return $this->visualizzaTemplate('prenotazioneEsame');
     }
     
-    public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $tipoUtente) 
+    public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUtente) 
     {
         echo " visualizzaInfoPrenotazione ";
         print_r($prenotazione);
@@ -143,6 +143,7 @@ class VPrenotazione extends View{
         $this->assegnaVariabiliTemplate('nomeUtente', $nomeUtente);
         $this->assegnaVariabiliTemplate('cognomeUtente', $cognomeUtente);
         $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
+        $this->assegnaVariabiliTemplate('medicoEsame', $medicoEsame);
         return $this->visualizzaTemplate("infoPrenotazione");
         
     }

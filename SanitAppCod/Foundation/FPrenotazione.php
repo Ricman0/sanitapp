@@ -122,6 +122,16 @@ class FPrenotazione extends FDatabase{
         return $risultato = $this->eseguiQuery($query);
     }
     
+    public function cercaPrenotazioneById($id) {
+        
+        $query = "SELECT * "
+                . "FROM prenotazione "
+                . "WHERE IdPrenotazione = '" . $id . "'";
+        return $this->eseguiQuery($query);
+        
+        
+    }
+    
 //    public function getAttributi($ePrenotazione) 
 //    {
 //        print_r($ePrenotazione);

@@ -26,11 +26,7 @@ $(document).ready(function(){
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
     
-    $('#main').on("click", ".rigaPrenotazione" , function(){
-        var id = $(this).attr('id');
-        var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
-        clickRiga('prenotazioni', 'visualizza', id, contenitore);
-    });
+    
      
     $('#main').on("click", "#modificaIndirizzoUtente", function(){
         clickModificaImpostazioni('impostazioni', 'utente', 'modifica', 'informazioni', "#informazioniGeneraliUtente");

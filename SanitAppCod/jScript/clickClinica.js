@@ -59,6 +59,12 @@ $(document).ready(function () {
        
         eliminaPausa(this);
     });
+    
+    $('#main').on("click", ".rigaPrenotazione" , function(){
+        var id = $(this).attr('id');
+        var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
+        clickRiga('prenotazioni', 'visualizza', id, contenitore);
+    });
 
     $('#main').on("click", ".rigaEsame", function () {
         var id = $(this).attr('id');

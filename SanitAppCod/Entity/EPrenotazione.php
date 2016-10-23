@@ -86,7 +86,7 @@ class EPrenotazione {
                 $this->_confermata = $attributiPrenotazione[0]["Confermata"];
                 $this->_eseguita = $attributiPrenotazione[0]["Eseguita"];
                 $this->_codFisUtenteEffettuaEsame = $attributiPrenotazione[0]["CodFiscaleUtenteEffettuaEsame"];
-                $this->_codFisUtentePrenotaEsame = $attributiPrenotazione[0]["CodFiscaleEffettuaPrenotaEsame"];
+                $this->_codFisUtentePrenotaEsame = $attributiPrenotazione[0]["CodFiscaleUtentePrenotaEsame"];
                 $this->_codFisMedicoPrenotaEsame= $attributiPrenotazione[0]["CodFiscaleMedicoPrenotaEsame"];
                 $this->_dataEOra = $attributiPrenotazione[0]["DataEOra"];
                 

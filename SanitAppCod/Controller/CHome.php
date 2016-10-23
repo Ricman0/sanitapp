@@ -95,6 +95,7 @@ class CHome {
 //            $vHome->impostaHeader("logIn", "navigationBar");
 //        }
 //        echo ($sessione->checkVariabileSessione('loggedIn'));
+        print_r($_REQUEST);
         $controller= $vHome->getController();
                 
         switch ($_SERVER['REQUEST_METHOD'])  
@@ -158,6 +159,7 @@ class CHome {
      */
     private function smistaControllerGET($controller, $vHome) 
     {
+        echo $controller;
         switch ($controller) 
         {
             case 'home':            

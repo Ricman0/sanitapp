@@ -2,7 +2,7 @@
  * Author:  Claudia Di Marco & Riccardo Mantini
  * Created: 20-ago-2016
  */
-SET GLOBAL sql_mode = 'ALLOW_INVALID_DATES';
+
 DROP DATABASE IF EXISTS sanitapp;
 CREATE DATABASE sanitapp;
 USE sanitapp;

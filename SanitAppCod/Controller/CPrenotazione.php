@@ -142,8 +142,9 @@ class CPrenotazione {
         $codiceFiscaleUtente = "";
         switch ($task) {
             case 'visualizza':
-
+                
                 $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
+                echo $tipoUser;
                 switch ($tipoUser) {
                     case 'Utente':
                         $idPrenotazione = $vPrenotazioni->getId();
@@ -185,12 +186,14 @@ class CPrenotazione {
                                 echo "errore in Cprenotazione VisualizzaPrenotazioni in clinica";
                             }
                         }
-                        else {
+                        else 
+                        {
                             echo ' visualizza una sola prenotazione ';
                             $ePrenotazione = new EPrenotazione($idPrenotazione);
-                            $CFUtente = $ePrenotazione->getUtentePrenotaEsamePrenotazione();
+                            $CFUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
                             $eUtente = new EUtente($CFUtente);
                             $nomeUtente = $eUtente->getNomeUtente();
+                            echo "//// $nomeUtente ////";
                             $cognomeUtente = $eUtente->getCognomeUtente();
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
                             $eEsame = new EEsame($idEsame);
@@ -217,6 +220,7 @@ class CPrenotazione {
 
             case 'aggiungi':
                 $vPrenotazioni->restituisciPaginaAggiungiPrenotazione();
+                break;
             default:
                 break;
         }
