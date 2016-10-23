@@ -15,16 +15,18 @@
         <link rel="stylesheet" type="text/css" href="./Css/footer.css">
         <link rel="stylesheet" type="text/css" href="./Css/cartinaItalia.css"/>
         <link rel="stylesheet" type="text/css" href="./Css/areaPersonale.css"/>
-        <link rel="stylesheet" type="text/css" href="./Css/tabelle.css"/>
         <link rel="stylesheet" type="text/css" href="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.css"/>
         <link rel="stylesheet" type="text/css" href="./plugins/jquery-ui/jquery-ui.min.css"/>
         <link rel='stylesheet' href='plugins/fullcalendar/fullcalendar.css' />
+        <link rel='stylesheet' href='./Css/tabelle.css' />
+        <link rel='stylesheet' href='plugins/tablesorter/theme.blue.css' />
 
         <script type="text/javascript" src="./plugins/jquery-1.12.4.js"></script>
         <script type="text/javascript" src="./plugins/jquery-ui/jquery-ui.min.js"></script>
         <script type="text/javascript" src="./plugins/jquery-ui/datepicker-it.js"></script>        
         <script type="text/javascript" src="./plugins/jquery.validate.js"></script>
-        <script type="text/javascript" src="./plugins/jquery.tablesorter.js"></script>
+        <script type="text/javascript" src="./plugins/tablesorter/jquery.tablesorter.js"></script>
+        <script type="text/javascript" src="./plugins/tablesorter/jquery.tablesorter.widgets.js"></script>
         <script type="text/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>
         
         <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
