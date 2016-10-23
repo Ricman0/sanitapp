@@ -134,6 +134,15 @@ class VPrenotazione extends View{
         return $this->visualizzaTemplate('prenotazioneEsame');
     }
     
+    /**
+     * Metodo che contente di ottenere una campo di ricerca fulltext per gli utenti di Sanitapp
+     * 
+     * @access public
+     */
+    public function impostaPaginaCercaUtente() 
+    {
+            return $this->visualizzaTemplate('cercaUtente');
+    }
     public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUtente) 
     {
         echo " visualizzaInfoPrenotazione ";

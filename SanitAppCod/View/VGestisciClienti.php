@@ -23,7 +23,6 @@ class VGestisciClienti extends View{
     {
         echo "visualizzaClienti";
         $this->assegnaVariabiliTemplate('dati', $risultato);
-        $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         return $this->visualizzaTemplate('tabellaClienti');
     }
 }
