@@ -11,89 +11,83 @@
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class EUtente 
-{
+class EUtente {
+
     /**
      * @var string $_nome, variabile di tipo string,  che contiente il nome dell'utente
      */
-    private $_nome; 
-    
+    private $_nome;
+
     /**
      * @var string $_cognome, variabile di tipo string,  che contiente il cognome dell'utente
      */
-    private $_cognome; 
-    
+    private $_cognome;
+
     /**
      * @var string $_codFiscale, variabile di tipo string,  che contiente il 
      *             codice fiscale dell'utente
      */
     private $_codFiscale;
-    
+
     /**
      * @var string $_via, variabile di tipo string, che contiente l'indirizzo 
      *             in cui risiede l'utente
      */
-    private $_via; 
-    
+    private $_via;
+
     /**
      * @var int $_numeroCivico, variabile di tipo intero, che contiente il numero
      *          civico in cui risiede l'utente
      */
-    private $_numeroCivico; 
-    
+    private $_numeroCivico;
+
     /**
      * @var string $_CAP, variabile che contiente il CAP in cui 
      *          risiede l'utente
      */
-    private $_CAP; 
-    
+    private $_CAP;
+
     /**
      * @var string $_email, variabile di tipo string, che contiente l'indirizzo 
      *             di posta elettronica dell'utente. é valido come username per 
      *             l'accesso al sistema
      */
-    private $_email; 
-    
+    private $_email;
+
     /**
      * @var string $_password, variabile di tipo string, che contiente la
      *             password che l'utente inserisce per accedere al sistema
      */
     private $_password;
-    
+
     /**
      * @var string $_username, variabile di tipo string, che contiene lo
      *              username che l'utente inserisce per registrarsi
      */
     private $_username;
-    
+
     /**
      * @var string $_codiceConferma, variabile che contiente il codice per confermare 
      * l'account dell'utente
      */
-    private $_codiceConferma; 
-    
+    private $_codiceConferma;
+
     /**
      * @var string $_confermato permette di capire se l'account dell'utente è 
      * stato confermato(TRUE) o meno         
      */
     private $_confermato;
-    
+
     /**
      * @var Array(EPrenotazione) $_prenotazioni array che contiente le 
      *                           prenotazioni a nome dell'utente
      */
-    private $_prenotazioni; 
-    
+    private $_prenotazioni;
     // non so se sia giusto inserirlo
     /**
      * @var string $_medicoCurante, variabile che contiente il codice fiscale del medico curante dell'utente
      */
-    private  $_medicoCurante;
-
-
-
-
-
+    private $_medicoCurante;
 
     /**
      * Costruttore della classe EUtente
@@ -108,315 +102,309 @@ class EUtente
      * @param string $password La password dell'utente
      * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($cf=NULL,$username="", $nome="", $cognome="",  $via="", $numeroCivico="", $cap="", $email="", $password="", $cod="", $medico="") 
-    {
-        if(NULL == $cf)
+    public function __construct($cf = NULL, $username = NULL, $nome = "", $cognome = "", $via = "", $numeroCivico = "", $cap = "", $email = "", $password = "", $cod = "", $medico = "") {
+        if ($cf === NULL && $username !== NULL) 
         {
             $sessione = USingleton::getInstance('USession');
             $username = $sessione->leggiVariabileSessione('usernameLogIn');
-            if((NULL !== $username))
-            {
-                $fUtente = USingleton::getInstance('FUtente');
-                $risultato = $fUtente->cercaUtente($username);
-                echo "Utente trovato";
-                if(!is_bool($risultato))
-                {
-                    print_r($risultato);
-                    // esiste quell'utente
-                    $this->setNomeUtente($risultato[0]['Nome']);
-                    $this->setCognomeUtente($risultato[0]['Cognome']);
-                    $this->_codFiscale = $risultato[0]['CodFiscale'];
-                    $this->setViaUtente($risultato[0]['Via']);
-                    if(isset($risultato[0]['NumCivico']))
-                    {
-                        $this->setNumCivicoUtente($risultato[0]['NumCivico']);   
-                    }
-                    $this->setCAPUtente($risultato[0]['CAP']);
-                    $this->setEmailUtente($risultato[0]['Email']);
-                    $this->setUsernameUtente($risultato[0]['Username']);
-                    $this->setPasswordUtente($risultato[0]['Password']);
-                    $this->setConfermatoUtente($risultato[0]['Confermato']);
-                    $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
-                    $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
+            $fUtente = USingleton::getInstance('FUtente');
+            $risultato = $fUtente->cercaUtente($username);
+            echo "Utente trovato";
+            if (!is_bool($risultato)) {
+                print_r($risultato);
+                // esiste quell'utente
+                $this->setNomeUtente($risultato[0]['Nome']);
+                $this->setCognomeUtente($risultato[0]['Cognome']);
+                $this->_codFiscale = $risultato[0]['CodFiscale'];
+                $this->setViaUtente($risultato[0]['Via']);
+                if (isset($risultato[0]['NumCivico'])) {
+                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);
                 }
-            }        
-        }
-        else
-        {
-            $this->_nome = $nome;
-            $this->_cognome = $cognome; 
-            $this->_codFiscale = $cf;
-            $this->_via = $via;
-            if(isset($numeroCivico))
-            {
-                $this->_numeroCivico = $numeroCivico; 
+                $this->setCAPUtente($risultato[0]['CAP']);
+                $this->setEmailUtente($risultato[0]['Email']);
+                $this->setUsernameUtente($risultato[0]['Username']);
+                $this->setPasswordUtente($risultato[0]['Password']);
+                $this->setConfermatoUtente($risultato[0]['Confermato']);
+                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
+                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
             }
-            else
-                {
-                    $this->_numeroCivico = NULL; 
+            
+        } 
+        else 
+        {
+            if ($cf !== NULL && $username !== NULL) 
+            {
+                $this->_nome = $nome;
+                $this->_cognome = $cognome;
+                $this->_codFiscale = $cf;
+                $this->_via = $via;
+                if (isset($numeroCivico)) {
+                    $this->_numeroCivico = $numeroCivico;
+                } else {
+                    $this->_numeroCivico = NULL;
                 }
 
-            $this->_CAP = $cap; 
-            $this->_email = $email; 
-            $this->_username = $username;
-            $this->_password = $password; 
-            $this->_codiceConferma = $cod;
-            $this->_confermato = FALSE;
-            $this->_prenotazioni = new ArrayObject() ;// da vedere:array di oggetti o bastava semplicemente Array()??
-            if(isset($medico))
-            {
-                $this->_medicoCurante = $medico; 
-            }
-            else
-                {
-                    $this->_medicoCurante = NULL; 
+                $this->_CAP = $cap;
+                $this->_email = $email;
+                $this->_username = $username;
+                $this->_password = $password;
+                $this->_codiceConferma = $cod;
+                $this->_confermato = FALSE;
+                $this->_prenotazioni = new ArrayObject(); // da vedere:array di oggetti o bastava semplicemente Array()??
+                if (isset($medico)) {
+                    $this->_medicoCurante = $medico;
+                } else {
+                    $this->_medicoCurante = NULL;
                 }
-        }
-        
-    }
+            }
+            else // cf !== null and username === null
+            {
+                
+            $fUtente = USingleton::getInstance('FUtente');
+            $risultato = $fUtente->cercaUtenteByCF($cf);
+            echo "Utente trovato";
+            if (!is_bool($risultato)) {
+                print_r($risultato);
+                // esiste quell'utente
+                $this->setNomeUtente($risultato[0]['Nome']);
+                $this->setCognomeUtente($risultato[0]['Cognome']);
+                $this->_codFiscale = $risultato[0]['CodFiscale'];
+                $this->setViaUtente($risultato[0]['Via']);
+                if (isset($risultato[0]['NumCivico'])) {
+                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);
+                }
+                $this->setCAPUtente($risultato[0]['CAP']);
+                $this->setEmailUtente($risultato[0]['Email']);
+                $this->setUsernameUtente($risultato[0]['Username']);
+                $this->setPasswordUtente($risultato[0]['Password']);
+                $this->setConfermatoUtente($risultato[0]['Confermato']);
+                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
+                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
+            }
     
+            }
+        }
+    }
+
     //metodi get
     /**
      * Metodo per conoscere il nome dell'utente
      * 
      * @return string Il nome dell'utente
-     */ 
-    public function getNomeUtente()
-    {
+     */
+    public function getNomeUtente() {
         return $this->_nome;
     }
-    
+
     /**
      * Metodo per conoscere il codice fiscale del medico curante dell'utente
      * 
      * @return string Il cf del medico dell'utente
-     */ 
-    public function getMedicoUtente()
-    {
+     */
+    public function getMedicoUtente() {
         return $this->_medicoCurante;
     }
+
     /**
      * Metodo per conoscere il cognome dell'utente
      * 
      * @return string Il cognome dell'utente
      */
-    public function getCognomeUtente()
-    {
+    public function getCognomeUtente() {
         return $this->_cognome;
     }
-    
+
     /**
      * Metodo per conoscere il codice fiscale dell'utente
      * 
      * @return string Il codice fiscale dell'utente
      */
-    public function getCodiceFiscaleUtente()
-    {
+    public function getCodiceFiscaleUtente() {
         return $this->_codFiscale;
     }
-    
+
     /**
      * Metodo per conoscere la via in cui risiede l'utente
      * 
      * @return string Il nome della via in cui risiede l'utente
      */
-    public function getViaUtente()
-    {
+    public function getViaUtente() {
         return $this->_via;
     }
-    
+
     /**
      * Metodo per conoscere il numero civico della via in cui risiede l'utente
      * 
      * @return int Il numero civico della via in cui risiede l'utente
      */
-    public function getNumCivicoUtente()
-    {
+    public function getNumCivicoUtente() {
         return $this->_numeroCivico;
     }
-    
+
     /**
      * Metodo per conoscere il cap del paese in cui risiede l'utente
      * 
      * @return string Il cap del paese in cui risiede l'utente
      */
-    public function getCAPUtente()
-    {
+    public function getCAPUtente() {
         return $this->_CAP;
     }
-    
+
     /**
      * Metodo per conoscere il codice di conferma dell'utente
      * 
      * @return int/string Il codice dell'utente 
      */
-    public function getCodiceConfermaUtente()
-    {
+    public function getCodiceConfermaUtente() {
         return $this->_codiceConferma;
     }
-    
+
     /**
      * Metodo per conoscere l'email dell'utente
      * 
      * @return string L'email dell'utente
-     */ 
-    public function getEmailUtente()
-    {
+     */
+    public function getEmailUtente() {
         return $this->_email;
     }
-    
+
     /**
      * Metodo per conoscere lo username dell'utente
      * 
      * @return string lo username dell'utente
-     */ 
-    public function getUsernameUtente()
-    {
+     */
+    public function getUsernameUtente() {
         return $this->_username;
     }
-    
+
     /**
      * Metodo per conoscere la password dell'utente
      * 
      * @return string La password dell'utente
-     */ 
-    public function getPasswordUtente()
-    {
+     */
+    public function getPasswordUtente() {
         return $this->_password;
     }
-    
+
     /**
      * Metodo per conoscere le prenotazioni dell'utente
      * 
      * @return Array(EPrenotazione) Le prenotazioni dell'utente
-     */ 
-    public function getPrenotazioniUtente()
-    {
+     */
+    public function getPrenotazioniUtente() {
         return $this->_prenotazioni;
     }
-    
+
     /**
      * Metodo che permette di capire se l'account è stato confermato o meno
      * 
      * @return boolean TRUE se l'account è stato confermato, FALSE altrimenti
      */
-    public function getConfermatoUtente()
-    {
+    public function getConfermatoUtente() {
         return $this->_confermato;
     }
-    
+
     //metodi set
-    
+
     /**
      * Metodo che permette di modificare il nome dell'utente
      * 
      * @param string $nome Il nome dell'utente
-     */ 
-    public function setNomeUtente($nome)
-    {
+     */
+    public function setNomeUtente($nome) {
         $this->_nome = $nome;
     }
-    
+
     /**
      * Metodo che permette di modificare il cognome dell'utente
      * 
      * @param string $cognome Il cognome dell'utente
      */
-    public function setCognomeUtente($cognome)
-    {
+    public function setCognomeUtente($cognome) {
         $this->_cognome = $cognome;
     }
-    
+
     /**
      * Metodo che permette di modificare il codice fiscale dell'utente
      * 
      * @param string $codFiscale Il codice fiscale dell'utente
      */
-    public function setCodiceFiscaleUtente($codFiscale)
-    {
+    public function setCodiceFiscaleUtente($codFiscale) {
         $this->_codFiscale = $codFiscale;
     }
-    
+
     /**
      * Metodo che permette di modificare l'email dell'utente
      * 
      * @param string $email L'email dell'utente
-     */ 
-    public function setEmailUtente($email)
-    {
+     */
+    public function setEmailUtente($email) {
         return $this->_email = $email;
-    }    
-     
+    }
+
     /**
      * Metodo che permette di modificare la via dell'utente
      * 
      * @param string $via La nuova via dell'utente
      */
-    public function setViaUtente($via)
-    {
-        $this->_via = $via; 
+    public function setViaUtente($via) {
+        $this->_via = $via;
     }
-    
+
     /**
      * Metodo che permette di modificare il numero civico dell'utente
      * 
      * @param int $numCiv Il nuovo numero civico dell'utente
      */
-    public function setNumCivicoUtente($numCiv)
-    {
-        $this->_numeroCivico = $numCiv; 
+    public function setNumCivicoUtente($numCiv) {
+        $this->_numeroCivico = $numCiv;
     }
-    
+
     /**
      * Metodo che permette di modificare il CAP dell'utente
      * 
      * @param string $cap Il nuovo CAP dell'utente
      */
-    public function setCAPUtente($cap)
-    {
-        $this->_CAP = $cap; 
+    public function setCAPUtente($cap) {
+        $this->_CAP = $cap;
     }
-    
+
     /**
      * Metodo che permette di modificare il codice di conferma dell'utente
      * 
      * @param string o int? $cod Il nuovo codice per la conferma dell'utente
      */
-    public function setCodiceConfermaUtente($cod)
-    {
-        $this->_codiceConferma = $cod; 
+    public function setCodiceConfermaUtente($cod) {
+        $this->_codiceConferma = $cod;
     }
-    
+
     /**
      * Metodo che permette di modificare lo username dell'utente
      * 
      * @param string $un Il nuovo username dell'utente
      */
-    public function setUsernameUtente($un)
-    {
-        $this->_username = $un; 
+    public function setUsernameUtente($un) {
+        $this->_username = $un;
     }
-    
+
     /**
      * Metodo che permette di modificare la password dell'utente
      * 
      * @param string $pw La nuova password dell'utente
      */
-    public function setPasswordUtente($pw)
-    {
-        $this->_password = $pw; 
+    public function setPasswordUtente($pw) {
+        $this->_password = $pw;
     }
-    
+
     /**
      * Metodo che permette di impostare la conferma dell'account 
      * 
      * @param boolean $confermato Imposta la conferma dell'account 
      */
-    public function setConfermatoUtente($confermato)
-    {
-        $this->_confermato= $confermato;
+    public function setConfermatoUtente($confermato) {
+        $this->_confermato = $confermato;
     }
-    
+
     /**
      * Metodo che permette di aggiungere una prenotazione nell'array di 
      * prenotazioni dell'utente
@@ -424,34 +412,25 @@ class EUtente
      * @param Entity.EPrenotazione $prenotazione Una nuova prenotazione effettuata a 
      *                      nome dell'utente.
      */
-    public function aggiungiPrenotazioneUtente($prenotazione)
-    {
+    public function aggiungiPrenotazioneUtente($prenotazione) {
         $this->_prenotazioni->append($prenotazione); // non so se sia giusto o se debba usare offsetSet() 
-    }  
-    
-    
+    }
+
     /**
      * Metodo che permette di inserire un oggetto di tipo EUtente nel DB
      * 
      * @access public
      * @return string|Boolean Il codice di conferma se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
      */
-    public function inserisciUtenteDB() 
-    {
+    public function inserisciUtenteDB() {
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);
-        if($fUtente->inserisciUtente($this) === TRUE)
-        {
+        if ($fUtente->inserisciUtente($this) === TRUE) {
             return $this->getCodiceConfermaUtente();
-        }
-        else
-        {
+        } else {
             return FALSE;
         }
     }
-    
-    
-   
-    
+
 }
