@@ -168,7 +168,7 @@ class View extends Smarty{
      * @param string $indice Il nome dell'indice che deve essere recuperato dall'array POST
      * @return string Il valore recuperato
      */
-    public function recuperaValore($indice) 
+    public function recuperaValorePOST($indice) 
     {
         if(isset($_POST[$indice]))
        {

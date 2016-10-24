@@ -53,6 +53,7 @@ class CPrenotazione {
                     {
                         // tipoUser = clinica
                         $codice = $vPrenotazione->getCodice();
+                        $eUtente = new EUtente($codice);
                         $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
                         
                     }
@@ -258,15 +259,28 @@ class CPrenotazione {
                 $sessione = USingleton::getInstance('USession');
                 $tipo = $sessione->leggiVariabileSessione('tipoUser');
                 $username = $sessione->leggiVariabileSessione('username');
-                if ($tipo === 'Utente') {
-                    $eUtente = new EUtente(NULL, $username);
-                    $codFiscaleUtenteEffettuaEsame = $eUtente->getCodiceFiscaleUtente();
-                    $codFiscalePrenotaEsame = $eUtente->getCodiceFiscaleUtente();
-                } else {
-                    $eMedico = new EMedico(NULL, $username);
-                    $codFiscalePrenotaEsame = $eMedico->getCodiceFiscaleMedico();
-                    $codFiscaleUtenteEffettuaEsame = $vPrenotazione->getCodice();
+                switch ($tipo) {
+                    case 'Utente':
+                        $eUtente = new EUtente(NULL, $username);
+                        $codFiscaleUtenteEffettuaEsame = $eUtente->getCodiceFiscaleUtente();
+                        $codFiscalePrenotaEsame = $eUtente->getCodiceFiscaleUtente();
+                        break;
+                    
+                    case 'Medico':
+                        $eMedico = new EMedico(NULL, $username);
+                        $codFiscalePrenotaEsame = $eMedico->getCodiceFiscaleMedico();
+                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->getCodice();
+                        break;
+                    
+                    case 'Clinica':
+                        $codFiscalePrenotaEsame = $vPrenotazione->getCodice();
+                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->getCodice();
+                        
+                        break;
+                    default:
+                        break;
                 }
+               
 
                 $idEsame = $vPrenotazione->getId();
                 $partitaIVAClinica = $vPrenotazione->getPartitaIVA();
