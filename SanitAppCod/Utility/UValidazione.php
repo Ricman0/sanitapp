@@ -106,19 +106,20 @@ class UValidazione {
         $stringaErrore = "Il codice fiscale è una sequenza di alfanumerica del tipo DMRCLD89S42G438S ";
         if (preg_match($pattern, $codiceFiscale)) 
         {
+//            echo $codiceFiscale;
             $this->datiErrati['codiceFiscale'] = FALSE;
             $this->datiValidi['codiceFiscale'] = $codiceFiscale;
-            echo "OK";
-            echo ($this->getValidati());
+//            echo "OK";
+//            echo ($this->getValidati());
         } 
         else
         {
             
             $this->datiErrati['codiceFiscale'] = $stringaErrore;
-            echo ($this->datiErrati['codiceFiscale']);
-            echo "NO";
+//            echo ($this->datiErrati['codiceFiscale']);
+//            echo "NO";
             $this->validati = FALSE;
-            echo ($this->getValidati());
+//            echo ($this->getValidati());
         }
         return $this->validati;
         

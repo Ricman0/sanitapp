@@ -79,6 +79,6 @@
             <br>
             <span>Descrizione: {$esame->getDescrizioneEsame()}</span>
             <br>
-            <input type="button" id="aggiungiPrenotazioneButton" value="Prenota"  data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />
+            <input type="button" id="aggiungiPrenotazioneButton" value="Prenota"  data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}"  />
         </div>
     {/if}

@@ -411,21 +411,75 @@ function inviaDatiEsame(id, controller1, task1, ajaxdiv)
     });
 }
 
-function inviaCodiceFiscale(id, controller1, task1, ajaxdiv)
+function inviaCodiceFiscale( controller1, task1, ajaxdiv)
 {
-    var codiceFiscale = $(id).serialize();
-    alert(dati);
-
-
+    
+    var codiceFiscale = $("form input[type='text']" ).val();
+    alert(codiceFiscale);
+    var nomeClinica = $("form input[type='submit']").attr('data-nomeClinica');
+    alert(nomeClinica);
     $.ajax({
-        type: "POST",
-        url: controller1 + "/" + task1,
-        data: codiceFiscale,
-        dataType: "html",
-        success: function (msg)
-        {
-            alert("Chiamata eseguita");
-            $(ajaxdiv).html(msg);
+        type: "GET",
+        url: controller1 + "/" + task1 + "/" + codiceFiscale ,
+        success: function(datiRiposta, status, xhr)
+        { 
+            //provo a fare il parse json dei dati risposta
+            // ciò genera un errore se il codice fiscale inserito non esiste tra gli utente del db
+            //perchè EUtente fa visualizzare degli errori. il che implica che i dati ritornati non sono solo json
+            // quindi ecco qui che si genera l'errore
+            try
+            {
+                var dati = JSON.parse(datiRiposta);
+                alert(dati.risultato);
+                $.ajax({
+                    type:'GET',
+                    url: 'esami/all/' + nomeClinica, 
+                    success: function(datiRisposta)
+                    {
+                        $(ajaxdiv).html(datiRisposta);
+//                        //aggiungo il campo nascosto codice fiscale 
+//                        $('#contenutoAreaPersonale').append('<form id="formCodiceFiscaleUtentePrenotaEsame" />');
+//
+                        $('<input>').attr({
+                            type: 'hidden',
+                            id: 'codiceFiscaleUtentePrenotaEsame',
+                            name: 'codiceFiscaleUtentePrenotaEsame', 
+                            value:  codiceFiscale  
+                        }).appendTo('table');
+//                        
+                        $('.tablesorter').tablesorter({
+                        theme: 'blue',
+                        widgets: ["filter"],
+                        widgetOptions: {
+                                // filter_anyMatch replaced! Instead use the filter_external option
+                                // Set to use a jQuery selector (or jQuery object) pointing to the
+                                // external filter (column specific or any match)
+                                filter_external: '.search',
+                                // add a default type search to the first name column
+                                filter_defaultFilter: {1: '~{query}'},
+                                // include column filters
+                                filter_columnFilters: true,
+                                filter_placeholder: {search: 'Search...'},
+                                filter_saveFilters: true,
+                                filter_reset: '.reset'
+                            }
+                        });
+
+                    }
+                });
+            }catch(errore)
+                {
+                    alert("Non è registrato alcun utente con quel codice fiscale");
+                      $.ajax({
+                          type:'GET',
+//                          url: 'mySanitApp',
+                          url: 'prenotazioni/aggiungi',
+                          success: function(datiRisposta)
+                          {
+                              $(ajaxdiv).html(datiRisposta);
+                          }
+                      });
+                }
         },
         error: function ()
         {

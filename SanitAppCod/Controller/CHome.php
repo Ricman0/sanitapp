@@ -95,7 +95,7 @@ class CHome {
 //            $vHome->impostaHeader("logIn", "navigationBar");
 //        }
 //        echo ($sessione->checkVariabileSessione('loggedIn'));
-        print_r($_REQUEST);
+//        print_r($_REQUEST);
         $controller= $vHome->getController();
                 
         switch ($_SERVER['REQUEST_METHOD'])  
@@ -159,7 +159,7 @@ class CHome {
      */
     private function smistaControllerGET($controller, $vHome) 
     {
-        echo $controller;
+//        echo $controller;
         switch ($controller) 
         {
             case 'home':            
@@ -256,6 +256,12 @@ class CHome {
                 }
                     
                 break;
+            
+            case 'ricerca':
+                $cRicerca = USingleton::getInstance('CRicerca');
+                $cRicerca->gestisciRicerca();
+                break;
+                
             default:
                 $vHome->restituisciHomePage();
                 break;
@@ -309,10 +315,7 @@ class CHome {
                 $cPrenotazione->gestisciPrenotazionePOST();
                 break;
                 
-             case 'ricerca':
-                $cRicerca = USingleton::getInstance('CRicerca');
-                $cRicerca->gestisciRicerca();
-                break;
+             
                 
             default:
                 echo "ora non lo so che fargli fare";

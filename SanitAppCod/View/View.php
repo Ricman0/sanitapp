@@ -159,5 +159,26 @@ class View extends Smarty{
                 return FALSE;
             }
     }
+    
+    /**
+     * Metodo che consente di recuperare il valore di un elemento della variabile $_REQUEST
+     * 
+     * @access public
+     * @param string $indice L'elemento di cui si vuole conoscere il valore
+     * @return string|boolean Il valore dell'elemento se è presente nell'array, FALSE altrimenti
+     */
+    public function recuperaValore($indice) 
+    {
+        $parametro = "";
+        if(isset($_REQUEST[$indice]))
+       {
+            $parametro = $_REQUEST[$indice];
+       }
+       else
+       {
+           echo " npon c'è ";
+       }
+       return $parametro;
+    }
 }
 

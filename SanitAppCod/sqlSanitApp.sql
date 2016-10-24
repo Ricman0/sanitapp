@@ -162,7 +162,7 @@ ALTER TABLE medico ADD FULLTEXT INDEX fullTextPasswordMedico(Password);
 
 INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email, Username, 
 Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, Confermato, CodiceConferma) VALUES
-('dmrcld89s42g438s', 'claudia', 'di marco', 'acquaventina', 30, '65017', 
+('DMRCLD89S42G438S', 'claudia', 'di marco', 'acquaventina', 30, '65017', 
 'clau@hotmail.it','claudim', 'Clau89', 'clau@dim.pec.it', 0, ' P', 5464, FALSE, 'm786f');
 
 -- --------------------------------------------------------
@@ -201,9 +201,9 @@ ALTER TABLE utente ADD FULLTEXT INDEX fullTextCodFiscaleUtente(CodFiscale);
 
 INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email,
  Username, Password, CodFiscaleMedico, Confermato, CodiceConferma) VALUES
-('dmntnna89s42g438s', ' anna', ' di matteo', ' acquaventina', 30, '65017', ' annadima@alice.it', 'annadima' , 'Anna49', 'dmrcld89s42g438s', FALSE, 'u4728tdgd'),
-('mntrcr89h21a488l', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'onizuka-89@hotmail.it', 'ricman', 'Riccardo89', 'dmrcld89s42g438s', FALSE, 'sjsj474r8'),
-('rndndt56s53t657o', 'rnd', 'ndt', 'bologna', 3, '64034', 'rnd@libero.it', 'rdnndt', 'Rndnd89', 'dmrcld89s42g438s', FALSE, 'jd784hfh58f');
+('DMTNNA89S42G438S', ' anna', ' di matteo', ' acquaventina', 30, '65017', ' annadima@alice.it', 'annadima' , 'Anna49', 'DMRCLD89S42G438S', FALSE, 'u4728tdgd'),
+('MNTRCR89H21A488L', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'onizuka-89@hotmail.it', 'ricman', 'Riccardo89', 'DMRCLD89S42G438S', FALSE, 'sjsj474r8'),
+('RNDNDT56S53T657O', 'rnd', 'ndt', 'bologna', 3, '64034', 'rnd@libero.it', 'rdnndt', 'Rndnd89', 'DMRCLD89S42G438S', FALSE, 'jd784hfh58f');
 
 
 
@@ -237,10 +237,10 @@ CREATE TABLE prenotazione (
 INSERT INTO prenotazione (IDPrenotazione, IDEsame, PartitaIVAClinica, Tipo, 
 Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsame,
 CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
-(1, 1, '12345', 'M', 0, 0, 'dmntnna89s42g438', 'dmrcld89s42g438s', NULL, '2016-10-17 09:30:00'),
-(2, 1, '12345', 'M', 0, 0, 'mntrcr89h21a488l', 'dmrcld89s42g438s', NULL, '2016-10-17 10:00:00'),
-(3, 2, '12346', 'U', 0, 0, 'mntrcr89h21a488l', NULL, 'mntrcr89h21a488l', '2016-11-29 12:00:00'),
-(5, 2, '12345', 'U', 1, 0, 'rndndt56s53t657o', NULL, 'rndndt56s53t657o', '2016-12-28 08:00:00');
+(1, 1, '12345', 'M', 0, 0, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
+(2, 1, '12345', 'M', 0, 0, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
+(3, 2, '12346', 'U', 0, 0, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00'),
+(5, 2, '12345', 'U', 1, 0, 'RNDNDT56S53T657O', NULL, 'RNDNDT56S53T657O', '2016-12-28 08:00:00');
 
 -- --------------------------------------------------------
 
