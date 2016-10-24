@@ -24,9 +24,9 @@
                 <td>{$curr_row['IDEsame']}</td>
                 <td>{$curr_row['NomeEsame']}</td>
                 <td>{$curr_row['Nome']}</td>
-                <td>{$curr_row['CodFiscale']}</td>
                 <td>{$curr_row['Cognome']}</td>
-                <td>{$curr_row['DataEOra']}</td>
+                <td>{$curr_row['CodFiscaleUtenteEffettuaEsame']}</td>
+                <td>{$curr_row['DataReferto']}</td>
             </tr>
         {/foreach}
     </tbody>
