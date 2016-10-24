@@ -18,4 +18,5 @@
                Medico: {$medicoEsame}
             </span>
             <br>
+            <input type="button" id="aggiungiRefertoButton" value="Aggiungi Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
 </div>

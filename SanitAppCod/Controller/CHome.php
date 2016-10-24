@@ -314,6 +314,11 @@ class CHome {
                 $cPrenotazione = USingleton::getInstance('CPrenotazione');
                 $cPrenotazione->gestisciPrenotazionePOST();
                 break;
+            case 'referto':
+                $cReferto = USingleton::getInstance('CReferti');
+                $cReferto->gestisciRefertiPOST();
+                
+                break;
                 
              
                 

@@ -21,9 +21,21 @@ class EReferto {
      * @var string $_IDReferto Identificativo del referto 
      * Suppongo di mettere "R+IDPrenotazione"
      */
-    
     private $_IDReferto;
     
+    /**
+     *
+     * @var string id della prenotazione realtiva all referto
+     */
+    private $_idPrenotazione;
+    
+    /**
+     *
+     * @var string $_idEsame identificativo dell'esame relativo al referto
+     */
+    private $_idEsame;
+
+
     /**
      * @var string $_medicoReferto Cognome e nome del medico che scrive il referto 
      */
@@ -37,17 +49,32 @@ class EReferto {
     private $_contenuto;
     
     /**
+     * @var date $_dataReferto la data di inserimento del referto
+     */
+    private $_dataReferto;
+   
+    /**
+     *
+     * @var string $_partitaIVAClinica partita iva della clinica che emette il referto
+     */
+    private $_partitaIVAClinica;
+
+
+    /**
      * Costruttore di EReferto
      * 
-     * @param string $id
      * @param string $medico
      * @param blob $contenuto
-     */
-    public function __construct($id, $medico, $contenuto) 
+     */    
+    public function __construct($medico, $idPrenotazione, $partitaIvaClinica, $idEsame, $contenuto) 
     {
-        $this->_IDReferto = $id;
+        $this->_IDReferto = uniqid();
+        $this->_idPrenotazione = $idPrenotazione;
+        $this->_idEsame = $idEsame;
+        $this->_partitaIVAClinica = $partitaIvaClinica;
         $this->_medicoReferto = $medico;
         $this->_contenuto = $contenuto;
+        $this->_dataReferto = date('Y-m-d', time());
     }
     
     //metodi get
@@ -59,6 +86,36 @@ class EReferto {
     public function getIDReferto()
     {
         return $this->_IDReferto;
+    }
+    
+    /**
+     * Metodo che restituisce l'identificativo della prenotazione
+     * 
+     * @return string L'id della prenotazione
+     */
+    public function getIDPrenotazione()
+    {
+        return $this->_idPrenotazione;
+    }
+    
+    /**
+     * Metodo che restituisce l'identificativo dell'esame
+     * 
+     * @return string L'id dell'esame
+     */
+    public function getIDEsame()
+    {
+        return $this->_idEsame;
+    }
+    
+    /**
+     * Metodo che restituisce la partita iva della clinica
+     * 
+     * @return string la partita iva della clinica
+     */
+    public function getPartitaIvaClinica()
+    {
+        return $this->_partitaIVAClinica;
     }
     
     /**
@@ -80,6 +137,16 @@ class EReferto {
     {
         return $this->_contenuto;
         
+    }
+    
+    /**
+     * Metodo che restituisce la data del referto
+     * 
+     * @return date la data del referto
+     */
+    public function getDataReferto()
+    {
+        return $this->_dataReferto;
     }
     
     
