@@ -53,6 +53,7 @@ class CPrenotazione {
                     {
                         // tipoUser = clinica
                         $codice = $vPrenotazione->getCodice();
+                        $eUtente = new EUtente($codice);
                         $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
                         
                     }
