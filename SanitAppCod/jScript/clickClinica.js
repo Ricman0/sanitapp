@@ -81,6 +81,15 @@ $(document).ready(function () {
         }
 
     });
+    
+    $('#main').on("click", "#aggiungiRefertoButton", function(){
+        var id = $("#aggiungiRefertoButton").attr("data-idPrenotazione");
+        aggiuntaReferto(id); 
+    });
+    
+    $('#main').on("click", "#uploadReferto", function(){
+        uploadReferto(); 
+    });
 
 
 
@@ -405,4 +414,43 @@ function inviaDatiEsame(id, controller1, task1, ajaxdiv)
             alert("Chiamata fallita, si prega di riprovare...");
         }
     });
+
 }
+
+function aggiuntaReferto(id)
+{
+        $.ajax({
+        type: 'GET',
+        url : "referti/aggiungi/" + id ,
+        success: function(datiHTMLRisposta)
+        {
+            alert(datiHTMLRisposta);
+            $("#contenutoAreaPersonale").html(datiHTMLRisposta);
+        },
+        error:function()
+        {
+            alert("Sbagliato click aggiuntaReferto ");
+        }
+    });
+    
+}
+
+function uploadReferto()
+{
+    var dati = $("#formUploadReferto").serialize();
+    alert(dati);
+
+
+    $.ajax({
+        type: "POST",
+        url: "referto",
+        data: dati,
+        dataType: "json",
+        success: function (msg)
+        {
+            alert("Chiamata eseguita");
+            $("#contentoAreaPersonale").html(msg);
+        }
+    });
+}
+

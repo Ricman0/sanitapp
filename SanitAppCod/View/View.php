@@ -159,5 +159,56 @@ class View extends Smarty{
                 return FALSE;
             }
     }
+    
+    /**
+     * Metodo che permette di recuperare dall'array POST il valore inserito dall'utente
+     * in un campo della form. Il campo è individuato dall'indice.
+     * 
+     * @access public
+     * @param string $indice Il nome dell'indice che deve essere recuperato dall'array POST
+     * @return string Il valore recuperato
+     */
+    public function recuperaValore($indice) 
+    {
+        if(isset($_POST[$indice]))
+       {
+            $parametro = $_POST[$indice];
+       }
+       return $parametro;
+    }
+    
+    /**
+     * Metodo che permette di recuperare dall'array FILES il file inserito dall'utente
+     * in un campo della form. Il campo è individuato dall'indice.
+     * 
+     * @access public
+     * @param string $indice Il nome dell'indice che deve essere recuperato dall'array FILES
+     * @return string Il valore recuperato
+     */
+    public function recuperaFilePDF($indice) 
+    {
+        if(isset($_POST['upload']) && $_FILES[$indice]['size'] > 0)
+        {
+            $db = USingleton::getInstance('FDatabase');
+            $fileName = $_FILES[$indice]['name'];
+            $tmpName  = $_FILES[$indice]['tmp_name']; //nome temporaneo
+            $fileSize = $_FILES[$indice]['size'];
+            $fileType = $_FILES[$indice]['type'];
+            
+            $fp = fopen($tmpName, 'r'); //apro il file in modalità solo lettura
+            $content = fread($fp, filesize($tmpName)); //legge il file fino alla dimensione specificata  nel secondo parametro
+            $content = $db->trimEscapeStringa($content);
+            fclose($fp);
+            
+            $fileName = $db->trimEscapeStringa($fileName);
+        
+            return $content;
+       }
+        else {
+                 echo "errore il file non va bene";
+           
+       }
+    }
+    
 }
 

@@ -78,6 +78,9 @@ label.elementiForm {
     width: 160px;
 }
 
+#refertoPath{
+  width: 50%;
+}
 
 
 select.elementiForm, input.elementiForm {
@@ -171,3 +174,4 @@ input, select{
         padding-right: 1%;
     }
 }
+

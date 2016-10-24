@@ -9,9 +9,24 @@
 /**
  * Description of FReferto
  *
- * @author Riccardo
+ * @author Claudia Di Marco & Riccardo Mantini
  */
 class FReferto extends FDatabase{
+    
+    /**
+     * Costruttore della classe FReferto
+     * 
+     * @access public
+     */
+    public function __construct() {
+        //richiama il costruttore della classe FDatabase
+        parent::__construct();
+        // imposto il nome della tabella
+        $this->_nomeTabella = "referto";
+        $this->_attributiTabella = "IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, " .
+                "Contenuto, MedicoReferto, DataReferto";
+    }
+    
     /**
      * 
      * @param type $partitaIvaClinica
@@ -29,5 +44,43 @@ class FReferto extends FDatabase{
         print_r($risultato);
         return $risultato;
         
+    }
+    
+    /**
+     * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
+     * per l'inserimento di una referto nel database
+     * 
+     * @access private
+     * @param EReferto $referto il referto di cui si vogliono ottenere i valori degli attributi 
+     * @return string Stringa contenente i valori degli attributi separati da una virgola
+     */
+    private function getAttributi($referto) {        
+        
+        $valoriAttributi = "'" . $referto->getIDReferto() . "', '" 
+                . $this->trimEscapeStringa($referto->getIDPrenotazione()) . "', '" 
+                . $this->trimEscapeStringa($referto->getIDEsame()) . "', '" 
+                . $this->trimEscapeStringa($referto->getPartitaIvaClinica()) . "', '" 
+                . $referto->getContenutoReferto() . "', '"  
+                . $this->trimEscapeStringa($referto->getMedicoReferto()) . "', '" 
+                . $referto->getDataReferto() . "'"; 
+                // manca la partita IVA della clinica;
+        return $valoriAttributi;
+    }
+    
+    /**
+     *  Metodo per inserire nella tabella Referto una nuova riga ovvero
+     * una nuovo referto
+     * 
+     * @param EReferto $referto l'entità referto da inserire nel db
+     */
+    public function inserisciReferto($referto) {
+        //recupero i valori contenuti negli attributi
+        $valoriAttributi = $this->getAttributi($referto);
+
+        //la query da eseguire è la seguente:
+        // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
+        $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
+        // eseguo la query
+        return $this->eseguiQuery($query);
     }
 }

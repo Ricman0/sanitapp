@@ -47,12 +47,58 @@ class CReferti {
                     default:
                         break;
                 }
-
-
+                break;
+                
+                case 'aggiungi':
+                
+                    $idPrenotazione = $vReferti->getId();
+                    $ePrenotazione = new EPrenotazione($idPrenotazione);
+                    $idEsame = $ePrenotazione->getIdEsamePrenotazione();
+                    $partitaIva = $ePrenotazione->getPartitaIVAPrenotazione();
+                    $eEsame = new EEsame($idEsame);
+                    $medicoEsame = $eEsame->getMedicoEsame();
+                    $vReferti->restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame);
+                
                 break;
 
             default:
                 break;
         }
+    }
+    
+    public function gestisciRefertiPOST() {
+        
+        $vReferti = USingleton::getInstance('VReferti');
+        $task = $vReferti->getTask();
+        switch ($task) {
+            case 'upload':
+                
+                $this->uploadReferto();
+                
+                break;
+
+            default:
+                break;
+        }
+        
+    }
+    
+    public function uploadReferto() {
+        $risultato['risultato'] = "NO";
+        $vReferti = USingleton::getInstance('VReferti');
+        $idPrenotazione = $vReferti->recuperaValore('idPrenotazione');
+        $idEsame = $vReferti->recuperaValore('idEsame');
+        $partitaIva = $vReferti->recuperaValore('partitaIva');
+        $medicoEsame = $vReferti->recuperaValore('medicoEsame');
+        $contenuto = $vReferti->recuperaFilePDF('referto');
+        $eReferto = new EReferto($medicoEsame, $idPrenotazione, $partitaIva, $idEsame, $contenuto);
+        $fReferto = USingleton::getInstance('FReferto');
+        if($fReferto->inserisciReferto($eReferto))
+        {
+            $risultato['risultato'] = "SI";
+        }
+        echo json_encode($risultato);
+        
+        
     }
 }

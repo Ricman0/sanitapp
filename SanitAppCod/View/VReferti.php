@@ -19,4 +19,16 @@ class VReferti extends View{
         $this->assegnaVariabiliTemplate('dati', $referti);
         return $this->visualizzaTemplate('tabellaRefertiClinica');
     }
+    
+    public function restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame) {
+        
+        $this->assegnaVariabiliTemplate('idPrenotazione', $idPrenotazione);
+        $this->assegnaVariabiliTemplate('idEsame', $idEsame);
+        $this->assegnaVariabiliTemplate('partitaIva', $partitaIva);
+        $this->assegnaVariabiliTemplate('medicoEsame', $medicoEsame);
+        return $this->visualizzaTemplate('aggiungiReferto');
+        
+    }
+    
+    
 }
