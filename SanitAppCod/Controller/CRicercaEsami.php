@@ -27,6 +27,7 @@ class CRicercaEsami {
                 $id = $vEsami->getId();
                 if(isset($id))
                 {
+                    
                     $eEsame = new EEsame($id);
                     $vEsami->visualizzaInfoEsameOspite($eEsame, "FALSE");
                 }
@@ -53,23 +54,24 @@ class CRicercaEsami {
     
     public function ritornaEsami() {
         
-        $nomeEsame = $this->recuperaValore('esame');
-        $clinica = $this->recuperaValore('clinica');
-        $luogo = $this->recuperaValore('luogo');
+        $vEsami = USingleton::getInstance('VRicercaEsami');
+        $nomeEsame = $vEsami->recuperaValore('esame');
+        $clinica = $vEsami->recuperaValore('clinica');
+        $luogo = $vEsami->recuperaValore('luogo');
         $fEsami = USingleton::getInstance('FEsame');
         $fEsami->recuperaEsami($nomeEsame, $clinica, $luogo);
     }
     
-     private function  recuperaValore($indice) 
-    {
-        if(isset($_POST[$indice]))
-       {
-            $parametro = $_POST[$indice];
-       }
-       else
-       {
-           
-       }
-       return $parametro;
-    }
+//     private function  recuperaValore($indice) 
+//    {
+//        if(isset($_POST[$indice]))
+//       {
+//            $parametro = $_POST[$indice];
+//       }
+//       else
+//       {
+//           
+//       }
+//       return $parametro;
+//    }
 }

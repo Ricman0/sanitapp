@@ -157,7 +157,7 @@ class FUtente extends FDatabase{
     {
         $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE CodFiscale='" . $cf . "'";
         $risultato = $this->eseguiQuery($query);
-        echo "count: ". count($risultato);        
+//        echo "count: ". count($risultato);        
         return $risultato;
     }
     

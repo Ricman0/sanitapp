@@ -39,13 +39,21 @@ class CPrenotazione {
                     $data = $vPrenotazione->getData();
                     $orario = $vPrenotazione->getOrario();
                     print_r($_SESSION);
-                    if ($sessione->leggiVariabileSessione('tipoUser') === 'Utente') {
+                    if ($sessione->leggiVariabileSessione('tipoUser') === 'Utente') 
+                    {
                         $eUtente = new EUtente();
                         $codice = $eUtente->getCodiceFiscaleUtente();
                         $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
-                    } elseif ($sessione->leggiVariabileSessione('tipoUser') === 'Medico') {
+                    } 
+                    elseif ($sessione->leggiVariabileSessione('tipoUser') === 'Medico') 
+                    {
                         
-                    } else {
+                    } 
+                    else 
+                    {
+                        // tipoUser = clinica
+                        $codice = $vPrenotazione->getCodice();
+                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
                         
                     }
                     break;
@@ -146,7 +154,8 @@ class CPrenotazione {
                 
                 
                 echo $tipoUser;
-                switch ($tipoUser) {
+                switch ($tipoUser) 
+                {
                     case 'Utente':
                         $idPrenotazione = $vPrenotazioni->getId();
                         if ($idPrenotazione === FALSE) {
@@ -226,8 +235,10 @@ class CPrenotazione {
                         switch ($tipoUser) 
                         {
                             case 'Clinica':
+                                $eClinica = new EClinica($username);
+                                $nomeClinica = $eClinica->getNomeClinica();
                                 // visualizzo una pagina per cercareil cliente o l'utente registrato del sistema per cui in seguito vorrò effettuare una prenotazione
-                                $vPrenotazioni->impostaPaginaCercaUtente();
+                                $vPrenotazioni->impostaPaginaCercaUtente($nomeClinica);
 
                                 break;
 

@@ -6,7 +6,8 @@
 $(document).ready(function (){
     $('#main').on("click", "#aggiungiPrenotazioneButton", function(){
         var id = $("#aggiungiPrenotazioneButton").attr("data-idEsame");
-        prenotazione('prenotazione', 'esame', id, "#main"); 
+        var codiceFiscale = $("#aggiungiPrenotazioneButton").attr("data-codiceFiscale");
+        prenotazione('prenotazione', 'esame', id, codiceFiscale, "#main"); 
     });
 
     $('#main').on('click', '.orarioDisponibile', function() {
@@ -21,7 +22,9 @@ $(document).ready(function (){
         var idEsame = $('#nextPrenotazioneEsame').attr('data-idEsame');
         var orarioPrenotazione = $('#nextPrenotazioneEsame').attr('data-orario');
         var dataPrenotazione = $('#nextPrenotazioneEsame').attr('data-data');
-        inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, "#main");
+        var cfPrenotazione = $('#nextPrenotazioneEsame').attr('data-codiceFiscale');
+
+        inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, "#main");
     });
     
     $('#main').on("click", "#confermaPrenotazione", function(){
@@ -61,12 +64,13 @@ function confermaPrenotazione(controller1, task, ajaxDiv)
         });
 }
 
-function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, orarioPrenotazione, ajaxDiv)
+function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, ajaxDiv)
 {
+    
     $.ajax({
         
         type: 'GET',
-        url: controller + '/' + task + '/' + idEsame +  '/' + dataPrenotazione + '/' + orarioPrenotazione ,
+        url: controller + '/' + task + '/' + idEsame +  '/' + dataPrenotazione + '/' + orarioPrenotazione + '/' + cfPrenotazione ,
    
         success: function (datiRisposta)
         {
@@ -82,7 +86,7 @@ function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, 
     });
 }
 
-function prenotazione(controller, task, id, ajaxDiv)
+function prenotazione(controller, task, id, codice, ajaxDiv)
 {
     $.ajax({
         type: 'GET',
@@ -91,6 +95,7 @@ function prenotazione(controller, task, id, ajaxDiv)
         {
             alert(datiHTMLRisposta);
             $(ajaxDiv).html(datiHTMLRisposta);
+            $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codice);
             $("#calendarioPrenotazioneEsame").datepicker({
                     firstDay:1,
                     dateFormat: "dd-mm-yy",
@@ -110,7 +115,6 @@ function prenotazione(controller, task, id, ajaxDiv)
                     alert("PartitaIVA: " + partitaIVAClinica);
                     var idEsame = $("#idEsame").val();
                     dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
-                    
                     
                     }});
 //             $( "#calendarioPrenotazioneEsame .selector" ).datepicker( "dialog", "15/10/2015" );

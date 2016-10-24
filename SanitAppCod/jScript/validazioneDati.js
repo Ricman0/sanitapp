@@ -26,7 +26,15 @@ function validazione(task1, controller1)
             break;
             
         case "aggiungi":
-            validazioneEsame();
+            if(controller1 =="prenotazioni")
+            {
+                
+                validazioneCodiceFiscale();
+            }
+            else
+            {
+                validazioneEsame();
+            }
             break;
             
         
@@ -35,7 +43,42 @@ function validazione(task1, controller1)
     }
 }
 
-
+function validazioneCodiceFiscale()
+{
+    jQuery.validator.addMethod("codiceFiscale", function(valore){
+        //espressione regolare per codice fiscale
+        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        return valore.match(regex);
+        }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+    $("#ricercaUtente").validate({
+        rules:
+                {
+                    codiceFiscaleRicercaUtente:
+                            {
+                                required: true,
+                                codiceFiscale:true,
+                                maxlength: 16, 
+                                minlength: 16
+                            }
+                    
+                },
+        messages:
+                {
+                    codiceFiscaleRicercaUtente:
+                            {
+                                required: "Inserire il proprio codice fiscale",
+                                maxlength: "Il codice fiscale è lungo 16 caratteri",
+                                minlength: "Il codice fiscale è lungo 16 caratteri"
+                            }
+                },
+        submitHandler:function(form) 
+        { 
+            alert('codice fiscale inviato');
+            // inviaDatiRegistrazione si trova in clickRegistrazione.js
+            inviaCodiceFiscale('ricerca', 'utente', '#contenutoAreaPersonale');
+        }
+    });
+}
 
 function validazioneLogIn()
 {

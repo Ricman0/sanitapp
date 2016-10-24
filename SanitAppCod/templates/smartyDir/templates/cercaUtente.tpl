@@ -6,10 +6,10 @@
 <form id='ricercaUtente'>
     
     <label for="codiceFiscaleRicercaUtente" class="elementiForm">Codice Fiscale</label>
-    <input type="text" name="codiceFiscaleRicercaUtente" id="codiceFiscaleRicercaUtente" class="elementiForm" placeholder="DMRCLD89S42G438S"  required/>
+    <input type="text" name="codiceFiscaleRicercaUtente" id="codiceFiscaleRicercaUtente" class="elementiForm" placeholder="DMRCLD89S42G438S"  required />
     <br>
     
     <div id="submitDivRicercaUtente" >
-        <input type="submit" value="Invia" id="submitRicercaUtente">
+        <input type="submit" value="Invia" id="submitRicercaUtente" data-nomeClinica="{$nomeClinica}" />
     </div>
 </form>

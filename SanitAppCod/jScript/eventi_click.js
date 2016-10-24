@@ -50,6 +50,8 @@ function inviaController($controller, ajaxdiv)
 
 function clickRiga(controller, task, id, ajaxdiv)
 {
+    var codiceFiscale = $("#codiceFiscaleUtentePrenotaEsame").val();
+    alert(codiceFiscale);
     $.ajax({
         // definisco il tipo della chiamata
         type: 'GET',
@@ -59,8 +61,14 @@ function clickRiga(controller, task, id, ajaxdiv)
         // imposto azione per il caso di successo
         success: function (datiRisposta)
         {
+            
             alert(datiRisposta);
+            alert(codiceFiscale);
             $(ajaxdiv).html(datiRisposta);
+            
+            $('#aggiungiPrenotazioneButton').attr('data-codiceFiscale', codiceFiscale);
+                       
+            
         }
     });
 }

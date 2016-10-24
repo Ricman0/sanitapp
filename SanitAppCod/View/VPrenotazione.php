@@ -139,8 +139,9 @@ class VPrenotazione extends View{
      * 
      * @access public
      */
-    public function impostaPaginaCercaUtente() 
+    public function impostaPaginaCercaUtente($nomeClinica) 
     {
+            $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
             return $this->visualizzaTemplate('cercaUtente');
     }
     public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUtente) 
