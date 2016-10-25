@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 $(document).ready(function (){
-    $('#main').on("click", "#aggiungiPrenotazioneButton", function(){
+    $('#headerMain').on("click", "#aggiungiPrenotazioneButton", function(){
         var id = $("#aggiungiPrenotazioneButton").attr("data-idEsame");
         var codiceFiscale = $("#aggiungiPrenotazioneButton").attr("data-codiceFiscale");
         prenotazione('prenotazione', 'esame', id, codiceFiscale, "#main"); 
     });
 
-    $('#main').on('click', '.orarioDisponibile', function() {
+    $('#headerMain').on('click', '.orarioDisponibile', function() {
         $('.orarioSelezionato').removeClass('orarioSelezionato');
         $(this).addClass('orarioSelezionato');
         var orarioSelezionato = $(".orarioSelezionato").text();
@@ -18,7 +18,7 @@ $(document).ready(function (){
         
     });
     
-    $('#main').on("click", "#nextPrenotazioneEsame", function(){
+    $('#headerMain').on("click", "#nextPrenotazioneEsame", function(){
         var idEsame = $('#nextPrenotazioneEsame').attr('data-idEsame');
         var orarioPrenotazione = $('#nextPrenotazioneEsame').attr('data-orario');
         var dataPrenotazione = $('#nextPrenotazioneEsame').attr('data-data');
@@ -27,11 +27,11 @@ $(document).ready(function (){
         inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, "#main");
     });
     
-    $('#main').on("click", "#confermaPrenotazione", function(){
+    $('#headerMain').on("click", "#confermaPrenotazione", function(){
         confermaPrenotazione('prenotazione', 'conferma', "#main");
     });
     
-    $('#main').on("click", "#prenotazioneAggiunta", function(){
+    $('#headerMain').on("click", "#prenotazioneAggiunta", function(){
         inviaController('mySanitApp', '#main');
     });
 });

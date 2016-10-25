@@ -122,7 +122,8 @@ function validazioneLogIn()
         { 
             alert('I dati log in sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            inviaDatiLogIn('#logInForm', '#main' );
+            inviaDatiLogIn('#logInForm', '#headerMain' );
+            
         }
     });
 }

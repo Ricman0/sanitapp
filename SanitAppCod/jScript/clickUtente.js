@@ -5,30 +5,30 @@
  */
 
 $(document).ready(function(){
-    $('#main').on("click", "#prenotazioniAreaPersonaleUtente", function(){
+    $('#headerMain').on("click", "#prenotazioniAreaPersonaleUtente", function(){
 //        $( "#prenotazioniAreaPersonaleUtente").addClass("Attivo");
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale"); 
     });
     
-    $('#main').on("click", "#refertiAreaPersonaleUtente", function(){
+    $('#headerMain').on("click", "#refertiAreaPersonaleUtente", function(){
         inviaControllerTask('referti', 'utente', "#contenutoAreaPersonale");
     });
     
-    $('#main').on("click", "#impostazioniAreaPersonaleUtente", function(){
+    $('#headerMain').on("click", "#impostazioniAreaPersonaleUtente", function(){
         inviaControllerTask('impostazioni', 'utente', "#contenutoAreaPersonale");
     });
     
-    $('#main').on("click", "#refertiAreaPersonaleUtente", function () {
+    $('#headerMain').on("click", "#refertiAreaPersonaleUtente", function () {
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
     
-    $('#main').on("click", "#iconaAggiungiPrenotazione", function(){
+    $('#headerMain').on("click", "#iconaAggiungiPrenotazione", function(){
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
     
     
      
-    $('#main').on("click", "#modificaIndirizzoUtente", function(){
+    $('#headerMain').on("click", "#modificaIndirizzoUtente", function(){
         clickModificaImpostazioni('impostazioni', 'utente', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
     });
      

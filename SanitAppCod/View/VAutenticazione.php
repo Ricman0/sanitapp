@@ -103,16 +103,53 @@ class VAutenticazione extends View{
         $this->visualizzaTemplate("log"); 
     }
     
+    
+    /**
+     * Metodo che effettua il refresh della pagina e restituisce la home page
+     * 
+     * @access public
+     */
     public function restituisciHomePage() 
     {
-        $logIn= $this->prelevaTemplate("log");
+        $log= $this->prelevaTemplate("log");
         $navBar = $this->prelevaTemplate("navigationBar");
         $main = $this->prelevaTemplate("mainRicerca");
-        $cartina = $this->prelevaTemplate("cartinaItalia");
-        $this->assegnaVariabiliTemplate("logIn", $logIn);
+        $this->assegnaVariabiliTemplate("logIn", $log);
         $this->assegnaVariabiliTemplate("navigationBar", $navBar);
         $this->assegnaVariabiliTemplate("mainRicerca", $main);
-        $this->assegnaVariabiliTemplate("cartina", $cartina);
         $this->visualizzaTemplate("HomePage");  
+    }
+    
+    /**
+     * Metodo che contente di impostare header e pagina personale
+     * 
+     * @access public
+     */
+    public function impostaHeaderEPaginaPersonale($username, $tastiLaterali) 
+    {
+        //log form
+        $this->assegnaVariabiliTemplate('user', $username);
+        $log= $this->prelevaTemplate("log");
+        
+        
+        //navigationBar
+        $this->assegnaVariabiliTemplate('username', $username);
+        $navigationBar = $this->prelevaTemplate('navigationBar');
+        
+        
+        // main
+        $this->assegnaVariabiliTemplate("tastiLaterali", $tastiLaterali);
+          //prelevo  i template
+        $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
+        //assegno le variabili ai template
+        
+        $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
+        
+//        visualizzo il template 
+        $this->assegnaVariabiliTemplate('log', $log);
+        $this->assegnaVariabiliTemplate('navigationBar', $navigationBar);
+        $this->assegnaVariabiliTemplate('main', $areaPersonale);
+        
+        $this->visualizzaTemplate('headerMain');
     }
 }

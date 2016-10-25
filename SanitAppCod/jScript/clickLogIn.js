@@ -1,11 +1,10 @@
 $(document).ready(function () {
-
-        $("#submitLogIn").click(function () {
-            validazione("autenticazione");
-            
-        });
         
-        $('#header').on("click", "#logOutButton", function () {
+        $('#headerMain').on("click", "#submitLogIn", function () {
+        validazione("autenticazione");
+    });
+        
+        $('#headerMain').on("click", "#logOutButton", function () {
         inviaController('logOut', "#wrapper");
         
     });

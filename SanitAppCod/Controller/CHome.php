@@ -178,7 +178,8 @@ class CHome {
             
             case 'autenticazione':
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
-                $cAutenticazione->impostaPaginaAutenticazione();
+//                $cAutenticazione->impostaPaginaAutenticazione();
+                $cAutenticazione->autenticaUser();
                break;
            
             case 'ricercaEsami':

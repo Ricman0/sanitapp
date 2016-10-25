@@ -1,11 +1,11 @@
 $(document).ready(function() {
     
-     
-    $("#cliniche").click(function () {
+    
+    $('#headerMain').on("click","#cliniche", function(){
         inviaController('ricercaCliniche', '#main');
     });
     
-    $("#main").on("click","#bottoneRicercaCliniche", function(){
+    $('#headerMain').on("click","#bottoneRicercaCliniche", function(){
         inviaDati();
     });
     
