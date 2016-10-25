@@ -4,6 +4,7 @@
   RewriteEngine On
   RewriteCond %{REQUEST_METHOD} GET 
 
+  RewriteRule ^(logOut)?$ index.php?controller=$1
   RewriteRule ^(ricerca)/(utente)/(\w+)?$ index.php?controller=$1&task=$2&codice=$3 [L]
   RewriteRule ^(mySanitApp)?$ index.php?controller=$1
   RewriteRule ^(prenotazione)/(riepilogo)/([[:alnum:]]+)/((3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4})/([0-9:]+)/(\w+)?$ index.php?controller=$1&task=$2&id=$3&data=$4&orario=$7&codice=$8 [L]

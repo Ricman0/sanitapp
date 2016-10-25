@@ -4,6 +4,11 @@ $(document).ready(function () {
             validazione("autenticazione");
             
         });
+        
+        $('#header').on("click", "#logOutButton", function () {
+        inviaController('logOut', "#wrapper");
+        
+    });
 });
 
 function inviaDatiLogIn(id, ajaxdiv)

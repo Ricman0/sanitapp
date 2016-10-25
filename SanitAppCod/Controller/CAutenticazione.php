@@ -272,4 +272,17 @@ class CAutenticazione {
             }
         }
     }
+    
+    /**
+     * Metodo che consente il log out dell'utente e effettua una refresh della pagina
+     * 
+     * @access public
+     */
+    public function logOut() 
+    {
+        $sessione = USingleton::getInstance('USession');
+        $sessione->terminaSessione();
+        $vAutenticazione = USingleton::getInstance('VAutenticazione');
+        $vAutenticazione->restituisciHomePage();
+    }
 }

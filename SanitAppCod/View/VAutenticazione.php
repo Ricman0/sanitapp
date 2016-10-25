@@ -102,4 +102,17 @@ class VAutenticazione extends View{
     {
         $this->visualizzaTemplate("log"); 
     }
+    
+    public function restituisciHomePage() 
+    {
+        $logIn= $this->prelevaTemplate("log");
+        $navBar = $this->prelevaTemplate("navigationBar");
+        $main = $this->prelevaTemplate("mainRicerca");
+        $cartina = $this->prelevaTemplate("cartinaItalia");
+        $this->assegnaVariabiliTemplate("logIn", $logIn);
+        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+        $this->assegnaVariabiliTemplate("mainRicerca", $main);
+        $this->assegnaVariabiliTemplate("cartina", $cartina);
+        $this->visualizzaTemplate("HomePage");  
+    }
 }
