@@ -10,9 +10,9 @@
     border-spacing: 0;
     border-style: solid;
     border-width: 1px 0 0 1px;
-    margin: 10px 0 15px;
+    margin: auto;
     text-align: left;
-    width: 100%;
+    width: 80%;
 }
 .tablesorter-blue th, .tablesorter-blue td {
     -moz-border-bottom-colors: none;

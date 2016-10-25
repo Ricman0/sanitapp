@@ -5,8 +5,9 @@
     height: 531px;
     background:url(../Immagini/cartinaItalia.gif) no-repeat;
     z-index:100;
-    float:left;
     margin: 0px 0px 35px 0%;
+    display: inline-block;
+    vertical-align: middle;
 
 }
 
@@ -16,12 +17,10 @@
     z-index:105;
     top:0;
     left:0;
-    float:left;
 }
 #region-map img{
     width: 100%;
     height: 100%;
-    float: left;
 }
 
 .sprite_region {

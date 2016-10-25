@@ -8,18 +8,22 @@ and open the template in the editor.
     Author     : Claudia Di Marco & Riccardo Mantini
 */
 
+#sideNavBarList{
+    list-style-type: none;
+    padding: 0;
+}
 
 .sideNavBar {
-    background-color: #ffffff;
-    list-style-type: none;
-    margin-left: -17%;
+    background-color: #ffffff;    
     margin-top: 100px;
+    margin-left: -20px;
     min-width: 140px;
     overflow: auto;
     padding: 0;
     position: relative;
-    width: 20%;
-    float:left;
+    width: 16%;
+    display: inline-block;
+    vertical-align: middle;
 }
 .sideNavBar a {
     border-bottom: 1px solid #9e9e9e;
@@ -43,15 +47,11 @@ and open the template in the editor.
 
 .contenutoAreaPersonale
 {
-    display: inline;
-}
-/*
-.dropside-content a:hover {
-    background-color: white;
-    color:rgb(11,190,210);
+    display: inline-block;
+    width: 82%;
+    vertical-align: top;
 }
 
-*/
 .dropside-content {
     background-color: rgb(11, 190, 210);
     border-radius: 0 0 4px 4px;
@@ -64,7 +64,7 @@ and open the template in the editor.
 #pulsanteDropdown:hover .dropside-content {
     display: block;
 }
-
+/*
 @media only screen and (max-width: 1200px){
     .sideNavBar{
         margin-left: -5%;
@@ -75,44 +75,4 @@ and open the template in the editor.
     .sideNavBar{
         margin-left: -2%;
     }
-}
-/** quello che stava sul pc
-
-#sideNavBar li {
-    border-bottom-width: 1px;
-    border-bottom-color: rgb(10, 190, 210);
-    border-bottom-style: solid;
-    border-bottom-right-radius: 30px;
-}
-#sideNavBar {
-    background-color: white;
-    image-rendering: 100%;
-    list-style-type: none;
-    margin-top: 20px;
-    overflow: auto;
-    padding: 0;
-    position: fixed;
-    width: 20%;
-    padding-top: 0px;
-    border-radius: 20px;
-    border-bottom: 8px;
-    border-bottom-color: black;
-}
-#sideNavBar li a {
-    color: #000;
-    display: block;
-    padding: 25px 16px;
-    text-decoration: none;
-    border-bottom: 10px;
-}
-#sideNavBar li a.active {
-    background-color: tomato;
-    color: white;
-}
-#sideNavBar li a:hover:not(.active) {
-    background-color: rgb(10, 190, 210);
-    color: white;
-}
-
-
-*/
+}*/

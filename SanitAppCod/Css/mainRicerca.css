@@ -10,18 +10,25 @@ and open the template in the editor.
 
 #elementiFormMainRicerca{
     
-    float: left;
-    margin-top: 80px;
-    margin-right: 20px;
+    display: inline-block;
+    margin:auto;
 
 }
+#formMainRicerca{
+    display: inline-block;
+    vertical-align: middle;
+}
+
 
 #inputMainRicerca{
-    float:left;
+display: inline-block;
+vertical-align: middle;
+margin-right: 70px;
 }
 #iconaMainRicercaRicerca {
-    margin: 50px;
-    float:left;
+    margin: 50px 30px 50px 30px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 @media only screen and (max-width: 1200px){

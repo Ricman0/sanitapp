@@ -1,8 +1,8 @@
 table {
     border-collapse: collapse;
     margin: auto;
-    width: 80%;
 }
+
 th{
     background-color: rgb(11,190,210);
     color: white;
@@ -26,13 +26,19 @@ th, td {
     display: none;
 }
 
+#contenutoAreaPersonale table{
+    width: 85%;
+    margin-left: 9%;
+}
+
+
+
 /* ajax error row */
 .tablesorter .tablesorter-errorRow td {
     text-align: center;
     cursor: pointer;
     background-color: #e6bf99;
 }
-
 .tablesorter-blue thead th:first-of-type{
     border-radius: 4px 0 0 0;
 }

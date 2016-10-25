@@ -76,12 +76,8 @@
             
             <div id="main">
                 {$mainRicerca}
-                {$cartina}
             </div> 
 
-            <div id="contenutiAjax">
-
-            </div>
             <!--Footer della pagina-->
             <div id="footer">
                 <span class="copyright">©2016 Copyright - SanitApp</span>

@@ -41,7 +41,7 @@ fieldset{
     line-height:7em;
 }
 #main{
-    padding: 10px 4% 30px 14%;
+    /*padding: 10px 4% 30px 10%;*/
     min-width: 970px;
     min-height: 450px;
     margin: auto;
@@ -131,7 +131,7 @@ input, select{
 
 .affiancati
 {
-    float: left;
+    display: inline-block;
     margin: auto;
 }
 #dateEOrariDisponibili{
@@ -161,7 +161,7 @@ input, select{
     cursor: pointer;
 }
 
-@media only screen and (max-width: 1200px){
+/*@media only screen and (max-width: 1200px){
     #main{
         padding-left: 5%;
         padding-right: 1%;
@@ -173,5 +173,5 @@ input, select{
         padding-left: 2%;
         padding-right: 1%;
     }
-}
+}*/
 

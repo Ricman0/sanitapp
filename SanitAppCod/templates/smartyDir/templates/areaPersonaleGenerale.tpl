@@ -1,6 +1,5 @@
-<div id="divSideNavBar">
-    
-    <ul class="sideNavBar" id="sideNavBar">
+<div class="sideNavBar" id="divSideNavBar">
+    <ul  id="sideNavBarList">
         {foreach from=$tastiLaterali key=id item=tasto}
             <li><a id="{$id}" href="#">{$tasto}</a>
                 {if $tasto=="Impostazioni"}
@@ -12,13 +11,10 @@
                 {/if}
             </li>
         {/foreach}         
-    </ul>
-    
+    </ul>   
 </div>    
-    
 
 <div class="contenutoAreaPersonale" id="contenutoAreaPersonale">
-    
     {if isset($contenutoAreaPersonale)}
         {$contenutoAreaPersonale}
     {else}
@@ -35,6 +31,5 @@
         <p>Benvenuto nella tua area personale, da qui potrai gestire le prenotazioni, 
             i pazienti e i referti.</p>
         {/if}        
-    {/if}
-    
+    {/if}    
 </div>
