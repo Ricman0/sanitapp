@@ -7,74 +7,74 @@
 
 $(document).ready(function () {
 
-    $('#main').on("click", "#serviziAreaPersonaleClinica", function () {
+    $('#headerMain').on("click", "#serviziAreaPersonaleClinica", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
     
-    $('#main').on("click", "#prenotazioniAreaPersonaleClinica", function () {
+    $('#headerMain').on("click", "#prenotazioniAreaPersonaleClinica", function () {
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
     });
     
-    $('#main').on("click", "#refertiAreaPersonaleClinica", function () {
+    $('#headerMain').on("click", "#refertiAreaPersonaleClinica", function () {
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
     
-    $('#main').on("click", "#clientiAreaPersonaleClinica", function () {
+    $('#headerMain').on("click", "#clientiAreaPersonaleClinica", function () {
         inviaControllerTask('clienti', 'visualizza', "#contenutoAreaPersonale");
     });
 
-    $('#main').on("click", "#iconaAggiungi", function () {
+    $('#headerMain').on("click", "#iconaAggiungi", function () {
         inviaControllerTask('servizi', 'aggiungi', "#contenutoAreaPersonale");
     });
     
-    $('#main').on("click", "#iconaAggiungiPrenotazioneClinica", function () {
+    $('#headerMain').on("click", "#iconaAggiungiPrenotazioneClinica", function () {
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
     
-//    $('#main').on("click", "#submitRicercaUtente", function () {
+//    $('#headerMain').on("click", "#submitRicercaUtente", function () {
 //        inviaControllerTask('ricerca', 'utente', "#contenutoAreaPersonale");
 //    });
 
-    $('#main').on("click", "#annullaAggiungiEsame", function () {
+    $('#headerMain').on("click", "#annullaAggiungiEsame", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
 
-    $('#main').on("click", "#impostazioniAreaPersonaleClinica", function () {
+    $('#headerMain').on("click", "#impostazioniAreaPersonaleClinica", function () {
         inviaControllerTask('impostazioni', 'clinica', "#contenutoAreaPersonale");
         
     });
     
-//    $('#main').on("click", "#salvaImpostazioniClinica", function () {
+//    $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {
 //        inviaImpostazioniClinica('#workingPlan','#giornoPausa','#inizioPausa','#finePausa','impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
 //    });
-    $('#main').on("click", "#salvaImpostazioniClinica", function () {
+    $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {
         inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
     });
     
-    $('#main').on("click", "#aggiungiPausaButton", function () {
+    $('#headerMain').on("click", "#aggiungiPausaButton", function () {
         formPausa();
     });
-    $('#main').on("click", "#scartaPausa", function () {
+    $('#headerMain').on("click", "#scartaPausa", function () {
         
         scartaPausa(this);//this si riferisce al pulsante scartapausa
     });
     
-     $('#main').on("click", "#accettaPausa", function () {
+     $('#headerMain').on("click", "#accettaPausa", function () {
         accettaPausa(this);
     });
     
-    $('#main').on("click", "#eliminaPausa", function () {
+    $('#headerMain').on("click", "#eliminaPausa", function () {
        
         eliminaPausa(this);
     });
     
-    $('#main').on("click", ".rigaPrenotazione" , function(){
+    $('#headerMain').on("click", ".rigaPrenotazione" , function(){
         var id = $(this).attr('id');
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
         clickRiga('prenotazioni', 'visualizza', id, contenitore);
     });
 
-    $('#main').on("click", ".rigaEsame", function () {
+    $('#headerMain').on("click", ".rigaEsame", function () {
         var id = $(this).attr('id');
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
         var controller = $("#controllerTabella").attr('value');
@@ -86,12 +86,12 @@ $(document).ready(function () {
 
     });
     
-    $('#main').on("click", "#aggiungiRefertoButton", function(){
+    $('#headerMain').on("click", "#aggiungiRefertoButton", function(){
         var id = $("#aggiungiRefertoButton").attr("data-idPrenotazione");
         aggiuntaReferto(id); 
     });
     
-    $('#main').on("click", "#uploadReferto", function(){
+    $('#headerMain').on("click", "#uploadReferto", function(){
         uploadReferto(); 
     });
 

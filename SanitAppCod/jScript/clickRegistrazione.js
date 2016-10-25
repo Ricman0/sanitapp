@@ -1,15 +1,15 @@
 //$(document).ready(function () {
 //    //fissa un gestore di submit al form
 //
-//    $('#main').on("click", '#submitRegistrazioneUtente', function () {
+//    $('#headerMain').on("click", '#submitRegistrazioneUtente', function () {
 //        inviaDatiRegistrazione('#inserisciUtente', 'registrazione', 'utente', '#main');
 //    });
 //
-//    $('#main').on("click", '#submitRegistrazioneMedico', function () {
+//    $('#headerMain').on("click", '#submitRegistrazioneMedico', function () {
 //        inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#main');
 //    });
 //
-//    $('#main').on("click", '#submitRegistrazioneClinica', function () {
+//    $('#headerMain').on("click", '#submitRegistrazioneClinica', function () {
 //        inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#main');
 //    });
 //

@@ -5,12 +5,12 @@
  */
 
 $(document).ready(function(){
-    $('#main').on("click", "#pazientiAreaPersonaleMedico", function(){
+    $('#headerMain').on("click", "#pazientiAreaPersonaleMedico", function(){
 //        $( "#prenotazioniAreaPersonaleUtente").addClass("Attivo");
         inviaControllerTask('pazienti', 'visualizza', "#contenutoAreaPersonale"); 
     });
     
-    $('#main').on("click", "#refertiAreaPersonaleMedico", function () {
+    $('#headerMain').on("click", "#refertiAreaPersonaleMedico", function () {
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
 //    $('#main').on("click", "#refertiAreaPersonaleUtente", function(){
@@ -27,7 +27,7 @@ $(document).ready(function(){
 //    
     
     
-    $('#main').on("click", ".rigaPaziente" , function(){
+    $('#headerMain').on("click", ".rigaPaziente" , function(){
         var id = $(this).attr('id');
         clickRiga('pazienti', 'visualizza', id, "#contenutoAreaPersonale");
     });

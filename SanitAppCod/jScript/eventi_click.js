@@ -7,20 +7,20 @@
  */
 $(document).ready(function () {
 
-    $("#registrazioneUtente").click(function () {
-        inviaControllerTask('registrazione', 'utente', '#main');
+    $('#headerMain').on("click", "#mySanitApp", function(){
+        inviaController('mySanitApp', '#main');
     });
-
-    $("#registrazioneMedico").click(function () {
-        inviaControllerTask('registrazione', 'medico', '#main');
-    });
-
-    $("#registrazioneClinica").click(function () {
+    
+    $('#headerMain').on("click", "#registrazioneClinica", function(){
         inviaControllerTask('registrazione', 'clinica', '#main');
     });
     
-    $("#mySanitApp").click(function () {
-        inviaController('mySanitApp', '#main');
+    $('#headerMain').on("click", "#registrazioneMedico", function(){
+        inviaControllerTask('registrazione', 'medico', '#main');
+    });
+    
+    $('#headerMain').on("click", "#registrazioneUtente", function(){
+        inviaControllerTask('registrazione', 'utente', '#main');        
     });
     
 });

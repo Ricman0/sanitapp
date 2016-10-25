@@ -63,21 +63,21 @@
     <body>
         <!-- Classe container per l'intera pagina-->
         <div id="wrapper">
+            <div id="headerMain">
+                <!-- Header della pagina-->
 
-            <!-- Header della pagina-->
+                <div class="header" id="header">
+                    <img id="logoSanitApp" src="Immagini/logoSanitApp.png" alt="logoSanitApp">
+                    {$logIn}
+                    {$navigationBar}    <!-- Navigation bar della pagina-->
+                </div>
+                <br>
+                <!-- Main della pagina-->
 
-            <div class="header" id="header">
-                <img id="logoSanitApp" src="Immagini/logoSanitApp.png" alt="logoSanitApp">
-                {$logIn}
-                {$navigationBar}    <!-- Navigation bar della pagina-->
+                <div id="main">
+                    {$mainRicerca}
+                </div> 
             </div>
-            <br>
-            <!-- Main della pagina-->
-            
-            <div id="main">
-                {$mainRicerca}
-            </div> 
-
             <!--Footer della pagina-->
             <div id="footer">
                 <span class="copyright">©2016 Copyright - SanitApp</span>

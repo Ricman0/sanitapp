@@ -165,6 +165,12 @@ class CHome {
             case 'home':            
                 $vHome->restituisciHomePage();
                 break;
+            
+            case 'logOut':  
+                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+                $cAutenticazione->logOut();
+                break;
+            
             case 'registrazione':
                 $cRegistrazione = USingleton::getInstance('CRegistrazione');
                 $cRegistrazione->impostaPaginaRegistrazione(); // oppure echo $cRegistrazione->impostaPaginaRegistrazione(); ma poi devo prelevare il template e non visualizzarlo
@@ -172,7 +178,8 @@ class CHome {
             
             case 'autenticazione':
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
-                $cAutenticazione->impostaPaginaAutenticazione();
+//                $cAutenticazione->impostaPaginaAutenticazione();
+                $cAutenticazione->autenticaUser();
                break;
            
             case 'ricercaEsami':

@@ -1,9 +1,13 @@
 $(document).ready(function () {
-
-        $("#submitLogIn").click(function () {
-            validazione("autenticazione");
-            
-        });
+        
+        $('#headerMain').on("click", "#submitLogIn", function () {
+        validazione("autenticazione");
+    });
+        
+        $('#headerMain').on("click", "#logOutButton", function () {
+        inviaController('logOut', "#wrapper");
+        
+    });
 });
 
 function inviaDatiLogIn(id, ajaxdiv)

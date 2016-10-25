@@ -1,10 +1,11 @@
 $(document).ready(function () {
 
-    $("#esami").click(function () {
+    
+    $('#headerMain').on("click", "#esami", function () {
         inviaController('ricercaEsami', '#main');
     });
     
-    $('#main').on("click", ".rigaEsame", function () {
+    $('#headerMain').on("click", ".rigaEsame", function () {
         var id = $(this).attr('id');// id della riga che coincide con l'id dell'esame
 //        var nomeClinica = $('.rigaNomeClinica').html();
 //        alert(nomeClinica);

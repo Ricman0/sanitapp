@@ -5,7 +5,7 @@
  */
 
 $(document).ready(function(){
-    $("#main").on("click","#ricercaEsamiCerca", function() {
+    $('#headerMain').on("click","#ricercaEsamiCerca", function() {
         inviaDatiForm();
     });
 });
