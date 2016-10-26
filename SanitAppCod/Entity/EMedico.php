@@ -11,14 +11,10 @@
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class EMedico
+class EMedico extends EUser
 {
     //attributi della classe EMedico
-    /**
-     * @var string $_codiceConferma, variabile che contiente il codice per confermare 
-     * l'account del medico
-     */
-    private $_codiceConferma; 
+    
     
     /**
      * @var string $_codFiscale Il codice fiscale del medico
@@ -35,10 +31,6 @@ class EMedico
      */
     private $_cognome;
     
-    /**
-     * @var string $_email L'email del medico
-     */
-    private $_email;
     
     /**
      * @var string $_via La via in cui ha ... il medico
@@ -59,17 +51,6 @@ class EMedico
     private $_PEC;
     
     /**
-     * @var string $_username, variabile di tipo string, che contiene lo
-     *              username che il medico inserisce per registrarsi
-     */
-    private $_username;
-    
-    /**
-     * @var string $_password Password scelta e usata dal medico per accedere al sistema
-     */
-    private $_password;
-    
-    /**
      * @var boolean $_validato Indica se il medico è stato validato dal amministratore
      */
     private $_validato;
@@ -84,11 +65,6 @@ class EMedico
      */
     private $_numIscrizione;
     
-    /**
-     * @var string $_confermato permette di capire se l'account del medico è 
-     * stato confermato(TRUE) o meno          
-     */
-    private $_confermato;
     
     /**
      * Costruttore della classe EMedico
@@ -105,8 +81,9 @@ class EMedico
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
      * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($nome, $cognome, $cf, $via, $numeroCivico, $cap, $email, $username, $password, $PEC, $provinciaAlbo, $numIscrizione, $cod) 
+    public function __construct($nome, $cognome, $cf, $via, $numeroCivico, $cap, $email, $username, $password, $PEC, $provinciaAlbo, $numIscrizione) 
     {
+        parent::__construct($username, $password, $email);
         $this->_nome = $nome;
         $this->_cognome = $cognome; 
         $this->_codFiscale = $cf;
@@ -121,14 +98,9 @@ class EMedico
             }
 
         $this->_CAP = $cap; 
-        $this->_email = $email; 
-        $this->_username = $username;
-        $this->_password = $password; 
         $this->_PEC = $PEC;
         $this->_provinciaAlbo = $provinciaAlbo;
         $this->_numIscrizione = $numIscrizione;
-        $this->_confermato = FALSE;
-        $this->_codiceConferma = $cod;
     }
     
     //metodi get
@@ -193,26 +165,6 @@ class EMedico
     }
     
     /**
-     * Metodo per conoscere il codice di conferma del medico
-     * 
-     * @return int/string Il codice del medico 
-     */
-    public function getCodiceConfermaMedico()
-    {
-        return $this->_codiceConferma;
-    }
-    
-    /**
-     * Metodo per conoscere l'email del medico
-     * 
-     * @return string L'email del medico
-     */ 
-    public function getEmailMedico()
-    {
-        return $this->_email;
-    }
-    
-    /**
      * Metodo per conoscere la PEC  del medico
      * 
      * @return string La PEC del medico
@@ -252,35 +204,6 @@ class EMedico
         return $this->_provinciaAlbo;
     }
     
-    /**
-     * Metodo per conoscere lo username del medico
-     * 
-     * @return string lo username del medico
-     */ 
-    public function getUsernameMedico()
-    {
-        return $this->_username;
-    }
-    
-    /**
-     * Metodo per conoscere la password del medico
-     * 
-     * @return string La password del medico
-     */ 
-    public function getPasswordMedico()
-    {
-        return $this->_password;
-    }
-    
-    /**
-     * Metodo che permette di capire se l'account è stato confermato o meno
-     * 
-     * @return boolean TRUE se l'account è stato confermato, FALSE altrimenti
-     */
-    public function getConfermatoMedico()
-    {
-        return $this->_confermato;
-    }
     //metodi set
     
     /**
@@ -314,15 +237,6 @@ class EMedico
     }
     
     /**
-     * Metodo che permette di modificare l'email del medico
-     * 
-     * @param string $email L'email del medico
-     */ 
-    public function setEmailMedico($email)
-    {
-        return $this->_email = $email;
-    }
-    /**
      * Metodo che permette di modificare la via del medico
      * 
      * @param string $via La nuova via del medico
@@ -351,27 +265,7 @@ class EMedico
     {
         $this->_CAP = $cap; 
     }
-    
-    /**
-     * Metodo che permette di modificare lo username del medico
-     * 
-     * @param string $un Il nuovo username del medico
-     */
-    public function setUsernameMedico($un)
-    {
-        $this->_username = $un; 
-    }
-    
-    /**
-     * Metodo che permette di modificare la password del medico
-     * 
-     * @param string $pw La nuova password del medico
-     */
-    public function setPasswordMedico($pw)
-    {
-        $this->_password = $pw; 
-    } 
-    
+
     /**
      * Metodo che permette di modificare la PEC  del medico
      * 
@@ -381,17 +275,7 @@ class EMedico
     {
         $this->_PEC= $PEC;
     }
-    
-    /**
-     * Metodo che permette di modificare il codice di conferma del medico
-     * 
-     * @param string o int? $cod Il nuovo codice per la conferma del medico
-     */
-    public function setCodiceConfermaMedico($cod)
-    {
-        $this->_codiceConferma = $cod; 
-    }
-    
+
     /**
      * Metodo che permette di modificare la validità del medico 
      * 
@@ -420,16 +304,6 @@ class EMedico
     public function setProvinciaAlboMedico($provinciaAlbo)
     {
         $this->_provinciaAlbo = $provinciaAlbo;
-    }
-    
-    /**
-     * Metodo che permette di impostare la conferma dell'account 
-     * 
-     * @param boolean $confermato Imposta la conferma dell'account 
-     */
-    public function setConfermatoMedico($confermato)
-    {
-        $this->_confermato= $confermato;
     }
     
     
