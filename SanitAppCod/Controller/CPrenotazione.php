@@ -161,7 +161,7 @@ class CPrenotazione {
                         $idPrenotazione = $vPrenotazioni->getId();
                         if ($idPrenotazione === FALSE) {
                             echo "visualizza tutte le prenotazioni ";
-                            $eUtente = new EUtente();
+                            $eUtente = new EUtente(NULL, $username);
                             $codiceFiscaleUtente = $eUtente->getCodiceFiscaleUtente();
                             $fPrenotazioni = USingleton::getInstance('FPrenotazione');
                             $id = $vPrenotazioni->getId();
@@ -171,7 +171,8 @@ class CPrenotazione {
                             } else {
                                 echo "errore in Cprenotazione VisualizzaPrenotazioni in utente";
                             }
-                        } else {
+                        } 
+                        else {
                             echo ' visualizza una sola prenotazione ';
                             $ePrenotazione = new EPrenotazione($idPrenotazione);
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();

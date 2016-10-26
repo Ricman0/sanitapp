@@ -14,11 +14,14 @@
 class CImpostazioni {
 
     public function gestisciImpostazioni() {
+        $sessione = USingleton::getInstance('USession');
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $task = $vImpostazioni->getTask();
         switch ($task) {
             case 'utente':
-                $eUtente = new EUtente();
+                
+                $eUtente = new EUtente(NULL, $username);
 
                 $task2 = $vImpostazioni->getTask2();
                 echo ($task2);

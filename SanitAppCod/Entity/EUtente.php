@@ -11,7 +11,7 @@
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class EUtente {
+class EUtente extends EUser{
 
     /**
      * @var string $_nome, variabile di tipo string,  che contiente il nome dell'utente
@@ -48,37 +48,6 @@ class EUtente {
     private $_CAP;
 
     /**
-     * @var string $_email, variabile di tipo string, che contiente l'indirizzo 
-     *             di posta elettronica dell'utente. é valido come username per 
-     *             l'accesso al sistema
-     */
-    private $_email;
-
-    /**
-     * @var string $_password, variabile di tipo string, che contiente la
-     *             password che l'utente inserisce per accedere al sistema
-     */
-    private $_password;
-
-    /**
-     * @var string $_username, variabile di tipo string, che contiene lo
-     *              username che l'utente inserisce per registrarsi
-     */
-    private $_username;
-
-    /**
-     * @var string $_codiceConferma, variabile che contiente il codice per confermare 
-     * l'account dell'utente
-     */
-    private $_codiceConferma;
-
-    /**
-     * @var string $_confermato permette di capire se l'account dell'utente è 
-     * stato confermato(TRUE) o meno         
-     */
-    private $_confermato;
-
-    /**
      * @var Array(EPrenotazione) $_prenotazioni array che contiente le 
      *                           prenotazioni a nome dell'utente
      */
@@ -98,93 +67,114 @@ class EUtente {
      * @param string $via La via in cui risiede l'utente
      * @param int $numeroCivico Ilnumero civico dell'utente
      * @param string $cap Il cap del paese in cui risiede l'utente
-     * @param string $email L'email dell'utente
-     * @param string $password La password dell'utente
-     * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($cf = NULL, $username = NULL, $nome = "", $cognome = "", $via = "", $numeroCivico = "", $cap = "", $email = "", $password = "", $cod = "", $medico = "") {
-        if ($cf === NULL && $username !== NULL) 
+    public function __construct($cf = NULL, $username = NULL,$password = "", $email = "", $nome = "", $cognome = "", $via = "", $numeroCivico = "", $cap = "", $medico = "") 
+    {
+        // richiamo il costruttore padre
+        parent::__construct($username, $password, $email);
+        $this->_nome = $nome;
+        $this->_cognome = $cognome;
+        $this->_codFiscale = $cf;
+        $this->_via = $via;
+        if (isset($numeroCivico)) {
+            $this->_numeroCivico = $numeroCivico;
+        } else {
+            $this->_numeroCivico = NULL;
+        }
+        $this->_CAP = $cap;
+        $this->_prenotazioni = new ArrayObject(); // da vedere:array di oggetti o bastava semplicemente Array()??
+        if (isset($medico)) 
         {
-            $sessione = USingleton::getInstance('USession');
-            $username = $sessione->leggiVariabileSessione('usernameLogIn');
-            $fUtente = USingleton::getInstance('FUtente');
-            $risultato = $fUtente->cercaUtente($username);
-//            echo "Utente trovato";
-            if (!is_bool($risultato)) 
-            {
-//                print_r($risultato);
-                // esiste quell'utente
-                $this->setNomeUtente($risultato[0]['Nome']);
-                $this->setCognomeUtente($risultato[0]['Cognome']);
-                $this->_codFiscale = $risultato[0]['CodFiscale'];
-                $this->setViaUtente($risultato[0]['Via']);
-                if (isset($risultato[0]['NumCivico'])) {
-                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);
-                }
-                $this->setCAPUtente($risultato[0]['CAP']);
-                $this->setEmailUtente($risultato[0]['Email']);
-                $this->setUsernameUtente($risultato[0]['Username']);
-                $this->setPasswordUtente($risultato[0]['Password']);
-                $this->setConfermatoUtente($risultato[0]['Confermato']);
-                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
-                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
-            }
-            
+            $this->_medicoCurante = $medico;
         } 
         else 
         {
-            if ($cf !== NULL && $username !== NULL) 
-            {
-                $this->_nome = $nome;
-                $this->_cognome = $cognome;
-                $this->_codFiscale = $cf;
-                $this->_via = $via;
-                if (isset($numeroCivico)) {
-                    $this->_numeroCivico = $numeroCivico;
-                } else {
-                    $this->_numeroCivico = NULL;
-                }
-
-                $this->_CAP = $cap;
-                $this->_email = $email;
-                $this->_username = $username;
-                $this->_password = $password;
-                $this->_codiceConferma = $cod;
-                $this->_confermato = FALSE;
-                $this->_prenotazioni = new ArrayObject(); // da vedere:array di oggetti o bastava semplicemente Array()??
-                if (isset($medico)) {
-                    $this->_medicoCurante = $medico;
-                } else {
-                    $this->_medicoCurante = NULL;
-                }
-            }
-            else // cf !== null and username === null
-            {
-                
-            $fUtente = USingleton::getInstance('FUtente');
-            $risultato = $fUtente->cercaUtenteByCF($cf);
-//            echo "Utente trovato";
-            if (!is_bool($risultato)) {
-//                print_r($risultato);
-                // esiste quell'utente
-                $this->setNomeUtente($risultato[0]['Nome']);
-                $this->setCognomeUtente($risultato[0]['Cognome']);
-                $this->_codFiscale = $risultato[0]['CodFiscale'];
-                $this->setViaUtente($risultato[0]['Via']);
-                if (isset($risultato[0]['NumCivico'])) {
-                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);
-                }
-                $this->setCAPUtente($risultato[0]['CAP']);
-                $this->setEmailUtente($risultato[0]['Email']);
-                $this->setUsernameUtente($risultato[0]['Username']);
-                $this->setPasswordUtente($risultato[0]['Password']);
-                $this->setConfermatoUtente($risultato[0]['Confermato']);
-                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
-                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
-            }
-    
-            }
+            $this->_medicoCurante = NULL;
         }
+        
+//        if ($cf === NULL && $username !== NULL) 
+//        {
+//            
+//            $sessione = USingleton::getInstance('USession');
+//            $username = $sessione->leggiVariabileSessione('usernameLogIn');
+//            $fUtente = USingleton::getInstance('FUtente');
+//            $risultato = $fUtente->cercaUtente($username);
+////            echo "Utente trovato";
+//            if (!is_bool($risultato)) 
+//            {
+////                print_r($risultato);
+//                // esiste quell'utente
+//                $this->setNomeUtente($risultato[0]['Nome']);
+//                $this->setCognomeUtente($risultato[0]['Cognome']);
+//                $this->_codFiscale = $risultato[0]['CodFiscale'];
+//                $this->setViaUtente($risultato[0]['Via']);
+//                if (isset($risultato[0]['NumCivico'])) {
+//                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);
+//                }
+//                $this->setCAPUtente($risultato[0]['CAP']);
+//                $this->setEmailUtente($risultato[0]['Email']);
+//                $this->setUsernameUtente($risultato[0]['Username']);
+//                $this->setPasswordUtente($risultato[0]['Password']);
+//                $this->setConfermatoUtente($risultato[0]['Confermato']);
+//                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
+//                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
+//            }
+//            
+//        } 
+//        else 
+//        {
+//            if ($cf !== NULL && $username !== NULL) 
+//            {
+//                $this->_nome = $nome;
+//                $this->_cognome = $cognome;
+//                $this->_codFiscale = $cf;
+//                $this->_via = $via;
+//                if (isset($numeroCivico)) {
+//                    $this->_numeroCivico = $numeroCivico;
+//                } else {
+//                    $this->_numeroCivico = NULL;
+//                }
+//
+//                $this->_CAP = $cap;
+//                $this->_email = $email;
+//                $this->_username = $username;
+//                $this->_password = $password;
+//                $this->_codiceConferma = $cod;
+//                $this->_confermato = FALSE;
+//                $this->_prenotazioni = new ArrayObject(); // da vedere:array di oggetti o bastava semplicemente Array()??
+//                if (isset($medico)) {
+//                    $this->_medicoCurante = $medico;
+//                } else {
+//                    $this->_medicoCurante = NULL;
+//                }
+//            }
+//            else // cf !== null and username === null
+//            {
+//                
+//            $fUtente = USingleton::getInstance('FUtente');
+//            $risultato = $fUtente->cercaUtenteByCF($cf);
+////            echo "Utente trovato";
+//            if (!is_bool($risultato)) {
+////                print_r($risultato);
+//                // esiste quell'utente
+//                $this->setNomeUtente($risultato[0]['Nome']);
+//                $this->setCognomeUtente($risultato[0]['Cognome']);
+//                $this->_codFiscale = $risultato[0]['CodFiscale'];
+//                $this->setViaUtente($risultato[0]['Via']);
+//                if (isset($risultato[0]['NumCivico'])) {
+//                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);
+//                }
+//                $this->setCAPUtente($risultato[0]['CAP']);
+//                $this->setEmailUtente($risultato[0]['Email']);
+//                $this->setUsernameUtente($risultato[0]['Username']);
+//                $this->setPasswordUtente($risultato[0]['Password']);
+//                $this->setConfermatoUtente($risultato[0]['Confermato']);
+//                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
+//                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
+//            }
+//    
+//            }
+//        }
     }
 
     //metodi get
@@ -261,48 +251,12 @@ class EUtente {
     }
 
     /**
-     * Metodo per conoscere l'email dell'utente
-     * 
-     * @return string L'email dell'utente
-     */
-    public function getEmailUtente() {
-        return $this->_email;
-    }
-
-    /**
-     * Metodo per conoscere lo username dell'utente
-     * 
-     * @return string lo username dell'utente
-     */
-    public function getUsernameUtente() {
-        return $this->_username;
-    }
-
-    /**
-     * Metodo per conoscere la password dell'utente
-     * 
-     * @return string La password dell'utente
-     */
-    public function getPasswordUtente() {
-        return $this->_password;
-    }
-
-    /**
      * Metodo per conoscere le prenotazioni dell'utente
      * 
      * @return Array(EPrenotazione) Le prenotazioni dell'utente
      */
     public function getPrenotazioniUtente() {
         return $this->_prenotazioni;
-    }
-
-    /**
-     * Metodo che permette di capire se l'account è stato confermato o meno
-     * 
-     * @return boolean TRUE se l'account è stato confermato, FALSE altrimenti
-     */
-    public function getConfermatoUtente() {
-        return $this->_confermato;
     }
 
     //metodi set
@@ -370,41 +324,6 @@ class EUtente {
         $this->_CAP = $cap;
     }
 
-    /**
-     * Metodo che permette di modificare il codice di conferma dell'utente
-     * 
-     * @param string o int? $cod Il nuovo codice per la conferma dell'utente
-     */
-    public function setCodiceConfermaUtente($cod) {
-        $this->_codiceConferma = $cod;
-    }
-
-    /**
-     * Metodo che permette di modificare lo username dell'utente
-     * 
-     * @param string $un Il nuovo username dell'utente
-     */
-    public function setUsernameUtente($un) {
-        $this->_username = $un;
-    }
-
-    /**
-     * Metodo che permette di modificare la password dell'utente
-     * 
-     * @param string $pw La nuova password dell'utente
-     */
-    public function setPasswordUtente($pw) {
-        $this->_password = $pw;
-    }
-
-    /**
-     * Metodo che permette di impostare la conferma dell'account 
-     * 
-     * @param boolean $confermato Imposta la conferma dell'account 
-     */
-    public function setConfermatoUtente($confermato) {
-        $this->_confermato = $confermato;
-    }
 
     /**
      * Metodo che permette di aggiungere una prenotazione nell'array di 
@@ -421,14 +340,14 @@ class EUtente {
      * Metodo che permette di inserire un oggetto di tipo EUtente nel DB
      * 
      * @access public
-     * @return string|Boolean Il codice di conferma se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
+     * @return Boolean TRUE se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
      */
     public function inserisciUtenteDB() {
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);
         if ($fUtente->inserisciUtente($this) === TRUE) {
-            return $this->getCodiceConfermaUtente();
+            return TRUE;
         } else {
             return FALSE;
         }
