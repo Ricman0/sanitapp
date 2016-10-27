@@ -110,41 +110,13 @@ class CHome {
                 
                 $this->smistaControllerPOST($controller);
                 break;
-            case 'PUT':
-                $this->smistaControllerPUT($controller);
-                ;
-                break;
-            case 'DELETE':
-                ;
-                break;
             default:
                 $vHome->restituisciHomePage();
                 break;
         }
     }
     
-    /**
-     * Metodo che consente di scegliere il caso giusto in base al controller se 
-     * il  metodo di richiesta è PUT
-     * 
-     * @access private
-     * @param string $controller 
-     */
-    private function smistaControllerPUT($controller) 
-    {
-        switch ($controller) 
-        {
-           
-            case 'impostazioni':
-                echo ($controller);
-                $cImpostazioni = USingleton::getInstance('CImpostazioni');
-                $cImpostazioni->gestisciImpostazioniPUT();
-                break;
 
-            default:
-                break;
-        }
-    }
     
     
     

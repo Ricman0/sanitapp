@@ -64,6 +64,29 @@ class FDatabase {
     }
     
     /**
+     * Metodo che permette di ottente il nome della tabella
+     * 
+     * @access public
+     * @return string Il nome della tabella
+     */
+    public function getNomeTabella() 
+    {
+        return $this->_nomeTabella;
+    }
+    
+    /**
+     * Metodo che permette di ottente gli attributi della tabella
+     * 
+     * @access public
+     * @return string Gli attributi della tabella
+     */
+    public function getAttributiTabella() 
+    {
+        return $this->_attributiTabella;
+    }
+    
+    
+    /**
      *Metodo per connettersi ad un database server
      * 
      * @final

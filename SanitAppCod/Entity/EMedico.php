@@ -315,6 +315,7 @@ class EMedico extends EUser
      */
     public function inserisciMedicoDB() 
     {
+        $fUser = USingleton::getInstance('FUser');
         //crea un oggetto fMedico se non è esistente, si collega al DB e lo inserisce
         $fMedico = USingleton::getInstance('FMedico');
         
