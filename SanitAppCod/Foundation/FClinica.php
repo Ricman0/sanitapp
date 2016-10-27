@@ -11,7 +11,7 @@
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class FClinica extends FDatabase{
+class FClinica extends FUser{
     
     /**
      * Costruttore della classe FClinica
@@ -25,20 +25,19 @@ class FClinica extends FDatabase{
         // imposto il nome della tabella
         $this->_nomeTabella = "clinica";
         $this->_attributiTabella = "PartitaIVA, NomeClinica, Titolare, Via, " 
-                . "NumCivico, CAP, Località, Provincia, Regione, Email, Username, Password, PEC, Telefono, "
-                . "CapitaleSociale, OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-                . "OrarioChiusuraPM, OrarioContinuato, Confermato, CodiceConferma"; 
+                . "NumCivico, CAP, Località, Provincia, Regione, Username, PEC, Telefono, "
+                . "CapitaleSociale"; 
     }
     
     /**
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
      * per l'inserimento di una clinica nel database
      * 
-     * @access private
+     * @access public
      * @param EClinica $clinica la Clinica di cui si vogliono ottenere i valori degli attributi 
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
-    private function getAttributi($clinica) 
+    public function getAttributi($clinica) 
     {
         $valoriAttributi = "'" . $this->trimEscapeStringa($clinica->getPartitaIVAClinica()) . "', '" 
                 . $this->trimEscapeStringa($clinica->getNomeClinica()) . "', '" 
@@ -48,20 +47,11 @@ class FClinica extends FDatabase{
                 . $this->trimEscapeStringa($clinica->getCAPClinica()) . "', '" 
                 . $this->trimEscapeStringa($clinica->getLocalitàClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getProvinciaClinica()). "', '"
-                . $this->trimEscapeStringa($clinica->getRegioneClinica()). "', '"
-                . $this->trimEscapeStringa($clinica->getEmailClinica()) .  "', '"  
-                . $this->trimEscapeStringa($clinica->getUsernameClinica()) .  "', '" 
-                . $this->trimEscapeStringa($clinica->getPasswordClinica()) .  "', '"
+                . $this->trimEscapeStringa($clinica->getRegioneClinica()). "', '" 
+                . $this->trimEscapeStringa($clinica->getUsernameClinica()) .  "', '"
                 . $this->trimEscapeStringa($clinica->getPECClinica()) .  "', '"
                 . $clinica->getTelefonoClinica() .  "', '" 
-                . $clinica->getCapitaleSocialeClinica() . "', '" 
-                . $clinica->getOrarioAperturaAMClinica() . "', '" 
-                . $clinica->getOrarioChiusuraAMClinica() . "', '" 
-                . $clinica->getOrarioAperturaPMClinica() .  "', '" 
-                . $clinica->getOrarioChiusuraPMClinica() . "', '" 
-                . $clinica->getOrarioContinuatoClinica() .  "', '"
-                . $clinica->getConfermatoClinica() .  "', '"
-                . $clinica->getCodiceConfermaClinica() .  "'" ;
+                . $clinica->getCapitaleSocialeClinica() . "'";
         return $valoriAttributi;
     }
     
@@ -74,15 +64,34 @@ class FClinica extends FDatabase{
      */
     public function inserisciClinica($clinica)
     {         
+        
         //recupero i valori contenuti negli attributi
         $valoriAttributi = $this->getAttributi($clinica);
-        
-        //la query da eseguire è la seguente:
-        // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = "INSERT INTO " . $this->_nomeTabella . " (" . $this->_attributiTabella . ") VALUES(" . $valoriAttributi . ")";
-        // eseguo la query
-        $this->eseguiQuery($query);
+        $valoriAttributiUser = parent::getAttributi($clinica);
+    
+        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'medico')";
+        $query2 = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella . ") VALUES( " . $valoriAttributi . ")";
+        try {
+            // First of all, let's begin a transaction
+            $this->_connessione->begin_transaction();
+
+            // A set of queries; if one fails, an exception should be thrown
+             $this->eseguiquery($query1);
+             $this->eseguiQuery($query2);
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+        }
     }
+
+
+// da modificare in base ai casi d'uso :(
+
     
     /**
      * Metodo che consente di cercare la partita IVA della clinica il cui nome
