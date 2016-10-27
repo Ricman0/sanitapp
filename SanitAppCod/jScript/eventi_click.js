@@ -23,6 +23,19 @@ $(document).ready(function () {
         inviaControllerTask('registrazione', 'utente', '#main');        
     });
     
+     $('#headerMain').on("click", ".rigaClinica", function () {
+        var id = $(this).attr('id');// id della riga che coincide con l'id dell'esame
+//        var nomeClinica = $('.rigaNomeClinica').html();
+//        alert(nomeClinica);
+        var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
+//        var controller = $("#controllerTabella").attr("value");
+//        if(controller == "esami")
+//        {
+            clickRiga('cliniche', 'visualizza', id, contenitore);
+//        }
+
+    });
+    
 });
 
 

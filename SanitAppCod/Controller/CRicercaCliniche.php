@@ -23,6 +23,26 @@ class CRicercaCliniche {
         $vCliniche->restituisciFormRicercaCliniche();
     }
     
+    public function gestisciCliniche() {
+        $vCliniche = USingleton::getInstance('VRicercaCliniche');
+        $task = $vCliniche->getTask();
+        switch($task)
+        { 
+            case 'visualizza':
+                $id = $vCliniche->getId();
+                if(isset($id))
+                {
+                    
+                    $eClinica = new EClinica($id);
+                    $vCliniche->visualizzaInfoClinicaOspite($eClinica);
+                }
+            break;
+            default :
+                $this->impostaPaginaRisultatoCliniche();
+                break;
+        }
+    }
+    
     public function impostaPaginaRisultatoCliniche()
     {
         $fCliniche = USingleton::getInstance('FClinica');

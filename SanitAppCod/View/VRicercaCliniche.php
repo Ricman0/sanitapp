@@ -39,4 +39,18 @@ class VRicercaCliniche extends View{
         return $this->visualizzaTemplate('tabellaCliniche');
     }
     
+    /**
+     * 
+     * @param EClinica $clinica 
+     * @return type
+     */
+    public function visualizzaInfoClinicaOspite($clinica) 
+    {
+        echo " visualizzaInfoClinica ";
+        print_r($clinica);
+        $this->assegnaVariabiliTemplate('clinica', $clinica);
+        return $this->visualizzaTemplate("infoClinica");
+        
+    }
+    
 }

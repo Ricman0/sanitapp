@@ -11,7 +11,7 @@
   RewriteRule ^(ricercaEsami)?$ index.php?controller=$1
   RewriteRule ^(prenotazione)/(esame)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(impostazioni)/(clinica)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(esami)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(esami|cliniche)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(esami)/(\w+)/(\w+)/(\w+)?$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=$4 [L]
   RewriteRule ^(esami)/(\w+)/(\w+)?$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=all [L]
   RewriteRule ^(esami)/(\w+)?$ index.php?controller=$1&parametro1=$2&parametro2=all&parametro3=all [L]

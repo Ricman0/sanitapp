@@ -226,7 +226,7 @@ class FClinica extends FUser{
             else
             {
                 echo "no nomeClinica, no luogo";
-                $query = "SELECT NomeClinica, Località, Provincia FROM clinica";
+                $query = "SELECT NomeClinica, Località, Provincia, PartitaIVA FROM clinica";
             }
         }
         

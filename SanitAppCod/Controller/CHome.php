@@ -166,7 +166,8 @@ class CHome {
             
             case 'cliniche':
                 $cCliniche = USingleton::getInstance('CRicercaCliniche');
-                $risultato = $cCliniche->impostaPaginaRisultatoCliniche();
+                 $cCliniche->gestisciCliniche();
+//                $risultato = $cCliniche->impostaPaginaRisultatoCliniche();
                 //in $risultato c'è il risultato della query
                 break;
             

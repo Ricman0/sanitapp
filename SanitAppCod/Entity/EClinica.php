@@ -261,7 +261,15 @@ class EClinica extends EUser
     {
         return $this->_nomeClinica;
     }
-    
+    /**
+     * metodo che ritorna la stringa indirizzo
+     * @return string l'indirizzo della clinica
+     */
+    public function getIndirizzoClinica() {
+        
+        return $this->_via ." ". $this->_numeroCivico ." ". $this->_località ." ". $this->_provincia;
+        
+    }
     /**
      * Metodo che restituisce il titolare della clinica
      * 

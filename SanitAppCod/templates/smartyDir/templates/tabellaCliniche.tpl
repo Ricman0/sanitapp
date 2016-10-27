@@ -6,7 +6,7 @@
     </thead>
     <tbody>
         {foreach from=$dati item=curr_row}
-            <tr id="{$curr_row['PartitaIVA']}" class="rigaPartitaIVA">
+            <tr id="{$curr_row['PartitaIVA']}" class="rigaClinica">
                 <td>{$curr_row['NomeClinica']}</td>
                 <td>{$curr_row['Località']}</td>
                 <td>{$curr_row['Provincia']}</td>
