@@ -8,27 +8,12 @@ and open the template in the editor.
     Author     : Claudia Di Marco & Riccardo Mantini
 */
 
-#elementiFormMainRicerca{
-    
-    display: inline-block;
-    margin:auto;
-
-}
-#formMainRicerca{
-    display: inline-block;
-    vertical-align: middle;
-}
-
 
 #inputMainRicerca{
-display: inline-block;
-vertical-align: middle;
 margin-right: 70px;
 }
 #iconaMainRicercaRicerca {
     margin: 50px 30px 50px 30px;
-    display: inline-block;
-    vertical-align: middle;
 }
 
 @media only screen and (max-width: 1200px){

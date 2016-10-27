@@ -1,16 +1,16 @@
 <div>
-    <p class="affiancati">Nome Clinica: {$nomeClinica}</p>
+    <p class="affiancato">Nome Clinica: {$nomeClinica}</p>
     <input type="hidden" id="partitaIVAClinicaPrenotazioneEsame" name="partitaIVAClinicaPrenotazioneEsame" value="{$partitaIVA}" />
-    <p class="affiancati">Nome Esame: {$nomeEsame}</p>
+    <p class="affiancato">Nome Esame: {$nomeEsame}</p>
     <input type="hidden" id="idEsame" name="idEsame" value="{$idEsame}" />
 </div>
 <br>
 <p> Scegli la data della tua prenotazione: </p>
 
 <div id="dateEOrariDisponibili">
-    <div id="calendarioPrenotazioneEsame" class="affiancati">   
+    <div id="calendarioPrenotazioneEsame" class="affiancato">   
     </div>
-    <div id="orariDisponibili" class="affiancati">
+    <div id="orariDisponibili" class="affiancato">
         <div id="colonna1" class="colonna"></div>
     </div>
 </div>

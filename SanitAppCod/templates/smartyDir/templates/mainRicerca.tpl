@@ -1,8 +1,8 @@
-<div id="elementiFormMainRicerca">
-    <div id="inputMainRicerca">
+<div id="elementiFormMainRicerca" class="affiancato">
+    <div id="inputMainRicerca" class="affiancato verticalmenteAllineato">
         
-        <img src="./Immagini/iconaRicerca.png" id="iconaMainRicercaRicerca">
-        <form id="formMainRicerca" method="POST"> 
+        <img src="./Immagini/iconaRicerca.png" id="iconaMainRicercaRicerca" class="affiancato verticalmenteAllineato">
+        <form id="formMainRicerca" class="affiancato verticalmenteAllineato" method="POST"> 
             <label for="esame" class="ricerca">Esame</label>
             <input type="text" name="esame" class="ricerca" id="mainRicercaEsame" target="_blank" 
                    placeholder="Raggi"/>
@@ -14,7 +14,7 @@
         </form>
     </div>
 
-    <div id="italy-map"> 
+    <div id="italy-map" class="affiancato verticalmenteAllineato"> 
 
         <div id="region-map">
             <img src="./Immagini/transparent.gif"  title="Clicca su una regione per vedere le cliniche!" 

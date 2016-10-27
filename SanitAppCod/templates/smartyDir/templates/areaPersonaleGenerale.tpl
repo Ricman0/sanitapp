@@ -1,4 +1,4 @@
-<div class="sideNavBar" id="divSideNavBar">
+<div class="sideNavBar affiancato verticalmenteAllineato" id="divSideNavBar">
     <ul  id="sideNavBarList">
         {foreach from=$tastiLaterali key=id item=tasto}
             <li><a id="{$id}" href="#">{$tasto}</a>
@@ -14,7 +14,7 @@
     </ul>   
 </div>    
 
-<div class="contenutoAreaPersonale" id="contenutoAreaPersonale">
+<div class="contenutoAreaPersonale affiancato" id="contenutoAreaPersonale">
     {if isset($contenutoAreaPersonale)}
         {$contenutoAreaPersonale}
     {else}
