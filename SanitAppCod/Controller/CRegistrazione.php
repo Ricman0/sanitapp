@@ -413,10 +413,10 @@ class CRegistrazione {
            $codiceConferma = uniqid(rand(0, 6));
            echo "codice : $codiceConferma ";
            // crea utente 
-           $eUtente = new EUtente($datiUtente['codiceFiscale'], $datiUtente['username'], $datiUtente['nome'], $datiUtente['cognome'],
+           $eUtente = new EUtente($datiUtente['codiceFiscale'], $datiUtente['username'], $datiUtente['passwordUtente'], $datiUtente['email'], $datiUtente['nome'], $datiUtente['cognome'],
                     $datiUtente['indirizzo'], 
                    $datiUtente['numeroCivico'], $datiUtente['CAP'], 
-                   $datiUtente['email'],  $datiUtente['passwordUtente'], $codiceConferma);
+                     $codiceConferma);
            //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
            $inserito = $eUtente->inserisciUtenteDB();
        }

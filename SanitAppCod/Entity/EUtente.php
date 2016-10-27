@@ -68,7 +68,7 @@ class EUtente extends EUser{
      * @param int $numeroCivico Ilnumero civico dell'utente
      * @param string $cap Il cap del paese in cui risiede l'utente
      */
-    public function __construct($cf = NULL, $username = NULL,$password = "", $email = "", $nome = "", $cognome = "", $via = "", $numeroCivico = "", $cap = "", $medico = "") 
+    public function __construct($cf = NULL, $username = NULL,$password = "", $email = "", $nome = "", $cognome = "", $via = "", $numeroCivico = "", $cap = "", $medico = NULL) 
     {
         // richiamo il costruttore padre
         parent::__construct($username, $password, $email);
@@ -83,14 +83,8 @@ class EUtente extends EUser{
         }
         $this->_CAP = $cap;
         $this->_prenotazioni = new ArrayObject(); // da vedere:array di oggetti o bastava semplicemente Array()??
-        if (isset($medico)) 
-        {
-            $this->_medicoCurante = $medico;
-        } 
-        else 
-        {
-            $this->_medicoCurante = NULL;
-        }
+        $this->_medicoCurante = $medico;
+       
         
 //        if ($cf === NULL && $username !== NULL) 
 //        {

@@ -37,11 +37,14 @@ class FUser extends FDatabase {
     public function getAttributi($user) 
     {
         $valoriAttributi ="'" . $this->trimEscapeStringa($user->getUsername()) . "', '" 
-                . $this->trimEscapeStringa($user->getEmail()) . "', '" 
                 . $this->trimEscapeStringa($user->getPassword()) . "', '"
+                . $this->trimEscapeStringa($user->getEmail()) . "', '" 
                 . $user->getConfermato() . "', '"
                 . $this->trimEscapeStringa($user->getCodiceConferma()) . "'";
+        
         return $valoriAttributi;
+        
+        
     }
     
     /**

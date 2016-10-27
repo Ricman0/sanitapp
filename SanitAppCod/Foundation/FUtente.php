@@ -18,7 +18,7 @@ class FUtente extends FUser{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
-        $this->_attributiTabella = "Nome, Cognome, CodFiscale, Via, NumCivico, "
+        $this->_attributiTabella = "CodFiscale, Nome, Cognome,  Via, NumCivico, "
                 . "CAP, Username, CodFiscaleMedico";
     }
     
@@ -35,15 +35,16 @@ class FUtente extends FUser{
     {         
         //recupero i valori contenuti negli attributi
         // aggiungo NULL per il codice fiscale del medico
-//        $valoriAttributi = $this->getAttributi($utente) . ", NULL";
         $valoriAttributi = $this->getAttributi($utente);
         $valoriAttributiUser = parent::getAttributi($utente);
-        echo $valoriAttributiUser;
+        
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
          
         $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'utente')";
+        print_r($query1);
         $query2 = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
+        print_r($query2);
         // eseguo le queries
         try {
             // First of all, let's begin a transaction
@@ -87,8 +88,7 @@ class FUtente extends FUser{
                 . $this->trimEscapeStringa($utente->getViaUtente()) . "', "
                 . $utente->getNumCivicoUtente() . ", '"
                 . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getUsername()) . "','"
-                . $this->trimEscapeStringa($utente->getMedicoUtente()) . "'";
+                . $this->trimEscapeStringa($utente->getUsername()) . "', NULL ";
         return $valoriAttributi;
     }
     
