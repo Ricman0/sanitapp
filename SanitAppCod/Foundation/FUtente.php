@@ -5,7 +5,7 @@
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class FUtente extends FDatabase{
+class FUtente extends FUser{
     
     /**
      * Costruttore della classe FUtente
@@ -35,11 +35,32 @@ class FUtente extends FDatabase{
     {         
         //recupero i valori contenuti negli attributi
         // aggiungo NULL per il codice fiscale del medico
-        $valoriAttributi = $this->getAttributi($utente) . ", NULL";
+//        $valoriAttributi = $this->getAttributi($utente) . ", NULL";
+        $valoriAttributi = $this->getAttributi($utente);
+        $valoriAttributiUser = parent::getAttributi($utente);
+        echo $valoriAttributiUser;
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
-        // eseguo la query
+         
+        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'utente')";
+        $query2 = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
+        // eseguo le queries
+        try {
+            // First of all, let's begin a transaction
+            $this->_connessione->begin_transaction();
+
+            // A set of queries; if one fails, an exception should be thrown
+             $this->eseguiquery($query1);
+             $this->eseguiQuery($query2);
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+        }
         
          
     }
@@ -48,11 +69,11 @@ class FUtente extends FDatabase{
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
      * per l'inserimento di un utente nel database
      * 
-     * @access private
+     * @access public
      * @param EUtente $utente L'utente di cui si vogliono ottenere i valori degli attributi 
      * @return string Stringa contenente i valori degli attributi (eccetto prenotazioni) separati da una virgola
      */
-    private function getAttributi($utente) 
+    public function getAttributi($utente) 
     {
 //        $valoriAttributi = $$utente->getNomeUtente() . ", " . $utente->getCognomeUtente()
 //        . ", " . $utente->getViaUtente(). ", " 
@@ -60,17 +81,14 @@ class FUtente extends FDatabase{
 //        . $utente->getCodiceFiscaleUtente() . ", " 
 //        .   $utente->getEmailUtente() . ", "  . $utente->getUsernameUtente() 
 //        . ", " . $utente->getPasswordUtente() ;
-        $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getNomeUtente()) . "', '"
+        $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getCodiceFiscaleUtente()) . "', '"
+                . $this->trimEscapeStringa($utente->getNomeUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getCognomeUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getCodiceFiscaleUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getViaUtente()) . "', "
                 . $utente->getNumCivicoUtente() . ", '"
                 . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getEmailUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getUsernameUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getPasswordUtente()) . "', '"
-                . $utente->getConfermatoUtente() . "', '"
-                . $this->trimEscapeStringa($utente->getCodiceConfermaUtente()) . "'";
+                . $this->trimEscapeStringa($utente->getUsername()) . "','"
+                . $this->trimEscapeStringa($utente->getMedicoUtente()) . "'";
         return $valoriAttributi;
     }
     

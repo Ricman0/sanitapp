@@ -213,6 +213,8 @@ class EUtente extends EUser{
     public function getCodiceFiscaleUtente() {
         return $this->_codFiscale;
     }
+    
+   
 
     /**
      * Metodo per conoscere la via in cui risiede l'utente
@@ -241,14 +243,7 @@ class EUtente extends EUser{
         return $this->_CAP;
     }
 
-    /**
-     * Metodo per conoscere il codice di conferma dell'utente
-     * 
-     * @return int/string Il codice dell'utente 
-     */
-    public function getCodiceConfermaUtente() {
-        return $this->_codiceConferma;
-    }
+    
 
     /**
      * Metodo per conoscere le prenotazioni dell'utente
