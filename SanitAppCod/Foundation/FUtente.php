@@ -19,7 +19,7 @@ class FUtente extends FDatabase{
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
         $this->_attributiTabella = "Nome, Cognome, CodFiscale, Via, NumCivico, "
-                . "CAP, Email, Username, Password, Confermato, CodiceConferma, CodFiscaleMedico";
+                . "CAP, Username, CodFiscaleMedico";
     }
     
     
@@ -40,16 +40,7 @@ class FUtente extends FDatabase{
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
         $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
         // eseguo la query
-        if ($this->eseguiQuery($query)===TRUE)
-        {
-            echo " FUtente inseritooo ";
-            return TRUE;
-        }
-        else 
-        {
-            echo " FUtente non inseritooo ";
-            return FALSE;
-        }
+        
          
     }
 

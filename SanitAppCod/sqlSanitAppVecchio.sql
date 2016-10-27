@@ -14,41 +14,8 @@ USE sanitapp;
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `user`
---
-
-CREATE TABLE appUser (
-  Username varchar(15) NOT NULL,
-  Password varchar(10) NOT NULL,
-  Email varchar(320) NOT NULL,
-  Confermato boolean DEFAULT FALSE,
-  CodiceConferma varchar (255) NOT NULL,
-  TipoUser ENUM('utente', 'medico', 'clinica', 'amministratore') NOT NULL,
-  PRIMARY KEY (Username),
-  UNIQUE (Email),
-  UNIQUE (CodiceConferma)
-) ;
-
-
-ALTER TABLE appUser ADD FULLTEXT INDEX fullTextPassword(Password);
-
---
--- Dump dei dati per la tabella `user`
---
-
-INSERT INTO appUser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES 
-('appi', 'Appig4', 'info@appignano.it', FALSE, 'ciidisjwhf', 'clinica'),
-('bise', 'Bisenti5', 'info@bisenti.it',  FALSE, 'cjdjdhdhrf', 'clinica'),
-('claudim', 'Clau89', 'claudia@homail.it',  FALSE, 'cwjwjhrf', 'medico'),
-('ricman', 'Riccardo89', 'riccardo@gmail.it',  FALSE, 'cjdjdehahah', 'utente'),
-('annadima', 'Anna49', 'annadim@alice.it',  FALSE, 'annasjdjdhdhrf', 'utente');
-
--- --------------------------------------------------------
-
---
 -- Struttura della tabella `categoria`
 --
-
 
 CREATE TABLE categoria (
   Nome varchar(30) NOT NULL,
@@ -81,25 +48,35 @@ CREATE TABLE clinica (
   Località varchar (40) NOT NULL,
   Provincia varchar (20) NOT NULL,
   Regione varchar (20) NOT NULL,
-  Username varchar(15) NOT NULL,
+  Email varchar(320) NOT NULL,
+  Username varchar(10) NOT NULL,
+  Password varchar(10) NOT NULL,
   PEC varchar(320) NOT NULL,
   Telefono int(10) DEFAULT NULL,
   CapitaleSociale int(11) DEFAULT NULL,
+  OrarioAperturaAM time DEFAULT NULL,
+  OrarioChiusuraAM time DEFAULT NULL,
+  OrarioAperturaPM time DEFAULT NULL,
+  OrarioChiusuraPM time DEFAULT NULL,
+  OrarioContinuato boolean DEFAULT FALSE,
   WorkingPlan text DEFAULT NULL,
+  Confermato boolean DEFAULT FALSE,
+  CodiceConferma varchar (255) NOT NULL,
   PRIMARY KEY (PartitaIVA),
+  UNIQUE (Email),
+  UNIQUE (Username),
   UNIQUE (PEC),
-  UNIQUE (Telefono),
-  FOREIGN KEY (Username) REFERENCES appUser (Username)
+  UNIQUE (Telefono), 
+  UNIQUE (CodiceConferma)
 );
-
-
 
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextNomeClinica(NomeClinica);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextLocalitàClinica(Località);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextProvinciaClinica(Provincia);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextRegioneClinica(Regione);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
-
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextUsernameClinica(Username);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextPasswordClinica(Password);
 
 
 --
@@ -107,11 +84,12 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 --
 
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
-Provincia, Regione, Username, PEC, Telefono, CapitaleSociale, WorkingPlan) VALUES
-('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'appi', ' info@appignano.pec', 0856478563, 10000,
- '{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}'),
-('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'bise', ' info@bisenti.pec', 8613, 123456780,   
-'{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}');
+Provincia, Regione, Email, Username, Password, PEC, Telefono, CapitaleSociale, OrarioAperturaAM, 
+OrarioChiusuraAM, OrarioAperturaPM, OrarioChiusuraPM, OrarioContinuato, WorkingPlan, Confermato, CodiceConferma) VALUES
+('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'info@appignano.it', ' appi', 'Appig4', ' info@appignano.pec', 8612, 123456789, '08:00:00','12:00:00', '15:00:00', '20:00:00', FALSE,
+ '{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}', FALSE, 's12'),
+('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'info@bisenti.it', ' bise', 'Bisenti5', ' info@bisenti.pec', 8613, 123456780, '09:00:00', '13:00:00','16:00:00', '19:00:00', FALSE, 
+'{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}', FALSE, 'w34');
 
 -- --------------------------------------------------------
 
@@ -160,24 +138,32 @@ CREATE TABLE medico (
   Via varchar(30) NOT NULL,
   NumCivico smallint(6) DEFAULT NULL,
   CAP varchar(5) NOT NULL,
+  Email varchar(320) NOT NULL,
   Username varchar(15) NOT NULL,
+  Password varchar(10) NOT NULL,
   PEC varchar(320) NOT NULL,
   Validato tinyint(1) DEFAULT '0',
   ProvinciaAlbo varchar(2) NOT NULL,
   NumIscrizione smallint(6) NOT NULL,
+  Confermato boolean DEFAULT FALSE,
+  CodiceConferma varchar (255) NOT NULL,
   PRIMARY KEY (CodFiscale),
-  UNIQUE (PEC),
-  FOREIGN KEY (Username) REFERENCES appUser (Username)
+  UNIQUE (Email),
+  UNIQUE (Username),
+  UNIQUE (PEC), 
+  UNIQUE (CodiceConferma)
 );
 
-
-
+ALTER TABLE medico ADD FULLTEXT INDEX fullTextUsernameMedico(Username);
+ALTER TABLE medico ADD FULLTEXT INDEX fullTextPasswordMedico(Password);
 --
 -- Dump dei dati per la tabella `medico`
 --
 
-INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username, PEC, Validato, ProvinciaAlbo, NumIscrizione) VALUES
-('DMRCLD89S42G438S', 'claudia', 'di marco', 'acquaventina', 30, '65017', 'claudim', 'clau@dim.pec.it', 0, ' P', 5464);
+INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email, Username, 
+Password, PEC, Validato, ProvinciaAlbo, NumIscrizione, Confermato, CodiceConferma) VALUES
+('DMRCLD89S42G438S', 'claudia', 'di marco', 'acquaventina', 30, '65017', 
+'clau@hotmail.it','claudim', 'Clau89', 'clau@dim.pec.it', 0, ' P', 5464, FALSE, 'm786f');
 
 -- --------------------------------------------------------
 
@@ -193,24 +179,31 @@ CREATE TABLE utente (
   Via varchar(30) NOT NULL,
   NumCivico smallint(6) DEFAULT NULL,
   CAP varchar(5) NOT NULL,
+  Email varchar(320) NOT NULL,
   Username varchar(15) NOT NULL,
+  Password varchar(10) NOT NULL,
   CodFiscaleMedico varchar(21) DEFAULT NULL,
+  Confermato boolean DEFAULT FALSE,
+  CodiceConferma varchar (255) NOT NULL,
   PRIMARY KEY (CodFiscale),
-  FOREIGN KEY (CodFiscaleMedico) REFERENCES medico (CodFiscale),
-  FOREIGN KEY (Username) REFERENCES appUser (Username)
+  UNIQUE (Email),
+  UNIQUE (Username),
+  UNIQUE (CodiceConferma),
+  FOREIGN KEY (CodFiscaleMedico) REFERENCES medico (CodFiscale)
 ) ;
 
-
+ALTER TABLE utente ADD FULLTEXT INDEX fullTextUsernameUtente(Username);
+ALTER TABLE utente ADD FULLTEXT INDEX fullTextPasswordUtente(Password);
 ALTER TABLE utente ADD FULLTEXT INDEX fullTextCodFiscaleUtente(CodFiscale);
-
 --
 -- Dump dei dati per la tabella `utente`
 --
 
-INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, 
- Username,  CodFiscaleMedico) VALUES
-('DMTNNA89S42G438S', ' anna', ' di matteo', ' acquaventina', 30, '65017', 'annadima', 'DMRCLD89S42G438S'),
-('MNTRCR89H21A488L', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'ricman', 'DMRCLD89S42G438S');
+INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Email,
+ Username, Password, CodFiscaleMedico, Confermato, CodiceConferma) VALUES
+('DMTNNA89S42G438S', ' anna', ' di matteo', ' acquaventina', 30, '65017', ' annadima@alice.it', 'annadima' , 'Anna49', 'DMRCLD89S42G438S', FALSE, 'u4728tdgd'),
+('MNTRCR89H21A488L', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'onizuka-89@hotmail.it', 'ricman', 'Riccardo89', 'DMRCLD89S42G438S', FALSE, 'sjsj474r8'),
+('RNDNDT56S53T657O', 'rnd', 'ndt', 'bologna', 3, '64034', 'rnd@libero.it', 'rdnndt', 'Rndnd89', 'DMRCLD89S42G438S', FALSE, 'jd784hfh58f');
 
 
 
@@ -246,7 +239,8 @@ Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsam
 CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
 (1, 1, '12345', 'M', 0, 0, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
 (2, 1, '12345', 'M', 0, 0, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
-(3, 2, '12346', 'U', 0, 0, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00');
+(3, 2, '12346', 'U', 0, 0, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00'),
+(5, 2, '12345', 'U', 1, 0, 'RNDNDT56S53T657O', NULL, 'RNDNDT56S53T657O', '2016-12-28 08:00:00');
 
 -- --------------------------------------------------------
 
