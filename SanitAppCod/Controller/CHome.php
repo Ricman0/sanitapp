@@ -299,6 +299,13 @@ class CHome {
                 $cReferto->gestisciRefertiPOST();
                 
                 break;
+            
+            case 'validazione':
+                $cValidazione = USingleton::getInstance('CValidazione');
+                $cValidazione->gestisciValidazione();
+                
+                break;
+            
                 
              
                 

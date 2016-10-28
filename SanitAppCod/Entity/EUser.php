@@ -268,5 +268,18 @@ class EUser {
             return FALSE;
         }
     }
+    
+    
+    /**
+     * Metodo che consente di cercare se un username è già esistente
+     * 
+     * @access public
+     * @return boolean TRUE username esistente, FALSE altrimenti
+     */
+    public function esisteUsername() 
+    {
+        $fUser = USingleton::getInstance('FUser');
+        return $fUser->esisteUsernameDB($this->_username); 
+    }
 
 }
