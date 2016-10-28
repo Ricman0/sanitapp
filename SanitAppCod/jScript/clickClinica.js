@@ -90,10 +90,10 @@ $(document).ready(function () {
         var id = $("#aggiungiRefertoButton").attr("data-idPrenotazione");
         aggiuntaReferto(id); 
     });
-    
-    $('#headerMain').on("click", "#uploadReferto", function(){
-        uploadReferto(); 
-    });
+//    
+//    $('#headerMain').on("click", "#uploadReferto", function(){
+//        uploadReferto(); 
+//    });
 
 
 

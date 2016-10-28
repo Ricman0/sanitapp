@@ -5,62 +5,61 @@ function validazione(task1, controller1)
         case "utente":
             validazioneUtente();
             break;
-        
+
         case "medico":
             validazioneMedico();
             break;
-        
+
         case "clinica":
-            if(controller1 == "impostazioni")
+            if (controller1 == "impostazioni")
             {
                 validazioneImpostazioniClinica();
-            }
-            else
+            } else
             {
                 validazioneClinica();
             }
-            break; 
-            
+            break;
+
         case "autenticazione":
             validazioneLogIn();
             break;
-            
+
         case "aggiungi":
-            if(controller1 =="prenotazioni")
+            if (controller1 == "prenotazioni")
             {
-                
+
                 validazioneCodiceFiscale();
-            }
-            else
+            } else
             {
                 validazioneEsame();
             }
             break;
-            
-        
-            
-        default: break;
+
+
+
+        default:
+            break;
     }
 }
 
 function validazioneCodiceFiscale()
 {
-    jQuery.validator.addMethod("codiceFiscale", function(valore){
+    jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
         return valore.match(regex);
-        }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+    }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
     $("#ricercaUtente").validate({
         rules:
                 {
                     codiceFiscaleRicercaUtente:
                             {
                                 required: true,
-                                codiceFiscale:true,
-                                maxlength: 16, 
+                                codiceFiscale: true,
+                                maxlength: 16,
                                 minlength: 16
                             }
-                    
+
                 },
         messages:
                 {
@@ -71,8 +70,8 @@ function validazioneCodiceFiscale()
                                 minlength: "Il codice fiscale è lungo 16 caratteri"
                             }
                 },
-        submitHandler:function(form) 
-        { 
+        submitHandler: function (form)
+        {
             alert('codice fiscale inviato');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             inviaCodiceFiscale('ricerca', 'utente', '#contenutoAreaPersonale');
@@ -82,48 +81,48 @@ function validazioneCodiceFiscale()
 
 function validazioneLogIn()
 {
-    jQuery.validator.addMethod("password", function(valore){
+    jQuery.validator.addMethod("password", function (valore) {
         //espressione regolare per la password
         var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
         return valore.match(regex);
-        }, "La password consta da 6 a 10 caratteri, contiene almeno un numero, una lettera \n\
+    }, "La password consta da 6 a 10 caratteri, contiene almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola. ");
-    jQuery.validator.addMethod("username", function(valore){
+    jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
         return valore.match(regex);
-        }, "L'username contiene solo _ , - , numeri, lettere maiuscole o minuscole");
+    }, "L'username contiene solo _ , - , numeri, lettere maiuscole o minuscole");
     $("#logInForm").validate({
         rules:
                 {
                     uname:
-                                {
-                                    required:true,
-                                    username: true
-                                },
+                            {
+                                required: true,
+                                username: true
+                            },
                     passwordLogIn:
-                                {
-                                    required:true,
-                                    password: true
-                                },
+                            {
+                                required: true,
+                                password: true
+                            },
                 },
         messages:
                 {
                     uname:
-                                {
-                                    required: "Inserire username"
-                                },
+                            {
+                                required: "Inserire username"
+                            },
                     passwordLogIn:
-                                {
-                                    required: "Inserire password"
-                                },
+                            {
+                                required: "Inserire password"
+                            },
                 },
-        submitHandler:function(form) 
-        { 
+        submitHandler: function (form)
+        {
             alert('I dati log in sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            inviaDatiLogIn('#logInForm', '#headerMain' );
-            
+            inviaDatiLogIn('#logInForm', '#headerMain');
+
         }
     });
 }
@@ -132,27 +131,27 @@ function validazioneUtente()
 {
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
-    jQuery.validator.addMethod("password", function(valore){
+    jQuery.validator.addMethod("password", function (valore) {
         //espressione regolare per la password
         var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
         return valore.match(regex);
-        }, "Inserire da 6 a 10 caratteri che contengano almeno un numero, una lettera \n\
+    }, "Inserire da 6 a 10 caratteri che contengano almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
-    
-    jQuery.validator.addMethod("codiceFiscale", function(valore){
+
+    jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
         return valore.match(regex);
-        }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
-    
-    jQuery.validator.addMethod("username", function(valore){
+    }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+
+    jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
         return valore.match(regex);
-        }, "Può contenere numeri, lettere maiuscole o minuscole");
-    
-    
-    
+    }, "Può contenere numeri, lettere maiuscole o minuscole");
+
+
+
     $("#inserisciUtente").validate({
         rules:
                 {
@@ -169,8 +168,8 @@ function validazioneUtente()
                     codiceFiscale:
                             {
                                 required: true,
-                                codiceFiscale:true,
-                                maxlength: 16, 
+                                codiceFiscale: true,
+                                maxlength: 16,
                                 minlength: 16
 //                                remote:
 //                                        { 
@@ -187,7 +186,7 @@ function validazioneUtente()
                     numeroCivico:
                             {
                                 number: true,
-                                min:0
+                                min: 0
                             },
                     CAP:
                             {
@@ -284,8 +283,8 @@ function validazioneUtente()
                                 equalTo: "La password deve essere sempre la stessa"
                             }
                 },
-        submitHandler:function(form) 
-        { 
+        submitHandler: function (form)
+        {
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             inviaDatiRegistrazione('#inserisciUtente', 'registrazione', 'utente', '#main');
@@ -295,24 +294,24 @@ function validazioneUtente()
 
 function validazioneMedico()
 {
-    jQuery.validator.addMethod("password", function(valore){
+    jQuery.validator.addMethod("password", function (valore) {
         //espressione regolare per la password
         var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
         return valore.match(regex);
-        }, "Inserire una password che contenga almeno un numero, una lettera \n\
+    }, "Inserire una password che contenga almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
-    
-    jQuery.validator.addMethod("codiceFiscale", function(valore){
+
+    jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
         return valore.match(regex);
-        }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
-        
-    jQuery.validator.addMethod("username", function(valore){
+    }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+
+    jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
         return valore.match(regex);
-        }, "Può contenere numeri, lettere maiuscole o minuscole");
+    }, "Può contenere numeri, lettere maiuscole o minuscole");
     $("#inserisciMedico").validate({
         rules:
                 {
@@ -330,7 +329,7 @@ function validazioneMedico()
                     codiceFiscaleMedico:
                             {
                                 required: true,
-                                maxlength: 16, 
+                                maxlength: 16,
                                 minlength: 16
 //                                remote:
 //                                        { 
@@ -346,7 +345,7 @@ function validazioneMedico()
                     numeroCivicoMedico:
                             {
                                 number: true,
-                                min:0
+                                min: 0
                             },
                     CAPMedico:
                             {
@@ -386,19 +385,19 @@ function validazioneMedico()
                             },
                     PECMedico:
                             {
-                                required:true,
+                                required: true,
                                 email: true
                             },
                     provinciaAlbo:
                             {
                                 required: true,
-                                rangelength: [2,2]
+                                rangelength: [2, 2]
                             },
                     numeroIscrizione:
                             {
                                 required: true,
-                                rangelength: [6,6]
-                            }          
+                                rangelength: [6, 6]
+                            }
                 },
         messages:
                 {
@@ -473,8 +472,8 @@ function validazioneMedico()
                                 rangelength: "Deve avere 6 numeri"
                             }
                 },
-        submitHandler:function(form) 
-        { 
+        submitHandler: function (form)
+        {
             alert('I dati sono stati inseriti correttamente');
             inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#main');
         }
@@ -483,26 +482,26 @@ function validazioneMedico()
 
 function validazioneClinica()
 {
-    jQuery.validator.addMethod("password", function(valore){
+    jQuery.validator.addMethod("password", function (valore) {
         //espressione regolare per la password
         var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
         return valore.match(regex);
-        }, "Inserire una password che contenga almeno un numero, una lettera \n\
+    }, "Inserire una password che contenga almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
-    
 
-    jQuery.validator.addMethod("orario", function(valore){
-            //espressione regolare per l'orario
-            var regex = /(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?/;
-            return  valore.match(regex);        
-        }, "Inserire un orario del tipo: 08:30 oppure 08:30:00");    
-    
-    jQuery.validator.addMethod("username", function(valore){
+
+    jQuery.validator.addMethod("orario", function (valore) {
+        //espressione regolare per l'orario
+        var regex = /(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?/;
+        return  valore.match(regex);
+    }, "Inserire un orario del tipo: 08:30 oppure 08:30:00");
+
+    jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
         return valore.match(regex);
-        }, "Può contenere numeri, lettere maiuscole o minuscole");
-    
+    }, "Può contenere numeri, lettere maiuscole o minuscole");
+
     $("#inserisciClinica").validate({
         rules:
                 {
@@ -519,7 +518,7 @@ function validazioneClinica()
                     partitaIVA:
                             {
                                 required: true,
-                                maxlength: 11, 
+                                maxlength: 11,
                                 minlength: 11
 //                                remote:
 //                                        { 
@@ -535,7 +534,7 @@ function validazioneClinica()
                     numeroCivicoClinica:
                             {
                                 number: true,
-                                min:0
+                                min: 0
                             },
                     CAPClinica:
                             {
@@ -603,26 +602,26 @@ function validazioneClinica()
                                 required: true,
                                 maxlength: 11
                             },
-                    orarioAperturaAM: 
+                    orarioAperturaAM:
                             {
                                 required: true,
-                                orario:true
+                                orario: true
                             },
-                    orarioChiusuraAM: 
+                    orarioChiusuraAM:
                             {
                                 required: true,
-                                orario:true
+                                orario: true
                             },
-                    orarioAperturaPM: 
+                    orarioAperturaPM:
                             {
                                 required: true,
-                                orario:true
+                                orario: true
                             },
-                    orarioChiusuraPM: 
+                    orarioChiusuraPM:
                             {
                                 required: true,
-                                orario:true
-                            }        
+                                orario: true
+                            }
 //                    orarioContinuato:
 //                            {
 //                                boolean: true
@@ -643,7 +642,7 @@ function validazioneClinica()
                     partitaIVA:
                             {
                                 required: "Inserire la partita IVA",
-                                maxlength: "La sequenza massima di numeri è 11", 
+                                maxlength: "La sequenza massima di numeri è 11",
                                 minlength: "La sequenza minima di numeri è 11"
 //                                remote:                                      
                             },
@@ -687,7 +686,6 @@ function validazioneClinica()
 //                                remote:
 //                                                     
                             },
-                    
                     usernameClinica:
                             {
                                 required: "Inserire username",
@@ -707,36 +705,36 @@ function validazioneClinica()
                     telefonoClinica:
                             {
                                 required: "Inserire il telefono",
-                                maxlength:"La sequenza massima di numeri è 10"
+                                maxlength: "La sequenza massima di numeri è 10"
                             },
                     capitaleSociale:
                             {
                                 required: "Inserire il capitale sociale della clinica",
                                 maxlength: "La sequenza massima di numeri è 11"
                             },
-                    orarioAperturaAM: 
+                    orarioAperturaAM:
                             {
-                                required:"Non è necessario"
+                                required: "Non è necessario"
                             },
-                    orarioChiusuraAM: 
+                    orarioChiusuraAM:
                             {
-                                required:"Non è necessario"
+                                required: "Non è necessario"
                             },
-                    orarioAperturaPM: 
+                    orarioAperturaPM:
                             {
-                                required:"Non è necessario"
+                                required: "Non è necessario"
                             },
-                    orarioChiusuraPM: 
+                    orarioChiusuraPM:
                             {
-                                required:"Non è necessario"
+                                required: "Non è necessario"
                             }
 //                    orarioContinuato:
 //                            {
 //                                boolean: "Deve essere un booleano"
 //                            }
                 },
-        submitHandler:function(form) 
-        { 
+        submitHandler: function (form)
+        {
             alert('I dati sono stati inseriti correttamente');
             inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#main');
         }
@@ -745,23 +743,22 @@ function validazioneClinica()
 
 
 function validazioneImpostazioniClinica()
-{    
-    jQuery.validator.addMethod("time", function(valore){
+{
+    jQuery.validator.addMethod("time", function (valore) {
         //espressione regolare per la durata
         var regex = /([0-2][0-3]):([0-5]\d):([0-5]\d)/;
         return valore.match(regex);
-        }, "La durata è nel formato hh:mm:ss");
+    }, "La durata è nel formato hh:mm:ss");
     $.validator.addClassRules({
         time:
                 {
                     required: true,
-                    time: true, 
-                    messages:{required:"Inserire orario"}
+                    time: true,
+                    messages: {required: "Inserire orario"}
                 }
     });
-    
+
     $("workingPlan").validate({
-        
 //        messages:
 //                {
 //                    LunedìStart:
@@ -832,22 +829,22 @@ function validazioneImpostazioniClinica()
 //                                required: true
 //                            } 
 //                },
-        submitHandler:function(form) 
-        { 
+        submitHandler: function (form)
+        {
             alert('Impostazioni inserite correttamente');
             // inviaDatiEsame si trova in clickGestisciServizi.js
             inviaImpostazioniClinica('#aggiungiEsame', 'servizi', 'aggiungi', '#main');
         }
-    });  
+    });
 }
 function validazioneEsame()
-{    
-    jQuery.validator.addMethod("time", function(valore){
+{
+    jQuery.validator.addMethod("time", function (valore) {
         //espressione regolare per la durata
         var regex = /([0-2][0-3]):([0-5]\d)/;
         return valore.match(regex);
-        }, "La durata è nel formato hh:mm");
-    
+    }, "La durata è nel formato hh:mm");
+
     $("#aggiungiEsame").validate({
         rules:
                 {
@@ -872,12 +869,12 @@ function validazioneEsame()
                                 required: true,
                                 max: 10000,
                                 min: 1
-                                
+
                             },
                     durataEsame:
                             {
                                 required: true,
-                                time:true
+                                time: true
                             },
                     numPrestazioniSimultanee:
                             {
@@ -891,7 +888,7 @@ function validazioneEsame()
 //                                required: true,
 //                                maxlenght: 200
 //                            }
- 
+
                 },
         messages:
                 {
@@ -935,11 +932,37 @@ function validazioneEsame()
 //                        
 //                            }
                 },
-        submitHandler:function() 
-        { 
+        submitHandler: function ()
+        {
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiEsame si trova in clickGestisciServizi.js
             inviaDatiEsame('#aggiungiEsame', 'servizi', 'aggiungi', '#main');
         }
+    });
+}
+
+function validazioneReferto() {
+
+
+
+    $("#formUploadReferto").validate({
+        rules: {
+            referto: {
+                required: true,
+                accept: "application/pdf"
+
+            }
+
+        },
+        messages:{
+            referto: {
+                required: "selezionare un file",
+                accept: "selezionare un file pdf"
+            }
+        },
+        submitHandler:function(){
+            uploadReferto(); //si trova in click clinica
+        }
+
     });
 }
