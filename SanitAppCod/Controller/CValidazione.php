@@ -25,7 +25,7 @@ class CValidazione {
                 $username = $vValidazione->getUsername();
                 $eUser = new EUser($username);
                 $esisteUsername = $eUser->esisteUsername();
-                $vJson = USingleton::getInstance('VJson');
+                $vJson = USingleton::getInstance('VJSON');
                 $vJson->inviaDati($esisteUsername);
 
                 break;
