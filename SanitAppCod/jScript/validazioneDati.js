@@ -209,12 +209,27 @@ function validazioneUtente()
                             {
                                 required: true,
                                 minlength: 2,
-                                maxlength: 15
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/username/" + $("#usernameUtente").val()  
+                                maxlength: 15,
+                                remote:
+                                {
+                                    type: "POST",
+                                    url: 'validazione/username',
+                                    data:
+                                    {
+                                        usernameUtente:$('#inserisciUtente input[name="username"]').val()
+//                                        usernameUtente: function()
+//                                        {
+//                                            return $('#inserisciUtente input[name="username"]').val();
 //                                        }
+                                    },
+                                    complete:function(datiRisposta)
+                                    {
+                                        alert(datiRisposta);
+                                    }
+                                }
+                                    
+                                    
+                                    
                             },
                     passwordUtente:
                             {
@@ -271,8 +286,8 @@ function validazioneUtente()
                             {
                                 required: "Inserire username",
                                 minlength: "La lunghezza minime dello username è 2",
-                                maxlength: "La lunghezza massima dello username è 15"
-//                                remote: "Username già esistente"
+                                maxlength: "La lunghezza massima dello username è 15",
+                                remote: "Username già esistente"
                             },
                     passwordUtente:
                             {

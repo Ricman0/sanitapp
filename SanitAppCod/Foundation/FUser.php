@@ -107,6 +107,24 @@ class FUser extends FDatabase {
         }
     }
     
+    
+    /**
+     * Metodo che consente di controllare se esiste un username
+     * 
+     * @access public
+     * @param string $username L'username da cercare
+     * @return boolean TRUE se esiste l'username, FALSE altrimenti
+     */
+    public function esisteUsernameDB($username)
+    {
+        $esiste=FALSE;
+        $query = "SELECT Username FROM appuser WHERE Username='" . $username . "'";
+        if(count($this->eseguiQuery($query))>0)
+        {
+            $esiste = TRUE;
+        }
+        return $esiste;
+    }
     /**
      * Metodo che permette di controllare se un'email passata per parametro sia
      * già esistente nella tabella user
