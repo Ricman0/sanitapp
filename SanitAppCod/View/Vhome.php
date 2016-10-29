@@ -14,6 +14,15 @@
 class VHome extends View {
 
     /**
+     * Metodo che consente di recuperare dall'array $_SERVER il metodo della richiesta HTTP
+     * @access public
+     * @return string Il metodo HTTP della richiesta
+     */
+    public function getRequestMethod()
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
+    /**
      * Metodo che permette di conoscere il valore di controller dell'URL
      * 
      * @access public
@@ -58,11 +67,12 @@ class VHome extends View {
     
     public function restituisciHomePage() 
     {
+        $this->impostaHeader();
         //prelevo  i template
 //        $logIn= $this->prelevaTemplate("logIn");
 //        $navBar = $this->prelevaTemplate("navigationBar");
         $main = $this->prelevaTemplate("mainRicerca");
-        $areaPersonale = $this->prelevaTemplate("ricercaCliniche");
+//        $areaPersonale = $this->prelevaTemplate("ricercaCliniche");
 //        $inserisci = $view->prelevaTemplate("inserisci");
 //        $inserisci = $this->prelevaTemplate("mainRicerca");
 //        $this->assegnaVariabiliTemplate("mainRicerca", $inserisci);
@@ -70,7 +80,7 @@ class VHome extends View {
 //        $this->assegnaVariabiliTemplate("logIn", $logIn);
 //        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
         $this->assegnaVariabiliTemplate("mainRicerca", $main);
-        $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
+//        $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
         // visualizzo il template
         $this->visualizzaTemplate("HomePage");  
     }

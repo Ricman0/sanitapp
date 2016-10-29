@@ -87,19 +87,18 @@ class USession {
      * 
      * @access public
      * @param string $chiave Variabile di sessione 
-     * @return boolean True se la variabile è stata definita precedentemente, 
-     *                 False se non è stata definita oppure la variabile è false.
+     * @return boolean TRUE se la variabile è stata definita precedentemente, 
+     *                 FALSE se non è stata definita oppure la variabile è false.
      */
     public function checkVariabileSessione($chiave) 
     {
-        
         if(!empty($_SESSION[$chiave]))
         {
-            return "TRUE";
+            return TRUE;
         }
         else
         {
-            return "FALSE";
+            return FALSE;
         }
         
     }

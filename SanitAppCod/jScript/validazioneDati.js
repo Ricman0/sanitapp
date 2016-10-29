@@ -95,7 +95,7 @@ function validazioneLogIn()
     $("#logInForm").validate({
         rules:
                 {
-                    uname:
+                    usernameLogIn:
                             {
                                 required: true,
                                 username: true
@@ -108,7 +108,7 @@ function validazioneLogIn()
                 },
         messages:
                 {
-                    uname:
+                    usernameLogIn:
                             {
                                 required: "Inserire username"
                             },

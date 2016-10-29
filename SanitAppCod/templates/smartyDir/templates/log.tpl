@@ -8,10 +8,10 @@
         <input type="hidden" name="controller" value="autenticazione"/>
 
         <label for="usernameLogIn">Username</label>
-        <input type="text" id="usernameLogIn" placeholder="Enter Username" name="uname" required >
+        <input type="text" id="usernameLogIn" placeholder="Enter Username" name="usernameLogIn" required >
 
         <label for="passwordLogIn">Password</label>
-        <input type="password" id="passwordLogIn" placeholder="Enter Password" name="psw" required>
+        <input type="password" id="passwordLogIn" placeholder="Enter Password" name="passwordLogIn" required>
 
         <button type="submit" id="submitLogIn" class="logButton">Login</button>
         <input type="checkbox" checked="checked"> Remember me &nbsp

@@ -281,5 +281,31 @@ class EUser {
         $fUser = USingleton::getInstance('FUser');
         return $fUser->esisteUsernameDB($this->_username); 
     }
+    
+    /**
+     * Metodo che controlla che uno user cercato esiste. Se esiste lo restituisce atraverso un array
+     * 
+     * @access public
+     * @return Array|boolean Un array contenente Username,TipoUser e Confermato, FALSE se non esiste un utente.
+     */
+    public function esisteUser() 
+    {
+        $fUser = USingleton::getInstance('FUser');
+        return $fUser->esisteUserDB($this->_username, $this->_password);
+    }
+    
+    
+    /**
+     * Metodo che consente di impostare le variabili di sessione dello user
+     * 
+     * @access public
+     */
+    public function attivaSessioneUser($username, $tipo) 
+    {
+        $sessione = USingleton::getInstance('USession');
+        $sessione->impostaVariabileSessione('usernameLogIn', $username);
+        $sessione->impostaVariabileSessione('loggedIn', TRUE);
+        $sessione->impostaVariabileSessione('tipoUser', $tipo);
 
+    }
 }

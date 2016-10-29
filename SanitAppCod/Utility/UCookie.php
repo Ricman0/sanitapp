@@ -13,13 +13,13 @@
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class UCookie {
-    
+
     const ORA = 3600;
     const GIORNO = 86400; //in secondi
     const SETTIMANA = 604800;
     const MESE = 2592000;
     const ANNO = 31536000;
-    
+
     /**
      * Costruttore di UCookie
      *  
@@ -32,13 +32,10 @@ class UCookie {
      * @param boolean $secure Indica se il cookie sarà trasmesso su HTTPS( se TRUE) o anche su HTTP (se FALSE)
      * @param boolean $httponly Quando è TRUE vuol dire che il cookie è trasmesso solo su HTTP.
      */
-    public function __construct($name = 'cookieDefault', $value = 'valoreDefault',
-            $expire = self::ORA , $path = '/', $domain = 'sanitapp.it', 
-            $secure = 'FALSE', $httponly = 'FALSE')
-    {
+    public function __construct($name = 'cookieDefault', $value = 'valoreDefault', $expire = self::ORA, $path = '/', $domain = 'sanitapp.it', $secure = 'FALSE', $httponly = 'FALSE') {
         setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
     }
-    
+
     /**
      * Metodo che consente di impostare un cookie
      * 
@@ -51,13 +48,10 @@ class UCookie {
      * @param boolean $secure Indica se il cookie sarà trasmesso su HTTPS( se TRUE) o anche su HTTP (se FALSE)
      * @param boolean $httponly Quando è TRUE vuol dire che il cookie è trasmesso solo su HTTP.
      */
-    public function impostaCookie($name = 'cookieDefault', $value = 'valoreDefault',
-            $expire = self::ORA , $path = '/', $domain = 'sanitapp.it', 
-            $secure = 'FALSE', $httponly = 'FALSE')
-    {
+    public function impostaCookie($name = 'cookieDefault', $value = 'valoreDefault', $expire = self::ORA, $path = '/', $domain = 'sanitapp.it', $secure = 'FALSE', $httponly = 'FALSE') {
         setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
     }
-    
+
     /**
      * Metodo che permette di controllare se esiste un cookie con il nome
      * passato per parametro
@@ -66,18 +60,14 @@ class UCookie {
      * @param string $name Il nome del cookie
      * @return boolean TRUE se il cookie esiste, FALSE altrimenti
      */
-    public function esisteCookie($name)
-    {
-        if(isset($_COOKIE[$name]))
-        {
+    public function esisteCookie($name) {
+        if (isset($_COOKIE[$name])) {
             return TRUE;
-        }
-        else
-        {
+        } else {
             return FALSE;
         }
     }
-    
+
     /**
      * Metodo che permette di controllare se il cookie con il nome
      * passato per parametro è vuoto
@@ -87,18 +77,14 @@ class UCookie {
      * @return boolean TRUE se il cookie è vuoto o se non esiste alcun 
      *                 cookie con questo nome, FALSE altrimenti
      */
-    public function cookieVuoto($name)
-    {
-        if(empty($_COOKIE[$name]))
-        {
+    public function cookieVuoto($name) {
+        if (empty($_COOKIE[$name])) {
             return TRUE;
-        }
-        else
-        {
+        } else {
             return FALSE;
         }
     }
- 
+
     /**
      * Metodo che restituisce il valore del cookie
      * 
@@ -106,68 +92,68 @@ class UCookie {
      * @param string $name Il nome del cookie 
      * @return mixed Valore del cookie se esiste, FALSE altrimenti.
      */
-    public function getCookie($name) 
-    {
-        if(isset($_COOKIE[$name]))
-        {
+    public function getCookie($name) {
+        if (isset($_COOKIE[$name])) {
             return $_COOKIE[$name];
-        }
-        else
+        } else
             return FALSE;
     }
-    
-    
-   /**
-    * Metodo che consente di eliminare un cookie esistente
-    * 
-    * @access public
-    * @param string $name Il nome del cookie
-    */
-   public function eliminaCookie($name) 
-   {
-       if(isset($_COOKIE[$name]))
-        {
-           // imposto l'expiration date un'ora prima
-           setcookie($name, "", time()-3600 );
+
+    /**
+     * Metodo che consente di eliminare un cookie esistente
+     * 
+     * @access public
+     * @param string $name Il nome del cookie
+     */
+    public function eliminaCookie($name) {
+        if (isset($_COOKIE[$name])) {
+            // imposto l'expiration date un'ora prima
+            setcookie($name, "", time() - 3600);
         }
-   }
-   
-   /**
-    * Metodo che consente di capire se i cookie sono abilitati
-    * 
-    * @access public
-    * @return boolean true se sono abilitati, false altrimenti.
-    */
-   public function cookieAbilitati()
-   {
-       if(count($_COOKIE) > 0) 
-            {
-                return true;
-            } 
-        else 
-            {
-                return false;
-            }
-   }
-   
-   /**
-    * Metodo che consente di incrementare il cookie "tentativi" nel caso in cui
-    * i dati di log in immessi sono errati.
-    * 
-    * @access public
-    */
-    public function incrementaCookie() 
-    {
+    }
+
+    /**
+     * Metodo che consente di capire se i cookie sono abilitati
+     * 
+     * @access public
+     * @return boolean true se sono abilitati, false altrimenti.
+     */
+    public function cookieAbilitati() {
+        if (count($_COOKIE) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Metodo che consente di incrementare il cookie "tentativi" nel caso in cui
+     * i dati di log in immessi sono errati.
+     * 
+     * @access public
+     */
+    public function incrementaCookie() {
         $cookie = USingleton::getInstaces('UCookie');
         $tentativi = $cookie->getCookie('Tentativi');
-        if (is_bool($tentativi))
-        {
+        if (is_bool($tentativi)) {
             $cookie->setcookie('tentativi', '1', time() + 15 * 60);
-        } 
-        else 
-        {
+        } else {
             $valoreTentativi = $tentativi + 1;
             $cookie->setcookie('tentativi', $valoreTentativi, time() + 15 * 60);
         }
     }
+
+    /**
+     * Controlla la validità del cookie tentativi
+     * @return boolean Ritorna true se ci sono ancora tentativi, false altrimenti
+     */
+    public function checkValiditaTentativi() {
+
+        if ($this->getCookie("Tentativi") < 4) {
+            return true;
+        } else {
+            return FALSE;
+        }
+    }
+
 }
