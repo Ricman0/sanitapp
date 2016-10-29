@@ -181,7 +181,6 @@ class CHome {
                 
             case 'registrazione':
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
-                //recupera dati e crea utente.
                 $cRegistrazione->inserisciRegistrazione();
                 break;
             

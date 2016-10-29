@@ -104,7 +104,33 @@ class VRegistrazione extends View {
         }
     }
     
-    
+    /**
+     * Metodo che recupera i tutti i dati della clinica dalla form 
+     * per poter inserire una nuova clinica. I dati vengono memorizzati
+     * nell'array $datiClinica
+     * 
+     * @access public
+     * @return Array I dati per memorizzare la clinica
+     */
+    public function recuperaDatiClinica()
+    {
+        $datiClinica = Array();
+        $datiClinica['nomeClinica'] = $this->recuperaValore('nomeClinica');
+        $datiClinica['titolare'] = $this->recuperaValore('titolare'); 
+        $datiClinica['partitaIVA'] = $this->recuperaValore('partitaIVA');
+        $datiClinica['via'] = $this->recuperaValore('indirizzoClinica');
+        $datiClinica['numeroCivico'] = $this->recuperaValore('numeroCivicoClinica');
+        $datiClinica['cap'] = $this->recuperaValore('CAPClinica');
+        $datiClinica['localitàClinica'] = $this->recuperaValore('localitàClinica');
+        $datiClinica['provinciaClinica'] = $this->recuperaValore('provinciaClinica');
+        $datiClinica['email'] = $this->recuperaValore('emailClinica');
+        $datiClinica['username'] = $this->recuperaValore('usernameClinica');
+        $datiClinica['password'] = $this->recuperaValore('passwordClinica');
+        $datiClinica['PEC'] = $this->recuperaValore('PECClinica');
+        $datiClinica['telefono'] = $this->recuperaValore('telefonoClinica');
+        $datiClinica['capitaleSociale'] = $this->recuperaValore('capitaleSociale');        
+        return $datiClinica;
+    }
     
     
     public function confermaInserimento()

@@ -53,19 +53,16 @@ class CRegistrazione {
     
     /**
      * Metodo che permette l'inserimento di un utente, medico o clinica nel db
-     * se la richiesta effettuata è di tipo POST
      * 
      * @access public
      */
     public function inserisciRegistrazione()
     {
         $vRegistrazione= USingleton::getInstance('VRegistrazione');
-        $task= $vRegistrazione->getTask();
-        echo ($task);
-        switch ($task) 
+        switch ($vRegistrazione->getTask()) 
         {
-            
             case 'clinica':
+                
                 $inserito = $this->recuperaDatiECreaClinica();
 //                return $vRegistrazione->restituisciFormClinica();
                 if(is_string($inserito) === TRUE)
@@ -156,9 +153,9 @@ class CRegistrazione {
      */
     private function recuperaDatiECreaClinica() 
     {
-        //variabile $inserito nel caso
+       $vRegistrazione= USingleton::getInstance('VRegistrazione');
         //recupero i dati 
-       $datiClinica = $this->recuperaDatiClinica();
+       $datiClinica = $vRegistrazione->recuperaDatiClinica();
        //ho recuperato tutti i dati inseriti nella form di registrazione della clinica
        //ora è necessario che vengano validati prima della creazione di una nuova clinica
        $uValidazione = USingleton::getInstance('UValidazione');
@@ -169,17 +166,16 @@ class CRegistrazione {
             // crea codice per la conferma della mail
            $codiceConferma = uniqid(rand(0, 6));
            echo "codice : $codiceConferma ";
-           // trovare la regione a cui appartiene la provincia inserita nella form dalla clinica
-           $regione = $this->trovaRegione($datiClinica['provinciaClinica']);
+           
            echo "ciao $regione";
-           // crea la clinica inserendo anche il codicino
-            $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], $datiClinica['nomeClinica'],
+            // crea la clinica inserendo anche il codicino
+            $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], $datiClinica['nomeClinica'], $datiClinica['password'], $datiClinica['email'],
                    $datiClinica['titolare'], $datiClinica['via'], $datiClinica['numeroCivico'],
-                   $datiClinica['cap'],$datiClinica['localitàClinica'], $datiClinica['provinciaClinica'], $regione, $datiClinica['email'], $datiClinica['PEC'], 
+                   $datiClinica['cap'],$datiClinica['localitàClinica'], $datiClinica['provinciaClinica'],  $datiClinica['PEC'], 
                    $datiClinica['password'], $datiClinica['telefono'],
-                   $datiClinica['capitaleSociale'],$datiClinica['orarioAperturaAM'],
-                   $datiClinica['orarioChiusuraAM'], $datiClinica['orarioAperturaPM'],
-                   $datiClinica['orarioChiusuraPM'],$datiClinica['orarioContinuato'], $codiceConferma);
+                   $datiClinica['capitaleSociale'], $codiceConferma);
+            
+            
             //eClinica richiama il metodo per creare FClinica poi FClinica aggiunge l'utente nel DB
             $inserito = $eClinica->inserisciClinicaDB(); 
        }
@@ -195,166 +191,7 @@ class CRegistrazione {
        return $inserito; 
     }
     
-    /**
-     * Metodo che trova la regione in base alla provincia inserita dall'utente
-     */
-    private function trovaRegione($provincia)
-    {
-        switch ($provincia)
-        {
-            case 'CHIETI':
-            case 'PESCARA':
-            case "L'AQUILA":
-            case 'TEREMO':
-                $regione = 'ABRUZZO';
-                break;
-            case 'MATERA':
-            case 'POTENZA':            
-                $regione = 'BASILICATA';
-                break;
-            case 'CATANZARO':
-            case 'COSENZA': 
-            case 'CROTONE':
-            case 'REGGIO DI CALABRIA':
-            case 'VIBO VALENTIA':
-                $regione = 'CALABRIA';
-                break;
-            case 'AVELLINO':
-            case 'BENEVENTO': 
-            case 'CASERTA':
-            case 'NAPOLI':
-            case 'SALERNO':
-                $regione = 'CAMPANIA';
-                break;
-            case 'BOLOGNA':
-            case 'FERRARA': 
-            case 'FORLI’-CESENA':
-            case 'MODENA':
-            case 'PARMA':
-            case 'PIACENZA':
-            case 'RAVENNA': 
-            case "REGGIO NELL'EMILIA":
-            case 'RIMINI':
-                $regione = 'EMILIA ROMAGNA';
-                break;
-            case 'GORIZIA':
-            case 'PORDENONE': 
-            case 'TRIESTE':
-            case 'UDINE':
-                $regione = 'FRIULI VENEZIA GIULIA';
-                break;
-            case 'FROSINONE':
-            case 'LATINA': 
-            case 'RIETI':
-            case 'ROMA':
-            case 'VITERBO':
-                $regione = 'LAZIO';
-                break;
-            case 'GENOVA':
-            case 'IMPERIA': 
-            case 'LA SPEZIA':
-            case 'SAVONA':
-                $regione = 'LIGURIA';
-                break;
-            case 'BERGAMO':
-            case 'BRESCIA': 
-            case 'COMO':
-            case 'CREMONA':
-            case 'LECCO':
-            case 'LODI': 
-            case 'MANTOVA':
-            case 'MILANO':
-            case 'MONZA E DELLA BRIANZA':
-            case 'PAVIA': 
-            case 'SONDRIO':
-            case 'VARESE':
-                $regione = 'LOMBARDIA';
-                break;
-            case 'ANCONA':
-            case 'ASCOLI PICENO': 
-            case 'FERMO':
-            case 'MACERATA':
-            case 'PESARO E URBINO':
-                $regione = 'MARCHE';
-                break;
-            case 'CAMPOBASSO':
-            case 'ISERNIA':
-                $regione = 'MOLISE';
-                break;
-            case 'ALESSANDRIA':
-            case 'ASTI': 
-            case 'BIELLA':
-            case 'CUNEO':
-            case 'NOVARA':
-            case 'TORINO': 
-            case 'VERBANO-CUSIO-OSSOLA':
-            case 'VERCELLI':
-                $regione = 'PIEMONTE';
-                break;
-            case 'BARI':
-            case 'BARLETTA-ANDRIA-TRANI': 
-            case 'BRINDISI':
-            case 'FOGGIA':
-            case 'LECCE':
-            case 'TARANTO': 
-                $regione = 'PUGLIA';
-                break;
-            case 'CAGLIARI':
-            case 'CARBONIA-IGLESIAS': 
-            case 'MEDIO CAMPIDANO':
-            case 'NUORO':
-            case 'OGLIASTRA':
-            case 'OLBIA-TEMPIO': 
-            case 'ORISTANO':
-            case 'SASSARI':
-                $regione = 'SARDEGNA';
-                break;
-            case 'AGRIGENTO':
-            case 'CALTANISSETTA': 
-            case 'CATANIA':
-            case 'ENNA':
-            case 'MESSINA':
-            case 'PALERMO': 
-            case 'RAGUSA':
-            case 'SIRACUSA':
-            case 'TRAPANI':
-                $regione = 'SICILIA';
-                break;
-            case 'AREZZO':
-            case 'FIRENZE': 
-            case 'GROSSETO':
-            case 'LIVORNO':
-            case 'LUCCA':
-            case 'MASSA-CARRARA': 
-            case 'PISA':
-            case 'PISTOIA':
-            case 'PRATO':
-            case 'SIENA':
-                $regione = 'TOSCANA';
-                break;
-            case 'BOLZANO':
-            case 'TRENTO':
-                $regione = 'TRENTINO ALTO ADIGE';
-                break;
-            case 'PERUGIA':
-            case 'TERNI':
-                $regione = 'UMBRIA';
-                break;
-            case 'AOSTA':
-                $regione = "VALLE D'AOSTA";
-                break;
-            case 'BELLUNO':
-            case 'PADOVA': 
-            case 'ROVIGO':
-            case 'TREVISO':
-            case 'VENEZIA':
-            case 'VERONA': 
-            case 'VICENZA':
-                $regione = 'VENETO';
-                break;             
-        }
-        return $regione;
-    }
+    
     
     /**
      * Metodo che permette di recuperare i dati dall'array $_POST e utilizza
@@ -436,51 +273,7 @@ class CRegistrazione {
        return $inserito;
     }
     
-    /**
-     * Metodo che recupera i tutti i dati della clinica dalla form 
-     * per poter inserire una nuova clinica. I dati vengono memorizzati
-     *  nell'array $datiClinica
-     * 
-     * @access private
-     * @return Array I dati per memorizzare la clinica
-     */
-    private function recuperaDatiClinica()
-    {
-        $datiClinica = Array();
-        $datiClinica['nomeClinica'] = $this->recuperaValore('nomeClinica');
-        $datiClinica['titolare'] = $this->recuperaValore('titolare'); 
-        $datiClinica['partitaIVA'] = $this->recuperaValore('partitaIVA');
-        $datiClinica['via'] = $this->recuperaValore('indirizzoClinica');
-        if(isset($_POST['numeroCivicoClinica']))
-        {
-            $datiClinica['numeroCivico'] = $this->recuperaValore('numeroCivicoClinica');
-        }
-        $datiClinica['cap'] = $this->recuperaValore('CAPClinica');
-        $datiClinica['localitàClinica'] = $this->recuperaValore('localitàClinica');
-        $datiClinica['provinciaClinica'] = $this->recuperaValore('provinciaClinica');
-        $datiClinica['email'] = $this->recuperaValore('emailClinica');
-        $datiClinica['username'] = $this->recuperaValore('usernameClinica');
-        $datiClinica['password'] = $this->recuperaValore('passwordClinica');
-        $datiClinica['PEC'] = $this->recuperaValore('PECClinica');
-        $datiClinica['telefono'] = $this->recuperaValore('telefonoClinica');
-        if(isset($_POST['capitaleSociale']))
-        {
-            $datiClinica['capitaleSociale'] = $this->recuperaValore('capitaleSociale');
-        }
-        $datiClinica['orarioAperturaAM'] = $this->recuperaValore('orarioAperturaAM');
-        $datiClinica['orarioAperturaPM'] = $this->recuperaValore('orarioAperturaPM');
-        $datiClinica['orarioChiusuraAM'] = $this->recuperaValore('orarioChiusuraAM');
-        $datiClinica['orarioChiusuraPM'] = $this->recuperaValore('orarioChiusuraPM');
-        if(isset($_POST['orarioContinuato']))
-        {
-            $datiClinica['orarioContinuato'] = $this->recuperaValore('orarioContinuato');
-        }
-        else
-        {
-            $datiClinica['orarioContinuato'] = FALSE;
-        }
-        return $datiClinica;
-    }
+    
     
     /**
      * Metodo che recupera i tutti i dati del medico dalla form 

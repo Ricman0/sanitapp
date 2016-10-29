@@ -17,7 +17,7 @@ class UValidazione {
      * @access private
      * @var Array Array contenente tutti gli input validati
      */
-    private $datiValidi;
+    private $_datiValidi;
     
     /**
      * Array contenente tutti gli input sbagliati 
@@ -25,7 +25,7 @@ class UValidazione {
      * @access private
      * @var Array Array contenente tutti gli input sbagliati 
      */
-    private $datiErrati;
+    private $_datiErrati;
     
     /**
      * Variabile booleana che permette di capire se i dati sonno sono validi 
@@ -33,7 +33,7 @@ class UValidazione {
      * @access private
      * @var boolean TRUE i dati sono stati validati, FALSE altrimenti
      */
-    private $validati;
+    private $_validati;
     
     /**
      * Costruttore della classe UValidazione
@@ -42,9 +42,9 @@ class UValidazione {
      */
     public function __construct() 
     {
-        $this->datiValidi = Array();
-        $this->datiErrati = Array();
-        $this->validati = TRUE;
+        $this->_datiValidi = Array();
+        $this->_datiErrati = Array();
+        $this->_validati = TRUE;
     }
     
     /**
@@ -55,7 +55,7 @@ class UValidazione {
      */
     public function getDatiValidi() 
     {
-        return $this->datiValidi;
+        return $this->_datiValidi;
     }
     
     /**
@@ -66,7 +66,7 @@ class UValidazione {
      */
     public function getValidati() 
     {
-        return $this->validati;
+        return $this->_validati;
     }
     
     /**
@@ -78,7 +78,7 @@ class UValidazione {
      */
     public function getDatiErrati() 
     {
-        return $this->datiErrati;
+        return $this->_datiErrati;
     }
    
     /**
@@ -89,7 +89,7 @@ class UValidazione {
      */
     private function setValidati($validati) 
     {
-        $this->validati = $validati;
+        $this->_validati = $validati;
     }
     
     /**
@@ -373,7 +373,6 @@ class UValidazione {
     public function validaDatiClinica($datiClinica) 
     {
         $this->setValidati(TRUE);
-        echo ($this->getValidati());
         foreach ($datiClinica as $chiave => $valore) 
         {
             $pattern = "";
@@ -453,28 +452,13 @@ class UValidazione {
                     $stringaErrore = "Il" . $chiave . "deve essere una sequenza di numeri";
                     break;
                 
-                case 'orarioAperturaAM':
-                case 'orarioChiusuraAM':
-                case 'orarioAperturaPM':
-                case 'orarioChiusuraPM':
-                    $pattern = '/^(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?$/';
-                    $stringaErrore = "L'orario deve avere un formato del tipo: 08:30:00 oppure  08:30";
-                    break;
-                case 'orarioContinuato':
-                    $pattern ='/^(FALSE|TRUE)$/';
-                    $stringaErrore = "Errore in orario continuato";
-                    break;
-                
                 default:
                     echo "c'è qualcosa di sbagliato UValidazione validaDatiClinica";
                     break;
             }
-            if($chiave !== "orarioContinuato")
-            {
-                $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
-            }
+            $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
         }
-        return $this->validati;
+        return $this->_validati;
     }
     
     
