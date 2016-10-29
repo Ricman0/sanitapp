@@ -133,9 +133,9 @@ class VRegistrazione extends View {
     }
     
     
-    public function confermaInserimento()
+    public function confermaInserimento($inviata)
     {
-        //perchè devo inserire il return???
+        
         
         $this->visualizzaTemplate('mailInviata');
     }

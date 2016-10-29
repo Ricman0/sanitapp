@@ -59,31 +59,32 @@ class CRegistrazione {
     public function inserisciRegistrazione()
     {
         $vRegistrazione= USingleton::getInstance('VRegistrazione');
+        $uValidazione = USingleton::getInstance('UValidazione');
         switch ($vRegistrazione->getTask()) 
         {
             case 'clinica':
                 
-                $inserito = $this->recuperaDatiECreaClinica();
-//                return $vRegistrazione->restituisciFormClinica();
-                if(is_string($inserito) === TRUE)
+                $codiceODatiValidi = $this->recuperaDatiECreaClinica();
+                if(is_string($codiceODatiValidi) === TRUE)//se contiene il codice di conferma
                     {
                        //invia mail riscontro dell’avvenuta registrazione 
                        //contenente informazioni riepilogative
                        // e con link di conferma
                        $mail = USingleton::getInstance('UMail');
-                       if ($mail->inviaMailRegistrazioneClinica($inserito) === TRUE)
+                       if ($mail->inviaMailRegistrazioneClinica($codiceODatiValidi, $uValidazione->getDatiValidi()) === TRUE)
                        {
                            // visualizzo che un'email è stata inviata sulla propria mail
-                           $vRegistrazione = USingleton::getInstance('VRegistrazione');
-                           $vRegistrazione->confermaInserimento();
-                       }                    
+                           $vRegistrazione->confermaInserimento(TRUE);
+                       }
+                       else
+                       {
+                           $vRegistrazione->confermaInserimento(FALSE);
+                       }
                     }
                 else
                     {
                         // dati corretti ma errore nel database
-                        
-                        echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                        return $vRegistrazione->restituisciFormClinica($inserito);
+                        return $vRegistrazione->restituisciFormClinica($codiceODatiValidi);
                     }
                 break;
             
@@ -113,8 +114,8 @@ class CRegistrazione {
 
             default:
                 //recupera dati dal form e crea un nuovo utente
-                $inserito = $this->recuperaDatiECreaUtente();
-                 if(is_string($inserito) === TRUE)
+                $codiceConferma = $this->recuperaDatiECreaUtente();
+                if(is_string($inserito) === TRUE)
                 {
                     //accedo al DB per ottenere le informazioni sull'utente inserito o è sufficiente $POST?
                     //messaggio di conferma
@@ -145,8 +146,8 @@ class CRegistrazione {
     }
     
     /**
-     * Metodo che permette di recuperare i dati dall'array $_POST e utilizza
-     * tali dati per creare e inserire una nuova clinica nel database
+     * Metodo che permette di recuperare i dati inserirti nella form di registrazione e utilizza
+     * tali dati per creare e inserire una nuova clinica nel database.
      * 
      * @access private
      * @return boolean TRUE se il medico è stato inserito nel DB, FALSE altrimenti
@@ -163,32 +164,21 @@ class CRegistrazione {
        // se i dati sono validi
        if($validi)
        {           
-            // crea codice per la conferma della mail
-           $codiceConferma = uniqid(rand(0, 6));
-           echo "codice : $codiceConferma ";
-           
-           echo "ciao $regione";
-            // crea la clinica inserendo anche il codicino
-            $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], $datiClinica['nomeClinica'], $datiClinica['password'], $datiClinica['email'],
+            // crea la clinica
+            $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], $datiClinica['nomeClinica'], 
+                    $datiClinica['password'], $datiClinica['email'],
                    $datiClinica['titolare'], $datiClinica['via'], $datiClinica['numeroCivico'],
                    $datiClinica['cap'],$datiClinica['localitàClinica'], $datiClinica['provinciaClinica'],  $datiClinica['PEC'], 
-                   $datiClinica['password'], $datiClinica['telefono'],
-                   $datiClinica['capitaleSociale'], $codiceConferma);
-            
-            
+                   $datiClinica['telefono'],$datiClinica['capitaleSociale']);
             //eClinica richiama il metodo per creare FClinica poi FClinica aggiunge l'utente nel DB
-            $inserito = $eClinica->inserisciClinicaDB(); 
+            return $eClinica->inserisciClinicaDB(); // "ritorno" il codice di conferma
        }
        else
-       {
-           echo "dati inseriti sbagliati";
-          
-//          $datiErrati = $uValidazione->getDatiErrati(); 
-          
-          $inserito = $uValidazione->getDatiValidi();
-          
+       {    
+           // non tutti i dati sono validi per cui restituisco la form per inserire la clinica con i dati validi inseriti
+           return $uValidazione->getDatiValidi();
        }
-       return $inserito; 
+ 
     }
     
     
@@ -210,16 +200,13 @@ class CRegistrazione {
        $validi = $uValidazione->validaDatiMedico($datiMedico);
        // se i dati sono validi
        if($validi)
-       {           
-           // crea codice
-           $codiceConferma = uniqid(rand(0, 6));
-           echo "codice : $codiceConferma ";
+       {
            // crea utente 
            $eMedico = new EMedico($datiMedico['nome'], $datiMedico['cognome'],
                    $datiMedico['codiceFiscale'], $datiMedico['via'], $datiMedico['numeroCivico'],
                    $datiMedico['CAP'], $datiMedico['email'], $datiMedico['username'],
                    $datiMedico['password'], $datiMedico['PEC'],
-                   $datiMedico['provinciaAlbo'],$datiMedico['numeroIscrizione'], $codiceConferma);
+                   $datiMedico['provinciaAlbo'],$datiMedico['numeroIscrizione']);
            //eMedico richiama il metodo per creare FMedico poi FMedico aggiunge l'utente nel DB
            $inserito = $eMedico->inserisciMedicoDB();
        }
