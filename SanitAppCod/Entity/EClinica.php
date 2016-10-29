@@ -97,48 +97,49 @@ class EClinica extends EUser
      * @param array $esami Array di esami/servizi che la clinica fornisce
      */
     
-    public function __construct($username=NULL, $partitaIVA=NULL, $nomeClinica=NULL, $titolareClinica=NULL, 
-            $via=NULL, $numeroCivico=NULL, $cap=NULL,$località=NULL, $provincia=NULL, $regione=NULL, $email=NULL,$PEC=NULL, $password=NULL, 
+    public function __construct($username=NULL, $partitaIVA=NULL, $nomeClinica=NULL,$password=NULL, $email=NULL, $titolareClinica=NULL, 
+            $via=NULL, $numeroCivico=NULL, $cap=NULL,$località=NULL, $provincia=NULL, $PEC=NULL,  
             $telefono=NULL, $capitaleSociale=NULL, $workingPlan=NULL, $esami=NULL) 
     {
         parent::__construct($username, $password, $email);
         $this->_partitaIVA= $partitaIVA;
-            $this->_nomeClinica = $nomeClinica;
-            $this->_titolareClinica =$titolareClinica;
-            $this->_via = $via;
-            if(isset($numeroCivico))
-            {
-                $this->_numeroCivico = $numeroCivico; 
-            }
-            else
-                {
-                    $this->_numeroCivico = NULL; 
-                }
-
-            $this->_CAP = $cap;
-            $this->_località = $località;
-            $this->_provincia = $provincia;
-            $this->_regione = $regione;
-            $this->_PEC = $PEC;
-            $this->_telefono = $telefono;
-            if(isset($capitaleSociale))
-            {
-                $this->_capitaleSociale = $capitaleSociale; 
-            }
-            else
-                {
-                    $this->_capitaleSociale= NULL; 
-                }
-            if(isset($workingPlan))
-            {
-                $this->_workingPlan = $workingPlan; 
-            }
-            
-            $this->_esami = Array();
-            if(isset($esami))
-            {
-                $this->_esami = $esami; 
-            }
+        $this->_nomeClinica = $nomeClinica;
+        $this->_titolareClinica =$titolareClinica;
+        $this->_via = $via;
+        if($numeroCivico!==FALSE)
+        {
+            $this->_numeroCivico = $numeroCivico; 
+        }
+        else
+        {
+            $this->_numeroCivico = NULL;
+        }
+        $this->_CAP = $cap;
+        $this->_località = $località;
+        $this->_provincia = $provincia;
+        // trova la regione a cui appartiene la provincia inserita nella form dalla clinica e lo assegno
+        $this->_regione =$this->trovaRegione($provincia);
+        
+        
+        $this->_PEC = $PEC;
+        $this->_telefono = $telefono;
+        if($capitaleSociale!==FALSE)
+        {
+            $this->_capitaleSociale = $capitaleSociale; 
+        }
+        else
+        {
+            $this->_capitaleSociale = NULL;
+        }
+        if(isset($workingPlan))
+        {
+            $this->_workingPlan = $workingPlan; 
+        }            
+        $this->_esami = Array();
+        if(isset($esami))
+        {
+            $this->_esami = $esami; 
+        }
         
 //        if($partitaIVA!==NULL && $username!==NULL)
 //        {
@@ -524,6 +525,171 @@ class EClinica extends EUser
     {
         $fClinica = USingleton::getInstance('FClinica');
         return $fClinica->salvaWorkingPlan($workingPlan, $this->getPartitaIVAClinica());
+    }
+    
+    /**
+     * Metodo che trova la regione in base alla provincia inserita dall'utente
+     * 
+     * @access private
+     * @param string $provincia La provincia di cui trovare la regione
+     * @return string il nome della regione cui corrisponde la provincia
+     */
+    private function trovaRegione($provincia)
+    {
+        switch ($provincia)
+        {
+            case 'CHIETI':
+            case 'PESCARA':
+            case "L'AQUILA":
+            case 'TEREMO':
+                $regione = 'ABRUZZO';
+                break;
+            case 'MATERA':
+            case 'POTENZA':            
+                $regione = 'BASILICATA';
+                break;
+            case 'CATANZARO':
+            case 'COSENZA': 
+            case 'CROTONE':
+            case 'REGGIO DI CALABRIA':
+            case 'VIBO VALENTIA':
+                $regione = 'CALABRIA';
+                break;
+            case 'AVELLINO':
+            case 'BENEVENTO': 
+            case 'CASERTA':
+            case 'NAPOLI':
+            case 'SALERNO':
+                $regione = 'CAMPANIA';
+                break;
+            case 'BOLOGNA':
+            case 'FERRARA': 
+            case 'FORLI’-CESENA':
+            case 'MODENA':
+            case 'PARMA':
+            case 'PIACENZA':
+            case 'RAVENNA': 
+            case "REGGIO NELL'EMILIA":
+            case 'RIMINI':
+                $regione = 'EMILIA ROMAGNA';
+                break;
+            case 'GORIZIA':
+            case 'PORDENONE': 
+            case 'TRIESTE':
+            case 'UDINE':
+                $regione = 'FRIULI VENEZIA GIULIA';
+                break;
+            case 'FROSINONE':
+            case 'LATINA': 
+            case 'RIETI':
+            case 'ROMA':
+            case 'VITERBO':
+                $regione = 'LAZIO';
+                break;
+            case 'GENOVA':
+            case 'IMPERIA': 
+            case 'LA SPEZIA':
+            case 'SAVONA':
+                $regione = 'LIGURIA';
+                break;
+            case 'BERGAMO':
+            case 'BRESCIA': 
+            case 'COMO':
+            case 'CREMONA':
+            case 'LECCO':
+            case 'LODI': 
+            case 'MANTOVA':
+            case 'MILANO':
+            case 'MONZA E DELLA BRIANZA':
+            case 'PAVIA': 
+            case 'SONDRIO':
+            case 'VARESE':
+                $regione = 'LOMBARDIA';
+                break;
+            case 'ANCONA':
+            case 'ASCOLI PICENO': 
+            case 'FERMO':
+            case 'MACERATA':
+            case 'PESARO E URBINO':
+                $regione = 'MARCHE';
+                break;
+            case 'CAMPOBASSO':
+            case 'ISERNIA':
+                $regione = 'MOLISE';
+                break;
+            case 'ALESSANDRIA':
+            case 'ASTI': 
+            case 'BIELLA':
+            case 'CUNEO':
+            case 'NOVARA':
+            case 'TORINO': 
+            case 'VERBANO-CUSIO-OSSOLA':
+            case 'VERCELLI':
+                $regione = 'PIEMONTE';
+                break;
+            case 'BARI':
+            case 'BARLETTA-ANDRIA-TRANI': 
+            case 'BRINDISI':
+            case 'FOGGIA':
+            case 'LECCE':
+            case 'TARANTO': 
+                $regione = 'PUGLIA';
+                break;
+            case 'CAGLIARI':
+            case 'CARBONIA-IGLESIAS': 
+            case 'MEDIO CAMPIDANO':
+            case 'NUORO':
+            case 'OGLIASTRA':
+            case 'OLBIA-TEMPIO': 
+            case 'ORISTANO':
+            case 'SASSARI':
+                $regione = 'SARDEGNA';
+                break;
+            case 'AGRIGENTO':
+            case 'CALTANISSETTA': 
+            case 'CATANIA':
+            case 'ENNA':
+            case 'MESSINA':
+            case 'PALERMO': 
+            case 'RAGUSA':
+            case 'SIRACUSA':
+            case 'TRAPANI':
+                $regione = 'SICILIA';
+                break;
+            case 'AREZZO':
+            case 'FIRENZE': 
+            case 'GROSSETO':
+            case 'LIVORNO':
+            case 'LUCCA':
+            case 'MASSA-CARRARA': 
+            case 'PISA':
+            case 'PISTOIA':
+            case 'PRATO':
+            case 'SIENA':
+                $regione = 'TOSCANA';
+                break;
+            case 'BOLZANO':
+            case 'TRENTO':
+                $regione = 'TRENTINO ALTO ADIGE';
+                break;
+            case 'PERUGIA':
+            case 'TERNI':
+                $regione = 'UMBRIA';
+                break;
+            case 'AOSTA':
+                $regione = "VALLE D'AOSTA";
+                break;
+            case 'BELLUNO':
+            case 'PADOVA': 
+            case 'ROVIGO':
+            case 'TREVISO':
+            case 'VENEZIA':
+            case 'VERONA': 
+            case 'VICENZA':
+                $regione = 'VENETO';
+                break;             
+        }
+        return $regione;
     }
 }
 ?>
