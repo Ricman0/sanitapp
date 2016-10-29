@@ -13,7 +13,7 @@ class CRicercaCliniche {
     
     /**
      * Metodo che permette di impostare la pagina per poter effettuare la 
-     * ricerca di una o più cliniche presenti nell'aplicazione
+     * ricerca di una o più cliniche presenti nell'applicazione
      * 
      * @access public
      */
@@ -22,6 +22,11 @@ class CRicercaCliniche {
         $vCliniche = USingleton::getInstance('VRicercaCliniche');
         $vCliniche->restituisciFormRicercaCliniche();
     }
+    
+    
+    
+    
+    
     
     public function gestisciCliniche() {
         $vCliniche = USingleton::getInstance('VRicercaCliniche');

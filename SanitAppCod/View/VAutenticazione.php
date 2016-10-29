@@ -1,95 +1,29 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of VAutenticazione
  *
+ * @package View
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VAutenticazione extends View {
 
+    /**
+     * @access private
+     * @var Array  $_tastiLaterali I tasti laterali della pagina personale 
+     */
     private $_tastiLaterali;
 
     /**
-     * Metodo che permette di impostare il giusto header se l'utente è autenticato
+     * Metodo per impostare i tasti laterali a seconda del tipo di user
      * 
      * @access public
-     * @param string $username L'username dell'user loggato
-     */
-//    public function impostaHeader($username)
-//    {
-//        $log = $this->prelevaTemplate("logOut");
-//        $navBar = $this->prelevaTemplate("navigationBar");
-//        
-//        $this->assegnaVariabiliTemplate('username', $username);
-//        $this->assegnaVariabiliTemplate("logIn", $log);
-//        $this->assegnaVariabiliTemplate('user', $username);
-//        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
-//    }
-
-    /**
-     * Metodo che consente di impostare la giusta area personale a seconda del tipo 
-     * di user che si è autenticato.
-     * 
-     * @access public
-     * @param string $tipoUser Il tipo di user di cui si vuole impostare la pagin personale
-     * @param Array $tastiLaterali Array di stringhe. Ogni stringa contiene il testo di un tasto della side bar
-     */
-    public function impostaPaginaPersonale($tipoUser, $tastiLaterali) {
-        switch ($tipoUser) {
-            case 'Utente':
-//                //prelevo  i template
-                $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
-////                //assegno le variabili ai template
-                $this->assegnaVariabiliTemplate("tastiLaterali", $tastiLaterali);
-                $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
-//                // visualizzo il template 
-                $this->visualizzaTemplate('areaPersonaleGenerale');
-//                $this->visualizzaTemplate('areaPersonale');
-                break;
-
-            case 'Medico':
-                $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
-                $this->assegnaVariabiliTemplate("tastiLaterali", $tastiLaterali);
-                $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
-                $this->visualizzaTemplate("areaPersonaleGenerale");
-                break;
-
-            case 'Clinica':
-                $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
-                $this->assegnaVariabiliTemplate("tastiLaterali", $tastiLaterali);
-                $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
-                $this->visualizzaTemplate("areaPersonaleGenerale");
-                break;
-
-            default:
-                echo " errore in VAutenticazione impostaPaginaPersonale";
-                break;
-        }
-    }
-
-    /**
-     * Metodo che consente di impostare la pagina di Log In
-     * 
-     * @access public
-     */
-    public function impostaPaginaLogIn() {
-        $this->impostaHeader();
-        $this->visualizzaTemplate("log");
-    }
-    
-    /**
-     * Metodo per impostare i tasti laterali a seconda del tipo di utente
      * @param string $tipoUser tipo dello user
      */
-    public function setTastiLaterali($tipoUser) {
-
-        switch ($tipoUser) {
+    public function setTastiLaterali($tipoUser) 
+    {
+        switch ($tipoUser) 
+        {
             case 'utente':
                 $this->_tastiLaterali['prenotazioniAreaPersonaleUtente'] = "Prenotazioni";
                 $this->_tastiLaterali['refertiAreaPersonaleUtente'] = "Referti";
@@ -114,6 +48,94 @@ class VAutenticazione extends View {
                 break;
         }
     }
+    
+    /**
+     * Metodo che consente di impostare l'header di una qualsiasi pagina
+     * 
+     * @access public
+     */
+    public function impostaHeader($username=NULL) 
+    {
+        if($username !== NULL)
+        {
+            // bisogna prima assegnare la variabili interne del template e poi prelevare il template
+            $this->assegnaVariabiliTemplate('user', $username);
+            $this->assegnaVariabiliTemplate('username', $username);
+        }
+        $log = $this->prelevaTemplate("log");
+        $navBar = $this->prelevaTemplate("navigationBar");
+        
+        $this->assegnaVariabiliTemplate("logIn", $log);
+        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+    }
+    
+    /**
+     * Metodo che consente di impostare la pagina per recuperare le credenziali
+     * 
+     * @access public
+     */
+    public function impostaPaginaRecuperoCredenziali() 
+    {
+        $this->impostaHeader();
+        $this->visualizzaTemplate('recuperoCredenziali');
+    }
+    
+    /**
+     * Metodo che consente di imposate la pagina di conferma
+     * 
+     * @access public
+     */
+    public function impostaPaginaConferma() 
+    {
+        $this->impostaHeader();
+        $this->visualizzaTemplate('paginaConferma');
+    }
+    
+    /**
+     * Metodo che permette di impostare il giusto header se l'utente è autenticato
+     * 
+     * @access public
+     * @param string $username L'username dell'user loggato
+     */
+//    public function impostaHeader($username)
+//    {
+//        $log = $this->prelevaTemplate("logOut");
+//        $navBar = $this->prelevaTemplate("navigationBar");
+//        
+//        $this->assegnaVariabiliTemplate('username', $username);
+//        $this->assegnaVariabiliTemplate("logIn", $log);
+//        $this->assegnaVariabiliTemplate('user', $username);
+//        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+//    }
+
+    /**
+     * Metodo che consente di impostare la giusta area personale a seconda del tipo 
+     * di user che si è autenticato.
+     * 
+     * @access public
+     */
+    public function impostaPaginaPersonale() 
+    {
+        //prelevo  i template
+        $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
+        //assegno le variabili ai template
+        $this->assegnaVariabiliTemplate("tastiLaterali", $this->_tastiLaterali);
+        $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
+        // visualizzo il template 
+        $this->visualizzaTemplate('areaPersonaleGenerale');
+    }
+
+    /**
+     * Metodo che consente di impostare la pagina di Log In
+     * 
+     * @access public
+     */
+    public function impostaPaginaLogIn() {
+        $this->impostaHeader();
+        $this->visualizzaTemplate("log");
+    }
+    
+    
 
     /**
      * Metodo che effettua il refresh della pagina e restituisce la home page
@@ -134,25 +156,21 @@ class VAutenticazione extends View {
      * Metodo che contente di impostare header e pagina personale
      * 
      * @access public
+     * @param string $username L'username dell'user
      */
-    public function impostaHeaderEPaginaPersonale($username, $tastiLaterali) {
+    public function impostaHeaderEPaginaPersonale($username) 
+    {
         //log form
-        $this->assegnaVariabiliTemplate('user', $username);
-        $log = $this->prelevaTemplate("log");
-
-
+        $this->assegnaVariabiliTemplate('user', $username);//assegno le variabili ai template
+        $log = $this->prelevaTemplate("log");// prelevo il template
         //navigationBar
         $this->assegnaVariabiliTemplate('username', $username);
         $navigationBar = $this->prelevaTemplate('navigationBar');
-
-
         // main
-        $this->assegnaVariabiliTemplate("tastiLaterali", $tastiLaterali);
-        //prelevo  i template
+        $this->assegnaVariabiliTemplate("tastiLaterali", $this->_tastiLaterali);
+       
         $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
-        //assegno le variabili ai template
-
-        $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
+         $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
 
 //        visualizzo il template 
         $this->assegnaVariabiliTemplate('log', $log);
@@ -162,33 +180,10 @@ class VAutenticazione extends View {
         $this->visualizzaTemplate('headerMain');
     }
 
-    public function impostaPaginaConferma() 
-    {
-        $this->impostaHeader();
-        $this->visualizzaTemplate('paginaConferma');
-    }
     
     
-    public function impostaHeader($username=NULL) 
-    {
-        if($username !== NULL)
-        {
-            // bisogna prima assegnare la variabili interne del template e poi prelevare il template
-            $this->assegnaVariabiliTemplate('user', $username);
-            $this->assegnaVariabiliTemplate('username', $username);
-            
-        }
-       
-        $log = $this->prelevaTemplate("log");
-        $navBar = $this->prelevaTemplate("navigationBar");
-        
-        $this->assegnaVariabiliTemplate("logIn", $log);
-        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
-    }
     
-    public function impostaPaginaRecuperoCredenziali() {
-        $this->impostaHeader();
-        $this->visualizzaTemplate('recuperoCredenziali');
-        
-    }
+    
+    
+    
 }

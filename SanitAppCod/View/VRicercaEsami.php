@@ -1,14 +1,28 @@
 <?php
 
 /**
- * 
+ * Description of VRicercaEsami
+ *
+ * @package View
+ * @author Claudia Di Marco & Riccardo Mantini
  */
 class VRicercaEsami extends View{
     
+    /**
+     * Metodo che consente di poter restituire la form per la ricerca degli
+     * esami
+     * 
+     * @access public
+     */
     public function restituisciFormRicercaEsami() 
     {
-        return $this->visualizzaTemplate('ricercaEsami');
+        $this->visualizzaTemplate('ricercaEsami');
     }
+    
+    
+    
+    
+    
     
     public function restituisciPaginaRisultatoEsami($risultato) 
     {

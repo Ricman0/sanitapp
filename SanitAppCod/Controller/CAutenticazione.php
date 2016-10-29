@@ -156,7 +156,7 @@ class CAutenticazione {
                     {
                         $eUser->attivaSessioneUser($username, $risultato[0]['TipoUser'] );
                         $vAutenticazione->setTastiLaterali($risultato[0]['TipoUser']);
-                        $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'), $tastiLaterali);
+                        $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
                      
                     }
                     else //user non confermato ma esistente nel DB

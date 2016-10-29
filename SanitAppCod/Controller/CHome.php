@@ -45,7 +45,6 @@ class CHome {
      */
     private function smistaControllerGET($controller) 
     {
-//        echo $controller;
         switch ($controller) 
         {
             case 'home':  
@@ -53,31 +52,38 @@ class CHome {
                 $vHome->restituisciHomePage();
                 break;
             
-            case 'logOut':  
-                $cAutenticazione = USingleton::getInstance('CAutenticazione');
-                $cAutenticazione->logOut();
+            case 'ricercaCliniche':
+                $cRicercaCliniche = USingleton::getInstance('CRicercaCliniche');
+                $cRicercaCliniche->impostaPaginaRicercaCliniche();
+                break;
+            
+            case 'ricercaEsami':
+                $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
+                $cRicercaEsami->impostaPaginaRicercaEsami();
                 break;
             
             case 'registrazione':
                 $cRegistrazione = USingleton::getInstance('CRegistrazione');
                 $cRegistrazione->impostaPaginaRegistrazione(); // oppure echo $cRegistrazione->impostaPaginaRegistrazione(); ma poi devo prelevare il template e non visualizzarlo
                 break;
-            
+                
             case 'autenticazione':
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
-//                $cAutenticazione->impostaPaginaAutenticazione();
                 $cAutenticazione->autenticaUser();
                break;
-           
-            case 'ricercaEsami':
-                $cEsami = USingleton::getInstance('CRicercaEsami');
-                $cEsami->impostaPaginaRicercaEsami();
+            
+            case 'logOut':  
+                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+                $cAutenticazione->logOut();
                 break;
             
-            case 'ricercaCliniche':
-                $cCliniche = USingleton::getInstance('CRicercaCliniche');
-                $risultato = $cCliniche->impostaPaginaRicercaCliniche();
-                break;
+            
+            
+            
+           
+            
+            
+            
             
             case 'cliniche':
                 $cCliniche = USingleton::getInstance('CRicercaCliniche');
@@ -100,8 +106,8 @@ class CHome {
 //                // bisogna controllare se è stato effettuato il log in
 //                $cAutenticazione = USingleton::getInstance("CAutenticazione");
 //                $logIn = $cAutenticazione->logIn($session);
-                $mySanitApp = USingleton::getInstance('CmySanitApp');
-                $mySanitApp->impostaPaginaPersonale();
+                $cMySanitApp = USingleton::getInstance('CmySanitApp');
+                $cMySanitApp->impostaPaginaPersonale();
                 
                 break;
             

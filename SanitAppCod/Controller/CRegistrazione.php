@@ -2,49 +2,51 @@
 
 /**
  * Description of CRegistrazione
- *
+ * 
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CRegistrazione {
     
     /**
-     * Metodo che imposta la pagina di registrazione
+     * Metodo che permette di impostare la pagina di registrazione
      * 
      * @access public
-     * @return type Description
      */
     public function  impostaPaginaRegistrazione() 
     { 
         $vRegistrazione= USingleton::getInstance('VRegistrazione');
-        $task= $vRegistrazione->getTask();
-        switch ($task) 
+        switch ($vRegistrazione->getTask()) // imposta la pagina in base al task contenuto nell'url
         {
-            //secondo me non dovrebbe stare in GET perchè il metodo che vorrei sarebbe PUT 
-            // ma il link solo il metodo GET
-            case 'conferma':
-                
-//                     inserisco una nuova classe controller CConferma. dopo vediamo se eliminarla   
-                $cConferma = USingleton::getInstance('CConferma');
-                if($cConferma->confermaUser() === TRUE)
-                {
-                    //mandarlo all'area personale
-                }
-                else
-                {
-                    echo "account non confermato";
-                }
-                break;
+//            case 'conferma':
+//                
+////                     inserisco una nuova classe controller CConferma. dopo vediamo se eliminarla   
+//                $cConferma = USingleton::getInstance('CConferma');
+//                if($cConferma->confermaUser() === TRUE)
+//                {
+//                    //mandarlo all'area personale
+//                }
+//                else
+//                {
+//                    echo "account non confermato";
+//                }
+//                break;
             
             case 'clinica':
-                return $vRegistrazione->restituisciFormClinica();
+                $vRegistrazione->restituisciFormClinica();
             
             case 'medico':
-                return $vRegistrazione->restituisciFormMedico();
+                $vRegistrazione->restituisciFormMedico();
 
-            default:    
-                return $vRegistrazione->restituisciFormUtente();     
+            default:    // l'ultimo caso è quello di utente
+                $vRegistrazione->restituisciFormUtente();     
         }    
     }
+    
+    
+    
+    
+    
     
     /**
      * Metodo che permette l'inserimento di un utente, medico o clinica nel db

@@ -7,6 +7,24 @@
  */
 class CRicercaEsami {
     
+    /**
+     * Metodo che permette di impostare la pagina per poter effettuare la 
+     * ricerca di uno o più esami presenti nell'applicazione
+     * 
+     * @access public
+     */
+    public function impostaPaginaRicercaEsami()
+    {
+        $vRicercaEsami = USingleton::getInstance('VRicercaEsami');
+        $vRicercaEsami->restituisciFormRicercaEsami();   
+    }
+    
+    
+    
+    
+    
+    
+    
     public function impostaPaginaRisultatoEsami() 
     {
         $fEsami = USingleton::getInstance('FEsame');
@@ -38,12 +56,7 @@ class CRicercaEsami {
         }
     }
     
-    public function impostaPaginaRicercaEsami(){
-        $vEsami = USingleton::getInstance('VRicercaEsami');
-        $vEsami->restituisciFormRicercaEsami();
-        
-        
-    }
+    
     
 //    public function impostaPaginaRisultatoEsami(){
 //        

@@ -1,14 +1,10 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * Description of VRicercaCliniche
  *
+ * @package View
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VRicercaCliniche extends View{
@@ -18,12 +14,19 @@ class VRicercaCliniche extends View{
      * cliniche
      * 
      * @access public
-     * @return type Description
      */
     public function restituisciFormRicercaCliniche() 
     {
-        return $this->visualizzaTemplate('ricercaCliniche');
+        $this->visualizzaTemplate('ricercaCliniche');
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * Metodo che consente di visualizzare il risultato della ricerca delle cliniche

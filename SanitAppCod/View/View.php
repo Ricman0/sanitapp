@@ -124,12 +124,16 @@ class View extends Smarty {
      * 
      * @access public
      * @final
-     * @return mixed Ritorna il valore (stringa) di task. FALSE altrimenti.
+     * @return string|boolean Ritorna il valore (stringa) di task. FALSE altrimenti.
      */
-    final public function getTask() {
-        if (isset($_REQUEST['task'])) {
+    final public function getTask() 
+    {
+        if (isset($_REQUEST['task'])) 
+        {
             return $_REQUEST['task'];
-        } else {
+        }
+        else 
+        {
             return FALSE;
         }
     }
