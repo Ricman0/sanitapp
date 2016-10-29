@@ -14,106 +14,21 @@ class CHome {
      */
     public function impostaPagina() 
     {
-        
-        //avvia o riesuma la sessione 
-        $sessione = USingleton::getInstance("USession");
+        $vHome = USingleton::getInstance('VHome');  
         $cAutenticazione = USingleton::getInstance('CAutenticazione');
-        $sessione = $cAutenticazione->autenticazioneUser($sessione);
-        $vHome= USingleton::getInstance('VHome');
-        
-        if (NULL == $sessione->leggiVariabileSessione('usernameLogIn'))
-        {
-            
-            $vHome->impostaHeader();
-        }
-        else
-        {
-//            echo(" dovremmo essere autenticati ");
-            $username = $sessione->leggiVariabileSessione('usernameLogIn');
-//            echo ($username);
-            $vHome->impostaHeader($username);
-        }
-        
-        
-        
-        /*
-        if ($cAutenticazione->logIn($session)=== TRUE)
-        {
-            //utente già autenticato
-            // utente può accedere a qualsiasi pagina dipende dal tipo di utente
-        }
-        
-        
-//        $logIn = $session->checkVariabileSessione("loggedIn");   
-        if($logIn)
-        {
-            // let the user access the main page
-        }
-        elseif(!empty($_POST['usernameLogIn']) && !empty($_POST['passwordLogIn']))
-        {
-            
-            
-            //non so se inserire un'entity ma non avei l'entity giusta
-            $fdb = USingleton::getInstance("FDatabase");
-            $username = $fdb->escapeStringa($_POST['usernameLogIn']);
-            $password = $fdb->escapeStringa(md5($_POST['passwordLogIn']));
-            $query = "SELECT * FROM Utente WHERE username = '$username' AND password = '$password' ";
-//            $query = "SELECT username, password FROM Utente
-//                      UNION ALL
-//                      SELECT username, password FROM Medico
-//                      UNION ALL
-//                      SELECT username, password FROM Clinica
-//                      ORDER BY username";
-            $risultato = $fdb->eseguiQuery($query);
-            $num = count($risultato);
-            if($num == 1)
-            {
-                
-                $_SESSION['usernameLogIn'] = $username;
-                $_SESSION['loggedIn'] = TRUE;
-                $logIn= TRUE;
-                echo "Benvenuto" + $username;
-            }
-            else 
-            {
-                echo "errore nell'effettuare il log in";
-            }
-        }
-        else
-        {
-            // display the login form
-            $logIn = false;
-        }
-        */
-        
-//        if($sessione->checkVariabileSessione('loggedIn') === TRUE)
-//        {
-//            $vHome->impostaHeader("logOut", "navigationBarLogged");
-//        }
-//        else
-//        {
-//            $vHome->impostaHeader("logIn", "navigationBar");
-//        }
-//        echo ($sessione->checkVariabileSessione('loggedIn'));
-//        print_r($_REQUEST);
-        $controller= $vHome->getController();
-                
-        switch ($_SERVER['REQUEST_METHOD'])  
+        $cAutenticazione->autenticaUser();           
+        switch ($vHome->getRequestMethod())  
         {
             case 'GET':
-//                echo ($controller);
-                $this->smistaControllerGET($controller, $vHome);
+                $this->smistaControllerGET($vHome->getController());
                 break;
-            case 'POST': echo "ciao post ";
-
-                $controller = $vHome->getController();
-                
-                $this->smistaControllerPOST($controller);
+            case 'POST': 
+                $this->smistaControllerPOST($vHome->getController());
                 break;
             default:
                 $vHome->restituisciHomePage();
                 break;
-        }
+        } 
     }
     
 
@@ -127,14 +42,14 @@ class CHome {
      * 
      * @access private
      * @param string $controller 
-     * @param VHome $vHome Oggetto della classe VHome
      */
-    private function smistaControllerGET($controller, $vHome) 
+    private function smistaControllerGET($controller) 
     {
 //        echo $controller;
         switch ($controller) 
         {
-            case 'home':            
+            case 'home':  
+                $vHome = USingleton::getInstance('VHome');
                 $vHome->restituisciHomePage();
                 break;
             
@@ -243,6 +158,7 @@ class CHome {
                 break;
                 
             default:
+                $vHome = USingleton::getInstance('VHome');
                 $vHome->restituisciHomePage();
                 break;
         }

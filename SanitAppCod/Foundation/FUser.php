@@ -107,6 +107,29 @@ class FUser extends FDatabase {
         }
     }
     
+    /**
+     * Metodo che consente di verificare se l'user (identificato tramite la coppia username e password) esiste nel DB
+     * 
+     * @access public
+     * @param string $username L'username dell'user
+     * @param string $password La password dell'user
+     * @return Array|boolean Array contenente un solo elemento(l'user cercato), FALSE altrimenti
+     */
+    public function esisteUserDB($username, $password) 
+    {
+        $password = $this->trimEscapeStringa($password);
+        $password = $this->trimEscapeStringa($password);
+        $query = "SELECT Username, TipoUser, Confermato, "
+                . "MATCH (Password) AGAINST ('$password ' IN BOOLEAN MODE) "
+                . "FROM appuser WHERE Username='" . $username . "' "
+                . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)"; 
+        $risultato = $this->eseguiQuery($query);
+        if(is_array($risultato) && count($risultato)===1)
+        {
+            return $risultato;
+        }
+        return FALSE;
+    }
     
     /**
      * Metodo che consente di controllare se esiste un username

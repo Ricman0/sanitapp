@@ -150,18 +150,22 @@ class View extends Smarty {
     }
 
     /**
-     * Metodo che permette di recuperare dall'array REQUEST il valore inserito dall'utente
-     * in un campo della form. Il campo è individuato dall'indice.
+     * Metodo che permette di recuperare dall'array REQUEST il valore dell'elemento a cui corrisponde l'indice èassato come parametro
      * 
      * @access public
-     * @param string $indice Il nome dell'indice che deve essere recuperato dall'array REQUEST
-     * @return string Il valore recuperato
+     * @param string $indice Il nome dell'indice il cui valore deve essere recuperato dall'array REQUEST
+     * @return string|boolean Il valore recuperato, FALSE altrimenti
      */
-    public function recuperaValore($indice) {
-        if (isset($_REQUEST[$indice])) {
-            $parametro = $_REQUEST[$indice];
-        }
-        return $parametro;
+    public function recuperaValore($indice) 
+    {
+        if (isset($_REQUEST[$indice])) 
+            {
+                return $_REQUEST[$indice];
+            } 
+        else 
+            {
+                return FALSE;
+            }
     }
 
     /**
