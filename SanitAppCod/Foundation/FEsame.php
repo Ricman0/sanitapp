@@ -101,13 +101,8 @@ class FEsame extends FDatabase {
      * @param string $luogo Il luogo in cui si trova la clinica
      * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
      */
-    public function cercaEsame($nomeEsame="all", $nomeClinica="all", $luogo="all") {
-
-//        $query = "SELECT DISTINCT NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, "
-//                . "NomeCategoria, NomeClinica, clinica.Località"
-//                . " FROM " . $this->_nomeTabella . ", clinica"
-//                . " WHERE esame.PartitaIVAClinica = clinica.PartitaIVA";
-
+    public function cercaEsame($nomeEsame="all", $nomeClinica="all", $luogo="all") 
+    {
         if ($nomeEsame === "all") 
         {
             $nomeEsame = "";
@@ -134,10 +129,8 @@ class FEsame extends FDatabase {
         }
         if (!empty($nomeEsame)) 
         {
-            echo "si nomeesame";
             if (!empty($luogo) && !empty($nomeClinica)) 
             {
-                echo "si nomeesame, nomeclinica, luogo";
                 $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Località, "
                             . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE), "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE), "
@@ -152,54 +145,25 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
                             . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
-//                $query .= " AND 'esame.NomeEsame'='" . $nomeEsame . "' AND NomeClinica='"
-//                        . $nomeClinica . "' AND ('clinica.Località'='"
-//                        . $luogo . "' OR 'clinica.Provincia'='" . $luogo . "' OR "
-//                        . "'clinica.CAP'='" . $luogo . "')";
             } 
             else 
             {
-
-                if (!empty($nomeClinica)) {
-
-                    if (empty($luogo)) {
-                        echo "si nomeesame, nomeclinica , no luogo";
+                if (!empty($nomeClinica)) 
+                {
+                    if (empty($luogo)) 
+                    {
                         $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Località, "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE), "
                             . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE) "
                             . "FROM esame, clinica WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
                             . "AND (MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE))) "
                             . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
-                        
-
-//                            . "MATCH (NomeEsame, NomeClinica) AGAINST ('$nomeEsame,$nomeClinica' IN BOOLEAN MODE)"
-//                            . "FROM esame, clinica WHERE MATCH (NomeEsame, NomeClinica) AGAINST ('$nomeEsame, $nomeClinica' IN BOOLEAN MODE) "
-//                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) "
-//                        $query = "SELECT DISTINCT NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, "
-//                            . "NumPrestazioniSimultanee, NomeCategoria, "
-//                            . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-//                            . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-//                            . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-//                            . "OrarioChiusuraPM,OrarioContinuato "
-//                            . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
-//                            . "'esame.PartivaIVAClinica'='clinica.PartitaIVA "
-//                            ." WHERE 'esame.NomeEsame'='" . $nomeEsame . "' AND NomeClinica='"
-//                            . $nomeClinica . "'";
                     }
                 } 
                 else 
                 {
-                    echo "si nomeesame, no nomeclinica, luogo";
-                    if (empty($luogo)) {
-//                        $query = "SELECT DISTINCT NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, "
-//                            . "NumPrestazioniSimultanee, NomeCategoria, "
-//                            . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-//                            . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-//                            . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-//                            . "OrarioChiusuraPM,OrarioContinuato "
-//                            . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
-//                            . "'esame.PartivaIVAClinica'='clinica.PartitaIVA'"
-//                            . " WHERE 'esame.NomeEsame'='" . $nomeEsame . "'";
+                    if (empty($luogo)) 
+                    {
                         $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Località, "
                                 . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE)"
                                 . "FROM esame, clinica WHERE MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE) "
@@ -207,7 +171,6 @@ class FEsame extends FDatabase {
                     } 
                     else
                     {
-                        echo "si nomeesame,luogo,  no nomeclinica ";
                         $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Località, "
                             . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE), "                        
                             . "MATCH (clinica.Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -220,63 +183,23 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
                             . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
-                        
-//                        $query = "SELECT DISTINCT NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, "
-//                                . "NumPrestazioniSimultanee, NomeCategoria, "
-//                                . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-//                                . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-//                                . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-//                                . "OrarioChiusuraPM,OrarioContinuato "
-//                                . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
-//                                . "'esame.PartivaIVAClinica'='clinica.PartitaIVA'"
-//                                . " WHERE 'esame.NomeEsame'='" . $nomeEsame . "' AND ('clinica.Località'='"
-//                                . $luogo . "' OR 'clinica.Provincia'='" . $luogo . "' OR 'clinica.CAP'='" . $luogo . "')";
                     }
                 }
             }
         } 
         else 
         {
-            echo "no nomeesame ";
             if (!empty($nomeClinica)) 
             {
-                echo "no nomeesame,  si nomeclinica ";
                 if (empty($luogo))   
                 {
-                    echo "no nomeesame,luogo,  si nomeclinica ";
                     $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Località, "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)"
                             . "FROM esame, clinica WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA)) ";
-//                    $query = "SELECT DISTINCT NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, "
-//                        . "NumPrestazioniSimultanee, NomeCategoria, "
-//                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-//                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-//                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-//                        . "OrarioChiusuraPM,OrarioContinuato "
-//                        . " FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
-//                        . "'esame.PartivaIVAClinica'='clinica.PartitaIVA'"
-//                        . " WHERE NomeClinica='" . $nomeClinica . "'";
-                    
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA)) ";                    
                 } 
                 else 
                 {
-                    echo "no nomeesame,  si nomeclinica, luogo ";
-//                    $query = "SELECT DISTINCT NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, "
-//                            . "NomeCategoria, "
-//                            . "NomeClinica, clinica.Località "
-                            
-//                            . "clinica.Provincia, clinica.CAP, "
-//                    . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-//                    . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-//                    . "OrarioChiusuraPM,OrarioContinuato "
-                    
-//                            . "FROM " . $this->_nomeTabella . " INNER JOIN clinica ON "
-//                            . "'esame.PartivaIVAClinica'='clinica.PartitaIVA'"
-//                            . " WHERE NomeClinica='" . $nomeClinica . "' "
-//                            . "AND ('clinica.Località'='"
-//                            . $luogo . "' OR 'clinica.Provincia'='" . $luogo . "' OR 'clinica.CAP'='" . $luogo . "')";
-                            
                       $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Località, "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE), "
                             . "MATCH (clinica.Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -293,10 +216,8 @@ class FEsame extends FDatabase {
             } 
             else 
             {
-                echo "no nomeesame,  no nomeclinica ";
-                if (!empty($luogo)) {
-//                    
-                    echo "no nomeesame,   nomeclinica, si luogo ";
+                if (!empty($luogo)) 
+                {
                     $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Località, "
                             . "MATCH (clinica.Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
                             . "MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -307,46 +228,14 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE))) "
                             . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
-
-//                    $query = "SELECT DISTINCT NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, "
-//                            . "NumPrestazioniSimultanee, NomeCategoria, "
-//                            . "NomeClinica, clinica.Località"
-//                            . " FROM " . $this->_nomeTabella . ", clinica WHERE esame.PartitaIVAClinica = clinica.PartitaIVA"
-//. " AND (Località='" . $luogo . "' OR Provincia='"
-//                            . $luogo . "' OR CAP='" . $luogo . "')";
-//                            
-//                    . " AND clinica.Località='" . $luogo . "'";
-//                            ." OR clinica.Provincia=" 
-//                    . $luogo . " OR clinica.CAP=" . $luogo . ")";
-//                            clinica.Provincia, clinica.CAP, "
-//                    . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-//                    . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-////                    . "OrarioChiusuraPM,OrarioContinuato "
-//                    . " FROM " . $this->_nomeTabella
-////                    ." INNER JOIN clinica ON "
-////                    . "'esame.PartivaIVAClinica'='clinica.PartitaIVA' "
-//                    . ", clinica WHERE esame.PartitaIVAClinica = clinica.PartitaIVA";
                 } 
-                else {
-                    echo "no nomeesame,   nomeclinica,  luogo ";
+                else 
+                {
                     $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Località "
                             . " FROM esame, clinica WHERE (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
                 }
             }
         }
-        /* fine prova funzionante */
-
-//        $risultato = $this->eseguiQuery("SELECT DISTINCT NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, "
-//                        . "NumPrestazioniSimultanee, NomeCategoria, "
-//                        . "NomeClinica, clinica.Località, clinica.Provincia, clinica.CAP, "
-//                        . "clinica.Via, clinica.NumCivico, clinica.Telefono, clinica.Email,"
-//                        . "OrarioAperturaAM, OrarioChiusuraAM, OrarioAperturaPM, "
-//                        . "OrarioChiusuraPM,OrarioContinuato "
-//                        . " FROM esame INNER JOIN clinica;");
-//        echo gettype($risultato);
-//        $this->stampaRisultatoQuery($risultato);
-
-        
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }

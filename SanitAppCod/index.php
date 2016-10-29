@@ -7,5 +7,3 @@ $cHome= USingleton::getInstance('CHome');
 $cHome->impostaPagina();
 
 ?>
-
-

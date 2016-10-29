@@ -178,7 +178,7 @@ class FDatabase {
                 if($queryResult === TRUE)
                 {
                    echo 'Query eseguita con successo'; 
-                   $this->_result = "TRUE";
+                   $this->_result = TRUE;
                 }
                 else 
                 {
@@ -195,7 +195,7 @@ class FDatabase {
                     // si libera la memoria associato a quel risultato
                     $queryResult->free();
                     
-                 }                
+                }                
                 
                 return $this->_result;
             }

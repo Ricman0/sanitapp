@@ -23,15 +23,16 @@ class CRicercaCliniche {
         $vCliniche->restituisciFormRicercaCliniche();
     }
     
-    
-    
-    
-    
-    
+
+    /**
+     * Metodo che consente di gestire il controller 'cliniche'  in base al task.
+     * Se l'url non possiede un task 
+     * 
+     * @access public
+     */
     public function gestisciCliniche() {
         $vCliniche = USingleton::getInstance('VRicercaCliniche');
-        $task = $vCliniche->getTask();
-        switch($task)
+        switch($vCliniche->getTask())
         { 
             case 'visualizza':
                 $id = $vCliniche->getId();
@@ -41,21 +42,24 @@ class CRicercaCliniche {
                     $eClinica = new EClinica($id);
                     $vCliniche->visualizzaInfoClinicaOspite($eClinica);
                 }
-            break;
+                break;
+                
             default :
                 $this->impostaPaginaRisultatoCliniche();
                 break;
         }
     }
     
-    public function impostaPaginaRisultatoCliniche()
+    /**
+     * Metodo che consente di impostare la pagina dal risultato della ricerca delle cliniche
+     * 
+     * @access private
+     */
+    private function impostaPaginaRisultatoCliniche()
     {
-        $fCliniche = USingleton::getInstance('FClinica');
-//        return $risultato = $fCliniche->cercaClinica($_POST['luogo'], $_POST['nome']);
-        
-//        return $risultato = $fCliniche->cercaClinica($_GET['parametro1'], $_GET['parametro2']);
-        $risultato =  $fCliniche->cercaClinica($_GET['parametro1'], $_GET['parametro2']);       
         $vCliniche = USingleton::getInstance('VRicercaCliniche');
+        $fCliniche = USingleton::getInstance('FClinica');
+        $risultato = $fCliniche->cercaClinica($vCliniche->recuperaValore('parametro1'), $vCliniche->recuperaValore('parametro2'));       
         $vCliniche->restituisciPaginaRisultatoCliniche($risultato);
         
         /*

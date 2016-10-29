@@ -152,12 +152,13 @@ class FClinica extends FUser{
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
+    
     /**
      * Metodo che permette di effettuare la ricerca di cliniche 
      * 
      * @param string $luogo Il luogo in cui si trova la clinica
      * @param string $nome Il nome della clinica che si vuole cercare
-     * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
+     * @return array|boolean Se la query è stata eseguita con successo, in caso contrario resituirà FALSE.
      */
     public function cercaClinica($nome, $luogo)
     {
@@ -180,10 +181,8 @@ class FClinica extends FUser{
         
         if(!empty($nome))
         {
-            echo "si nomeClinica";
             if(!empty($luogo))
             {
-                echo " si nomeClinica, luogo";
                 $query =  "SELECT NomeClinica, Località, Provincia, "
                         . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE), "
                         . "MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -199,7 +198,6 @@ class FClinica extends FUser{
             }
             else
             {  
-                echo " si nomeClinica, no luogo";
                 $query =  "SELECT NomeClinica, Località, Provincia, "
                         . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE) "
                         . "FROM clinica "
@@ -208,10 +206,8 @@ class FClinica extends FUser{
         }
         else
         {
-            echo "no nomeClinica";
             if(!empty($luogo))
             {
-                echo "no nomeClinica, si luogo";
                 $query =  "SELECT NomeClinica, Località, Provincia, "
                         . "MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -225,35 +221,9 @@ class FClinica extends FUser{
             }
             else
             {
-                echo "no nomeClinica, no luogo";
                 $query = "SELECT NomeClinica, Località, Provincia, PartitaIVA FROM clinica";
             }
-        }
-        
-        
-        /* vecchia versione
-        if (!empty($luogo)&& !empty($nome))
-        {
-            $query = "SELECT * FROM ".$this->_nomeTabella." WHERE NomeClinica = '"
-                    . $nome . "' AND (Località =  '" . $luogo ."' OR Provincia='" . $luogo . "' OR CAP='" . $luogo . "')";
-        }
-        elseif(!empty ($luogo))
-        {
-            $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE (Località =  '" 
-                    . $luogo . "' OR Provincia='" . $luogo . "' OR CAP='" . $luogo . "')";
-            
-        }
-        elseif (!empty($nome)) 
-        {
-            $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE NomeClinica = '"
-                    . $nome . "'";
-        }
-        else
-        {
-            $query = "SELECT * FROM " . $this->_nomeTabella;
-        }
-        fine vecchia versione*/
-        
+        }        
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
@@ -272,7 +242,6 @@ class FClinica extends FUser{
                 . "SET WorkingPlan='" . $workingPlan . "' "
                 . "WHERE PartitaIVA= '" . $partitaIVAClinica . "'";
         
-//        $query = "UPDATE clinica SET WorkingPlan= 'Ciaociao' WHERE PartitaIVA = '12345'";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }

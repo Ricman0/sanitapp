@@ -34,12 +34,15 @@ class CRegistrazione {
             
             case 'clinica':
                 $vRegistrazione->restituisciFormClinica();
+                break;
             
             case 'medico':
                 $vRegistrazione->restituisciFormMedico();
+                break;
 
             default:    // l'ultimo caso è quello di utente
-                $vRegistrazione->restituisciFormUtente();     
+                $vRegistrazione->restituisciFormUtente();  
+                break;
         }    
     }
     

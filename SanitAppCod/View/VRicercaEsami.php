@@ -19,18 +19,20 @@ class VRicercaEsami extends View{
         $this->visualizzaTemplate('ricercaEsami');
     }
     
-    
-    
-    
-    
-    
-    public function restituisciPaginaRisultatoEsami($risultato) 
+    /**
+     * Metodo che consente di visualizzare il risultato della ricerca degli esami
+     * in una tabella.
+     * 
+     * @access public
+     * @param array $esami Array contentente gli esami
+     */
+    public function restituisciPaginaRisultatoEsami($esami) 
     {
         //http://stackoverflow.com/questions/29297553/smarty-populate-html-table-columns-with-smarty-array-variable
         // html table nella documentazione di smarty
         $this->assegnaVariabiliTemplate('dati', $risultato);
         $this->assegnaVariabiliTemplate('controller', "esami");
-        return $this->visualizzaTemplate('tabellaEsami');
+        $this->visualizzaTemplate('tabellaEsami');
     }
     
     /**

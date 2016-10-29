@@ -33,13 +33,14 @@ class VRicercaCliniche extends View{
      * in una tabella.
      * 
      * @access public
+     * @param array $cliniche Array contentente le cliniche
      */
-    public function restituisciPaginaRisultatoCliniche($risultato) 
+    public function restituisciPaginaRisultatoCliniche($cliniche) 
     {
         //http://stackoverflow.com/questions/29297553/smarty-populate-html-table-columns-with-smarty-array-variable
         // html table nella documentazione di smarty
         $this->assegnaVariabiliTemplate('dati', $risultato);
-        return $this->visualizzaTemplate('tabellaCliniche');
+        $this->visualizzaTemplate('tabellaCliniche');
     }
     
     /**

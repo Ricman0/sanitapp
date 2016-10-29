@@ -168,7 +168,7 @@ class CAutenticazione {
                 }
                 else 
                 {
-                    $uCookie->incrementaCookie();  //incremento il cookie Tentativi
+                    $uCookie->incrementaCookie('Tentativi');  //incremento il cookie Tentativi
                     
                     if($uCookie->checkValiditaTentativi()) // massimo 3 tentativi
                     {

@@ -27,9 +27,9 @@ class CRicercaEsami {
     
     public function impostaPaginaRisultatoEsami() 
     {
-        $fEsami = USingleton::getInstance('FEsame');
-        $risultato = $fEsami->cercaEsame($_GET['parametro1'], $_GET['parametro2'], $_GET['parametro3']);
         $vEsami = USingleton::getInstance('VRicercaEsami');
+        $fEsami = USingleton::getInstance('FEsame');
+        $risultato = $fEsami->cercaEsame($vEsami->recuperaValore('parametro1'), $vEsami->recuperaValore('parametro2'), $vEsami->recuperaValore('parametro3'));
         $vEsami->restituisciPaginaRisultatoEsami($risultato);
         
         
@@ -38,8 +38,7 @@ class CRicercaEsami {
     
     public function gestisciEsami() {
         $vEsami = USingleton::getInstance('VRicercaEsami');
-        $task = $vEsami->getTask();
-        switch($task)
+        switch($vEsami->getTask())
         { 
             case 'visualizza':
                 $id = $vEsami->getId();
@@ -50,7 +49,8 @@ class CRicercaEsami {
                     $vEsami->visualizzaInfoEsameOspite($eEsame, "FALSE");
                 }
             break;
-            default :
+            
+            default : // cado della ricerca degli esami
                 $this->impostaPaginaRisultatoEsami();
                 break;
         }

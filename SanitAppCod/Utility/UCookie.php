@@ -132,14 +132,15 @@ class UCookie {
      * 
      * @access public
      */
-    public function incrementaCookie() {
-        $cookie = USingleton::getInstaces('UCookie');
-        $tentativi = $cookie->getCookie('Tentativi');
-        if (is_bool($tentativi)) {
-            $cookie->setcookie('tentativi', '1', time() + 15 * 60);
+    public function incrementaCookie($nomeCookie) 
+    {
+        $uCookie = USingleton::getInstaces('UCookie');
+        $cookie = $cookie->getCookie($nomeCookie); // supponiamo che $nomeCookie sia 'Tentativi'
+        if (is_bool($cookie)) {
+            $uCookie->setcookie($nomeCookie, '1', time() + 15 * 60);// imposta il cookie Tentativi
         } else {
-            $valoreTentativi = $tentativi + 1;
-            $cookie->setcookie('tentativi', $valoreTentativi, time() + 15 * 60);
+            $valoreCookie = $cookie + 1; // incrementa il valore del cookie Tentativi
+            $uCookie->setcookie($nomeCookie, $valoreCookie, time() + 15 * 60); // imposta il nuovo valore del cookie Tentativi
         }
     }
 

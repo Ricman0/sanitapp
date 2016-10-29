@@ -87,17 +87,12 @@ class CHome {
             
             case 'cliniche':
                 $cCliniche = USingleton::getInstance('CRicercaCliniche');
-                 $cCliniche->gestisciCliniche();
-//                $risultato = $cCliniche->impostaPaginaRisultatoCliniche();
-                //in $risultato c'è il risultato della query
+                $cCliniche->gestisciCliniche();
                 break;
             
             case 'esami':
                 $cEsami = USingleton::getInstance('CRicercaEsami');
                 $cEsami->gestisciEsami();
-//                $risultato = $cEsami->impostaPaginaRisultatoEsami();
-                //in $risultato c'è il risultato della query
-                
                 break;
 
             case 'mySanitApp':
@@ -171,15 +166,19 @@ class CHome {
     }
     
     /**
-     * Metodo che consente
+     * Metodo che consente gestire le richieste HTTP con metodo POST 
      * 
      * @access private
+     * @param string $controller Il valore del controller
      */
     private function smistaControllerPOST($controller)
     {
-//        echo ($controller);
         switch ($controller) 
         {
+            case 'autenticazione':
+                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+                $cAutenticazione->autenticaUser();
+                
             case 'registrazione':
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
                 //recupera dati e crea utente.
@@ -197,9 +196,7 @@ class CHome {
                 //in $risultato c'è il risultato della query
                 break;
 
-            case 'autenticazione':
-                $cAutenticazione = USingleton::getInstance('CAutenticazione');
-                $cAutenticazione->autenticaUser();
+            
                 
                 break;
             case 'servizi':
