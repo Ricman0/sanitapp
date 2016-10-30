@@ -107,21 +107,21 @@ class UValidazione {
         if (preg_match($pattern, $codiceFiscale)) 
         {
 //            echo $codiceFiscale;
-            $this->datiErrati['codiceFiscale'] = FALSE;
-            $this->datiValidi['codiceFiscale'] = $codiceFiscale;
+            $this->_datiErrati['codiceFiscale'] = FALSE;
+            $this->_datiValidi['codiceFiscale'] = $codiceFiscale;
 //            echo "OK";
 //            echo ($this->getValidati());
         } 
         else
         {
             
-            $this->datiErrati['codiceFiscale'] = $stringaErrore;
-//            echo ($this->datiErrati['codiceFiscale']);
+            $this->_datiErrati['codiceFiscale'] = $stringaErrore;
+//            echo ($this->_datiErrati['codiceFiscale']);
 //            echo "NO";
-            $this->validati = FALSE;
+            $this->_validati = FALSE;
 //            echo ($this->getValidati());
         }
-        return $this->validati;
+        return $this->_validati;
         
     }
     
@@ -191,7 +191,7 @@ class UValidazione {
             }
             $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
         }
-        return $this->validati;
+        return $this->_validati;
     }
     
      /**
@@ -228,7 +228,7 @@ class UValidazione {
             }
             $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
         }
-        return $this->validati;
+        return $this->_validati;
     }
     
     /**
@@ -478,8 +478,8 @@ class UValidazione {
         if (preg_match($pattern, $valore)) 
         {
             echo ($valore);
-            $this->datiErrati[$chiave] = FALSE;
-            $this->datiValidi[$chiave] = $valore;
+            $this->_datiErrati[$chiave] = FALSE;
+            $this->_datiValidi[$chiave] = $valore;
             echo "OK";
             echo ($this->getValidati());
         } 

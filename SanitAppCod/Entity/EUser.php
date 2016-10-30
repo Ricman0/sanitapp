@@ -54,7 +54,6 @@ class EUser {
      */
     public function __construct($username, $password = "", $email = "") 
     {
-        
         $this->_email = $email;
         $this->_username = $username;
         $this->_password = $password;

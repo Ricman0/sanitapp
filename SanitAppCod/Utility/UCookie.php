@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of UCookie
  *
@@ -134,14 +128,18 @@ class UCookie {
      */
     public function incrementaCookie($nomeCookie) 
     {
-        $uCookie = USingleton::getInstaces('UCookie');
-        $cookie = $cookie->getCookie($nomeCookie); // supponiamo che $nomeCookie sia 'Tentativi'
-        if (is_bool($cookie)) {
-            $uCookie->setcookie($nomeCookie, '1', time() + 15 * 60);// imposta il cookie Tentativi
-        } else {
-            $valoreCookie = $cookie + 1; // incrementa il valore del cookie Tentativi
-            $uCookie->setcookie($nomeCookie, $valoreCookie, time() + 15 * 60); // imposta il nuovo valore del cookie Tentativi
+        $uCookie = USingleton::getInstance('UCookie');
+        $valoreCookie = $uCookie->getCookie($nomeCookie); // supponiamo che $nomeCookie sia 'Tentativi'
+        if (is_bool($valoreCookie)) 
+        {
+            setcookie($nomeCookie, '1', time() + 15 * 60);// imposta il cookie Tentativi
         }
+        else 
+        {
+            $valoreCookie = $valoreCookie + 1; // incrementa il valore del cookie Tentativi
+            setcookie($nomeCookie, $valoreCookie, time() + 15 * 60); // imposta il nuovo valore del cookie Tentativi
+        }
+        print_r($_COOKIE);
     }
 
     /**

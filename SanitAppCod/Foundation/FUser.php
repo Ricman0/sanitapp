@@ -117,7 +117,7 @@ class FUser extends FDatabase {
      */
     public function esisteUserDB($username, $password) 
     {
-        $password = $this->trimEscapeStringa($password);
+        $username = $this->trimEscapeStringa($username);
         $password = $this->trimEscapeStringa($password);
         $query = "SELECT Username, TipoUser, Confermato, "
                 . "MATCH (Password) AGAINST ('$password ' IN BOOLEAN MODE) "

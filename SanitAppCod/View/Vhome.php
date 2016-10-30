@@ -48,26 +48,25 @@ class VHome extends View {
      * @param string $nav Il nome del template da assegnare alla variabile navigationBar in HomePage.tpl 
      * 
      */
-    public function impostaHeader($username=NULL) 
+    public function impostaHeader($username) 
     {
         if($username !== NULL)
         {
             // bisogna prima assegnare la variabili interne del template e poi prelevare il template
             $this->assegnaVariabiliTemplate('user', $username);
             $this->assegnaVariabiliTemplate('username', $username);
-            
         }
-       
         $log = $this->prelevaTemplate("log");
         $navBar = $this->prelevaTemplate("navigationBar");
         
         $this->assegnaVariabiliTemplate("logIn", $log);
         $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+        return $variabiliHeader = array("log"=>$log, "navigationBar"=>$navBar);
     }
     
-    public function restituisciHomePage() 
+    public function restituisciHomePage($username) 
     {
-        $this->impostaHeader();
+        $variabiliHeader = $this->impostaHeader($username);
         //prelevo  i template
 //        $logIn= $this->prelevaTemplate("logIn");
 //        $navBar = $this->prelevaTemplate("navigationBar");
@@ -77,8 +76,8 @@ class VHome extends View {
 //        $inserisci = $this->prelevaTemplate("mainRicerca");
 //        $this->assegnaVariabiliTemplate("mainRicerca", $inserisci);
         //assegno le variabili ai template
-//        $this->assegnaVariabiliTemplate("logIn", $logIn);
-//        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+        $this->assegnaVariabiliTemplate("logIn", $variabiliHeader['log']);
+        $this->assegnaVariabiliTemplate("navigationBar", $variabiliHeader['navigationBar']);
         $this->assegnaVariabiliTemplate("mainRicerca", $main);
 //        $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
         // visualizzo il template

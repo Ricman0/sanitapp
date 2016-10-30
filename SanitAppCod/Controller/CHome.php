@@ -14,19 +14,24 @@ class CHome {
      */
     public function impostaPagina() 
     {
-        $vHome = USingleton::getInstance('VHome');  
-        $cAutenticazione = USingleton::getInstance('CAutenticazione');
-        $cAutenticazione->autenticaUser();           
+        $vHome = USingleton::getInstance('VHome'); 
+              
+        
         switch ($vHome->getRequestMethod())  
         {
             case 'GET':
+                echo '---------get----------';
                 $this->smistaControllerGET($vHome->getController());
                 break;
             case 'POST': 
+                echo '-------post-----------';
                 $this->smistaControllerPOST($vHome->getController());
                 break;
             default:
-                $vHome->restituisciHomePage();
+//                $sessione = USingleton::getInstance('USession');
+//                $username = $sessione->leggiVariabileSessione('usernameLogIn');
+//                echo "---------------$username-------------";
+//                $vHome->restituisciHomePage($username);
                 break;
         } 
     }
@@ -159,8 +164,14 @@ class CHome {
                 break;
                 
             default:
-                $vHome = USingleton::getInstance('VHome');
-                $vHome->restituisciHomePage();
+                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+                $cAutenticazione->controllaUserAutenticato() ;
+                $vAutenticazione = USingleton::getInstance('VAutenticazione');
+                $vAutenticazione->restituisciHomePage();
+//                $vHome = USingleton::getInstance('VHome');
+//                $sessione = USingleton::getInstance('USession');
+//                $username = $sessione->leggiVariabileSessione('usernameLogIn');
+//                $vHome->restituisciHomePage($username);
                 break;
         }
     }
@@ -178,6 +189,7 @@ class CHome {
             case 'autenticazione':
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->autenticaUser();
+                break;
                 
             case 'registrazione':
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
@@ -195,9 +207,6 @@ class CHome {
                 //in $risultato c'è il risultato della query
                 break;
 
-            
-                
-                break;
             case 'servizi':
                 $cServizi = USingleton::getInstance('CGestioneServizi');
                 $cServizi->gestisciServiziPost();

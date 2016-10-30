@@ -67,6 +67,7 @@ class VAutenticazione extends View {
         
         $this->assegnaVariabiliTemplate("logIn", $log);
         $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+        return $variabiliHeader = array("log"=>$log, "navigationBar"=>$navBar);
     }
     
     /**
@@ -76,8 +77,13 @@ class VAutenticazione extends View {
      */
     public function impostaPaginaRecuperoCredenziali() 
     {
-        $this->impostaHeader();
-        $this->visualizzaTemplate('recuperoCredenziali');
+        $variabiliHeader = $this->impostaHeader();
+        $paginaRecuperoCredenziali = $this->prelevaTemplate('recuperoCredenziali');
+        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
+        $this->assegnaVariabiliTemplate('main', $paginaRecuperoCredenziali);
+        $this->visualizzaTemplate('headerMain');
+        
     }
     
     /**
@@ -87,8 +93,13 @@ class VAutenticazione extends View {
      */
     public function impostaPaginaConferma() 
     {
-        $this->impostaHeader();
-        $this->visualizzaTemplate('paginaConferma');
+        
+        $variabiliHeader = $this->impostaHeader();
+        $paginaConferma = $this->prelevaTemplate('paginaConferma');
+        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
+        $this->assegnaVariabiliTemplate('main', $paginaConferma);
+        $this->visualizzaTemplate('headerMain');
     }
     
     /**
@@ -131,8 +142,14 @@ class VAutenticazione extends View {
      * @access public
      */
     public function impostaPaginaLogIn() {
-        $this->impostaHeader();
-        $this->visualizzaTemplate("log");
+        $variabiliHeader = $this->impostaHeader();
+        $paginaLog = $this->prelevaTemplate('log');
+        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
+        $this->assegnaVariabiliTemplate('main', $paginaLog);
+        $this->visualizzaTemplate('headerMain');
+        
+       
     }
     
     
@@ -143,11 +160,11 @@ class VAutenticazione extends View {
      * @access public
      */
     public function restituisciHomePage() {
-        $log = $this->prelevaTemplate("log");
-        $navBar = $this->prelevaTemplate("navigationBar");
+//        $log = $this->prelevaTemplate("log");
+//        $navBar = $this->prelevaTemplate("navigationBar");
         $main = $this->prelevaTemplate("mainRicerca");
-        $this->assegnaVariabiliTemplate("logIn", $log);
-        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+//        $this->assegnaVariabiliTemplate("logIn", $log);
+//        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
         $this->assegnaVariabiliTemplate("mainRicerca", $main);
         $this->visualizzaTemplate("HomePage");
     }
@@ -160,21 +177,17 @@ class VAutenticazione extends View {
      */
     public function impostaHeaderEPaginaPersonale($username) 
     {
-        //log form
-        $this->assegnaVariabiliTemplate('user', $username);//assegno le variabili ai template
-        $log = $this->prelevaTemplate("log");// prelevo il template
-        //navigationBar
-        $this->assegnaVariabiliTemplate('username', $username);
-        $navigationBar = $this->prelevaTemplate('navigationBar');
+        print_r($_SESSION);
+        $variabiliHeader = $this->impostaHeader($username);
         // main
         $this->assegnaVariabiliTemplate("tastiLaterali", $this->_tastiLaterali);
        
         $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
-         $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
+        $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
 
 //        visualizzo il template 
-        $this->assegnaVariabiliTemplate('log', $log);
-        $this->assegnaVariabiliTemplate('navigationBar', $navigationBar);
+        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
         $this->assegnaVariabiliTemplate('main', $areaPersonale);
 
         $this->visualizzaTemplate('headerMain');
