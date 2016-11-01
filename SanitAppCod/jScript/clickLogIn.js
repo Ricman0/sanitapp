@@ -1,7 +1,7 @@
 $(document).ready(function () {
         
         $('#headerMain').on("click", "#submitLogIn", function () {
-        validazione("autenticazione");
+        validazione("autenticazione", "loginForm");
     });
         
         $('#headerMain').on("click", "#logOutButton", function () {

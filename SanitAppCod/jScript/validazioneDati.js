@@ -11,7 +11,7 @@ function validazione(task1, controller1)
             break;
 
         case "clinica":
-            if (controller1 == "impostazioni")
+            if (controller1 === "impostazioni")
             {
                 validazioneImpostazioniClinica();
             } else
@@ -21,11 +21,11 @@ function validazione(task1, controller1)
             break;
 
         case "autenticazione":
-            validazioneLogIn();
+            validazioneLogIn(controller1);
             break;
 
         case "aggiungi":
-            if (controller1 == "prenotazioni")
+            if (controller1 === "prenotazioni")
             {
 
                 validazioneCodiceFiscale();
@@ -79,7 +79,7 @@ function validazioneCodiceFiscale()
     });
 }
 
-function validazioneLogIn()
+function validazioneLogIn(formDaValidare)
 {
     jQuery.validator.addMethod("password", function (valore) {
         //espressione regolare per la password
@@ -92,7 +92,7 @@ function validazioneLogIn()
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
         return valore.match(regex);
     }, "L'username contiene solo _ , - , numeri, lettere maiuscole o minuscole");
-    $("#logInForm").validate({
+    $(formDaValidare).validate({
         rules:
                 {
                     usernameLogIn:
@@ -104,7 +104,7 @@ function validazioneLogIn()
                             {
                                 required: true,
                                 password: true
-                            },
+                            }
                 },
         messages:
                 {
@@ -115,13 +115,13 @@ function validazioneLogIn()
                     passwordLogIn:
                             {
                                 required: "Inserire password"
-                            },
+                            }
                 },
-        submitHandler: function (form)
+        submitHandler: function ()
         {
             alert('I dati log in sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            inviaDatiLogIn('#logInForm', '#headerMain');
+            inviaDatiLogIn(formDaValidare, '#headerMain');
 
         }
     });

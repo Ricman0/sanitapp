@@ -7,35 +7,19 @@ and open the template in the editor.
     Created on : 28-lug-2016, 16.49.27
     Author     : Riccardo
 */
+#logInFormDiv{
+    font-size: 11px;
+}
 
 .log{
-    font-size: 11px;
+    font-size: inherit;
     display: flex;
     line-height: normal;
     text-align: justify;
 }
 
 #logInForm input[type="text"], #logInForm input[type="password"] {
-    box-sizing: border-box;
-    font-size: inherit;
     width: 10%;
     min-width: 80px;
     padding:1px;
-}
-.logButton {
-    cursor: pointer;
-    display: inline-flex;
-    font-size: inherit;
-    min-width: 76px;
-    width: 8%;
-}
-
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-    span.psw{
-        display:inline;
-        float: none;
-
-    }
 }

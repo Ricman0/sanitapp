@@ -81,12 +81,6 @@ class CRegistrazione {
                         // dati corretti ma errore nel database
                         return $vRegistrazione->restituisciFormClinica($codiceODatiValidi);
                     }
-                } else {
-                    // dati corretti ma errore nel database
-
-                    echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                    return $vRegistrazione->restituisciFormClinica($inserito);
-                }
                 break;
 
             case 'medico':

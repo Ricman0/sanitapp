@@ -21,13 +21,6 @@ class VRicercaCliniche extends View{
     }
     
     
-    
-    
-    
-    
-    
-    
-    
     /**
      * Metodo che consente di visualizzare il risultato della ricerca delle cliniche
      * in una tabella.
@@ -39,7 +32,7 @@ class VRicercaCliniche extends View{
     {
         //http://stackoverflow.com/questions/29297553/smarty-populate-html-table-columns-with-smarty-array-variable
         // html table nella documentazione di smarty
-        $this->assegnaVariabiliTemplate('dati', $risultato);
+        $this->assegnaVariabiliTemplate('dati', $cliniche);
         $this->visualizzaTemplate('tabellaCliniche');
     }
     

@@ -166,6 +166,9 @@ input, select{
     font-weight: bold;
     cursor: pointer;
 }
+#logNavBar{
+    line-height: 0em;
+}
 
 /*@media only screen and (max-width: 1200px){
     #main{

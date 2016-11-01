@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="./Css/logo.css">
         <link rel="icon" href="./Immagini/favicon.ico" />       
         <link rel="stylesheet" type="text/css" href="./Css/log.css">
-       
+
         <!--       <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
                 <link rel="stylesheet" type="text/css" href="./Css/inserisciMedico.css">-->
         <link rel="stylesheet" type="text/css" href="./Css/navigationBar.css">
@@ -28,7 +28,7 @@
         <script type="text/javascript" src="./plugins/tablesorter/jquery.tablesorter.js"></script>
         <script type="text/javascript" src="./plugins/tablesorter/jquery.tablesorter.widgets.js"></script>
         <script type="text/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>
-        
+
         <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
         <script type="text/javascript" src="./jScript/eventi_click.js"></script>
         <script type="text/javascript" src="./jScript/clickRegistrazione.js"></script>
@@ -44,7 +44,7 @@
         <script type="text/javascript" src="./jScript/clickPrenotazione.js"></script>
         <script src='plugins/moment.js'></script>
         <script src='plugins/fullcalendar/fullcalendar.js'></script>
-        
+
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->
 
@@ -68,8 +68,10 @@
 
                 <div class="header" id="header">
                     <img id="logoSanitApp" src="Immagini/logoSanitApp.png" alt="logoSanitApp">
-                    {$logIn}
-                    {$navigationBar}    <!-- Navigation bar della pagina-->
+                    <div id="logNavBar">
+                        {$logIn}
+                        {$navigationBar}    <!-- Navigation bar della pagina-->
+                    </div>
                 </div>
                 <br>
                 <!-- Main della pagina-->
@@ -77,6 +79,9 @@
                 <div id="main">
                     {$mainRicerca}
                 </div> 
+                <button class="necessarioLogin">login</button>
+
+
             </div>
             <!--Footer della pagina-->
             <div id="footer">
