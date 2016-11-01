@@ -10,12 +10,8 @@ $(document).ready(function(){
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale"); 
     });
     
-    $('#headerMain').on("click", "#refertiAreaPersonaleUtente", function(){
-        inviaControllerTask('referti', 'utente', "#contenutoAreaPersonale");
-    });
-    
     $('#headerMain').on("click", "#impostazioniAreaPersonaleUtente", function(){
-        inviaControllerTask('impostazioni', 'utente', "#contenutoAreaPersonale");
+        inviaControllerTask('impostazioni', 'visualizza', "#contenutoAreaPersonale");
     });
     
     $('#headerMain').on("click", "#refertiAreaPersonaleUtente", function () {

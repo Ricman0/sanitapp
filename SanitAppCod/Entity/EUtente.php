@@ -412,4 +412,15 @@ class EUtente extends EUser {
         return $this->_prenotazioni;
     }
 
+    /**
+     * Metodo che consente di cercare tutti i referti di un utente
+     * 
+     * @access public
+     * @return Array Un array contenente tutti i referti di un utente
+     */
+    public function cercaReferti() 
+    {
+        $fReferti = USingleton::getInstance('FReferto');
+        return $fReferti->cercaRefertiUtente($this->_codFiscale);
+    }
 }

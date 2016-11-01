@@ -101,44 +101,82 @@ class EClinica extends EUser
             $via=NULL, $numeroCivico=NULL, $cap=NULL,$località=NULL, $provincia=NULL, $PEC=NULL,  
             $telefono=NULL, $capitaleSociale=NULL, $workingPlan=NULL, $esami=NULL) 
     {
-        parent::__construct($username, $password, $email);
-        $this->_partitaIVA= $partitaIVA;
-        $this->_nomeClinica = $nomeClinica;
-        $this->_titolareClinica =$titolareClinica;
-        $this->_via = $via;
-        if($numeroCivico!==FALSE)
+        
+        if($partitaIVA!==NULL && $username!==NULL)  
         {
-            $this->_numeroCivico = $numeroCivico; 
+            parent::__construct($username, $password, $email);
+            $this->_partitaIVA= $partitaIVA;
+            $this->_nomeClinica = $nomeClinica;
+            $this->_titolareClinica =$titolareClinica;
+            $this->_via = $via;
+            if($numeroCivico!==FALSE)
+            {
+                $this->_numeroCivico = $numeroCivico; 
+            }
+            else
+            {
+                $this->_numeroCivico = NULL;
+            }
+            $this->_CAP = $cap;
+            $this->_località = $località;
+            $this->_provincia = $provincia;
+            // trova la regione a cui appartiene la provincia inserita nella form dalla clinica e lo assegno
+            $this->_regione =$this->trovaRegione($provincia);
+
+
+            $this->_PEC = $PEC;
+            $this->_telefono = $telefono;
+            if($capitaleSociale!==FALSE)
+            {
+                $this->_capitaleSociale = $capitaleSociale; 
+            }
+            else
+            {
+                $this->_capitaleSociale = NULL;
+            }
+            if(isset($workingPlan))
+            {
+                $this->_workingPlan = $workingPlan; 
+            }            
+            $this->_esami = Array();
+            if(isset($esami))
+            {
+                $this->_esami = $esami; 
+            }
         }
         else
         {
-            $this->_numeroCivico = NULL;
-        }
-        $this->_CAP = $cap;
-        $this->_località = $località;
-        $this->_provincia = $provincia;
-        // trova la regione a cui appartiene la provincia inserita nella form dalla clinica e lo assegno
-        $this->_regione =$this->trovaRegione($provincia);
-        
-        
-        $this->_PEC = $PEC;
-        $this->_telefono = $telefono;
-        if($capitaleSociale!==FALSE)
-        {
-            $this->_capitaleSociale = $capitaleSociale; 
-        }
-        else
-        {
-            $this->_capitaleSociale = NULL;
-        }
-        if(isset($workingPlan))
-        {
-            $this->_workingPlan = $workingPlan; 
-        }            
-        $this->_esami = Array();
-        if(isset($esami))
-        {
-            $this->_esami = $esami; 
+            $fClinica = USingleton::getInstance('FClinica');
+            if($partitaIVA!==NULL && $username===NULL)
+            {
+                $attributiClinica = $fClinica->cercaClinicaByPartitaIVA($partitaIVA);
+            }
+            else
+            {
+                $attributiClinica = $fClinica->cercaClinicaByUsername($username);
+            }
+            if(is_array($attributiClinica) && count($attributiClinica)===1)
+            {
+                $this->_partitaIVA = $attributiClinica[0]["PartitaIVA"];
+                $this->_nomeClinica = $attributiClinica[0]["NomeClinica"];
+                $this->_titolareClinica =$attributiClinica[0]["Titolare"];
+                $this->_via = $attributiClinica[0]["Via"];
+                $this->_numeroCivico = $attributiClinica[0]["NumCivico"];
+                $this->_CAP = $attributiClinica[0]["CAP"];
+                $this->_località = $attributiClinica[0]["Località"];
+                $this->_provincia = $attributiClinica[0]["Provincia"];
+                $this->_regione = $attributiClinica[0]["Regione"];
+                parent::setEmail($attributiClinica[0]["Email"]);
+                $this->_PEC = $attributiClinica[0]["PEC"];
+                parent::setUsername($attributiClinica[0]["Username"]);
+                parent::setPassword($attributiClinica[0]["Password"]);
+                $this->_telefono = $attributiClinica[0]["Telefono"];
+                $this->_capitaleSociale = $attributiClinica[0]["CapitaleSociale"];
+                $this->_workingPlan = $attributiClinica[0]["WorkingPlan"]; 
+                parent::setConfermato($attributiClinica[0]["Confermato"]);
+                parent::setCodiceConfermaUtente($attributiClinica[0]["CodiceConferma"]);
+                $this->_esami = Array();
+            }
         }
         
 //        if($partitaIVA!==NULL && $username!==NULL)
@@ -316,7 +354,7 @@ class EClinica extends EUser
      * 
      * @return string La città o paese della clinica
      */
-    public function getLocalitàClinica()
+    public function getLocalitaClinica()
     {
         return $this->_località;
     }

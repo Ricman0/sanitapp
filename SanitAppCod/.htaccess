@@ -28,7 +28,7 @@
   RewriteRule ^(registrazione)/(conferma)/(utente|clinica|medico)/(\w+)?/(\w+)?$ index.php?controller=$1&task=$2&utente=$3&username=$4&codice=$5 [L]
   RewriteRule ^(autenticazione|mySanitApp)?$ index.php?controller=$1
   RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(prenotazioni|referti|impostazioni)/(utente)?$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(prenotazioni|referti|impostazioni)/(visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(impostazioni)/(utente)/(modifica)/(informazioni)?$ index.php?controller=$1&task=$2&task2=$3&task3=$4 [L]
   RewriteRule ^(prenotazioni|pazienti|referti|clienti)/(aggiungi|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]

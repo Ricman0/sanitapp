@@ -130,8 +130,9 @@ class FClinica extends FUser{
      */
     public function cercaClinicaByPartitaIVA($partitaIVA) 
     {
-        $query = "SELECT * "
-                . "FROM " . $this->_nomeTabella . " WHERE (PartitaIVA ='" . $partitaIVA. "')";
+        $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
+                . "FROM appuser," . $this->_nomeTabella . " WHERE (PartitaIVA ='" . $partitaIVA . "' AND "
+                . "appuser.Username=clinica.Username)";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
@@ -146,9 +147,9 @@ class FClinica extends FUser{
      */
     public function cercaClinicaByUsername($username) 
     {
-        $query = "SELECT *,"
-                . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-                . "FROM " . $this->_nomeTabella . " WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE))";
+        $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
+                . "FROM appuser," . $this->_nomeTabella . " WHERE (clinica.Username ='" . $username . "' AND "
+                . "appuser.Username=clinica.Username)";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }

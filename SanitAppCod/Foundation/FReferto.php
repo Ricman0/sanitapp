@@ -41,9 +41,30 @@ class FReferto extends FDatabase{
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(referto.PartitaIVAClinica='" . $partitaIVAClinica . "')) ";
         $risultato = $this->eseguiQuery($query);
-        print_r($risultato);
+//        print_r($risultato); // per il debug, da eliminare
         return $risultato;
         
+    }
+    
+    
+    /**
+     * Metodo che consente di cercare tutti i referti di un utente il cui 
+     * codice fiscale è passato come parametro
+     * 
+     * @access public
+     * @param string $codiceFiscale Il codice fiscale dell'utente di cui cercare i referti
+     * @return Array I referti dell'utente
+     */
+    public function cercaRefertiUtente($codiceFiscale)
+    {
+        $query =   "SELECT IDReferto, esame.IDEsame, prenotazione.IDPrenotazione, esame.NomeEsame, clinica.NomeClinica,  "
+                . "DataReferto "
+                . "FROM referto, prenotazione, esame, clinica "
+                . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscale . "') AND "
+                . "(referto.PartitaIVAClinica=prenotazione.PartitaIVAClinica)) ";
+        $risultato = $this->eseguiQuery($query);
+        return $risultato; 
     }
     
     /**

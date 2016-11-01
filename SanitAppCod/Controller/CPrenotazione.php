@@ -176,12 +176,29 @@ class CPrenotazione {
                         } 
                         else {
                             echo ' visualizza una sola prenotazione ';
+                            // attenzione controllare la progettazione di  Prenotazione
                             $ePrenotazione = new EPrenotazione($idPrenotazione);
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
                             $eEsame = new EEsame($idEsame);
                             $nomeEsame = $eEsame->getNomeEsame();
                             $medicoEsame = $eEsame->getMedicoEsame();
-                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, NULL, NULL, $nomeEsame, $medicoEsame, $tipoUser);
+                            $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
+                            $eClinica = new EClinica(NULL, $partitaIVA);
+                            if($ePrenotazione->getTipoPrenotazione()==='U')
+                            {
+                                $eUtente = new EUtente($ePrenotazione->getUtentePrenotaEsamePrenotazione());
+                                $nome = $eUtente->getNomeUtente();
+                                $cognome = $eUtente->getCognomeUtente();
+                            }
+                            else
+                            {
+                                $eMedico = new EMedico($ePrenotazione->getMedicoPrenotaEsamePrenotazione());
+                                $nome = $eMedico->getNomeMedico();
+                                $cognome = $eMedico->getCognomeMedico();
+                            }
+                            $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
+                            $idReferto = $eReferto->getIDReferto();
+                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome);
                         }
                         break;
 

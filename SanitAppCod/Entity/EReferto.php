@@ -66,7 +66,7 @@ class EReferto {
      * @param string $medico
      * @param blob $contenuto
      */    
-    public function __construct($medico, $idPrenotazione, $partitaIvaClinica, $idEsame, $contenuto) 
+    public function __construct($idPrenotazione, $partitaIvaClinica, $idEsame, $medico=NULL,  $contenuto=NULL) 
     {
         $this->_IDReferto = uniqid();
         $this->_idPrenotazione = $idPrenotazione;
