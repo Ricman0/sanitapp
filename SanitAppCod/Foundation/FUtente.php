@@ -143,13 +143,14 @@ class FUtente extends FUser{
      * 
      * @access public
      * @param string $username Username dell'utente da cercare
-     * @return array|boolean Un array contenente l'utente cercato 
+     * @return array|boolean Un array contenente l'utente cercato
      */
     public function cercaUtente($username)
     {
-        $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE Username='" . $username . "'";
-        $risultato = $this->eseguiQuery($query);
-        echo "count: ". count($risultato);        
+        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+                . "WHERE appuser.Username='" . $username . "' AND "
+                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+        $risultato = $this->eseguiQuery($query);    
         return $risultato;
         
     }

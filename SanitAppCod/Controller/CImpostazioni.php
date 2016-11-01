@@ -24,13 +24,14 @@ class CImpostazioni {
                 $eUtente = new EUtente(NULL, $username);
 
                 $task2 = $vImpostazioni->getTask2();
-                echo ($task2);
                 // per ora non metto isset ma solo se è = a modifica
-                if ($task2 == "modifica") {
-                    echo "modifica informazioni";
+                if ($task2 == "modifica") 
+                {
                     $modificaImpostazioni = $vImpostazioni->getTask3();
                     $vImpostazioni->modificaImpostazioniUtente($eUtente, $modificaImpostazioni);
-                } else {
+                } 
+                else 
+                {
                     $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
                 }
                 break;

@@ -70,20 +70,50 @@ class EUtente extends EUser{
      */
     public function __construct($cf = NULL, $username = NULL,$password = "", $email = "", $nome = "", $cognome = "", $via = "", $numeroCivico = "", $cap = "", $medico = NULL) 
     {
-        // richiamo il costruttore padre
-        parent::__construct($username, $password, $email);
-        $this->_nome = $nome;
-        $this->_cognome = $cognome;
-        $this->_codFiscale = $cf;
-        $this->_via = $via;
-        if (isset($numeroCivico)) {
-            $this->_numeroCivico = $numeroCivico;
-        } else {
-            $this->_numeroCivico = NULL;
+        if ($cf === NULL && $username !== NULL) 
+        {
+            //caso in cui possiedo l'username ma non il codice fiscale
+//            $sessione = USingleton::getInstance('USession');
+//            $username = $sessione->leggiVariabileSessione('usernameLogIn');
+            $fUtente = USingleton::getInstance('FUtente');
+            $risultato = $fUtente->cercaUtente($username);
+//            echo "Utente trovato";
+            if (!is_bool($risultato)) 
+            {
+                // esiste quell'utente
+                parent::setUsername($risultato[0]['Username']);
+                parent::setPassword($risultato[0]['Password']);
+                parent::setEmail($risultato[0]['Email']);
+                parent::setConfermato($risultato[0]['Confermato']);                
+                parent::setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
+                parent::setTipoUser($risultato[0]['TipoUser']);
+                $this->setNomeUtente($risultato[0]['Nome']);
+                $this->setCognomeUtente($risultato[0]['Cognome']);
+                $this->setCodiceFiscaleUtente($risultato[0]['CodFiscale']);
+                $this->setViaUtente($risultato[0]['Via']);
+                $this->setNumCivicoUtente($risultato[0]['NumCivico']);
+                $this->setCAPUtente($risultato[0]['CAP']);
+                $this->setMedicoCurante($risultato[0]['CodFiscaleMedico']);    
         }
-        $this->_CAP = $cap;
-        $this->_prenotazioni = new ArrayObject(); // da vedere:array di oggetti o bastava semplicemente Array()??
-        $this->_medicoCurante = $medico;
+        else
+        {
+            // caso in cui gli passo tutti i parametri
+            // richiamo il costruttore padre
+            parent::__construct($username, $password, $email);
+            $this->_nome = $nome;
+            $this->_cognome = $cognome;
+            $this->_codFiscale = $cf;
+            $this->_via = $via;
+            if (isset($numeroCivico)) {
+                $this->_numeroCivico = $numeroCivico;
+            } else {
+                $this->_numeroCivico = NULL;
+            }
+            $this->_CAP = $cap;
+            $this->_prenotazioni = new ArrayObject(); // da vedere:array di oggetti o bastava semplicemente Array()??
+            $this->_medicoCurante = $medico;
+        }
+        
        
         
 //        if ($cf === NULL && $username !== NULL) 
@@ -169,42 +199,40 @@ class EUtente extends EUser{
 //    
 //            }
 //        }
-    }
+    }}
 
     //metodi get
     /**
      * Metodo per conoscere il nome dell'utente
      * 
+     * @access public
      * @return string Il nome dell'utente
      */
-    public function getNomeUtente() {
+    public function getNomeUtente() 
+    {
         return $this->_nome;
     }
 
-    /**
-     * Metodo per conoscere il codice fiscale del medico curante dell'utente
-     * 
-     * @return string Il cf del medico dell'utente
-     */
-    public function getMedicoUtente() {
-        return $this->_medicoCurante;
-    }
+
 
     /**
      * Metodo per conoscere il cognome dell'utente
      * 
      * @return string Il cognome dell'utente
      */
-    public function getCognomeUtente() {
+    public function getCognomeUtente() 
+    {
         return $this->_cognome;
     }
 
     /**
      * Metodo per conoscere il codice fiscale dell'utente
      * 
+     * @access public
      * @return string Il codice fiscale dell'utente
      */
-    public function getCodiceFiscaleUtente() {
+    public function getCodiceFiscaleUtente() 
+    {
         return $this->_codFiscale;
     }
     
@@ -213,28 +241,45 @@ class EUtente extends EUser{
     /**
      * Metodo per conoscere la via in cui risiede l'utente
      * 
+     * @access public
      * @return string Il nome della via in cui risiede l'utente
      */
-    public function getViaUtente() {
+    public function getViaUtente() 
+    {
         return $this->_via;
     }
 
     /**
      * Metodo per conoscere il numero civico della via in cui risiede l'utente
      * 
+     * @access public
      * @return int Il numero civico della via in cui risiede l'utente
      */
-    public function getNumCivicoUtente() {
+    public function getNumCivicoUtente() 
+    {
         return $this->_numeroCivico;
     }
 
     /**
      * Metodo per conoscere il cap del paese in cui risiede l'utente
      * 
+     * @access public
      * @return string Il cap del paese in cui risiede l'utente
      */
-    public function getCAPUtente() {
+    public function getCAPUtente() 
+    {
         return $this->_CAP;
+    }
+
+    /**
+     * Metodo per conoscere il codice fiscale del medico curante dell'utente
+     * 
+     * @access public
+     * @return string Il codice fiscale del medico curante dell'utente
+     */
+    public function getMedicoCurante() 
+    {
+        return $this->_medicoCurante;
     }
 
     
@@ -242,9 +287,11 @@ class EUtente extends EUser{
     /**
      * Metodo per conoscere le prenotazioni dell'utente
      * 
+     * @access public
      * @return Array(EPrenotazione) Le prenotazioni dell'utente
      */
-    public function getPrenotazioniUtente() {
+    public function getPrenotazioniUtente()
+    {
         return $this->_prenotazioni;
     }
 
@@ -253,64 +300,89 @@ class EUtente extends EUser{
     /**
      * Metodo che permette di modificare il nome dell'utente
      * 
+     * @access public
      * @param string $nome Il nome dell'utente
      */
-    public function setNomeUtente($nome) {
+    public function setNomeUtente($nome) 
+    {
         $this->_nome = $nome;
     }
 
     /**
      * Metodo che permette di modificare il cognome dell'utente
      * 
+     * @access public
      * @param string $cognome Il cognome dell'utente
      */
-    public function setCognomeUtente($cognome) {
+    public function setCognomeUtente($cognome) 
+    {
         $this->_cognome = $cognome;
     }
 
     /**
      * Metodo che permette di modificare il codice fiscale dell'utente
      * 
+     * @access public
      * @param string $codFiscale Il codice fiscale dell'utente
      */
-    public function setCodiceFiscaleUtente($codFiscale) {
+    public function setCodiceFiscaleUtente($codFiscale) 
+    {
         $this->_codFiscale = $codFiscale;
     }
 
     /**
      * Metodo che permette di modificare l'email dell'utente
      * 
+     * @access public
      * @param string $email L'email dell'utente
      */
-    public function setEmailUtente($email) {
+    public function setEmailUtente($email) 
+    {
         return $this->_email = $email;
     }
 
     /**
      * Metodo che permette di modificare la via dell'utente
      * 
+     * @access public
      * @param string $via La nuova via dell'utente
      */
-    public function setViaUtente($via) {
+    public function setViaUtente($via) 
+    {
         $this->_via = $via;
     }
 
     /**
      * Metodo che permette di modificare il numero civico dell'utente
      * 
+     * @access public
      * @param int $numCiv Il nuovo numero civico dell'utente
      */
-    public function setNumCivicoUtente($numCiv) {
+    public function setNumCivicoUtente($numCiv) 
+    {
         $this->_numeroCivico = $numCiv;
     }
 
     /**
      * Metodo che permette di modificare il CAP dell'utente
      * 
+     * @access public
      * @param string $cap Il nuovo CAP dell'utente
      */
-    public function setCAPUtente($cap) {
+    public function setCAPUtente($cap) 
+    {
         $this->_CAP = $cap;
+    }
+    
+    /**
+     * Metodo che permette di modificare il codice fiscale del medico curante dell'utente
+     * 
+     * @access public
+     * @param string $medico Il codice fiscale del medico curante dell'utente
+     */
+    public function setMedicoCurante($medico) 
+    {
+        $this->_medicoCurante = $medico;
     }
 
 
@@ -318,10 +390,12 @@ class EUtente extends EUser{
      * Metodo che permette di aggiungere una prenotazione nell'array di 
      * prenotazioni dell'utente
      * 
+     * @access public
      * @param Entity.EPrenotazione $prenotazione Una nuova prenotazione effettuata a 
      *                      nome dell'utente.
      */
-    public function aggiungiPrenotazioneUtente($prenotazione) {
+    public function aggiungiPrenotazioneUtente($prenotazione) 
+    {
         $this->_prenotazioni->append($prenotazione); // non so se sia giusto o se debba usare offsetSet() 
     }
 
@@ -331,13 +405,17 @@ class EUtente extends EUser{
      * @access public
      * @return Boolean TRUE se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
      */
-    public function inserisciUtenteDB() {
+    public function inserisciUtenteDB() 
+    {
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);
-        if ($fUtente->inserisciUtente($this) === TRUE) {
+        if ($fUtente->inserisciUtente($this) === TRUE) 
+        {
             return TRUE;
-        } else {
+        }
+        else 
+        {
             return FALSE;
         }
     }

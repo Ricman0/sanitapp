@@ -28,10 +28,6 @@ class CHome {
                 $this->smistaControllerPOST($vHome->getController());
                 break;
             default:
-//                $sessione = USingleton::getInstance('USession');
-//                $username = $sessione->leggiVariabileSessione('usernameLogIn');
-//                echo "---------------$username-------------";
-//                $vHome->restituisciHomePage($username);
                 break;
         } 
     }

@@ -45,6 +45,11 @@ class EUser {
     private $_confermato;
     
     /**
+     * @var string $_tipoUser, variabile di tipo string, che contiene la tipologia di user (ad esempio medico)
+     */
+    private $_tipoUser;
+    
+    /**
      * Costruttore della classe EUser
      * 
      * @param string $email L'email dell'utente
@@ -59,6 +64,7 @@ class EUser {
         $this->_password = $password;
         $this->_codiceConferma = md5($username.$email.date('mY'));
         $this->_confermato = FALSE;
+        $this->_tipoUser="";
         
 //        if ($username !== NULL) 
 //        {
@@ -191,6 +197,16 @@ class EUser {
     {
         return $this->_confermato;
     }
+    
+    /**
+     * Metodo per conoscere il tipo di user
+     * 
+     * @return string il tipo di user
+     */
+    public function getTipoUser() 
+    {
+        return $this->_tipoUser;
+    }
 
     //metodi set
 
@@ -245,6 +261,16 @@ class EUser {
     public function setConfermato($confermato) 
     {
         $this->_confermato = $confermato;
+    }
+    
+    /**
+     * Metodo per impostare il tipo di user
+     * 
+     *  @param string $tipo Il tipo di user
+     */
+    public function setTipoUser($tipo) 
+    {
+        $this->_tipoUser = $tipo;
     }
 
     /**

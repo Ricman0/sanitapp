@@ -23,7 +23,7 @@ class FUser extends FDatabase {
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "appuser";
-        $this->_attributiTabella = "Username, Password, TipoUtente, Email, Confermato, CodiceConferma";
+        $this->_attributiTabella = "Username, Password, Email, Confermato, CodiceConferma, TipoUser";
     }
     
     /** 
@@ -40,7 +40,8 @@ class FUser extends FDatabase {
                 . $this->trimEscapeStringa($user->getPassword()) . "', '"
                 . $this->trimEscapeStringa($user->getEmail()) . "', '" 
                 . $user->getConfermato() . "', '"
-                . $this->trimEscapeStringa($user->getCodiceConferma()) . "'";
+                . $this->trimEscapeStringa($user->getCodiceConferma()) . "','"
+                . $user->getTipoUser() . "'";
         
         return $valoriAttributi;
         
