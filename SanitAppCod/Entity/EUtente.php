@@ -419,5 +419,18 @@ class EUtente extends EUser{
             return FALSE;
         }
     }
+    
+    /**
+     * Metodo che consente di cercare tutte le prenotazioni di un utente
+     * 
+     * @access public
+     * @return Array Un array contenente tutte le prenotazione di un utente
+     */
+    public function cercaPrenotazioni() 
+    {
+        $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+        $this->_prenotazioni = $fPrenotazioni->cercaPrenotazioni($this->_codFiscale);
+        return $this->_prenotazioni;
+    }
 
 }

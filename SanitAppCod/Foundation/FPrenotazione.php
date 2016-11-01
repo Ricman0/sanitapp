@@ -41,9 +41,9 @@ class FPrenotazione extends FDatabase{
      * @return boolean|array Il risultato della query
      * 
      */
-    public function cercaPrenotazioni($codiceFiscaleUtente, $idPrenotazione)
+    public function cercaPrenotazioni($codiceFiscaleUtente, $idPrenotazione=NULL)
     {
-        if($idPrenotazione!==FALSE)
+        if($idPrenotazione!==NULL && $idPrenotazione!==FALSE)//posso togliere questa seconda condizione ma metto != FALSE poichè magari getId() può non contenere l'id e per qualche motivo c'è un errore
         {
             // si vuole visualizzare una prenotazione dell'utente
             $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "
@@ -65,8 +65,9 @@ class FPrenotazione extends FDatabase{
                 . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "')) ";
         }
-                        
+//        echo $query; // per il debug, da eliminare
         $risultato = $this->eseguiQuery($query);
+//        print_r($risultato); // per il debug, da eliminare
         return $risultato;
     }
     
