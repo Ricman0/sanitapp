@@ -143,16 +143,19 @@ class VPrenotazione extends View{
             $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
             return $this->visualizzaTemplate('cercaUtente');
     }
-    public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUtente) 
+    public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto=NULL, $nome, $cognome) 
     {
         echo " visualizzaInfoPrenotazione ";
-        print_r($prenotazione);
         $this->assegnaVariabiliTemplate('prenotazione', $prenotazione);        
-        $this->assegnaVariabiliTemplate('tipoUtente', $tipoUtente);
+        $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
         $this->assegnaVariabiliTemplate('nomeUtente', $nomeUtente);
+        $this->assegnaVariabiliTemplate('eClinica', $eClinica);
+        $this->assegnaVariabiliTemplate('idReferto', $idReferto);
         $this->assegnaVariabiliTemplate('cognomeUtente', $cognomeUtente);
         $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
         $this->assegnaVariabiliTemplate('medicoEsame', $medicoEsame);
+        $this->assegnaVariabiliTemplate('nome', $nome);
+        $this->assegnaVariabiliTemplate('cognome', $cognome);
         return $this->visualizzaTemplate("infoPrenotazione");
         
     }
