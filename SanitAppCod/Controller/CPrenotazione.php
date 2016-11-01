@@ -143,33 +143,35 @@ class CPrenotazione {
         return $orari = Array('orari' => $orariDisponibili);
     }
 
-    public function gestisciPrenotazioni() {
+    public function gestisciPrenotazioni() 
+    {
         $sessione = USingleton::getInstance('USession');
-        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+//        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        
         $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazioni->getTask();
-        $codiceFiscaleUtente = "";
+//        $codiceFiscaleUtente = "";
         switch ($task) {
             case 'visualizza':
-                
-                
-                echo $tipoUser;
                 switch ($tipoUser) 
                 {
-                    case 'Utente':
+                    case 'utente':
                         $idPrenotazione = $vPrenotazioni->getId();
-                        if ($idPrenotazione === FALSE) {
-                            echo "visualizza tutte le prenotazioni ";
+                        if ($idPrenotazione === FALSE) 
+                        {
+                            //visualizza tutte le prenotazioni 
+                            $username = $sessione->leggiVariabileSessione('usernameLogIn');
                             $eUtente = new EUtente(NULL, $username);
-                            $codiceFiscaleUtente = $eUtente->getCodiceFiscaleUtente();
-                            $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-                            $id = $vPrenotazioni->getId();
-                            $risultato = $fPrenotazioni->cercaPrenotazioni($codiceFiscaleUtente, $id);
-                            if (!is_bool($risultato)) {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($risultato);
-                            } else {
-                                echo "errore in Cprenotazione VisualizzaPrenotazioni in utente";
+                            $prenotazioniUtente = $eUtente->cercaPrenotazioni();
+                            if (!is_bool($prenotazioniUtente)) 
+                            {
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($prenotazioniUtente);
+                            } 
+                            else 
+                            {
+                                //errore 
+                                echo "errore in Cprenotazione VisualizzaPrenotazioni in utente";// da eliminare questa riga, è solo per il debug veloce
                             }
                         } 
                         else {
@@ -183,7 +185,7 @@ class CPrenotazione {
                         }
                         break;
 
-                    case 'Clinica':
+                    case 'clinica':
                         $idPrenotazione = $vPrenotazioni->getId();
                         if ($idPrenotazione === FALSE) 
                         {
@@ -218,7 +220,7 @@ class CPrenotazione {
                         echo 'non sono utete non sono clinica';
                     break;
 
-                    case 'Medico':
+                    case 'medico':
                         break;
 
                     default:

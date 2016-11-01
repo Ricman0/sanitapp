@@ -102,7 +102,6 @@ class VPrenotazione extends View{
      */
     public function restituisciPaginaRisultatoPrenotazioni($risultato)
     {
-//        $this->prelevaTemplate('tabellaPrenotazioni');
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         $this->assegnaVariabiliTemplate('dati', $risultato);
         return $this->visualizzaTemplate('tabellaPrenotazioni');

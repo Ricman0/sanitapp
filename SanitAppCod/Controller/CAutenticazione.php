@@ -64,15 +64,29 @@ class CAutenticazione {
 //    }
     
     /**
-     * Metodo che permette l'autenticazione di un utente qualsiasi
+     * Metodo che permette di controllare se un user è autenticato
      * 
      * @access public
      * @param USession $sessione La sessione relativa ad utente da controllare e modificare
      * @return USession La sessione eventualmente modificata se è stato autenticato un utente
      */
-    public function userAutenticato() 
+    public function controllaUserAutenticato() 
     {
-        
+        $username = NULL;
+        $sessione = USingleton::getInstance('USession');
+        $vAutenticazione = USingleton::getInstance('VAutenticazione');
+        if($sessione->checkVariabileSessione("loggedIn") === TRUE) // se è già autenticato
+        {
+            //user autenticato
+            
+            $username = $sessione->leggiVariabileSessione('usernameLogIn');
+            $vAutenticazione->impostaHeader($username);
+        }
+        else
+        {
+            $vAutenticazione->impostaHeader();            
+        }
+        return $username;
     }
             
             
@@ -133,15 +147,10 @@ class CAutenticazione {
         $sessione = USingleton::getInstance('USession');
         $uCookie = USingleton::getInstance('UCookie');
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
-        if($sessione->checkVariabileSessione("loggedIn") === TRUE) // se è già autenticato
+        $this->controllaUserAutenticato();
+        if (!empty($username=$vAutenticazione->recuperaValore('usernameLogIn')) && !empty($password=$vAutenticazione->recuperaValore('passwordLogIn'))) // se non è stato ancora autenticato ma ha inserito di dati di log in
         {
-            //user autenticato
-            $username = $sessione->leggiVariabileSessione('usernameLogIn');
-            $vAutenticazione->impostaHeader($username);
-            // questo if può essere eliminato se faccio ritornare $sessione
-        }
-        elseif (!empty($username=$vAutenticazione->recuperaValore('usernameLogIn')) && !empty($password=$vAutenticazione->recuperaValore('passwordLogIn'))) // se non è stato ancora autenticato ma ha inserito di dati di log in
-        {
+            
             $datiLogIn = array('username' => $username, 'password' => $password);
             $validazione = USingleton::getInstance('UValidazione');
             if($validazione->validaDatiLogIn($datiLogIn) === TRUE)
@@ -154,6 +163,7 @@ class CAutenticazione {
                     $uCookie->eliminaCookie('Tentativi');
                     if($risultato[0]['Confermato']== TRUE)// user confermato
                     {
+                        print_r($_SESSION);
                         $eUser->attivaSessioneUser($username, $risultato[0]['TipoUser'] );
                         $vAutenticazione->setTastiLaterali($risultato[0]['TipoUser']);
                         $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
@@ -162,7 +172,6 @@ class CAutenticazione {
                     else //user non confermato ma esistente nel DB
                     {
                         // ritorna form per effettuare conferma
-                        $vAutenticazione->impostaHeader();
                         $vAutenticazione->impostaPaginaConferma();
                     }
                 }
@@ -180,21 +189,11 @@ class CAutenticazione {
                     {
                         // pagina recupero credenziali 
                         $uCookie->eliminaCookie('Tentativi');
-                        
                         $vAutenticazione->impostaPaginaRecuperoCredenziali();
                     }
                 }
             }
-        } 
-        else
-        {
-            $vAutenticazione->impostaHeader();
-//            // display the login form
-//            $vAutenticazione->impostaPaginaLogIn();
-//            //imposto la variabile di sessione loggedIn a False
-//            $sessione->impostaVariabileSessione('loggedIn', FALSE);
-            
-        }
+        }        
     }
         
     
@@ -345,6 +344,7 @@ class CAutenticazione {
     {
         $sessione = USingleton::getInstance('USession');
         $sessione->terminaSessione();
+        $this->controllaUserAutenticato() ;
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         $vAutenticazione->restituisciHomePage();
     }

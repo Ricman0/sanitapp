@@ -14,7 +14,7 @@
             <input type="text" name="codice" value ="{$utente->getCodiceFiscaleUtente()}" readonly>
             <br>
             <label for name="email">Email :</label>
-            <input type="text" name="email" value ="{$utente->getEmailUtente()}" readonly>
+            <input type="text" name="email" value ="{$utente->getEmail()}" readonly>
             <br>
             {if isset($modificaInformazioni)}
                 <label for name="via">Indirizzo :</label>
@@ -42,9 +42,9 @@
         <h4>
             MEDICO CURANTE
         </h4>
-        {if NULL !== $utente->getMedicoUtente()}
+        {if NULL !== $utente->getMedicoCurante()}
             <label for name="medicoUtente">Medico :</label>
-            <input type="text" name="medicoUtente" value ="{$utente->getMedicoUtente()}" readonly>
+            <input type="text" name="medicoUtente" value ="{$utente->getMedicoCurante()}" readonly>
             <br>
             <input type="button" id="modificaMedicoUtente" value="Modifica Medico">  
         {else}
@@ -59,7 +59,7 @@
         {if isset($utente)}                    
             {if isset($modificaCredenziali)}
                 <label for name="username">Username :</label>
-                <input type="text" name="username" value ="{$utente->getUsernameUtente()}"readonly>
+                <input type="text" name="username" value ="{$utente->getUsername()}"readonly>
                 <label for name="password">Password :</label>
                 <input type="password" name="password">
                 <label for name="ripetiPassword">Ripeti Password :</label>
@@ -68,7 +68,7 @@
                 <input type="button" id="inviaNuovaPasswordUtente" value="Invia Nuova Password">
             {else}  
                 <label for name="username">Username :</label>
-                <input type="text" name="username" value ="{$utente->getUsernameUtente()}" readonly>
+                <input type="text" name="username" value ="{$utente->getUsername()}" readonly>
                 <br>
                 <input type="button" id="modificaPasswordUtente" value="Modifica Credenziali">
             {/if}

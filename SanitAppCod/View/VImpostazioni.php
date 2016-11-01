@@ -24,7 +24,7 @@ class VImpostazioni extends View{
     public function visualizzaImpostazioniUtente($utente)
     {  
        $this->assegnaVariabiliTemplate('utente', $utente);
-       return $this->visualizzaTemplate('impostazioniUtente'); 
+       $this->visualizzaTemplate('impostazioniUtente'); 
     }
     
     /**
