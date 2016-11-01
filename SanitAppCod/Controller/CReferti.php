@@ -19,21 +19,20 @@ class CReferti {
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vReferti = USingleton::getInstance('VReferti');
         $task = $vReferti->getTask();
-        
         switch ($task) {
             case 'visualizza':
                 $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
                 
                 switch ($tipoUser) {
-                    case 'Clinica':
+                    case 'clinica':
                         $eClinica = new EClinica($username);
                         $partitaIVAClinica = $eClinica->getPartitaIVAClinica();
                         $fReferti = USingleton::getInstance('FReferto');
-                        $risultato = $fReferti->cercaRefertiClinica($partitaIVAClinica);
-                        if(!is_bool($risultato))
+                        $referti = $fReferti->cercaRefertiClinica($partitaIVAClinica);
+                        if(!is_bool($referti))
                         {
-                            print_r($risultato);
-                            $vReferti->restituisciPaginaRisultatoRefertiClinica($risultato);
+                            print_r($referti);
+                            $vReferti->restituisciPaginaRisultatoReferti($referti,$tipoUser);
                         }
                         else
                         {
@@ -43,7 +42,12 @@ class CReferti {
 
 
                         break;
-
+                    
+                    case 'utente':
+                        $eUtente = new EUtente(NULL, $username);
+                        $referti = $eUtente->cercaReferti();
+                        $vReferti->restituisciPaginaRisultatoReferti($referti, $tipoUser);
+                        break;
                     default:
                         break;
                 }

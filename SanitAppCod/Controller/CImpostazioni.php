@@ -16,35 +16,68 @@ class CImpostazioni {
     public function gestisciImpostazioni() {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $task = $vImpostazioni->getTask();
-        switch ($task) {
-            case 'utente':
-                
-                $eUtente = new EUtente(NULL, $username);
+        switch ($task) 
+        {
+            case 'visualizza': 
+            {
+                switch ($tipoUser) 
+                {
+                    case 'utente':                
+                        $eUtente = new EUtente(NULL, $username);
+                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
+                        
+                        $task2 = $vImpostazioni->getTask2();
+                        // per ora non metto isset ma solo se è = a modifica
+                        if ($task2 == "modifica") 
+                        {
+                            $modificaImpostazioni = $vImpostazioni->getTask3();
+                            $vImpostazioni->modificaImpostazioniUtente($eUtente, $modificaImpostazioni);
+                        } 
+                        else 
+                        {
+                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
+                        }
+                        break;
 
-                $task2 = $vImpostazioni->getTask2();
-                // per ora non metto isset ma solo se è = a modifica
-                if ($task2 == "modifica") 
-                {
-                    $modificaImpostazioni = $vImpostazioni->getTask3();
-                    $vImpostazioni->modificaImpostazioniUtente($eUtente, $modificaImpostazioni);
-                } 
-                else 
-                {
-                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
+                    case 'clinica':
+        //                $eClinica = new EClinica();
+                        {
+                            $vImpostazioni->visualizzaImpostazioniClinica();
+                        }
+                        break;
+
+                    default:
+                        break;
                 }
-                break;
-
-            case 'clinica':
-//                $eClinica = new EClinica();
+            }
+            break;
+            
+            case 'modifica':
+            {
+                 switch ($tipoUser) 
                 {
-                    $vImpostazioni->visualizzaImpostazioniClinica();
-                }
-                break;
+                    case 'utente':                
+                        $eUtente = new EUtente(NULL, $username);
+                        $modificaImpostazioni = $vImpostazioni->getTask3();
+                        $vImpostazioni->modificaImpostazioniUtente($eUtente, $modificaImpostazioni);
+                        
+                        break;
 
-            default:
-                break;
+                    case 'clinica':
+        //                $eClinica = new EClinica();
+                        {
+                            $vImpostazioni->visualizzaImpostazioniClinica();
+                        }
+                        break;
+
+                    default:
+                        break;
+            }
+            break;
+            }   
         }
     }
     

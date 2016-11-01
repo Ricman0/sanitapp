@@ -192,6 +192,17 @@ class VAutenticazione extends View {
 
         $this->visualizzaTemplate('headerMain');
     }
+    
+    public function logOut() 
+    {
+        $variabiliHeader = $this->impostaHeader();
+        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
+        $main = $this->prelevaTemplate('mainRicerca');
+        $this->assegnaVariabiliTemplate('main', $main);
+        $this->visualizzaTemplate('headerMain');
+        
+    }
 
     
     
