@@ -79,8 +79,6 @@
                 <div id="main">
                     {$mainRicerca}
                 </div> 
-                <button class="necessarioLogin">login</button>
-
 
             </div>
             <!--Footer della pagina-->

@@ -25,7 +25,7 @@ class VmySanitApp extends View {
     {
         switch($tipoUser)
         {
-            case 'Clinica':
+            case 'clinica':
                 $tastiLaterali['serviziAreaPersonaleClinica'] = "Servizi";
                 $tastiLaterali['prenotazioniAreaPersonaleClinica'] = "Prenotazioni";
                 $tastiLaterali['refertiAreaPersonaleClinica'] = "Referti";
@@ -33,7 +33,7 @@ class VmySanitApp extends View {
                 $tastiLaterali['impostazioniAreaPersonaleClinica'] = "Impostazioni";
                 break;
             
-            case 'Medico':
+            case 'medico':
                 $tastiLaterali['pazientiAreaPersonaleMedico'] = "Pazienti";
                 $tastiLaterali['prenotazioniAreaPersonaleMedico'] = "Prenotazioni";
                 $tastiLaterali['refertiAreaPersonaleMedico'] = "Referti";
@@ -41,7 +41,7 @@ class VmySanitApp extends View {
                  
                 break;
             
-            case 'Utente':                
+            case 'utente':                
                 $tastiLaterali['prenotazioniAreaPersonaleUtente'] = "Prenotazioni";
                 $tastiLaterali['refertiAreaPersonaleUtente'] = "Referti";
                 $tastiLaterali['impostazioniAreaPersonaleUtente'] = "Impostazioni";

@@ -30,11 +30,10 @@ var id = $(this).attr('id'); // id della riga che coincide con l'id dell'esame
         clickRiga('cliniche', 'visualizza', id, contenitore);
 //        }
         });
-// 
-//    $('#headerMain').on("click", ".necessarioLogin", function () {
-//        modalBoxLogin();
-//    });
+
 });
+
+
         function inviaController($controller, ajaxdiv)
         {
         $.ajax({
@@ -158,75 +157,3 @@ var dati = $(id).serialize();
                 }
         });
 }
-
-$(function () {
-$("#dialog-form").dialog({
-autoOpen: false,
-        modal: true,
-        resizable:false,
-        height:"auto"
-//        buttons: [
-//        {
-//        text: "Accedi",
-//                click: function(){validazione("autenticazione");} ,
-//                type: "submit",
-//                class: "loginButton"
-//        },
-//        {
-//        text: "Close",
-//                click: function() {
-//                $(this).dialog("close");
-//                }
-//        }
-//        ]
-
-        });
-                $(".necessarioLogin").on("click", function () {
-        $("#dialog-form").dialog("open");
-        
-        });
-        $("#submitLogIn2").on("click", function (e) {
-//            e.preventDefault();
-            alert("ciao");
-                   
-
-        validazione("autenticazione", "#loginForm2"); 
-        $("#dialog-form").dialog("close");
-    });
-        });
-//function modalBoxLogin(){
-//    
-//     dialog = $( "#dialog-form" ).dialog({
-//      height: 300,
-//      width: 280,
-//      modal: true,
-// buttons: [
-//    {
-//      text: "Ok",
-////      icons: {
-////        primary: "ui-icon-heart"
-////      },
-//      click: function() {
-//          validazione("autenticazione");
-////        $( this ).dialog( "close" );
-//      },
-//      Cancel: function() {
-////          this.dialog( "close" );
-//        }
-//
-//      // Uncommenting the following line would hide the text,
-//      // resulting in the label being used as a tooltip
-//      //showText: false
-//    }
-//    
-//  ]
-//      
-////      ,
-////      close: function() {
-//////        form[ 0 ].reset();
-//////        allFields.removeClass( "ui-state-error" );
-////      }
-//
-//        });
-//        }
-

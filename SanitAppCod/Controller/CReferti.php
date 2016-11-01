@@ -25,7 +25,7 @@ class CReferti {
                 $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
                 
                 switch ($tipoUser) {
-                    case 'Clinica':
+                    case 'clinica':
                         $eClinica = new EClinica($username);
                         $partitaIVAClinica = $eClinica->getPartitaIVAClinica();
                         $fReferti = USingleton::getInstance('FReferto');
@@ -39,9 +39,21 @@ class CReferti {
                         {
                             echo "errore in CReferti VisualizzaReferti in clinica";
                         }
-
-
-
+                        break;
+                    case 'medico':
+                        $eMedico = new EMedico(null, $username);
+                        $cfMedico = $eMedico->getCodiceFiscaleMedico();
+                        $fReferti = USingleton::getInstance('FReferto');
+                        $risultato = $fReferti->cercaRefertiPazientiMedico($cfMedico);
+                        if(!is_bool($risultato))
+                        {
+                            print_r($risultato);
+                            $vReferti->restituisciPaginaRisultatoRefertiPaziente($risultato);
+                        }
+                        else
+                        {
+                            echo "errore in CReferti VisualizzaReferti in clinica";
+                        }
                         break;
 
                     default:

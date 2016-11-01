@@ -56,10 +56,8 @@ class CGestisciPazienti {
         else
             {
              // si cerca un solo paziente
-//                $eMedico = new Medico();
-                    $futente = USingleton::getInstance('FUtente');
-                    $utenteCercato = $futente->cercaUtenteByCF($cf);
-                    $vPazienti->visualizzaInfoUtente($utenteCercato[0]);
+                    $eUtente = new EUtente($cf);                    
+                    $vPazienti->visualizzaInfoUtente($eUtente);
             }            
     }
 }

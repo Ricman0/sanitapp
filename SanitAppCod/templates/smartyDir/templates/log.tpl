@@ -22,16 +22,3 @@
         </form>
     </div>
 {/if}
-
-
-<div id="dialog-form" title="Login">
-    <form method="dialog" class="logInForm" id="loginForm2">
-        <input type="hidden" name="controller" value="autenticazione"/>
-        <label for="usernameLogIn">Username</label>
-        <input type="text" name="usernameLogIn" placeholder="Enter Username" class="text ui-widget-content ui-corner-all elementiForm" required >
-        <label for="passwordLogIn">Password</label>
-        <input type="password" name="passwordLogIn" placeholder="Enter Password" class="text ui-widget-content ui-corner-all elementiForm" required >
-        <!-- Allow form submission with keyboard without duplicating the dialog button -->
-        <button type="submit" id="submitLogIn2" class="elementiForm loginButton">Accedi</button>
-    </form>
-</div>

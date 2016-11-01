@@ -28,8 +28,8 @@ class FReferto extends FDatabase{
     }
     
     /**
-     * 
-     * @param type $partitaIvaClinica
+     * Permette di trovare tutti i referti dei clienti di una data clinica
+     * @param string $partitaIVAClinica la partita iva della clinica
      */
     public function cercaRefertiClinica($partitaIVAClinica) 
     {
@@ -40,6 +40,25 @@ class FReferto extends FDatabase{
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(referto.PartitaIVAClinica='" . $partitaIVAClinica . "')) ";
+        $risultato = $this->eseguiQuery($query);
+        print_r($risultato);
+        return $risultato;
+        
+    }
+    
+    /**
+     * Permette di trovare tutti referti relativi ai pazienti di un dato medico
+     * @param string $cfMedico codice fiscale del medico 
+     */
+    public function cercaRefertiPazientiMedico($cfMedico) 
+    {
+        
+        $query =   "SELECT IDReferto, esame.IDEsame, prenotazione.IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, "
+                . "DataReferto, prenotazione.CodFiscaleUtenteEffettuaEsame "
+                . "FROM referto, prenotazione, esame, utente "
+                . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
+                . "(utente.CodFiscaleMedico='" . $cfMedico . "')) ";
         $risultato = $this->eseguiQuery($query);
         print_r($risultato);
         return $risultato;

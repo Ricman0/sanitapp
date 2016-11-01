@@ -138,7 +138,7 @@ class FUtente extends FUser{
     }
     
     /**
-     * Metodo che consente di trovare un utente passando come parametro l'username
+     * Metodo che consente di trovare un utente passando come parametro lo username
      * dell'utente
      * 
      * @access public
@@ -165,7 +165,9 @@ class FUtente extends FUser{
      */
     public function cercaUtenteByCF($cf) 
     {
-        $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE CodFiscale='" . $cf . "'";
+        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+                . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
+                . "appuser.Username=" . $this->_nomeTabella . ".Username";
         $risultato = $this->eseguiQuery($query);
 //        echo "count: ". count($risultato);        
         return $risultato;

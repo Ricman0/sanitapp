@@ -12,10 +12,11 @@
  * @author Claudia Di Marco & Riccardo Mantini 
  */
 class VReferti extends View{
-
-    public function restituisciPaginaRisultatoRefertiClinica($referti) {
+    
+     public function restituisciPaginaRisultatoReferti($referti, $tipoUser) {
         
-        $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
+        $this->assegnaVariabiliTemplate('tastoAggiungi', FALSE);
+        $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
         $this->assegnaVariabiliTemplate('dati', $referti);
         return $this->visualizzaTemplate('tabellaRefertiClinica');
     }

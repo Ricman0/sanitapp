@@ -20,11 +20,9 @@ class CHome {
         switch ($vHome->getRequestMethod())  
         {
             case 'GET':
-                echo '---------get----------';
                 $this->smistaControllerGET($vHome->getController());
                 break;
-            case 'POST': 
-                echo '-------post-----------';
+            case 'POST':
                 $this->smistaControllerPOST($vHome->getController());
                 break;
             default:

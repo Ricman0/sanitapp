@@ -21,7 +21,7 @@ function validazione(task1, controller1)
             break;
 
         case "autenticazione":
-            validazioneLogIn(controller1);
+            validazioneLogIn();
             break;
 
         case "aggiungi":
@@ -79,7 +79,7 @@ function validazioneCodiceFiscale()
     });
 }
 
-function validazioneLogIn(formDaValidare)
+function validazioneLogIn()
 {
     jQuery.validator.addMethod("password", function (valore) {
         //espressione regolare per la password
@@ -92,7 +92,7 @@ function validazioneLogIn(formDaValidare)
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
         return valore.match(regex);
     }, "L'username contiene solo _ , - , numeri, lettere maiuscole o minuscole");
-    $(formDaValidare).validate({
+    $("#logInForm").validate({
         rules:
                 {
                     usernameLogIn:
@@ -121,7 +121,7 @@ function validazioneLogIn(formDaValidare)
         {
             alert('I dati log in sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            inviaDatiLogIn(formDaValidare, '#headerMain');
+            inviaDatiLogIn("#logInForm", '#headerMain');
 
         }
     });

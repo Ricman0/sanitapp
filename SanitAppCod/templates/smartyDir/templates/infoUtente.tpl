@@ -1,25 +1,25 @@
 <div id="infoUtente">
     <span>
-        Nome: {$utente.Nome}
+        Nome: {$utente->getNomeUtente()}
     </span>
     <span>
-        Cognome: {$utente.Cognome}
-    </span>
-    <br>
-    <span>Codice Fiscale: {$utente.CodFiscale}</span>
-    <br>
-    <span>
-        Via: {$utente.Via}
-    </span>
-    <span>
-        Numero Civico: {$utente.NumCivico}
-    </span>
-    <span>
-        CAP: {$utente.CAP}
+        Cognome: {$utente->getCognomeUtente()}
     </span>
     <br>
+    <span>Codice Fiscale: {$utente->getCodiceFiscaleUtente()}</span>
+    <br>
     <span>
-        Email: {$utente.Email}
+        Via: {$utente->getViaUtente()}
+    </span>
+    <span>
+        Numero Civico: {$utente->getNumCivicoUtente()}
+    </span>
+    <span>
+        CAP: {$utente->getCAPUtente()}
+    </span>
+    <br>
+    <span>
+        Email: {$utente->getEmail()}
     </span>
     
 </div>

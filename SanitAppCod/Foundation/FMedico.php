@@ -128,10 +128,47 @@ class FMedico extends FUser {
      */
     public function cercaPazienti($usernameMedico) 
     {
-        $query =  "SELECT utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, user.Email, utente.CodFiscale "
-                . "FROM utente, medico , user  "
-                . "WHERE codFiscaleMedico=medico.codFiscale AND user.Username='" . $usernameMedico . "'";
+        $query =  "SELECT utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, appuser.Email, utente.CodFiscale "
+                . "FROM utente, medico , appuser "
+                . "WHERE codFiscaleMedico=medico.codFiscale AND appuser.Username='" . $usernameMedico . "'";
         $risultato = $this->eseguiQuery($query);
+        return $risultato;
+    }
+    
+    
+    /**
+     * Metodo che consente di trovare un medico passando come parametro lo username
+     * 
+     * @access public
+     * @param string $username Username del medico da cercare
+     * @return array|boolean Un array contenente gli attributi del medico cercato
+     */
+    public function cercaMedico($username)
+    {
+        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+                . "WHERE appuser.Username='" . $username . "' AND "
+                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+        $risultato = $this->eseguiQuery($query);    
+        return $risultato;
+        
+    }
+    
+    
+    /**
+     * Metodo che consente di cercare un medico passando alla funzione solo il 
+     * codice fiscale
+     * 
+     * @access public
+     * @param string $cf Il codice fiscale del medico da cercare
+     * @return array|boolean Array contenente gli attributi del medico cercato
+     */
+    public function cercaMedicoByCF($cf) 
+    {
+        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+                . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
+                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+        $risultato = $this->eseguiQuery($query);
+//        echo "count: ". count($risultato);        
         return $risultato;
     }
 }
