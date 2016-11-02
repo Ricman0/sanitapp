@@ -741,5 +741,11 @@ class EClinica extends EUser
         }
         return $regione;
     }
+    
+    public function cercaPrenotazioni() 
+    {
+        $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+        return $fPrenotazioni->cercaPrenotazioniClinica($this->_partitaIVA);
+    }
 }
 ?>

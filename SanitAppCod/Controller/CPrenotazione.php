@@ -146,8 +146,7 @@ class CPrenotazione {
     public function gestisciPrenotazioni() 
     {
         $sessione = USingleton::getInstance('USession');
-//        $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazioni->getTask();
@@ -184,7 +183,7 @@ class CPrenotazione {
                             $prenotazioniUtente = $eUtente->cercaPrenotazioni();
                             if (!is_bool($prenotazioniUtente)) 
                             {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($prenotazioniUtente);
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($prenotazioniUtente,$tipoUser);
                             } 
                             else 
                             {
@@ -271,12 +270,10 @@ class CPrenotazione {
                         if ($idPrenotazione === FALSE) 
                         {
                             $eClinica = new EClinica($username);
-                            $partitaIVAClinica = $eClinica->getPartitaIVAClinica();
-                            $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-                            $risultato = $fPrenotazioni->cercaPrenotazioniClinica($partitaIVAClinica);
-                            if (!is_bool($risultato)) {
-                                print_r($risultato);
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioniClinica($risultato);
+                            $prenotazioniClinica = $eClinica->cercaPrenotazioni();
+                            if (!is_bool($prenotazioniClinica)) {
+                                print_r($prenotazioniClinica);
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($prenotazioniClinica,$tipoUser);
                             } else {
                                 echo "errore in Cprenotazione VisualizzaPrenotazioni in clinica";
                             }
