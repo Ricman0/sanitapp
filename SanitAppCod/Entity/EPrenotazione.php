@@ -392,4 +392,22 @@ class EPrenotazione {
         return $fPrenotazione->aggiungiPrenotazione($ePrenotazione);
     }
     
+    /**
+     * Metodo che consente di confermare la prenotazione
+     * 
+     * @return boolean TRUE se la conferma è andata a buon fine, FALSE altrimenti
+     */
+    public function confermaPrenotazione() 
+    {
+        $this->setConfermataPrenotazione(TRUE);
+        $fPrenotazione = USingleton::getInstance('FPrenotazione');
+        if ($fPrenotazione->confermaPrenotazione($this->_idPrenotazione) === TRUE) 
+        {
+            return TRUE;
+        } 
+        else 
+        {
+            return FALSE;
+        }
+    }
 }

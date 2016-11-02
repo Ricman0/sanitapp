@@ -3,9 +3,6 @@
 # orario: ([0-2][0-3][:][0-5][0-9])   
   RewriteEngine On
   RewriteCond %{REQUEST_METHOD} GET 
-  
-  
-  
   RewriteRule ^(logOut)?$ index.php?controller=$1
   RewriteRule ^(ricerca)/(utente)/(\w+)?$ index.php?controller=$1&task=$2&codice=$3 [L]
   RewriteRule ^(mySanitApp)?$ index.php?controller=$1
@@ -31,7 +28,8 @@
   RewriteRule ^(prenotazioni|referti|impostazioni)/(visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(impostazioni)/(utente)/(modifica)/(informazioni)?$ index.php?controller=$1&task=$2&task2=$3&task3=$4 [L]
   RewriteRule ^(prenotazioni|pazienti|referti|clienti)/(aggiungi|visualizza)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]  
+  RewriteRule ^(prenotazioni)/(conferma)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(pazienti)/(visualizza)/([[:alnum:]]{16})?$ index.php?controller=$1&task=$2&id=$3 [L]
  RewriteRule ^(servizi)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
 RewriteRule ^(referti)/(aggiungi)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]

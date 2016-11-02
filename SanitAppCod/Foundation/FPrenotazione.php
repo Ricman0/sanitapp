@@ -133,6 +133,19 @@ class FPrenotazione extends FDatabase{
         
     }
     
+    /**
+     * Metodo che consente di confermare una prenotazione 
+     * 
+     * @access public
+     * @param string $idPrenotazione L'id della prenotazione
+     * @return boolean TRUE se la conferma è avvenuta con successo
+     */
+    public function confermaPrenotazione($idPrenotazione) 
+    {
+        $query = "UPDATE " . $this->_nomeTabella . " SET Confermata=TRUE WHERE IDPrenotazione='" . $idPrenotazione . "'";
+        return $this->eseguiQuery($query);
+    }
+    
 //    public function getAttributi($ePrenotazione) 
 //    {
 //        print_r($ePrenotazione);

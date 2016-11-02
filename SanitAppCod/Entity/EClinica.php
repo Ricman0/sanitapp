@@ -309,6 +309,8 @@ class EClinica extends EUser
         return $this->_via ." ". $this->_numeroCivico ." ". $this->_località ." ". $this->_provincia;
         
     }
+    
+
     /**
      * Metodo che restituisce il titolare della clinica
      * 

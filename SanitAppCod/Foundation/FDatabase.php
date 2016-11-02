@@ -177,7 +177,7 @@ class FDatabase {
             {
                 if($queryResult === TRUE)
                 {
-                   echo 'Query eseguita con successo'; 
+//                   echo 'Query eseguita con successo'; // da eliminare solo per il debug
                    $this->_result = TRUE;
                 }
                 else 

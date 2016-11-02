@@ -22,6 +22,12 @@ $(document).ready(function(){
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
     
+    $('#headerMain').on("click", "#confermaPrenotazioneUtente", function(){
+        var id = $('#confermaPrenotazioneUtente').attr('data-idprenotazione');
+        alert(id);
+        confermaPrenotazioneUtente('prenotazioni', 'conferma', id, "#contenutoAreaPersonale");
+    });
+    
     
      
     $('#headerMain').on("click", "#modificaIndirizzoUtente", function(){
@@ -34,7 +40,7 @@ function clickModificaImpostazioni(controller, task, task2, task3, ajaxdiv)
 {
     $.ajax({
         type : 'GET',
-        url : controller + '/' + task + '/' + task2 + '/' + task3 + '/',
+        url : controller + '/' + task + '/' + task2 + '/' + task3 ,
         success: function(datiRisposta)
         {
             alert(datiRisposta);
@@ -42,5 +48,38 @@ function clickModificaImpostazioni(controller, task, task2, task3, ajaxdiv)
         }
     });
 }
+
+function confermaPrenotazioneUtente(controller, task, id, ajaxDiv)
+{
+    $.ajax({
+        type:'GET',
+        url: controller + '/' + task + '/' + id,
+//        dataType:JSON,
+        success:function(datiRisposta)
+        {
+            alert("success");
+            alert(datiRisposta);
+            datiRisposta = JSON.parse(datiRisposta);
+            alert(datiRisposta);
+            if(datiRisposta==true)
+            {
+                $('#divConfermaPrenotazioneUtente').empty();// svuoto il div 
+                $('#divConfermaPrenotazioneUtente').text('Prenotazione: Confermata');// aggiungo il testo Confermata al div
+  
+            }
+//            $(ajaxDiv).html(datiRisposta);
+            
+        },
+        error: function (xhr, ajaxOptions, thrownError) 
+        {
+            alert(xhr);
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+
+
 
 

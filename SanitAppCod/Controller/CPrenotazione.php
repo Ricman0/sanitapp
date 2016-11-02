@@ -153,6 +153,24 @@ class CPrenotazione {
         $task = $vPrenotazioni->getTask();
 //        $codiceFiscaleUtente = "";
         switch ($task) {
+            case 'conferma':
+                $idPrenotazione = $vPrenotazioni->getId();
+                if($idPrenotazione !== FALSE && $tipoUser==='utente')
+                {
+                    $ePrenotazione = new EPrenotazione($idPrenotazione);
+                    if($ePrenotazione->confermaPrenotazione()===TRUE)
+                    {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(TRUE);
+                    }
+                    else
+                    {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
+                    }
+                    
+                }
+                break;
             case 'visualizza':
                 switch ($tipoUser) 
                 {

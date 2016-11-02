@@ -11,12 +11,13 @@
                Medico: {$medicoEsame}
             </span>
             <br>
-            {if ($tipoUser='utente')}
+            {if ($tipoUser==='utente')}
                 <span>
                     Clinica: {$eClinica->getNomeClinica()}
                 </span>
+           
                 <div>
-                   Indirizzo Clinica: {$eClinica->getIndirizzoClinica()} , {$eClinica->getLocalitaClinica()} ({$eClinica->getProvinciaClinica()})
+                   Indirizzo Clinica: {$eClinica->getViaClinica()} , {$eClinica->getLocalitaClinica()} ({$eClinica->getProvinciaClinica()})
                 </div>
                 <div> 
                         Telefono: {$eClinica->getTelefonoClinica()} , Email: {$eClinica->getEmail()}
@@ -24,43 +25,51 @@
                 <div>
                     Prenotazione effettuata da : 
                 </div>
-                {if isset($idReferto)}
-                    Codice Referto : {$idReferto}
-                {/if}
-                    
+                <div>
+                    {if isset($idReferto)}
+                        Codice Referto : {$idReferto}
+                    {/if}
+                </div>    
            
-                <span>
+                <div id="divConfermaPrenotazioneUtente">
                     Prenotazione: 
-                    {if ($prenotazione->getConfermataPrenotazione()===TRUE)} Confermata 
+                    {if ($prenotazione->getConfermataPrenotazione()==TRUE)} 
+           
+                        Confermata 
                     {else} 
-                        Non Confermata 
-                        <br> 
+                        
+                        Non Confermata  
                         <input type="button" id="confermaPrenotazioneUtente" value="Conferma Prenotazione" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
                     {/if}
-                </span>
-                <br>
+                </div>
+          
                 <span>
-                    Prenotazione: {if ($prenotazione->getEseguitaPrenotazione()===TRUE)} Eseguita {else} Non Eseguita {/if}
+                    Prenotazione: 
+                    {if ($prenotazione->getEseguitaPrenotazione()== TRUE)}
+                        Eseguita 
+                    {else} 
+                        Non Eseguita 
+                    {/if}
                 </span>
                 <br>
                 <span>
                     Prenotazione effettua da: {$nome} {$cognome}
                 </span>
                 <br>
-                <input type="button" id="aggiungiRefertoButton" value="Aggiungi Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
             {/if}
-            {if ($tipoUser='clinica')}
+                
+            {if ($tipoUser==='clinica')}
                 {if isset($nomeUtente)}
-                    <span>
-                        Nome: {$nomeUtente}
-                    </span>
-                    <br>
+                <span>
+                    Nome: {$nomeUtente}
+                </span>
+                <br>
                 {/if}
                 {if isset($cognomeUtente)}
-                    <span>
-                        Cognome: {$cognomeUtente}
-                    </span>
-                    <br>
+                <span>
+                    Cognome: {$cognomeUtente}
+                </span>
+                <br>
                 {/if}
                 <input type="button" id="aggiungiRefertoButton" value="Aggiungi Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
             {/if}
