@@ -100,23 +100,17 @@ class VPrenotazione extends View{
      * @access public
      * @param Array $risultato Il risultato della ricerca delle prenotazioni di un utente
      */
-    public function restituisciPaginaRisultatoPrenotazioni($risultato)
-    {
-        $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
-        $this->assegnaVariabiliTemplate('dati', $risultato);
-        return $this->visualizzaTemplate('tabellaPrenotazioni');
-    }
-    
-    public function restituisciPaginaRisultatoPrenotazioniClinica($risultato) 
+    public function restituisciPaginaRisultatoPrenotazioni($risultato, $tipoUser) 
     {
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         if(count($risultato)>0)
             {
+                $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
                 $this->assegnaVariabiliTemplate('prenotazioni', TRUE);
                 $this->assegnaVariabiliTemplate('dati', $risultato);
             }
         
-        return $this->visualizzaTemplate('tabellaPrenotazioniClinica');
+        $this->visualizzaTemplate('tabellaPrenotazioni');
     }
     
     /**
