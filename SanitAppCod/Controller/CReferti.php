@@ -47,7 +47,7 @@ class CReferti {
                         if(!is_bool($risultato))
                         {
                             print_r($risultato);
-                            $vReferti->restituisciPaginaRisultatoRefertiPaziente($risultato);
+                            $vReferti->restituisciPaginaRisultatoReferti($risultato,$tipoUser);
                         }
                         else
                         {
