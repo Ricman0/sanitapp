@@ -13,6 +13,11 @@ $(document).ready(function(){
     $('#headerMain').on("click", "#refertiAreaPersonaleMedico", function () {
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
+    
+     
+    $('#headerMain').on("click", "#prenotazioniAreaPersonaleMedico", function () {
+        inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
+    });
 //    $('#main').on("click", "#refertiAreaPersonaleUtente", function(){
 //        inviaControllerTask('referti', 'utente', "#contenutoAreaPersonale");
 //    });

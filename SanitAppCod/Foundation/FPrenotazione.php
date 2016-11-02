@@ -71,6 +71,23 @@ class FPrenotazione extends FDatabase{
         return $risultato;
     }
     
+    /**
+     * Permette di ottenere tutte le prenotazioni che un medico ha effettuato
+     * @param string $cf il codice fiscale del medico di cui vogliamo conoscere le prenotazioni
+     * @return array|boolean
+     */
+    public function cercaPrenotazioniMedico($cf) {
+        $query =   "SELECT IDPrenotazione, prenotazione.IDEsame, clinica.NomeClinica, esame.NomeEsame, utente.Nome, utente.Cognome, "
+                . "DataEOra, utente.CodFiscale "
+                . "FROM prenotazione, esame, utente, clinica "
+                . "WHERE ((prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND (prenotazione.IDEsame=esame.IDEsame) AND "
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
+                . "(prenotazione.CodFiscaleMedicoPrenotaEsame='" . $cf . "')) ";
+        $risultato = $this->eseguiQuery($query);
+        print_r($risultato);
+        return $risultato;
+    }
+    
     public function cercaPrenotazioniClinica($partitaIVAClinica)
     {
         //si vogliono visualizzare tutte le prenotazioni di una clinica

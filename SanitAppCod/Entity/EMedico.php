@@ -318,6 +318,29 @@ class EMedico extends EUser {
     public function setProvinciaAlboMedico($provinciaAlbo) {
         $this->_provinciaAlbo = $provinciaAlbo;
     }
+    
+    
+   /**
+     * Permette di trovare tutti i referti dei pazienti del medico
+     * @return array|boolean Tutti i referti della clinica se ci sono
+     */
+    public function cercaReferti() {
+        
+        $fReferto = USingleton::getInstance("FReferto");
+        return $fReferto->cercaRefertiPazientiMedico($this->_codFiscale);
+        
+    }
+    
+    /**
+     * Metodo che consente di cercare tutte le prenotazioni che il medico ha effettuato
+     * 
+     * @access public
+     * @return Array Un array contenente tutte le prenotazioni del medico
+     */
+    public function cercaPrenotazioni() {
+        $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+        return $fPrenotazioni->cercaPrenotazioniMedico($this->_codFiscale);
+    }
 
     /**
      * Metodo che permette di inserire un oggetto di tipo EMedico nel DB

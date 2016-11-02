@@ -26,9 +26,7 @@ class CReferti {
                 switch ($tipoUser) {
                     case 'clinica':
                         $eClinica = new EClinica($username);
-                        $partitaIVAClinica = $eClinica->getPartitaIVAClinica();
-                        $fReferti = USingleton::getInstance('FReferto');
-                        $referti = $fReferti->cercaRefertiClinica($partitaIVAClinica);
+                        $referti = $eClinica->cercaRefertiClinica();
                         if(!is_bool($referti))
                         {
                             print_r($referti);
@@ -41,9 +39,7 @@ class CReferti {
                         break;
                     case 'medico':
                         $eMedico = new EMedico(null, $username);
-                        $cfMedico = $eMedico->getCodiceFiscaleMedico();
-                        $fReferti = USingleton::getInstance('FReferto');
-                        $risultato = $fReferti->cercaRefertiPazientiMedico($cfMedico);
+                        $risultato = $eMedico->cercaReferti();
                         if(!is_bool($risultato))
                         {
                             print_r($risultato);

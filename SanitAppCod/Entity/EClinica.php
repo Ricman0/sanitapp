@@ -567,6 +567,17 @@ class EClinica extends EUser
     }
     
     /**
+     * Permette di trovare tutti i referti dei clienti della clinica
+     * @return array|boolean Tutti i referti della clinica se ci sono
+     */
+    public function cercaReferti() {
+        
+        $fReferto = USingleton::getInstance("FReferto");
+        return $fReferto->cercaRefertiClinica($this->_partitaIVA);
+        
+    }
+    
+    /**
      * Metodo che trova la regione in base alla provincia inserita dall'utente
      * 
      * @access private
