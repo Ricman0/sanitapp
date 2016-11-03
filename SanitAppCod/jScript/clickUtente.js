@@ -31,16 +31,24 @@ $(document).ready(function(){
     
      
     $('#headerMain').on("click", "#modificaIndirizzoUtente", function(){
-        clickModificaImpostazioni('impostazioni', 'utente', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
+        clickModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
+    });
+    
+    $('#headerMain').on("click", "#modificaMedicoUtente", function(){
+        clickModificaImpostazioni('impostazioni', 'modifica', 'medico', "#medicoCurante");
+    });
+    
+    $('#headerMain').on("click", "#modificaPasswordUtente", function(){
+        clickModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
     });
      
 });
 
-function clickModificaImpostazioni(controller, task, task2, task3, ajaxdiv)
+function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
 {
     $.ajax({
         type : 'GET',
-        url : controller + '/' + task + '/' + task2 + '/' + task3 ,
+        url : controller + '/' + task + '/' + task2  ,
         success: function(datiRisposta)
         {
             alert(datiRisposta);

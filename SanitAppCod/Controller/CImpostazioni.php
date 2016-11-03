@@ -28,18 +28,6 @@ class CImpostazioni {
                     case 'utente':                
                         $eUtente = new EUtente(NULL, $username);
                         $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
-                        
-                        $task2 = $vImpostazioni->getTask2();
-                        // per ora non metto isset ma solo se è = a modifica
-                        if ($task2 == "modifica") 
-                        {
-                            $modificaImpostazioni = $vImpostazioni->getTask3();
-                            $vImpostazioni->modificaImpostazioniUtente($eUtente, $modificaImpostazioni);
-                        } 
-                        else 
-                        {
-                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
-                        }
                         break;
 
                     case 'clinica':
@@ -57,27 +45,23 @@ class CImpostazioni {
             
             case 'modifica':
             {
-                 switch ($tipoUser) 
+                switch ($tipoUser) 
                 {
                     case 'utente':                
                         $eUtente = new EUtente(NULL, $username);
-                        $modificaImpostazioni = $vImpostazioni->getTask3();
+                        $modificaImpostazioni = $vImpostazioni->getTask2();
                         $vImpostazioni->modificaImpostazioniUtente($eUtente, $modificaImpostazioni);
-                        
                         break;
 
                     case 'clinica':
-        //                $eClinica = new EClinica();
-                        {
-                            $vImpostazioni->visualizzaImpostazioniClinica();
-                        }
+                        $vImpostazioni->visualizzaImpostazioniClinica();
                         break;
 
                     default:
                         break;
-            }
-            break;
+                }
             }   
+            break;
         }
     }
     
