@@ -46,43 +46,15 @@ class CHome {
     {
         switch ($controller) 
         {
-            case 'home':  
-                $vHome = USingleton::getInstance('VHome');
-                $vHome->restituisciHomePage();
-                break;
-            
-            case 'ricercaCliniche':
-                $cRicercaCliniche = USingleton::getInstance('CRicercaCliniche');
-                $cRicercaCliniche->impostaPaginaRicercaCliniche();
-                break;
-            
-            case 'ricercaEsami':
-                $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
-                $cRicercaEsami->impostaPaginaRicercaEsami();
-                break;
-            
-            case 'registrazione':
-                $cRegistrazione = USingleton::getInstance('CRegistrazione');
-                $cRegistrazione->impostaPaginaRegistrazione(); // oppure echo $cRegistrazione->impostaPaginaRegistrazione(); ma poi devo prelevare il template e non visualizzarlo
-                break;
-                
             case 'autenticazione':
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->autenticaUser();
-               break;
-            
-            case 'logOut':  
-                $cAutenticazione = USingleton::getInstance('CAutenticazione');
-                $cAutenticazione->logOut();
                 break;
             
-            
-            
-            
-           
-            
-            
-            
+            case 'clienti':
+                $cClienti = USingleton::getInstance('CGestisciClienti');
+                $cClienti->gestisciClienti();
+                break;
             
             case 'cliniche':
                 $cCliniche = USingleton::getInstance('CRicercaCliniche');
@@ -93,7 +65,22 @@ class CHome {
                 $cEsami = USingleton::getInstance('CRicercaEsami');
                 $cEsami->gestisciEsami();
                 break;
-
+            
+            case 'home':  
+                $vHome = USingleton::getInstance('VHome');
+                $vHome->restituisciHomePage();
+                break;
+            
+            case 'impostazioni':
+                $cImpostazioni = USingleton::getInstance('CImpostazioni');
+                $cImpostazioni->gestisciImpostazioni();
+                break;
+            
+            case 'logOut':  
+                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+                $cAutenticazione->logOut();
+                break;
+            
             case 'mySanitApp':
 //                //secondo me la prima cosa da fare è creare la sessione
 //                $session = USingleton::getInstance('USession');
@@ -102,32 +89,6 @@ class CHome {
 //                $logIn = $cAutenticazione->logIn($session);
                 $cMySanitApp = USingleton::getInstance('CmySanitApp');
                 $cMySanitApp->impostaPaginaPersonale();
-                
-                break;
-            
-            case 'servizi':
-                $cServizi = USingleton::getInstance('CGestioneServizi');
-                $cServizi->gestisciServizi();
-                break;
-            
-            case 'prenotazioni':
-                $cPrenotazioni = USingleton::getInstance('CPrenotazione');
-                $cPrenotazioni->gestisciPrenotazioni();
-                break;
-            
-            case 'referti':
-                $cReferti = USingleton::getInstance('CReferti');
-                $cReferti->gestisciReferti();
-                break;
-            
-            case 'clienti':
-                $cClienti = USingleton::getInstance('CGestisciClienti');
-                $cClienti->gestisciClienti();
-                break;
-            
-            case 'impostazioni':
-                $cImpostazioni = USingleton::getInstance('CImpostazioni');
-                $cImpostazioni->gestisciImpostazioni();
                 break;
             
             case 'pazienti':
@@ -149,14 +110,43 @@ class CHome {
                     echo " non sei autenticato quindi niente prenotazione ";
                     //ritorna la pagina per autenticarsi o registrarsi
                 }
-                    
+                break;
+                
+            case 'prenotazioni':
+                $cPrenotazioni = USingleton::getInstance('CPrenotazione');
+                $cPrenotazioni->gestisciPrenotazioni();
+                break;
+            
+            case 'referti':
+                $cReferti = USingleton::getInstance('CReferti');
+                $cReferti->gestisciReferti();
+                break;
+            
+            case 'registrazione':
+                $cRegistrazione = USingleton::getInstance('CRegistrazione');
+                $cRegistrazione->impostaPaginaRegistrazione(); // oppure echo $cRegistrazione->impostaPaginaRegistrazione(); ma poi devo prelevare il template e non visualizzarlo
                 break;
             
             case 'ricerca':
                 $cRicerca = USingleton::getInstance('CRicerca');
                 $cRicerca->gestisciRicerca();
                 break;
-                
+            
+            case 'ricercaCliniche':
+                $cRicercaCliniche = USingleton::getInstance('CRicercaCliniche');
+                $cRicercaCliniche->impostaPaginaRicercaCliniche();
+                break;
+            
+            case 'ricercaEsami':
+                $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
+                $cRicercaEsami->impostaPaginaRicercaEsami();
+                break;
+            
+            case 'servizi':
+                $cServizi = USingleton::getInstance('CGestioneServizi');
+                $cServizi->gestisciServizi();
+                break;
+            
             default:
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->controllaUserAutenticato() ;
@@ -184,26 +174,16 @@ class CHome {
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->autenticaUser();
                 break;
-                
-            case 'registrazione':
-                $cRegistrazione= USingleton::getInstance('CRegistrazione');
-                $cRegistrazione->inserisciRegistrazione();
-                break;
-            
-            case 'esami':
-                $cEsami = USingleton::getInstance('CEsami');
-                $cEsami->impostaPaginaRisultatoEsami();
-                break;
             
             case 'cliniche':
                 $cCliniche = USingleton::getInstance('CRicercaCliniche');
                 $cCliniche->impostaPaginaRisultatoCliniche();
                 //in $risultato c'è il risultato della query
                 break;
-
-            case 'servizi':
-                $cServizi = USingleton::getInstance('CGestioneServizi');
-                $cServizi->gestisciServiziPost();
+            
+            case 'esami':
+                $cEsami = USingleton::getInstance('CEsami');
+                $cEsami->impostaPaginaRisultatoEsami();
                 break;
             
             case 'impostazioni':
@@ -215,21 +195,27 @@ class CHome {
                 $cPrenotazione = USingleton::getInstance('CPrenotazione');
                 $cPrenotazione->gestisciPrenotazionePOST();
                 break;
+                
             case 'referto':
                 $cReferto = USingleton::getInstance('CReferti');
                 $cReferto->gestisciRefertiPOST();
-                
+                break;
+            
+            case 'registrazione':
+                $cRegistrazione= USingleton::getInstance('CRegistrazione');
+                $cRegistrazione->inserisciRegistrazione();
+                break;
+            
+            case 'servizi':
+                $cServizi = USingleton::getInstance('CGestioneServizi');
+                $cServizi->gestisciServiziPost();
                 break;
             
             case 'validazione':
                 $cValidazione = USingleton::getInstance('CValidazione');
-                $cValidazione->gestisciValidazione();
-                
+                $cValidazione->gestisciValidazione();                
                 break;
             
-                
-             
-                
             default:
                 echo "ora non lo so che fargli fare";
 //                $vHome->restituisciHomePage();

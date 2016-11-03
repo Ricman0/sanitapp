@@ -423,4 +423,22 @@ class EUtente extends EUser {
         $fReferti = USingleton::getInstance('FReferto');
         return $fReferti->cercaRefertiUtente($this->_codFiscale);
     }
+
+    
+    /**
+     * Metodo che permette di modificare l'indirizzo, numero civico e CAP (la modifica avviene anche nel DB)
+     * 
+     * @access public
+     * @param Array $datiValidi Array contenente i valori di indirizzo, numero civico e CAP
+     * @return boolean TRUE modifica effettuata, FALSE altrimenti
+     */
+    public function modificaIndirizzoCAP($datiValidi) 
+    {
+        $this->_via = $datiValidi['Via'];
+        $this->_numeroCivico = $datiValidi['NumCivico'];
+        $this->_CAP = $datiValidi['CAP'];
+        $fUtente = USingleton::getInstance('FUtente');
+        return $fUtente->modificaIndirizzoCAP($this->_codFiscale, $this->_via,$this->_numeroCivico,  $this->_CAP);
+    }
+
 }

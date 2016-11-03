@@ -41,8 +41,50 @@ $(document).ready(function(){
     $('#headerMain').on("click", "#modificaPasswordUtente", function(){
         clickModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
     });
+    
+    $('#headerMain').on("click", "#modificaIndirizzoUtenteFatto", function(){
+        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
+    });
+    
+     $('#headerMain').on("click", "#medicoUtenteModificato", function(){
+        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#medicoCurante");
+    });
+    
+    $('#headerMain').on("click", "inviaNuovaPasswordUtente", function(){
+        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
+    });
      
 });
+
+function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
+{
+//    var dati="";
+//    switch(task2)
+//    {
+//        case 'informazioni':
+//            dati = $(".daModificare > input[type='text']").serialize();
+//            alert(dati);
+//            break;
+//            
+//        case 'medico':
+//            break;  
+//        
+//        case 'credenziali':
+//            break;
+//            
+//    }
+    var dati = $(".daModificare > input[type='text']").serialize();  
+    $.ajax({
+        type:'POST',
+        url: controller + '/' + task  + '/' + task2,
+        data: dati,
+        success: function(datiRisposta)
+        {
+            alert(datiRisposta);
+            $(ajaxdiv).html(datiRisposta);
+        }
+    });
+}
 
 function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
 {
@@ -53,6 +95,7 @@ function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
         {
             alert(datiRisposta);
             $(ajaxdiv).html(datiRisposta);
+            $(ajaxdiv + ">div").addClass( "daModificare" );// aggiunge una classe al div in modo che poi è più semplice recuperare i dati 
         }
     });
 }

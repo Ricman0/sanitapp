@@ -69,6 +69,8 @@ class CImpostazioni {
     public function gestisciImpostazioniPOST()
     {
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
+        $sessione = USingleton::getInstance('USession');
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $task = $vImpostazioni->getTask();
         switch ($task) {
             case 'clinica':
@@ -80,9 +82,8 @@ class CImpostazioni {
 //                
                     $workingPlanText = $vImpostazioni->recuperaWorkingPlan();
                     print_r($workingPlanText);
-                    $sessione = USingleton::getInstance('USession');
-                    $usernameClinica = $sessione->leggiVariabileSessione('usernameLogIn');
-                    $eClinica = new EClinica($usernameClinica);
+                    
+                    $eClinica = new EClinica($username);
                     $salvato = $eClinica->salvaWorkingPlanClinica($workingPlanText);
                     if ($salvato === "TRUE")
                     {
@@ -92,6 +93,45 @@ class CImpostazioni {
                     }                    
                 }
                 break;
+                
+            case 'modifica': // caso per modificare le impostazioni di un utente
+                $task2 = $vImpostazioni->getTask2();
+                switch ($task2) 
+                {
+                    case 'informazioni':
+                        $dati = $vImpostazioni->recuperaInformazioni();
+                        $uValidazione = USingleton::getInstance('UValidazione');
+                        if($uValidazione->validaDatiInformazioni($dati))// se i dati sono validi
+                            {           
+                                $eUtente = new EUtente(NULL, $username);
+                                if ($eUtente->modificaIndirizzoCAP($uValidazione->getDatiValidi())===TRUE)
+                                {
+                                    //modifiche effettuate
+                                    $vJSON = USingleton::getInstance('VJSON');
+                                    $vJSON->inviaDatiJSON(TRUE);
+                                }
+                                else
+                                {
+                                    $vJSON = USingleton::getInstance('VJSON');
+                                    $vJSON->inviaDatiJSON(FALSE);
+                                }
+                            }
+                            else
+                            {    
+                                // non tutti i dati sono validi per cui restituisco la form per inserire la clinica con i dati validi inseriti
+                                return $uValidazione->getDatiValidi();
+                            }
+                        break;
+                    
+                    case 'medico':
+                        break;
+                    
+                    case 'credenziali':
+                        break;
+                    
+                    default:
+                        break;
+                }
 
             default:
                 break;

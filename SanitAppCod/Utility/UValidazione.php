@@ -493,4 +493,37 @@ class UValidazione {
             echo ($this->getValidati());
         }
     }
+    
+    public function validaDatiInformazioni($dati)
+    {
+        $this->setValidati(TRUE);
+        foreach ($dati as $chiave => $valore) 
+        {
+            $pattern = "";
+            $stringaErrore = "";
+            switch ($chiave) 
+            {
+                case 'Via':
+                    $pattern = '/^[a-zA-Zàèìùò\s]{1,30}$/' ;
+                    $stringaErrore = "L'" . $chiave . " deve essere una sequenza di caratteri. Massimo 30";
+                    break;
+
+                case 'NumCivico':
+                    $pattern = '/^[0-9]{1,6}$/';
+                    $stringaErrore = "Il" . $chiave . " deve essere un numero";
+                    break;
+
+                case "CAP":
+                    $pattern = '/^[0-9]{5}$/';
+                    $stringaErrore = "Il" . $chiave . " deve essere una sequenza di 5 numeri";
+                    break;
+
+                default:
+                        echo "c'è qualcosa di sbagliato UValidazione validaDatiClinica";
+                        break;
+            }
+            $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
+        }
+        return $this->_validati;
+    }
 }

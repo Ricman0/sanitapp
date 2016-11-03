@@ -162,7 +162,7 @@ class CRegistrazione {
        $uValidazione = USingleton::getInstance('UValidazione');
        $validi = $uValidazione->validaDatiClinica($datiClinica);
        // se i dati sono validi
-       if($validi)
+       if($uValidazione->getValidati()===TRUE)
        {           
             // crea la clinica
             $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], $datiClinica['nomeClinica'], 

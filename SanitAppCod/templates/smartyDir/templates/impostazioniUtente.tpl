@@ -17,27 +17,31 @@
                 <label for name="email">Email :</label>
                 <input type="text" name="email" value ="{$utente->getEmail()}" readonly />
                 <br>
-                {if isset($modificaInformazioni)}
-                    <label for name="via">Indirizzo :</label>
-                    <input type="text" name="Via" value ="{$utente->getViaUtente()}" />
-                    <label>, </label>
-                    <input type="text"  value="{$utente->getNumCivicoUtente()}" />
-                    <br>
-                    <label for name="CAP">CAP :</label>
-                    <input type="text" name="CAP" value="{$utente->getCAPUtente()}" />
-                    <br>
-                    <input type="button" id="modificaIndirizzoUtenteFatto" value="OK" />
-                {else}
-                    <label for name="via">Indirizzo :</label>
-                    <input type="text" name="Via" value="{$utente->getViaUtente()}" />
-                    <label>, </label>
-                    <input type="text"  value="{$utente->getNumCivicoUtente()}" readonly />
-                    <br>
-                    <label for name="CAP">CAP :</label>
-                    <input type="text" name="CAP" value="{$utente->getCAPUtente()}" readonly />
-                    <br>
-                    <input type="button" id="modificaIndirizzoUtente" value="Modifica Indirizzo" />  
-                {/if}
+                <div>
+                    {if isset($modificaInformazioni)}
+
+                            <label for name="via">Indirizzo :</label>
+                            <input type="text" name="Via" value ="{$utente->getViaUtente()}" />
+                            <label>, </label>
+                            <input type="text" name="NumCivico" value="{$utente->getNumCivicoUtente()}" />
+                            <br>
+                            <label for name="CAP">CAP :</label>
+                            <input type="text" name="CAP" value="{$utente->getCAPUtente()}" />
+                            <br>
+                            <input type="button" id="modificaIndirizzoUtenteFatto" value="OK" />
+
+                    {else}
+                        <label for name="via">Indirizzo :</label>
+                        <input type="text" name="Via" value="{$utente->getViaUtente()}" readonly />
+                        <label>, </label>
+                        <input type="text" name="NumCivico" value="{$utente->getNumCivicoUtente()}" readonly />
+                        <br>
+                        <label for name="CAP">CAP :</label>
+                        <input type="text" name="CAP" value="{$utente->getCAPUtente()}" readonly />
+                        <br>
+                        <input type="button" id="modificaIndirizzoUtente" value="Modifica Indirizzo" />  
+                    {/if}
+                </div>
             {/if}
         </div>
     {/if}

@@ -63,12 +63,12 @@ class VImpostazioni extends View{
 
             case 'medico':
                 $this->assegnaVariabiliTemplate('medicoCurante', TRUE);
-                $this->assegnaVariabiliTemplate('modificaMedicoUtente', TRUE );
+                $this->assegnaVariabiliTemplate('modificaMedicoCurante', TRUE );
                 break;
 
             case 'credenziali':
                 $this->assegnaVariabiliTemplate('credenziali', TRUE);
-                $this->assegnaVariabiliTemplate('modificaInformazioni', TRUE );
+                $this->assegnaVariabiliTemplate('modificaCredenziali', TRUE );
                 break;
 
             default:
@@ -193,5 +193,21 @@ class VImpostazioni extends View{
             }
         }
         return json_encode($workingPlan);        
+    }
+    
+    /**
+     * Metodo che consente di recuperare tutti i dati relativi alle informazioni utente modificate
+     * 
+     * @access public
+     * @return array I dati modificati che devono essere salvati nel DB
+     */
+    public function recuperaInformazioni() 
+    {
+        print_r($_REQUEST);
+        $dati = Array();
+        $dati['Via'] = $this->recuperaValore('Via');
+        $dati['NumCivico'] = $this->recuperaValore('NumCivico');
+        $dati['CAP'] = $this->recuperaValore('CAP');
+        return $dati;
     }
 }
