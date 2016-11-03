@@ -320,9 +320,20 @@ class EMedico extends EUser {
     }
     
     
+    /**
+     * Permette di trovare tutti i pazienti del medico
+     * @return array|boolean Tutti i pazienti del medico se ci sono
+     */
+    public function cercaPazienti() {
+        
+        $fMedico = USingleton::getInstance("FMedico");
+        return $fMedico->cercaPazienti(parent::getUsername());
+        
+    }
+    
    /**
      * Permette di trovare tutti i referti dei pazienti del medico
-     * @return array|boolean Tutti i referti della clinica se ci sono
+     * @return array|boolean Tutti i referti dei oazienti del medico se ci sono
      */
     public function cercaReferti() {
         

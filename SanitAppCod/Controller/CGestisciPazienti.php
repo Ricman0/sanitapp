@@ -12,52 +12,42 @@
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CGestisciPazienti {
-    
+
     /**
      * Metodo che consente la visualizzazione di un paziente passato come parametro o tutti i pazienti
      * 
      * @access public
      */
-    public function gestisciPazienti() 
-    {
+    public function gestisciPazienti() {
         echo "gestione pazienti in CGestionePAzienti";
         $sessione = USingleton::getInstance('USession');
         $usernameMedico = $sessione->leggiVariabileSessione('usernameLogIn');
         $vPazienti = USingleton::getInstance('VGestisciPazienti');
-        $task =$vPazienti->getTask();
+        $task = $vPazienti->getTask();
         switch ($task) {
             case 'visualizza':
-                $this->visualizza($vPazienti,$usernameMedico);
+                $this->visualizza($vPazienti, $usernameMedico);
                 break;
 
             default:
                 break;
         }
-        
-        
-        
-        
-        
     }
-    
-    private function visualizza($vPazienti,$usernameMedico) 
-    {
+
+    private function visualizza($vPazienti, $usernameMedico) {
         $cf = $vPazienti->getId();
-        if ($cf === FALSE)
-        {
+        if ($cf === FALSE) {
             // vogliamo visualizzare tutti i pazienti del medico
-            $medico = USingleton::getInstance('FMedico');
-            $risultato = $medico->cercaPazienti($usernameMedico);  
-            if (is_array($risultato))
-            {
+            $eMedico = new EMedico(null, $usernameMedico);
+            $risultato = $eMedico->cercaPazienti();
+            if (is_array($risultato)) {
                 $vPazienti->visualizzaPazienti($risultato);
             }
+        } else {
+            // si cerca un solo paziente
+            $eUtente = new EUtente($cf);
+            $vPazienti->visualizzaInfoUtente($eUtente);
         }
-        else
-            {
-             // si cerca un solo paziente
-                    $eUtente = new EUtente($cf);                    
-                    $vPazienti->visualizzaInfoUtente($eUtente);
-            }            
     }
+
 }

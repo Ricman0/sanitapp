@@ -77,13 +77,6 @@ class CHome {
                 break;
             
             
-            
-            
-           
-            
-            
-            
-            
             case 'cliniche':
                 $cCliniche = USingleton::getInstance('CRicercaCliniche');
                 $cCliniche->gestisciCliniche();
