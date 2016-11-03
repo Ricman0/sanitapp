@@ -194,10 +194,9 @@ class FUtente extends FUser{
      */
     public function modificaIndirizzoCAP($codFiscale, $via, $numeroCivico,  $CAP) 
     {
-        
         $via = $this->trimEscapeStringa($via);
         $CAP = $this->trimEscapeStringa($CAP);
-        $query = "UPDATE " . $this->_nomeTabella . " SET Via='" . $via . "' "
+        $query = "UPDATE " . $this->_nomeTabella . " SET Via='" . $via . "', "
                 . "NumCivico='" . $numeroCivico . "', CAP='" . $CAP . "' "
                 . "WHERE CodFiscale='" . $codFiscale . "'";
         return $this->eseguiQuery($query);

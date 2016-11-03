@@ -19,7 +19,7 @@
                 <br>
                 <div>
                     {if isset($modificaInformazioni)}
-
+                        <form id="formModificaInformazioni">
                             <label for name="via">Indirizzo :</label>
                             <input type="text" name="Via" value ="{$utente->getViaUtente()}" />
                             <label>, </label>
@@ -29,7 +29,7 @@
                             <input type="text" name="CAP" value="{$utente->getCAPUtente()}" />
                             <br>
                             <input type="button" id="modificaIndirizzoUtenteFatto" value="OK" />
-
+                        </form>
                     {else}
                         <label for name="via">Indirizzo :</label>
                         <input type="text" name="Via" value="{$utente->getViaUtente()}" readonly />
@@ -76,14 +76,16 @@
             </h4>
             {if isset($utente)}                    
                 {if isset($modificaCredenziali)}
-                    <label for name="username">Username :</label>
-                    <input type="text" name="username" value ="{$utente->getUsername()}"readonly />
-                    <label for name="password">Password :</label>
-                    <input type="password" name="password" />
-                    <label for name="ripetiPassword">Ripeti Password :</label>
-                    <input type="password" name="ripetiPassword" />
-                    <br>
-                    <input type="button" id="inviaNuovaPasswordUtente" value="Invia Nuova Password" />
+                    <form if="formModificaPassword" >                    
+                        <label for name="username">Username :</label>
+                        <input type="text" name="username" value ="{$utente->getUsername()}"readonly />
+                        <label for name="password">Password :</label>
+                        <input type="password" name="password" />
+                        <label for name="ripetiPassword">Ripeti Password :</label>
+                        <input type="password" name="ripetiPassword" />
+                        <br>
+                        <input type="button" id="inviaNuovaPasswordUtente" value="Invia Nuova Password" />
+                    </form>
                 {else}  
                     <label for name="username">Username :</label>
                     <input type="text" name="username" value ="{$utente->getUsername()}" readonly />

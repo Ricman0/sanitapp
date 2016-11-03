@@ -203,11 +203,21 @@ class VImpostazioni extends View{
      */
     public function recuperaInformazioni() 
     {
-        print_r($_REQUEST);
         $dati = Array();
         $dati['Via'] = $this->recuperaValore('Via');
         $dati['NumCivico'] = $this->recuperaValore('NumCivico');
         $dati['CAP'] = $this->recuperaValore('CAP');
         return $dati;
+    }
+    
+    /**
+     * Metodo che consente di recuperare tutti i dati relativi alle credenziali utente modificate
+     * 
+     * @access public
+     * @return string La password modificata che deve essere salvata nel DB
+     */
+    function recuperaCredenziali() 
+    {
+        return $this->recuperaValore('password');
     }
 }

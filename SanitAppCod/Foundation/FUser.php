@@ -172,5 +172,18 @@ class FUser extends FDatabase {
             return FALSE;
         }
     }
-
+    
+    /**
+     * Metodo che consente di impostare una nuova password
+     * 
+     * @param string $username L'username la cui password deve essere modificata
+     * @param string $password La nuova password
+     * @return type Description
+     */
+    public function modificaPassword($username,$password) 
+    {
+        $query = "UPDATE " . $this->_nomeTabella . " SET Password='" . $password . "' "
+                . "WHERE Username='" . $username . "'";
+        return $this->eseguiQuery($query);
+    }
 }

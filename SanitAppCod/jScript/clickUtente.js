@@ -42,17 +42,17 @@ $(document).ready(function(){
         clickModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
     });
     
-    $('#headerMain').on("click", "#modificaIndirizzoUtenteFatto", function(){
-        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
-    });
+//    $('#headerMain').on("click", "#modificaIndirizzoUtenteFatto", function(){
+//        
+//    });
     
      $('#headerMain').on("click", "#medicoUtenteModificato", function(){
         inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#medicoCurante");
     });
     
-    $('#headerMain').on("click", "inviaNuovaPasswordUtente", function(){
-        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
-    });
+//    $('#headerMain').on("click", "inviaNuovaPasswordUtente", function(){
+//        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
+//    });
      
 });
 
@@ -81,7 +81,23 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
         success: function(datiRisposta)
         {
             alert(datiRisposta);
-            $(ajaxdiv).html(datiRisposta);
+            datiRisposta = JSON.parse(datiRisposta);
+            if(datiRisposta==true)
+            {
+                if(task2='informazioni')
+                {
+                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
+//                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
+                }
+                if(task2='credenziali')
+                {
+                    $('#inviaNuovaPasswordUtente').remove();// elimino il tasto OK
+
+                }
+                
+                $(".daModificare > input[type='text']").attr("readonly", true); //aggiungo il readonly 
+                $("div").removeClass("daModificare");// elimino la classe daModificare al div
+            }
         }
     });
 }
@@ -96,6 +112,10 @@ function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
             alert(datiRisposta);
             $(ajaxdiv).html(datiRisposta);
             $(ajaxdiv + ">div").addClass( "daModificare" );// aggiunge una classe al div in modo che poi è più semplice recuperare i dati 
+        },
+        complete:function()
+        {
+            validazione(task, controller, task2);
         }
     });
 }

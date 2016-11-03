@@ -118,8 +118,9 @@ class CImpostazioni {
                             }
                             else
                             {    
-                                // non tutti i dati sono validi per cui restituisco la form per inserire la clinica con i dati validi inseriti
-                                return $uValidazione->getDatiValidi();
+                                // non tutti i dati sono validi 
+                                $vJSON = USingleton::getInstance('VJSON');
+                                $vJSON->inviaDatiJSON(FALSE);
                             }
                         break;
                     
@@ -127,6 +128,30 @@ class CImpostazioni {
                         break;
                     
                     case 'credenziali':
+                        $dati = $vImpostazioni->recuperaCredenziali();
+                        $uValidazione = USingleton::getInstance('UValidazione');
+                        if($uValidazione->validaDatiCredenziali($dati))// se i dati sono validi
+                            {           
+                                $eUtente = new EUtente(NULL, $username);
+                                if ($eUtente->modificaPassword($uValidazione->getDatiValidi())===TRUE)
+                                {
+                                    //modifiche effettuate
+                                    $vJSON = USingleton::getInstance('VJSON');
+                                    $vJSON->inviaDatiJSON(TRUE);
+                                }
+                                else
+                                {
+                                    $vJSON = USingleton::getInstance('VJSON');
+                                    $vJSON->inviaDatiJSON(FALSE);
+                                }
+                            }
+                            else
+                            {    
+                                // non tutti i dati sono validi 
+                                $vJSON = USingleton::getInstance('VJSON');
+                                $vJSON->inviaDatiJSON(FALSE);
+                            }
+                        break;
                         break;
                     
                     default:

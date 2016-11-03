@@ -441,4 +441,15 @@ class EUtente extends EUser {
         return $fUtente->modificaIndirizzoCAP($this->_codFiscale, $this->_via,$this->_numeroCivico,  $this->_CAP);
     }
 
+    /**
+     * 
+     * @param string $password password da modificare
+     */
+    public function modificaPassword($password) 
+    {
+        parent::setPassword($password);
+        $fUtente = USingleton::getInstance('FUtente');
+        return $fUtente->modificaPassword(parent::getUsername(), parent::getPassword());
+    }
+
 }
