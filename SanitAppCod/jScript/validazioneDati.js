@@ -1,4 +1,4 @@
-function validazione(task1, controller1)
+function validazione(task1, controller1, task2)
 {
     switch (task1)
     {
@@ -27,19 +27,125 @@ function validazione(task1, controller1)
         case "aggiungi":
             if (controller1 === "prenotazioni")
             {
-
                 validazioneCodiceFiscale();
             } else
             {
                 validazioneEsame();
             }
             break;
+            
+        case 'modifica':
+            switch(task2)
+            {
+                
+                case 'informazioni':
+                    alert("fino a qui");
+                    validazioneInformazioni();
+                    break;
+                case 'credenziali':
+                    validazioneCredenziali();
+                    break;
+                case 'medico':
+                    break;
+                default: 
+                    break;
+            }
 
 
 
         default:
             break;
     }
+}
+
+function validazioneCredenziali()
+{
+    jQuery.validator.addMethod("password", function (valore) {
+        //espressione regolare per la password
+        var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
+        return valore.match(regex);
+        }, "La password consta da 6 a 10 caratteri, contiene almeno un numero, una lettera \n\
+        maiuscola,una lettera minuscola. ");
+    $('#formModificaPassword').validate({
+        rules:
+                {
+                    password:
+                            {
+                                required: true
+                            },
+                    ripetiPassword:
+                            {
+                                required: true,
+                                equalTo: "#password"
+                            }
+                },
+        messages:
+                {
+                    password:
+                            {
+                                required: "Inserire password"
+                            },
+                    ripetiPassword:
+                            {
+                                required: "Inserire nuovamente la password",
+                                equalTo: "La password deve essere sempre la stessa"
+                            }
+                },
+        submitHandler: function(form)
+        {            
+            
+            inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
+        } 
+    });
+}
+
+function validazioneInformazioni()
+{
+    $('#formModificaInformazioni').validate({
+        rules:
+            {
+                Via:
+                    {
+                        required: true,
+                        maxlength: 30
+                    },
+                NumCivico:
+                    {
+                        number: true,
+                        min: 0
+                    },
+                CAP:
+                    {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 5
+                    }
+            },
+        messages:
+                {
+                    Via:
+                            {
+                                required: "Inserire indirizzo",
+                                maxlength: "La lunghezza massima è 30"
+                            },
+                    NumCivico:
+                            {
+                                number: "Il numero civico è un numero",
+                                min: "Inserire un numero maggiore o uguale a zero"
+                            },
+                    CAP:
+                            {
+                                required: "Inserire il CAP",
+                                minlength: "Il CAP è un numero lungo 5",
+                                maxlength: "Il CAP è un numero lungo 5"
+                            }
+                },
+        submitHandler: function(form)
+        {
+            alert("submit handler");
+            inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
+        }
+    });
 }
 
 function validazioneCodiceFiscale()

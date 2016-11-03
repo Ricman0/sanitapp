@@ -23,8 +23,11 @@ class VImpostazioni extends View{
      */
     public function visualizzaImpostazioniUtente($utente)
     {  
-       $this->assegnaVariabiliTemplate('utente', $utente);
-       $this->visualizzaTemplate('impostazioniUtente'); 
+        $this->assegnaVariabiliTemplate('utente', $utente);
+        $this->assegnaVariabiliTemplate('informazioniGenerali', TRUE);
+        $this->assegnaVariabiliTemplate('medicoCurante', TRUE);
+        $this->assegnaVariabiliTemplate('credenziali', TRUE);
+        $this->visualizzaTemplate('impostazioniUtente'); 
     }
     
     /**
@@ -50,27 +53,29 @@ class VImpostazioni extends View{
      */
     public function modificaImpostazioniUtente($utente, $modificaInformazioni)
     {  
-         switch ($modificaInformazioni) 
-                    {
-                        case 'informazioni':
-                            echo "modifica informazioni";
-                            $this->assegnaVariabiliTemplate('modificaInformazioni', "TRUE" );
-                            break;
-                        
-                        case 'medico':
-                            $this->assegnaVariabiliTemplate('modificaMedicoUtente', "TRUE" );
-                            break;
-                        
-                        case 'credenziali':
-                            $this->assegnaVariabiliTemplate('modificaInformazioni', "TRUE" );
-                            break;
+        switch ($modificaInformazioni) 
+        {
+            case 'informazioni':
+                echo "modifica informazioni";
+                $this->assegnaVariabiliTemplate('informazioniGenerali', TRUE);
+                $this->assegnaVariabiliTemplate('modificaInformazioni', TRUE );
+                break;
 
-                        default:
-                            break;
-                    }
-       
-       $this->assegnaVariabiliTemplate('utente', $utente);
-       return $this->visualizzaTemplate('impostazioniUtente'); 
+            case 'medico':
+                $this->assegnaVariabiliTemplate('medicoCurante', TRUE);
+                $this->assegnaVariabiliTemplate('modificaMedicoCurante', TRUE );
+                break;
+
+            case 'credenziali':
+                $this->assegnaVariabiliTemplate('credenziali', TRUE);
+                $this->assegnaVariabiliTemplate('modificaCredenziali', TRUE );
+                break;
+
+            default:
+                break;
+        }
+        $this->assegnaVariabiliTemplate('utente', $utente);
+        $this->visualizzaTemplate('impostazioniUtente'); 
     }
     
     /**
@@ -78,7 +83,7 @@ class VImpostazioni extends View{
      * 
      * @access public
      * @final
-     * @return mixed Ritorna il valore (stringa) di task2. False altrimenti.
+     * @return mixed Ritorna il valore (stringa) di task2. FALSE altrimenti.
      */
     public function getTask2() 
     {
@@ -88,7 +93,7 @@ class VImpostazioni extends View{
             } 
         else 
             {
-                return false;
+                return FALSE;
             }
     }
     
@@ -188,5 +193,31 @@ class VImpostazioni extends View{
             }
         }
         return json_encode($workingPlan);        
+    }
+    
+    /**
+     * Metodo che consente di recuperare tutti i dati relativi alle informazioni utente modificate
+     * 
+     * @access public
+     * @return array I dati modificati che devono essere salvati nel DB
+     */
+    public function recuperaInformazioni() 
+    {
+        $dati = Array();
+        $dati['Via'] = $this->recuperaValore('Via');
+        $dati['NumCivico'] = $this->recuperaValore('NumCivico');
+        $dati['CAP'] = $this->recuperaValore('CAP');
+        return $dati;
+    }
+    
+    /**
+     * Metodo che consente di recuperare tutti i dati relativi alle credenziali utente modificate
+     * 
+     * @access public
+     * @return string La password modificata che deve essere salvata nel DB
+     */
+    function recuperaCredenziali() 
+    {
+        return $this->recuperaValore('password');
     }
 }

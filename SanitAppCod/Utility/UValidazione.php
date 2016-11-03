@@ -308,7 +308,7 @@ class UValidazione {
    
             $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
         }
-        return $this->validati;
+        return $this->_validati;
     }
     
     /**
@@ -360,9 +360,25 @@ class UValidazione {
             }
             $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
         }
-        return $this->validati;
+        return $this->_validati;
     }
     
+    /**
+     * Metodo che consente di validare le credenziali
+     * 
+     * @param string $dati Le credenziali da validare
+     * @return boolean TRUE validato, FALSE altrimenti
+     */
+    public function validaDatiCredenziali($dati)
+    {
+        $this->setValidati(TRUE);
+        $pattern = '/^(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})$/';
+        $stringaErrore = "La password deve contenere almeno un "
+                . "numero, una lettera maiusola, "
+                . "una minuscola e deve essere lunga minimo 6 e massimo 10 ";
+        $this->validaDato($pattern, 'password', $dati, $stringaErrore);
+        return $this->_validati;
+    }
     /**
      * Metodo che permette la validazione di tutti i dati della clinica
      * 
@@ -474,23 +490,64 @@ class UValidazione {
      */
     private function validaDato($pattern, $chiave, $valore, $stringaErrore) 
     {
-        echo ($chiave);
+//        echo ($chiave);
         if (preg_match($pattern, $valore)) 
         {
-            echo ($valore);
+            // gli echo sono da eliminare, solo solo per un rapido debug
+//            echo ($valore);
             $this->_datiErrati[$chiave] = FALSE;
             $this->_datiValidi[$chiave] = $valore;
-            echo "OK";
-            echo ($this->getValidati());
+//            echo "OK";
+//            echo ($this->getValidati());
         } 
         else
         {
             
             $this->datiErrati[$chiave] = $stringaErrore;
-            echo ($this->datiErrati[$chiave]);
-            echo "NO";
+//            echo ($this->datiErrati[$chiave]);
+//            echo "NO";
             $this->validati = FALSE;
-            echo ($this->getValidati());
+//            echo ($this->getValidati());
         }
+    }
+    
+    /**
+     * Metodo che consente la validazione di dei dell'indirizzo, del numero civico e del cCAP
+     * 
+     * @access public
+     * @param Array $dati Dati da validare
+     * @return boolean TRUE dati validati, FALSE c'è almeno un dato che non ha superato la validazione
+     */
+    public function validaDatiInformazioni($dati)
+    {
+        $this->setValidati(TRUE);
+        foreach ($dati as $chiave => $valore) 
+        {
+            $pattern = "";
+            $stringaErrore = "";
+            switch ($chiave) 
+            {
+                case 'Via':
+                    $pattern = '/^[a-zA-Zàèìùò\s]{1,30}$/' ;
+                    $stringaErrore = "L'" . $chiave . " deve essere una sequenza di caratteri. Massimo 30";
+                    break;
+
+                case 'NumCivico':
+                    $pattern = '/^[0-9]{1,6}$/';
+                    $stringaErrore = "Il" . $chiave . " deve essere un numero";
+                    break;
+
+                case "CAP":
+                    $pattern = '/^[0-9]{5}$/';
+                    $stringaErrore = "Il" . $chiave . " deve essere una sequenza di 5 numeri";
+                    break;
+
+                default:
+                        echo "c'è qualcosa di sbagliato UValidazione validaDatiClinica";
+                        break;
+            }
+            $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
+        }
+        return $this->_validati;
     }
 }

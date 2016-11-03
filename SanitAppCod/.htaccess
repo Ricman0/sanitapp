@@ -26,7 +26,7 @@
   RewriteRule ^(autenticazione|mySanitApp)?$ index.php?controller=$1
   RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|referti|impostazioni)/(visualizza)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(impostazioni)/(utente)/(modifica)/(informazioni)?$ index.php?controller=$1&task=$2&task2=$3&task3=$4 [L]
+  RewriteRule ^(impostazioni)/(modifica)/(informazioni|medico|credenziali)?$ index.php?controller=$1&task=$2&task2=$3 [L]
   RewriteRule ^(prenotazioni|pazienti|referti|clienti)/(aggiungi|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]  
   RewriteRule ^(prenotazioni)/(conferma)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
@@ -40,6 +40,7 @@ RewriteRule ^(referti)/(aggiungi)/([[:alnum:]]+)?$ index.php?controller=$1&task=
 
 
     RewriteCond %{REQUEST_METHOD} POST 
+    RewriteRule ^(impostazioni)/(modifica)/(informazioni|medico|credenziali)?$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(prenotazione)/(conferma)?$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(validazione)/(usernameUtente)?$ index.php?controller=$1&task=$2
     RewriteRule ^(impostazioni)/(clinica)/(workingPlan|credenziali|informazioni)?$ index.php?controller=$1&task=$2&task2=$3 [L]

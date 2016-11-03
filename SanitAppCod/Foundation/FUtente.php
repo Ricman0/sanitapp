@@ -180,9 +180,27 @@ class FUtente extends FUser{
      *               di cui si vuole modificare il valore del contenuto
      * @param string $valore Il valore con il quale modificare il vecchio valore
      */
-    
+    //???
     
     /**
+     * Metodo che permette di modificare via, numero civico e CAP di un utente nel DB
      * 
+     * @access public
+     * @param string $codFiscale Il codice fiscale dell'utente il cui indirizzo deve essere modificato
+     * @param string $via la nuova via
+     * @param int $numeroCivico  il numero civico da modificare
+     * @param string $CAP Il CAP modificare
+     * @return boolean TRUE se la modifica è andata a buon fine, FALSE altrimenti
      */
+    public function modificaIndirizzoCAP($codFiscale, $via, $numeroCivico,  $CAP) 
+    {
+        $via = $this->trimEscapeStringa($via);
+        $CAP = $this->trimEscapeStringa($CAP);
+        $query = "UPDATE " . $this->_nomeTabella . " SET Via='" . $via . "', "
+                . "NumCivico='" . $numeroCivico . "', CAP='" . $CAP . "' "
+                . "WHERE CodFiscale='" . $codFiscale . "'";
+        return $this->eseguiQuery($query);
+    }
+    
+    
 }
