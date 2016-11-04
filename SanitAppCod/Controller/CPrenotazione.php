@@ -170,6 +170,7 @@ class CPrenotazione {
                     
                 }
                 break;
+                
             case 'visualizza':
                 switch ($tipoUser) 
                 {
@@ -238,7 +239,8 @@ class CPrenotazione {
                             }
                         } 
                         else {
-                            echo ' visualizza una sola prenotazione ';
+                            //visualizzare una sola prenotazione
+                           
                             // attenzione controllare la progettazione di  Prenotazione
                             $ePrenotazione = new EPrenotazione($idPrenotazione);
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
@@ -246,22 +248,14 @@ class CPrenotazione {
                             $nomeEsame = $eEsame->getNomeEsame();
                             $medicoEsame = $eEsame->getMedicoEsame();
                             $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
-                            $eClinica = new EClinica(NULL, $partitaIVA);
-                            if($ePrenotazione->getTipoPrenotazione()==='U')
-                            {
-                                $eUtente = new EUtente($ePrenotazione->getUtentePrenotaEsamePrenotazione());
-                                $nome = $eUtente->getNomeUtente();
-                                $cognome = $eUtente->getCognomeUtente();
-                            }
-                            else
-                            {
-                                $eMedico = new EMedico($ePrenotazione->getMedicoPrenotaEsamePrenotazione());
-                                $nome = $eMedico->getNomeMedico();
-                                $cognome = $eMedico->getCognomeMedico();
-                            }
+                            $eClinica = new EClinica(NULL, $partitaIVA);                        
+                            $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
+                            $nome = $eUtente->getNomeUtente();
+                            $cognome = $eUtente->getCognomeUtente();
+     
                             $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
                             $idReferto = $eReferto->getIDReferto();
-                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome);
+                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL) ;
                         }
                         break;
 
