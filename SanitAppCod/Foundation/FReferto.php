@@ -123,4 +123,17 @@ class FReferto extends FDatabase{
         // eseguo la query
         return $this->eseguiQuery($query);
     }
+    
+    /**
+     * Metodo che consente di cercare il referto attraverso l'id della prenotazione
+     * 
+     * @access public
+     * @param string $idPrenotazione Id della prenotazione
+     * @return mixed Il risultato della query Array se esiste, boolean altrimenti
+     */
+    public function cercaReferto($idPrenotazione) 
+    {
+        $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE IDPrenotazione='" . $idPrenotazione . "'";
+        return $this->eseguiQuery($query);
+    }
 }

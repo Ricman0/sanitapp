@@ -68,13 +68,36 @@ class EReferto {
      */    
     public function __construct($idPrenotazione, $partitaIvaClinica, $idEsame, $medico=NULL,  $contenuto=NULL) 
     {
-        $this->_IDReferto = uniqid();
-        $this->_idPrenotazione = $idPrenotazione;
-        $this->_idEsame = $idEsame;
-        $this->_partitaIVAClinica = $partitaIvaClinica;
-        $this->_medicoReferto = $medico;
-        $this->_contenuto = $contenuto;
-        $this->_dataReferto = date('Y-m-d', time());
+        if($medico!==NULL)
+        {
+            $this->_IDReferto = uniqid();
+            $this->_idPrenotazione = $idPrenotazione;
+            $this->_idEsame = $idEsame;
+            $this->_partitaIVAClinica = $partitaIvaClinica;
+            $this->_medicoReferto = $medico;
+            $this->_contenuto = $contenuto;
+            $this->_dataReferto = date('Y-m-d', time());
+        }
+        else
+        {
+            $fReferto = USingleton::getInstance('FReferto');
+            $risultato = $fReferto->cercaReferto($idPrenotazione);
+            if(is_array($risultato) && count($risultato)===1)
+            {
+                $this->_IDReferto = $risultato['IDReferto'];
+                $this->_idPrenotazione = $risultato['IDPrenotazione'];
+                $this->_idEsame = $risultato['IDEsame'];
+                $this->_partitaIVAClinica = $risultato['PartitaIVAClinica'];
+                $this->_medicoReferto = $risultato['MedicoReferto'];
+                $this->_contenuto = $risultato['Contenuto'];
+                $this->_dataReferto = $risultato['DataReferto'];
+            }
+            else 
+            {
+                //print_r($risultato);
+                $this->_IDReferto = NULL;
+            }
+        }
     }
     
     //metodi get

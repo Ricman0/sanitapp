@@ -193,7 +193,6 @@ class CPrenotazione {
                             }
                         } 
                         else {
-                            echo ' visualizza una sola prenotazione ';
                             // attenzione controllare la progettazione di  Prenotazione
                             $ePrenotazione = new EPrenotazione($idPrenotazione);
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
@@ -251,8 +250,7 @@ class CPrenotazione {
                             $eClinica = new EClinica(NULL, $partitaIVA);                        
                             $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
                             $nome = $eUtente->getNomeUtente();
-                            $cognome = $eUtente->getCognomeUtente();
-     
+                            $cognome = $eUtente->getCognomeUtente();    
                             $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
                             $idReferto = $eReferto->getIDReferto();
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL) ;
