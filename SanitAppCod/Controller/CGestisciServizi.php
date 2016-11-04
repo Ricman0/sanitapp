@@ -11,17 +11,16 @@
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class CGestioneServizi {
+class CGestisciServizi {
     
     
     public function gestisciServizi() 
     {
+        $vServizi = USingleton::getInstance('VGestisciServizi');
         $sessione = USingleton::getInstance('USession');
         $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
-        echo "nome clinica: " . $nomeClinica;
-        $vServizi = USingleton::getInstance('VGestioneServizi');
         $task = $vServizi->getTask();
-        $this->gestisciAzione($vServizi, $task, $nomeClinica);
+        $this->gestisciAzione($task, $nomeClinica);
         
     }
     
@@ -33,7 +32,7 @@ class CGestioneServizi {
         echo " nome clinica: " . $nomeClinica;
 //        $fClinica = USingleton::getInstance('FClinica');
 //        $partitaIVA = $fClinica->cercaClinica($nomeClinica);
-        $vServizi = USingleton::getInstance('VGestioneServizi');
+        $vServizi = USingleton::getInstance('VGestisciServizi');
         $task = $vServizi->getTask();
         if($task==="aggiungi")
         {
@@ -55,33 +54,42 @@ class CGestioneServizi {
      * 
      * 
      */
-    private function gestisciAzione($vServizi, $azione, $nomeClinica)
+    private function gestisciAzione($azione, $nomeClinica)
     {
-        switch ($azione)
+        $sessione = USingleton::getInstance('USession');
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $vServizi = USingleton::getInstance('VGestisciServizi');
+        switch ($azione)// azione sarebbe task
         {
             case 'aggiungi':
                 //vai a fare la query per recuperare le categorie
+                
                 $categorie = USingleton::getInstance('FCategoria');
                 $listaCategorie = $categorie->getCategorie();
                 $vServizi->restituisciFormAggiungiServizi($listaCategorie);
                 break;
             
             case 'visualizza':
-                echo " visualizza ";
                 $idEsame = $vServizi->getId();
-                $esami = USingleton::getInstance('FEsame');
                 if($idEsame === FALSE)
                 {
-                    echo "visualizza tutti gli esami ";
-                //cerco tutti gli esami della clinica di cui passo il nome
+                    // visualizza tutti gli esami 
+                    $eClinica = new EClinica($username);
+                    $vServizi->visualizzaEsami($eClinica->cercaEsami());//i servizi cercati vengono visualizzati
+                    /*
+                     * commento un momento perchè non so se sia meglio usare l'entity EClinica per cercare tutti gli esami
+                     * 
+                    //cerco tutti gli esami della clinica di cui passo il nome
+                    $esami = USingleton::getInstance('FEsame');
                     $risultato = $esami->cercaEsame("",$nomeClinica,"");
                     $vServizi->visualizzaEsami($risultato);
+                     * 
+                     */
                 }
                 else
                 {
-                    echo ' visualizza un solo esame ';
                     $eEsame = new EEsame($idEsame);
-                    $vServizi->visualizzaInfoEsame($eEsame, "TRUE");
+                    $vServizi->visualizzaInfoEsame($eEsame, TRUE);
                 }
                 break;
        

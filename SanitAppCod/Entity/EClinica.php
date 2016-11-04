@@ -742,10 +742,29 @@ class EClinica extends EUser
         return $regione;
     }
     
+    /**
+     * Metodo che consente di cercare tutte le prenotazioni della clinica
+     * 
+     * @access public
+     * @return Array Tutte le prenotazioni di una clinica
+     */
     public function cercaPrenotazioni() 
     {
         $fPrenotazioni = USingleton::getInstance('FPrenotazione');
         return $fPrenotazioni->cercaPrenotazioniClinica($this->_partitaIVA);
+    }
+    
+    /**
+     * Metodo che consente di cercare tutti gli esami/servizi della clinica
+     * 
+     * @access public
+     * @return Array Tutti gli esami/servizi che offre la clinica
+     */
+    public function cercaEsami() 
+    {
+        $fEsami = USingleton::getInstance('FEsame');
+        $this->_esami = $fEsami->cercaEsame(NULL, $this->_nomeClinica, NULL);
+        return $this->_esami;
     }
 }
 ?>

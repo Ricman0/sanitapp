@@ -143,7 +143,7 @@ class CHome {
                 break;
             
             case 'servizi':
-                $cServizi = USingleton::getInstance('CGestioneServizi');
+                $cServizi = USingleton::getInstance('CGestisciServizi');
                 $cServizi->gestisciServizi();
                 break;
             

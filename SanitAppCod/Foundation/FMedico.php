@@ -128,10 +128,10 @@ class FMedico extends FUser {
      */
     public function cercaPazienti($usernameMedico) 
     {
-        $query1=  "SELECT utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, appuser.Email, utente.CodFiscale "
-                . "FROM utente, medico , appuser "
-                . "WHERE codFiscaleMedico=medico.codFiscale AND appuser.Username='" . $usernameMedico . "'";
-        $query2 =  "SELECT appuser.Email, utente.CodFiscale "
+        $query1=  "SELECT utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, utente.CodFiscale "
+                . "FROM utente, medico "
+                . "WHERE codFiscaleMedico=medico.codFiscale AND medico.Username='" . $usernameMedico . "'";
+        $query2 = "SELECT appuser.Email, utente.CodFiscale "
                 . "FROM utente, appuser "
                 . "WHERE utente.Username=appuser.Username";
         $query =  "SELECT * "

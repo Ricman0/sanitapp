@@ -7,11 +7,11 @@
  */
 
 /**
- * Description of VGestioneServizi
+ * Description of VGestisciServizi
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class VGestioneServizi extends View{
+class VGestisciServizi extends View{
     
     public function restituisciFormAggiungiServizi($listaCategorie)
     {
@@ -30,11 +30,9 @@ class VGestioneServizi extends View{
     
     public function visualizzaInfoEsame($esame, $servizi) 
     {
-        echo " visualizzaInfoEsame ";
-        print_r($esame);
         $this->assegnaVariabiliTemplate('esame', $esame);
         $this->assegnaVariabiliTemplate('servizi', $servizi);
-        return $this->visualizzaTemplate("infoEsame");
+        $this->visualizzaTemplate("infoEsame");
         
     }
     

@@ -19,14 +19,12 @@ class CGestisciPazienti {
      * @access public
      */
     public function gestisciPazienti() {
-        echo "gestione pazienti in CGestionePAzienti";
-        $sessione = USingleton::getInstance('USession');
-        $usernameMedico = $sessione->leggiVariabileSessione('usernameLogIn');
+        
         $vPazienti = USingleton::getInstance('VGestisciPazienti');
         $task = $vPazienti->getTask();
         switch ($task) {
             case 'visualizza':
-                $this->visualizza($vPazienti, $usernameMedico);
+                $this->visualizza();
                 break;
 
             default:
@@ -34,7 +32,11 @@ class CGestisciPazienti {
         }
     }
 
-    private function visualizza($vPazienti, $usernameMedico) {
+    private function visualizza() 
+    {
+        $vPazienti = USingleton::getInstance('VGestisciPazienti');
+        $sessione = USingleton::getInstance('USession');
+        $usernameMedico = $sessione->leggiVariabileSessione('usernameLogIn');
         $cf = $vPazienti->getId();
         if ($cf === FALSE) {
             // vogliamo visualizzare tutti i pazienti del medico

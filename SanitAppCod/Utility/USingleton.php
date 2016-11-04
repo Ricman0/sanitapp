@@ -55,4 +55,6 @@ class USingleton {
         }
         return self::$instances[$nomeClasse];
     }
+    
+
 }

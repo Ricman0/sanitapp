@@ -179,6 +179,7 @@ class FDatabase {
                 {
 //                   echo 'Query eseguita con successo'; // da eliminare solo per il debug
                    $this->_result = TRUE;
+                   $queryResult->free();
                 }
                 else 
                 {
@@ -188,6 +189,7 @@ class FDatabase {
                      * dell'oggetto.
                      * la funzione fetch_assoc() ritorna la riga successiva
                      */
+                    $this->_result = array();
                     while ($row =$queryResult->fetch_assoc())
                     {
                         $this->_result[] = $row;                       

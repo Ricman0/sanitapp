@@ -40,7 +40,6 @@ class FEsame extends FDatabase {
         //devo trovare la partita IVA della clinica che vuole inserire l'esame
         $sessione = USingleton::getInstance('USession');
         $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
-        echo " nome clinica: " . $nomeClinica;
         $fClinica = USingleton::getInstance('FClinica');
         $partitaIVA = $fClinica->cercaPartitaIVAClinica($nomeClinica);
         

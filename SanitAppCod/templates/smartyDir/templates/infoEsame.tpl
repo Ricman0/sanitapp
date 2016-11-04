@@ -1,4 +1,4 @@
-{if {$servizi}=="TRUE"}
+{if {$servizi}==TRUE}
     <div id="infoEsame">
 
 
