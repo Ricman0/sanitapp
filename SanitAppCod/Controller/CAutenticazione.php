@@ -346,7 +346,7 @@ class CAutenticazione {
         $sessione->terminaSessione();
         $this->controllaUserAutenticato() ;
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
-        $vAutenticazione->logOut();
-//        $vAutenticazione->restituisciHomePage();
+//        $vAutenticazione->logOut();
+        $vAutenticazione->restituisciHomePage();
     }
 }
