@@ -79,7 +79,7 @@
         </div>
     {/if}        
     
-    {if ($tipoUser==='clinica')}
+    {if ($tipoUser==='clinica' && !isset($idReferto))}
         <input type="button" id="aggiungiRefertoButton" value="Aggiungi Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
     {/if}
     <br>      

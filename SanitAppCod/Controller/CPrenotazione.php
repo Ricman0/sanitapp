@@ -263,8 +263,8 @@ class CPrenotazione {
                         {
                             $eClinica = new EClinica($username);
                             $prenotazioniClinica = $eClinica->cercaPrenotazioni();
-                            if (!is_bool($prenotazioniClinica)) {
-                                print_r($prenotazioniClinica);
+                            if (!is_bool($prenotazioniClinica)) 
+                            {
                                 $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($prenotazioniClinica,$tipoUser);
                             } else {
                                 echo "errore in Cprenotazione VisualizzaPrenotazioni in clinica";
@@ -272,18 +272,19 @@ class CPrenotazione {
                         }
                         else 
                         {
-                            echo ' visualizza una sola prenotazione ';
+                            // visualizza una sola prenotazione 
                             $ePrenotazione = new EPrenotazione($idPrenotazione);
                             $CFUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
                             $eUtente = new EUtente($CFUtente);
                             $nomeUtente = $eUtente->getNomeUtente();
-                            echo "//// $nomeUtente ////";
                             $cognomeUtente = $eUtente->getCognomeUtente();
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
                             $eEsame = new EEsame($idEsame);
                             $nomeEsame = $eEsame->getNomeEsame();
                             $medicoEsame = $eEsame->getMedicoEsame();
-                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,$nomeUtente,$cognomeUtente,$nomeEsame, $medicoEsame, $tipoUser);
+                            $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(), $ePrenotazione->getPartitaIVAPrenotazione(),$idEsame);
+                            $idReferto = $eReferto->getIDReferto();
+                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
                         }
                         break;
                     default :

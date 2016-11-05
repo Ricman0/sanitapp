@@ -88,6 +88,13 @@ class FPrenotazione extends FDatabase{
         return $risultato;
     }
     
+    /**
+     * Metodo che consente di visualizzare tutte le prenotazioni di una clinica
+     * 
+     * @access public
+     * @param string $partitaIVAClinica La partita IVA della clinica di cui si vogliono trovare tutte le prenotazioni
+     * @return Array Le prenotazioni
+     */
     public function cercaPrenotazioniClinica($partitaIVAClinica)
     {
         //si vogliono visualizzare tutte le prenotazioni di una clinica
@@ -97,9 +104,7 @@ class FPrenotazione extends FDatabase{
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "')) ";
-        $risultato = $this->eseguiQuery($query);
-        print_r($risultato);
-        return $risultato;
+        return $this->eseguiQuery($query);
     }
     
     public function cercaPrenotazioniEsameClinica($idEsame, $partitaIVA) 
