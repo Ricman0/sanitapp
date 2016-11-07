@@ -21,21 +21,10 @@ class CReferti {
         $task = $vReferti->getTask();
         switch ($task) {
             case 'visualizza':
-                $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
-                
+                $tipoUser = $sessione->leggiVariabileSessione('tipoUser');                
                 switch ($tipoUser) {
                     case 'clinica':
-                        $eClinica = new EClinica($username);
-                        $referti = $eClinica->cercaRefertiClinica();
-                        if(!is_bool($referti))
-                        {
-                            print_r($referti);
-                            $vReferti->restituisciPaginaRisultatoReferti($referti,$tipoUser);
-                        }
-                        else
-                        {
-                            echo "errore in CReferti VisualizzaReferti in clinica";
-                        }
+                        $this->visualizzaRefertiClinica($username, $tipoUser, $vReferti);
                         break;
                     case 'medico':
                         $eMedico = new EMedico(null, $username);
@@ -78,6 +67,30 @@ class CReferti {
         }
     }
     
+    public function visualizzaRefertiClinica($username, $tipoUser, $vReferti) {
+        $idReferto = $vReferti->getId();
+        if($idReferto === FALSE)
+        {
+            $eClinica = new EClinica($username);
+            $referti = $eClinica->cercaReferti();
+            if(!is_bool($referti))
+            {
+                print_r($referti);
+                $vReferti->restituisciPaginaRisultatoReferti($referti,$tipoUser);
+            }
+            else
+            {
+                echo "errore in CReferti VisualizzaReferti in clinica";
+            }
+
+        }
+        else
+        {
+            $eReferto = new EReferto($idReferto);
+            $vReferti->visualizzaInfoReferto($eReferto, TRUE);
+        }
+    }
+    
     public function gestisciRefertiPOST() {
         
         $vReferti = USingleton::getInstance('VReferti');
@@ -98,17 +111,15 @@ class CReferti {
     public function uploadReferto() {
         $risultato['risultato'] = "NO";
         $vReferti = USingleton::getInstance('VReferti');
-        $idPrenotazione = $vReferti->recuperaValore('idPrenotazione');
-        $idEsame = $vReferti->recuperaValore('idEsame');
-        $partitaIva = $vReferti->recuperaValore('partitaIva');
-        $medicoEsame = $vReferti->recuperaValore('medicoEsame');
-        $contenuto = $vReferti->recuperaFilePDF('referto');
-        $eReferto = new EReferto($medicoEsame, $idPrenotazione, $partitaIva, $idEsame, $contenuto);
-        $fReferto = USingleton::getInstance('FReferto');
-        if($fReferto->inserisciReferto($eReferto))
+        $datiReferto = $vReferti->recuperaValoreReferto();
+        $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['partitaIva'],
+                $datiReferto['idEsame'], $datiReferto['medicoEsame'],$datiReferto['contenuto']);
+        
+        if($eReferto->inserisciReferto())
         {
             $risultato['risultato'] = "SI";
         }
+        $vReferti = USingleton::getInstance('VReferti');
         echo json_encode($risultato);
         
         
