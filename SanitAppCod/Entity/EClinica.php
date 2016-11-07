@@ -264,9 +264,23 @@ class EClinica extends EUser
     /**
      * Metodo per conoscere il working plan della clinica 
      * 
-     * @return string Il working plan della clinica 
+     * @return Array Il working plan della clinica 
      */
     public function getWorkingPlanClinica()
+    {
+        $workingPlan = json_decode($this->_workingPlan);
+        //$workingPlan è un oggetto 
+        // ora lo rendo un array
+        $workingPlan = get_object_vars($workingPlan);
+        return $workingPlan;
+    }
+    
+    /**
+     * Metodo per conoscere il working plan della clinica in formato JSON
+     * 
+     * @return string Il working plan della clinica 
+     */
+    public function getJSONWorkingPlanClinica()
     {
         return $this->_workingPlan;
     }
@@ -765,6 +779,63 @@ class EClinica extends EUser
         $fEsami = USingleton::getInstance('FEsame');
         $this->_esami = $fEsami->cercaEsame(NULL, $this->_nomeClinica, NULL);
         return $this->_esami;
+    }
+    
+    /**
+     * Metodo che calcola gli orari disponibili per una prenotazione
+     * 
+     * @access public
+     * @param EEsame $eEsame 
+     * @param type $eClinica
+     * @return type Description
+     */
+    public function calcoloOrariDisponibili($eEsame, $workingPlanGiorno, $vPrenotazione) {
+        $durata = $eEsame->getDurataEsame();
+        $ora = substr($durata, 0, 2);
+        $minuti = substr($durata, 3, 2);
+        // la stringa durata deve essere convertita in un intervallo
+        $durata = new DateInterval('PT' . "$ora" . 'H' . "$minuti" . 'M'); //PT sta per period time
+        //all'interno di workingPlan ad ogni giorno è associato un oggetto con attributi Start, End, Pausa
+        $oraInizio = $workingPlanGiorno->Start;
+        $oraFine = $workingPlanGiorno->End;
+//               $pause = $workingPlanGiorno->Pause;
+//               $pause = json_decode($pause);
+        $orariPrenotazioni = Array();
+        //converto la stringa $oraInizio in un oggetto Time
+//        $oraInizio = strtotime($oraInizio);
+        $oraInizio = new DateTime($oraInizio);
+        //converto la stringa $oraFine in un oggetto Time
+        $oraFine = new DateTime($oraFine);
+        $oraInizioEsame = $oraInizio;
+        while ($oraInizioEsame <= $oraFine) {
+            //aggiungo l'orario disponibile successivo
+            $orariPrenotazioni[] = $oraInizioEsame->format("H:i");
+            //aggiungo un intervallo pari alla durata dell'esame all'orario disponibile precedente
+            $oraInizioEsame = $oraInizioEsame->add($durata);
+        };
+        if ($oraInizioEsame > $oraFine) {
+            array_pop($orariPrenotazioni);
+        }
+
+        // ora che ho tutti gli orari della giornata, cerco gli orari delle prenotazione già effettuate
+        $data = $vPrenotazione->getData();
+        $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+        $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinicaData($eEsame->getIDEsame(), $this->_partitaIVA, $data);
+        $orariPrenotati = Array();
+        if (is_array($prenotazioni) || !is_bool($prenotazioni)) {
+            foreach ($prenotazioni as $prenotazione) {
+                foreach ($prenotazione as $key => $value) {
+                    if ($key === "DataEOra") {
+                        $value = substr($value, 11, 5);
+                        $orariPrenotati[] = $value;
+                    }
+                }
+            }
+        } else {
+            // errore
+        }
+        $orariDisponibili = array_diff($orariPrenotazioni, $orariPrenotati);
+        return $orari = Array('orari' => $orariDisponibili);
     }
 }
 ?>

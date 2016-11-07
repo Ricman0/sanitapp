@@ -182,8 +182,8 @@ class CHome {
                 break;
             
             case 'esami':
-                $cEsami = USingleton::getInstance('CEsami');
-                $cEsami->impostaPaginaRisultatoEsami();
+                $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
+                $cRicercaEsami->impostaPaginaRisultatoEsami();
                 break;
             
             case 'impostazioni':
@@ -204,6 +204,11 @@ class CHome {
             case 'registrazione':
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
                 $cRegistrazione->inserisciRegistrazione();
+                break;
+            
+            case 'ricerca':
+                $cRicerca = USingleton::getInstance('CRicerca');
+                $cRicerca->gestisciRicerca();
                 break;
             
             case 'servizi':

@@ -1,7 +1,5 @@
-{if {$servizi}==TRUE}
+{if {$servizi}===TRUE}
     <div id="infoEsame">
-
-
         <form name="modificaEsame" method="update" id="modificaEsame"> 
 
             <input type="hidden" name="controller" value="servizi" />
@@ -52,6 +50,7 @@
 
 
         </form>
+    </div>
 
 
     {else}
@@ -81,4 +80,4 @@
             <br>
             <input type="button" id="aggiungiPrenotazioneButton" value="Prenota"  data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}"  />
         </div>
-    {/if}
+{/if}

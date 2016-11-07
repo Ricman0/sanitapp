@@ -163,7 +163,12 @@ function validazioneCodiceFiscale()
                                 required: true,
                                 codiceFiscale: true,
                                 maxlength: 16,
-                                minlength: 16
+                                minlength: 16,
+                                remote: 
+                                    {
+                                        type: "POST",
+                                        url: "ricerca/utente",
+                                    }
                             }
 
                 },
@@ -173,14 +178,52 @@ function validazioneCodiceFiscale()
                             {
                                 required: "Inserire il proprio codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
-                                minlength: "Il codice fiscale è lungo 16 caratteri"
+                                minlength: "Il codice fiscale è lungo 16 caratteri",
+                                remote: "Utente non esistente, inserire un codice fiscale di un utente già registrato"
                             }
                 },
-        submitHandler: function (form)
+        submitHandler: function(form)
         {
-            alert('codice fiscale inviato');
-            // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            inviaCodiceFiscale('ricerca', 'utente', '#contenutoAreaPersonale');
+            var nomeClinica = $("form input[type='submit']").attr('data-nomeClinica');
+            var codiceFiscale = $("form input[type='text']" ).val();
+            $.ajax({
+                    type:'GET',
+                    url: 'esami/all/' + nomeClinica, 
+                    success: function(datiRisposta)
+                    {
+                        $("#contenutoAreaPersonale").html(datiRisposta);
+//                        //aggiungo il campo nascosto codice fiscale 
+                        $('<input>').attr({
+                            type: 'hidden',
+                            id: 'codiceFiscaleUtentePrenotaEsame',
+                            name: 'codiceFiscaleUtentePrenotaEsame', 
+                            value:  codiceFiscale  
+                        }).appendTo('table');
+//                        
+                        $('.tablesorter').tablesorter({
+                        theme: 'blue',
+                        widgets: ["filter"],
+                        widgetOptions: {
+                                // filter_anyMatch replaced! Instead use the filter_external option
+                                // Set to use a jQuery selector (or jQuery object) pointing to the
+                                // external filter (column specific or any match)
+                                filter_external: '.search',
+                                // add a default type search to the first name column
+                                filter_defaultFilter: {1: '~{query}'},
+                                // include column filters
+                                filter_columnFilters: true,
+                                filter_placeholder: {search: 'Search...'},
+                                filter_saveFilters: true,
+                                filter_reset: '.reset'
+                            }
+                        });
+
+                    }
+                });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
         }
     });
 }

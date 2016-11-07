@@ -86,8 +86,7 @@ class EEsame
             $fEsame = USingleton::getInstance('FEsame');
             $attributiEsame = $fEsame->cercaEsameById($id);
             if(is_array($attributiEsame) && count($attributiEsame)==1)
-            {
-                
+            { 
                 $this->_idEsame = $id;
                 $this->_nomeEsame = $attributiEsame[0]["NomeEsame"];
                 $this->_medicoEsame = $attributiEsame[0]["MedicoEsame"];
@@ -96,8 +95,7 @@ class EEsame
                 $this->_durata = $attributiEsame[0]["Durata"];
                 $this->_numeroPrestazioniSimultanee = $attributiEsame[0]["NumPrestazioniSimultanee"];
                 $this->_descrizione = $attributiEsame[0]["Descrizione"];
-                $this->_partitaIVAClinica= $attributiEsame[0]["PartitaIVAClinica"];
-                
+                $this->_partitaIVAClinica= $attributiEsame[0]["PartitaIVAClinica"];   
             }
         }
         else

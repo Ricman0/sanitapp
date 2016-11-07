@@ -29,44 +29,7 @@ class VPrenotazione extends View{
            
     }
     
-    /**
-     * Metodo che consente di recuperare l'orario dall'url
-     */
-    public function getOrario()
-    {
-        if (isset($_REQUEST['orario'])) 
-            {
-                return $_REQUEST['orario'];
-            } 
-        else 
-            {
-                return "FALSE";
-            }
-    }
-    
-    public function getPartitaIVA()
-    {
-        if (isset($_REQUEST['clinica'])) 
-            {
-                return $_REQUEST['clinica'];
-            } 
-        else 
-            {
-                return "FALSE";
-            }
-    }
-    
-    public function getGiorno() 
-    {
-        if (isset($_REQUEST['giorno'])) 
-            {
-                return $_REQUEST['giorno'];
-            } 
-        else 
-            {
-                return "FALSE";
-            }
-    }
+
     
     
     
@@ -82,17 +45,7 @@ class VPrenotazione extends View{
             }
     }
     
-    public function getData() 
-    {
-        if (isset($_REQUEST['data'])) 
-            {
-                return $_REQUEST['data'];
-            } 
-        else 
-            {
-                return "FALSE";
-            }
-    }
+    
     
     /**
      * Metodo che consente di restituire tutte le prenotazioni associate ad un utente
@@ -109,7 +62,6 @@ class VPrenotazione extends View{
                 $this->assegnaVariabiliTemplate('prenotazioni', TRUE);
                 $this->assegnaVariabiliTemplate('dati', $risultato);
             }
-        
         $this->visualizzaTemplate('tabellaPrenotazioni');
     }
     
@@ -124,7 +76,7 @@ class VPrenotazione extends View{
         $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
         $this->assegnaVariabiliTemplate('idEsame', $idEsame);
         $this->assegnaVariabiliTemplate('partitaIVA', $partitaIVAClinica);
-        return $this->visualizzaTemplate('prenotazioneEsame');
+        $this->visualizzaTemplate('prenotazioneEsame');
     }
     
     /**
@@ -135,8 +87,9 @@ class VPrenotazione extends View{
     public function impostaPaginaCercaUtente($nomeClinica) 
     {
             $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
-            return $this->visualizzaTemplate('cercaUtente');
+            $this->visualizzaTemplate('cercaUtente');
     }
+    
     public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto=NULL, $nome, $cognome) 
     {
         $this->assegnaVariabiliTemplate('prenotazione', $prenotazione);        
@@ -149,7 +102,7 @@ class VPrenotazione extends View{
         $this->assegnaVariabiliTemplate('medicoEsame', $medicoEsame);
         $this->assegnaVariabiliTemplate('nome', $nome);
         $this->assegnaVariabiliTemplate('cognome', $cognome);
-        return $this->visualizzaTemplate("infoPrenotazione");
+        $this->visualizzaTemplate("infoPrenotazione");
         
     }
 }

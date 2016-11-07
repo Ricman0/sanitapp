@@ -18,7 +18,7 @@ $(document).ready(function(){
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
     
-    $('#headerMain').on("click", "#iconaAggiungiPrenotazione", function(){
+    $('#headerMain').on("click", "#iconaAggiungiPrenotazioneutente", function(){
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
     

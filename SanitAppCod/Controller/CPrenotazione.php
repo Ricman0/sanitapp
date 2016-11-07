@@ -17,13 +17,14 @@ class CPrenotazione {
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazione->getTask();
-        if ($task !== FALSE) {
-            switch ($task) {
+        if ($task !== FALSE) 
+        {
+            switch ($task) 
+            {
                 case 'esame':
-                    $id = $vPrenotazione->getId();
+                    $id = $vPrenotazione->recuperaValore('id');
                     $eEsame = new EEsame($id);
                     $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
-                    //                echo ($partitaIVAClinica);
                     $eClinica = new EClinica(NULL, $partitaIVAClinica);
                     $nomeEsame = $eEsame->getNomeEsame();
                     $nomeClinica = $eClinica->getNomeClinica();
@@ -32,27 +33,26 @@ class CPrenotazione {
                     break;
 
                 case 'riepilogo':
-                    $idEsame = $vPrenotazione->getId();
+                    $idEsame = $vPrenotazione->recuperaValore('id');
                     $eEsame = new EEsame($idEsame);
                     $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
                     $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                    $data = $vPrenotazione->getData();
-                    $orario = $vPrenotazione->getOrario();
-                    print_r($_SESSION);
-                    if ($sessione->leggiVariabileSessione('tipoUser') === 'Utente') 
+                    $data = $vPrenotazione->recuperaValore('data');
+                    $orario = $vPrenotazione->recuperaValore('orario');
+                    if ($sessione->leggiVariabileSessione('tipoUser') === 'utente') 
                     {
-                        $eUtente = new EUtente();
+                        $eUtente = new EUtente(NULL, $username);
                         $codice = $eUtente->getCodiceFiscaleUtente();
                         $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
                     } 
-                    elseif ($sessione->leggiVariabileSessione('tipoUser') === 'Medico') 
+                    elseif ($sessione->leggiVariabileSessione('tipoUser') === 'medico') 
                     {
                         
                     } 
                     else 
                     {
                         // tipoUser = clinica
-                        $codice = $vPrenotazione->getCodice();
+                        $codice = $vPrenotazione->recuperaValore('codice');
                         $eUtente = new EUtente($codice);
                         $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
                         
@@ -63,85 +63,33 @@ class CPrenotazione {
                     echo "erroe";
                     break;
             }
-        } else {
+        } 
+        else 
+        {
             $orariDisponibili = Array();
-            $partitaIVAClinica = $vPrenotazione->getPartitaIVA();
+            $partitaIVAClinica = $vPrenotazione->recuperaValore('clinica');
             $eClinica = new EClinica(NULL, $partitaIVAClinica);
             $workingPlan = $eClinica->getWorkingPlanClinica(); // ora è di tipo json
-            $workingPlan = json_decode($workingPlan);
+
+//            $workingPlan = json_decode($workingPlan);
+//                  print_r($workingPlan);
+//            //$workingPlan è un oggetto 
+//            // ora lo rendo un array
+//            $workingPlan = get_object_vars($workingPlan);
 //            print_r($workingPlan);
-            //$workingPlan è un oggetto 
-            // ora lo rendo un array
-            $workingPlan = get_object_vars($workingPlan);
-//            print_r($workingPlan);
-            $nomeGiorno = $vPrenotazione->getGiorno();
-            if (($workingPlan[$nomeGiorno]) !== NULL) {
-                $id = $vPrenotazione->getId();
+            $nomeGiorno = $vPrenotazione->recuperaValore('giorno');
+            if (($workingPlan[$nomeGiorno]) !== NULL) 
+            {
+                $id = $vPrenotazione->recuperaValore('id');
                 $eEsame = new EEsame($id);
-                $orariDisponibili = $this->calcoloOrariDisponibili($eEsame, $workingPlan[$nomeGiorno], $partitaIVAClinica, $vPrenotazione);
+                $orariDisponibili = $eClinica->calcoloOrariDisponibili($eEsame, $workingPlan[$nomeGiorno], $vPrenotazione);
             }
-
-//            $date = Array('orari' => $orari, 'durataEsame' => $eEsame->getDurataEsame());
-//            print_r(json_encode($date));
-            echo json_encode($orariDisponibili);
+            $vJSON = USingleton::getInstance('VJSON');
+            $vJSON->inviaDatiJSON($orariDisponibili);
         }
     }
 
-    /**
-     * Metodo che calcola gli orari disponibili per una prenotazione
-     * 
-     * @access private
-     * @param EEsame $eEsame 
-     * @param type $eClinica
-     */
-    private function calcoloOrariDisponibili($eEsame, $workingPlanGiorno, $partitaIVAClinica, $vPrenotazione) {
-        $durata = $eEsame->getDurataEsame();
-        $ora = substr($durata, 0, 2);
-        $minuti = substr($durata, 3, 2);
-        // la stringa durata deve essere convertita in un intervallo
-        $durata = new DateInterval('PT' . "$ora" . 'H' . "$minuti" . 'M'); //PT sta per period time
-        //all'interno di workingPlan ad ogni giorno è associato un oggetto con attributi Start, End, Pausa
-        $oraInizio = $workingPlanGiorno->Start;
-        $oraFine = $workingPlanGiorno->End;
-//               $pause = $workingPlanGiorno->Pause;
-//               $pause = json_decode($pause);
-        $orariPrenotazioni = Array();
-        //converto la stringa $oraInizio in un oggetto Time
-//        $oraInizio = strtotime($oraInizio);
-        $oraInizio = new DateTime($oraInizio);
-        //converto la stringa $oraFine in un oggetto Time
-        $oraFine = new DateTime($oraFine);
-        $oraInizioEsame = $oraInizio;
-        while ($oraInizioEsame <= $oraFine) {
-            //aggiungo l'orario disponibile successivo
-            $orariPrenotazioni[] = $oraInizioEsame->format("H:i");
-            //aggiungo un intervallo pari alla durata dell'esame all'orario disponibile precedente
-            $oraInizioEsame = $oraInizioEsame->add($durata);
-        };
-        if ($oraInizioEsame > $oraFine) {
-            array_pop($orariPrenotazioni);
-        }
-
-        // ora che ho tutti gli orari della giornata, cerco gli orari delle prenotazione già effettuate
-        $data = $vPrenotazione->getData();
-        $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-        $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinicaData($eEsame->getIDEsame(), $partitaIVAClinica, $data);
-        $orariPrenotati = Array();
-        if (is_array($prenotazioni) || !is_bool($prenotazioni)) {
-            foreach ($prenotazioni as $prenotazione) {
-                foreach ($prenotazione as $key => $value) {
-                    if ($key === "DataEOra") {
-                        $value = substr($value, 11, 5);
-                        $orariPrenotati[] = $value;
-                    }
-                }
-            }
-        } else {
-            echo "errore";
-        }
-        $orariDisponibili = array_diff($orariPrenotazioni, $orariPrenotati);
-        return $orari = Array('orari' => $orariDisponibili);
-    }
+    
 
     public function gestisciPrenotazioni() 
     {
@@ -153,7 +101,7 @@ class CPrenotazione {
 //        $codiceFiscaleUtente = "";
         switch ($task) {
             case 'conferma':
-                $idPrenotazione = $vPrenotazioni->getId();
+                $idPrenotazione = $vPrenotazioni->recuperaValore('id') ;
                 if($idPrenotazione !== FALSE && $tipoUser==='utente')
                 {
                     $ePrenotazione = new EPrenotazione($idPrenotazione);
@@ -175,7 +123,7 @@ class CPrenotazione {
                 switch ($tipoUser) 
                 {
                     case 'utente':
-                        $idPrenotazione = $vPrenotazioni->getId();
+                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
                         if ($idPrenotazione === FALSE) 
                         {
                             //visualizza tutte le prenotazioni 
@@ -220,7 +168,7 @@ class CPrenotazione {
                         break;
                         
                         case 'medico':
-                        $idPrenotazione = $vPrenotazioni->getId();
+                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
                         if ($idPrenotazione === FALSE) 
                         {
                             //visualizza tutte le prenotazioni 
@@ -258,7 +206,7 @@ class CPrenotazione {
                         break;
 
                     case 'clinica':
-                        $idPrenotazione = $vPrenotazioni->getId();
+                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
                         if ($idPrenotazione === FALSE) 
                         {
                             $eClinica = new EClinica($username);
@@ -266,7 +214,8 @@ class CPrenotazione {
                             if (!is_bool($prenotazioniClinica)) 
                             {
                                 $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($prenotazioniClinica,$tipoUser);
-                            } else {
+                            } 
+                            else {
                                 echo "errore in Cprenotazione VisualizzaPrenotazioni in clinica";
                             }
                         }
@@ -309,12 +258,11 @@ class CPrenotazione {
                     case 'aggiungi':
                         switch ($tipoUser) 
                         {
-                            case 'Clinica':
+                            case 'clinica':
                                 $eClinica = new EClinica($username);
                                 $nomeClinica = $eClinica->getNomeClinica();
-                                // visualizzo una pagina per cercareil cliente o l'utente registrato del sistema per cui in seguito vorrò effettuare una prenotazione
+                                // visualizzo una pagina per cercare il cliente o l'utente registrato del sistema per cui in seguito vorrò effettuare una prenotazione
                                 $vPrenotazioni->impostaPaginaCercaUtente($nomeClinica);
-
                                 break;
 
                             default:
@@ -356,10 +304,10 @@ class CPrenotazione {
                 }
                
 
-                $idEsame = $vPrenotazione->getId();
+                $idEsame = $vPrenotazione->recuperaValore('id');
                 $partitaIVAClinica = $vPrenotazione->getPartitaIVA();
-                $data = $vPrenotazione->getData();
-                $ora = $vPrenotazione->getOrario();
+                $data = $vPrenotazione->recuperaValore('data');
+                $ora = $vPrenotazione->recuperaValore('orario');
                 $dataEOra = $data . " " . $ora;
                 $ePrenotazione = new EPrenotazione(NULL, $idEsame, $partitaIVAClinica, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
                 echo " prneotazione creata ma ancora da aggiunrere ";

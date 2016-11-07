@@ -18,6 +18,11 @@ $(document).ready(function(){
     $('#headerMain').on("click", "#prenotazioniAreaPersonaleMedico", function () {
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
     });
+    
+    $('#headerMain').on("click", "#iconaAggiungiPrenotazionemedico", function () {
+        inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
+    });
+    
 //    $('#main').on("click", "#refertiAreaPersonaleUtente", function(){
 //        inviaControllerTask('referti', 'utente', "#contenutoAreaPersonale");
 //    });
