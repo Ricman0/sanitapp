@@ -66,7 +66,7 @@ class EReferto {
      * @param string $medico
      * @param blob $contenuto
      */    
-    public function __construct($idPrenotazione, $partitaIvaClinica, $idEsame, $medico=NULL,  $contenuto=NULL) 
+    public function __construct($idPrenotazione, $partitaIvaClinica=NULL, $idEsame=NULL, $medico=NULL,  $contenuto=NULL) 
     {
         if($medico!==NULL)
         {
@@ -82,19 +82,19 @@ class EReferto {
         {
             $fReferto = USingleton::getInstance('FReferto');
             $risultato = $fReferto->cercaReferto($idPrenotazione);
+            print_r($risultato);
             if(is_array($risultato) && count($risultato)===1)
             {
-                $this->_IDReferto = $risultato['IDReferto'];
-                $this->_idPrenotazione = $risultato['IDPrenotazione'];
-                $this->_idEsame = $risultato['IDEsame'];
-                $this->_partitaIVAClinica = $risultato['PartitaIVAClinica'];
-                $this->_medicoReferto = $risultato['MedicoReferto'];
-                $this->_contenuto = $risultato['Contenuto'];
-                $this->_dataReferto = $risultato['DataReferto'];
+                $this->_IDReferto = $risultato[0]['IDReferto'];
+                $this->_idPrenotazione = $risultato[0]['IDPrenotazione'];
+                $this->_idEsame = $risultato[0]['IDEsame'];
+                $this->_partitaIVAClinica = $risultato[0]['PartitaIVAClinica'];
+                $this->_medicoReferto = $risultato[0]['MedicoReferto'];
+                $this->_contenuto = $risultato[0]['Contenuto'];
+                $this->_dataReferto = $risultato[0]['DataReferto'];
             }
             else 
             {
-                //print_r($risultato);
                 $this->_IDReferto = NULL;
             }
         }
@@ -172,5 +172,12 @@ class EReferto {
         return $this->_dataReferto;
     }
     
+    
+    public function inserisciReferto() {
+        
+        $fReferto = USingleton::getInstance('FReferto');
+        return $fReferto->inserisciReferto($this);
+        
+    }
     
 }

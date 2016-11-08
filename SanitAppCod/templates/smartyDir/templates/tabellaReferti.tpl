@@ -22,7 +22,7 @@
         <br>
         
         {foreach from=$dati item=curr_row}
-            <tr id="{$curr_row['IDReferto']}" class="rigaReferto">
+            <tr id="{$curr_row['IDPrenotazione']}" class="rigaReferto">
                 <td>{$curr_row['IDReferto']}</td>
                 <td>{$curr_row['IDPrenotazione']}</td>
                 <td>{$curr_row['IDEsame']}</td>

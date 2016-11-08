@@ -147,6 +147,7 @@ class CHome {
                 $cServizi->gestisciServizi();
                 break;
             
+            
             default:
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->controllaUserAutenticato() ;
