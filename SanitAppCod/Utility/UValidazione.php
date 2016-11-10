@@ -102,13 +102,14 @@ class UValidazione {
     public function validaDati($dati) 
     {
         $this->setValidati(TRUE);
+        print_r($dati);
         foreach ($dati as $chiave => $valore) 
         {
             $pattern = "";
             $stringaErrore = "";
             switch ($chiave) 
             {
-                case "username":
+                case "username":                
                     $pattern = '/^[0-9a-zA-Z\_\-]{2,15}$/';
                     $stringaErrore = "Il" . $chiave . "deve essere una sequenza alfanumerica";
                     break;

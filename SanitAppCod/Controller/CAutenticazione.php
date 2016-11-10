@@ -157,15 +157,14 @@ class CAutenticazione {
             {
             
                 $eUser = new EUser($username, $password);
-                $risultato=$eUser->esisteUser();
-                if(is_array($risultato))// caso in cui esiste l'user con quella password e quella username
+                if($eUser->getUsername()!==NULL && $eUser->getPassword()!==NULL)// caso in cui esiste l'user con quella password e quella username
                 {
                     $uCookie->eliminaCookie('Tentativi');
-                    if($risultato[0]['Confermato']== TRUE)// user confermato
+                    if($eUser->getConfermato() == TRUE)// user confermato
                     {
                         print_r($_SESSION);
-                        $eUser->attivaSessioneUser($username, $risultato[0]['TipoUser'] );
-                        $vAutenticazione->setTastiLaterali($risultato[0]['TipoUser']);
+                        $eUser->attivaSessioneUser($username, $eUser->getTipoUser() );
+                        $vAutenticazione->setTastiLaterali($eUser->getTipoUser() );
                         $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
                      
                     }

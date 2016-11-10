@@ -114,6 +114,18 @@ class FUser extends FDatabase {
         }
     }
     
+    public function cercaUserByUsernamePassword($username,$password)
+    {
+        $username = $this->trimEscapeStringa($username);
+        $password = $this->trimEscapeStringa($password);
+        $query = "SELECT appuser.*, "
+                . "MATCH (Password) AGAINST ('$password ' IN BOOLEAN MODE) "
+                . "FROM appuser WHERE Username='" . $username . "' "
+                . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)"; 
+        return $this->eseguiQuery($query);
+    }
+    
+    
     /**
      * Metodo che consente di verificare se l'user (identificato tramite la coppia username e password) esiste nel DB
      * 
@@ -131,6 +143,7 @@ class FUser extends FDatabase {
                 . "FROM appuser WHERE Username='" . $username . "' "
                 . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)"; 
         $risultato = $this->eseguiQuery($query);
+
         if(is_array($risultato) && count($risultato)===1)
         {
             return $risultato;

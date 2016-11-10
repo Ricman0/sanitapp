@@ -109,6 +109,20 @@ class EUser {
                     $this->_tipoUser=$attributiUser[0]['TipoUser'];
                 }
             }
+            elseif($username !==NULL && $password!==NULL && $email===NULL)
+            {
+                $fUser = USingleton::getInstance('FUser');
+                $attributiUser = $fUser->cercaUserByUsernamePassword($username,$password);
+                if(is_array($attributiUser) && count($attributiUser)==1)
+                {
+                    $this->_username = $attributiUser[0]['Username'];
+                    $this->_password = $attributiUser[0]['Password'];
+                    $this->_email = $attributiUser[0]['Email'];
+                    $this->_codiceConferma = $attributiUser[0]['CodiceConferma'];
+                    $this->_confermato = $attributiUser[0]['Confermato'];
+                    $this->_tipoUser=$attributiUser[0]['TipoUser'];
+                }
+            }
 
         }
         
