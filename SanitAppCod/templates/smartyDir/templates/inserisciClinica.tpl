@@ -17,11 +17,11 @@
 
     <br>
     <label for="emailClinica" class="elementiForm">Email</label>
-    <input type="email" name="emailClinica" class="elementiForm" id="emailClinica" placeholder="villaserena@gmail.it" value="{if isset($datiValidi.email)}{$datiValidi.email}{/if}" required />
+    <input type="email" name="email" class="elementiForm" id="emailClinica" placeholder="villaserena@gmail.it" value="{if isset($datiValidi.email)}{$datiValidi.email}{/if}" required />
 
     <br>
     <label for="PECClinica" class="elementiForm">PEC</label>
-    <input type="email" name="PECClinica" class="elementiForm" id="PECClinica" placeholder="villaserena@pec.it" value="{if isset($datiValidi.PEC)}{$datiValidi.PEC}{/if}" required />
+    <input type="email" name="PEC" class="elementiForm" id="PECClinica" placeholder="villaserena@pec.it" value="{if isset($datiValidi.PEC)}{$datiValidi.PEC}{/if}" required />
 
     <br>
     <label for="telefonoClinica" class="elementiForm">Telefono</label>
@@ -280,7 +280,7 @@
         <div class="autenticazione">
             <div class="username">            
                 <label for="usernameClinica" class="elementiForm">Username</label>
-                <input type="text" name="usernameClinica" class="elementiForm" id="usernameClinica" placeholder="clari" value="{if isset($datiValidi.username)}{$datiValidi.username}{/if}" required />
+                <input type="text" name="username" class="elementiForm" id="usernameClinica" placeholder="clari" value="{if isset($datiValidi.username)}{$datiValidi.username}{/if}" required />
 
                 <br>
             </div>

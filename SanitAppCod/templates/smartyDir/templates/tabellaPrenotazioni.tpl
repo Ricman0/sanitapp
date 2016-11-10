@@ -1,13 +1,13 @@
 <table id="tabellaPrenotazioni" class="tablesorter">
     <thead>
         <th>ID Prenotazione</th>
-        {if ($tipoUser==='utente')}
+        {if ($tipoUser==='Utente')}
         <th>Nome Esame</th>
         <th>Nome Clinica</th>
         <th>Eseguita</th>
         <th>Medico Esame</th>
         {else}
-            {if ($tipoUser==='medico')}
+            {if ($tipoUser==='Medico')}
                 <th>Nome Esame</th>
                 <th>Nome Clinica</th>
                 <th>Nome </th>
@@ -30,7 +30,7 @@
         {/if}
         <br>
         
-        {if ($tipoUser==='utente')}
+        {if ($tipoUser==='Utente')}
             {foreach from=$dati item=curr_row}
                 <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione">
                     <td>{$curr_row['IDPrenotazione']}</td>
@@ -42,7 +42,7 @@
                 </tr>
             {/foreach}
         {else}
-            {if ($tipoUser==='medico')}
+            {if ($tipoUser==='Medico')}
                 {foreach from=$dati item=curr_row}
                     <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione">
                         <td>{$curr_row['IDPrenotazione']}</td>

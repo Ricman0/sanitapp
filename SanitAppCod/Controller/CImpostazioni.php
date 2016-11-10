@@ -101,7 +101,7 @@ class CImpostazioni {
                     case 'informazioni':
                         $dati = $vImpostazioni->recuperaInformazioni();
                         $uValidazione = USingleton::getInstance('UValidazione');
-                        if($uValidazione->validaDatiInformazioni($dati))// se i dati sono validi
+                        if($uValidazione->validaDati($dati))// se i dati sono validi
                             {           
                                 $eUtente = new EUtente(NULL, $username);
                                 if ($eUtente->modificaIndirizzoCAP($uValidazione->getDatiValidi())===TRUE)
@@ -130,7 +130,7 @@ class CImpostazioni {
                     case 'credenziali':
                         $dati = $vImpostazioni->recuperaCredenziali();
                         $uValidazione = USingleton::getInstance('UValidazione');
-                        if($uValidazione->validaDatiCredenziali($dati))// se i dati sono validi
+                        if($uValidazione->validaDati($dati))// se i dati sono validi
                             {           
                                 $eUtente = new EUtente(NULL, $username);
                                 if ($eUtente->modificaPassword($uValidazione->getDatiValidi())===TRUE)

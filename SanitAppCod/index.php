@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 require_once './include/SPL Autoload.php';
 require_once './include/Config.php';

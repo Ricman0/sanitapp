@@ -41,7 +41,7 @@ class FMedico extends FUser {
         //recupero i valori contenuti negli attributi
         $valoriAttributi = $this->getAttributi($medico);
         $valoriAttributiUser = parent::getAttributi($medico);
-        echo $valoriAttributiUser;
+
         
 
        // di default il db è impostato in autocommit
@@ -156,8 +156,8 @@ class FMedico extends FUser {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE appuser.Username='" . $username . "' AND "
                 . "appuser.Username=" . $this->_nomeTabella . ".Username";
-        $risultato = $this->eseguiQuery($query);    
-        return $risultato;
+        return $this->eseguiQuery($query);    
+        
         
     }
     
@@ -175,8 +175,22 @@ class FMedico extends FUser {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
                 . "appuser.Username=" . $this->_nomeTabella . ".Username";
-        $risultato = $this->eseguiQuery($query);
-//        echo "count: ". count($risultato);        
-        return $risultato;
+        return $this->eseguiQuery($query);
+
+    }
+    
+    /**
+     * Metodo che consente di cercare un medico passando alla funzione solo la PEC 
+     * 
+     * @access public
+     * @param string $PEC La PEC del medico da cercare
+     * @return array|boolean Array contenente gli attributi del medico cercato
+     */
+    public function cercaMedicoByPEC($PEC) 
+    {
+        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+                . "WHERE " . $this->_nomeTabella. ".PEC='" . $PEC . "' AND "
+                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+        return $this->eseguiQuery($query);
     }
 }

@@ -14,9 +14,7 @@ class CHome {
      */
     public function impostaPagina() 
     {
-        $vHome = USingleton::getInstance('VHome'); 
-              
-        
+        $vHome = USingleton::getInstance('VHome');            
         switch ($vHome->getRequestMethod())  
         {
             case 'GET':

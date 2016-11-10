@@ -90,6 +90,7 @@ class EUtente extends EUser {
                 parent::setUsername($attributiUtente[0]['Username']);
                 parent::setPassword($attributiUtente[0]['Password']);
                 parent::setEmail($attributiUtente[0]['Email']);
+                parent::setEmail($attributiUtente[0]['PEC']);
                 parent::setConfermato($attributiUtente[0]['Confermato']);
                 parent::setCodiceConfermaUtente($attributiUtente[0]['CodiceConferma']);
                 parent::setTipoUser($attributiUtente[0]['TipoUser']);
@@ -387,14 +388,14 @@ class EUtente extends EUser {
      * Metodo che permette di inserire un oggetto di tipo EUtente nel DB
      * 
      * @access public
-     * @return Boolean TRUE se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
+     * @return string|Boolean Il codice di conferma se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
      */
     public function inserisciUtenteDB() {
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);
         if ($fUtente->inserisciUtente($this) === TRUE) {
-            return TRUE;
+            return parent::getCodiceConferma();
         } else {
             return FALSE;
         }

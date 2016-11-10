@@ -123,8 +123,8 @@ class VRegistrazione extends View {
         $datiClinica['cap'] = $this->recuperaValore('CAPClinica');
         $datiClinica['localitàClinica'] = $this->recuperaValore('localitàClinica');
         $datiClinica['provinciaClinica'] = $this->recuperaValore('provinciaClinica');
-        $datiClinica['email'] = $this->recuperaValore('emailClinica');
-        $datiClinica['username'] = $this->recuperaValore('usernameClinica');
+        $datiClinica['email'] = $this->recuperaValore('email');
+        $datiClinica['username'] = $this->recuperaValore('username');
         $datiClinica['password'] = $this->recuperaValore('passwordClinica');
         $datiClinica['PEC'] = $this->recuperaValore('PECClinica');
         $datiClinica['telefono'] = $this->recuperaValore('telefonoClinica');
@@ -132,8 +132,59 @@ class VRegistrazione extends View {
         return $datiClinica;
     }
     
+    /**
+     * Metodo che recupera i tutti i dati del medico dalla form 
+     * per poter inserire un nuovo medico. I dati vengono memorizzati
+     *  nell'array $datiMedico
+     * 
+     * @access public
+     * @return Array I dati per memorizzare il medico
+     */
+    public function recuperaDatiMedico()
+    {
+        $datiMedico = Array();
+        $datiMedico['nome'] = $this->recuperaValore('nomeMedico');
+        $datiMedico['cognome'] = $this->recuperaValore('cognomeMedico'); 
+        $datiMedico['codiceFiscale'] = $this->recuperaValore('codiceFiscale');
+        $datiMedico['via'] = $this->recuperaValore('indirizzoMedico');
+        $datiMedico['numeroCivico'] = $this->recuperaValore('numeroCivicoMedico');  
+        $datiMedico['CAP'] = $this->recuperaValore('CAPMedico');
+        $datiMedico['email'] = $this->recuperaValore('email');
+        $datiMedico['username'] = $this->recuperaValore('username');
+        $datiMedico['password'] = $this->recuperaValore('passwordMedico');
+        $datiMedico['PEC'] = $this->recuperaValore('PECMedico');
+        $datiMedico['provinciaAlbo'] = $this->recuperaValore('provinciaAlbo');
+        $datiMedico['numeroIscrizione'] = $this->recuperaValore('numeroIscrizione'); 
+        return $datiMedico;
+    }
     
-    public function confermaInserimento($inviata)
+    /**
+     * Metodo che recupera i tutti i dati di un utente dalla form 
+     * per poter inserire un nuovo utente. I dati vengono memorizzati
+     *  nell'array $datiUtente
+     * 
+     * @access public
+     * @return Array I dati per memorizzare l'utente
+     */
+    public function recuperaDatiUtente()
+    {
+        //creo un array in cui inserirsco i valori recuperati
+        //pb: secondo te è una stupidaggine fare così e poi aggiungo del tempo  inutile
+       $datiUtente = Array();
+//       $nome = $this->recuperaValore('nome');    
+       $datiUtente['nome'] = $this->recuperaValore('nome');
+       $datiUtente['cognome'] = $this->recuperaValore('cognome'); 
+       $datiUtente['codiceFiscale'] = $this->recuperaValore('codiceFiscale');
+       $datiUtente['indirizzo'] =$this->recuperaValore('indirizzo');
+       $datiUtente['numeroCivico'] = $this->recuperaValore('numeroCivico');  
+       
+       $datiUtente['CAP'] = $this->recuperaValore('CAP');
+       $datiUtente['email'] = $this->recuperaValore('email');
+       $datiUtente['username'] =$this->recuperaValore('username');
+       $datiUtente['password'] = $this->recuperaValore('passwordUtente');
+       return $datiUtente;
+    }
+    public function confermaMailInviata($inviata)
     {
         
         

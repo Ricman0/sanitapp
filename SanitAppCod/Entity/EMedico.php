@@ -44,10 +44,6 @@ class EMedico extends EUser {
      */
     private $_CAP;
 
-    /**
-     * @var string $_PEC L'indizzo email certificato del medico
-     */
-    private $_PEC;
 
     /**
      * @var boolean $_validato Indica se il medico è stato validato dal amministratore
@@ -79,26 +75,32 @@ class EMedico extends EUser {
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
      * @param int o string? $cod Il codice per confermare l'account
      */
-    public function __construct($cf = NULL, $username=NULL, $nome='', $cognome='', $via='', $numeroCivico='', $cap='', $email='', $password='', $PEC='', $provinciaAlbo='', $numIscrizione='') {
-
-        if ($cf === NULL || $username === NULL) {
+    public function __construct($cf = NULL, $username=NULL, $nome='', $cognome='', $via='', $numeroCivico='', $cap='', $email='', $password='',  $provinciaAlbo='', $numIscrizione='') 
+    {
+        if ($cf === NULL || $username === NULL) 
+        {
             $fMedico = USingleton::getInstance('FMedico');
-
-            if ($cf === NULL && $username !== NULL) {
+            if ($cf === NULL && $username !== NULL) 
+            {
                 //caso in cui possiedo l'username ma non il codice fiscale
 //            $sessione = USingleton::getInstance('USession');
 //            $username = $sessione->leggiVariabileSessione('usernameLogIn');
 
                 $attributiMedico = $fMedico->cercaMedico($username);
-            } elseif ($cf !== NULL && $username === NULL) {
-                //caso in cui possiedo l'username ma non il codice fiscale
+            } 
+            //elseif ($cf !== NULL && $username === NULL) {
+            else{  
+            //caso in cui possiedo l'username ma non il codice fiscale
                 $attributiMedico = $fMedico->cercaMedicoByCF($cf);
+
             }
-            if (is_array($attributiMedico) && count($attributiMedico) === 1) {
+            if (is_array($attributiMedico) && count($attributiMedico) === 1) 
+            {
                 // esiste quell'utente
                 parent::setUsername($attributiMedico[0]['Username']);
                 parent::setPassword($attributiMedico[0]['Password']);
-                parent::setEmail($attributiMedico[0]['Email']);
+                parent::setEmail($attributiMedico[0]['Email']);                
+                parent::setPEC($attributiMedico[0]['PEC']);
                 parent::setConfermato($attributiMedico[0]['Confermato']);
                 parent::setCodiceConfermaUtente($attributiMedico[0]['CodiceConferma']);
                 parent::setTipoUser($attributiMedico[0]['TipoUser']);
@@ -108,17 +110,17 @@ class EMedico extends EUser {
                 $this->setViaMedico($attributiMedico[0]['Via']);
                 $this->setNumCivicoMedico($attributiMedico[0]['NumCivico']);
                 $this->setCAPMedico($attributiMedico[0]['CAP']);
-                $this->setPECMedico($attributiMedico[0]['PEC']);
                 $this->setProvinciaAlboMedico($attributiMedico[0]['ProvinciaAlbo']);
                 $this->setnumIscrizioneMedico($attributiMedico[0]['NumIscrizione']);
-            } else {
-                echo "il medico cercato non esiste";
+            } 
+            else {
+                //il medico cercato non esiste
             }
         } else {
             // caso in cui gli passo tutti i parametri
             // richiamo il costruttore padre
 
-            parent::__construct($username, $password, $email);
+            parent::__construct($username, $password, $email, $PEC);
             $this->_nome = $nome;
             $this->_cognome = $cognome;
             $this->_codFiscale = $cf;
@@ -130,7 +132,6 @@ class EMedico extends EUser {
             }
 
             $this->_CAP = $cap;
-            $this->_PEC = $PEC;
             $this->_provinciaAlbo = $provinciaAlbo;
             $this->_numIscrizione = $numIscrizione;
         }
@@ -191,14 +192,7 @@ class EMedico extends EUser {
         return $this->_CAP;
     }
 
-    /**
-     * Metodo per conoscere la PEC  del medico
-     * 
-     * @return string La PEC del medico
-     */
-    public function getPECMedico() {
-        return $this->_PEC;
-    }
+    
 
     /**
      * Metodo per conoscere se il medico è stato validato 
@@ -283,14 +277,6 @@ class EMedico extends EUser {
         $this->_CAP = $cap;
     }
 
-    /**
-     * Metodo che permette di modificare la PEC  del medico
-     * 
-     * @param string $PEC La PEC del medico 
-     */
-    public function setPECMedico($PEC) {
-        $this->_PEC = $PEC;
-    }
 
     /**
      * Metodo che permette di modificare la validità del medico 
@@ -359,13 +345,13 @@ class EMedico extends EUser {
      * @return string|Boolean Il codice di conferma se il medico è stato inserito correttamente, altrimenti FALSE (il medico non è stato inserito correttamente nel DB)
      */
     public function inserisciMedicoDB() {
-        $fUser = USingleton::getInstance('FUser');
         //crea un oggetto fMedico se non è esistente, si collega al DB e lo inserisce
         $fMedico = USingleton::getInstance('FMedico');
-
         if ($fMedico->inserisciMedico($this) === TRUE) {
-            return $this->getCodiceConfermaMedico();
-        } else {
+            return parent::getCodiceConferma();
+        } 
+        else
+        {
             return FALSE;
         }
     }

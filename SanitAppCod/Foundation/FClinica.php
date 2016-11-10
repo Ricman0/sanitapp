@@ -133,8 +133,8 @@ class FClinica extends FUser{
         $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
                 . "FROM appuser," . $this->_nomeTabella . " WHERE (PartitaIVA ='" . $partitaIVA . "' AND "
                 . "appuser.Username=clinica.Username)";
-        $risultato = $this->eseguiQuery($query);
-        return $risultato;
+        return $this->eseguiQuery($query);
+
     }
     
     /**
@@ -152,6 +152,22 @@ class FClinica extends FUser{
                 . "appuser.Username=clinica.Username)";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
+    }
+    
+    /**
+     * Metodo che consente di trovare la clinica la cui PEC è passata come
+     * parametro
+     * 
+     * @access public
+     * @param string $PEC La PEC della clinica
+     * @return Array|boolean Array contenente solo la clinica cercata, FALSE altrimenti
+     */
+    public function cercaClinicaByPEC($PEC) 
+    {
+        $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
+                . "FROM appuser," . $this->_nomeTabella . " WHERE (clinica.PEC ='" . $PEC . "' AND "
+                . "appuser.Username=clinica.Username)";
+        return $this->eseguiQuery($query); 
     }
     
     /**

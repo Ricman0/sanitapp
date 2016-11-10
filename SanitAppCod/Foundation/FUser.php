@@ -38,11 +38,17 @@ class FUser extends FDatabase {
     {
         $valoriAttributi ="'" . $this->trimEscapeStringa($user->getUsername()) . "', '" 
                 . $this->trimEscapeStringa($user->getPassword()) . "', '"
-                . $this->trimEscapeStringa($user->getEmail()) . "', '" 
-                . $user->getConfermato() . "', '"
-                . $this->trimEscapeStringa($user->getCodiceConferma()) . "','"
-                . $user->getTipoUser() . "'";
-        
+                . $this->trimEscapeStringa($user->getEmail()) . "', " ;
+        if ($user->getConfermato()===TRUE)
+        {
+            $valoriAttributi = $valoriAttributi . $user->getConfermato() . ", '";
+        }
+        else
+        {
+             $valoriAttributi = $valoriAttributi .  "FALSE, '";
+        }
+        $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($user->getCodiceConferma()) . "' "
+                . $user->getTipoUser() ;
         return $valoriAttributi;
         
         
@@ -108,6 +114,18 @@ class FUser extends FDatabase {
         }
     }
     
+    public function cercaUserByUsernamePassword($username,$password)
+    {
+        $username = $this->trimEscapeStringa($username);
+        $password = $this->trimEscapeStringa($password);
+        $query = "SELECT appuser.*, "
+                . "MATCH (Password) AGAINST ('$password ' IN BOOLEAN MODE) "
+                . "FROM appuser WHERE Username='" . $username . "' "
+                . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)"; 
+        return $this->eseguiQuery($query);
+    }
+    
+    
     /**
      * Metodo che consente di verificare se l'user (identificato tramite la coppia username e password) esiste nel DB
      * 
@@ -125,6 +143,7 @@ class FUser extends FDatabase {
                 . "FROM appuser WHERE Username='" . $username . "' "
                 . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)"; 
         $risultato = $this->eseguiQuery($query);
+
         if(is_array($risultato) && count($risultato)===1)
         {
             return $risultato;
@@ -161,7 +180,7 @@ class FUser extends FDatabase {
     public function ricercaEmail($email)
     {
         
-        $query = "SELECT Email FROM user WHERE Email=" . $email;
+        $query = "SELECT Email FROM appuser WHERE Email='" . $email . "'";
         $risultato = $this->eseguiQuery($query);
         if ($risultato === FALSE)
         {
@@ -186,4 +205,19 @@ class FUser extends FDatabase {
                 . "WHERE Username='" . $username . "'";
         return $this->eseguiQuery($query);
     }
+    
+    /**
+     * Metodo che consente di cercare un user attraverso l'email
+     * 
+     * @final
+     * @access public
+     * @param string $email L'email dell'user da cercare
+     * @return Array Lo user trovato
+     */
+    final public function cercaUserByEmail($email) 
+    {
+        $query = "SELECT * FROM appuser WHERE Email='" . $email . "'";
+        return $this->eseguiQuery($query);
+    }
+   
 }

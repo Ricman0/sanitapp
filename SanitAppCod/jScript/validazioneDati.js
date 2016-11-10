@@ -60,18 +60,22 @@ function validazione(task1, controller1, task2)
 
 function validazioneCredenziali()
 {
+    //
+    
     jQuery.validator.addMethod("password", function (valore) {
         //espressione regolare per la password
         var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
         return valore.match(regex);
         }, "La password consta da 6 a 10 caratteri, contiene almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola. ");
+    
     $('#formModificaPassword').validate({
         rules:
                 {
                     password:
                             {
-                                required: true
+                                required: true,
+                                password: true
                             },
                     ripetiPassword:
                             {
@@ -167,7 +171,7 @@ function validazioneCodiceFiscale()
                                 remote: 
                                     {
                                         type: "POST",
-                                        url: "ricerca/utente",
+                                        url: "ricerca/utente"
                                     }
                             }
 
@@ -247,7 +251,7 @@ function validazioneLogIn()
                     usernameLogIn:
                             {
                                 required: true,
-                                username: true
+                                username: true                               
                             },
                     passwordLogIn:
                             {
@@ -276,8 +280,17 @@ function validazioneLogIn()
     });
 }
 
+/**
+ * Metodo che consente la validazione dei dati inseriti da un utente
+ * 
+ * @public
+ */
 function validazioneUtente()
 {
+    
+
+
+    
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("password", function (valore) {
@@ -302,6 +315,15 @@ function validazioneUtente()
 
 
     $("#inserisciUtente").validate({
+        /*
+        * Il plugin di default invia una richiesta ajax  per la regola remote
+        * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+        * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+        * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
+        * una volta che abbiamo terminato di digitare l'input.
+        */
+        onkeyup: false, //turn off auto validate whilst typing
+//        focusCleanup: true,
         rules:
                 {
                     nome:
@@ -319,13 +341,14 @@ function validazioneUtente()
                                 required: true,
                                 codiceFiscale: true,
                                 maxlength: 16,
-                                minlength: 16
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/codiceFiscale/" + ($("#codiceFiscale").val()) + "/", 
-//                                           
-//                                        }
+                                minlength: 16,
+                                remote: 
+                                    {
+                                        type: "POST",
+                                        url: "ricerca/codice/utente" 
+                                  
+                                    }
+                                    
                             },
                     indirizzo:
                             {
@@ -346,42 +369,29 @@ function validazioneUtente()
                     email:
                             {
                                 required: true,
-                                email: true
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/email/" + $("#email").val()  
-//                                        }             
+                                email: true,
+                                remote:
+                                        { 
+                                           type: 'POST',
+                                           url: "ricerca/email"
+                                        }             
                             },
-                    usernameUtente:
+                    username:
                             {
                                 required: true,
+                                username: true,
                                 minlength: 2,
                                 maxlength: 15,
-                                remote:
-                                {
-                                    type: "POST",
-                                    url: 'validazione/username',
-                                    data:
+                                remote: 
                                     {
-                                        usernameUtente:$('#inserisciUtente input[name="username"]').val()
-//                                        usernameUtente: function()
-//                                        {
-//                                            return $('#inserisciUtente input[name="username"]').val();
-//                                        }
-                                    },
-                                    complete:function(datiRisposta)
-                                    {
-                                        alert(datiRisposta);
-                                    }
-                                }
-                                    
-                                    
-                                    
+                                        type: "POST",
+                                        url: "ricerca/username"
+                                    }                                  
                             },
                     passwordUtente:
                             {
-                                required: true
+                                required: true,
+                                password: true
                             },
                     ripetiPasswordUtente:
                             {
@@ -405,8 +415,8 @@ function validazioneUtente()
                             {
                                 required: "Inserire il proprio codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
-                                minlength: "Il codice fiscale è lungo 16 caratteri"
-//                                remote: "Codice Fiscale già esistente"
+                                minlength: "Il codice fiscale è lungo 16 caratteri",
+                                remote: "Utente già esistente"
                             },
                     indirizzo:
                             {
@@ -427,10 +437,10 @@ function validazioneUtente()
                     email:
                             {
                                 required: "Inserire l'email",
-                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
-//                                remote: "Email già esistente"
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com",
+                                remote: "Email già esistente"
                             },
-                    usernameUtente:
+                    username:
                             {
                                 required: "Inserire username",
                                 minlength: "La lunghezza minime dello username è 2",
@@ -476,7 +486,16 @@ function validazioneMedico()
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
         return valore.match(regex);
     }, "Può contenere numeri, lettere maiuscole o minuscole");
+    
     $("#inserisciMedico").validate({
+        /*
+        * Il plugin di default invia una richiesta ajax  per la regola remote
+        * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+        * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+        * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
+        * una volta che abbiamo terminato di digitare l'input.
+        */
+        onkeyup: false,
         rules:
                 {
                     nomeMedico:
@@ -490,16 +509,17 @@ function validazioneMedico()
                                 required: true,
                                 maxlength: 20
                             },
-                    codiceFiscaleMedico:
+                    codiceFiscale:
                             {
                                 required: true,
+                                codiceFiscale:true,
                                 maxlength: 16,
-                                minlength: 16
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/codiceFiscale/" + $("#codiceFiscale").val()  
-//                                        }
+                                minlength: 16,
+                                remote: 
+                                    {
+                                        type: "POST",
+                                        url: "ricerca/codice/medico"
+                                    }
                             },
                     indirizzoMedico:
                             {
@@ -517,26 +537,27 @@ function validazioneMedico()
                                 minlength: 5,
                                 maxlength: 5
                             },
-                    emailMedico:
+                    email:
                             {
                                 required: true,
-                                email: true
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/email/" + $("#email").val()  
-//                                        }             
+                                email: true,
+                                remote:
+                                        { 
+                                           type: "POST",
+                                           url: "ricerca/email"  
+                                        }             
                             },
-                    usernameMedico:
+                    username:
                             {
                                 required: true,
+                                username: true,
                                 minlength: 2,
-                                maxlength: 15
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/username/" + $("#usernameUtente").val()  
-//                                        }
+                                maxlength: 15,
+                                remote: 
+                                    {
+                                        type: "POST",
+                                        url: "ricerca/username",
+                                    }                               
                             },
                     passwordMedico:
                             {
@@ -550,7 +571,12 @@ function validazioneMedico()
                     PECMedico:
                             {
                                 required: true,
-                                email: true
+                                email: true,
+                                remote: 
+                                    {
+                                        type: "POST",
+                                        url: "ricerca/PEC",
+                                    } 
                             },
                     provinciaAlbo:
                             {
@@ -575,12 +601,12 @@ function validazioneMedico()
                                 required: "Inserire cognome",
                                 maxlength: "La lunghezza massima è 20"
                             },
-                    codiceFiscaleMedico:
+                    codiceFiscale:
                             {
                                 required: "Inserire il proprio codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
-                                minlength: "Il codice fiscale è lungo 16 caratteri"
-//                                remote: "Codice Fiscale già esistente"
+                                minlength: "Il codice fiscale è lungo 16 caratteri",
+                                remote: "Medico già esistente"
                             },
                     indirizzoMedico:
                             {
@@ -598,18 +624,18 @@ function validazioneMedico()
                                 minlength: "Il CAP è un numero lungo 5 caratteri",
                                 maxlength: "Il CAP è un numero lungo 5 caratteri"
                             },
-                    emailMedico:
+                    email:
                             {
                                 required: "Inserire l'email",
-                                email: "Inserire un'email valida"
-//                                remote: "Email già esistente"
+                                email: "Inserire un'email valida",
+                                remote: "Email già esistente"
                             },
-                    usernameMedico:
+                    username:
                             {
                                 required: "Inserire username",
                                 minlength: "La lunghezza minima dello username è 2",
-                                maxlength: "La lunghezza massima dello username è 15"
-//                                remote: "Username già esistente"
+                                maxlength: "La lunghezza massima dello username è 15",
+                                remote: "Username già esistente"
                             },
                     passwordMedico:
                             {
@@ -623,7 +649,8 @@ function validazioneMedico()
                     PECMedico:
                             {
                                 required: "Inserire la PEC",
-                                email: "Inserire un'email valida"
+                                email: "Inserire un'email valida",
+                                remote: "PEC già esistente"
                             },
                     provinciaAlbo:
                             {
@@ -653,13 +680,19 @@ function validazioneClinica()
     }, "Inserire una password che contenga almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
 
+//
+//    jQuery.validator.addMethod("orario", function (valore) {
+//        //espressione regolare per l'orario
+//        var regex = /(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?/;
+//        return  valore.match(regex);
+//    }, "Inserire un orario del tipo: 08:30 oppure 08:30:00");
 
-    jQuery.validator.addMethod("orario", function (valore) {
-        //espressione regolare per l'orario
-        var regex = /(([0-1]?[0-9]{1})|([2]{1}[0-3]{1})):([0-5]{1}[0-9]{1})(:([0-5]{1}[0-9]{1}))?/;
-        return  valore.match(regex);
-    }, "Inserire un orario del tipo: 08:30 oppure 08:30:00");
-
+    jQuery.validator.addMethod("patitaIVA", function (valore) {
+        //espressione regolare per la partita IVA 
+        var regex = /[0-9]{11}/;
+        return valore.match(regex);
+    }, "La partita IVA deve essere una sequenza di 11 numeri");
+    
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
@@ -667,6 +700,14 @@ function validazioneClinica()
     }, "Può contenere numeri, lettere maiuscole o minuscole");
 
     $("#inserisciClinica").validate({
+        /*
+        * Il plugin di default invia una richiesta ajax  per la regola remote
+        * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+        * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+        * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
+        * una volta che abbiamo terminato di digitare l'input.
+        */
+        onkeyup: false,
         rules:
                 {
                     nomeClinica:
@@ -682,13 +723,14 @@ function validazioneClinica()
                     partitaIVA:
                             {
                                 required: true,
+                                partitaIVA:true,
                                 maxlength: 11,
-                                minlength: 11
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/codiceFiscale/" + $("#").val()  
-//                                        }
+                                minlength: 11,
+                                remote: 
+                                    {
+                                        type: "POST",
+                                        url: "ricerca/partitaIVA",
+                                    }
                             },
                     indirizzoClinica:
                             {
@@ -716,40 +758,42 @@ function validazioneClinica()
                                 required: true,
                                 maxlength: 20
                             },
-                    emailClinica:
+                    email:
                             {
                                 required: true,
-                                email: true
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/email/" + $("#email").val()  
-//                                        }             
+                                email: true,
+                                remote:
+                                        { 
+                                           type: 'POST',
+                                           url: 'ricerca/email' 
+                                        }             
                             },
-                    PECClinica:
+                    PEC:
                             {
                                 required: true,
-                                email: true
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/email/" + $("#email").val()  
-//                                        }             
+                                email: true,
+                                remote: 
+                                    {
+                                        type: "POST",
+                                        url: "ricerca/PEC",
+                                    } 
                             },
-                    usernameClinica:
+                    username:
                             {
                                 required: true,
+                                username:true,
                                 minlength: 2,
-                                maxlength: 15
-//                                remote:
-//                                        { 
-//                                           type: "GET",
-//                                           url: "validazione/username/" + $("#usernameUtente").val()  
-//                                        }
-                            },
+                                maxlength: 15,
+                                remote: 
+                                    {
+                                        type: "POST",
+                                        url: "ricerca/username",
+                                    }
+                                },
                     passwordClinica:
                             {
-                                required: true
+                                required: true,
+                                password:true
                             },
                     ripetiPasswordClinica:
                             {
@@ -765,31 +809,7 @@ function validazioneClinica()
                             {
                                 required: true,
                                 maxlength: 11
-                            },
-                    orarioAperturaAM:
-                            {
-                                required: true,
-                                orario: true
-                            },
-                    orarioChiusuraAM:
-                            {
-                                required: true,
-                                orario: true
-                            },
-                    orarioAperturaPM:
-                            {
-                                required: true,
-                                orario: true
-                            },
-                    orarioChiusuraPM:
-                            {
-                                required: true,
-                                orario: true
                             }
-//                    orarioContinuato:
-//                            {
-//                                boolean: true
-//                            }
                 },
         messages:
                 {
@@ -807,8 +827,8 @@ function validazioneClinica()
                             {
                                 required: "Inserire la partita IVA",
                                 maxlength: "La sequenza massima di numeri è 11",
-                                minlength: "La sequenza minima di numeri è 11"
-//                                remote:                                      
+                                minlength: "La sequenza minima di numeri è 11",
+                                remote: "Partita IVA già esistente"         
                             },
                     indirizzoClinica:
                             {
@@ -836,26 +856,26 @@ function validazioneClinica()
                                 required: "Inserire la provincia della clinica",
                                 maxlength: "La sequenza massima di caratteri è 20"
                             },
-                    emailClinica:
+                    email:
                             {
                                 required: "Inserire l'email della clinica",
-                                email: "Deve essere un'email"
-//                                remote:
+                                email: "Deve essere un'email",
+                                remote:"Email già esistente"
 //                                                    
                             },
-                    PECClinica:
+                    PEC:
                             {
                                 required: "Inserire l'indirizzo PEC della clinica",
-                                email: "Deve essere un'email"
-//                                remote:
+                                email: "Deve essere un'email",
+                                remote: "PEC già esistente"
 //                                                     
                             },
-                    usernameClinica:
+                    username:
                             {
                                 required: "Inserire username",
                                 minlength: "La sequenza alfanumerica minima  è 2",
-                                maxlength: "La sequenza alfanumerica massima è 15"
-//                                remote:
+                                maxlength: "La sequenza alfanumerica massima è 15",
+                                remote: "Username già esistente"                                
                             },
                     passwordClinica:
                             {
@@ -875,27 +895,7 @@ function validazioneClinica()
                             {
                                 required: "Inserire il capitale sociale della clinica",
                                 maxlength: "La sequenza massima di numeri è 11"
-                            },
-                    orarioAperturaAM:
-                            {
-                                required: "Non è necessario"
-                            },
-                    orarioChiusuraAM:
-                            {
-                                required: "Non è necessario"
-                            },
-                    orarioAperturaPM:
-                            {
-                                required: "Non è necessario"
-                            },
-                    orarioChiusuraPM:
-                            {
-                                required: "Non è necessario"
                             }
-//                    orarioContinuato:
-//                            {
-//                                boolean: "Deve essere un booleano"
-//                            }
                 },
         submitHandler: function (form)
         {
