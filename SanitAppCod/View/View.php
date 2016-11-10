@@ -188,13 +188,17 @@ class View extends Smarty {
             'image/gif',
             'image/png'
         );
+        
+        if (file_exists($uploadfile)) {
+            $errors[] = 'Il file esiste gia';
+        }
 
         if ($fileSize >= $maxsize) {
             $errors[] = 'File troppo grande, dimensione massima 4 Mb';
-        }
-
+        }        
+        
         if ((!in_array($fileType, $acceptable)) && (!empty($fileType))) {
-            $errors[] = 'Invalid file type. Only PDF, JPG, GIF and PNG types are accepted.';
+            $errors[] = 'Tipo file non accattato. Sono accettati PDF, JPG, GIF e PNG.';
         }
 
         if (count($errors) === 0) {

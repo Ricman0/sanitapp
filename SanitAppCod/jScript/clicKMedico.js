@@ -13,7 +13,6 @@ $(document).ready(function(){
     $('#headerMain').on("click", "#refertiAreaPersonaleMedico", function () {
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
-    
      
     $('#headerMain').on("click", "#prenotazioniAreaPersonaleMedico", function () {
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");

@@ -30,6 +30,11 @@ $(document).ready(function () {
         clickRiga('cliniche', 'visualizza', id, contenitore);
 //        }
     });
+    
+     $('#headerMain').on("click", "#scaricaRefertoButton2", function () {
+         var id = $(this).attr('data-idPrenotazione');
+        download(id);
+    });
 
 });
 
@@ -160,6 +165,17 @@ function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
         error: function ()
         {
             alert("Chiamata fallita, si prega di riprovare...");
+        }
+    });
+}
+
+function download(id){
+    
+    $.ajax({
+        type: "GET",
+        url: "referti/download/"+id,
+        success:function(){
+            document.location = "referti/download/"+id;
         }
     });
 }
