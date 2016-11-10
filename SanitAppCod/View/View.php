@@ -169,7 +169,7 @@ class View extends Smarty {
      */
     public function recuperaFile($indice) {
         if (isset($_POST['upload']) && $_FILES[$indice]['size'] > 0) {
-            $uploadDir = '/uploadedFiles/';
+            $uploadDir = './uploadedFiles/';
             $db = USingleton::getInstance('FDatabase');
             $fileName = $db->trimEscapeStringa($_FILES[$indice]['name']);
             $tmpName = $_FILES[$indice]['tmp_name']; //nome temporaneo

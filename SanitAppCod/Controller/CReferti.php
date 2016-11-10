@@ -39,9 +39,9 @@ class CReferti {
                 
                 $eReferto = new EReferto($idPrenotazione);
                 header("Cache-Control: public");
-  header("Content-Description: File Transfer");
-  header("Content-Disposition: attachment; filename= " . $eReferto->getContenutoReferto());
-  header("Content-Transfer-Encoding: binary");
+                header("Content-Description: File Transfer");
+                header("Content-Disposition: attachment; filename= " . $eReferto->getContenutoReferto());
+                header("Content-Transfer-Encoding: binary");
 
                 readfile($eReferto->getContenutoReferto());
                 break;
@@ -107,7 +107,7 @@ class CReferti {
         $task = $vReferti->getTask();
         switch ($task) {
             case 'upload':
-
+                
                 $this->uploadReferto();
 
                 break;
@@ -120,7 +120,7 @@ class CReferti {
     public function uploadReferto() {
         $risultato['risultato'] = "NO";
         $vReferti = USingleton::getInstance('VReferti');
-        $datiReferto = $vReferti->recuperaFile();
+        $datiReferto = $vReferti->recuperaFile('referto');
         $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['partitaIva'], $datiReferto['idEsame'], $datiReferto['medicoEsame'], $datiReferto['contenuto']);
 
         if ($eReferto->inserisciReferto()) {

@@ -377,8 +377,7 @@ class EPrenotazione {
     {
         $giorno = substr($dataEOra, 0, 2);
         $anno = substr($dataEOra, 6, 4);
-        $dataEOra = str_replace($anno, $giorno, $dataEOra);
-        $dataEOra = $anno . substr($dataEOra, 2);      
+        $dataEOra = $anno . substr(str_replace($anno, $giorno, $dataEOra), 2);      
         $this->_dataEOra = $dataEOra;
     }
     
@@ -409,5 +408,23 @@ class EPrenotazione {
         {
             return FALSE;
         }
+    }
+    
+    /**
+     * Permette di capise se alla prenotazione è già associato il referto
+     * @return boolean true se alla prenotazione è già associato il referto, false altrimenti
+     */
+    public function esisteReferto() {
+        
+        $fReferto = USingleton::getInstance('FReferto');
+        if($fReferto->cercaReferto($this->_idPrenotazione))
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FAlSE;
+        }
+        
     }
 }
