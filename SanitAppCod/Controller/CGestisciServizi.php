@@ -149,7 +149,7 @@ class CGestisciServizi {
        //ho recuperato tutti i dati inseriti nella form di inserimento dell'esame
        //ora è necessario che vengano validati prima della creazione di un nuovo esame
 //       $uValidazione = USingleton::getInstance('UValidazione');
-//       $validi = $uValidazione->validaDatiUtente($datiUtente);
+//       $validi = $uValidazione->validaDati($datiUtente);
        // se i dati sono validi
 //       if($validi)
 //       {

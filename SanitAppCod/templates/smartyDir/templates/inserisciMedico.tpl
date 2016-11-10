@@ -13,7 +13,7 @@
 
     <br>
     <label for="codiceFiscaleMedico" class="elementiForm">Codice Fiscale</label>
-    <input type="text" name="codiceFiscaleMedico" class="elementiForm" id="codiceFiscaleMedico" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required/>
+    <input type="text" name="codiceFiscale" class="elementiForm" id="codiceFiscaleMedico" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required/>
 
     <br>
 
@@ -42,17 +42,17 @@
 
     <!--type=email non supportato da safari-->
     <label for="emailMedico" class="elementiForm">Email</label>
-    <input type="email" name="emailMedico" class="elementiForm" id="emailMedico" placeholder="mario.rossi@example.it" value="{if isset($datiValidi.email)}{$datiValidi.email}{/if}" required>
+    <input type="email" name="email" class="elementiForm" id="emailMedico" placeholder="mario.rossi@example.it" value="{if isset($datiValidi.email)}{$datiValidi.email}{/if}" required>
 
     <br>
     <label for="PECMedico" class="elementiForm">PEC</label>
-    <input type="email" name="PECMedico" class="elementiForm" id="PECMedico" placeholder="mario.rossi@pec.it" value="{if isset($datiValidi.PEC)}{$datiValidi.PEC}{/if}" required>
+    <input type="email" name="PEC" class="elementiForm" id="PECMedico" placeholder="mario.rossi@pec.it" value="{if isset($datiValidi.PEC)}{$datiValidi.PEC}{/if}" required>
 
     <br>
 
     <div class="username">            
         <label for="usernameMedico" class="elementiForm">Username</label>
-        <input type="text" name="usernameMedico" class="elementiForm" id="usernameMedico" pattern="^[a-z0-9]*$" title="Inserisci elementi alfanumerici" placeholder="Mario" value="{if isset($datiValidi.username)}{$datiValidi.username}{/if}" required />
+        <input type="text" name="username" class="elementiForm" id="usernameMedico" pattern="^[a-z0-9]*$" title="Inserisci elementi alfanumerici" placeholder="Mario" value="{if isset($datiValidi.username)}{$datiValidi.username}{/if}" required />
         <br>
     </div>
     <div class="password"> 

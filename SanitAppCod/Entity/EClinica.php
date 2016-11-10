@@ -104,53 +104,37 @@ class EClinica extends EUser
         
         if($partitaIVA!==NULL && $username!==NULL)  
         {
-            parent::__construct($username, $password, $email);
+            parent::__construct($username, $password, $email, $PEC);
             $this->_partitaIVA= $partitaIVA;
             $this->_nomeClinica = $nomeClinica;
             $this->_titolareClinica =$titolareClinica;
             $this->_via = $via;
-            if($numeroCivico!==FALSE)
-            {
-                $this->_numeroCivico = $numeroCivico; 
-            }
-            else
-            {
-                $this->_numeroCivico = NULL;
-            }
+            $this->_numeroCivico = $numeroCivico; 
             $this->_CAP = $cap;
             $this->_località = $località;
             $this->_provincia = $provincia;
             // trova la regione a cui appartiene la provincia inserita nella form dalla clinica e lo assegno
             $this->_regione =$this->trovaRegione($provincia);
-
-
-            $this->_PEC = $PEC;
             $this->_telefono = $telefono;
-            if($capitaleSociale!==FALSE)
-            {
-                $this->_capitaleSociale = $capitaleSociale; 
-            }
-            else
-            {
-                $this->_capitaleSociale = NULL;
-            }
-            if(isset($workingPlan))
-            {
-                $this->_workingPlan = $workingPlan; 
-            }            
+            $this->_capitaleSociale = $capitaleSociale; 
+            $this->_workingPlan = $workingPlan;            
             $this->_esami = Array();
             if(isset($esami))
             {
                 $this->_esami = $esami; 
             }
-        }
-        else
+        }        
+        elseif($partitaIVA!==NULL || $username!==NULL)
         {
             $fClinica = USingleton::getInstance('FClinica');
             if($partitaIVA!==NULL && $username===NULL)
             {
                 $attributiClinica = $fClinica->cercaClinicaByPartitaIVA($partitaIVA);
             }
+//            elseif($partitaIVA==NULL && $username===NULL)
+//            {
+//                $attributiClinica = $fClinica->cercaClinicaByPEC($partitaIVA);
+//            }
             else
             {
                 $attributiClinica = $fClinica->cercaClinicaByUsername($username);
@@ -167,7 +151,7 @@ class EClinica extends EUser
                 $this->_provincia = $attributiClinica[0]["Provincia"];
                 $this->_regione = $attributiClinica[0]["Regione"];
                 parent::setEmail($attributiClinica[0]["Email"]);
-                $this->_PEC = $attributiClinica[0]["PEC"];
+                parent::setPEC($attributiClinica[0]["PEC"]);
                 parent::setUsername($attributiClinica[0]["Username"]);
                 parent::setPassword($attributiClinica[0]["Password"]);
                 $this->_telefono = $attributiClinica[0]["Telefono"];
@@ -177,6 +161,26 @@ class EClinica extends EUser
                 parent::setCodiceConfermaUtente($attributiClinica[0]["CodiceConferma"]);
                 $this->_esami = Array();
             }
+        }
+        else 
+        {
+            $this->_partitaIVA= $partitaIVA;
+            $this->_nomeClinica = $nomeClinica;
+            $this->_titolareClinica =$titolareClinica;
+            $this->_via = $via;
+            $this->_numeroCivico = $numeroCivico; 
+            $this->_CAP = $cap;
+            $this->_località = $località;
+            $this->_provincia = $provincia;
+            $this->_regione = $regione;
+            $this->_email = $email;
+            $this->_PEC = $PEC;
+            $this->_username = $username;
+            $this->_password = $password;
+            $this->_telefono = $telefono;
+            $this->_capitaleSociale = $capitaleSociale; 
+            $this->_workingPlan = $workingPlan;
+            $this->_esami = Array();
         }
         
 //        if($partitaIVA!==NULL && $username!==NULL)
@@ -395,15 +399,6 @@ class EClinica extends EUser
         return $this->_regione;
     }
     
-    /**
-     * Metodo che restituisce l'indirizzo email certificato PEC della clinica
-     * 
-     * @return string L'indirizzo PEC della clinica
-     */
-    public function getPECClinica()
-    {
-        return $this->_PEC;
-    }
     
     /**
      * Metodo che restituisce il numero di telefono dalla clinica
@@ -507,15 +502,7 @@ class EClinica extends EUser
         $this->_regione = $regione;
     }
     
-    /**
-     * Metodo che imposta la pec della clinica
-     * 
-     * @param string PEC della clinica
-     */
-    public function setPECClinica($pec)
-    {
-        $this->_PEC = $pec;
-    }
+    
     
     /**
      * Metodo che imposta il capitale sociale della clinica
@@ -818,7 +805,7 @@ class EClinica extends EUser
         }
 
         // ora che ho tutti gli orari della giornata, cerco gli orari delle prenotazione già effettuate
-        $data = $vPrenotazione->getData();
+        $data = $vPrenotazione->recuperaValore('data');
         $fPrenotazioni = USingleton::getInstance('FPrenotazione');
         $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinicaData($eEsame->getIDEsame(), $this->_partitaIVA, $data);
         $orariPrenotati = Array();

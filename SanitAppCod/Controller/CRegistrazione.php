@@ -63,7 +63,7 @@ class CRegistrazione {
         switch ($vRegistrazione->getTask()) 
         {
             case 'clinica':
-                
+            {
                 $codiceODatiValidi = $this->recuperaDatiECreaClinica();
                 if(is_string($codiceODatiValidi) === TRUE)//se contiene il codice di conferma
                     {
@@ -74,11 +74,11 @@ class CRegistrazione {
                        if ($mail->inviaMailRegistrazioneClinica($codiceODatiValidi, $uValidazione->getDatiValidi()) === TRUE)
                        {
                            // visualizzo che un'email è stata inviata sulla propria mail
-                           $vRegistrazione->confermaInserimento(TRUE);
+                           $vRegistrazione->confermaMailInviata(TRUE);
                        }
                        else
                        {
-                           $vRegistrazione->confermaInserimento(FALSE);
+                           $vRegistrazione->confermaMailInviata(FALSE);
                        }
                     }
                 else
@@ -86,61 +86,76 @@ class CRegistrazione {
                         // dati corretti ma errore nel database
                         return $vRegistrazione->restituisciFormClinica($codiceODatiValidi);
                     }
+                   
+            }
                 break;
             
             case 'medico':
-                $inserito = $this->recuperaDatiECreaMedico();
+            { $codiceODatiValidi = $this->recuperaDatiECreaMedico();
 //                return $vRegistrazione->restituisciFormMedico();
-                 if(is_string($inserito) === TRUE)
+                 if(is_string($codiceODatiValidi) === TRUE)
+                    {
+                        //invia mail riscontro dell’avvenuta registrazione 
+                        //contenente informazioni riepilogative
+                        // e con link di conferma
+                        $mail = USingleton::getInstance('UMail');
+                        if(is_string($codiceODatiValidi) === TRUE)//se contiene il codice di conferma
+                        {
+                            //invia mail riscontro dell’avvenuta registrazione 
+                            //contenente informazioni riepilogative
+                            // e con link di conferma
+                            $mail = USingleton::getInstance('UMail');
+                            if ($mail->inviaMailRegistrazioneMedico($codiceODatiValidi, $uValidazione->getDatiValidi())  === TRUE)
+                            {
+                                // visualizzo che un'email è stata inviata sulla propria mail
+                                $vRegistrazione->confermaMailInviata(TRUE);
+                 
+                            }
+                            else
+                            {
+                                $vRegistrazione->confermaMailInviata(FALSE);
+                            }                        
+                    }
+                    
+                            }
+                else
+                    {
+                    // dati corretti ma errore nel database
+                        return $vRegistrazione->restituisciFormMedico($codiceODatiValidi);
+                    }
+                        
+                    }  
+                break;
+            
+            case 'utente':
+            {
+                $codiceODatiValidi = $this->recuperaDatiECreautente();
+                if(is_string($codiceODatiValidi) === TRUE)//se contiene il codice di conferma
                     {
                        //invia mail riscontro dell’avvenuta registrazione 
                        //contenente informazioni riepilogative
                        // e con link di conferma
                        $mail = USingleton::getInstance('UMail');
-                       if ($mail->inviaMailRegistrazioneMedico($inserito)  === TRUE)
+                       if ($mail->inviaMailRegistrazioneUtente($codiceODatiValidi, $uValidazione->getDatiValidi()) === TRUE)
                        {
                            // visualizzo che un'email è stata inviata sulla propria mail
-                           $vRegistrazione = USingleton::getInstance('VRegistrazione');
-                           $vRegistrazione->confermaInserimento();
+                           $vRegistrazione->confermaMailInviata(TRUE);
+                       }
+                       else
+                       {
+                           $vRegistrazione->confermaMailInviata(FALSE);
                        }
                     }
                 else
                     {
                         // dati corretti ma errore nel database
-                        echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                        return $vRegistrazione->restituisciFormMedico($inserito);
+                        return $vRegistrazione->restituisciFormUtente($codiceODatiValidi);
                     }
+                   
+            }
                 break;
-
-            default:
-                //recupera dati dal form e crea un nuovo utente
-                $codiceConferma = $this->recuperaDatiECreaUtente();
-                if(is_string($inserito) === TRUE)
-                {
-                    //accedo al DB per ottenere le informazioni sull'utente inserito o è sufficiente $POST?
-                    //messaggio di conferma
-
-                   //invia mail riscontro dell’avvenuta registrazione 
-                   //contenente informazioni riepilogative
-                   // e con link di conferma
-                   $mail = USingleton::getInstance('UMail'); 
-                   if($mail->inviaMailRegistrazioneUtente($inserito) === TRUE)
-                   {
-                       // visualizzo che un'email è stata inviata sulla propria mail
-                       $vRegistrazione = USingleton::getInstance('VRegistrazione');
-                       $vRegistrazione->confermaInserimento();
-                   }   
-                }
-                else
-                {
-                    // dati corretti ma errore nel database
-
-                    echo " errore durante l'inserimento nel db, per favore reinserisci i dati";
-                    return $vRegistrazione->restituisciFormUtente($inserito);
-                }
-                    
-                    //visualizza errori
-    //                    return $VRegistrazione->set_errori($Eutente->data_err,$caricamento,'registrazione');
+               
+            default:               
                 break;
         }
     }
@@ -150,7 +165,7 @@ class CRegistrazione {
      * tali dati per creare e inserire una nuova clinica nel database.
      * 
      * @access private
-     * @return boolean TRUE se il medico è stato inserito nel DB, FALSE altrimenti
+     * @return mixed Se i dati sono validi il codice di conferma la clinica è stata inserita nel DB, FALSE altrimenti. Se i dati non sono validi, i dati validi
      */
     private function recuperaDatiECreaClinica() 
     {
@@ -160,7 +175,7 @@ class CRegistrazione {
        //ho recuperato tutti i dati inseriti nella form di registrazione della clinica
        //ora è necessario che vengano validati prima della creazione di una nuova clinica
        $uValidazione = USingleton::getInstance('UValidazione');
-       $validi = $uValidazione->validaDatiClinica($datiClinica);
+       $uValidazione->validaDati($datiClinica);
        // se i dati sono validi
        if($uValidazione->getValidati()===TRUE)
        {           
@@ -188,34 +203,34 @@ class CRegistrazione {
      * tali dati per creare e inserire un nuovo medico nel database
      * 
      * @access private
-     * @return boolean TRUE se il medico è stato inserito nel DB, FALSE altrimenti
+     * @return mixed Se i dati sono validi il codice di conferma  il medico è stato inserito nel DB. Se i dati non sono validi, i dati validi
      */
     private function recuperaDatiECreaMedico() 
     {
+        $vRegistrazione = USingleton::getInstance('VRegistrazione');
        //recupero i dati 
-       $datiMedico = $this->recuperaDatiMedico();
+       $datiMedico = $vRegistrazione->recuperaDatiMedico();
        //ho recuperato tutti i dati inseriti nella form di registrazione del medico
        //ora è necessario che vengano validati prima della creazione di un nuovo medico
        $uValidazione = USingleton::getInstance('UValidazione');
-       $validi = $uValidazione->validaDatiMedico($datiMedico);
+       $uValidazione->validaDati($datiMedico);
        // se i dati sono validi
-       if($validi)
+       if($uValidazione->getValidati()===TRUE)
        {
            // crea utente 
-           $eMedico = new EMedico($datiMedico['nome'], $datiMedico['cognome'],
-                   $datiMedico['codiceFiscale'], $datiMedico['via'], $datiMedico['numeroCivico'],
-                   $datiMedico['CAP'], $datiMedico['email'], $datiMedico['username'],
+           $eMedico = new EMedico($datiMedico['codiceFiscale'], $datiMedico['username'], $datiMedico['nome'], $datiMedico['cognome'],
+                    $datiMedico['via'], $datiMedico['numeroCivico'],
+                   $datiMedico['CAP'], $datiMedico['email'], 
                    $datiMedico['password'], $datiMedico['PEC'],
                    $datiMedico['provinciaAlbo'],$datiMedico['numeroIscrizione']);
            //eMedico richiama il metodo per creare FMedico poi FMedico aggiunge l'utente nel DB
-           $inserito = $eMedico->inserisciMedicoDB();
+           return $eMedico->inserisciMedicoDB();
        }
        else
        {
            
-          $inserito = $uValidazione->getDatiValidi();
-       }
-       return $inserito;  
+          return $uValidazione->getDatiValidi();
+       } 
     }
     
     
@@ -225,118 +240,33 @@ class CRegistrazione {
      * tali dati per creare e inserire un nuovo utente nel database
      * 
      * @access private
-     * @return boolean TRUE se l'utente è stato inserito nel DB, FALSE altrimenti
+     * @return mixed Se i dati sono validi il codice di conferma l'utente è stato inserito nel DB. Se i dati non sono validi, i dati validi
      */
     private function recuperaDatiECreaUtente() 
     {
+        $vRegistrazione = USingleton::getInstance('VRegistrazione');
        //recupero i dati 
-       $datiUtente = $this->recuperaDatiUtente();
+       $datiUtente = $vRegistrazione->recuperaDatiUtente();
        //ho recuperato tutti i dati inseriti nella form di registrazione dell'utente
        //ora è necessario che vengano validati prima della creazione di un nuovo utente
        $uValidazione = USingleton::getInstance('UValidazione');
-       $validi = $uValidazione->validaDatiUtente($datiUtente);
+       $uValidazione->validaDati($datiUtente);
        // se i dati sono validi
-       if($validi)
+       if($uValidazione->getValidati()===TRUE)
        {
-           // crea codice
-           $codiceConferma = uniqid(rand(0, 6));
-           echo "codice : $codiceConferma ";
            // crea utente 
-           $eUtente = new EUtente($datiUtente['codiceFiscale'], $datiUtente['username'], $datiUtente['passwordUtente'], $datiUtente['email'], $datiUtente['nome'], $datiUtente['cognome'],
+           $eUtente = new EUtente($datiUtente['codiceFiscale'], $datiUtente['username'], $datiUtente['password'], $datiUtente['email'], $datiUtente['nome'], $datiUtente['cognome'],
                     $datiUtente['indirizzo'], 
-                   $datiUtente['numeroCivico'], $datiUtente['CAP'], 
-                     $codiceConferma);
+                   $datiUtente['numeroCivico'], $datiUtente['CAP']);
            //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
-           $inserito = $eUtente->inserisciUtenteDB();
+           return $eUtente->inserisciUtenteDB();
        }
        else
        {
-           // i dati errati
-          $uValidazione->getDatiErrati(); 
           // i dati validi
-          $inserito = $uValidazione->getDatiValidi();
+          return $uValidazione->getDatiValidi();
           
        }
-       return $inserito;
     }
-    
-    
-    
-    /**
-     * Metodo che recupera i tutti i dati del medico dalla form 
-     * per poter inserire un nuovo medico. I dati vengono memorizzati
-     *  nell'array $datiMedico
-     * 
-     * @access private
-     * @return Array I dati per memorizzare il medico
-     */
-    private function recuperaDatiMedico()
-    {
-        $datiMedico = Array();
-        $datiMedico['nome'] = $this->recuperaValore('nomeMedico');
-        $datiMedico['cognome'] = $this->recuperaValore('cognomeMedico'); 
-        $datiMedico['codiceFiscale'] = $this->recuperaValore('codiceFiscaleMedico');
-        $datiMedico['via'] = $this->recuperaValore('indirizzoMedico');
-        if(isset($_POST['numeroCivicoMedico']))
-        {
-            $datiMedico['numeroCivico'] = $this->recuperaValore('numeroCivicoMedico');  
-        }
-        $datiMedico['CAP'] = $this->recuperaValore('CAPMedico');
-        $datiMedico['email'] = $this->recuperaValore('emailMedico');
-        $datiMedico['username'] = $this->recuperaValore('usernameMedico');
-        $datiMedico['password'] = $this->recuperaValore('passwordMedico');
-        $datiMedico['PEC'] = $this->recuperaValore('PECMedico');
-        $datiMedico['provinciaAlbo'] = $this->recuperaValore('provinciaAlbo');
-        $datiMedico['numeroIscrizione'] = $this->recuperaValore('numeroIscrizione'); 
-        return $datiMedico;
-    }
-
-
-    /**
-     * Metodo che recupera i tutti i dati di un utente dalla form 
-     * per poter inserire un nuovo utente. I dati vengono memorizzati
-     *  nell'array $datiUtente
-     * 
-     * @access private
-     * @return Array I dati per memorizzare l'utente
-     */
-    private function recuperaDatiUtente()
-    {
-        //creo un array in cui inserirsco i valori recuperati
-        //pb: secondo te è una stupidaggine fare così e poi aggiungo del tempo  inutile
-       $datiUtente = Array();
-//       $nome = $this->recuperaValore('nome');    
-       $datiUtente['nome'] = $this->recuperaValore('nome');
-       $datiUtente['cognome'] = $this->recuperaValore('cognome'); 
-       $datiUtente['codiceFiscale'] = $this->recuperaValore('codiceFiscale');
-       $datiUtente['indirizzo'] =$this->recuperaValore('indirizzo');
-       if(isset($_POST['numeroCivico']))
-       {
-           $datiUtente['numeroCivico'] = $this->recuperaValore('numeroCivico');  
-       }
-       $datiUtente['CAP'] = $this->recuperaValore('CAP');
-       $datiUtente['email'] = $this->recuperaValore('email');
-       $datiUtente['username'] =$this->recuperaValore('username');
-       $datiUtente['passwordUtente'] = $this->recuperaValore('passwordUtente');
-       return $datiUtente;
-    }
-    
-    /**
-     * Metodo che permette di recuperare dall'array POST il valore inserito dall'utente
-     * in un campo della form. Il campo è individuato dall'indice.
-     * 
-     * @access private
-     * @param string $indice Il nome dell'indice che deve essere recuperato dall'array POST
-     * @return string Il valore recuperato
-     */
-    private function  recuperaValore($indice) 
-    {
-        if(isset($_POST[$indice]))
-       {
-            $parametro = $_POST[$indice];
-       }
-       return $parametro;
-    }
-    
     
 }

@@ -15,31 +15,38 @@ class EUser {
 
     /**
      * @var string $_email, variabile di tipo string, che contiente l'indirizzo 
-     *             di posta elettronica dell'utente. é valido come username per 
+     *             di posta elettronica dell'user. é valido come username per 
      *             l'accesso al sistema
      */
     private $_email;
 
     /**
+     * @var string $_PEC, variabile di tipo string, che contiente l'indirizzo 
+     *             di posta elettronica certificata dell'user. é valido come username per 
+     *             l'accesso al sistema
+     */
+    private $_PEC;
+    
+    /**
      * @var string $_password, variabile di tipo string, che contiente la
-     *             password che l'utente inserisce per accedere al sistema
+     *             password che l'user inserisce per accedere al sistema
      */
     private $_password;
 
     /**
      * @var string $_username, variabile di tipo string, che contiene lo
-     *              username che l'utente inserisce per registrarsi
+     *              username che l'user inserisce per registrarsi
      */
     private $_username;
 
     /**
      * @var string $_codiceConferma, variabile che contiente il codice per confermare 
-     * l'account dell'utente
+     * l'account dell'user
      */
     private $_codiceConferma;
 
     /**
-     * @var string $_confermato permette di capire se l'account dell'utente è 
+     * @var string $_confermato permette di capire se l'account dell'user è 
      * stato confermato(TRUE) o meno         
      */
     private $_confermato;
@@ -56,15 +63,55 @@ class EUser {
      * @param type $name Description
      * @param string $password La password dell'utente
      * @param string $cod Il codice per confermare l'account
+     * @param string $PEC La pec dell'user
      */
-    public function __construct($username, $password = "", $email = "") 
+    public function __construct($username, $password = NULL, $email = NULL, $PEC=NULL) 
     {
-        $this->_email = $email;
-        $this->_username = $username;
-        $this->_password = $password;
-        $this->_codiceConferma = md5($username.$email.date('mY'));
-        $this->_confermato = FALSE;
-        $this->_tipoUser="";
+        if($username !==NULL && $password !== NULL && $email!==NULL)
+        {
+            $this->_email = $email;
+            $this->_username = $username;
+            $this->_password = md5($password.$username);
+            $this->_codiceConferma = md5($username.$email.date('mY'));
+            $this->_confermato = FALSE;
+            $this->_tipoUser="";
+            $this->_PEC = $PEC;
+        }
+        else
+        {
+            if($username !==NULL && $password==NULL && $email==NULL)
+            {
+                $fUser = USingleton::getInstance('FUser');
+                $attributiUser = $fUser->cercaUser($username);
+                if(is_array($attributiUser) && count($attributiUser)==1)
+                {
+                    $this->_username = $attributiUser[0]['Username'];
+                    $this->_password = $attributiUser[0]['Password'];
+                    $this->_email = $attributiUser[0]['Email'];
+                    $this->_PEC=$attributiUser[0]['PEC'];
+                    $this->_codiceConferma = $attributiUser[0]['CodiceConferma'];
+                    $this->_confermato = $attributiUser[0]['Confermato'];
+                    $this->_tipoUser=$attributiUser[0]['TipoUser'];
+                    
+                }
+            }
+            elseif($username ==NULL && $password==NULL && $email!==NULL)
+            {
+                $fUser = USingleton::getInstance('FUser');
+                $attributiUser = $fUser->cercaUserByEmail($email);
+                if(is_array($attributiUser) && count($attributiUser)==1)
+                {
+                    $this->_username = $attributiUser[0]['Username'];
+                    $this->_password = $attributiUser[0]['Password'];
+                    $this->_email = $attributiUser[0]['Email'];
+                    $this->_codiceConferma = $attributiUser[0]['CodiceConferma'];
+                    $this->_confermato = $attributiUser[0]['Confermato'];
+                    $this->_tipoUser=$attributiUser[0]['TipoUser'];
+                }
+            }
+
+        }
+        
         
 //        if ($username !== NULL) 
 //        {
@@ -180,6 +227,15 @@ class EUser {
     }
     
     /**
+     * Metodo per conoscere la PEC dell'user
+     * 
+     * @return string La PEC dell'user
+     */
+    public function getPEC() {
+        return $this->_PEC;
+    }
+    
+    /**
      * Metodo per conoscere il codice di conferma dell'user
      * 
      * @return string Il codice dell'user 
@@ -238,6 +294,16 @@ class EUser {
     public function setEmail($email) 
     {
         return $this->_email = $email;
+    }
+    
+    /**
+     * Metodo che permette di modificare la PEC dell'user
+     * 
+     * @param string $PEC La PEC dell'user
+     */
+    public function setPEC($PEC) 
+    {
+        return $this->_PEC = $PEC;
     }
 
    

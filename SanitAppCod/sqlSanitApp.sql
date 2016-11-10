@@ -21,11 +21,13 @@ CREATE TABLE appUser (
   Username varchar(15) NOT NULL,
   Password varchar(10) NOT NULL,
   Email varchar(320) NOT NULL,
+  PEC varchar(320) DEFAULT NULL,
   Confermato boolean DEFAULT FALSE,
   CodiceConferma varchar (255) NOT NULL,
   TipoUser ENUM('utente', 'medico', 'clinica', 'amministratore') NOT NULL,
   PRIMARY KEY (Username),
   UNIQUE (Email),
+  UNIQUE (PEC),
   UNIQUE (CodiceConferma)
 ) ;
 
@@ -36,12 +38,12 @@ ALTER TABLE appUser ADD FULLTEXT INDEX fullTextPassword(Password);
 -- Dump dei dati per la tabella `user`
 --
 
-INSERT INTO appUser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES 
-('appi', 'Appig4', 'info@appignano.it', FALSE, 'ciidisjwhf', 'clinica'),
-('bise', 'Bisenti5', 'info@bisenti.it',  FALSE, 'cjdjdhdhrf', 'clinica'),
-('claudim', 'Clau89', 'claudia@homail.it',  FALSE, 'cwjwjhrf', 'medico'),
-('ricman', 'Riccardo89', 'riccardo@gmail.it',  FALSE, 'cjdjdehahah', 'utente'),
-('annadima', 'Anna49', 'annadim@alice.it',  FALSE, 'annasjdjdhdhrf', 'utente');
+INSERT INTO appUser (Username, Password, Email, PEC, Confermato, CodiceConferma, TipoUser) VALUES 
+('appi', 'Appig4', 'info@appignano.it', 'info@appignano.pec' ,FALSE, 'ciidisjwhf', 'clinica'),
+('bise', 'Bisenti5', 'info@bisenti.it',  'info@bisenti.pec' ,FALSE, 'cjdjdhdhrf', 'clinica'),
+('claudim', 'Clau89', 'claudia@homail.it', 'clau@dim.pec.it',  FALSE, 'cwjwjhrf', 'medico'),
+('ricman', 'Riccardo89', 'riccardo@gmail.it', NULL,  FALSE, 'cjdjdehahah', 'utente'),
+('annadima', 'Anna49', 'annadim@alice.it',NULL, FALSE, 'annasjdjdhdhrf', 'utente');
 
 -- --------------------------------------------------------
 
@@ -82,13 +84,10 @@ CREATE TABLE clinica (
   Provincia varchar (20) NOT NULL,
   Regione varchar (20) NOT NULL,
   Username varchar(15) NOT NULL,
-  PEC varchar(320) NOT NULL,
   Telefono int(10) DEFAULT NULL,
   CapitaleSociale int(11) DEFAULT NULL,
   WorkingPlan text DEFAULT NULL,
   PRIMARY KEY (PartitaIVA),
-  UNIQUE (PEC),
-  UNIQUE (Telefono),
   FOREIGN KEY (Username) REFERENCES appUser (Username)
 );
 
@@ -107,10 +106,10 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 --
 
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
-Provincia, Regione, Username, PEC, Telefono, CapitaleSociale, WorkingPlan) VALUES
-('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'appi', ' info@appignano.pec', 0856478563, 10000,
+Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan) VALUES
+('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'appi',  0856478563, 10000,
  '{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}'),
-('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'bise', ' info@bisenti.pec', 8613, 123456780,   
+('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'bise', 8613, 123456780,   
 '{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}');
 
 -- --------------------------------------------------------
@@ -161,12 +160,10 @@ CREATE TABLE medico (
   NumCivico smallint(6) DEFAULT NULL,
   CAP varchar(5) NOT NULL,
   Username varchar(15) NOT NULL,
-  PEC varchar(320) NOT NULL,
   Validato tinyint(1) DEFAULT '0',
   ProvinciaAlbo varchar(2) NOT NULL,
   NumIscrizione smallint(6) NOT NULL,
   PRIMARY KEY (CodFiscale),
-  UNIQUE (PEC),
   FOREIGN KEY (Username) REFERENCES appUser (Username)
 );
 
@@ -176,8 +173,8 @@ CREATE TABLE medico (
 -- Dump dei dati per la tabella `medico`
 --
 
-INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username, PEC, Validato, ProvinciaAlbo, NumIscrizione) VALUES
-('DMRCLD89S42G438S', 'claudia', 'di marco', 'acquaventina', 30, '65017', 'claudim', 'clau@dim.pec.it', 0, ' P', 5464);
+INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username,  Validato, ProvinciaAlbo, NumIscrizione) VALUES
+('DMRCLD89S42G438S', 'claudia', 'di marco', 'acquaventina', 30, '65017', 'claudim', 0, ' P', 5464);
 
 -- --------------------------------------------------------
 

@@ -20,13 +20,12 @@ class VPrenotazione extends View{
         $this->assegnaVariabiliTemplate('data', $data);
         $this->assegnaVariabiliTemplate('clinica', $eClinica);
         $this->assegnaVariabiliTemplate('esame', $eEsame);
-        return $this->visualizzaTemplate('riepilogoPrenotazione');
+        $this->visualizzaTemplate('riepilogoPrenotazione');
     }
     
     public function inviaDate($date) 
     {   
-        echo $this->json_encode($date);
-           
+        echo $this->json_encode($date);  
     }
     
 
@@ -58,7 +57,7 @@ class VPrenotazione extends View{
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         if(count($risultato)>0)
             {
-                $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
+                $this->assegnaVariabiliTemplate('tipoUser', ucfirst($tipoUser));
                 $this->assegnaVariabiliTemplate('prenotazioni', TRUE);
                 $this->assegnaVariabiliTemplate('dati', $risultato);
             }

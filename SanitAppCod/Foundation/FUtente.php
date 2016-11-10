@@ -47,19 +47,17 @@ class FUtente extends FUser{
         print_r($query2);
         // eseguo le queries
         try {
-            // First of all, let's begin a transaction
+            // inzia la transazione
             $this->_connessione->begin_transaction();
 
-            // A set of queries; if one fails, an exception should be thrown
-             $this->eseguiquery($query1);
-             $this->eseguiQuery($query2);
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($query1);
+            $this->eseguiQuery($query2);
 
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
             $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
             $this->_connessione->rollback();
         }
         

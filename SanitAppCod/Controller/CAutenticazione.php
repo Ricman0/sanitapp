@@ -153,7 +153,7 @@ class CAutenticazione {
             
             $datiLogIn = array('username' => $username, 'password' => $password);
             $validazione = USingleton::getInstance('UValidazione');
-            if($validazione->validaDatiLogIn($datiLogIn) === TRUE)
+            if($validazione->validaDati($datiLogIn) === TRUE)
             {
             
                 $eUser = new EUser($username, $password);
@@ -208,7 +208,7 @@ class CAutenticazione {
 ////            $datiLogIn['password'] = $password;
 //            $datiLogIn = array('username' => $username, 'password' => $password);
 //            $validazione = USingleton::getInstance('UValidazione');
-//            if($validazione->validaDatiLogIn($datiLogIn) === TRUE)
+//            if($validazione->validaDati($datiLogIn) === TRUE)
 //            {
 //                //username e password validi
 //                //cerco nel db se esistono
