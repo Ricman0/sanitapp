@@ -102,7 +102,6 @@ class UValidazione {
     public function validaDati($dati) 
     {
         $this->setValidati(TRUE);
-        print_r($dati);
         foreach ($dati as $chiave => $valore) 
         {
             $pattern = "";

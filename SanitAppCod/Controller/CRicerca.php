@@ -41,7 +41,6 @@ class CRicerca {
                         // quindi il risultato sarà TRUE
                          $risultato = TRUE;
                     }
-
                 }
 
                 break;

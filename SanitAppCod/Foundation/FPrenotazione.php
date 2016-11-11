@@ -84,7 +84,6 @@ class FPrenotazione extends FDatabase{
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(prenotazione.CodFiscaleMedicoPrenotaEsame='" . $cf . "')) ";
         $risultato = $this->eseguiQuery($query);
-        print_r($risultato);
         return $risultato;
     }
     
@@ -136,13 +135,12 @@ class FPrenotazione extends FDatabase{
     public function aggiungiPrenotazione($ePrenotazione) 
     {
         $valoriAttributi = $ePrenotazione->getValoriAttributi();
-        echo " in aggiungi Prenotazione ";
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
         $query = "INSERT INTO " . $this->_nomeTabella . " (" . $this->_attributiTabella . ") VALUES(" . $valoriAttributi . ")";
         // eseguo la query
 //        $query = "INSERT INTO prenotazione ()"
-        return $risultato = $this->eseguiQuery($query);
+        return  $this->eseguiQuery($query);
     }
     
     public function cercaPrenotazioneById($id) {

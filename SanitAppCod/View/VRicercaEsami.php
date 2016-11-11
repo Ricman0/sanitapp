@@ -40,14 +40,13 @@ class VRicercaEsami extends View{
      * 
      * @param EEsame $esame 
      * @param boolean $servizi TRUE se siamo nella pagina personale della clinica, FALSE altrimenti
-     * @return type
      */
     public function visualizzaInfoEsameOspite($esame, $servizi, $codiceFiscaleUtentePrenotaEsame=NULL) 
     {
         $this->assegnaVariabiliTemplate('esame', $esame);
         $this->assegnaVariabiliTemplate('tipo', $servizi);
         $this->assegnaVariabiliTemplate('codiceFiscale', $codiceFiscaleUtentePrenotaEsame);
-        return $this->visualizzaTemplate("infoEsame");
+        $this->visualizzaTemplate("infoEsame");
         
     }
 }

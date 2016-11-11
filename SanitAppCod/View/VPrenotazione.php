@@ -10,7 +10,7 @@ class VPrenotazione extends View{
     public function appuntamentoAggiunto($risultato) 
     {
         $this->assegnaVariabiliTemplate('risultato', $risultato);
-        return $this->visualizzaTemplate('prenotazioneAggiunta');
+        $this->visualizzaTemplate('prenotazioneAggiunta');
     }
     public function restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice)
     {
@@ -30,19 +30,7 @@ class VPrenotazione extends View{
     
 
     
-    
-    
-    public function getCodice() 
-    {
-        if (isset($_REQUEST['codice'])) 
-            {
-                return $_REQUEST['codice'];
-            } 
-        else 
-            {
-                return "FALSE";
-            }
-    }
+
     
     
     

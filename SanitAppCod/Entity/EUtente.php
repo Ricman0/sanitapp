@@ -90,7 +90,7 @@ class EUtente extends EUser {
                 parent::setUsername($attributiUtente[0]['Username']);
                 parent::setPassword($attributiUtente[0]['Password']);
                 parent::setEmail($attributiUtente[0]['Email']);
-                parent::setEmail($attributiUtente[0]['PEC']);
+                parent::setPEC($attributiUtente[0]['PEC']);
                 parent::setConfermato($attributiUtente[0]['Confermato']);
                 parent::setCodiceConfermaUtente($attributiUtente[0]['CodiceConferma']);
                 parent::setTipoUser($attributiUtente[0]['TipoUser']);
@@ -321,6 +321,8 @@ class EUtente extends EUser {
     public function setCodiceFiscaleUtente($codFiscale) {
         $this->_codFiscale = $codFiscale;
     }
+    
+    
 
     /**
      * Metodo che permette di modificare l'email dell'utente
@@ -328,8 +330,8 @@ class EUtente extends EUser {
      * @access public
      * @param string $email L'email dell'utente
      */
-    public function setEmailUtente($email) {
-        return $this->_email = $email;
+    public function setEmail($email) {
+        parent::setEmail($email);
     }
 
     /**

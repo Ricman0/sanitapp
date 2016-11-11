@@ -21,19 +21,22 @@ class CPrenotazione {
         {
             switch ($task) 
             {
+                
                 case 'esame':
-                    $id = $vPrenotazione->recuperaValore('id');
-                    $eEsame = new EEsame($id);
-                    $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
-                    $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                    $nomeEsame = $eEsame->getNomeEsame();
-                    $nomeClinica = $eClinica->getNomeClinica();
-                    $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id);
-
+                    $id = $vPrenotazione->recuperaValore('id'); 
+                    if(isset($id))
+                    {
+                        $eEsame = new EEsame($id);
+                        $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+                        $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                        $nomeEsame = $eEsame->getNomeEsame();
+                        $nomeClinica = $eClinica->getNomeClinica();
+                        $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id);
+                    }
                     break;
 
                 case 'riepilogo':
-                    $idEsame = $vPrenotazione->recuperaValore('id');
+                    $idEsame = $vPrenotazione->recuperaValore('id');// devo inserire 1 if???
                     $eEsame = new EEsame($idEsame);
                     $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
                     $eClinica = new EClinica(NULL, $partitaIVAClinica);
@@ -53,7 +56,7 @@ class CPrenotazione {
                     {
                         // tipoUser = clinica
                         $codice = $vPrenotazione->recuperaValore('codice');
-                        $eUtente = new EUtente($codice);
+                        $eUtente = new EUtente($codice);                      
                         $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
                         
                     }
@@ -207,7 +210,7 @@ class CPrenotazione {
 
                     case 'clinica':
                         $idPrenotazione = $vPrenotazioni->recuperaValore('id');
-                        if ($idPrenotazione === FALSE) 
+                        if ($idPrenotazione === FALSE) //si vogliono visualizzare tutte le prenotazioni
                         {
                             $eClinica = new EClinica($username);
                             $prenotazioniClinica = $eClinica->cercaPrenotazioni();
@@ -219,9 +222,8 @@ class CPrenotazione {
                                 echo "errore in Cprenotazione VisualizzaPrenotazioni in clinica";
                             }
                         }
-                        else 
-                        {
-                            // visualizza una sola prenotazione 
+                        else // visualizza una sola prenotazione 
+                        {                            
                             $ePrenotazione = new EPrenotazione($idPrenotazione);
                             $CFUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
                             $eUtente = new EUtente($CFUtente);
@@ -236,6 +238,7 @@ class CPrenotazione {
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
                         }
                         break;
+                        
                     default :
                         echo 'non sono utete non sono clinica';
                     break;
@@ -282,36 +285,34 @@ class CPrenotazione {
                 $tipo = $sessione->leggiVariabileSessione('tipoUser');
                 $username = $sessione->leggiVariabileSessione('username');
                 switch ($tipo) {
-                    case 'Utente':
+                    case 'utente':
                         $eUtente = new EUtente(NULL, $username);
                         $codFiscaleUtenteEffettuaEsame = $eUtente->getCodiceFiscaleUtente();
                         $codFiscalePrenotaEsame = $eUtente->getCodiceFiscaleUtente();
                         break;
                     
-                    case 'Medico':
+                    case 'medico':
                         $eMedico = new EMedico(NULL, $username);
                         $codFiscalePrenotaEsame = $eMedico->getCodiceFiscaleMedico();
                         $codFiscaleUtenteEffettuaEsame = $vPrenotazione->getCodice();
                         break;
                     
-                    case 'Clinica':
-                        $codFiscalePrenotaEsame = $vPrenotazione->getCodice();
-                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->getCodice();
+                    case 'clinica':
+                        $codFiscalePrenotaEsame = $vPrenotazione->recuperaValore('codice');
+                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
                         
                         break;
                     default:
                         break;
                 }
-               
-
                 $idEsame = $vPrenotazione->recuperaValore('id');
-                $partitaIVAClinica = $vPrenotazione->getPartitaIVA();
+                $partitaIVAClinica = $vPrenotazione->recuperaValore('clinica');
                 $data = $vPrenotazione->recuperaValore('data');
                 $ora = $vPrenotazione->recuperaValore('orario');
                 $dataEOra = $data . " " . $ora;
                 $ePrenotazione = new EPrenotazione(NULL, $idEsame, $partitaIVAClinica, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
-                echo " prneotazione creata ma ancora da aggiunrere ";
-                $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB($ePrenotazione);
+
+                $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB();
                 $vPrenotazione->appuntamentoAggiunto($risultatoQuery);
 
                 break;

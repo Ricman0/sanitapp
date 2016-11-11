@@ -63,8 +63,7 @@ $(document).ready(function () {
         accettaPausa(this);
     });
     
-    $('#headerMain').on("click", "#eliminaPausa", function () {
-       
+    $('#headerMain').on("click", "#eliminaPausa", function () {       
         eliminaPausa(this);
     });
     

@@ -97,19 +97,20 @@ class EPrenotazione {
             $this->_idPrenotazione = uniqid();
             $this->_idEsame = $idEsame;
             $this->_partitaIVA = $partitaIVAClinica;
-            $this->_tipo = $tipo; 
-            if($tipo = "M")
+            if($tipo ="medico")
             {
+                $this->_tipo = "M";
                 $this->_codFisUtentePrenotaEsame = NULL;
                 $this->_codFisMedicoPrenotaEsame = $codFiscalePrenotaEsame;
                 $this->_confermata = FALSE;
             }
             else
             {
+                $this->_tipo = "U";
                 $this->_codFisUtentePrenotaEsame = $codFiscalePrenotaEsame;
                 $this->_codFisMedicoPrenotaEsame = NULL;
                 $this->_confermata = TRUE;
-            }
+            }           
             
             $this->_eseguita = FALSE;
             $this->_codFisUtenteEffettuaEsame = $codFiscaleUtenteEffettuaEsame;
@@ -384,11 +385,10 @@ class EPrenotazione {
     /*
      * Altri metodi
      */
-    public function aggiungiPrenotazioneDB($ePrenotazione) 
+    public function aggiungiPrenotazioneDB() 
     {
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-        echo " ancora oK";
-        return $fPrenotazione->aggiungiPrenotazione($ePrenotazione);
+        return $fPrenotazione->aggiungiPrenotazione($this);
     }
     
     /**

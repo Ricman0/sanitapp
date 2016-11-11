@@ -165,7 +165,7 @@ class FDatabase {
      */
     final public function eseguiQuery($query) 
     {
-        //$this->_result = array();  // secondo me possiamo eliminare questa riga  dal momento che è già stato inizializzata così
+        $this->_result = array();  //  è già stato inizializzata così, ma non lo eliminino perchè ne ho bisogno per essere sicuri che in questa variabile ci sia solo il risultato della query che si effettuerà e non quelle precedenti
         // eseguo la query e salvo il risultato in $queryResult
         $queryResult = $this->_connessione->query($query);
         // se il risultato della query è false
@@ -187,7 +187,6 @@ class FDatabase {
                      * dell'oggetto.
                      * la funzione fetch_assoc() ritorna la riga successiva
                      */
-                    $this->_result = array();
                     while ($row =$queryResult->fetch_assoc())
                     {
                         $this->_result[] = $row;                       
