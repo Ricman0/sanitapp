@@ -259,29 +259,30 @@ class FClinica extends FUser{
                 . "SET WorkingPlan='" . $workingPlan . "' "
                 . "WHERE PartitaIVA= '" . $partitaIVAClinica . "'";
         
-        $risultato = $this->eseguiQuery($query);
-        return $risultato;
+        return $this->eseguiQuery($query);
+        
     }
+    
     
     /**
      * Metodo che permette di conoscere quali sono i clienti di una clinica
      * 
      * @access public
-     * @param string $username L'username della clinica
-     * @return Array Array contenente il risultato della query.
+     * @param string $usernameClinica L'username della clinica 
+     * @return type Description
      */
-    public function cercaClienti($username) 
+    public function cercaClienti($usernameClinica) 
     {
-        $query =  "SELECT utente.CodFiscale, utente.Nome, utente.Cognome, utente.Via,"
-                . "utente.NumCivico, utente.CAP, utente.Email, "
-                . "MATCH (clinica.Username) AGAINST ('$username' IN BOOLEAN MODE) "
-                . "FROM utente, clinica, prenotazione "
-                . "WHERE (utente.CodFiscale=prenotazione.CodFiscaleUtenteEffettuaEsame) AND "
-                . "(clinica.PartitaIVA=prenotazione.PartitaIVAClinica) AND "
-                . "(MATCH (clinica.Username) AGAINST ('$username' IN BOOLEAN MODE))";
-                
-        $risultato = $this->eseguiQuery($query);
-        print_r($risultato);
-        return $risultato;
+        $query1=  "SELECT prenotazione.CodFiscaleUtenteEffettuaEsame AS CodFiscale "
+                . "FROM prenotazione, clinica "
+                . "WHERE clinica.PartitaIVA=prenotazione.PartitaIVAClinica AND clinica.Username='" . $usernameClinica . "'";
+        $query2 = "SELECT appuser.Email, utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, utente.CodFiscale  "
+                . "FROM utente, appuser "
+                . "WHERE utente.Username=appuser.Username";
+        $query =  "SELECT * "
+                . "FROM (" . $query1 .")t1 "
+                . "INNER JOIN (" . $query2 . ")t2 "
+                . "ON t1.CodFiscale=t2.CodFiscale";
+        return $this->eseguiQuery($query);        
     }
 }

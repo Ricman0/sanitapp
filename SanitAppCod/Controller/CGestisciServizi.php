@@ -70,7 +70,7 @@ class CGestisciServizi {
                 break;
             
             case 'visualizza':
-                $idEsame = $vServizi->getId();
+                $idEsame = $vServizi->recuperaValore('id');
                 if($idEsame === FALSE)
                 {
                     // visualizza tutti gli esami 

@@ -38,9 +38,9 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#annullaAggiungiEsame", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
-
+    
     $('#headerMain').on("click", "#impostazioniAreaPersonaleClinica", function () {
-        inviaControllerTask('impostazioni', 'clinica', "#contenutoAreaPersonale");
+        inviaControllerTask('impostazioni', 'visualizza', "#contenutoAreaPersonale");
         
     });
     

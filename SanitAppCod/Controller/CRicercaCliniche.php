@@ -35,7 +35,7 @@ class CRicercaCliniche {
         switch($vCliniche->getTask())
         { 
             case 'visualizza':
-                $id = $vCliniche->getId();
+                $id = $vCliniche->recuperaValore('id');
                 if(isset($id))
                 {
                     

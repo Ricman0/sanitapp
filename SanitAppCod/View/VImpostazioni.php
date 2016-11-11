@@ -34,14 +34,12 @@ class VImpostazioni extends View{
      * Metodo che consente di visualizzare le impostazioni della clinica
      * 
      * @access public
-     * @param EClinica $clinica Una entità clinica
-     * @return type Description
      */
     public function visualizzaImpostazioniClinica()
     {  
        $giorni = Array("Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica");
        $this->assegnaVariabiliTemplate('giorniSettimanali', $giorni);
-       return $this->visualizzaTemplate('workingPlan'); 
+       $this->visualizzaTemplate('workingPlan'); 
     }
     
     /**

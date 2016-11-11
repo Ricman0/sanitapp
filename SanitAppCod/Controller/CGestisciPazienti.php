@@ -37,7 +37,7 @@ class CGestisciPazienti {
         $vPazienti = USingleton::getInstance('VGestisciPazienti');
         $sessione = USingleton::getInstance('USession');
         $usernameMedico = $sessione->leggiVariabileSessione('usernameLogIn');
-        $cf = $vPazienti->getId();
+        $cf = $vPazienti->recuperaValore('id');
         if ($cf === FALSE) {
             // vogliamo visualizzare tutti i pazienti del medico
             $eMedico = new EMedico(null, $usernameMedico);

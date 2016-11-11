@@ -29,16 +29,16 @@ class CGestisciClienti {
         {
             case 'visualizza':
                 $tipoUser = $sessione->leggiVariabileSessione('tipoUser');// secondo te devo controllare che il tipo di utente sia una clinica??
-                if ($tipoUser === 'Clinica')
+                if ($tipoUser === 'clinica')
                 {
-//                    $eClinica = new EClinica($username);
+                    
 //                    $partitaIVA = $eClinica->getPartitaIVAClinica();
-                    $cf = $vClienti->getId();
+                    $cf = $vClienti->recuperaValore('id');
                     if ($cf === FALSE)
                     {
                         // vogliamo visualizzare tutti i pazienti del medico
-                        $fClinica = USingleton::getInstance('FClinica');
-                        $risultato = $fClinica->cercaClienti($username);
+                        $eClinica = new EClinica($username);
+                        $risultato = $eClinica->cercaClienti();          
                         print_r($risultato);
                         if (is_array($risultato))
                         {

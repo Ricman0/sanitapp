@@ -824,5 +824,17 @@ class EClinica extends EUser
         $orariDisponibili = array_diff($orariPrenotazioni, $orariPrenotati);
         return $orari = Array('orari' => $orariDisponibili);
     }
+    
+    /**
+     * Metodo che permette di trovare tutti i clienti di una clinica
+     * 
+     * @access public
+     * @return array|boolean Tutti i clienti della clinica se ci sono
+     */
+    public function cercaClienti()
+    {
+        $fClinica = USingleton::getInstance('FClinica');
+        return $fClinica->cercaClienti(parent::getUsername());
+    }
 }
 ?>
