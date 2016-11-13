@@ -37,8 +37,10 @@ class CPrenotazione {
 
                 case 'riepilogo':
                     $idEsame = $vPrenotazione->recuperaValore('id');// devo inserire 1 if???
+                    echo "$idEsame";
                     $eEsame = new EEsame($idEsame);
                     $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+                    echo "$partitaIVAClinica";
                     $eClinica = new EClinica(NULL, $partitaIVAClinica);
                     $data = $vPrenotazione->recuperaValore('data');
                     $orario = $vPrenotazione->recuperaValore('orario');
@@ -50,14 +52,16 @@ class CPrenotazione {
                     } 
                     elseif ($sessione->leggiVariabileSessione('tipoUser') === 'medico') 
                     {
-                        
+                        $codice = $vPrenotazione->recuperaValore('codice');
+                        $eUtente = new EUtente($codice);
+                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
                     } 
                     else 
                     {
                         // tipoUser = clinica
                         $codice = $vPrenotazione->recuperaValore('codice');
                         $eUtente = new EUtente($codice);                      
-                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
+                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice, $codice);
                         
                     }
                     break;
@@ -185,7 +189,7 @@ class CPrenotazione {
                             else 
                             {
                                 //errore 
-                                echo "errore in Cprenotazione VisualizzaPrenotazioni in utente";// da eliminare questa riga, è solo per il debug veloce
+                                echo "errore in Cprenotazione VisualizzaPrenotazioni in medico";// da eliminare questa riga, è solo per il debug veloce
                             }
                         } 
                         else {
@@ -265,9 +269,13 @@ class CPrenotazione {
                                 $eClinica = new EClinica($username);
                                 $nomeClinica = $eClinica->getNomeClinica();
                                 // visualizzo una pagina per cercare il cliente o l'utente registrato del sistema per cui in seguito vorrò effettuare una prenotazione
-                                $vPrenotazioni->impostaPaginaCercaUtente($nomeClinica);
+                                $vPrenotazioni->impostaPaginaCercaUtente($nomeClinica, 'clinica');
                                 break;
-
+                            
+                            case 'medico':
+                                $eMedico= new EMedico(NULL, $username);
+                                $vPrenotazioni->impostaPaginaCercaUtente($eMedico->getCodiceFiscaleMedico(), 'medico');
+                            
                             default:
                                 break;
                         }
@@ -283,18 +291,19 @@ class CPrenotazione {
             case 'conferma':
                 $sessione = USingleton::getInstance('USession');
                 $tipo = $sessione->leggiVariabileSessione('tipoUser');
-                $username = $sessione->leggiVariabileSessione('username');
+                $username = $sessione->leggiVariabileSessione('usernameLogIn');
                 switch ($tipo) {
                     case 'utente':
                         $eUtente = new EUtente(NULL, $username);
-                        $codFiscaleUtenteEffettuaEsame = $eUtente->getCodiceFiscaleUtente();
+                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
                         $codFiscalePrenotaEsame = $eUtente->getCodiceFiscaleUtente();
                         break;
                     
                     case 'medico':
+                        echo "l'username $username";
                         $eMedico = new EMedico(NULL, $username);
                         $codFiscalePrenotaEsame = $eMedico->getCodiceFiscaleMedico();
-                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->getCodice();
+                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
                         break;
                     
                     case 'clinica':

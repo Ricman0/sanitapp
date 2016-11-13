@@ -67,14 +67,17 @@ class VPrenotazione extends View{
     }
     
     /**
-     * Metodo che contente di ottenere una campo di ricerca fulltext per gli utenti di Sanitapp
+     * Metodo che contente di ottenere una campo di ricerca per gli utenti di Sanitapp
      * 
      * @access public
+     * @param string $nomeClinica Il nome della clinica
+     * @param string $tipoUser Il tipo di user
      */
-    public function impostaPaginaCercaUtente($nomeClinica) 
+    public function impostaPaginaCercaUtente($nomeClinica, $tipoUser) 
     {
-            $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
-            $this->visualizzaTemplate('cercaUtente');
+        $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
+        $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
+        $this->visualizzaTemplate('cercaUtente');
     }
     
     public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto=NULL, $nome, $cognome) 

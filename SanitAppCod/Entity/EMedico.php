@@ -114,7 +114,8 @@ class EMedico extends EUser {
                 $this->setnumIscrizioneMedico($attributiMedico[0]['NumIscrizione']);
             } 
             else {
-                //il medico cercato non esiste
+                //il medico cercato non esiste 
+                echo "il medico cercato non esiste";
             }
         } else {
             // caso in cui gli passo tutti i parametri
@@ -333,7 +334,8 @@ class EMedico extends EUser {
      * @access public
      * @return Array Un array contenente tutte le prenotazioni del medico
      */
-    public function cercaPrenotazioni() {
+    public function cercaPrenotazioni() 
+    {
         $fPrenotazioni = USingleton::getInstance('FPrenotazione');
         return $fPrenotazioni->cercaPrenotazioniMedico($this->_codFiscale);
     }

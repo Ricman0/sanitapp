@@ -83,8 +83,8 @@ class FPrenotazione extends FDatabase{
                 . "WHERE ((prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND (prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(prenotazione.CodFiscaleMedicoPrenotaEsame='" . $cf . "')) ";
-        $risultato = $this->eseguiQuery($query);
-        return $risultato;
+        return $this->eseguiQuery($query);
+       
     }
     
     /**
@@ -138,8 +138,8 @@ class FPrenotazione extends FDatabase{
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
         $query = "INSERT INTO " . $this->_nomeTabella . " (" . $this->_attributiTabella . ") VALUES(" . $valoriAttributi . ")";
+        print_r($query);
         // eseguo la query
-//        $query = "INSERT INTO prenotazione ()"
         return  $this->eseguiQuery($query);
     }
     

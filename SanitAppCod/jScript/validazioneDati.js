@@ -28,7 +28,8 @@ function validazione(task1, controller1, task2)
             if (controller1 === "prenotazioni")
             {
                 validazioneCodiceFiscale();
-            } else
+            } 
+            else
             {
                 validazioneEsame();
             }
@@ -50,7 +51,8 @@ function validazione(task1, controller1, task2)
                 default: 
                     break;
             }
-
+        
+        
 
 
         default:
@@ -180,7 +182,7 @@ function validazioneCodiceFiscale()
                 {
                     codiceFiscaleRicercaUtente:
                             {
-                                required: "Inserire il proprio codice fiscale",
+                                required: "Inserire il codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
                                 minlength: "Il codice fiscale è lungo 16 caratteri",
                                 remote: "Utente non esistente, inserire un codice fiscale di un utente già registrato"
@@ -188,9 +190,12 @@ function validazioneCodiceFiscale()
                 },
         submitHandler: function(form)
         {
-            var nomeClinica = $("form input[type='submit']").attr('data-nomeClinica');
+            
             var codiceFiscale = $("form input[type='text']" ).val();
-            $.ajax({
+            var nomeClinica = $("form input[type='submit']").attr('data-nomeClinica');
+            if(typeof(nomeClinica)!='undefined')
+            {
+                $.ajax({
                     type:'GET',
                     url: 'esami/all/' + nomeClinica, 
                     success: function(datiRisposta)
@@ -224,6 +229,33 @@ function validazioneCodiceFiscale()
 
                     }
                 });
+            }
+            else
+            {
+                $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codiceFiscale); //aggiungo il codice fiscale al button nex in prenotazione/esame/idEsame
+                $("p").show();
+                $("#calendarioPrenotazioneEsame").datepicker({
+                    firstDay:1,
+                    dateFormat: "dd-mm-yy",
+                    regional: "it",
+                    minDate: 1,
+                    onSelect: function(dateText, inst) { 
+                    var data = dateText; //the first parameter of this function
+                    $('#nextPrenotazioneEsame').attr('data-data', data);
+                    alert(data);
+                    
+                    var dataObject = $(this).datepicker( 'getDate' ); //the getDate method
+                    alert(dataObject);
+                    
+                    var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
+                    alert(nomeGiorno);
+                    var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
+                    alert("PartitaIVA: " + partitaIVAClinica);
+                    var idEsame = $("#idEsame").val();
+                    dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
+                    }});
+                $("#nextPrenotazioneEsame").show();
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

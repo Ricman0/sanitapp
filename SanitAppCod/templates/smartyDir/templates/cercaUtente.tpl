@@ -11,6 +11,6 @@
     <br>
     
     <div id="submitDivRicercaUtente" >
-        <input type="submit" value="Invia" id="submitRicercaUtente" data-nomeClinica="{$nomeClinica}" />
+        <input type="submit" value="Invia" id="submitRicercaUtente" {if ($tipoUser ==='clinica')} data-nomeClinica="{$nomeClinica}" {else} data-cfMedico="{$cfMedico}" {/if} />
     </div>
 </form>

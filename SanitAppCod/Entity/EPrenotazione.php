@@ -97,12 +97,13 @@ class EPrenotazione {
             $this->_idPrenotazione = uniqid();
             $this->_idEsame = $idEsame;
             $this->_partitaIVA = $partitaIVAClinica;
-            if($tipo ="medico")
+            if($tipo === "medico")
             {
-                $this->_tipo = "M";
+                $this->_tipo ="M";
                 $this->_codFisUtentePrenotaEsame = NULL;
-                $this->_codFisMedicoPrenotaEsame = $codFiscalePrenotaEsame;
-                $this->_confermata = FALSE;
+                $this->_codFisMedicoPrenotaEsame = $codFiscalePrenotaEsame; 
+                
+                $this->_confermata = 'FALSE';
             }
             else
             {
@@ -112,7 +113,7 @@ class EPrenotazione {
                 $this->_confermata = TRUE;
             }           
             
-            $this->_eseguita = FALSE;
+            $this->_eseguita = 'FALSE';
             $this->_codFisUtenteEffettuaEsame = $codFiscaleUtenteEffettuaEsame;
             $this->setDataEOra($dataEOra);
             
@@ -246,23 +247,21 @@ class EPrenotazione {
      */
     public function getValoriAttributi()
     {
-        ;
+        $c = $this->getMedicoPrenotaEsamePrenotazione();
+        echo "il codice medico $c";
         $valoriAttributi = "'" . $this->getIdPrenotazione() . "', '" .  $this->getIdEsamePrenotazione() . "', '"
                 . $this->getPartitaIVAPrenotazione() . "', '" . $this->getTipoPrenotazione() . "', '"
                 . $this->getConfermataPrenotazione() . "', '" . $this->getEseguitaPrenotazione() . "', '"
                 . $this->getUtenteEffettuaEsamePrenotazione()  . "', ";
         if ($this->getUtentePrenotaEsamePrenotazione()=== NULL)
         {
-            $valoriAttributi =$valoriAttributi .  " NULL , '" . $this->getMedicoPrenotaEsamePrenotazione() . "', '";
+            $valoriAttributi =$valoriAttributi .  "'" . $this->getMedicoPrenotaEsamePrenotazione() . "', NULL ,  '";
         }
         else 
         {
-            $valoriAttributi = $valoriAttributi . "'". $this->getUtentePrenotaEsamePrenotazione() . "', NULL , '";
+            $valoriAttributi = $valoriAttributi . "NULL , '". $this->getUtentePrenotaEsamePrenotazione() . "', '";
         }
-                
-                
-                $valoriAttributi =$valoriAttributi . $this->getDataEOra() . "'";
-                echo ($this->getDataEOra());
+        $valoriAttributi =$valoriAttributi . $this->getDataEOra() . "'";
         return $valoriAttributi;
     }
     /*

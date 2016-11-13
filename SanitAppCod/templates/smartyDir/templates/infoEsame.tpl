@@ -55,6 +55,10 @@
 
     {else}
         <div id="infoEsame">
+            {if isset($informazioniClinica)}
+                {$informazioniClinica}
+            {/if}
+            <h4>Informazioni Esame</h4>
             <span>
                 Nome: {$esame->getNomeEsame()}
             </span>
@@ -78,6 +82,7 @@
             <br>
             <span>Descrizione: {$esame->getDescrizioneEsame()}</span>
             <br>
-            <input type="button" id="aggiungiPrenotazioneButton" value="Prenota"  data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}"  />
+        
+            <input type="button" id="aggiungiPrenotazioneButton" value="Prenota"  data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" {if isset($codiceFiscale)} data-codiceFiscale="{$codiceFiscale}"{/if} />
         </div>
 {/if}

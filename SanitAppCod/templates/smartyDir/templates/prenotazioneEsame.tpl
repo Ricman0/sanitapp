@@ -1,4 +1,4 @@
-<div>
+<div id='divAggiungiPrenotazione'>
     <p class="affiancato">Prenotazione presso la Clinica: {$nomeClinica}</p>
     <input type="hidden" id="partitaIVAClinicaPrenotazioneEsame" name="partitaIVAClinicaPrenotazioneEsame" value="{$partitaIVA}" />
     <p class="affiancato">Prenotazione per l'Esame: {$nomeEsame}</p>
