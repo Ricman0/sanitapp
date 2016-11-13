@@ -66,12 +66,12 @@ function confermaPrenotazione(controller1, task, ajaxDiv)
 
 function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, ajaxDiv)
 {
-    
+    var dati = "id=" + idEsame + "&data=" + dataPrenotazione +"&orario=" + orarioPrenotazione +"&codice=" + cfPrenotazione;
     $.ajax({
         
-        type: 'GET',
-        url: controller + '/' + task + '/' + idEsame +  '/' + dataPrenotazione + '/' + orarioPrenotazione + '/' + cfPrenotazione ,
-   
+        type: 'POST',
+        url: controller + '/' + task ,
+        data:dati,   
         success: function (datiRisposta)
         {
             alert(datiRisposta);
