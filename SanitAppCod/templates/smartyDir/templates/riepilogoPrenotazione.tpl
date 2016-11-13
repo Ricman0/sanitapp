@@ -30,4 +30,4 @@
     <span>Indirizzo:{$utente->getViaUtente()}</span>
     <br>
 </div>
-<input type="button" id="confermaPrenotazione" value="Conferma" data-codice="{$codice}"data-idClinica="{$clinica->getPartitaIVAClinica()}" data-idEsame="{$esame->getIDEsame()}"/>
+<input type="button" id="confermaPrenotazione" value="Conferma" data-codice="{$codice}" data-idClinica="{$clinica->getPartitaIVAClinica()}" data-idEsame="{$esame->getIDEsame()}"/>

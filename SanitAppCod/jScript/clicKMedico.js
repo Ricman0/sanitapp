@@ -18,8 +18,8 @@ $(document).ready(function(){
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
     });
     
-    $('#headerMain').on("click", "#iconaAggiungiPrenotazionemedico", function () {
-        inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
+    $('#headerMain').on("click", "#iconaAggiungiPrenotazioneMedico", function () {
+        inviaController('ricercaEsami', "#contenutoAreaPersonale");
     });
     
 //    $('#main').on("click", "#refertiAreaPersonaleUtente", function(){

@@ -1,4 +1,5 @@
 <div id="infoClinica">
+    <h4>Informazioni Clinica</h4>
     <span>
         Nome: {$clinica->getNomeClinica()}
     </span>
@@ -15,5 +16,7 @@
         Email: {$clinica->getEmail()}
     </span>
     <br>
-    <input type="button" id="esamiClinicaButton" value="Esami"  data-idClinica="{$clinica->getPartitaIVAClinica()}"  />
+    {if !isset($buttonEsami)}
+        <input type="button" id="esamiClinicaButton" value="Esami"  data-idClinica="{$clinica->getPartitaIVAClinica()}"  />
+    {/if}
 </div>

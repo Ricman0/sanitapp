@@ -156,8 +156,10 @@ class FMedico extends FUser {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE appuser.Username='" . $username . "' AND "
                 . "appuser.Username=" . $this->_nomeTabella . ".Username";
-        return $this->eseguiQuery($query);    
-        
+//        return $this->eseguiQuery($query);    
+        $risultato = $this->eseguiQuery($query);
+        print_r($risultato);
+        return $risultato;
         
     }
     

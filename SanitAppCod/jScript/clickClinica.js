@@ -31,6 +31,8 @@ $(document).ready(function () {
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
     
+    
+    
 //    $('#headerMain').on("click", "#submitRicercaUtente", function () {
 //        inviaControllerTask('ricerca', 'utente', "#contenutoAreaPersonale");
 //    });

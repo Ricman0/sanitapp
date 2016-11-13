@@ -23,13 +23,13 @@ $(document).ready(function (){
         var orarioPrenotazione = $('#nextPrenotazioneEsame').attr('data-orario');
         var dataPrenotazione = $('#nextPrenotazioneEsame').attr('data-data');
         var cfPrenotazione = $('#nextPrenotazioneEsame').attr('data-codiceFiscale');
-
         inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, "#main");
     });
     
     $('#headerMain').on("click", "#confermaPrenotazione", function(){
         confermaPrenotazione('prenotazione', 'conferma', "#main");
     });
+    
     
     $('#headerMain').on("click", "#prenotazioneAggiunta", function(){
         inviaController('mySanitApp', '#main');
@@ -86,7 +86,7 @@ function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, 
     });
 }
 
-function prenotazione(controller, task, id, codice, ajaxDiv)
+function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
 {
     $.ajax({
         type: 'GET',
@@ -94,9 +94,12 @@ function prenotazione(controller, task, id, codice, ajaxDiv)
         success: function(datiHTMLRisposta)
         {
             alert(datiHTMLRisposta);
-            $(ajaxDiv).html(datiHTMLRisposta);
-            $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codice);
-            $("#calendarioPrenotazioneEsame").datepicker({
+            $(ajaxDiv).html(datiHTMLRisposta);            
+            if(typeof(codiceFiscale)!='undefined')
+            {                
+                $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codiceFiscale);
+                $('#nextPrenotazioneEsame').hide();
+                $("#calendarioPrenotazioneEsame").datepicker({
                     firstDay:1,
                     dateFormat: "dd-mm-yy",
                     regional: "it",
@@ -115,8 +118,32 @@ function prenotazione(controller, task, id, codice, ajaxDiv)
                     alert("PartitaIVA: " + partitaIVAClinica);
                     var idEsame = $("#idEsame").val();
                     dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
+                    $('#nextPrenotazioneEsame').show();
                     
                     }});
+            }
+            else
+            {
+                $("#nextPrenotazioneEsame").hide();
+                $("p").hide();
+                $("#divAggiungiPrenotazione").prepend("<form id='ricercaUtente'></form>");//aggiungo la form 
+                $("<label for='codiceFiscaleRicercaUtente' class='elementiForm'>Codice Fiscale</label>").appendTo('#ricercaUtente');
+                $('#ricercaUtente').append("<input type='text' name='codiceFiscaleRicercaUtente' id='codiceFiscaleRicercaUtente' class='elementiForm' placeholder='DMRCLD89S42G438S' required />");
+                $('#ricercaUtente').append("<br>");
+                $('#ricercaUtente').append("<div id='submitDivRicercaUtente' ></div>");
+                $('#submitDivRicercaUtente').append("<input type='submit' value='OK' id='submitRicercaUtente' />");
+                
+                $("#divAggiungiPrenotazione").prepend("<br>");
+                $("#divAggiungiPrenotazione").prepend("<span>Ricorda che puoi effettuare la prenotazione solo se l'utente è già registrato in SanitApp</span>");
+                $("#divAggiungiPrenotazione").prepend("<br>");
+                $("#divAggiungiPrenotazione").prepend("<span>Inserisci il codice fiscale dell'utente per cui vuoi effettuare la prenotazione</span>");
+                $("#divAggiungiPrenotazione").prepend("<h4>Aggiungi una prenotazione</h4>");                             
+                validazioneCodiceFiscale();
+                
+
+
+            }
+            
 //             $( "#calendarioPrenotazioneEsame .selector" ).datepicker( "dialog", "15/10/2015" );
            
 
