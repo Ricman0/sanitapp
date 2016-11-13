@@ -31,9 +31,10 @@ class CImpostazioni {
                         break;
 
                     case 'clinica':
-        //                $eClinica = new EClinica();
+                        
                         {
-                            $vImpostazioni->visualizzaImpostazioniClinica();
+                            $eClinica = new EClinica($username);                            
+                            $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getWorkingPlanClinica());
                         }
                         break;
 

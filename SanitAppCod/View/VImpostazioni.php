@@ -32,12 +32,13 @@ class VImpostazioni extends View{
     
     /**
      * Metodo che consente di visualizzare le impostazioni della clinica
-     * 
+     * @param array $workingPlan array contenente il workingPlan settimanale della clinica
      * @access public
      */
-    public function visualizzaImpostazioniClinica()
+    public function visualizzaImpostazioniClinica($workingPlan)
     {  
        $giorni = Array("Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica");
+       $this->assegnaVariabiliTemplate('workingPlan', $workingPlan);
        $this->assegnaVariabiliTemplate('giorniSettimanali', $giorni);
        $this->visualizzaTemplate('workingPlan'); 
     }
@@ -179,9 +180,10 @@ class VImpostazioni extends View{
         {
             if (isset($_POST[$giorno]))
             {
-                $inizioFine = Array ('Start' => $_POST[$giorno . 'Start'] , 'End' => $_POST[$giorno . 'End']);
+                $inizioFine = Array ('Start' => $_POST[$giorno . 'Start'] , 'End' => $_POST[$giorno . 'End'],
+                                    'BreakStart' => $_POST[$giorno.'BreakStart'], 'BreakEnd' => $_POST[$giorno.'BreakEnd']);
 //                if
-                $inizioFine['Pause'] = $_POST[$giorno . 'Pausa'];
+//                $inizioFine['Pause'] = $_POST[$giorno . 'Pausa'];
                 $workingPlan ["$giorno"]= $inizioFine; 
             }
             else
@@ -189,7 +191,9 @@ class VImpostazioni extends View{
                 $workingPlan ["$giorno"]= NULL;
                 
             }
-        }
+           
+        } 
+        $workingPlan["tempoLimite"] = $_POST["tempoLimite"];
         return json_encode($workingPlan);        
     }
     
