@@ -298,7 +298,7 @@ class CPrenotazione {
                 break;
             
             case 'riepilogo':
-                    $sessione = USingleton::getInstance('USession');
+                    $sessione = tgUSingleton::getInstance('USession');
                     $idEsame = $vPrenotazione->recuperaValore('id');// devo inserire 1 if???
                     echo "$idEsame";
                     $eEsame = new EEsame($idEsame);

@@ -42,18 +42,16 @@ class CRicercaEsami {
                     $sessione = USingleton::getInstance('USession');
                     $username = $sessione->leggiVariabileSessione('usernameLogIn');
                     $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
-                    print_r($_SESSION);
                     $eEsame = new EEsame($id);
                     $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
                     if($tipoUser==='utente' && $username!=FALSE)
                     {
-                        echo "ciao";
                         $eUtente = new EUtente(NULL, $username);
-                        $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica, $eUtente->getCodiceFiscaleUtente());
+                        $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica, $tipoUser, $eUtente->getCodiceFiscaleUtente());
                     } 
                     else
                     {
-                        $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica);
+                        $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica, $tipoUser);
                         
                     }
                 }
