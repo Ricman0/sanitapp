@@ -185,9 +185,8 @@ class VRegistrazione extends View {
        return $datiUtente;
     }
     public function confermaMailInviata($inviata)
-    {
-        
-        
+    {        
+        $this->assegnaVariabiliTemplate("inviata", $inviata);
         $this->visualizzaTemplate('mailInviata');
     }
 }

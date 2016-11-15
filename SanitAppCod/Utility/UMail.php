@@ -119,7 +119,7 @@ class UMail {
                 . " Email: ". $dati['email'] . "\r\n"
                 . " Username: ". $dati['username'] ."\r\n"
                 . " Per completare la registrazione, clicca sul link seguente: \n"
-                . "http://www.sanitapp/registrazione/conferma/" . $codiceConferma . "\n"
+                . "http://sanitapp.altervista.org/registrazione/conferma/" . $codiceConferma . "\n"
                 . "oppure copia e incolla il seguente codice ". $codiceConferma . "nella pagina di conferma "
                 . "subito dopo aver effettuato il primo accesso ";   
         

@@ -55,13 +55,11 @@ class FUtente extends FUser{
             $this->eseguiQuery($query2);
 
             // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
-            $this->_connessione->commit();
+            return $this->_connessione->commit();
         } catch (Exception $e) {
             // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
             $this->_connessione->rollback();
         }
-        
-         
     }
 
     /**

@@ -129,7 +129,7 @@ class CRegistrazione {
             
             case 'utente':
             {
-                $codiceODatiValidi = $this->recuperaDatiECreautente();
+                $codiceODatiValidi = $this->recuperaDatiECreaUtente();
                 if(is_string($codiceODatiValidi) === TRUE)//se contiene il codice di conferma
                     {
                        //invia mail riscontro dell’avvenuta registrazione 
