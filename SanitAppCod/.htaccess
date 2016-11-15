@@ -6,7 +6,7 @@
   RewriteRule ^(logOut)?$ index.php?controller=$1
   RewriteRule ^(ricerca)/(utente)/(\w+)?$ index.php?controller=$1&task=$2&codice=$3 [L]
   RewriteRule ^(mySanitApp)?$ index.php?controller=$1
-  
+  RewriteRule ^(impostazioni)/(giorniNonLavorativi)/(\w+)?$ index.php?controller=$1&task=$2&clinica=$3 [L]
   RewriteRule ^(ricercaEsami)?$ index.php?controller=$1
   RewriteRule ^(prenotazione)/(esame)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(impostazioni)/(clinica)?$ index.php?controller=$1&task=$2 [L]

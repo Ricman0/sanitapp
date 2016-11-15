@@ -22,9 +22,9 @@ class CPrenotazione {
             switch ($task) 
             {
                 
-                case 'esame':
+                case 'esame':// GET prenotazione/esame
                     $id = $vPrenotazione->recuperaValore('id'); 
-                    if(isset($id))
+                    if(isset($id))// GET prenotazione/esame/idEsame
                     {
                         $eEsame = new EEsame($id);
                         $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();

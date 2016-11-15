@@ -156,7 +156,7 @@ class EClinica extends EUser
                 parent::setPassword($attributiClinica[0]["Password"]);
                 $this->_telefono = $attributiClinica[0]["Telefono"];
                 $this->_capitaleSociale = $attributiClinica[0]["CapitaleSociale"];
-                $this->_workingPlan = $attributiClinica[0]["WorkingPlan"]; 
+                $this->_workingPlan = $attributiClinica[0]["WorkingPlan"];
                 parent::setConfermato($attributiClinica[0]["Confermato"]);
                 parent::setCodiceConfermaUtente($attributiClinica[0]["CodiceConferma"]);
                 $this->_esami = Array();
@@ -769,6 +769,25 @@ class EClinica extends EUser
     }
     
     /**
+     * Metodo che consente di ottenere i giorni non lavorativi della clinica
+     * 
+     * @access public
+     */
+    public function getGiorniNonLavorativi() 
+    {
+        $giorniNonLavorativi = Array();
+        foreach ($this->getWorkingPlanClinica()as $key => $value) 
+        {
+            if($value===NULL)
+            {
+                $giorniNonLavorativi[$key]=$key;
+            }            
+        }
+        return $giorniNonLavorativi;
+        
+    }
+    
+    /**
      * Metodo che calcola gli orari disponibili per una prenotazione
      * 
      * @access public
@@ -776,7 +795,8 @@ class EClinica extends EUser
      * @param type $eClinica
      * @return type Description
      */
-    public function calcoloOrariDisponibili($eEsame, $workingPlanGiorno, $vPrenotazione) {
+    public function calcoloOrariDisponibili($eEsame, $workingPlanGiorno, $vPrenotazione) 
+    {
         $durata = $eEsame->getDurataEsame();
         $ora = substr($durata, 0, 2);
         $minuti = substr($durata, 3, 2);

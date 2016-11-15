@@ -252,7 +252,7 @@ function validazioneCodiceFiscale()
                     var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
                     alert("PartitaIVA: " + partitaIVAClinica);
                     var idEsame = $("#idEsame").val();
-                    dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
+                    orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
                     }});
                 $("#nextPrenotazioneEsame").show();
             }

@@ -7,6 +7,7 @@
 <br>
 <p> Scegli la data della tua prenotazione: </p>
 
+
 <div id="dateEOrariDisponibili">
     <div id="calendarioPrenotazioneEsame" class="affiancato">   
     </div>
