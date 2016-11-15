@@ -21,6 +21,13 @@ class CImpostazioni {
         $task = $vImpostazioni->getTask();
         switch ($task) 
         {
+            case 'giorniNonLavorativi':                
+                $partitaIVAClinica = $vImpostazioni->recuperaValore('clinica');
+                $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON($eClinica->getGiorniNonLavorativi());                
+                break;
+            
             case 'visualizza': 
             {
                 switch ($tipoUser) 

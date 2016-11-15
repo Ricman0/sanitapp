@@ -66,12 +66,12 @@ function confermaPrenotazione(controller1, task, ajaxDiv)
 
 function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, ajaxDiv)
 {
-    
+    var dati = "id=" + idEsame + "&data=" + dataPrenotazione +"&orario=" + orarioPrenotazione +"&codice=" + cfPrenotazione;
     $.ajax({
         
-        type: 'GET',
-        url: controller + '/' + task + '/' + idEsame +  '/' + dataPrenotazione + '/' + orarioPrenotazione + '/' + cfPrenotazione ,
-   
+        type: 'POST',
+        url: controller + '/' + task ,
+        data:dati,   
         success: function (datiRisposta)
         {
             alert(datiRisposta);
@@ -95,34 +95,57 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
         {
             alert(datiHTMLRisposta);
             $(ajaxDiv).html(datiHTMLRisposta);            
-            if(typeof(codiceFiscale)!='undefined')
-            {                
+            if(typeof(codiceFiscale)!='undefined') // se codiceFiscale è definito vuol dire che siamo una clinica o un utente
+            {     
+                // aggiungo il codiceFiscale dell'utente di cui voglio effettuare la prenotazione nell'attributo data-codiceFiscale del tasto nextPrenotazioneEsame 
                 $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codiceFiscale);
+                // nascondo il tasto poichè mancano tutte le informazioni necessarie per poter eseguire una prenotazione
                 $('#nextPrenotazioneEsame').hide();
-                $("#calendarioPrenotazioneEsame").datepicker({
-                    firstDay:1,
-                    dateFormat: "dd-mm-yy",
-                    regional: "it",
-                    minDate: 1,
+                // prendi il valore dell'input nascosto (in prenotazioneEsame.tpl) partitaIVAClinicaPrenotazioneEsame
+                // e memorizzalo nella variabile partitaIVAClinica
+                var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
+                // recupero i giorniNonLavorativi (in formato JSON) dalla clinica  e poi li rendo un oggetto javascript
+                var giorniNonLavorativi = getGiorniNonLavorativiClinica(partitaIVAClinica);
+                // aggiungo il datapicker calendario 
+                $("#calendarioPrenotazioneEsame").datepicker(giorniNonLavorativi, {
+                    firstDay:1, //ogni settimana inizia da Lunedì
+                    dateFormat: "dd-mm-yy", //formato della data
+                    regional: "it", //italia
+                    
+//                    beforeShowDay:disabilitaGiorniNonLavorativi
+                    beforeShowDay:disabilitaGiorniNonLavorativi,
+                    minDate: 1, // la minima data selezionabile ovvero domani
+                    
+                    /* funzione chiamata quando il datepicker è selezionato. 
+                    * La funzione ha come parametri la data (come testo) selezionata  e l'istanza del datepicker
+                    */
                     onSelect: function(dateText, inst) { 
                     var data = dateText; //the first parameter of this function
+                    //aggiungo la data selezionata nell'attributo data-data del tasto nextPrenotazioneEsame in questo modo ho la data della prenotazione
                     $('#nextPrenotazioneEsame').attr('data-data', data);
-                    alert(data);
+//                    alert(data);//da eliminare
                     
+                    // richiamo il metodo getDate() della dataSelezionata del datapicker                     
                     var dataObject = $(this).datepicker( 'getDate' ); //the getDate method
-                    alert(dataObject);
+//                    alert(dataObject);// da eliminare
                     
+                    //Formatta la data dataObject in un valore stringa in base al formato specificato come primo parametro. 
+                    // in questo caso giorno
                     var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
-                    alert(nomeGiorno);
-                    var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
-                    alert("PartitaIVA: " + partitaIVAClinica);
+//                    alert(nomeGiorno);// da eliminare
+                    
+//                    alert("PartitaIVA: " + partitaIVAClinica);// da eliminare
+                    // prendi il valore dell'input nascosto (in prenotazioneEsame.tpl) idEsame 
+                    // e memorizzalo nella variabile idEsame
                     var idEsame = $("#idEsame").val();
-                    dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
+                    // cerca le date diposnibili per quella data e quel nome giorno per quell'esame in quella clinica
+                    orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
                     $('#nextPrenotazioneEsame').show();
                     
-                    }});
+                    }
+                });
             }
-            else
+            else // se l'user è un medico il codice fiscale dell'utente per cui vuole prenotare non è definito
             {
                 $("#nextPrenotazioneEsame").hide();
                 $("p").hide();
@@ -184,7 +207,86 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
     
 }
 
-function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
+
+function disabilitaGiorniNonLavorativi(date, giorniNonLavorativi)
+{
+    // memorizzo in giornoData il giorno della data
+    var giornoData = date.getDay();
+    switch(giornoData) {
+        case '1':
+           giornoData = 'Lunedi';
+           break;
+        case '2':
+           giornoData = 'Martedi';
+           break;
+        case '3':
+           giornoData = 'Mercoledi';
+           break;
+        case '4':
+           giornoData = 'Giovedi';
+           break;
+        case '5':
+           giornoData = 'Venerdi';
+           break;
+        case '6':
+           giornoData = 'Sabato';
+           break;        
+        default:
+            giornoData = 'Domenica';
+            break;
+    }
+    $.each(giorniNonLavorativi,function (index) {        
+        if(index === giornoData)
+            {
+                return [false] ; 
+            }
+        else
+            {
+                return[true];
+            }           
+    });
+}
+
+/**
+ * Funzione che consente di ottenere i giorni non lavorativi di una clinica
+ * 
+ * @param string partitaIVAClinica La partita IVA della clinica di cui cercare i giorni non lavorativi
+ * @returns Object 
+ */
+function getGiorniNonLavorativiClinica(partitaIVAClinica)
+{
+    var giorniNonLavorativi;
+    $.ajax({
+        type: 'GET',
+        url: 'impostazioni/giorniNonLavorativi/' + partitaIVAClinica,
+        async: false,
+//        dataType: "json",
+        success:function(datiRisposta)
+        {        
+            alert(datiRisposta);
+            giorniNonLavorativi = JSON.parse(datiRisposta);           
+        },
+        error: function(xhr, status, error) 
+        {
+            alert(xhr.responseText);
+            alert(error);
+            alert(" errore nel ricevere i giorni non lavorativi della clinica ");
+        }
+    });
+    return giorniNonLavorativi;
+}
+
+/**
+ * Funzione che permette di cercare gli orari disponibili  di un esame (idEsame ) di una clinica (la cui 
+ * partita IVA è passata come primo parametro),  per quella data e giorno
+ * 
+ * @param string partitaIVAClinica La partita IVA della clinica in cui cercare
+ * @param string idEsame L'id dell'esame
+ * @param string nomeGiorno Il nome del giorno della data(Lunedi, Martedi,...)
+ * @param string data La data in cui cercare gli orari
+ * @returns json
+ */
+function orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
 {
     $.ajax({
         type: 'GET',
@@ -193,34 +295,46 @@ function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
 //        contentType: "application/json; charset=utf-8",
         success:function(datiRisposta)
         {
+            // elimino tutti i nodi figli nel div orariDisponibili
             $("#orariDisponibili").empty();
             
             alert(datiRisposta);
             // converto i dati risposta json in un oggetto javascript
 //            var orariDisponibili = $.parseJSON(datiRisposta);
             var i=1;
-            var j =1;
-            if(Object.keys(datiRisposta).length > 0)
+            var j=1;
+            // Object.keys(datiRisposta).length conta il numero di elementi/key in datiRisposta 
+            if(Object.keys(datiRisposta).length > 0)// se esiste almeno un elemento in datiRisposta
             {
+                // aggiungo il div  id="colonna1"
                 $("#orariDisponibili").append('<div id="colonna1" class="colonna"></div>');
+                // $.each funzione di un generico iteratore di oggetti e array. 
+                // per ogni elementi di datiRisposta coppia chiave Array
                 $.each(datiRisposta, function( key, array ) 
                 {
+                    // per ogni Array di un elemento datiRisposta
                     $.each( array, function( index, value )
                     {       
+                        // aggiungo alla colonna i-esima il valore value   
+                        $("#colonna" + i).append( '<span class="orarioDisponibile">' + value + '</span> &nbsp');
+                        if(Number.isInteger(j/11)) // se j/11 è senza resto quindi un intero
+                        {
+                            i++; //incrementa i
+                            // aggiungi una colonna nel div orariDispoinibili
+                            $("#orariDisponibili").append('<div id="colonna' + i + '" class="colonna"></div>');
 
-
-                            $("#colonna" + i).append( '<span class="orarioDisponibile">' + value + '</span> &nbsp');
-                            if(Number.isInteger(j/11))
-                            {
-                                i++;
-                                $("#orariDisponibili").append('<div id="colonna' + i + '" class="colonna"></div>');
-
-                            }
-                            j++;
-
-
+                        }
+                        j++;// incrementa j
                     });
                 });
+            }
+            else // se non ci sono elementi in datiRisposta
+            {
+                // aggiungo due paragrafi per far capire all'user che non ci sono orari e che deve scegliere un'altra data 
+                $("#orariDisponibili").append('<p>Non sono disponibili orari per questa data</p>');
+                $("#orariDisponibili").append('<br>');
+                $("#orariDisponibili").append("<p>Seleziona un'altra data per poter effettuare la prenotazione</p>");
+                
             }
 
 
@@ -232,7 +346,7 @@ function dateDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
         {
             alert(xhr.responseText);
             alert(error);
-            alert(" errore nel ricevere le date disponibili ");
+            alert(" errore nel ricevere gli orari disponibili ");
         }
     });
 }

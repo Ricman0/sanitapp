@@ -41,18 +41,21 @@ class VRicercaEsami extends View{
      * @param EEsame $esame 
      * @param boolean $servizi TRUE se siamo nella pagina personale della clinica, FALSE altrimenti
      */
-    public function visualizzaInfoEsameOspite($esame, $servizi, $clinica, $codiceFiscaleUtentePrenotaEsame=NULL) 
+    public function visualizzaInfoEsameOspite($esame, $servizi, $clinica, $tipoUser, $codiceFiscaleUtentePrenotaEsame=NULL) 
     {
-        
-        $this->assegnaVariabiliTemplate('clinica', $clinica);
-        $this->assegnaVariabiliTemplate('buttonEsami', FALSE);
-        $infoClinica = $this->prelevaTemplate('infoClinica');
-        $this->assegnaVariabiliTemplate('informazioniClinica', $infoClinica);
+        if($tipoUser!=='clinica')// se il tipo di user è medico o utente allora è necessario aggiungere le informazioni sulla clinica nel tpl info 
+        {
+            //necessario per infoClinica.tpl
+            $this->assegnaVariabiliTemplate('clinica', $clinica);
+            $this->assegnaVariabiliTemplate('buttonEsami', FALSE);
+            $infoClinica = $this->prelevaTemplate('infoClinica');
+            $this->assegnaVariabiliTemplate('informazioniClinica', $infoClinica);
+        }
         $this->assegnaVariabiliTemplate('esame', $esame);
         $this->assegnaVariabiliTemplate('tipo', $servizi);
         $this->assegnaVariabiliTemplate('codiceFiscale', $codiceFiscaleUtentePrenotaEsame);      
        
-        $this->visualizzaTemplate("infoEsame");
+        $this->visualizzaTemplate('infoEsame');
         
     }
 }

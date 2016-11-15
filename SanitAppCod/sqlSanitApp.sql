@@ -108,9 +108,9 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
 Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan) VALUES
 ('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'appi',  0856478563, 10000,
- '{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}'),
+ '{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}'),
 ('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'bise', 8613, 123456780,   
-'{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","Snd":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}');
+'{"Lunedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Martedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Mercoledi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Giovedi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Venerdi":{"Start":"09:00","End":"18:00","Pausa":[{"Start":"14:30","End":"15:00"}]},"Sabato":null,"Domenica":null}');
 
 -- --------------------------------------------------------
 
