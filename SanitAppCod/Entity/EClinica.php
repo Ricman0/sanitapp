@@ -780,7 +780,7 @@ class EClinica extends EUser
         {
             if($value===NULL)
             {
-                $giorniNonLavorativi[$key]=$key;
+                $giorniNonLavorativi[]=$key;
             }            
         }
         return $giorniNonLavorativi;

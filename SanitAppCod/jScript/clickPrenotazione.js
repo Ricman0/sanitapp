@@ -107,13 +107,15 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
                 // recupero i giorniNonLavorativi (in formato JSON) dalla clinica  e poi li rendo un oggetto javascript
                 var giorniNonLavorativi = getGiorniNonLavorativiClinica(partitaIVAClinica);
                 // aggiungo il datapicker calendario 
-                $("#calendarioPrenotazioneEsame").datepicker(giorniNonLavorativi, {
+                $("#calendarioPrenotazioneEsame").datepicker({
                     firstDay:1, //ogni settimana inizia da Lunedì
                     dateFormat: "dd-mm-yy", //formato della data
                     regional: "it", //italia
                     
 //                    beforeShowDay:disabilitaGiorniNonLavorativi
-                    beforeShowDay:disabilitaGiorniNonLavorativi,
+                    beforeShowDay: function (date){
+                        return [disabilitaGiorniNonLavorativi(date, giorniNonLavorativi)];
+                    },
                     minDate: 1, // la minima data selezionabile ovvero domani
                     
                     /* funzione chiamata quando il datepicker è selezionato. 
@@ -210,41 +212,51 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
 
 function disabilitaGiorniNonLavorativi(date, giorniNonLavorativi)
 {
+    var disabilitato=true; // sarà true se il giorno non sarà disabilitato, false altrimenti
     // memorizzo in giornoData il giorno della data
     var giornoData = date.getDay();
     switch(giornoData) {
-        case '1':
+        case 1:
            giornoData = 'Lunedi';
            break;
-        case '2':
+        case 2:
            giornoData = 'Martedi';
            break;
-        case '3':
+        case 3:
            giornoData = 'Mercoledi';
            break;
-        case '4':
+        case 4:
            giornoData = 'Giovedi';
            break;
-        case '5':
+        case 5:
            giornoData = 'Venerdi';
            break;
-        case '6':
+        case 6:
            giornoData = 'Sabato';
            break;        
         default:
             giornoData = 'Domenica';
             break;
     }
-    $.each(giorniNonLavorativi,function (index) {        
-        if(index === giornoData)
-            {
-                return [false] ; 
-            }
-        else
-            {
-                return[true];
-            }           
-    });
+//    var giorniNonLavorativi1 = [1,2];
+    $.each(giorniNonLavorativi, function( index, value ) {
+        if(giornoData===value)
+        {
+            disabilitato = false; // imposto a false la variabile disabilitato in questo modo la funzione tornerà false e disabiliterà il giorno sul datepicker
+            return false; // avendo trovato il giorno da disabilitare, esco dal ciclo each con return false
+        }
+        
+//if(key === giornoData)
+//            {
+//                alert(giornoData + key );
+//                return [false] ; 
+//            }
+//        else
+//            {
+//                return[true];
+//            }           
+        });
+        return disabilitato;
 }
 
 /**
@@ -263,8 +275,11 @@ function getGiorniNonLavorativiClinica(partitaIVAClinica)
 //        dataType: "json",
         success:function(datiRisposta)
         {        
-            alert(datiRisposta);
-            giorniNonLavorativi = JSON.parse(datiRisposta);           
+//            alert(datiRisposta);
+            giorniNonLavorativi = JSON.parse(datiRisposta);
+//            alert('ciao');
+//            alert(giorniNonLavorativi.toString());
+//console.log(giorniNonLavorativi);
         },
         error: function(xhr, status, error) 
         {
