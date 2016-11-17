@@ -25,7 +25,7 @@ $(document).ready(function(){
     $('#headerMain').on("click", "#confermaPrenotazioneUtente", function(){
         var id = $('#confermaPrenotazioneUtente').attr('data-idprenotazione');
         alert(id);
-        confermaPrenotazioneUtente('prenotazioni', 'conferma', id, "#contenutoAreaPersonale");
+        confermaPrenotazioneUtente('prenotazione', 'conferma', id, "#contenutoAreaPersonale");
     });
     
     

@@ -15,12 +15,31 @@ class CPrenotazione {
         $date;
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazione->getTask();
         if ($task !== FALSE) 
         {
             switch ($task) 
             {
+                case 'conferma':
+                $idPrenotazione = $vPrenotazione->recuperaValore('id') ;
+                if($idPrenotazione !== FALSE && $tipoUser==='utente')
+                {
+                    $ePrenotazione = new EPrenotazione($idPrenotazione);
+                    if($ePrenotazione->confermaPrenotazione()===TRUE)
+                    {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(TRUE);
+                    }
+                    else
+                    {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
+                    }
+                    
+                }
+                break;
                 
                 case 'esame':// GET prenotazione/esame
                     $id = $vPrenotazione->recuperaValore('id'); 
@@ -78,24 +97,7 @@ class CPrenotazione {
         $task = $vPrenotazioni->getTask();
 //        $codiceFiscaleUtente = "";
         switch ($task) {
-            case 'conferma':
-                $idPrenotazione = $vPrenotazioni->recuperaValore('id') ;
-                if($idPrenotazione !== FALSE && $tipoUser==='utente')
-                {
-                    $ePrenotazione = new EPrenotazione($idPrenotazione);
-                    if($ePrenotazione->confermaPrenotazione()===TRUE)
-                    {
-                        $vJSON = USingleton::getInstance('VJSON');
-                        $vJSON->inviaDatiJSON(TRUE);
-                    }
-                    else
-                    {
-                        $vJSON = USingleton::getInstance('VJSON');
-                        $vJSON->inviaDatiJSON(FALSE);
-                    }
-                    
-                }
-                break;
+            
                 
             case 'visualizza':
                 switch ($tipoUser) 

@@ -36,7 +36,17 @@ $(document).ready(function (){
     });
 });
 
-function confermaPrenotazione(controller1, task, ajaxDiv)
+/**
+ * Funzione per confermare la prenotazione. Al termine la prenotazione è stata inserita nel DB 
+ * ma la conferma vera e propria c'è se la prenotazione è effettuata da un utente o dalla clinica.
+ * Nel caso venga effettuato da un medico per un utente, la prenotazione deve essere ulteriormente confermata
+ * 
+ * @param string controller il controllere
+ * @param string task il task
+ * @param string ajaxDiv il div ajax in cui inserire i dati della risposta alla chiamata
+ * @returns {undefined}
+ */
+function confermaPrenotazione(controller, task, ajaxDiv)
 {
         var codice = $('#confermaPrenotazione').attr('data-codice');
         var clinica = $('#confermaPrenotazione').attr('data-idClinica');
@@ -48,7 +58,7 @@ function confermaPrenotazione(controller1, task, ajaxDiv)
         dati ={id : idEsame, orario : orarioPrenotazione, data : dataPrenotazione, clinica : clinica, codice: codice};
         $.ajax({
             type: 'POST',
-            url: controller1 + '/' + task,
+            url: controller + '/' + task,
             data:dati,
             success:function(datiRisposta)
             {
