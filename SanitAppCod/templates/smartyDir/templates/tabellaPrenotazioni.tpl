@@ -1,4 +1,5 @@
-<table id="tabellaPrenotazioni" class="tablesorter">
+{if isset($prenotazioni)}
+    <table id="tabellaPrenotazioni" class="tablesorter">
     <thead>
         <th>ID Prenotazione</th>
         {if ($tipoUser==='Utente')}
@@ -73,3 +74,13 @@
         
     </tbody>
 </table>
+{else}
+    <h4>Non sono presenti prenotazioni</h4>
+    <p>Per aggiungere una prenotazione, clicca sul tasto aggiungi</p>
+    <br>
+        {if isset($tastoAggiungi)}
+            <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiPrenotazione{$tipoUser}" aria-hidden="true" ></i>               
+        {/if}
+    <br>
+    
+{/if}

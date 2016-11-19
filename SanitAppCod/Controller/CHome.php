@@ -44,10 +44,10 @@ class CHome {
     {
         switch ($controller) 
         {
-            case 'autenticazione':
-                $cAutenticazione = USingleton::getInstance('CAutenticazione');
-                $cAutenticazione->autenticaUser();
-                break;
+//            case 'autenticazione':
+//                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+//                $cAutenticazione->autenticaUser();
+//                break;
             
             case 'clienti':
                 $cClienti = USingleton::getInstance('CGestisciClienti');
@@ -148,7 +148,7 @@ class CHome {
             
             default:
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
-                $cAutenticazione->controllaUserAutenticato() ;
+                $cAutenticazione->controllaUserAutenticatoEImpostaHeader() ;
                 $vAutenticazione = USingleton::getInstance('VAutenticazione');
                 $vAutenticazione->restituisciHomePage();
 //                $vHome = USingleton::getInstance('VHome');
@@ -171,7 +171,7 @@ class CHome {
         {
             case 'autenticazione':
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
-                $cAutenticazione->autenticaUser();
+                $cAutenticazione->tryAutenticaUser();
                 break;
             
             case 'cliniche':

@@ -136,6 +136,28 @@ class UMail {
         return $inviata;
     }
     
+    
+    
+    public function inviaEmailPrenotazioneCancellata($datiPerMail){
+        $this->_email->addAddress($datiPerMail['emailDestinatario']);
+        $this->_email->Subject = "Prenotazione Cancellata";
+        $body = "Gentile " . ucfirst($datiPerMail['nome']) . " " . ucfirst($datiPerMail['cognome']) . ", "
+                . "la informiamo che la prenotazione per l'esame " . $datiPerMail['nomeEsame'] 
+                . " per il " . $datiPerMail['dataEOra'] . " presso la clinica " . $datiPerMail['nomeClinica'] . " è stata cancellata"; 
+        $this->_email->Body = $body;
+        $inviata = $this->_email->send();
+        if ($inviata === TRUE)
+        {
+            echo "inviata"; return $inviata;
+        }
+        else
+        {
+            throw new MailException('email non inviata');
+        }
+               
+    }
+    
+            
     /**
      * Metodo che permette l'invio di una mail al medico contenente
      * i dati inseriti nella form e un link per validare l'account.

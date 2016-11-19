@@ -27,14 +27,45 @@ $(document).ready(function (){
     });
     
     $('#headerMain').on("click", "#confermaPrenotazione", function(){
-        confermaPrenotazione('prenotazione', 'conferma', "#main");
+        confermaPrenotazione('prenotazione', 'conferma', "#contenutoAreaPersonale");
     });
     
+    $('#headerMain').on("click", "#cancellaPrenotazione", function(){
+        eliminaPrenotazione('prenotazione', 'elimina', "#contenutoAreaPersonale");
+    });
     
     $('#headerMain').on("click", "#prenotazioneAggiunta", function(){
         inviaController('mySanitApp', '#main');
     });
+    
+    $('#headerMain').on("click", "#prenotazioneEliminata", function(){
+        inviaController('mySanitApp', '#main');
+    });
 });
+
+function eliminaPrenotazione(controller, task, ajaxDiv)
+{
+    var idPrenotazione = $('#cancellaPrenotazione').attr('data-idPrenotazione');
+    var dati ={id : idPrenotazione};
+    $.ajax({
+        type: 'POST',
+        url: controller + '/' + task,
+        data: dati,
+        success:function(datiRisposta)
+            {
+                // comportamento da modificare
+                alert(datiRisposta);
+                $(ajaxDiv).html(datiRisposta);
+            },
+            error: function(xhr, status, error) 
+            {
+                alert(xhr.responseText);
+                alert(error);
+                alert(status);
+                alert(" errore nella eliminazione della prenotazione ");
+            }
+    })
+}
 
 /**
  * Funzione per confermare la prenotazione. Al termine la prenotazione è stata inserita nel DB 

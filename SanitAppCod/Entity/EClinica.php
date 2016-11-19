@@ -161,6 +161,10 @@ class EClinica extends EUser
                 parent::setCodiceConfermaUtente($attributiClinica[0]["CodiceConferma"]);
                 $this->_esami = Array();
             }
+            else
+            {
+                throw new ClinicaException('Clinica inesistente');
+            }
         }
         else 
         {

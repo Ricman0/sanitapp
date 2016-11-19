@@ -115,7 +115,7 @@ class EMedico extends EUser {
             } 
             else {
                 //il medico cercato non esiste 
-                echo "il medico cercato non esiste";
+                throw new MedicoException('Medico inesistente');
             }
         } else {
             // caso in cui gli passo tutti i parametri

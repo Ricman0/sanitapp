@@ -96,9 +96,7 @@ class CPrenotazione {
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazioni->getTask();
 //        $codiceFiscaleUtente = "";
-        switch ($task) {
-            
-                
+        switch ($task) {                
             case 'visualizza':
                 switch ($tipoUser) 
                 {
@@ -112,7 +110,7 @@ class CPrenotazione {
                             $prenotazioniUtente = $eUtente->cercaPrenotazioni();
                             if (!is_bool($prenotazioniUtente)) 
                             {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($prenotazioniUtente,$tipoUser);
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, $prenotazioniUtente);
                             } 
                             else 
                             {
@@ -152,31 +150,21 @@ class CPrenotazione {
                         if ($idPrenotazione === FALSE) 
                         {
                             //visualizza tutte le prenotazioni 
-                            $username = $sessione->leggiVariabileSessione('usernameLogIn');
-                            $eMedico = new EMedico(NULL, $username);
-                            $prenotazioniMedico = $eMedico->cercaPrenotazioni();
-                            if (!is_bool($prenotazioniMedico)) 
-                            {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($prenotazioniMedico, $tipoUser);
-                            } 
-                            else 
-                            {
-                                //errore 
-                                echo "errore in Cprenotazione VisualizzaPrenotazioni in medico";// da eliminare questa riga, è solo per il debug veloce
-                            }
+                            $this->visualizzaPrenotazioni();
                         } 
-                        else {
+                        else 
+                        {
                             //visualizzare una sola prenotazione
                            
                             // attenzione controllare la progettazione di  Prenotazione
-                            $ePrenotazione = new EPrenotazione($idPrenotazione);
+                            $ePrenotazione = new EPrenotazione($idPrenotazione); // potrebbe lanciare PrenotazioneException('Prenotazione non trovata');
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
-                            $eEsame = new EEsame($idEsame);
+                            $eEsame = new EEsame($idEsame); // potrebbe lanciare EsameException('Esame non esistente')
                             $nomeEsame = $eEsame->getNomeEsame();
                             $medicoEsame = $eEsame->getMedicoEsame();
                             $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
-                            $eClinica = new EClinica(NULL, $partitaIVA);                        
-                            $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
+                            $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare ClinicaException('Clinica inesistente')                      
+                            $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione()); // potrebbe lanciare UtenteException('Utente non esistente')
                             $nome = $eUtente->getNomeUtente();
                             $cognome = $eUtente->getCognomeUtente();    
                             $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
@@ -193,7 +181,7 @@ class CPrenotazione {
                             $prenotazioniClinica = $eClinica->cercaPrenotazioni();
                             if (!is_bool($prenotazioniClinica)) 
                             {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($prenotazioniClinica,$tipoUser);
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, $prenotazioniClinica);
                             } 
                             else {
                                 echo "errore in Cprenotazione VisualizzaPrenotazioni in clinica";
@@ -261,6 +249,41 @@ class CPrenotazione {
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazione->getTask();
         switch ($task) {
+            case 'elimina':
+                try
+                {
+                    $this->eliminaPrenotazione();
+                }
+                catch (ValoreInesistenteException $e)
+                {
+                       // id inesistente              
+                }
+                catch (PrenotazioneException $e)
+                {
+                       // non esiste la prenotazione con quell'id              
+                }   
+                catch (UtenteException $e)
+                {
+                       // non siamo riusciti ad inviare la mail               
+                }
+                catch (EsameException $e)
+                {
+                       // non siamo riusciti ad inviare la mail               
+                }
+                catch (ClinicaException $e)
+                {
+                       // non siamo riusciti ad inviare la mail               
+                }
+                
+                catch (MailException $e)
+                {
+                       // non siamo riusciti ad inviare la mail               
+                }
+                
+                
+                
+                break;
+            
             case 'conferma':
                 $sessione = USingleton::getInstance('USession');
                 $tipo = $sessione->leggiVariabileSessione('tipoUser');
@@ -335,5 +358,64 @@ class CPrenotazione {
                 break;
         }
     }
+    
+    public function eliminaPrenotazione() 
+    {
+        $vPrenotazione = USingleton::getInstance('Vprenotazione');
+        if(($idPrenotazione = $vPrenotazione->recuperaValore('id'))!== FALSE)
+        {
+            $ePrenotazione = new EPrenotazione($idPrenotazione);
+            if($ePrenotazione->eliminaPrenotazione()===TRUE)// se l'eliminazione è avvenuta con successo
+            {
+                $sessione = USingleton::getInstance('USession');
+                $tipo = $sessione->leggiVariabileSessione('tipoUser');
+                if($tipo !== 'utente')
+                {
+                    $codiceFiscaleUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
+                    $eUtente = new EUtente($codiceFiscaleUtente);
+                    $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
+                    $eClinica = new EClinica(NULL, $ePrenotazione->getPartitaIVAPrenotazione() );
+                    $datiPerEmail  = Array('emailDestinatario'=>$eUtente->getEmail(),'nome'=>$eUtente->getNomeUtente(),
+                        'cognome'=>$eUtente->getCognomeUtente(), 'nomeEsame'=>$eEsame->getNomeEsame(),
+                        'nomeClinica'=>$eClinica->getNomeClinica(), 'dataEOra'=>$ePrenotazione->getDataEOra());
+                    $mail = USingleton::getInstance('UMail');                             
+                    $mail->inviaEmailPrenotazioneCancellata($datiPerEmail);
+                }                   
+                $vPrenotazione->prenotazioneEliminata(TRUE);
+            }
+            else
+            {
+                $vPrenotazione->prenotazioneEliminata(FALSE);
+            }
+        }
+        else
+        {
+            // non c'è l'id
+            throw new ValoreInesistenteException('id inesistente');
+        }
+    }
 
+    /**
+     * Metodo che consente di visualizzare tutte le prenotazioni di un user
+     * 
+     * @access private
+     */
+    private function visualizzaPrenotazioni() 
+    {
+        $sessione = USingleton::getInstance('USession');
+        $vPrenotazioni = USingleton::getInstance('VPrenotazione');
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
+        $eMedico = new EMedico(NULL, $username);// lancia MedicoException
+        $prenotazioniMedico = $eMedico->cercaPrenotazioni();
+        if (is_array($prenotazioniMedico) && count($prenotazioniMedico)>0) 
+        {
+            $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni( $tipoUser, $prenotazioniMedico);
+        } 
+        else 
+        {                              
+            $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser);
+        }
+    }
 }
+

@@ -3,15 +3,33 @@
 /**
  * Description of VPrenotazione
  *
+ * @package View
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VPrenotazione extends View{
     
-    public function appuntamentoAggiunto($risultato) 
+    /**
+     * Metodo che consente di visualizzare se la prenotazione è stata o meno aggiunta
+     * 
+     * @param boolean $aggiunto TRUE la prenotazione è stata aggiunta dal DB, FALSE altrimenti
+     */
+    public function appuntamentoAggiunto($aggiunto) 
     {
-        $this->assegnaVariabiliTemplate('risultato', $risultato);
+        $this->assegnaVariabiliTemplate('prenotazioneAggiunta', $aggiunto);
         $this->visualizzaTemplate('prenotazioneAggiunta');
     }
+    
+    /**
+     * Metodo che consente di visualizzare se la prenotazione è stata o meno eliminata
+     * 
+     * @param boolean $eliminata TRUE la prenotazione è stata eliminata dal DB, FALSE altrimenti
+     */
+    public function prenotazioneEliminata($eliminata) 
+    {
+        $this->assegnaVariabiliTemplate('prenotazioneEliminata', $eliminata);
+        $this->visualizzaTemplate('prenotazioneEliminata');
+    }
+    
     public function restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice)
     {
         $this->assegnaVariabiliTemplate('codice', $codice);
@@ -40,12 +58,13 @@ class VPrenotazione extends View{
      * @access public
      * @param Array $risultato Il risultato della ricerca delle prenotazioni di un utente
      */
-    public function restituisciPaginaRisultatoPrenotazioni($risultato, $tipoUser) 
+    public function restituisciPaginaRisultatoPrenotazioni($tipoUser, $risultato=NULL) 
     {
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
-        if(count($risultato)>0)
+        $this->assegnaVariabiliTemplate('tipoUser', ucfirst($tipoUser));
+        if(isset($risultato) && count($risultato)>0)
             {
-                $this->assegnaVariabiliTemplate('tipoUser', ucfirst($tipoUser));
+                $this->assegnaVariabiliTemplate('prenotazioni', TRUE);                
                 $this->assegnaVariabiliTemplate('prenotazioni', TRUE);
                 $this->assegnaVariabiliTemplate('dati', $risultato);
             }

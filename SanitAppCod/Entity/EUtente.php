@@ -101,8 +101,11 @@ class EUtente extends EUser {
                 $this->setNumCivicoUtente($attributiUtente[0]['NumCivico']);
                 $this->setCAPUtente($attributiUtente[0]['CAP']);
                 $this->setMedicoCurante($attributiUtente[0]['CodFiscaleMedico']);
-            } else {
+            } 
+            else 
+            {
                 // l'utente cercato non esiste 
+                throw new UtenteException('Utente non esistente');
             }
         } else 
             {

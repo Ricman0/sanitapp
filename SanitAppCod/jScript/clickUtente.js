@@ -12,7 +12,7 @@ $(document).ready(function(){
     
     $('#headerMain').on("click", "#impostazioniAreaPersonaleUtente", function(){
         inviaControllerTask('impostazioni', 'visualizza', "#contenutoAreaPersonale");
-    });
+    });   
     
     $('#headerMain').on("click", "#refertiAreaPersonaleUtente", function () {
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");

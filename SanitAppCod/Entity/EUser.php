@@ -122,6 +122,11 @@ class EUser {
                     $this->_confermato = $attributiUser[0]['Confermato'];
                     $this->_tipoUser=$attributiUser[0]['TipoUser'];
                 }
+                else // utente non  esistente
+                { 
+                    //errore da gestire con exception
+                    throw new UserException("User inesistente");
+                }
             }
 
         }
@@ -404,6 +409,8 @@ class EUser {
      * Metodo che consente di impostare le variabili di sessione dello user
      * 
      * @access public
+     * @param string $username L'username dell'user
+     * @param string $tipo Il tipo dell'user
      */
     public function attivaSessioneUser($username, $tipo) 
     {

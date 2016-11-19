@@ -302,12 +302,12 @@ class UValidazione {
         } 
         else
         {
-            echo ($chiave);
-            echo ($stringaErrore);
-            $this->datiErrati[$chiave] = $stringaErrore;
+//            echo ($chiave);
+//            echo ($stringaErrore);
+            $this->_datiErrati[$chiave] = $stringaErrore;
 //            echo ($this->datiErrati[$chiave]);
 //            echo "NO";
-            $this->validati = FALSE;
+            $this->_validati = FALSE;
 //            echo ($this->getValidati());
         }
     }

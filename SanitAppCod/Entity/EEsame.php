@@ -97,6 +97,10 @@ class EEsame
                 $this->_descrizione = $attributiEsame[0]["Descrizione"];
                 $this->_partitaIVAClinica= $attributiEsame[0]["PartitaIVAClinica"];   
             }
+            else
+            {
+                throw new EsameException('Esame non esistente');
+            }
         }
         else
         {

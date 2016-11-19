@@ -166,6 +166,19 @@ class FPrenotazione extends FDatabase{
         return $this->eseguiQuery($query);
     }
     
+    /**
+     * Metodo che consente di eliminare la prenotazione passata per parametro
+     * 
+     * @access public
+     * @param string $idPrenotazione L'id della prenotazione
+     * @return boolean TRUE se l'eliminazione è avvenuta con successo
+     */
+    public function eliminaPrenotazione($idPrenotazione) 
+    {
+        $query = 'DELETE FROM ' . $this->_nomeTabella .  " WHERE IDPrenotazione='" . $idPrenotazione . "'";
+        return $this->eseguiQuery($query);
+    }
+    
 //    public function getAttributi($ePrenotazione) 
 //    {
 //        print_r($ePrenotazione);

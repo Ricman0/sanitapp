@@ -14,6 +14,53 @@
 class CAutenticazione {
     
     /**
+     * Metodo che tenta di autenticare un user, in caso contrario cattura l'eccezione e la gestisce
+     * 
+     * @access public
+     */
+    public function tryAutenticaUser() 
+    {
+        try
+        {
+            $this->autenticaUser();
+        }
+        catch (UserException $e)
+        {
+            gestisciEccezioneAutenticaUser();                   
+        }
+        catch (DatiLogInException $e)
+        {
+            $errore = $e->getMessage(); // vorrei usare l'errore nel template per far visualizzare il messaggio di errore all'user
+            $this->gestisciEccezioneAutenticaUser($errore);              
+        }
+        
+    }
+    
+    /**
+     * Metodo che consente di gestire le eccezioni della funzione autenticaUser()
+     * 
+     * @access private
+     * @param string $errore Il messaggio di errore
+     */
+    private function gestisciEccezioneAutenticaUser($errore) 
+    {
+        $vAutenticazione = USingleton::getInstance('VAutenticazione');
+        $uCookie = USingleton::getInstance('UCookie');
+        $uCookie->incrementaCookie('Tentativi');  //incremento il cookie Tentativi                    
+        if($uCookie->checkValiditaTentativi()) // massimo 3 tentativi
+        {
+            // pagina di log 
+            $vAutenticazione->impostaPaginaLogIn();
+        }
+        else
+        {
+            // pagina recupero credenziali 
+            $uCookie->eliminaCookie('Tentativi');
+            $vAutenticazione->impostaPaginaRecuperoCredenziali();
+        }  
+    }
+    
+    /**
      * Metodo che permette di controllare se è stato effettuato il login
      * 
      * @access public
@@ -21,64 +68,25 @@ class CAutenticazione {
      * @return boolean true se è stato effettuato il login,
      *                 false altrimenti
      */
-    public function logIn($session) 
-    {
-        $logIn = $session->checkVariabileSessione("loggedIn");       
-        return $logIn;
-    }
-    
-    /**
-     * Metodo che consente di controllare se sono già stati inviati i dati per il login
-     * 
-     * @access private
-     * @return boolean ritorna true se i dati per il log in sono già stati inviati
-     *                         false altrimenti
-     */
-//    private function datiInviati() 
+//    public function logIn($session) 
 //    {
-//        
-//        if(!empty($_POST['username']) && !empty($_POST['password']))
-//        {
-//            return true;
-//        }
-//        else
-//        {
-//            return false;
-//        }
-//        
-//    }
-    
-    
-//    public function impostaPaginaAutenticazione()
-//    {
-//        $vAutenticazione =  USingleton::getInstance('VAutenticazione');
-//        $task= $vAutenticazione->getTask();
-//        switch ($task)
-//        {
-//            case 'logIn':
-//            
-//                break;
-//            default: 
-//                break;
-//        }
+//        $logIn = $session->checkVariabileSessione("loggedIn");       
+//        return $logIn;
 //    }
     
     /**
-     * Metodo che permette di controllare se un user è autenticato
+     * Metodo che permette di controllare se un user è autenticato eimposta l'header
      * 
      * @access public
-     * @param USession $sessione La sessione relativa ad utente da controllare e modificare
-     * @return USession La sessione eventualmente modificata se è stato autenticato un utente
      */
-    public function controllaUserAutenticato() 
+    public function controllaUserAutenticatoEImpostaHeader() 
     {
         $username = NULL;
         $sessione = USingleton::getInstance('USession');
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         if($sessione->checkVariabileSessione("loggedIn") === TRUE) // se è già autenticato
         {
-            //user autenticato
-            
+            //user autenticato            
             $username = $sessione->leggiVariabileSessione('usernameLogIn');
             $vAutenticazione->impostaHeader($username);
         }
@@ -86,7 +94,6 @@ class CAutenticazione {
         {
             $vAutenticazione->impostaHeader();            
         }
-        return $username;
     }
             
             
@@ -147,22 +154,19 @@ class CAutenticazione {
         $sessione = USingleton::getInstance('USession');
         $uCookie = USingleton::getInstance('UCookie');
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
-        $this->controllaUserAutenticato();
-        if (!empty($username=$vAutenticazione->recuperaValore('usernameLogIn')) && !empty($password=$vAutenticazione->recuperaValore('passwordLogIn'))) // se non è stato ancora autenticato ma ha inserito di dati di log in
-        {
-            
+        $this->controllaUserAutenticatoEImpostaHeader();
+        if(!empty($username=$vAutenticazione->recuperaValore('usernameLogIn')) && !empty($password=$vAutenticazione->recuperaValore('passwordLogIn'))) // se non è stato ancora autenticato ma ha inserito di dati di log in
+        {            
             $datiLogIn = array('username' => $username, 'password' => $password);
             $validazione = USingleton::getInstance('UValidazione');
             if($validazione->validaDati($datiLogIn) === TRUE)
-            {
-            
+            {            
                 $eUser = new EUser($username, $password);
-                if($eUser->getUsername()!==NULL && $eUser->getPassword()!==NULL)// caso in cui esiste l'user con quella password e quella username
-                {
+//                if($eUser->getUsername()!==NULL && $eUser->getPassword()!==NULL)// caso in cui esiste l'user con quella password e quella username
+//                {
                     $uCookie->eliminaCookie('Tentativi');
                     if($eUser->getConfermato() == TRUE)// user confermato
                     {
-                        print_r($_SESSION);
                         $eUser->attivaSessioneUser($username, $eUser->getTipoUser() );
                         $vAutenticazione->setTastiLaterali($eUser->getTipoUser() );
                         $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
@@ -173,26 +177,36 @@ class CAutenticazione {
                         // ritorna form per effettuare conferma
                         $vAutenticazione->impostaPaginaConferma();
                     }
-                }
-                else 
-                {
-                    $uCookie->incrementaCookie('Tentativi');  //incremento il cookie Tentativi
-                    
-                    if($uCookie->checkValiditaTentativi()) // massimo 3 tentativi
-                    {
-                        // pagina di log 
-                        
-                        $vAutenticazione->impostaPaginaLogIn();
-                    }
-                    else
-                    {
-                        // pagina recupero credenziali 
-                        $uCookie->eliminaCookie('Tentativi');
-                        $vAutenticazione->impostaPaginaRecuperoCredenziali();
-                    }
-                }
+//                }
+//                else 
+//                {
+//                    $uCookie->incrementaCookie('Tentativi');  //incremento il cookie Tentativi
+//                    
+//                    if($uCookie->checkValiditaTentativi()) // massimo 3 tentativi
+//                    {
+//                        // pagina di log 
+//                        
+//                        $vAutenticazione->impostaPaginaLogIn();
+//                    }
+//                    else
+//                    {
+//                        // pagina recupero credenziali 
+//                        $uCookie->eliminaCookie('Tentativi');
+//                        $vAutenticazione->impostaPaginaRecuperoCredenziali();
+//                    }
+//                }
             }
-        }        
+            else // dati non validi
+            {
+                throw new DatiLogInException('Dati inseriti non validi');
+//                $vAutenticazione->impostaPaginaLogIn();
+            }
+        }
+        else//campi/o vuoti/o 
+        {
+            throw new DatiLogInException('Almeno un campo del log in vuoto');
+//            $vAutenticazione->impostaPaginaLogIn();
+        }
     }
         
     
@@ -343,7 +357,7 @@ class CAutenticazione {
     {
         $sessione = USingleton::getInstance('USession');
         $sessione->terminaSessione();
-        $this->controllaUserAutenticato() ;
+        $this->controllaUserAutenticatoEImpostaHeader() ;
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
 //        $vAutenticazione->logOut();
         $vAutenticazione->restituisciHomePage();

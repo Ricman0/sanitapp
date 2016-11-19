@@ -56,7 +56,7 @@ class VAutenticazione extends View {
      */
     public function impostaHeader($username=NULL) 
     {
-        if($username !== NULL)
+        if($username !== NULL || $username !== FALSE)
         {
             // bisogna prima assegnare la variabili interne del template e poi prelevare il template
             $this->assegnaVariabiliTemplate('user', $username);
@@ -140,9 +140,14 @@ class VAutenticazione extends View {
      * Metodo che consente di impostare la pagina di Log In
      * 
      * @access public
+     * @param string $errore Stringa che contenente l'errore dell'eccezione
      */
-    public function impostaPaginaLogIn() {
+    public function impostaPaginaLogIn($errore=NULL) {
         $variabiliHeader = $this->impostaHeader();
+        if(isset($errore))
+        {
+            $this->assegnaVariabiliTemplate('errore', $errore); 
+        }
         $paginaLog = $this->prelevaTemplate('log');
         $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
         $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
@@ -177,7 +182,6 @@ class VAutenticazione extends View {
      */
     public function impostaHeaderEPaginaPersonale($username) 
     {
-        print_r($_SESSION);
         $variabiliHeader = $this->impostaHeader($username);
         // main
         $this->assegnaVariabiliTemplate("tastiLaterali", $this->_tastiLaterali);

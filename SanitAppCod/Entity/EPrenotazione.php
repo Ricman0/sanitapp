@@ -78,7 +78,6 @@ class EPrenotazione {
             $attributiPrenotazione = $fPrenotazione->cercaPrenotazioneById($id);
             if(is_array($attributiPrenotazione) && count($attributiPrenotazione)==1)
             {
-                
                 $this->_idPrenotazione = $id;
                 $this->_idEsame = $attributiPrenotazione[0]["IDEsame"];
                 $this->_partitaIVA = $attributiPrenotazione[0]["PartitaIVAClinica"];
@@ -88,8 +87,12 @@ class EPrenotazione {
                 $this->_codFisUtenteEffettuaEsame = $attributiPrenotazione[0]["CodFiscaleUtenteEffettuaEsame"];
                 $this->_codFisUtentePrenotaEsame = $attributiPrenotazione[0]["CodFiscaleUtentePrenotaEsame"];
                 $this->_codFisMedicoPrenotaEsame= $attributiPrenotazione[0]["CodFiscaleMedicoPrenotaEsame"];
-                $this->_dataEOra = $attributiPrenotazione[0]["DataEOra"];
-                
+                $this->_dataEOra = $attributiPrenotazione[0]["DataEOra"];                
+            }
+            else
+            {
+                throw new PrenotazioneException('Prenotazione non trovata');
+                // lancia un errore perchè non ha trovato una prenotazione con quell'id 
             }
         }
         else
@@ -425,5 +428,24 @@ class EPrenotazione {
             return FAlSE;
         }
         
+    }
+    
+    /**
+     * Metodo che consente di eliminare la prenotazione
+     * 
+     * @access public
+     * @return boolean TRUE eliminazione avvenuta con successo, FALSE altrimenti
+     */
+    public function eliminaPrenotazione() 
+    {
+        $fPrenotazione = USingleton::getInstance('FPrenotazione');
+        if ($fPrenotazione->eliminaPrenotazione($this->getIdPrenotazione()) === TRUE) 
+        {
+            return TRUE;
+        } 
+        else 
+        {
+            return FALSE;
+        }
     }
 }

@@ -9,6 +9,5 @@
 <div id="main">
     {if isset ($main)}
         {$main}
-    {/if}
-    
+    {/if}    
 </div> 
