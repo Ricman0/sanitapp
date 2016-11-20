@@ -254,30 +254,42 @@ class CPrenotazione {
                 {
                     $this->eliminaPrenotazione();
                 }
-                catch (ValoreInesistenteException $e)
+                catch (XValoreInesistenteException $e)
                 {
-                       // id inesistente              
+                    // 'id della prenotazione  non è presente in $_REQUEST  
+                    $vPrenotazione->prenotazioneEliminata(FALSE);
                 }
-                catch (PrenotazioneException $e)
+                catch (XPrenotazioneException $e)
                 {
-                       // non esiste la prenotazione con quell'id              
-                }   
-                catch (UtenteException $e)
-                {
-                       // non siamo riusciti ad inviare la mail               
+                       // non esiste la prenotazione con quell'id  
+                    //oppure quella prenotazione è già stata eseguita
+                    $vPrenotazione->prenotazioneEliminata(FALSE);
                 }
-                catch (EsameException $e)
+                catch (XDBException $e)
                 {
-                       // non siamo riusciti ad inviare la mail               
+                       // Se la query per eliminare la prenotazione specificata non è stata eseguita con successo
+                     $vPrenotazione->prenotazioneEliminata(FALSE);
+                }  
+                catch (XUtenteException $e)
+                {
+                       // Se l'utente non esiste   
+                    $vPrenotazione->prenotazioneEliminata(TRUE, FALSE);
                 }
-                catch (ClinicaException $e)
+                catch (XEsameException $e)
                 {
-                       // non siamo riusciti ad inviare la mail               
+                       //Se l'esame non esiste 
+                    $vPrenotazione->prenotazioneEliminata(TRUE, FALSE);
+                }
+                catch (XClinicaException $e)
+                {
+                       // Se la clinica  è inesistente 
+                    $vPrenotazione->prenotazioneEliminata(TRUE, FALSE);
                 }
                 
-                catch (MailException $e)
+                catch (XMailException $e)
                 {
-                       // non siamo riusciti ad inviare la mail               
+                       // Se l'email non è inviata   
+                    $vPrenotazione->prenotazioneEliminata(TRUE, FALSE);
                 }
                 
                 
@@ -359,39 +371,47 @@ class CPrenotazione {
         }
     }
     
+    
+    /**     
+     * Metodo che consente di eliminare un prenotazione se l'esame per questa prenotazione non è già stata eseguita
+     * 
+     * @access public
+     * @throws XValoreInesistenteException Se l'id della prenotazione è presente in $_REQUEST
+     * @throws XPrenotazioneException Se la prenotazione con l'id passato come parametro non è stata trovata
+     * @throws XPrenotazioneException Se la prenotazione è già eseguita
+     * @throws XDBException Se la query per eliminare la prenotazione specificata non è stata eseguita con successo
+     * @throws XUtenteException Se l'utente non esiste 
+     * @throws XEsameException Se l'esame non esiste 
+     * @throws XClinicaException Se la clinica  è inesistente
+     * @throws XMailException Se l'email non è inviata
+     */
     public function eliminaPrenotazione() 
     {
         $vPrenotazione = USingleton::getInstance('Vprenotazione');
-        if(($idPrenotazione = $vPrenotazione->recuperaValore('id'))!== FALSE)
+        if (($idPrenotazione = $vPrenotazione->recuperaValore('id')) !== FALSE) 
         {
             $ePrenotazione = new EPrenotazione($idPrenotazione);
-            if($ePrenotazione->eliminaPrenotazione()===TRUE)// se l'eliminazione è avvenuta con successo
-            {
+            if ($ePrenotazione->eliminaPrenotazione() === TRUE) {// se l'eliminazione è avvenuta con successo
                 $sessione = USingleton::getInstance('USession');
                 $tipo = $sessione->leggiVariabileSessione('tipoUser');
-                if($tipo !== 'utente')
-                {
+                if ($tipo !== 'utente') {
                     $codiceFiscaleUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
                     $eUtente = new EUtente($codiceFiscaleUtente);
                     $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
-                    $eClinica = new EClinica(NULL, $ePrenotazione->getPartitaIVAPrenotazione() );
-                    $datiPerEmail  = Array('emailDestinatario'=>$eUtente->getEmail(),'nome'=>$eUtente->getNomeUtente(),
-                        'cognome'=>$eUtente->getCognomeUtente(), 'nomeEsame'=>$eEsame->getNomeEsame(),
-                        'nomeClinica'=>$eClinica->getNomeClinica(), 'dataEOra'=>$ePrenotazione->getDataEOra());
-                    $mail = USingleton::getInstance('UMail');                             
+                    $eClinica = new EClinica(NULL, $ePrenotazione->getPartitaIVAPrenotazione());
+                    $datiPerEmail = Array('emailDestinatario' => $eUtente->getEmail(), 'nome' => $eUtente->getNomeUtente(),
+                        'cognome' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsame(),
+                        'nomeClinica' => $eClinica->getNomeClinica(), 'dataEOra' => $ePrenotazione->getDataEOra());
+                    $mail = USingleton::getInstance('UMail');
                     $mail->inviaEmailPrenotazioneCancellata($datiPerEmail);
-                }                   
-                $vPrenotazione->prenotazioneEliminata(TRUE);
-            }
-            else
-            {
+                }
+                $vPrenotazione->prenotazioneEliminata(TRUE, TRUE);
+            } else {
                 $vPrenotazione->prenotazioneEliminata(FALSE);
             }
-        }
-        else
-        {
-            // non c'è l'id
-            throw new ValoreInesistenteException('id inesistente');
+        } else {// non c'è l'id
+            
+            throw new XValoreInesistenteException('id inesistente');
         }
     }
 

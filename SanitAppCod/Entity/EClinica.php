@@ -95,6 +95,7 @@ class EClinica extends EUser
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
      * @param int o string? $cod Il codice per confermare l'account
      * @param array $esami Array di esami/servizi che la clinica fornisce
+     * @throws XClinicaException Se la clinica  è inesistente
      */
     
     public function __construct($username=NULL, $partitaIVA=NULL, $nomeClinica=NULL,$password=NULL, $email=NULL, $titolareClinica=NULL, 
@@ -163,7 +164,7 @@ class EClinica extends EUser
             }
             else
             {
-                throw new ClinicaException('Clinica inesistente');
+                throw new XClinicaException('Clinica inesistente');
             }
         }
         else 

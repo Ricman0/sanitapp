@@ -24,11 +24,12 @@ class CAutenticazione {
         {
             $this->autenticaUser();
         }
-        catch (UserException $e)
+        catch (XUserException $e)
         {
-            gestisciEccezioneAutenticaUser();                   
+            $errore = $e->getMessage(); 
+            $this->gestisciEccezioneAutenticaUser($errore);                   
         }
-        catch (DatiLogInException $e)
+        catch (XDatiLogInException $e)
         {
             $errore = $e->getMessage(); // vorrei usare l'errore nel template per far visualizzare il messaggio di errore all'user
             $this->gestisciEccezioneAutenticaUser($errore);              
@@ -50,7 +51,7 @@ class CAutenticazione {
         if($uCookie->checkValiditaTentativi()) // massimo 3 tentativi
         {
             // pagina di log 
-            $vAutenticazione->impostaPaginaLogIn();
+            $vAutenticazione->impostaLogIn($errore);
         }
         else
         {

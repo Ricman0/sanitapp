@@ -161,6 +161,7 @@ class FDatabase {
      * @final
      * @access public
      * @param string $query La query da eseguire
+     * @throws XDBException Se la query non è stata eseguita con successo
      * @return array|boolean Il risultato della query.
      */
     final public function eseguiQuery($query) 
@@ -171,7 +172,7 @@ class FDatabase {
         // se il risultato della query è false
         if(!$queryResult)
             {
-                die ("Errore mysql durante l'esecuzione della query: " . $this->_connessione->error);
+                throw new XDBException("Errore mysql durante l'esecuzione della query: " . $this->_connessione->error);
             }
         else
             {
@@ -207,6 +208,7 @@ class FDatabase {
      * @final
      * @access public
      * @param string $query Le query da eseguire
+     * @throws XDBException
      * @return array|boolean Il risultato della query, FALSE nel caso in cui la query non abbia prodotto risultato
      */
     final public function eseguiQueryMultiple($query)
@@ -236,7 +238,7 @@ class FDatabase {
                     }
                     else
                     {
-                        die ("Errore mysql durante l'esecuzione della query: " . $this->_connessione->error);
+                        throw new XDBException("Errore mysql durante l'esecuzione della query: " . $this->_connessione->error);
                     }
                 }
                 else 

@@ -115,7 +115,7 @@ class EMedico extends EUser {
             } 
             else {
                 //il medico cercato non esiste 
-                throw new MedicoException('Medico inesistente');
+                throw new XMedicoException('Medico inesistente');
             }
         } else {
             // caso in cui gli passo tutti i parametri

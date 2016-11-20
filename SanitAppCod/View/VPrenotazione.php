@@ -24,9 +24,10 @@ class VPrenotazione extends View{
      * 
      * @param boolean $eliminata TRUE la prenotazione è stata eliminata dal DB, FALSE altrimenti
      */
-    public function prenotazioneEliminata($eliminata) 
+    public function prenotazioneEliminata($eliminata, $mailInviata=FALSE) 
     {
         $this->assegnaVariabiliTemplate('prenotazioneEliminata', $eliminata);
+        $this->assegnaVariabiliTemplate('mailInviata', $mailInviata);
         $this->visualizzaTemplate('prenotazioneEliminata');
     }
     

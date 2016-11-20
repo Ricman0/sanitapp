@@ -61,6 +61,7 @@ class EUtente extends EUser {
     /**
      * Costruttore della classe EUtente
      * 
+     * @access public
      * @param string $nome Il nome dell'utente
      * @param string $cognome Il cognome dell'utente
      * @param string $cf Il codice fiscale dell'utente
@@ -68,6 +69,7 @@ class EUtente extends EUser {
      * @param int $numeroCivico Ilnumero civico dell'utente
      * @param string $cap Il cap del paese in cui risiede l'utente
      * @param type $medico Description
+     * @throws XUtenteException Se l'utente non esiste
      */
     public function __construct($cf = NULL, $username = NULL, $password = "", $email = "", $nome = "", $cognome = "", $via = "", $numeroCivico = "", $cap = "", $medico = NULL) {
 
@@ -105,7 +107,7 @@ class EUtente extends EUser {
             else 
             {
                 // l'utente cercato non esiste 
-                throw new UtenteException('Utente non esistente');
+                throw new XUtenteException('Utente non esistente');
             }
         } else 
             {

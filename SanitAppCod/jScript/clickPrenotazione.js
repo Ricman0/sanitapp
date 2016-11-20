@@ -27,7 +27,7 @@ $(document).ready(function (){
     });
     
     $('#headerMain').on("click", "#confermaPrenotazione", function(){
-        confermaPrenotazione('prenotazione', 'conferma', "#contenutoAreaPersonale");
+        confermaPrenotazione('prenotazione', 'conferma', "#main");
     });
     
     $('#headerMain').on("click", "#cancellaPrenotazione", function(){
