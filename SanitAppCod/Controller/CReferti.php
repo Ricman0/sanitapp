@@ -118,16 +118,22 @@ class CReferti {
     }
 
     public function uploadReferto() {
-        $risultato['risultato'] = "NO";
         $vReferti = USingleton::getInstance('VReferti');
-        $datiReferto = $vReferti->recuperaFile('referto');
-        $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['partitaIva'], $datiReferto['idEsame'], $datiReferto['medicoEsame'], $datiReferto['contenuto']);
-
-        if ($eReferto->inserisciReferto()) {
-            $risultato['risultato'] = "SI";
+        $uValidazione = USingleton::getInstance('UValidazione');
+        $infoFile = $vReferti->recuperaInfoFile('referto');
+        if ($uValidazione->validaDatiReferto($infoFile)){
+            $datiReferto = $vReferti->recuperaDatiReferto();
+            $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['partitaIVA'], $datiReferto['idEsame'], $datiReferto['medicoEsame'], $infoFile['fileName']);
+            $eReferto->spostaReferto($infoFile['tmpName']);
+            if ($eReferto->inserisciReferto()) {
+                $vJson = USingleton::getInstance('VJSON');
+                $vJson->inviaDatiJSON('Referto inserito correttamente');
+            }
         }
-        $vReferti = USingleton::getInstance('VReferti');
-        echo json_encode($risultato);
+        else
+            {
+            throw new XDatiRefertoException($uValidazione->getDatiErrati);
+        }
     }
 
 }

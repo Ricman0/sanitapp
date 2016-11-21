@@ -311,4 +311,30 @@ class UValidazione {
 //            echo ($this->getValidati());
         }
     }
+    
+    public function validaDatiReferto($datiDaValidare) {
+        
+        
+        $this->_validati = TRUE;
+        
+        $maxsize = 2 * 2097152;
+        $formatiAccettati = array('application/pdf', 'image/jpeg', 'image/jpg', 'image/gif', 'image/png');
+        if (file_exists($datiDaValidare['path'])) {
+            $this->_datiErrati['path'] = 'Il file esiste già. ';
+            $this->_validati = FALSE;
+        }
+
+        if ($datiDaValidare['fileSize'] >= $maxsize) {
+            $this->_datiErrati['maxSize'] = 'File troppo grande, dimensione massima 4 Mb. ';
+            $this->_validati = FALSE;
+        }        
+        
+        if ((!in_array($datiDaValidare['fileType'], $formatiAccettati)) && (!empty($datiDaValidare['fileType']))) {
+            $this->_datiErrati['type'] = 'Tipo file non accettato. Sono accettati PDF, JPG, GIF e PNG. ';
+            $this->_validati = FALSE;
+        }
+        
+        return $this->_validati;
+
+    }
 }

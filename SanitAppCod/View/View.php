@@ -166,22 +166,25 @@ class View extends Smarty {
      * 
      * @access public
      * @param string $indice Il nome dell'indice che deve essere recuperato dall'array FILES
-     * @return string Il percorso del file recuperato
+     * @return array le proprietà del file recuperato
      */
-    public function recuperaFile($indice) {
-        if (isset($_POST['upload']) && $_FILES[$indice]['size'] > 0) {
-            $uploadDir = './uploadedFiles/';
-            $db = USingleton::getInstance('FDatabase');
-            $fileName = $db->trimEscapeStringa($_FILES[$indice]['name']);
-            $tmpName = $_FILES[$indice]['tmp_name']; //nome temporaneo
-            $fileSize = $_FILES[$indice]['size'];
-            $fileType = $_FILES[$indice]['type'];
-            $uploadfile = $uploadDir . basename($fileName);
+    public function recuperaInfoFile($indice) {
+        if ($this->recuperaValore('upload') && $_FILES[$indice]['size'] > 0) {
+            $infoFile['uploadDir'] = './uploadedFiles/referti/';
+            $infoFile['fileName'] = basename($_FILES[$indice]['name']);
+            $infoFile['tmpName'] = $_FILES[$indice]['tmp_name']; //nome temporaneo
+            $infoFile['fileSize'] = $_FILES[$indice]['size'];
+            $infoFile['fileType'] = $_FILES[$indice]['type'];
+            $infoFile['path'] = $infoFile['uploadDir'];
+            
         }
-
-        $errors = array();
+        return $infoFile;
+        
+        $uploadfile = $uploadDir . basename($fileName);
         $maxsize = 2 * 2097152;
-        $acceptable = array(
+        $errors = array();
+        
+        $formatiAccettati = array(
             'application/pdf',
             'image/jpeg',
             'image/jpg',
@@ -197,7 +200,7 @@ class View extends Smarty {
             $errors[] = 'File troppo grande, dimensione massima 4 Mb';
         }        
         
-        if ((!in_array($fileType, $acceptable)) && (!empty($fileType))) {
+        if ((!in_array($fileType, $formatiAccettati)) && (!empty($fileType))) {
             $errors[] = 'Tipo file non accattato. Sono accettati PDF, JPG, GIF e PNG.';
         }
 

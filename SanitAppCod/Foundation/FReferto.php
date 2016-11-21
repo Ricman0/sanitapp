@@ -112,6 +112,7 @@ class FReferto extends FDatabase{
      * una nuovo referto
      * 
      * @param EReferto $referto l'entità referto da inserire nel db
+     * @return bool TRUE se l'iserimente è avvenuto con successo
      */
     public function inserisciReferto($referto) {
         //recupero i valori contenuti negli attributi

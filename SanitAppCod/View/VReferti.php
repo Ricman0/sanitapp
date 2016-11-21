@@ -59,6 +59,18 @@ class VReferti extends View{
         $this->visualizzaTemplate('infoReferto');
         
     }
-    
+    /**
+     * 
+     * @return Array i dati necessari per la creazione del referto
+     */
+    public function recuperaDatiReferto() {
+        
+        $datiReferto['idPrenotazione'] = $this->recuperaValore('idPrenotazione');
+        $datiReferto['idEsame'] = $this->recuperaValore('idEsame');
+        $datiReferto['partitaIVA'] = $this->recuperaValore('partitaIVA');
+        $datiReferto['medicoEsame'] = $this->recuperaValore('medicoEsame');
+        return $datiReferto;
+
+    }
     
 }

@@ -42,9 +42,7 @@ class EReferto {
     private $_medicoReferto;
     
     /**
-     * @var blob $_contenuto Il contenuto del referto può essere un testo, 
-     * un'immagine, un video, un mix di tutti. per questo in mysql abbiamo 
-     * scelto il tipo longblob ma in php cosa devo mettere??
+     * @var string $_contenuto Il nome del file referto
      */
     private $_contenuto;
     
@@ -58,6 +56,9 @@ class EReferto {
      * @var string $_partitaIVAClinica partita iva della clinica che emette il referto
      */
     private $_partitaIVAClinica;
+    
+    
+    const cartellaReferti = './uploadedFiles/referti/';
 
 
     /**
@@ -172,12 +173,25 @@ class EReferto {
         return $this->_dataReferto;
     }
     
-    
+    /**
+     * 
+     * @return bool
+     */
     public function inserisciReferto() {
         
         $fReferto = USingleton::getInstance('FReferto');
         return $fReferto->inserisciReferto($this);
         
+    }
+    
+    /**
+     * Sposta il file del referto dalla cartella temporanea nella cartella dei referti
+     * @param string $tmpName il nome temporane del file
+     */
+    public function spostaReferto($tmpName) {
+        
+        return move_uploaded_file($tmpName, self::cartellaReferti.$this->_contenuto);
+
     }
     
 }
