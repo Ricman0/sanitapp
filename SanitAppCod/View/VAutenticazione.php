@@ -142,21 +142,35 @@ class VAutenticazione extends View {
      * @access public
      * @param string $errore Stringa che contenente l'errore dell'eccezione
      */
-    public function impostaPaginaLogIn($errore=NULL) {
+    public function impostaPaginaLogIn() {
         $variabiliHeader = $this->impostaHeader();
-        if(isset($errore))
-        {
-            $this->assegnaVariabiliTemplate('errore', $errore); 
-        }
         $paginaLog = $this->prelevaTemplate('log');
         $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
         $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
         $this->assegnaVariabiliTemplate('main', $paginaLog);
         $this->visualizzaTemplate('headerMain');
         
-       
     }
     
+    /**
+     * Metodo che consente di impostare la pagina di Log In
+     * 
+     * @access public
+     * @param string $errore Stringa che contenente l'errore dell'eccezione
+     */
+    public function impostaLogIn($errore=NULL) {
+        $variabiliHeader = $this->impostaHeader();
+        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
+        if(isset($errore))
+        {
+            $this->assegnaVariabiliTemplate('errore', $errore);
+        }
+        $templateLogIn = $this->prelevaTemplate('logIn');
+        $this->assegnaVariabiliTemplate('main', $templateLogIn);
+        $this->visualizzaTemplate('headerMain');
+        
+    }
     
 
     /**

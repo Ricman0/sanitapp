@@ -67,17 +67,25 @@ class EPrenotazione {
      */
     private $_dataEOra;
     
-    /*
+    /**
      * Costruttore della classe EPrenotazione
+     * 
+     * @access public  
+     * @param type $name Description
+     * @throws XPrenotazioneException Se la prenotazione con l'id passato come parametro non è stata trovata
      */
     public function __construct($id=NULL,$idEsame="",$partitaIVAClinica="", $tipo="", $codFiscaleUtenteEffettuaEsame=NULL,$codFiscalePrenotaEsame=NULL, $dataEOra="" ) 
     {
+        echo "c";
         if(isset($id))
         {
+            echo "d";
             $fPrenotazione = USingleton::getInstance('FPrenotazione');
             $attributiPrenotazione = $fPrenotazione->cercaPrenotazioneById($id);
+            echo "e";
             if(is_array($attributiPrenotazione) && count($attributiPrenotazione)==1)
             {
+                
                 $this->_idPrenotazione = $id;
                 $this->_idEsame = $attributiPrenotazione[0]["IDEsame"];
                 $this->_partitaIVA = $attributiPrenotazione[0]["PartitaIVAClinica"];
@@ -91,7 +99,8 @@ class EPrenotazione {
             }
             else
             {
-                throw new PrenotazioneException('Prenotazione non trovata');
+                
+                throw new XPrenotazioneException('Prenotazione non trovata');
                 // lancia un errore perchè non ha trovato una prenotazione con quell'id 
             }
         }
@@ -434,18 +443,20 @@ class EPrenotazione {
      * Metodo che consente di eliminare la prenotazione
      * 
      * @access public
+     * @throws XPrenotazioneException Se la prenotazione è già eseguita
+     * @throws XDBException Se la query per eliminare la prenotazione specificata non è stata eseguita con successo
      * @return boolean TRUE eliminazione avvenuta con successo, FALSE altrimenti
      */
     public function eliminaPrenotazione() 
     {
-        $fPrenotazione = USingleton::getInstance('FPrenotazione');
-        if ($fPrenotazione->eliminaPrenotazione($this->getIdPrenotazione()) === TRUE) 
+        if($this->_eseguita==FALSE) // se la prenotazione non è stata eseguita allora si può cancellare, altrimenti no.  
         {
-            return TRUE;
-        } 
-        else 
+            $fPrenotazione = USingleton::getInstance('FPrenotazione');
+            return $fPrenotazione->eliminaPrenotazione($this->getIdPrenotazione());
+        }
+        else
         {
-            return FALSE;
+            throw new XPrenotazioneException('Prenotazione già eseguita');
         }
     }
 }

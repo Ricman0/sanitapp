@@ -26,12 +26,20 @@ class VRicercaEsami extends View{
      * @access public
      * @param array $esami Array contentente gli esami
      */
-    public function restituisciPaginaRisultatoEsami($esami) 
+    public function restituisciPaginaRisultatoEsami($esami=NULL, $errore=NULL) 
     {
         //http://stackoverflow.com/questions/29297553/smarty-populate-html-table-columns-with-smarty-array-variable
         // html table nella documentazione di smarty
-        $this->assegnaVariabiliTemplate('dati', $esami);
-        $this->assegnaVariabiliTemplate('controller', "esami");
+        if(isset($esami) && count($esami)>0)
+            {                
+                $this->assegnaVariabiliTemplate('esami', TRUE);
+                $this->assegnaVariabiliTemplate('dati', $esami);
+                $this->assegnaVariabiliTemplate('controller', "esami");
+            } 
+        if(isset($errore))
+            {
+                $this->assegnaVariabiliTemplate('errore', $errore);
+            }
         $this->visualizzaTemplate('tabellaEsami');
     }
     

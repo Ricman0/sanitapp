@@ -1,3 +1,6 @@
+<h4>Form Ricerca Esami</h4>
+<p>Riempi i campi della form se vuoi affinare la ricerca</p>
+<br>
 <form id="formRicercaEsami" method="POST">
     <div  id="inputRicercaEsami">
         <input type="hidden" name="controller" value="esami" id="controllerFormRicercaEsami"/> 
@@ -12,5 +15,6 @@
                placeholder="Roma"/>
         <br>
         <input type="button" id="ricercaEsamiCerca" value="Cerca">
+        
     </div>
 </form>

@@ -7,15 +7,15 @@
  */
 
 /**
- * Description of DatiLogInException
+ * Description of XDatiLogInException
  *
  * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class DatiLogInException extends Exception{
+class XDatiLogInException extends Exception{
     
     /**
-     * Costruttore di DatiLogInException
+     * Costruttore di XDatiLogInException
      * 
      * @param string $messaggio Il messaggio dell'eccezione
      */

@@ -136,8 +136,13 @@ class UMail {
         return $inviata;
     }
     
-    
-    
+    /**
+     * 
+     * @access public
+     * @param type $datiPerMail
+     * @return type
+     * @throws XMailException Se l'email non  è inviata
+     */    
     public function inviaEmailPrenotazioneCancellata($datiPerMail){
         $this->_email->addAddress($datiPerMail['emailDestinatario']);
         $this->_email->Subject = "Prenotazione Cancellata";
@@ -152,7 +157,7 @@ class UMail {
         }
         else
         {
-            throw new MailException('email non inviata');
+            throw new XMailException('email non inviata');
         }
                
     }

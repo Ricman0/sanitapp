@@ -70,6 +70,14 @@ function SanitAppAutoload($nomeClasse)
                 require ($nomeFile);
             }
             break;
+        
+        case'X':
+            $nomeFile = './Eccezioni/' . $nomeClasse . '.php';
+            if (is_readable($nomeFile))
+            {
+                require ($nomeFile);
+            }
+            break;
     }
 }
 

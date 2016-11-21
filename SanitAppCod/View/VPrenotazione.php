@@ -24,9 +24,10 @@ class VPrenotazione extends View{
      * 
      * @param boolean $eliminata TRUE la prenotazione è stata eliminata dal DB, FALSE altrimenti
      */
-    public function prenotazioneEliminata($eliminata) 
+    public function prenotazioneEliminata($eliminata, $mailInviata=FALSE) 
     {
         $this->assegnaVariabiliTemplate('prenotazioneEliminata', $eliminata);
+        $this->assegnaVariabiliTemplate('mailInviata', $mailInviata);
         $this->visualizzaTemplate('prenotazioneEliminata');
     }
     
@@ -58,7 +59,7 @@ class VPrenotazione extends View{
      * @access public
      * @param Array $risultato Il risultato della ricerca delle prenotazioni di un utente
      */
-    public function restituisciPaginaRisultatoPrenotazioni($tipoUser, $risultato=NULL) 
+    public function restituisciPaginaRisultatoPrenotazioni($tipoUser, $risultato=NULL, $errore=NULL) 
     {
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         $this->assegnaVariabiliTemplate('tipoUser', ucfirst($tipoUser));
@@ -67,6 +68,10 @@ class VPrenotazione extends View{
                 $this->assegnaVariabiliTemplate('prenotazioni', TRUE);                
                 $this->assegnaVariabiliTemplate('prenotazioni', TRUE);
                 $this->assegnaVariabiliTemplate('dati', $risultato);
+            }
+        if(isset($errore))
+            {
+                $this->assegnaVariabiliTemplate('errore', $errore);
             }
         $this->visualizzaTemplate('tabellaPrenotazioni');
     }

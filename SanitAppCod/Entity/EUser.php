@@ -125,7 +125,7 @@ class EUser {
                 else // utente non  esistente
                 { 
                     //errore da gestire con exception
-                    throw new UserException("User inesistente");
+                    throw new XUserException("User inesistente");
                 }
             }
 

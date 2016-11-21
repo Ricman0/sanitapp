@@ -25,10 +25,15 @@ class CRicercaEsami {
     {
         $vEsami = USingleton::getInstance('VRicercaEsami');
         $fEsami = USingleton::getInstance('FEsame');
-        $risultato = $fEsami->cercaEsame($vEsami->recuperaValore('parametro1'), $vEsami->recuperaValore('parametro2'), $vEsami->recuperaValore('parametro3'));
-        $vEsami->restituisciPaginaRisultatoEsami($risultato);
-        
-  
+        try        
+        {
+            $risultato = $fEsami->cercaEsame($vEsami->recuperaValore('parametro1'), $vEsami->recuperaValore('parametro2'), $vEsami->recuperaValore('parametro3'));
+            $vEsami->restituisciPaginaRisultatoEsami($risultato);  
+        }
+        catch (XDBException $e)
+        {
+            $vEsami->restituisciPaginaRisultatoEsami(NULL, $e->getMessage());
+        }       
     }
     
     public function gestisciEsami() {

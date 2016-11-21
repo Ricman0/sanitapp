@@ -83,7 +83,6 @@ class EReferto {
         {
             $fReferto = USingleton::getInstance('FReferto');
             $risultato = $fReferto->cercaReferto($idPrenotazione);
-            print_r($risultato);
             if(is_array($risultato) && count($risultato)===1)
             {
                 $this->_IDReferto = $risultato[0]['IDReferto'];
@@ -97,6 +96,7 @@ class EReferto {
             else 
             {
                 $this->_IDReferto = NULL;
+                
             }
         }
     }

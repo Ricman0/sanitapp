@@ -38,6 +38,7 @@ class FPrenotazione extends FDatabase{
      * @access public
      * @param string $codiceFiscaleUtente Codice fiscale dell'utente di cui si vuole
      * cercare tutte le prenotazioni
+     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean|array Il risultato della query
      * 
      */
@@ -171,6 +172,7 @@ class FPrenotazione extends FDatabase{
      * 
      * @access public
      * @param string $idPrenotazione L'id della prenotazione
+     * @throws XDBException Se la query per eliminare la prenotazione specificata non è stata eseguita con successo
      * @return boolean TRUE se l'eliminazione è avvenuta con successo
      */
     public function eliminaPrenotazione($idPrenotazione) 

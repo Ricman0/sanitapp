@@ -69,6 +69,7 @@ class EEsame
     /**
      * Costruttore di EEsame
      * 
+     * @access public
      * @param string $id ID dell'esame
      * @param string $nomeEsame Il nome dell'esame
      * @param string $medico Il nome e cognome del medico che effettua l'esame
@@ -77,6 +78,7 @@ class EEsame
      * @param type $durata La durata dell'esame
      * @param int $numPrestazioniSimultanee Il numero di prestazioni simultanee dell'esame
      * @param string $descrizione Breve descrizione dell'esame
+     * @throws XEsameException Se l'esame non esiste
      */
   
     public function __construct($id=NULL, $nomeEsame="", $medico="", $nomeCategoria="", $prezzo="", $durata="", $numPrestazioniSimultanee=1, $descrizione='', $PartitaIVAClinica="") 
@@ -99,7 +101,7 @@ class EEsame
             }
             else
             {
-                throw new EsameException('Esame non esistente');
+                throw new XEsameException('Esame non esistente');
             }
         }
         else

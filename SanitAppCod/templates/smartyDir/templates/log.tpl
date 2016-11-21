@@ -6,9 +6,6 @@
 {else}
     <div id="logInFormDiv">
         <form class="log logInForm" id="logInForm">
-            {if isset($errore)}
-                <div id="erroreLogIn">{$errore}</div>  
-            {/if}
             <input type="hidden" name="controller" value="autenticazione"/>
 
             <label for="usernameLogIn">Username</label>
