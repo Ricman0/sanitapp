@@ -11,7 +11,7 @@
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class XClinicaException extends Exception{
+class XClinicaException extends XUserException{
     /**
      * Costruttore di XClinicaException
      * 

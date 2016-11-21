@@ -11,7 +11,7 @@
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class XMedicoException extends Exception{
+class XMedicoException extends XUserException{
     /**
      * Costruttore di XMedicoException 
      * 

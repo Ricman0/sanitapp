@@ -11,7 +11,7 @@
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class XUtenteException extends Exception{
+class XUtenteException extends XUserException{
     /**
      * Costruttore di XUtenteException
      * 

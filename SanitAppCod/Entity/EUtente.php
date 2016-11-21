@@ -409,9 +409,10 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo che consente di cercare tutte le prenotazioni di un utente
+     * Metodo che consente di cercare tutte le prenotazioni dell'utente
      * 
      * @access public
+     * @throws XDBException Se la query non è stata eseguita con successo
      * @return Array Un array contenente tutte le prenotazione di un utente
      */
     public function cercaPrenotazioni() {

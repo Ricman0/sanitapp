@@ -6,12 +6,22 @@
 
 $(document).ready(function () {
     $('#headerMain').on("click", "#ricercaEsamiCerca", function () {
-        inviaDatiForm();
+        var id = $(this).attr('id');// id= ricercaEsamiCerca 
+        alert (id);
+        //this si riferisce al button ricercaEsamiCerca. Io cerco il div più vicino che abbia come id contenutoAreaPersonale 
+        // e poi prendo id che ovviamente è contenutoAreaPersonale.
+        var ajaxDiv = "#" + $(this).closest('div[id=contenutoAreaPersonale]').prop('id');
+        if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
+        {
+           ajaxDiv = '#main';
+        }
+        inviaDatiForm(ajaxDiv);
     });
 });
 
-function inviaDatiForm()
+function inviaDatiForm(ajaxDiv)
 {
+    
     var controller = $("#controllerFormRicercaEsami").val();
     var nomeClinica = (($("#nomeClinicaFormRicercaEsami").val()).toLowerCase()).trim();
     nomeClinica = nomeClinica.replace(" ", "_");
@@ -68,7 +78,6 @@ function inviaDatiForm()
 
         }
     }
-
     $.ajax({
         //url della risorsa alla quale viene inviata la richiesta
         // url:  "index.php",
@@ -79,7 +88,7 @@ function inviaDatiForm()
         success: function (msg)
         {
             alert("Dati ricerca esame inviati per effettuare la registrazione");
-            $("#main").html(msg);
+            $(ajaxDiv).html(msg);
             $("#tabellaEsami").tablesorter({
                 theme: 'blue',
                 widgets: ["filter"],

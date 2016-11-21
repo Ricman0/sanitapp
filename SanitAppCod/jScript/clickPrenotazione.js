@@ -7,7 +7,13 @@ $(document).ready(function (){
     $('#headerMain').on("click", "#aggiungiPrenotazioneButton", function(){
         var id = $("#aggiungiPrenotazioneButton").attr("data-idEsame");
         var codiceFiscale = $("#aggiungiPrenotazioneButton").attr("data-codiceFiscale");
-        prenotazione('prenotazione', 'esame', id, codiceFiscale, "#main"); 
+        var ajaxDiv = "#" + $(this).closest('div[id=contenutoAreaPersonale]').prop('id');
+        alert(ajaxDiv);
+        if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
+        {
+           ajaxDiv = '#main';
+        }
+        prenotazione('prenotazione', 'esame', id, codiceFiscale, ajaxDiv); 
     });
 
     $('#headerMain').on('click', '.orarioDisponibile', function() {
@@ -23,11 +29,23 @@ $(document).ready(function (){
         var orarioPrenotazione = $('#nextPrenotazioneEsame').attr('data-orario');
         var dataPrenotazione = $('#nextPrenotazioneEsame').attr('data-data');
         var cfPrenotazione = $('#nextPrenotazioneEsame').attr('data-codiceFiscale');
-        inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, "#main");
+        var ajaxDiv = "#" + $(this).closest('div[id=contenutoAreaPersonale]').prop('id');
+        alert(ajaxDiv);
+        if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
+        {
+           ajaxDiv = '#main';
+        }
+        inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, ajaxDiv);
     });
     
     $('#headerMain').on("click", "#confermaPrenotazione", function(){
-        confermaPrenotazione('prenotazione', 'conferma', "#main");
+        var ajaxDiv = "#" + $(this).closest('div[id=contenutoAreaPersonale]').prop('id');
+        alert(ajaxDiv);
+        if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
+        {
+           ajaxDiv = '#main';
+        }
+        confermaPrenotazione('prenotazione', 'conferma', ajaxDiv);
     });
     
     $('#headerMain').on("click", "#cancellaPrenotazione", function(){

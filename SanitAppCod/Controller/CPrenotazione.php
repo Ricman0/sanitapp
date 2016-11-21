@@ -98,123 +98,65 @@ class CPrenotazione {
 //        $codiceFiscaleUtente = "";
         switch ($task) {                
             case 'visualizza':
-                switch ($tipoUser) 
+            $idPrenotazione = $vPrenotazioni->recuperaValore('id');
+            if ($idPrenotazione === FALSE)
+            {
+                $this->tryVisualizzaPrenotazioni();
+            }
+            else
+            {
+                $ePrenotazione = new EPrenotazione($idPrenotazione); // potrebbe lanciare PrenotazioneException('Prenotazione non trovata');
+                $idEsame = $ePrenotazione->getIdEsamePrenotazione();
+                $eEsame = new EEsame($idEsame); // potrebbe lanciare EsameException('Esame non esistente')
+                $nomeEsame = $eEsame->getNomeEsame();
+                $medicoEsame = $eEsame->getMedicoEsame();
+                $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(), $ePrenotazione->getPartitaIVAPrenotazione(),$idEsame);
+                $idReferto = $eReferto->getIDReferto();  
+                if ($tipoUser !== 'clinica')
                 {
+                  $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
+                  $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare XClinicaException('Clinica inesistente')                      
+                }
+                switch ($tipoUser) {
                     case 'utente':
-                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
-                        if ($idPrenotazione === FALSE) 
+                        if($ePrenotazione->getTipoPrenotazione()==='U')
                         {
-                            //visualizza tutte le prenotazioni 
-                            $username = $sessione->leggiVariabileSessione('usernameLogIn');
-                            $eUtente = new EUtente(NULL, $username);
-                            $prenotazioniUtente = $eUtente->cercaPrenotazioni();
-                            if (!is_bool($prenotazioniUtente)) 
-                            {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, $prenotazioniUtente);
-                            } 
-                            else 
-                            {
-                                //errore 
-                                echo "errore in Cprenotazione VisualizzaPrenotazioni in utente";// da eliminare questa riga, è solo per il debug veloce
-                            }
-                        } 
-                        else {
-                            // attenzione controllare la progettazione di  Prenotazione
-                            $ePrenotazione = new EPrenotazione($idPrenotazione);
-                            $idEsame = $ePrenotazione->getIdEsamePrenotazione();
-                            $eEsame = new EEsame($idEsame);
-                            $nomeEsame = $eEsame->getNomeEsame();
-                            $medicoEsame = $eEsame->getMedicoEsame();
-                            $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
-                            $eClinica = new EClinica(NULL, $partitaIVA);
-                            if($ePrenotazione->getTipoPrenotazione()==='U')
-                            {
-                                $eUtente = new EUtente($ePrenotazione->getUtentePrenotaEsamePrenotazione());
-                                $nome = $eUtente->getNomeUtente();
-                                $cognome = $eUtente->getCognomeUtente();
-                            }
-                            else
-                            {
-                                $eMedico = new EMedico($ePrenotazione->getMedicoPrenotaEsamePrenotazione());
-                                $nome = $eMedico->getNomeMedico();
-                                $cognome = $eMedico->getCognomeMedico();
-                            }
-                            $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
-                            $idReferto = $eReferto->getIDReferto();
-                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome);
+                            $eUtente = new EUtente($ePrenotazione->getUtentePrenotaEsamePrenotazione());
+                            $nome = $eUtente->getNomeUtente();
+                            $cognome = $eUtente->getCognomeUtente();
                         }
+                        else
+                        {
+                            $eMedico = new EMedico($ePrenotazione->getMedicoPrenotaEsamePrenotazione());
+                            $nome = $eMedico->getNomeMedico();
+                            $cognome = $eMedico->getCognomeMedico();
+                        }
+                        $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome);
                         break;
-                        
-                        case 'medico':
-                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
-                        if ($idPrenotazione === FALSE) 
-                        {
-                            //visualizza tutte le prenotazioni 
-                            $this->visualizzaPrenotazioni();
-                        } 
-                        else 
-                        {
-                            //visualizzare una sola prenotazione
-                           
-                            // attenzione controllare la progettazione di  Prenotazione
-                            $ePrenotazione = new EPrenotazione($idPrenotazione); // potrebbe lanciare PrenotazioneException('Prenotazione non trovata');
-                            $idEsame = $ePrenotazione->getIdEsamePrenotazione();
-                            $eEsame = new EEsame($idEsame); // potrebbe lanciare EsameException('Esame non esistente')
-                            $nomeEsame = $eEsame->getNomeEsame();
-                            $medicoEsame = $eEsame->getMedicoEsame();
-                            $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
-                            $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare ClinicaException('Clinica inesistente')                      
+                    
+                    case 'medico':
+                          
                             $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione()); // potrebbe lanciare UtenteException('Utente non esistente')
                             $nome = $eUtente->getNomeUtente();
-                            $cognome = $eUtente->getCognomeUtente();    
-                            $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
-                            $idReferto = $eReferto->getIDReferto();
+                            $cognome = $eUtente->getCognomeUtente(); 
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL) ;
-                        }
                         break;
-
-                    case 'clinica':
-                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
-                        if ($idPrenotazione === FALSE) //si vogliono visualizzare tutte le prenotazioni
-                        {
-                            $eClinica = new EClinica($username);
-                            $prenotazioniClinica = $eClinica->cercaPrenotazioni();
-                            if (!is_bool($prenotazioniClinica)) 
-                            {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, $prenotazioniClinica);
-                            } 
-                            else {
-                                echo "errore in Cprenotazione VisualizzaPrenotazioni in clinica";
-                            }
-                        }
-                        else // visualizza una sola prenotazione 
-                        {                            
-                            $ePrenotazione = new EPrenotazione($idPrenotazione);
-                            $CFUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
-                            $eUtente = new EUtente($CFUtente);
-                            $nomeUtente = $eUtente->getNomeUtente();
-                            $cognomeUtente = $eUtente->getCognomeUtente();
-                            $idEsame = $ePrenotazione->getIdEsamePrenotazione();
-                            $eEsame = new EEsame($idEsame);
-                            $nomeEsame = $eEsame->getNomeEsame();
-                            $medicoEsame = $eEsame->getMedicoEsame();
-                            $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(), $ePrenotazione->getPartitaIVAPrenotazione(),$idEsame);
-                            $idReferto = $eReferto->getIDReferto();
-                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
-                        }
+                    
+                    case 'clinica': 
+                        $CFUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
+                        $eUtente = new EUtente($CFUtente);
+                        $nomeUtente = $eUtente->getNomeUtente();
+                        $cognomeUtente = $eUtente->getCognomeUtente();                       
+                        $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
                         break;
-                        
-                    default :
-                        echo 'non sono utete non sono clinica';
-                    break;
-
-                    case 'medico':
-                        break;
+                    
+                                   
 
                     default:
-                        echo "che tipo utente hai??";
+                        $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni(NULL, NULL, TRUE);
                         break;
                 }
+            }
 
 
 
@@ -270,30 +212,21 @@ class CPrenotazione {
                        // Se la query per eliminare la prenotazione specificata non è stata eseguita con successo
                      $vPrenotazione->prenotazioneEliminata(FALSE);
                 }  
-                catch (XUtenteException $e)
+                catch (XUserException $e)
                 {
-                       // Se l'utente non esiste   
+                       // Se l'utente non esiste o se la clinica non esiste   
                     $vPrenotazione->prenotazioneEliminata(TRUE, FALSE);
                 }
                 catch (XEsameException $e)
                 {
                        //Se l'esame non esiste 
                     $vPrenotazione->prenotazioneEliminata(TRUE, FALSE);
-                }
-                catch (XClinicaException $e)
-                {
-                       // Se la clinica  è inesistente 
-                    $vPrenotazione->prenotazioneEliminata(TRUE, FALSE);
-                }
-                
+                }             
                 catch (XMailException $e)
                 {
                        // Se l'email non è inviata   
                     $vPrenotazione->prenotazioneEliminata(TRUE, FALSE);
                 }
-                
-                
-                
                 break;
             
             case 'conferma':
@@ -415,27 +348,197 @@ class CPrenotazione {
         }
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public function visualizzaPrenotazioneOPrenotazioni() {
+        switch ($tipoUser) 
+                {
+                    case 'utente':
+                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
+                        if ($idPrenotazione === FALSE) 
+                        {
+                            try
+                            {
+                                //visualizza tutte le prenotazioni 
+                                $this->visualizzaPrenotazioniUtente();
+                            }
+                            catch(XUtenteException $e)
+                            {
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, TRUE);
+                            }
+                            catch(XDBException $e)
+                            {
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, $e->getMessage() );
+                            }                            
+                        } 
+                        else {
+                            // attenzione controllare la progettazione di  Prenotazione
+                            $ePrenotazione = new EPrenotazione($idPrenotazione);
+                            $idEsame = $ePrenotazione->getIdEsamePrenotazione();
+                            $eEsame = new EEsame($idEsame);
+                            $nomeEsame = $eEsame->getNomeEsame();
+                            $medicoEsame = $eEsame->getMedicoEsame();
+                            $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
+                            $eClinica = new EClinica(NULL, $partitaIVA);
+                            if($ePrenotazione->getTipoPrenotazione()==='U')
+                            {
+                                $eUtente = new EUtente($ePrenotazione->getUtentePrenotaEsamePrenotazione());
+                                $nome = $eUtente->getNomeUtente();
+                                $cognome = $eUtente->getCognomeUtente();
+                            }
+                            else
+                            {
+                                $eMedico = new EMedico($ePrenotazione->getMedicoPrenotaEsamePrenotazione());
+                                $nome = $eMedico->getNomeMedico();
+                                $cognome = $eMedico->getCognomeMedico();
+                            }
+                            $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
+                            $idReferto = $eReferto->getIDReferto();
+                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome);
+                        }
+                        break;
+                        
+                        case 'medico':
+                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
+                        if ($idPrenotazione === FALSE) 
+                        {
+                            //visualizza tutte le prenotazioni 
+                            $this->visualizzaPrenotazioniMedico();
+                        } 
+                        else 
+                        {
+                            //visualizzare una sola prenotazione
+                           
+                            // attenzione controllare la progettazione di  Prenotazione
+                            $ePrenotazione = new EPrenotazione($idPrenotazione); // potrebbe lanciare PrenotazioneException('Prenotazione non trovata');
+                            $idEsame = $ePrenotazione->getIdEsamePrenotazione();
+                            $eEsame = new EEsame($idEsame); // potrebbe lanciare EsameException('Esame non esistente')
+                            $nomeEsame = $eEsame->getNomeEsame();
+                            $medicoEsame = $eEsame->getMedicoEsame();
+                            $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
+                            $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare ClinicaException('Clinica inesistente')                      
+                            $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione()); // potrebbe lanciare UtenteException('Utente non esistente')
+                            $nome = $eUtente->getNomeUtente();
+                            $cognome = $eUtente->getCognomeUtente();    
+                            $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
+                            $idReferto = $eReferto->getIDReferto();
+                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL) ;
+                        }
+                        break;
+
+                    case 'clinica':
+                        
+                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
+                        if ($idPrenotazione === FALSE) //si vogliono visualizzare tutte le prenotazioni
+                        {
+                            try
+                            {
+                                //visualizza tutte le prenotazioni 
+                                $this->visualizzaPrenotazioniClinica();
+                            }
+                            catch(XClinicaException $e)
+                            {
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, TRUE);
+                            }
+                            catch(XDBException $e)
+                            {
+                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, $e->getMessage() );
+                            }
+                            
+                        }
+                        else // visualizza una sola prenotazione 
+                        {                            
+                            $ePrenotazione = new EPrenotazione($idPrenotazione);
+                            $CFUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
+                            $eUtente = new EUtente($CFUtente);
+                            $nomeUtente = $eUtente->getNomeUtente();
+                            $cognomeUtente = $eUtente->getCognomeUtente();
+                            $idEsame = $ePrenotazione->getIdEsamePrenotazione();
+                            $eEsame = new EEsame($idEsame);
+                            $nomeEsame = $eEsame->getNomeEsame();
+                            $medicoEsame = $eEsame->getMedicoEsame();
+                            $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(), $ePrenotazione->getPartitaIVAPrenotazione(),$idEsame);
+                            $idReferto = $eReferto->getIDReferto();
+                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
+                        }
+                        break;
+                        
+                    default :
+                        echo 'non sono utete non sono clinica';
+                    break;
+
+                    default:
+                        $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni(NULL, NULL, TRUE);
+                        break;
+                }
+        
+    }
+    
+    public function tryVisualizzaPrenotazioni() 
+    {
+        try
+                {
+                    $this->visualizzaPrenotazioni();
+                }
+                catch(XUserException $e)
+                {
+                    $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, TRUE);
+                }
+                catch(XDBException $e)
+                {
+                    $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, $e->getMessage() );
+                } 
+    }
+    
+    
     /**
-     * Metodo che consente di visualizzare tutte le prenotazioni di un user
+     * Metodo che consente di visualizzare tutte le prenotazioni di una clinica o di un utente o di un medico
      * 
      * @access private
+     * @throws XClinicaException Se la clinica non esiste
+     * @throws XMedicoException Se l'utente non esiste
+     * @throws XUtenteException Se l'utente non esiste
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     private function visualizzaPrenotazioni() 
     {
-        $sessione = USingleton::getInstance('USession');
+        //visualizza tutte le prenotazioni  
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
+        $sessione = USingleton::getInstance('USession');        
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
-        $eMedico = new EMedico(NULL, $username);// lancia MedicoException
-        $prenotazioniMedico = $eMedico->cercaPrenotazioni();
-        if (is_array($prenotazioniMedico) && count($prenotazioniMedico)>0) 
+        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');        
+        switch ($tipoUser) {
+            case 'utente':
+                $eUser = new EUtente(NULL, $username); //lancia XUtenteException
+                break;
+            case 'medico':
+                $eUser = new EMedico(NULL, $username);// lancia XMedicoException
+                break;
+            case 'clinica':
+                $eUser = new EClinica($username); // lancia XClinicaException
+                break;
+        }
+        $prenotazioni = $eUser->cercaPrenotazioni(); // EUser può essere un utente, un medico o una clinica, 
+        if (is_array($prenotazioni) && count($prenotazioni)>0) 
         {
-            $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni( $tipoUser, $prenotazioniMedico);
+            $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, $prenotazioni);
         } 
         else 
-        {                              
+        {
+            //non sono presenti prenotazioni
             $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser);
         }
     }
+    
+    
 }
 

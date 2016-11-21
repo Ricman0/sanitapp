@@ -26,8 +26,13 @@ function inviaController($controller, ajaxdiv)
             url: $controller ,
             success: function(datiRisposta)
             {
+                
                 alert(datiRisposta);
                 $(ajaxdiv).html(datiRisposta);
+//                if(ajaxdiv === '#contenutoAreaPersonale')
+//                {
+//                    $('#ricercaEsamiCerca').attr('data-AreaPersonale','SI');
+//                }
             },
             error:function()
             {

@@ -98,6 +98,7 @@ class FEsame extends FDatabase {
      * @param string $nomeEsame Il nome dell'esame di cui si vuole fare la ricerca
      * @param string $nomeClinica Il nome della clinica in cui si vuole fare ricerca
      * @param string $luogo Il luogo in cui si trova la clinica
+     * @throws XDBException Se la query non è stata eseguita con successo
      * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
      */
     public function cercaEsame($nomeEsame="all", $nomeClinica="all", $luogo="all") 
