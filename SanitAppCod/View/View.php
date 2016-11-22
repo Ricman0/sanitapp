@@ -169,72 +169,27 @@ class View extends Smarty {
      * @return array le proprietà del file recuperato
      */
     public function recuperaInfoFile($indice) {
-        if ($this->recuperaValore('upload') && $_FILES[$indice]['size'] > 0) {
+        if ($this->recuperaValore('upload') && $_FILES[$indice]['size'] > 0) 
+        {
             $infoFile['uploadDir'] = './uploadedFiles/referti/';
             $infoFile['fileName'] = basename($_FILES[$indice]['name']);
             $infoFile['tmpName'] = $_FILES[$indice]['tmp_name']; //nome temporaneo
             $infoFile['fileSize'] = $_FILES[$indice]['size'];
             $infoFile['fileType'] = $_FILES[$indice]['type'];
-            $infoFile['path'] = $infoFile['uploadDir'];
-            
+            $infoFile['path'] = $infoFile['uploadDir']. $infoFile['fileName'];            
+        }
+         else 
+        {
+            throw new XDatiRefertoException('Non è stato postato alcun file. ');
         }
         return $infoFile;
+    }
+    
+    public function visualizzaFeedback($messaggio) {
         
-        $uploadfile = $uploadDir . basename($fileName);
-        $maxsize = 2 * 2097152;
-        $errors = array();
+        $this->assegnaVariabiliTemplate('messaggio', $messaggio);
+        $this->visualizzaTemplate('feedbacks');
         
-        $formatiAccettati = array(
-            'application/pdf',
-            'image/jpeg',
-            'image/jpg',
-            'image/gif',
-            'image/png'
-        );
-        
-        if (file_exists($uploadfile)) {
-            $errors[] = 'Il file esiste gia';
-        }
-
-        if ($fileSize >= $maxsize) {
-            $errors[] = 'File troppo grande, dimensione massima 4 Mb';
-        }        
-        
-        if ((!in_array($fileType, $formatiAccettati)) && (!empty($fileType))) {
-            $errors[] = 'Tipo file non accattato. Sono accettati PDF, JPG, GIF e PNG.';
-        }
-
-        if (count($errors) === 0) {
-            move_uploaded_file($tmpName, $uploadfile);
-            return $uploadfile;
-        } else {
-            foreach ($errors as $error) {
-                echo '<script>alert("' . $error . '");</script>';
-            }
-        }
-
-        die();
-
-//            $fp = fopen($tmpName, 'r'); //apro il file in modalità solo lettura
-//            $content = fread($fp, filesize($tmpName)); //legge il file fino alla dimensione specificata  nel secondo parametro
-//            $content = $db->trimEscapeStringa($content);
-//            fclose($fp);
-//            
-//            if (move_uploaded_file($tmpName, $uploadfile)) {
-//                echo "File is valid, and was successfully uploaded.\n";
-//} else {
-//    echo "Possibile attacco tramite file upload!\n";
-//}
-//
-//            
-//            $fileName = $db->trimEscapeStringa($fileName);
-//        
-//            return $content;
-//       }
-//        else {
-//                 echo "errore il file non va bene";
-//           
-//       }
     }
 
 }

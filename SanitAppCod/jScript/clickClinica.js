@@ -460,38 +460,40 @@ function uploadReferto()
         type: "POST",
         url: "referto",
         data: dati,
-        dataType: "json",
-        success: function(datiRiposta)
+//        dataType: "html",
+        success: function(datiRisposta)
         { 
             //provo a fare il parse json dei dati risposta
             // ciò genera un errore se non ho json
-            try
-            {
-                var dati = JSON.parse(datiRiposta);
-                alert('Referto inserito con successo');
-                $.ajax({
-                    type:'GET',
-                    url: 'mySanitApp', 
-                    success: function(datiRisposta)
-                    {
-                        $('#contenutoAreaPersonale').html(datiRisposta);
-//                        //aggiungo il campo nascosto codice fiscale 
-//                        $('#contenutoAreaPersonale').append('<form id="formCodiceFiscaleUtentePrenotaEsame" />');
-                    }
-                });
-            }catch(errore)
-                {
-                    alert("Non è stato possibile aggiungere il referto");
-                      $.ajax({
-                          type:'GET',
-//                          url: 'mySanitApp',
-                          url: 'prenotazioni/visualizza',
-                          success: function(datiRisposta)
-                          {
-                              $('#contenutoAreaPersonale').html(datiRisposta);
-                          }
-                      });
-                }
+            
+            $('#contenutoAreaPersonale').html(datiRisposta);
+//            try
+//            {
+//                var dati = JSON.parse(datiRiposta);
+//                alert('Referto inserito con successo');
+//                $.ajax({
+//                    type:'GET',
+//                    url: 'mySanitApp', 
+//                    success: function(datiRisposta)
+//                    {
+//                        
+////                        //aggiungo il campo nascosto codice fiscale 
+////                        $('#contenutoAreaPersonale').append('<form id="formCodiceFiscaleUtentePrenotaEsame" />');
+//                    }
+//                });
+//            }catch(errore)
+//                {
+//                    alert("Non è stato possibile aggiungere il referto");
+//                      $.ajax({
+//                          type:'GET',
+////                          url: 'mySanitApp',
+//                          url: 'prenotazioni/visualizza',
+//                          success: function(datiRisposta)
+//                          {
+//                              $('#contenutoAreaPersonale').html(datiRisposta);
+//                          }
+//                      });
+//                }
         }
        
     });

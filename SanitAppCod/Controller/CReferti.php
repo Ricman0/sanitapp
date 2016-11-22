@@ -107,8 +107,17 @@ class CReferti {
         $task = $vReferti->getTask();
         switch ($task) {
             case 'upload':
+                try
+                {
+                    $this->uploadReferto();
+                } 
+                catch (XDatiRefertoException $e) {
+                    print_r( $e->getMessage());
+                    $vReferti->visualizzaFeedback($messaggio);
+                    
+
+                }
                 
-                $this->uploadReferto();
 
                 break;
 
@@ -123,16 +132,16 @@ class CReferti {
         $infoFile = $vReferti->recuperaInfoFile('referto');
         if ($uValidazione->validaDatiReferto($infoFile)){
             $datiReferto = $vReferti->recuperaDatiReferto();
+            print_r($datiReferto);
             $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['partitaIVA'], $datiReferto['idEsame'], $datiReferto['medicoEsame'], $infoFile['fileName']);
             $eReferto->spostaReferto($infoFile['tmpName']);
             if ($eReferto->inserisciReferto()) {
-                $vJson = USingleton::getInstance('VJSON');
-                $vJson->inviaDatiJSON('Referto inserito correttamente');
+                $vReferti->refertoAggiunto();
             }
         }
         else
             {
-            throw new XDatiRefertoException($uValidazione->getDatiErrati);
+            throw new XDatiRefertoException($uValidazione->getDatiErrati());
         }
     }
 

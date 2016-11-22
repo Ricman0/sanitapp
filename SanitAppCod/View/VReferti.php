@@ -67,10 +67,17 @@ class VReferti extends View{
         
         $datiReferto['idPrenotazione'] = $this->recuperaValore('idPrenotazione');
         $datiReferto['idEsame'] = $this->recuperaValore('idEsame');
-        $datiReferto['partitaIVA'] = $this->recuperaValore('partitaIVA');
+        $datiReferto['partitaIVA'] = $this->recuperaValore('partitaIva');
         $datiReferto['medicoEsame'] = $this->recuperaValore('medicoEsame');
         return $datiReferto;
 
     }
     
+    public function refertoAggiunto() {
+        $messaggio = 'Il referto è stato aggiunto correttamente.';   
+        $this->assegnaVariabiliTemplate('messaggio', $messaggio);
+        $this->visualizzaTemplate('feedbacks');
+//        $this->visualizzaFeedback($messaggio);
+        
+    }
 }

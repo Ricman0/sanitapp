@@ -95,7 +95,7 @@ class FReferto extends FDatabase{
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
     private function getAttributi($referto) {        
-        
+        echo('ciao '. $referto->getPartitaIvaClinica());
         $valoriAttributi = "'" . $referto->getIDReferto() . "', '" 
                 . $this->trimEscapeStringa($referto->getIDPrenotazione()) . "', '" 
                 . $this->trimEscapeStringa($referto->getIDEsame()) . "', '" 
@@ -121,6 +121,7 @@ class FReferto extends FDatabase{
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
         $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
+        
         // eseguo la query
         return $this->eseguiQuery($query);
     }

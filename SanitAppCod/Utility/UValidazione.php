@@ -312,8 +312,13 @@ class UValidazione {
         }
     }
     
+    
+    /**
+     * Valida i dati del referto come la dimensione massima, il formato del file e controlla l'esistenza del file
+     * @param array $datiDaValidare un array contenente i dati relativi al referto da validare
+     * @return type
+     */
     public function validaDatiReferto($datiDaValidare) {
-        
         
         $this->_validati = TRUE;
         

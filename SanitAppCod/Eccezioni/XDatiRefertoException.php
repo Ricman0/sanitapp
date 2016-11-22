@@ -11,17 +11,26 @@
  *
  * @author Riccardo
  */
-class XDatiRefertoException {
+class XDatiRefertoException extends Exception{
     
     /**
      * Costruttore di XDatiRefertoException
      * 
-     * @param Array $messaggi I messaggi dell'eccezione
+     * @param Array|string $messaggi I messaggi dell'eccezione
      */
     public function __construct($messaggi) {
-        foreach ($messaggi as $value) {
+        if(is_array($messaggi))
+        {
+            $messaggio = '';
+            foreach ($messaggi as $value) {
             $messaggio .= $value;
+            }
         }
+        else
+        {
+            $messaggio = $messaggi;
+        }
+        
         parent::__construct($messaggio);
         
     }
