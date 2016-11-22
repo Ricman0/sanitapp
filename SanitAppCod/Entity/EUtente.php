@@ -460,5 +460,17 @@ class EUtente extends EUser {
         $fUtente = USingleton::getInstance('FUtente');
         return $fUtente->modificaPassword(parent::getUsername(), parent::getPassword());
     }
+    
+    /**
+     * Metodo che consente di controllare se un utente può effettuare una prenotazione.
+     * L'applicazione non permette ad un utente di prenotarsi per uno stesso esame lo stesso giorno nella stessa clinica 
+     * e di prenotarsi per qualsiasi esame in una qualsiasi clinica durante l'orario di un esame già prenotato da lui.
+     * 
+     * @access public
+     */
+    public function checkIfCan() 
+    {
+        
+    }
 
 }

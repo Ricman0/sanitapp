@@ -270,34 +270,34 @@ class CPrenotazione {
             case 'riepilogo':
                     $sessione = USingleton::getInstance('USession'); 
                     $username = $sessione->leggiVariabileSessione('usernameLogIn');
-                    $idEsame = $vPrenotazione->recuperaValore('id');// devo inserire 1 if???
-                    echo "$idEsame";
+                    $idEsame = $vPrenotazione->recuperaValore('id');// devo inserire 1 if???      
                     $eEsame = new EEsame($idEsame);
                     $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
                     echo "$partitaIVAClinica";
                     $eClinica = new EClinica(NULL, $partitaIVAClinica);
                     $data = $vPrenotazione->recuperaValore('data');
                     $orario = $vPrenotazione->recuperaValore('orario');
+                    $eUtente;
                     if ($sessione->leggiVariabileSessione('tipoUser') === 'utente') 
                     {
                         $eUtente = new EUtente(NULL, $username);
                         $codice = $eUtente->getCodiceFiscaleUtente();
-                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
+//                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
                     } 
                     elseif ($sessione->leggiVariabileSessione('tipoUser') === 'medico') 
                     {
                         $codice = $vPrenotazione->recuperaValore('codice');
                         $eUtente = new EUtente($codice);
-                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
+//                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
                     } 
                     else 
                     {
                         // tipoUser = clinica
                         $codice = $vPrenotazione->recuperaValore('codice');
                         $eUtente = new EUtente($codice);                      
-                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice, $codice);
-                        
+//                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice, $codice); 
                     }
+                    $eUtente->checkIfCan();
                     break;
             default:
                 break;
