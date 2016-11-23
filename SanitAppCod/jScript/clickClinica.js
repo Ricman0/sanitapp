@@ -102,7 +102,7 @@ $(document).ready(function () {
         var id = $("#aggiungiRefertoButton").attr("data-idPrenotazione");
         aggiuntaReferto(id); 
     });
-//    
+    
 //    $('#headerMain').on("click", "#uploadReferto", function(){
 //        uploadReferto(); 
 //    });
@@ -458,14 +458,14 @@ function uploadReferto()
 
     $.ajax({
         type: "POST",
-        url: "referto",
+        url: "referto/upload",
         data: dati,
 //        dataType: "html",
         success: function(datiRisposta)
         { 
             //provo a fare il parse json dei dati risposta
             // ciò genera un errore se non ho json
-            
+            alert(datiRisposta);
             $('#contenutoAreaPersonale').html(datiRisposta);
 //            try
 //            {

@@ -468,8 +468,16 @@ class EUtente extends EUser {
      * 
      * @access public
      */
-    public function checkIfCan() 
+    public function checkIfCan($idEsame, $partitaIVA, $data, $ora, $durata) 
     {
+        $canBook = TRUE;
+        $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+        $prenotazioni = $fPrenotazioni->cercaTraPrenotazioni($this->_codFiscale, $idEsame, $partitaIVA, $data, $ora, $durata);
+        if(is_array($prenotazioni) && count($prenotazioni)>0)
+        {
+            $canBook = FALSE; // non si può prenotare
+        }
+        return $canBook;
         
     }
 

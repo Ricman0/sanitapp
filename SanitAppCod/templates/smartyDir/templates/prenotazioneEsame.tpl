@@ -17,4 +17,4 @@
 </div>
 <br>
 <br>
-<input type="button" id="nextPrenotazioneEsame" value="next" data-idEsame="{$idEsame}" data-idClinica="{$partitaIVA}" data-orario="" data-data="" />
+<input type="button" id="nextPrenotazioneEsame" value="next" data-idEsame="{$idEsame}" data-durata="{$durataEsame}" data-idClinica="{$partitaIVA}" data-orario="" data-data="" />

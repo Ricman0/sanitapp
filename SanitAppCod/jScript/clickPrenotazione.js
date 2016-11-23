@@ -29,13 +29,14 @@ $(document).ready(function (){
         var orarioPrenotazione = $('#nextPrenotazioneEsame').attr('data-orario');
         var dataPrenotazione = $('#nextPrenotazioneEsame').attr('data-data');
         var cfPrenotazione = $('#nextPrenotazioneEsame').attr('data-codiceFiscale');
+        var durataEsame = $('#nextPrenotazioneEsame').attr('data-durata');
         var ajaxDiv = "#" + $(this).closest('div[id=contenutoAreaPersonale]').prop('id');
         alert(ajaxDiv);
         if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
         {
            ajaxDiv = '#main';
         }
-        inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, ajaxDiv);
+        inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, durataEsame, ajaxDiv);
     });
     
     $('#headerMain').on("click", "#confermaPrenotazione", function(){
@@ -123,9 +124,9 @@ function confermaPrenotazione(controller, task, ajaxDiv)
         });
 }
 
-function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, ajaxDiv)
+function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, durataEsame, ajaxDiv)
 {
-    var dati = "id=" + idEsame + "&data=" + dataPrenotazione +"&orario=" + orarioPrenotazione +"&codice=" + cfPrenotazione;
+    var dati = "id=" + idEsame + "&data=" + dataPrenotazione +"&orario=" + orarioPrenotazione +"&codice=" + cfPrenotazione +"&durata=" + durataEsame ;
     $.ajax({
         
         type: 'POST',

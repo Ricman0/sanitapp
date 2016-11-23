@@ -49,8 +49,9 @@ class CPrenotazione {
                         $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
                         $eClinica = new EClinica(NULL, $partitaIVAClinica);
                         $nomeEsame = $eEsame->getNomeEsame();
+                        $durataEsame = $eEsame->getDurataEsame();
                         $nomeClinica = $eClinica->getNomeClinica();
-                        $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id);
+                        $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id, $durataEsame);
                     }
                     break;
 
@@ -270,6 +271,7 @@ class CPrenotazione {
             case 'riepilogo':
                     $sessione = USingleton::getInstance('USession'); 
                     $username = $sessione->leggiVariabileSessione('usernameLogIn');
+                    $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
                     $idEsame = $vPrenotazione->recuperaValore('id');// devo inserire 1 if???      
                     $eEsame = new EEsame($idEsame);
                     $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
@@ -277,7 +279,9 @@ class CPrenotazione {
                     $eClinica = new EClinica(NULL, $partitaIVAClinica);
                     $data = $vPrenotazione->recuperaValore('data');
                     $orario = $vPrenotazione->recuperaValore('orario');
+                    $durata = $vPrenotazione->recuperaValore('durata');
                     $eUtente;
+                    $codice;
                     if ($sessione->leggiVariabileSessione('tipoUser') === 'utente') 
                     {
                         $eUtente = new EUtente(NULL, $username);
@@ -297,7 +301,26 @@ class CPrenotazione {
                         $eUtente = new EUtente($codice);                      
 //                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice, $codice); 
                     }
-                    $eUtente->checkIfCan();
+                    if($eUtente->checkIfCan($idEsame, $partitaIVAClinica, $data, $orario, $durata)===TRUE)
+                    {
+                        switch ($tipoUser) {
+                            case 'utente':
+                            case 'medico':
+                                $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice);
+                                break;
+
+                            case 'clinica':
+                                $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice, $codice); 
+                                break;
+                        }
+                    }
+                    else 
+                    {
+                        $feedback="Non puoi effettuare questa prenotazione.\n Hai già una prenotazione per questa esame  o  hai una prenotazione durante l'orario di questo esame";
+   
+        
+                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($feedback);
+                    }
                     break;
             default:
                 break;

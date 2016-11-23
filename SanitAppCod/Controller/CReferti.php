@@ -135,7 +135,8 @@ class CReferti {
             print_r($datiReferto);
             $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['partitaIVA'], $datiReferto['idEsame'], $datiReferto['medicoEsame'], $infoFile['fileName']);
             $eReferto->spostaReferto($infoFile['tmpName']);
-            if ($eReferto->inserisciReferto()) {
+            if ($eReferto->inserisciReferto()) 
+            {
                 $vReferti->refertoAggiunto();
             }
         }
