@@ -467,13 +467,20 @@ class EUtente extends EUser {
      * e di prenotarsi per qualsiasi esame in una qualsiasi clinica durante l'orario di un esame già prenotato da lui.
      * 
      * @access public
+     * @param string $idEsame L'id dell'esame di cui l'utente vuole effettuare la prenotazione
+     * @param string $partitaIVA La partita IVA della clinica in cui intende prenotarsi l'utente
+     * @param string $data La data della prenotazione(dd-mm-yyyy)
+     * @param string $ora L'orario della prenotazione (mm:ss)
+     * @param string $durata La durata della prenotazione(hh:mm:ss)
+     * @throws XDBException Se c'è un errore durante l'esecuzione della query
+     * @return boolean TRUE se l'utente può effettuare la prenotazione, FALSE altrimenti
      */
     public function checkIfCan($idEsame, $partitaIVA, $data, $ora, $durata) 
     {
         $canBook = TRUE;
         $fPrenotazioni = USingleton::getInstance('FPrenotazione');
         $prenotazioni = $fPrenotazioni->cercaTraPrenotazioni($this->_codFiscale, $idEsame, $partitaIVA, $data, $ora, $durata);
-        if(is_array($prenotazioni) && count($prenotazioni)>0)
+        if(is_array($prenotazioni) && count($prenotazioni)>0)// se ci sono prenotazioni
         {
             $canBook = FALSE; // non si può prenotare
         }

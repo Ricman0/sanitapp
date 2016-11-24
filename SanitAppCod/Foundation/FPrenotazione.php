@@ -187,33 +187,29 @@ class FPrenotazione extends FDatabase{
      * o se lo stesso utente ha già prenotazioni durante un determinato periodo.
      * 
      * @access public
-     * @param type $cfUtente
-     * @param type $idEsame
-     * @param type $partitaIVA
-     * @param type $data
-     * @param type $ora
-     * @param type $durata
-     * @return type
+     * @param string $cfUtente Il codice fiscale dell'utente che intende eseguire la prenotazione
+     * @param string $idEsame L'id dell'esame di cui l'utente vuole effettuare la prenotazione
+     * @param string $partitaIVA La partita IVA della clinica in cui intende prenotarsi l'utente
+     * @param string $data La data della prenotazione(dd-mm-yyyy)
+     * @param string $ora L'orario della prenotazione (mm:ss)
+     * @param string $durata La durata della prenotazione(hh:mm:ss)
+     * @throws XDBException Se c'è un errore durante l'esecuzione della query
+     * @return Array Il risultato della query multipla. Ogni elemento dell'array è una prenotazione
      */
     public function cercaTraPrenotazioni($cfUtente, $idEsame, $partitaIVA, $data, $ora, $durata)
     {
-//        $durata = DATE_FORMAT($durata, %H %i);
-//        $durata = date_format($object, $format)
-//        $orario1 = "DATE_FORMAT(DataEOra, %H %i)";
-//        TIME(DataEOra) 
-        
-        
         $ora = date( "H:i:s", strtotime( $ora ) ); // trasformo $ora  dal formato hh:mm nel formato hh:mm:ss
         $data = strtotime($data); // converto la stringa in un intero che indica la data in tempo
         $data = date('Y-m-d',$data); // converto la data in tempo in data secondo il formato per confrontarlo con la data del DB
-       
-        $durata = date_parse( $durata );
-
+        $durata = date_parse( $durata ); // rendo un array la stringa durata
         $ora2 = date( "H:i:s", strtotime( $ora . "+" . $durata['minute'] . " minutes" ) );//aggiungo minuti della durata
         $ora2 = date( "H:i:s", strtotime( $ora2 . "+" . $durata['hour'] . " hours" ) );// aggiungo le ora della durata
-        
-        
-        
+        /*
+         * Con la prima query mi accerto che non ci siano prenotazioni 
+         * in quel giorno per quell'esame per quell'utente in quella clinica.
+         * Con la seconda query mi accerto che l'utente non abbia prenotazioni 
+         * durante l'orario di svolgimento dell'esame che vuole andara a prenotare
+         */
         $queryMultipla = "SELECT * "
                 . "FROM prenotazione "
                 . "WHERE (IDEsame='" . $idEsame . "' AND "
@@ -225,31 +221,8 @@ class FPrenotazione extends FDatabase{
                 . "WHERE (CodFiscaleUtenteEffettuaEsame='" . $cfUtente . "' AND "
                 . "DATE(DataEOra)='" . $data . "' AND "
                 . "TIME(DataEOra) BETWEEN  '". $ora . "' AND '" . $ora2 . "')"; // cerco tra inizio della prenotazione e la fine della prenotazione;
-  
-        print_r($queryMultipla);
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
-        
-        
-   
-        print_r($risultato);
-        return $risultato;
-                
+        return $risultato;                
     }
     
-//    $query =  "SELECT Username, Password, 'Utente', "
-//                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
-//                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
-//                    . "FROM utente WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-//                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)); "
-//                    . "SELECT Username, Password, 'Medico', "
-//                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
-//                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
-//                    . "FROM medico WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-//                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)); "
-//                    . "SELECT Username, Password, 'Clinica', "
-//                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
-//                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
-//                    . "FROM clinica WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-//                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE));";
-//            $risultato = $fDatabase->eseguiQueryMultiple($query);
 }

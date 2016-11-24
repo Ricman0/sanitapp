@@ -9,6 +9,7 @@
 /**
  * Description of XValoreInesistenteException
  *
+ * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class XValoreInesistenteException extends Exception{

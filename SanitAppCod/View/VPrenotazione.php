@@ -31,9 +31,9 @@ class VPrenotazione extends View{
         $this->visualizzaTemplate('prenotazioneEliminata');
     }
     
-    public function restituisciPaginaRiepilogoPrenotazione($feedback, $eEsame=NULL, $eClinica=NULL, $eUtente=NULL, $data=NULL, $orario=NULL, $codice=NULL)
+    public function restituisciPaginaRiepilogoPrenotazione($errore, $eEsame=NULL, $eClinica=NULL, $eUtente=NULL, $data=NULL, $orario=NULL, $codice=NULL)
     {
-        if(!isset($feedback))
+        if(!isset($errore))
         {
           $this->assegnaVariabiliTemplate('codice', $codice);
             $this->assegnaVariabiliTemplate('utente', $eUtente);
@@ -44,7 +44,7 @@ class VPrenotazione extends View{
         }
         else 
         {
-            $this->assegnaVariabiliTemplate('messaggio', $feedback);
+            $this->assegnaVariabiliTemplate('messaggio', $errore);
             $feedbackTpl = $this->prelevaTemplate('feedbacks');
             $this->assegnaVariabiliTemplate('feedbacks', $feedbackTpl);
             

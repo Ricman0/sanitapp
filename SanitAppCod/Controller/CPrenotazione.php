@@ -269,59 +269,37 @@ class CPrenotazione {
                 break;
             
             case 'riepilogo':
-                    $sessione = USingleton::getInstance('USession'); 
-                    $username = $sessione->leggiVariabileSessione('usernameLogIn');
-                    $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
-                    $idEsame = $vPrenotazione->recuperaValore('id');// devo inserire 1 if???      
-                    $eEsame = new EEsame($idEsame);
-                    $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
-                    echo "$partitaIVAClinica";
-                    $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                    $data = $vPrenotazione->recuperaValore('data');
-                    $orario = $vPrenotazione->recuperaValore('orario');
-                    $durata = $vPrenotazione->recuperaValore('durata');
-                    $eUtente;
-                    $codice;
-                    if ($sessione->leggiVariabileSessione('tipoUser') === 'utente') 
-                    {
-                        $eUtente = new EUtente(NULL, $username);
-                        $codice = $eUtente->getCodiceFiscaleUtente();
-//                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
-                    } 
-                    elseif ($sessione->leggiVariabileSessione('tipoUser') === 'medico') 
-                    {
-                        $codice = $vPrenotazione->recuperaValore('codice');
-                        $eUtente = new EUtente($codice);
-//                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice);
-                    } 
-                    else 
-                    {
-                        // tipoUser = clinica
-                        $codice = $vPrenotazione->recuperaValore('codice');
-                        $eUtente = new EUtente($codice);                      
-//                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($eEsame, $eClinica, $eUtente, $data, $orario, $codice, $codice); 
-                    }
-                    if($eUtente->checkIfCan($idEsame, $partitaIVAClinica, $data, $orario, $durata)===TRUE)
-                    {
-                        switch ($tipoUser) {
-                            case 'utente':
-                            case 'medico':
-                                $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice);
-                                break;
-
-                            case 'clinica':
-                                $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice, $codice); 
-                                break;
-                        }
-                    }
-                    else 
-                    {
-                        $feedback="Non puoi effettuare questa prenotazione.\n Hai già una prenotazione per questa esame  o  hai una prenotazione durante l'orario di questo esame";
-   
-        
-                        $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($feedback);
-                    }
-                    break;
+                $vPrenotazione = USingleton::getInstance('VPrenotazione');
+                try
+                {
+                    $this->riepilogoPrenotazione();
+                }
+                catch (XDBException $e)
+                {
+                    $errore = "C'è stato un errore nel sistema. Non è stata inserita alcuna prenotazione.";
+                    $vPrenotazione->visualizzaFeedback($errore);
+                    //Se c'è un errore durante l'esecuzione della query
+                }
+                catch (XRecuperaVAloreException $e)
+                {
+                    $errore = "Il valore inserito per la prenotazione è inesistente. Non è stata inserita alcuna prenotazione.";
+                    $vPrenotazione->visualizzaFeedback($errore);
+                    // Se il valore è inesistente
+                }
+                catch (XEsameException $e)
+                {
+                    $errore = "Esame inesistente. Non è stata inserita alcuna prenotazione.";
+                    $vPrenotazione->visualizzaFeedback($errore);
+                    // Se l'esame non esiste
+                }
+                catch (XUserException $e)
+                {
+                    $errore = "User inesistente. Non è stata inserita alcuna prenotazione.";
+                    $vPrenotazione->visualizzaFeedback($errore);
+                    //Se la clinica o l'utente  è inesistente
+                }
+                break;
+                    
             default:
                 break;
         }
@@ -381,7 +359,7 @@ class CPrenotazione {
     
     
     
-    
+    // funzione da eliminare una volta visti e catturati tutti gli errori 
     public function visualizzaPrenotazioneOPrenotazioni() {
         switch ($tipoUser) 
                 {
@@ -493,11 +471,8 @@ class CPrenotazione {
                             $idReferto = $eReferto->getIDReferto();
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
                         }
-                        break;
-                        
-                    default :
-                        echo 'non sono utete non sono clinica';
-                    break;
+                        break;                        
+                  
 
                     default:
                         $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni(NULL, NULL, TRUE);
@@ -506,8 +481,16 @@ class CPrenotazione {
         
     }
     
+    /**
+     * Metodo che consente di visualizzare le prenotazioni. Nel caso ci fossero errori o eccezioni, le gestisce
+     * 
+     * @access public
+     */
     public function tryVisualizzaPrenotazioni() 
     {
+        $sessione = USingleton::getInstance('USession');
+        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');        
+        $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         try
                 {
                     $this->visualizzaPrenotazioni();
@@ -562,6 +545,43 @@ class CPrenotazione {
         }
     }
     
+    /**
+     * Metodo che consente di effettuare il riepilogo della prenotazione se possibile.Infatti, 
+     * l'applicazione non permette ad un utente di prenotarsi per uno stesso esame lo stesso giorno nella stessa clinica 
+     * e di prenotarsi per qualsiasi esame in una qualsiasi clinica durante l'orario di un esame già prenotato da lui.
+     * 
+     * @access private
+     * @throws XDBException Se c'è un errore durante l'esecuzione della query
+     * @throws XUtenteException Se l'utente non esiste
+     * @throws XClinicaException Se la clinica  è inesistente
+     * @throws XEsameException Se l'esame non esiste
+     * @throws XRecuperaVAloreException Se il valore è inesistente
+     */
+    private function riepilogoPrenotazione() {
+        $sessione = USingleton::getInstance('USession');
+        $vPrenotazione = USingleton::getInstance('VPrenotazione');
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $idEsame = $vPrenotazione->recuperaValore('id'); // devo inserire 1 if???      
+        $eEsame = new EEsame($idEsame);// throws XEsameException Se l'esame non esiste
+        $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+        $eClinica = new EClinica(NULL, $partitaIVAClinica); //throws XClinicaException Se la clinica  è inesistente
+        $data = $vPrenotazione->recuperaValore('data'); // throws XRecuperaVAloreException Se il valore è inesistente
+        $orario = $vPrenotazione->recuperaValore('orario');// throws XRecuperaVAloreException Se il valore è inesistente
+        $durata = $vPrenotazione->recuperaValore('durata');// throws XRecuperaVAloreException Se il valore è inesistente
+        if ($sessione->leggiVariabileSessione('tipoUser') === 'utente') {
+            $eUtente = new EUtente(NULL, $username); //throws XUtenteException Se l'utente non esiste
+            $codice = $eUtente->getCodiceFiscaleUtente();
+        } else {  // tipoUser = clinica o medico
+            $codice = $vPrenotazione->recuperaValore('codice'); // throws XRecuperaVAloreException Se il valore è inesistente
+            $eUtente = new EUtente($codice);        //throws XUtenteException Se l'utente non esiste               
+        }
+        if ($eUtente->checkIfCan($idEsame, $partitaIVAClinica, $data, $orario, $durata) === TRUE) { //@throws XDBException Se c'è un errore durante l'esecuzione della query
+            $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice);
+        } else {
+            $feedback = "Non puoi effettuare questa prenotazione.\n Hai già una prenotazione per questa esame  o  hai una prenotazione durante l'orario di questo esame";
+            $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($feedback);
+        }
+    }
     
 }
 
