@@ -1,6 +1,10 @@
 {if !isset($feedbacks)}
     <h3>Riepilogo Prenotazione</h3>
     <div>
+        {if isset($idPrenotazione)}
+            <span id="idPrenotazione">ID Prenotazione: {$idPrenotazione}</span>
+            <br>
+        {/if}
         <span>Nome Esame:{$esame->getNomeEsame()}</span>
         <br>
         <span id="dataPrenotazione">Data:{$data}</span>
@@ -31,7 +35,11 @@
         <span>Indirizzo:{$utente->getViaUtente()}</span>
         <br>
     </div>
-    <input type="button" id="confermaPrenotazione" value="Conferma" data-codice="{$codice}" data-idClinica="{$clinica->getPartitaIVAClinica()}" data-idEsame="{$esame->getIDEsame()}"/>
+        {if ($modifica)===FALSE}
+            <input type="button" id="confermaPrenotazione" value="Conferma" data-codice="{$codice}" data-idClinica="{$clinica->getPartitaIVAClinica()}" data-idEsame="{$esame->getIDEsame()}"/>
+        {else}
+            <input type="button" id="confermaModificaPrenotazione" value="Conferma Modifica" />
+        {/if}
 {else}
     {$feedbacks}
 {/if}

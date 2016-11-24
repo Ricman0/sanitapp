@@ -76,13 +76,10 @@ class EPrenotazione {
      */
     public function __construct($id=NULL,$idEsame="",$partitaIVAClinica="", $tipo="", $codFiscaleUtenteEffettuaEsame=NULL,$codFiscalePrenotaEsame=NULL, $dataEOra="" ) 
     {
-        echo "c";
         if(isset($id))
         {
-            echo "d";
             $fPrenotazione = USingleton::getInstance('FPrenotazione');
             $attributiPrenotazione = $fPrenotazione->cercaPrenotazioneById($id);
-            echo "e";
             if(is_array($attributiPrenotazione) && count($attributiPrenotazione)==1)
             {
                 
@@ -387,11 +384,14 @@ class EPrenotazione {
      */
     public function setDataEOra($dataEOra) 
     {
+        echo ($dataEOra);
         $giorno = substr($dataEOra, 0, 2);
         $anno = substr($dataEOra, 6, 4);
         $dataEOra = $anno . substr(str_replace($anno, $giorno, $dataEOra), 2);      
         $this->_dataEOra = $dataEOra;
     }
+    
+    
     
     /*
      * Altri metodi
@@ -458,5 +458,21 @@ class EPrenotazione {
         {
             throw new XPrenotazioneException('Prenotazione già eseguita');
         }
+    }
+    
+    /**
+     * Metodo che consente di modificare la data e l'orario della prenotazione nel DB
+     * 
+     * @param string $data La data nel formato dd-mm-yyyy
+     * @param string $ora L'orario della prenotazione in formato hh:mm
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la query è stata eseguita con successo
+     */
+    public function modificaPrenotazione($data, $ora) 
+    {
+        $dataEOra= $data . $ora;
+        $this->setDataEOra($dataEOra);
+        $fPrenotazione = USingleton::getInstance('FPrenotazione');
+        return $fPrenotazione->modificaPrenotazione($this->getIdPrenotazione(), $this->getDataEOra());
     }
 }

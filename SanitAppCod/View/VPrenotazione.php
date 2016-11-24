@@ -31,7 +31,7 @@ class VPrenotazione extends View{
         $this->visualizzaTemplate('prenotazioneEliminata');
     }
     
-    public function restituisciPaginaRiepilogoPrenotazione($errore, $eEsame=NULL, $eClinica=NULL, $eUtente=NULL, $data=NULL, $orario=NULL, $codice=NULL)
+    public function restituisciPaginaRiepilogoPrenotazione($errore, $eEsame=NULL, $eClinica=NULL, $eUtente=NULL, $data=NULL, $orario=NULL, $codice=NULL, $modifica=FALSE, $idPrenotazione=NULL)
     {
         if(!isset($errore))
         {
@@ -41,6 +41,11 @@ class VPrenotazione extends View{
             $this->assegnaVariabiliTemplate('data', $data);
             $this->assegnaVariabiliTemplate('clinica', $eClinica);
             $this->assegnaVariabiliTemplate('esame', $eEsame);  
+            $this->assegnaVariabiliTemplate('modifica', $modifica);
+            if(isset($idPrenotazione))
+            { 
+                $this->assegnaVariabiliTemplate('idPrenotazione', $idPrenotazione);
+            }
         }
         else 
         {
@@ -49,6 +54,7 @@ class VPrenotazione extends View{
             $this->assegnaVariabiliTemplate('feedbacks', $feedbackTpl);
             
         }
+        
         $this->visualizzaTemplate('riepilogoPrenotazione');
     }
     
@@ -58,7 +64,19 @@ class VPrenotazione extends View{
     }
     
 
-    
+    public function getAzione() 
+    {
+        echo "ss";
+        if (isset($_REQUEST['azione'])) 
+        {
+            echo "2";
+            return $_REQUEST['azione'];
+        }
+        else 
+        {
+            return FALSE;
+        }
+    }
 
     
     
@@ -91,13 +109,17 @@ class VPrenotazione extends View{
      * 
      * @access public
      */
-    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame)
+    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale=NULL)
     {
         $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
         $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
         $this->assegnaVariabiliTemplate('idEsame', $idEsame);
         $this->assegnaVariabiliTemplate('durataEsame', $durataEsame);
         $this->assegnaVariabiliTemplate('partitaIVA', $partitaIVAClinica);
+        if(isset($codiceFiscale))
+        {
+           $this->assegnaVariabiliTemplate('codiceFiscale', $codiceFiscale); 
+        }
         $this->visualizzaTemplate('prenotazioneEsame');
     }
     

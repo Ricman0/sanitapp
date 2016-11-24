@@ -151,9 +151,7 @@ class FDatabase {
 //        return $stringa;
         return $this->_connessione->real_escape_string(trim($stringa));
     }
-    
-    
-    
+ 
     
     /**
      * Metodo che consente di eseguire una query 

@@ -138,6 +138,26 @@ class View extends Smarty {
         }
     }
 
+    /**
+     *  Metodo che permette di conoscere il valore di task2 dell'URL
+     * 
+     * @access public
+     * @final
+     * @return string|boolean Ritorna il valore (stringa) di task2. FALSE altrimenti.
+     */
+    final public function getTask2() 
+    {
+        echo "ss";
+        if (isset($_REQUEST['task2'])) 
+        {
+            echo "2";
+            return $_REQUEST['task2'];
+        }
+        else 
+        {
+            return FALSE;
+        }
+    }
   
 
     /**
