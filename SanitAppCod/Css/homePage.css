@@ -19,7 +19,7 @@ html,body{
 
 }
 
-fieldset{
+fieldset.noBordo{
     border: none;
 }
 
@@ -72,7 +72,7 @@ label.ricerca
 
 
 .elementiForm{
-    margin: 10px 20px 10px 10px;
+    margin: 10px;
 }
 label.elementiForm {
     display: inline-block;
@@ -88,7 +88,7 @@ select.elementiForm, input.elementiForm {
     display:inline;
     font-size: 15px; 
     padding:8px;
-    width: 200px;
+    width: 250px;
     box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
     -moz-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;  
@@ -135,6 +135,10 @@ input, select{
 
 }
 
+.centrato{
+    margin: auto;
+}
+
 .affiancato
 {
     display: inline-block;
@@ -175,6 +179,31 @@ input, select{
     line-height: 0em;
 }
 
+.normalSize{
+    padding: auto;
+    margin: 10px;
+    width: 250px;
+    line-height: 40px;
+    
+}
+
+.rosso{
+    color: red;
+}
+
+.verde{
+    color: green;
+}
+.bordo
+{
+    border: 1px solid;
+    border-color: rgb(11,190,210);
+    border-radius: 10px;
+}
+
+#logInForm2{
+    width: 350px;
+}
 /*@media only screen and (max-width: 1200px){
     #main{
         padding-left: 5%;

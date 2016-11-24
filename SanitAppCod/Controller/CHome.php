@@ -105,7 +105,8 @@ class CHome {
                 }
                 else
                 {
-                    echo " non sei autenticato quindi niente prenotazione ";
+                    $vAutenticazione = USingleton::getInstance('VAutenticazione');
+                    $vAutenticazione->logIn('autenticati per effettuare una prenotazione');
                     //ritorna la pagina per autenticarsi o registrarsi
                 }
                 break;

@@ -1,7 +1,7 @@
 {if isset($user)}
     <div class="log">
         <span>Ciao {$user}</span>
-        <button id="logOutButton" class="logButton">Logout</button>
+        <button id="logOutButton" class="logOutButton">Logout</button>
     </div>
 {else}
     <div id="logInFormDiv">

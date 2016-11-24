@@ -23,3 +23,9 @@ and open the template in the editor.
     min-width: 80px;
     padding:1px;
 }
+
+#logInDiv{
+    width: 350px;
+    padding: 20px 0px;
+    margin: 20px auto;
+}
