@@ -177,7 +177,7 @@ class EClinica extends EUser
             $this->_CAP = $cap;
             $this->_località = $località;
             $this->_provincia = $provincia;
-            $this->_regione = $regione;
+            $this->_regione = $this->trovaRegione($provincia);
             $this->_email = $email;
             $this->_PEC = $PEC;
             $this->_username = $username;

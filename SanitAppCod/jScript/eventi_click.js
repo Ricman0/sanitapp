@@ -31,7 +31,7 @@ $(document).ready(function () {
 //        }
     });
     
-     $('#headerMain').on("click", "#scaricaRefertoButton2", function () {
+     $('#headerMain').on("click", ".scaricaReferto", function () {
          var id = $(this).attr('data-idPrenotazione');
         download(id);
     });

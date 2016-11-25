@@ -39,7 +39,7 @@ class CRicercaCliniche {
                 if(isset($id))
                 {
                     
-                    $eClinica = new EClinica($id);
+                    $eClinica = new EClinica(NULL, $id);
                     $vCliniche->visualizzaInfoClinicaOspite($eClinica);
                 }
                 break;

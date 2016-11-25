@@ -26,11 +26,11 @@ class CReferti {
                 $idPrenotazione = $vReferti->recuperaValore('id');
                 $ePrenotazione = new EPrenotazione($idPrenotazione);
                 if($ePrenotazione->getEseguitaPrenotazione()){
-                $idEsame = $ePrenotazione->getIdEsamePrenotazione();
-                $partitaIva = $ePrenotazione->getPartitaIVAPrenotazione();
-                $eEsame = new EEsame($idEsame);
-                $medicoEsame = $eEsame->getMedicoEsame();
-                $vReferti->restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame);
+                    $idEsame = $ePrenotazione->getIdEsamePrenotazione();
+                    $partitaIva = $ePrenotazione->getPartitaIVAPrenotazione();
+                    $eEsame = new EEsame($idEsame);
+                    $medicoEsame = $eEsame->getMedicoEsame();
+                    $vReferti->restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame);
                 }
                 break;
             
@@ -96,7 +96,7 @@ class CReferti {
             $eReferto = new EReferto($idPrenotazioneReferto);
             $ePrenotazione = new EPrenotazione($idPrenotazioneReferto);
             $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
-            $eClinica = new EClinica($eEsame->getPartitaIVAClinicaEsame());
+            $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
             $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
             $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, $tipoUser);
         }

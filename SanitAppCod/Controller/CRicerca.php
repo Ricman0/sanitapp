@@ -92,7 +92,7 @@ class CRicerca {
                 $risultato = TRUE;
                 if($uValidazione->validaDati($dati))
                 {
-                    $eClinica = new EClinica($dati['partitaIVA']);
+                    $eClinica = new EClinica(NULL, $dati['partitaIVA']);
                     if($eClinica->getPartitaIVAClinica()!==NULL)
                     {
                          $risultato = NULL;

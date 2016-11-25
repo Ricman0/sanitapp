@@ -62,7 +62,7 @@
         <div>
             {if isset($idReferto)}
                 Codice Referto : {$idReferto}
-                <input type="button" id="scaricaRefertoButton" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
+                <input type="button" id="scaricaRefertoButton" class="scaricaReferto" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
             {/if}
         </div> 
     </div>

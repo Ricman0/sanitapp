@@ -58,6 +58,6 @@
             Medico: {$referto->getMedicoReferto()}
         </span>
         <br>
-        <input type="button" id="scaricaRefertoButton2" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
+        <input type="button" id="scaricaRefertoButton2" class="scaricaReferto" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
     </div>
 </div>
