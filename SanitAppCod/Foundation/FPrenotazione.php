@@ -225,4 +225,20 @@ class FPrenotazione extends FDatabase{
         return $risultato;                
     }
     
+    /**
+     * Metodo che consente di modificare data e orario della prenotazione(già esistente)
+     * di cui si passa come paramtro l'id.
+     * 
+     * @access public
+     * @param type $idPrenotazione Identificativo della prenotazione da modificare
+     * @param type $dataEOra Data e orario della prenotazione
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la query è stata eeguita con successo
+     */
+    public function modificaPrenotazione($idPrenotazione, $dataEOra) 
+    {
+        $query = "UPDATE " . $this->_nomeTabella . " SET DataEOra='" . $dataEOra . "' WHERE IDPrenotazione='" . $idPrenotazione . "'";
+        return $this->eseguiQuery($query);
+    }
+    
 }

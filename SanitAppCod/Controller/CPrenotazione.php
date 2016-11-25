@@ -54,6 +54,23 @@ class CPrenotazione {
                         $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id, $durataEsame);
                     }
                     break;
+                
+                case 'modifica': 
+                    $idPrenotazione = $vPrenotazione->recuperaValore('id'); 
+                    if(isset($idPrenotazione))// GET prenotazione/modifica/idPrenotazione
+                    {
+                        $ePrenotazione= new EPrenotazione($idPrenotazione);
+                        $idEsame = $ePrenotazione->getIdEsamePrenotazione();
+                        $eEsame = new EEsame($idEsame);
+                        $partitaIVAClinica = $ePrenotazione->getPartitaIVAPrenotazione();
+                        $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                        $nomeEsame = $eEsame->getNomeEsame();
+                        $durataEsame = $eEsame->getDurataEsame();
+                        $nomeClinica = $eClinica->getNomeClinica();
+                        $codiceFiscale = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
+                        $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale);
+                    }
+                    break;
 
                 
 
@@ -231,42 +248,84 @@ class CPrenotazione {
                 break;
             
             case 'conferma':
-                $sessione = USingleton::getInstance('USession');
-                $tipo = $sessione->leggiVariabileSessione('tipoUser');
-                $username = $sessione->leggiVariabileSessione('usernameLogIn');
-                switch ($tipo) {
-                    case 'utente':
-                        $eUtente = new EUtente(NULL, $username);
-                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
-                        $codFiscalePrenotaEsame = $eUtente->getCodiceFiscaleUtente();
-                        break;
+               
+                if($vPrenotazione->recuperaValore('id')==='modifica') // recupero l'azione che ho dovuto inserire in id ppoichè ho una regola che mi si sovrappone
+                {
+                    echo "in modifica";
+                    //siamo in POST prenotazione/conferma/modifica
+                    try{
+                        $idPrenotazione = $vPrenotazione->recuperaValore('idPrenotazione');// throw errore se non c'è valore
+                        $ePrenotazione = new EPrenotazione($idPrenotazione);// throw se non esiste la prenotazione
+                        $ora = $vPrenotazione->recuperaValore('orario');//
+                        $data = $vPrenotazione->recuperaValore('data');//
+                        if($ePrenotazione->modificaPrenotazione($data, $ora))//@throws XDBException Se la query non è stata eseguita con successo
+                        {
+                            $errore = "Prenotazione modificata!";                     
+                        }
+                        else
+                        {
+                            $errore = "Prenotazione non modificata!"; 
+                        }
+                          
+                        $vPrenotazione->visualizzaFeedback($errore);
+                    }  
+                    catch (XDBException $e)
+                    {
+                        $errore = $e->getMessage() . " C'è stato un errore. Non è stato possibile effettuare alcuna modifica";
+                        $vPrenotazione->visualizzaFeedback($errore);
+                    }
+                    catch(XValoreInesistenteException $e)
+                    {
+                        $errore = "Valore inesistente. Non è stato possibile effettuare alcuna modifica";
+                        $vPrenotazione->visualizzaFeedback($errore);
+                    }
+                    catch(XPrenotazioneException  $e)
+                    {
+                        $errore = "Prenotazione inesistente. Non è stato possibile effettuare alcuna modifica";
+                        $vPrenotazione->visualizzaFeedback($errore);
+                    }
                     
-                    case 'medico':
-                        echo "l'username $username";
-                        $eMedico = new EMedico(NULL, $username);
-                        $codFiscalePrenotaEsame = $eMedico->getCodiceFiscaleMedico();
-                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
-                        break;
-                    
-                    case 'clinica':
-                        $codFiscalePrenotaEsame = $vPrenotazione->recuperaValore('codice');
-                        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
-                        
-                        break;
-                    default:
-                        break;
                 }
-                $idEsame = $vPrenotazione->recuperaValore('id');
-                $partitaIVAClinica = $vPrenotazione->recuperaValore('clinica');
-                $data = $vPrenotazione->recuperaValore('data');
-                $ora = $vPrenotazione->recuperaValore('orario');
-                $dataEOra = $data . " " . $ora;
-                $ePrenotazione = new EPrenotazione(NULL, $idEsame, $partitaIVAClinica, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
+                else
+                {
+                    echo "in else";
+                    $sessione = USingleton::getInstance('USession');
+                    $tipo = $sessione->leggiVariabileSessione('tipoUser');
+                    $username = $sessione->leggiVariabileSessione('usernameLogIn');
+                    switch ($tipo) {
+                        case 'utente':
+                            $eUtente = new EUtente(NULL, $username);
+                            $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
+                            $codFiscalePrenotaEsame = $eUtente->getCodiceFiscaleUtente();
+                            break;
 
-                $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB();
-                $vPrenotazione->appuntamentoAggiunto($risultatoQuery);
+                        case 'medico':
+                            echo "l'username $username";
+                            $eMedico = new EMedico(NULL, $username);
+                            $codFiscalePrenotaEsame = $eMedico->getCodiceFiscaleMedico();
+                            $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
+                            break;
 
+                        case 'clinica':
+                            $codFiscalePrenotaEsame = $vPrenotazione->recuperaValore('codice');
+                            $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
+
+                            break;
+                        default:
+                            break;
+                    }
+                    $idEsame = $vPrenotazione->recuperaValore('id');
+                    $partitaIVAClinica = $vPrenotazione->recuperaValore('clinica');
+                    $data = $vPrenotazione->recuperaValore('data');
+                    $ora = $vPrenotazione->recuperaValore('orario');
+                    $dataEOra = $data . " " . $ora;
+                    $ePrenotazione = new EPrenotazione(NULL, $idEsame, $partitaIVAClinica, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
+
+                    $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB();
+                    $vPrenotazione->appuntamentoAggiunto($risultatoQuery);
+                }
                 break;
+                
             
             case 'riepilogo':
                 $vPrenotazione = USingleton::getInstance('VPrenotazione');
@@ -299,7 +358,13 @@ class CPrenotazione {
                     //Se la clinica o l'utente  è inesistente
                 }
                 break;
-                    
+            
+            case 'modifica': 
+                $vPrenotazione = USingleton::getInstance('VPrenotazione');
+                $idPrenotazione = $vPrenotazione->recuperaValore('id');
+                $ePrenotazione = new EPrenotazione($idPrenotazione); //XPrenotazioneException('Prenotazione non trovata');
+                
+                break;
             default:
                 break;
         }
@@ -576,7 +641,19 @@ class CPrenotazione {
             $eUtente = new EUtente($codice);        //throws XUtenteException Se l'utente non esiste               
         }
         if ($eUtente->checkIfCan($idEsame, $partitaIVAClinica, $data, $orario, $durata) === TRUE) { //@throws XDBException Se c'è un errore durante l'esecuzione della query
-            $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice);
+            $modifica = $vPrenotazione->recuperaValore('modifica');
+            
+            if ($modifica==true)
+            { 
+                $idPrenotazione =  $vPrenotazione->recuperaValore('idPrenotazione');                
+                $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice, $modifica, $idPrenotazione);
+            }
+            else
+            {            
+                echo "dai pero";
+                $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice, $modifica);
+            }
+            
         } else {
             $feedback = "Non puoi effettuare questa prenotazione.\n Hai già una prenotazione per questa esame  o  hai una prenotazione durante l'orario di questo esame";
             $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($feedback);

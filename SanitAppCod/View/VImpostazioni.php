@@ -77,24 +77,7 @@ class VImpostazioni extends View{
         $this->visualizzaTemplate('impostazioniUtente'); 
     }
     
-    /**
-     *  Metodo che permette di conoscere il valore di task2 dell'URL
-     * 
-     * @access public
-     * @final
-     * @return mixed Ritorna il valore (stringa) di task2. FALSE altrimenti.
-     */
-    public function getTask2() 
-    {
-        if (isset($_REQUEST['task2'])) 
-            {
-                return $_REQUEST['task2'];
-            } 
-        else 
-            {
-                return FALSE;
-            }
-    }
+    
     
     /**
      *  Metodo che permette di conoscere il valore di task3 dell'URL
