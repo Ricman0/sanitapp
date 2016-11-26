@@ -211,13 +211,6 @@ class VAutenticazione extends View {
         $this->visualizzaTemplate('headerMain');
     }
     
-    public function logIn($errore) 
-    {
-        $this->assegnaVariabiliTemplate('errore', $errore);
-        $this->visualizzaTemplate('logIn');
-        
-    }
-    
     public function logOut() 
     {
         $variabiliHeader = $this->impostaHeader();

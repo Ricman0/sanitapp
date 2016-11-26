@@ -1,10 +1,10 @@
 $(document).ready(function () {
         
-        $('#headerMain').on("click", ".loginButton", function () {
-        validazione("autenticazione",'#' + $(this).closest("form").prop("id"));
+        $('#headerMain').on("click", "#submitLogIn", function () {
+        validazione("autenticazione");
     });
         
-        $('#headerMain').on("click", ".logOutButton", function () {
+        $('#headerMain').on("click", "#logOutButton", function () {
         inviaController('logOut', "#wrapper");
         
     });

@@ -21,10 +21,12 @@ $(document).ready(function (){
         $.ajax({
             type: 'GET',
             url : "prenotazione/modifica/" + idPrenotazione ,
-            success: function(datiHTMLRisposta)
-            {
-                alert(datiHTMLRisposta);
-                $('#contenutoAreaPersonale').html(datiHTMLRisposta);   
+            
+            success: function(datiRisposta, textStatus, request){
+                alert(request.getResponseHeader('Content-Type'));
+                alert('content');
+                alert(datiRisposta);
+                $('#contenutoAreaPersonale').html(datiRisposta);   
                 $('#nextPrenotazioneEsame').attr('data-idPrenotazione', idPrenotazione);
                 $("#nextPrenotazioneEsame").prop('value', 'Modifica'); //cambio il testo del bottone versione > 1.6 
                 // nascondo il tasto poichè mancano tutte le informazioni necessarie per poter eseguire una prenotazione
@@ -109,10 +111,14 @@ $(document).ready(function (){
         var idPrenotazione;
         if($('#nextPrenotazioneEsame').val()==='Modifica')
         {
-            modifica = true;
+            modifica = 'TRUE';
             idPrenotazione = $('#nextPrenotazioneEsame').attr('data-idPrenotazione');
+            inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, durataEsame, modifica, ajaxDiv, idPrenotazione);
         }
-        inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, durataEsame, modifica, ajaxDiv, idPrenotazione);
+        else
+        {
+            inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, durataEsame, modifica, ajaxDiv);
+        }
     });
     
     $('#headerMain').on("click", "#confermaPrenotazione", function(){
@@ -243,7 +249,7 @@ function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, 
 {
     
     var dati = "id=" + idEsame + "&data=" + dataPrenotazione +"&orario=" + orarioPrenotazione +"&codice=" + cfPrenotazione + "&durata=" + durataEsame + "&modifica=" + modifica  ;
-    if (modifica===true)
+    if (modifica==='TRUE')
      {
         dati =  dati + "&idPrenotazione=" + idPrenotazione;
      }

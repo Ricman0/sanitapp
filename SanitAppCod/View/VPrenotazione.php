@@ -137,7 +137,7 @@ class VPrenotazione extends View{
         $this->visualizzaTemplate('cercaUtente');
     }
     
-    public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto=NULL, $nome, $cognome) 
+    public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto=NULL, $nome, $cognome, $prenotazioneEseguita=FALSE) 
     {
         $this->assegnaVariabiliTemplate('prenotazione', $prenotazione);        
         $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
@@ -149,6 +149,7 @@ class VPrenotazione extends View{
         $this->assegnaVariabiliTemplate('medicoEsame', $medicoEsame);
         $this->assegnaVariabiliTemplate('nome', $nome);
         $this->assegnaVariabiliTemplate('cognome', $cognome);
+        $this->assegnaVariabiliTemplate('eseguita', $prenotazioneEseguita);
         $this->visualizzaTemplate("infoPrenotazione");
         
     }

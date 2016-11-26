@@ -169,6 +169,7 @@ class View extends Smarty {
      */
     public function recuperaValore($indice) 
     {
+
         if (isset($_REQUEST[$indice])) 
             {
                 return $_REQUEST[$indice];

@@ -1,26 +1,25 @@
-<div id="logInFormDiv2" class="verticalmenteAllineato">
+
+<div id="logInFormDiv" class="verticalmenteAllineato">
     {if isset($errore)}
         <div id="erroreLogIn">{$errore}</div>  
     {/if}
-    <div id="logInDiv" class="bordo centrato">
-   <i class="fa fa-user fa-4x faAzzurro" id="icona-logInForm" aria-hidden="true"></i>
-        <form  id="logInForm2">
-            
+    
+    <form  id="logInForm">
+        <fieldset>
+            <legend><i class="fa fa-user fa-lg" id="icona-logInForm" aria-hidden="true"></i></legend>
             <input type="hidden" name="controller" value="autenticazione"/>
 
-            <label for="usernameLogIn2">Username</label>
-            <br>
-            <input type="text" id="usernameLogIn2" placeholder="Enter Username" name="usernameLogIn" class='elementiForm' required />
-            <br>
-            <label for="passwordLogIn2">Password</label>
-            <br>
-            <input type="password" id="passwordLogIn2" placeholder="Enter Password" name="passwordLogIn" class='elementiForm' required />
-            <br>
-            <button type="submit" id="submitLogIn2" class="loginButton normalSize">Login</button>
+            <label for="usernameLogIn">Username</label>
+            <input type="text" id="usernameLogIn" placeholder="Enter Username" name="usernameLogIn" class='elementiForm' required />
+            <label for="passwordLogIn">Password</label>
+            <input type="password" id="passwordLogIn" placeholder="Enter Password" name="passwordLogIn" class='elementiForm' required />
 
-        </form>
-    </div>
-    <div>Non sei ancora registrato?</div>
-    <div>Registrati subito cliccando su Registrati</div>
-    <button type="submit" id="submitRegistratiLogIn" class="normalSize">Registrati</button>
+            <button type="submit" id="submitLogIn" class="loginButton">Login</button>
+            <a href="#"> Forgot password?</a>
+        </fieldset>
+    </form>
+    
+        <div>Non sei ancora registrato?</div>
+        <div>Registrati subito cliccando su Registrati</div>
+        <button type="submit" id="submitRegistratiLogIn" class="loginButton">Registrati</button>
 </div>

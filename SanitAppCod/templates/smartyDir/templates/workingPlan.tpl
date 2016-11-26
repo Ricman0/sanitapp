@@ -1,7 +1,7 @@
 <div>
     <form id="workingPlan">
         <input type="hidden" name="controller" value="impostazioni" />
-        <fieldset class="noBordo">
+        <fieldset>
             <div class="row-fluid">
                 <div class="col-md-7 working-plan-wrapper">
                     <h4>Working Plan</h4>

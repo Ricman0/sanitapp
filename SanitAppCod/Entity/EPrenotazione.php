@@ -470,7 +470,7 @@ class EPrenotazione {
      */
     public function modificaPrenotazione($data, $ora) 
     {
-        $dataEOra= $data . $ora;
+        $dataEOra= $data . " " . $ora;
         $this->setDataEOra($dataEOra);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
         return $fPrenotazione->modificaPrenotazione($this->getIdPrenotazione(), $this->getDataEOra());

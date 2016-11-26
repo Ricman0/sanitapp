@@ -25,13 +25,12 @@ class CReferti {
 
                 $idPrenotazione = $vReferti->recuperaValore('id');
                 $ePrenotazione = new EPrenotazione($idPrenotazione);
-                if($ePrenotazione->getEseguitaPrenotazione()){
                 $idEsame = $ePrenotazione->getIdEsamePrenotazione();
                 $partitaIva = $ePrenotazione->getPartitaIVAPrenotazione();
                 $eEsame = new EEsame($idEsame);
                 $medicoEsame = $eEsame->getMedicoEsame();
                 $vReferti->restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame);
-                }
+
                 break;
             
             case 'download':
