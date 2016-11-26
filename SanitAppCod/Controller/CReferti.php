@@ -37,14 +37,18 @@ class CReferti {
             case 'download':
                 
                 $idPrenotazione = $vReferti->recuperaValore('id');
-                
                 $eReferto = new EReferto($idPrenotazione);
-                header("Cache-Control: public");
-                header("Content-Description: File Transfer");
-                header("Content-Disposition: attachment; filename= " . $eReferto->getContenutoReferto());
-                header("Content-Transfer-Encoding: binary");
+                if (file_exists($eReferto->getContenutoReferto())) {
+                    header("Cache-Control: public");
+                    header("Content-type:application/pdf");
+                    header("Content-Description: File Transfer");
+                    header("Content-Disposition: attachment; filename= " . $eReferto->getContenutoReferto());
+                    header("Content-Transfer-Encoding: binary");
+                    readfile($eReferto->getContenutoReferto());
+                } else {
+                    throw new XFileException('Attenzione, problema imprevisto, il file non esiste. ');
+                }
 
-                readfile($eReferto->getContenutoReferto());
                 break;
             
             case 'visualizza':
