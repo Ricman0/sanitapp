@@ -8,32 +8,49 @@
 $(document).ready(function () {
 
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
-        
+
         $.ajax({
-            type:'GET',
-            url:'agenda/visualizza',
+            type: 'GET',
+            url: 'agenda/visualizza',
             success: function (datiRisposta)
             {
-                $('#contenutoAreaPersonale').append("<div id='agenda'></div>");
                 alert(datiRisposta);
-                $('#contenutoAreaPersonale').html(datiRisposta);
+                $('#contenutoAreaPersonale').append("<div id='agenda'></div>");
+                $('#agenda').fullCalendar({
+                header: 
+                {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,agendaDay'
+                },
+                axisFormat: 'HH:mm',
+                timeFormat: {
+                agenda: 'H:mm{ - h:mm}'
+                },
+                theme: true,
+                defaultView: 'agendaDay',
+                events:JSON.parse(datiRisposta)// rendo oggetto js i dati json recuperati
+                });
+                        
+                
+                
             }
         });
-        
+
     });
-    
+
     $('#headerMain').on("click", "#serviziAreaPersonaleClinica", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
-    
+
     $('#headerMain').on("click", "#prenotazioniAreaPersonaleClinica", function () {
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
     });
-    
+
     $('#headerMain').on("click", "#refertiAreaPersonaleClinica", function () {
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
-    
+
     $('#headerMain').on("click", "#clientiAreaPersonaleClinica", function () {
         inviaControllerTask('clienti', 'visualizza', "#contenutoAreaPersonale");
     });
@@ -41,13 +58,13 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#iconaAggiungi", function () {
         inviaControllerTask('servizi', 'aggiungi', "#contenutoAreaPersonale");
     });
-    
+
     $('#headerMain').on("click", "#iconaAggiungiPrenotazioneClinica", function () {
         inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
     });
-    
-    
-    
+
+
+
 //    $('#headerMain').on("click", "#submitRicercaUtente", function () {
 //        inviaControllerTask('ricerca', 'utente', "#contenutoAreaPersonale");
 //    });
@@ -55,19 +72,19 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#annullaAggiungiEsame", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
-    
+
     $('#headerMain').on("click", "#impostazioniAreaPersonaleClinica", function () {
         inviaControllerTask('impostazioni', 'visualizza', "#contenutoAreaPersonale");
-        
+
     });
-    
+
 //    $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {
 //        inviaImpostazioniClinica('#workingPlan','#giornoPausa','#inizioPausa','#finePausa','impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
 //    });
     $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {
         inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
     });
-    
+
 //    $('#headerMain').on("click", "#aggiungiPausaButton", function () {
 //        formPausa();
 //    });
@@ -83,8 +100,8 @@ $(document).ready(function () {
 //    $('#headerMain').on("click", "#eliminaPausa", function () {       
 //        eliminaPausa(this);
 //    });
-    
-    $('#headerMain').on("click", ".rigaPrenotazione" , function(){
+
+    $('#headerMain').on("click", ".rigaPrenotazione", function () {
         var id = $(this).attr('id');
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
         clickRiga('prenotazioni', 'visualizza', id, contenitore);
@@ -95,29 +112,29 @@ $(document).ready(function () {
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
         var controller = $("#controllerTabella").attr('value');
         alert(controller);
-        if(controller==="servizi")
+        if (controller === "servizi")
         {
             clickRiga(controller, 'visualizza', id, contenitore);
         }
 
     });
-    
-    
-    
+
+
+
     $('#headerMain').on("click", ".rigaReferto", function () {
         var id = $(this).attr('id');
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
 //        var controller = $("#controllerTabella").attr('value');
 //        alert(controller);
-        
-            clickRiga('referti', 'visualizza', id, contenitore);
+
+        clickRiga('referti', 'visualizza', id, contenitore);
 
     });
-    $('#headerMain').on("click", "#aggiungiRefertoButton", function(){
+    $('#headerMain').on("click", "#aggiungiRefertoButton", function () {
         var id = $("#aggiungiRefertoButton").attr("data-idPrenotazione");
-        aggiuntaReferto(id); 
+        aggiuntaReferto(id);
     });
-    
+
 //    $('#headerMain').on("click", "#uploadReferto", function(){
 //        uploadReferto(); 
 //    });
@@ -126,15 +143,15 @@ $(document).ready(function () {
 
 });
 
-function inviaImpostazioniClinica(id, controller1, task1,task2, ajaxdiv)
+function inviaImpostazioniClinica(id, controller1, task1, task2, ajaxdiv)
 {
 
     //recupera tutti i valori del form automaticamente
     //var dati = $(id).serialize() + '&' + $(id2).serialize() + '&' + $(id3).serialize() + '&' + $(id4).serialize();
     var dati = $('form').serialize();
     alert(dati);
-   
-    
+
+
     $.ajax({
         type: "POST",
         url: controller1 + "/" + task1 + "/" + task2,
@@ -186,14 +203,14 @@ function inviaImpostazioniClinica(id, controller1, task1,task2, ajaxdiv)
 //        
 //        
 //    };
-    
-    
+
+
 //    function scartaPausa(param){
 //        $('#aggiungiPausaButton').prop('disabled', false);
 //        $('#salvaImpostazioniClinica').prop('disabled', false);
 //        $(param).closest('tr').remove();  
 //    }
-    // accetta pausa è da modificare
+// accetta pausa è da modificare
 //    function accettaPausa(param){
 //        var oraInizioId= "#" + $(param).closest('tr').find('td.pausaInizio form input').attr('id');
 //        var oraFineId= "#" + $(param).closest('tr').find('td.pausaFine form input').attr('id');
@@ -369,9 +386,9 @@ function inviaImpostazioniClinica(id, controller1, task1,task2, ajaxdiv)
 //        
 //        }   
 //    }
-    
-    
-    // elimina pausa è da modificare
+
+
+// elimina pausa è da modificare
 //    function eliminaPausa(param)
 //    {
 ////        nomeSelect.options[nomeSelect.selectedIndex].value;
@@ -450,20 +467,20 @@ function inviaDatiEsame(id, controller1, task1, ajaxdiv)
 
 function aggiuntaReferto(id)
 {
-        $.ajax({
+    $.ajax({
         type: 'GET',
-        url : "referti/aggiungi/" + id ,
-        success: function(datiHTMLRisposta)
+        url: "referti/aggiungi/" + id,
+        success: function (datiHTMLRisposta)
         {
             alert(datiHTMLRisposta);
             $("#contenutoAreaPersonale").html(datiHTMLRisposta);
         },
-        error:function()
+        error: function ()
         {
             alert("Sbagliato click aggiuntaReferto ");
         }
     });
-    
+
 }
 
 function uploadReferto()
@@ -476,8 +493,8 @@ function uploadReferto()
         url: "referto/upload",
         data: dati,
 //        dataType: "html",
-        success: function(datiRisposta)
-        { 
+        success: function (datiRisposta)
+        {
             //provo a fare il parse json dei dati risposta
             // ciò genera un errore se non ho json
             alert(datiRisposta);
@@ -510,23 +527,23 @@ function uploadReferto()
 //                      });
 //                }
         }
-       
+
     });
 }
 
 
-function inviaCodiceFiscale( controller1, task1, ajaxdiv)
+function inviaCodiceFiscale(controller1, task1, ajaxdiv)
 {
-    
-    var codiceFiscale = $("form input[type='text']" ).val();
+
+    var codiceFiscale = $("form input[type='text']").val();
     alert(codiceFiscale);
     var nomeClinica = $("form input[type='submit']").attr('data-nomeClinica');
     alert(nomeClinica);
     $.ajax({
         type: "GET",
-        url: controller1 + "/" + task1 + "/" + codiceFiscale ,
-        success: function(datiRiposta, status, xhr)
-        { 
+        url: controller1 + "/" + task1 + "/" + codiceFiscale,
+        success: function (datiRiposta, status, xhr)
+        {
             //provo a fare il parse json dei dati risposta
             // ciò genera un errore se il codice fiscale inserito non esiste tra gli utente del db
             //perchè EUtente fa visualizzare degli errori. il che implica che i dati ritornati non sono solo json
@@ -536,9 +553,9 @@ function inviaCodiceFiscale( controller1, task1, ajaxdiv)
                 var dati = JSON.parse(datiRiposta);
                 alert(dati.risultato);
                 $.ajax({
-                    type:'GET',
-                    url: 'esami/all/' + nomeClinica, 
-                    success: function(datiRisposta)
+                    type: 'GET',
+                    url: 'esami/all/' + nomeClinica,
+                    success: function (datiRisposta)
                     {
                         $(ajaxdiv).html(datiRisposta);
 //                        //aggiungo il campo nascosto codice fiscale 
@@ -547,14 +564,14 @@ function inviaCodiceFiscale( controller1, task1, ajaxdiv)
                         $('<input>').attr({
                             type: 'hidden',
                             id: 'codiceFiscaleUtentePrenotaEsame',
-                            name: 'codiceFiscaleUtentePrenotaEsame', 
-                            value:  codiceFiscale  
+                            name: 'codiceFiscaleUtentePrenotaEsame',
+                            value: codiceFiscale
                         }).appendTo('table');
 //                        
                         $('.tablesorter').tablesorter({
-                        theme: 'blue',
-                        widgets: ["filter"],
-                        widgetOptions: {
+                            theme: 'blue',
+                            widgets: ["filter"],
+                            widgetOptions: {
                                 // filter_anyMatch replaced! Instead use the filter_external option
                                 // Set to use a jQuery selector (or jQuery object) pointing to the
                                 // external filter (column specific or any match)
@@ -571,19 +588,19 @@ function inviaCodiceFiscale( controller1, task1, ajaxdiv)
 
                     }
                 });
-            }catch(errore)
-                {
-                    alert("Non è registrato alcun utente con quel codice fiscale");
-                      $.ajax({
-                          type:'GET',
+            } catch (errore)
+            {
+                alert("Non è registrato alcun utente con quel codice fiscale");
+                $.ajax({
+                    type: 'GET',
 //                          url: 'mySanitApp',
-                          url: 'prenotazioni/aggiungi',
-                          success: function(datiRisposta)
-                          {
-                              $(ajaxdiv).html(datiRisposta);
-                          }
-                      });
-                }
+                    url: 'prenotazioni/aggiungi',
+                    success: function (datiRisposta)
+                    {
+                        $(ajaxdiv).html(datiRisposta);
+                    }
+                });
+            }
         },
         error: function ()
         {

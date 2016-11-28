@@ -296,7 +296,7 @@ class FClinica extends FUser{
     public function cercaAppuntamenti($partitaIVAClinica) {
         $dataOdierna = date('Y-m-d');  // stringa contenente la data odierna
         $dataOdierna = "2016-11-30";// da eliminare serve solo per vedere se la query funziona
-        $query = "SELECT esame.NomeEsame, utente.Nome, utente.Cognome, TIME(DataEOra) as Orario "
+        $query = "SELECT esame.NomeEsame, utente.Nome, utente.Cognome, TIME(DataEOra) as Orario, esame.Durata "
                 . "FROM prenotazione,esame,utente "
                 . "WHERE prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "' AND "
                 . "prenotazione.IDEsame=esame.IDEsame AND "

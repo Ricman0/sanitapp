@@ -871,9 +871,51 @@ class EClinica extends EUser
      */
     public function recuperaAppuntamenti() {
         $fClinica = USingleton::getInstance('FClinica');
-        $appuntamenti = $fClinica->cercaAppuntamenti($this->getPartitaIVAClinica());
-        if(is_array($appuntamenti) && count($appuntamenti)>=0)
+        $risultato = $fClinica->cercaAppuntamenti($this->getPartitaIVAClinica());
+        if(is_array($risultato) && count($risultato)>=0)
         {
+            $appuntamenti=Array();
+            $i=0;
+            foreach ($risultato as $appuntamento) 
+            {
+                $title = ""; $start =""; $end="";
+                foreach ($appuntamento as $key => $value) 
+                {
+                    switch ($key) 
+                    {
+                        case 'NomeEsame':
+                            $title = $value;
+                            break;
+                        case 'Nome':
+                        case 'Cognome':
+                            $title = $title . " " . $value;
+                            break;
+                        case 'Orario':
+                            $start = substr($value, 0, 5);                            
+                            break;
+                        case 'Durata':
+                            $ore = substr($value, 0, 2);
+                            $minuti = substr($value, 3, 2);
+                            if($ore="00")
+                            {
+                                $durata = "+" . $minuti . " minutes";
+                            }
+                            else
+                            {
+                                $durata = "+" . $ore . " hour +" . $minuti . " minutes";
+                            } 
+                            $end = strtotime($durata, strtotime($start));
+                           
+                           
+                            $end = date('H:i', $end); // rendo stringa il timestamp $end nel formato minuti:secondi
+                            
+                            break;
+                    }
+                }
+                $appuntamenti[$i] = Array('title'=> $title, 'start'=>$start);//, 'intervalStart'=> $start, 'intervalEnd'=>$end, 'end'=>$end
+                $i++;               
+                
+            }
             return $appuntamenti;
         }
         else
