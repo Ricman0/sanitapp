@@ -6,6 +6,25 @@
  * Quando avviene il click su registrazione, viene eseguita la funzione inviaControllerTask
  */
 $(document).ready(function () {
+    
+
+    $('#agenda').fullCalendar({
+        header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,basicWeek,agendaDay'
+    },
+    axisFormat: 'HH:mm',
+    timeFormat: {
+    agenda: 'H:mm{ - h:mm}'
+},
+        theme: true,
+        defaultView: 'agendaDay'
+
+        // put your options and callbacks here
+    });
+
+
 
     $('#headerMain').on("click", "#mySanitApp", function () {
         inviaController('mySanitApp', '#main');

@@ -43,6 +43,8 @@
         <script type="text/javascript" src="./jScript/clickPrenotazione.js"></script>
         <script src='plugins/moment.js'></script>
         <script src='plugins/fullcalendar/fullcalendar.js'></script>
+        <script src='plugins/fullcalendar/locale/it.js'></script>
+
 
 
         <!--<img src="./Immagini/cartinaItalia.gif" />-->
@@ -78,7 +80,7 @@
                 <div id="main">
                     {$mainRicerca}
                 </div> 
-
+                <div id="agenda"></div>
             </div>
             <!--Footer della pagina-->
             <div id="footer">
