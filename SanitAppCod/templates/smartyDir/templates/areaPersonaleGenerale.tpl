@@ -22,7 +22,7 @@
             <h1>Ciao UTENTE <h1>
             <p>Benvenuto nella tua area personale, da qui potrai gestire le tue prenotazioni
                 e consultare i referti o, se vuoi, condividerli con il tuo medico curante</p>
-        {elseif count($tastiLaterali)==5}
+        {elseif count($tastiLaterali)==6}
         <h1>Ciao CLINICA <h1>
         <p>Benvenuto nella tua area personale, da qui potrai gestire i servizi, le prenotazioni, 
             i pazienti, i referti e le tue impostazioni.</p>

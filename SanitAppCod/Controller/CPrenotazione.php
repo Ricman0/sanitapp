@@ -60,6 +60,7 @@ class CPrenotazione {
                     if(isset($idPrenotazione))// GET prenotazione/modifica/idPrenotazione
                     {
                         $ePrenotazione= new EPrenotazione($idPrenotazione);
+                        $ePrenotazione->controllaData();// confronta la data della prenotazione con quella odierna
                         $idEsame = $ePrenotazione->getIdEsamePrenotazione();
                         $eEsame = new EEsame($idEsame);
                         $partitaIVAClinica = $ePrenotazione->getPartitaIVAPrenotazione();
@@ -359,10 +360,7 @@ class CPrenotazione {
                 }
                 break;
             
-            case 'modifica': 
-                $vPrenotazione = USingleton::getInstance('VPrenotazione');
-                $idPrenotazione = $vPrenotazione->recuperaValore('id');
-                $ePrenotazione = new EPrenotazione($idPrenotazione); //XPrenotazioneException('Prenotazione non trovata');
+      
                 
                 break;
             default:
