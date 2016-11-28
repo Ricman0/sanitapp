@@ -246,6 +246,17 @@ class EPrenotazione {
                
     }
     
+    /**
+     * Metodo che permette di conoscere la data  della prenotazione nel formato yyyy-mm-dd
+     * 
+     * @access public
+     * @return string La data della prenotazione 
+     */
+    public function getData() 
+    {
+        return substr($this->_dataEOra, 0, 10);
+    }
+    
    
     
     /**
@@ -474,5 +485,18 @@ class EPrenotazione {
         $this->setDataEOra($dataEOra);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
         return $fPrenotazione->modificaPrenotazione($this->getIdPrenotazione(), $this->getDataEOra());
+    }
+    
+    /**
+     * Confronta la data della prenotazione con quella odierna
+     * 
+     * @access public
+     */
+    public function controllaData()
+    {
+        $data = $this->getData();
+        echo "$data";
+        strtotime($data);
+        
     }
 }

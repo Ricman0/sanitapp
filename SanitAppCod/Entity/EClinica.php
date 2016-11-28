@@ -861,5 +861,25 @@ class EClinica extends EUser
         $fClinica = USingleton::getInstance('FClinica');
         return $fClinica->cercaClienti(parent::getUsername());
     }
+    
+    /**
+     * Metodo che consente di recuparare gli appuntamenti della clinica in questo caso giornalieri
+     * 
+     * @access public
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @throws XClinicaException Se la query ritorna un array
+     */
+    public function recuperaAppuntamenti() {
+        $fClinica = USingleton::getInstance('FClinica');
+        $appuntamenti = $fClinica->cercaAppuntamenti($this->getPartitaIVAClinica());
+        if(is_array($appuntamenti) && count($appuntamenti)>=0)
+        {
+            return $appuntamenti;
+        }
+        else
+        {
+            throw new XClinicaException("Errore durante il recupero degli appuntamenti");
+        }
+    }
 }
 ?>

@@ -48,6 +48,10 @@ class CHome {
 //                $cAutenticazione = USingleton::getInstance('CAutenticazione');
 //                $cAutenticazione->autenticaUser();
 //                break;
+            case 'agenda':
+                $cAgenda = USingleton::getInstance('CGestisciAgenda');
+                $cAgenda->gestisciAgenda();                
+                break;
             
             case 'clienti':
                 $cClienti = USingleton::getInstance('CGestisciClienti');

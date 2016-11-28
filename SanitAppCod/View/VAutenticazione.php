@@ -38,6 +38,7 @@ class VAutenticazione extends View {
                 break;
             
             case 'clinica':
+                $this->_tastiLaterali['agendaAreaPersonaleClinica'] = "Agenda";
                 $this->_tastiLaterali['serviziAreaPersonaleClinica'] = "Servizi";
                 $this->_tastiLaterali['prenotazioniAreaPersonaleClinica'] = "Prenotazioni";
                 $this->_tastiLaterali['refertiAreaPersonaleClinica'] = "Referti";

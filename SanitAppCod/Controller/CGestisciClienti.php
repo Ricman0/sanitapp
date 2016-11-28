@@ -21,8 +21,7 @@ class CGestisciClienti {
     public function gestisciClienti() 
     {
         $sessione = USingleton::getInstance('USession');
-        $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');        
         $vClienti = USingleton::getInstance('VGestisciClienti');
         $task = $vClienti->getTask();
         switch ($task) 

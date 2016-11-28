@@ -26,6 +26,7 @@ class VmySanitApp extends View {
         switch($tipoUser)
         {
             case 'clinica':
+                $tastiLaterali['agendaAreaPersonaleClinica'] = "Agenda";
                 $tastiLaterali['serviziAreaPersonaleClinica'] = "Servizi";
                 $tastiLaterali['prenotazioniAreaPersonaleClinica'] = "Prenotazioni";
                 $tastiLaterali['refertiAreaPersonaleClinica'] = "Referti";

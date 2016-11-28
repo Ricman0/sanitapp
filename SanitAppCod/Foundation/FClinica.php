@@ -285,4 +285,23 @@ class FClinica extends FUser{
                 . "ON t1.CodFiscale=t2.CodFiscale";
         return $this->eseguiQuery($query);        
     }
+    
+    /**
+     * Metodo che consente di cercare gli appuntamenti giornalieri di una clinica passata come paramentro
+     * 
+     * @access public
+     * @param string $partitaIVAClinica La partita IVA della clinica di cui si vogliono cercare gli appuntamenti
+     * @throws XDBException Se la query non è stata eseguita con successo
+     */
+    public function cercaAppuntamenti($partitaIVAClinica) {
+        $dataOdierna = date('Y-m-d');  // stringa contenente la data odierna
+        $dataOdierna = "2016-11-30";// da eliminare serve solo per vedere se la query funziona
+        $query = "SELECT esame.NomeEsame, utente.Nome, utente.Cognome, TIME(DataEOra) as Orario "
+                . "FROM prenotazione,esame,utente "
+                . "WHERE prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "' AND "
+                . "prenotazione.IDEsame=esame.IDEsame AND "
+                . "prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale AND "
+                . "DATE(DataEOra)='" . $dataOdierna . "'";
+        return $this->eseguiQuery($query);
+    }
 }

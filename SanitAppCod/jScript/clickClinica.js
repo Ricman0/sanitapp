@@ -7,6 +7,21 @@
 
 $(document).ready(function () {
 
+    $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
+        
+        $.ajax({
+            type:'GET',
+            url:'agenda/visualizza',
+            success: function (datiRisposta)
+            {
+                $('#contenutoAreaPersonale').append("<div id='agenda'></div>");
+                alert(datiRisposta);
+                $('#contenutoAreaPersonale').html(datiRisposta);
+            }
+        });
+        
+    });
+    
     $('#headerMain').on("click", "#serviziAreaPersonaleClinica", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
