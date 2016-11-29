@@ -10,6 +10,7 @@
 
 
   RewriteCond %{REQUEST_METHOD} GET 
+  RewriteRule ^(agenda)?$ index.php?controller=$1 [L]
   RewriteRule ^(agenda)/(visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(logOut)?$ index.php?controller=$1
   RewriteRule ^(ricerca)/(utente)/(\w+)?$ index.php?controller=$1&task=$2&codice=$3 [L]
