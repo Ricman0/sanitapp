@@ -17,6 +17,7 @@ class CHome {
         $vHome = USingleton::getInstance('VHome');            
         switch ($vHome->getRequestMethod())  
         {
+            
             case 'GET':
                 $this->smistaControllerGET($vHome->getController());
                 break;
