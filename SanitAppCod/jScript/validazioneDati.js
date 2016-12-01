@@ -172,7 +172,7 @@ function validazioneCodiceFiscaleMedicoCurante()
         onkeyup: false,
         rules:
                 {
-                    codiceFiscaleMedicoUtente:
+                    codiceFiscale:
                             {
                                 required: true,
                                 codiceFiscale: true,
@@ -181,14 +181,15 @@ function validazioneCodiceFiscaleMedicoCurante()
                                 remote:
                                         {
                                             type: "POST",
-                                            url: "ricerca/codice/medico"
+                                            url: "ricerca/codice/medico",
+                                            data: {inverti: $('#inverti').val()}
                                         }
                             }
                 },
         messages:
                 {
                     
-                    codiceFiscaleMedicoUtente:
+                    codiceFiscale:
                             {
                                 required: "Inserire il proprio codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",

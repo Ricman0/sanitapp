@@ -136,6 +136,31 @@ class CImpostazioni {
                     
                     case 'medico':
                         $dati = $vImpostazioni->recuperaCFMedico();
+                        $arrayDati['codiceFiscale'] = $dati;
+                        $uValidazione = USingleton::getInstance('UValidazione');
+                        if($uValidazione->validaDati($arrayDati))// se i dati sono validi
+                        {           
+                            $eUtente = new EUtente(NULL, $username);
+                            if ($eUtente->modificaMedicoCurante($uValidazione->getDatiValidi()['codiceFiscale'])===TRUE)
+                            {
+                                //modifiche effettuate
+                                $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
+//                                $vJSON = USingleton::getInstance('VJSON');
+//                                $vJSON->inviaDatiJSON(TRUE);
+                            }
+                            else
+                            {
+                                $vJSON = USingleton::getInstance('VJSON');
+                                $vJSON->inviaDatiJSON(FALSE);
+                            }
+                        }
+                        else
+                        {    
+                            // non tutti i dati sono validi 
+                            $vJSON = USingleton::getInstance('VJSON');
+                            $vJSON->inviaDatiJSON(FALSE);
+                        }
+                        break;
                         
                         break;
                     

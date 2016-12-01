@@ -214,6 +214,6 @@ class VImpostazioni extends View{
      */
     function recuperaCFMedico() 
     {
-        return $this->recuperaValore('medicoUtente');
+        return $this->recuperaValore('codiceFiscale');
     }
 }

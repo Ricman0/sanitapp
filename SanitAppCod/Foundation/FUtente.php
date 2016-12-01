@@ -198,5 +198,20 @@ class FUtente extends FUser{
         return $this->eseguiQuery($query);
     }
     
+     /**
+     * Metodo che permette di modificare il medico curante di un utente nel DB
+     * 
+     * @access public
+     * @param string $codFiscale Il codice fiscale dell'utente il cui medico curante deve essere modificato
+     * @param string $codFiscaleMedico Il codice fiscale del nuovo medico
+     * @return boolean TRUE se la modifica è andata a buon fine, FALSE altrimenti
+     */
+    public function modificaMedicoCurante($codFiscale, $codFiscaleMedico) {
+        $codFiscaleMedico = $this->trimEscapeStringa($codFiscaleMedico);
+        $query = "UPDATE " . $this->_nomeTabella . " SET CodFiscaleMedico='" . $codFiscaleMedico . " ' "
+                . "WHERE CodFiscale='" . $codFiscale . "'";
+        return $this->eseguiQuery($query);
+        
+    }
     
 }

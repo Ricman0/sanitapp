@@ -4,37 +4,37 @@
                 INFORMAZIONI GENERALI
             </h4>
             {if isset($utente)}
-                <label for name="nome">Nome :</label>
+                <label for="nome">Nome :</label>
                 <input type="text" name="nome" value ="{$utente->getNomeUtente()}" readonly />
                 <br>
-                <label for name="cognome">Cognome :</label>
+                <label for="cognome">Cognome :</label>
                 <input type="text" name="cognome" value ="{$utente->getCognomeUtente()}" readonly />
                 <br>
-                <label for name="codice">Codice Fiscale :</label>
+                <label for="codice">Codice Fiscale :</label>
                 <input type="text" name="codice" value ="{$utente->getCodiceFiscaleUtente()}" readonly />
                 <br>
-                <label for name="email">Email :</label>
+                <label for="email">Email :</label>
                 <input type="text" name="email" value ="{$utente->getEmail()}" readonly />
                 <br>
                     {if isset($modificaInformazioni)}
                         <form id="formModificaInformazioni">
-                            <label for name="via">Indirizzo :</label>
+                            <label for="via">Indirizzo :</label>
                             <input type="text" name="Via" value ="{$utente->getViaUtente()}" />
                             <label>, </label>
                             <input type="text" name="NumCivico" value="{$utente->getNumCivicoUtente()}" />
                             <br>
-                            <label for name="CAP">CAP :</label>
+                            <label for="CAP">CAP :</label>
                             <input type="text" name="CAP" value="{$utente->getCAPUtente()}" />
                             <br>
                             <input type="submit" id="modificaIndirizzoUtenteFatto" value="OK" />
                         </form>
                     {else}
-                        <label for name="via">Indirizzo :</label>
+                        <label for="via">Indirizzo :</label>
                         <input type="text" name="Via" value="{$utente->getViaUtente()}" readonly />
                         <label>, </label>
                         <input type="text" name="NumCivico" value="{$utente->getNumCivicoUtente()}" readonly />
                         <br>
-                        <label for name="CAP">CAP :</label>
+                        <label for="CAP">CAP :</label>
                         <input type="text" name="CAP" value="{$utente->getCAPUtente()}" readonly />
                         <br>
                         <input type="button" id="modificaIndirizzoUtente" value="Modifica Indirizzo" />  
@@ -50,15 +50,16 @@
             </h4>
             {if isset($modificaMedicoCurante)}
                 <form id='formModificaMedico'>
-                    <label for name="codiceFiscaleMedicoUtente">Medico :</label>
-                    <input type="text" name="codiceFiscaleMedicoUtente" value ="{$utente->getMedicoCurante()}" />
+                    <input id ='inverti' type="hidden" name="inverti" value="si" />
+                    <label for="codiceFiscale">Medico :</label>
+                    <input type="text" name="codiceFiscale" value ="{$utente->getMedicoCurante()}" />
                     <br>
                     <input type="submit" id="medicoUtenteModificato" value="OK" />
                 </form>
             {else}
                 {if NULL !== $utente->getMedicoCurante()}
-                    <label for name="codiceFiscaleMedicoUtente">Medico :</label>
-                    <input type="text" name="codiceFiscaleMedicoUtente" value ="{$utente->getMedicoCurante()}" readonly />
+                    <label for="codiceFiscale">Medico :</label>
+                    <input type="text" name="codiceFiscale" value ="{$utente->getMedicoCurante()}" readonly />
                     <br>
                     <input type="button" id="modificaMedicoUtente" value="Modifica Medico" />  
                 {else}
@@ -76,17 +77,17 @@
             {if isset($utente)}                    
                 {if isset($modificaCredenziali)}
                     <form id="formModificaPassword" >                    
-                        <label for name="username">Username :</label>
+                        <label for="username">Username :</label>
                         <input type="text" name="username" value ="{$utente->getUsername()}"readonly />
-                        <label for name="password">Password :</label>
+                        <label for="password">Password :</label>
                         <input type="password" name="password" id='nuovaPassword'/>
-                        <label for name="ripetiPassword">Ripeti Password :</label>
+                        <label for="ripetiPassword">Ripeti Password :</label>
                         <input type="password" name="ripetiPassword" />
                         <br>
                         <input type="submit" id="inviaNuovaPasswordUtente" value="Invia Nuova Password" />
                     </form>
                 {else}  
-                    <label for name="username">Username :</label>
+                    <label for="username">Username :</label>
                     <input type="text" name="username" value ="{$utente->getUsername()}" readonly />
                     <br>
                     <input type="button" id="modificaPasswordUtente" value="Modifica Credenziali" />

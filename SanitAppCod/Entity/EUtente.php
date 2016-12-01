@@ -447,18 +447,36 @@ class EUtente extends EUser {
         $this->_numeroCivico = $datiValidi['NumCivico'];
         $this->_CAP = $datiValidi['CAP'];
         $fUtente = USingleton::getInstance('FUtente');
-        return $fUtente->modificaIndirizzoCAP($this->_codFiscale, $this->_via,$this->_numeroCivico,  $this->_CAP);
+        return $fUtente->modificaIndirizzoCAP($this->_codFiscale, $this->_via, $this->_numeroCivico,  $this->_CAP);
     }
 
     /**
+     * Metodo che permette di modificare la password (la modifica avviene anche nel DB)
      * 
+     * @access public
      * @param string $password password da modificare
+     * @return boolean TRUE modifica effettuata, FALSE altrimenti
      */
     public function modificaPassword($password) 
     {
         parent::setPassword($password);
         $fUser = USingleton::getInstance('FUser');
         return $fUser->modificaPassword(parent::getUsername(), parent::getPassword());
+    }
+    
+    /**
+     * 
+     * Metodo che permette di modificare il medico curante (la modifica avviene anche nel DB)
+     * 
+     * @access public
+     * @param string $cf Codice fiscale del nuovo medico
+     * @return boolean TRUE modifica effettuata, FALSE altrimenti
+     */
+    public function modificaMedicoCurante($cf) 
+    {
+        $this->_medicoCurante = $cf;
+        $fUtente = USingleton::getInstance('FUtente');
+        return $fUtente->modificaMedicoCurante($this->_codFiscale, $cf);
     }
     
     /**
