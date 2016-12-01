@@ -822,15 +822,23 @@ class EClinica extends EUser {
     public function recuperaAppuntamenti() {
         $fClinica = USingleton::getInstance('FClinica');
         $risultato = $fClinica->cercaAppuntamenti($this->getPartitaIVAClinica());
-        if (is_array($risultato) && count($risultato) >= 0) {
-            $appuntamenti = Array();
-            $i = 0;
-            foreach ($risultato as $appuntamento) {
-                $title = "";
-                $start = "";
-                $end = "";
-                foreach ($appuntamento as $key => $value) {
-                    switch ($key) {
+
+        if(is_array($risultato) && count($risultato)>=0)
+        {
+            $appuntamenti=Array();
+            $i=0;
+            $dataOdierna = date('Y-m-d');
+            foreach ($risultato as $appuntamento) 
+            {
+                $title = ""; $start =""; $end="";
+                foreach ($appuntamento as $key => $value) 
+                {
+                    switch ($key) 
+                    {
+                        case 'IDPrenotazione':
+                            $id = $value;
+                            break;
+                        
                         case 'NomeEsame':
                             $title = $value;
                             break;
@@ -841,6 +849,9 @@ class EClinica extends EUser {
                         case 'Orario':
                             $start = substr($value, 0, 5);
                             break;
+                        case 'Data':
+                            $data = $value;                            
+                            break;
                         case 'Durata':
                             $ore = substr($value, 0, 2);
                             $minuti = substr($value, 3, 2);
@@ -850,14 +861,12 @@ class EClinica extends EUser {
                                 $durata = "+" . $ore . " hour +" . $minuti . " minutes";
                             }
                             $end = strtotime($durata, strtotime($start));
-
-
-                            $end = date('H:i', $end); // rendo stringa il timestamp $end nel formato minuti:secondi
-
+                            $intervalEnd = date('H:i', $end); // rendo stringa il timestamp $end nel formato minuti:secondi
+                            $end =$dataOdierna . " " . $intervalEnd;
                             break;
                     }
                 }
-                $appuntamenti[$i] = Array('title' => $title, 'start' => $start); //, 'intervalStart'=> $start, 'intervalEnd'=>$end, 'end'=>$end
+                $appuntamenti[$i] = Array('id'=>$id, 'title'=> $title, 'start'=>$data, 'intervalStart'=> $start, 'intervalEnd'=>$intervalEnd, 'end'=>$data);//, 
                 $i++;
             }
             return $appuntamenti;
@@ -915,6 +924,20 @@ class EClinica extends EUser {
 //        print_r($giorniLavorativi);
 //    }
 
+
+    
+    /**
+     * Metodo che consente di recuperare appuntamenti e working plan della clinica
+     * 
+     * @access public
+     * @return Array Contiene un array di appuntamenti e un array workingPlan
+     */
+    public function recuperaAppuntamentiEWorkingPlan() 
+    {
+        $appuntamenti = $this->recuperaAppuntamenti();
+        $workingPlan = $this->getWorkingPlanClinica();
+        return Array('appuntamenti'=>$appuntamenti, 'workingPlan'=>$workingPlan);
+    }
 }
 
 ?>

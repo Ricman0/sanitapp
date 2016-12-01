@@ -28,7 +28,15 @@ class CGestisciAgenda {
                 $this->tryVisualizzaAgenda();
                 break;
 
-            default:
+            default:// get agenda
+                $sessione = USingleton::getInstance('USession');
+                $username = $sessione->leggiVariabileSessione('usernameLogIn');
+                $eClinica = new EClinica($username); //@throws XClinicaException Se la clinica  è inesistente
+                $risultato = $eClinica->recuperaAppuntamentiEWorkingPlan();
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON($risultato); 
+                
+                
                 break;
         }
     }

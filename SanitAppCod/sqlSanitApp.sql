@@ -39,11 +39,11 @@ ALTER TABLE appUser ADD FULLTEXT INDEX fullTextPassword(Password);
 --
 
 INSERT INTO appUser (Username, Password, Email, PEC, Confermato, CodiceConferma, TipoUser) VALUES 
-('appi', 'Appig4', 'info@appignano.it', 'info@appignano.pec' ,FALSE, 'ciidisjwhf', 'clinica'),
-('bise', 'Bisenti5', 'info@bisenti.it',  'info@bisenti.pec' ,FALSE, 'cjdjdhdhrf', 'clinica'),
-('claudim', 'Clau89', 'claudia@homail.it', 'clau@dim.pec.it',  FALSE, 'cwjwjhrf', 'medico'),
-('ricman', 'Riccardo89', 'riccardo@gmail.it', NULL,  FALSE, 'cjdjdehahah', 'utente'),
-('annadima', 'Anna49', 'annadim@alice.it',NULL, FALSE, 'annasjdjdhdhrf', 'utente');
+('appi', 'Appig4', 'info@appignano.it', 'info@appignano.pec' ,TRUE, 'ciidisjwhf', 'clinica'),
+('bise', 'Bisenti5', 'info@bisenti.it',  'info@bisenti.pec' ,TRUE, 'cjdjdhdhrf', 'clinica'),
+('claudim', 'Clau89', 'claudia@homail.it', 'clau@dim.pec.it',TRUE, 'cwjwjhrf', 'medico'),
+('ricman', 'Riccardo89', 'riccardo@gmail.it', NULL,TRUE, 'cjdjdehahah', 'utente'),
+('annadima', 'Anna49', 'annadim@alice.it',NULL,TRUE, 'annasjdjdhdhrf', 'utente');
 
 -- --------------------------------------------------------
 
