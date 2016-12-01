@@ -24,6 +24,11 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#registrazioneUtente", function () {
         inviaControllerTask('registrazione', 'utente', '#main');
     });
+    
+    $('#headerMain').on("click", "#recuperaPassword", function () {
+        inviaController('recuperaPassword', '#main');
+    });
+    
     $('#headerMain').on("click", ".rigaClinica", function () {
         var id = $(this).attr('id'); // id della riga che coincide con l'id dell'esame
 //        var nomeClinica = $('.rigaNomeClinica').html();

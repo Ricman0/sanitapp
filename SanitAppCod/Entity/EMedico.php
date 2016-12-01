@@ -62,10 +62,10 @@ class EMedico extends EUser {
 
     /**
      * Costruttore della classe EMedico
-     * 
+     * @param string $cf Il codice fiscale del medico
+     * @param string $username Username dell'utente medico
      * @param string $nome Il nome del medico
      * @param string $cognome Il cognome del medico
-     * @param string $cf Il codice fiscale del medico
      * @param string $via La via in cui risiede il medico
      * @param string $cap Il cap del paese in cui risiede il medico
      * @param string $email L'email del medico
@@ -74,6 +74,7 @@ class EMedico extends EUser {
      * @param string $provinciaAlbo La provincia dell'albo in cui il medico è iscritto
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
      * @param int o string? $cod Il codice per confermare l'account
+     * @throws XMedicoException Se il medico relativo al codice fiscale immesso non esiste
      */
     public function __construct($cf = NULL, $username=NULL, $nome='', $cognome='', $via='', $numeroCivico='', $cap='', $email='', $password='',  $provinciaAlbo='', $numIscrizione='') 
     {
@@ -90,7 +91,7 @@ class EMedico extends EUser {
             } 
             //elseif ($cf !== NULL && $username === NULL) {
             else{  
-            //caso in cui possiedo l'username ma non il codice fiscale
+            //caso in cui possiedo il codice fiscale ma non l'username 
                 $attributiMedico = $fMedico->cercaMedicoByCF($cf);
 
             }

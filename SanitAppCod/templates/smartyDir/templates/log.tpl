@@ -1,7 +1,7 @@
 {if isset($user)}
     <div class="log">
         <span>Ciao {$user}</span>
-        <button id="logOutButton" class="logOutButton">Logout</button>
+        <button id="logOutButton" class="logOutButton sottile">Logout</button>
     </div>
 {else}
     <div id="logInFormDiv">
@@ -14,10 +14,10 @@
             <label for="passwordLogIn">Password</label>
             <input type="password" id="passwordLogIn" placeholder="Enter Password" name="passwordLogIn" required>
 
-            <button type="submit" id="submitLogIn" class="loginButton">Login</button>
+            <button type="submit" id="submitLogIn" class="loginButton sottile">Login</button>
             <input type="checkbox" checked="checked"> Remember me &nbsp
 
-            <a href="#"> Forgot password?</a>
+            <a href="#" id='recuperaPassword'> Password dimenticata?</a>
 
         </form>
     </div>

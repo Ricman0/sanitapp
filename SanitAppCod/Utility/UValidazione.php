@@ -323,7 +323,7 @@ class UValidazione {
         $this->_validati = TRUE;
         
         $maxsize = 2 * 2097152;
-        $formatiAccettati = array('application/pdf', 'image/jpeg', 'image/jpg', 'image/gif', 'image/png');
+        $formatiAccettati = array('application/pdf');
         if (file_exists($datiDaValidare['path'])) {
             $this->_datiErrati['path'] = 'Il file esiste già. ';
             $this->_validati = FALSE;
@@ -335,7 +335,7 @@ class UValidazione {
         }        
         
         if ((!in_array($datiDaValidare['fileType'], $formatiAccettati)) && (!empty($datiDaValidare['fileType']))) {
-            $this->_datiErrati['type'] = 'Tipo file non accettato. Sono accettati PDF, JPG, GIF e PNG. ';
+            $this->_datiErrati['type'] = 'Tipo file non accettato. Inserire un PDF. ';
             $this->_validati = FALSE;
         }
         

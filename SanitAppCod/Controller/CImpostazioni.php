@@ -40,7 +40,8 @@ class CImpostazioni {
                     case 'clinica':
                         
                         {
-                            $eClinica = new EClinica($username);                            
+                            $eClinica = new EClinica($username);  
+//                            $eClinica->businessHours();
                             $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getWorkingPlanClinica());
                         }
                         break;
@@ -115,8 +116,9 @@ class CImpostazioni {
                                 if ($eUtente->modificaIndirizzoCAP($uValidazione->getDatiValidi())===TRUE)
                                 {
                                     //modifiche effettuate
-                                    $vJSON = USingleton::getInstance('VJSON');
-                                    $vJSON->inviaDatiJSON(TRUE);
+//                                    $vJSON = USingleton::getInstance('VJSON');
+//                                    $vJSON->inviaDatiJSON(TRUE);
+                                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
                                 }
                                 else
                                 {
@@ -133,33 +135,36 @@ class CImpostazioni {
                         break;
                     
                     case 'medico':
+                        $dati = $vImpostazioni->recuperaCFMedico();
+                        
                         break;
                     
                     case 'credenziali':
                         $dati = $vImpostazioni->recuperaCredenziali();
+                        $arrayDati['password'] = $dati;
                         $uValidazione = USingleton::getInstance('UValidazione');
-                        if($uValidazione->validaDati($dati))// se i dati sono validi
-                            {           
-                                $eUtente = new EUtente(NULL, $username);
-                                if ($eUtente->modificaPassword($uValidazione->getDatiValidi())===TRUE)
-                                {
-                                    //modifiche effettuate
-                                    $vJSON = USingleton::getInstance('VJSON');
-                                    $vJSON->inviaDatiJSON(TRUE);
-                                }
-                                else
-                                {
-                                    $vJSON = USingleton::getInstance('VJSON');
-                                    $vJSON->inviaDatiJSON(FALSE);
-                                }
+                        if($uValidazione->validaDati($arrayDati))// se i dati sono validi
+                        {           
+                            $eUtente = new EUtente(NULL, $username);
+                            if ($eUtente->modificaPassword($uValidazione->getDatiValidi()['password'])===TRUE)
+                            {
+                                //modifiche effettuate
+                                $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
+//                                $vJSON = USingleton::getInstance('VJSON');
+//                                $vJSON->inviaDatiJSON(TRUE);
                             }
                             else
-                            {    
-                                // non tutti i dati sono validi 
+                            {
                                 $vJSON = USingleton::getInstance('VJSON');
                                 $vJSON->inviaDatiJSON(FALSE);
                             }
-                        break;
+                        }
+                        else
+                        {    
+                            // non tutti i dati sono validi 
+                            $vJSON = USingleton::getInstance('VJSON');
+                            $vJSON->inviaDatiJSON(FALSE);
+                        }
                         break;
                     
                     default:

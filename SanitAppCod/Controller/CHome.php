@@ -120,6 +120,10 @@ class CHome {
                 $cPrenotazioni->gestisciPrenotazioni();
                 break;
             
+            case 'recuperaPassword':
+                
+                break;
+            
             case 'referti':
                 $cReferti = USingleton::getInstance('CReferti');
                 $cReferti->gestisciReferti();

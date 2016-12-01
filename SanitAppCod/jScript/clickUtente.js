@@ -46,9 +46,9 @@ $(document).ready(function(){
 //        
 //    });
     
-     $('#headerMain').on("click", "#medicoUtenteModificato", function(){
-        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#medicoCurante");
-    });
+//     $('#headerMain').on("click", "#medicoUtenteModificato", function(){
+//        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#medicoCurante");
+//    });
     
 //    $('#headerMain').on("click", "inviaNuovaPasswordUtente", function(){
 //        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
@@ -73,31 +73,46 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
 //            break;
 //            
 //    }
-    var dati = $(".daModificare > input[type='text']").serialize();  
+    var dati = $("div.daModificare > form").serialize();
+//    alert(dati);
     $.ajax({
         type:'POST',
         url: controller + '/' + task  + '/' + task2,
         data: dati,
         success: function(datiRisposta)
         {
-            alert(datiRisposta);
-            datiRisposta = JSON.parse(datiRisposta);
-            if(datiRisposta==true)
-            {
-                if(task2='informazioni')
+            $(ajaxdiv).html(datiRisposta);
+            if(task2==='credenziali')
                 {
-                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
-//                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
-                }
-                if(task2='credenziali')
-                {
-                    $('#inviaNuovaPasswordUtente').remove();// elimino il tasto OK
+                    alert('Credenziali modificate con successo!');
 
                 }
                 
-                $(".daModificare > input[type='text']").attr("readonly", true); //aggiungo il readonly 
-                $("div").removeClass("daModificare");// elimino la classe daModificare al div
-            }
+            if(task2==='informazioni')
+                {
+                    alert('Informazioni personali modificate con successo!');
+//                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
+//                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
+                }
+//            alert(datiRisposta);
+//            datiRisposta = JSON.parse(datiRisposta);
+//            if(datiRisposta===true)
+//            {
+//                if(task2==='informazioni')
+//                {
+//                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
+////                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
+//                }
+//                if(task2==='credenziali')
+//                {
+//                    alert('Credenziali modificate con successo!')
+//                    $('#inviaNuovaPasswordUtente').remove();// elimino il tasto OK
+//
+//                }
+//                
+//                $(".daModificare > input[type='text']").attr("readonly", true); //aggiungo il readonly 
+//                $("div").removeClass("daModificare");// elimino la classe daModificare al div
+//            }
         }
     });
 }
@@ -110,8 +125,8 @@ function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
         success: function(datiRisposta)
         {
             alert(datiRisposta);
-            $(ajaxdiv).html(datiRisposta);
-            $(ajaxdiv + ">div").addClass( "daModificare" );// aggiunge una classe al div in modo che poi è più semplice recuperare i dati 
+            $(ajaxdiv).replaceWith(datiRisposta);
+            $(ajaxdiv).addClass( "daModificare" );// aggiunge una classe al div in modo che poi è più semplice recuperare i dati 
         },
         complete:function()
         {
@@ -132,7 +147,7 @@ function confermaPrenotazioneUtente(controller, task, id, ajaxDiv)
             alert(datiRisposta);
             datiRisposta = JSON.parse(datiRisposta);
             alert(datiRisposta);
-            if(datiRisposta==true)
+            if(datiRisposta===true)
             {
                 $('#divConfermaPrenotazioneUtente').empty();// svuoto il div 
                 $('#divConfermaPrenotazioneUtente').text('Prenotazione: Confermata');// aggiungo il testo Confermata al div

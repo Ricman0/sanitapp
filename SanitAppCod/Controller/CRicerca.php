@@ -56,8 +56,11 @@ class CRicerca {
                         {
                             //il codice fiscale  è valido
                             // ora controllo che l'utente sia presente nel sistema
-                            $eUtente = new EUtente($dati['codiceFiscale']);
-                            if($eUtente->getCodiceFiscaleUtente()!==NULL)
+                             try {
+                                $eUtente = new EUtente($dati['codiceFiscale']);
+                            } catch (XUtenteException $exc) {//$risultato=true;
+                            }
+                            if(isset($eUtente))
                             {
                                  $risultato = NULL;
                             }
@@ -66,17 +69,21 @@ class CRicerca {
                         break;
                         
                     case 'medico':
-                        $dati['codiceFiscale'] = $vRicerca->recuperaValore('codiceFiscale');
+                        $dati['codiceFiscale'] = $vRicerca->recuperaValore('codiceFiscaleMedicoUtente');
                         $uValidazione = USingleton::getInstance('UValidazione');
                         $risultato = TRUE;
                         if($uValidazione->validaDati($dati))
                         {
                             //il codice fiscale  è valido
                             // ora controllo che l'utente sia presente nel sistema
-                            $eMedico = new EMedico($dati['codiceFiscale']);
-                            if($eMedico->getCodiceFiscaleMedico()!==NULL)
+                            try {
+                                $eMedico = new EMedico($dati['codiceFiscale']);
+                            } catch (XMedicoException $exc) {
+                            }
+
+                            if(!isset($eMedico))
                             {
-                                 $risultato = NULL;
+                                $risultato = NULL;
                             }
 
                         }
@@ -125,7 +132,7 @@ class CRicerca {
                     $eUser = new EUser(NULL, NULL, $dati['email']);
                     if($eUser->getEmail()!== NULL)
                     {
-                         $risultato = NULL; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
+                        $risultato = NULL; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
                     }
                 }
                 break;
@@ -139,7 +146,7 @@ class CRicerca {
                     $eUser = new EUser(NULL, NULL, NULL, $dati['PEC']);
                     if($eUser->getPEC()!== NULL)
                     {
-                         $risultato = NULL; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
+                         $risultato = false; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
                     }
                 }
                 

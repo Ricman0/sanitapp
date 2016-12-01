@@ -28,31 +28,30 @@ function validazione(task1, controller1, task2)
             if (controller1 === "prenotazioni")
             {
                 validazioneCodiceFiscale();
-            } 
-            else
+            } else
             {
                 validazioneEsame();
             }
             break;
-            
+
         case 'modifica':
-            switch(task2)
+            switch (task2)
             {
-                
+
                 case 'informazioni':
-                    alert("fino a qui");
                     validazioneInformazioni();
                     break;
                 case 'credenziali':
                     validazioneCredenziali();
                     break;
                 case 'medico':
+                    validazioneCodiceFiscaleMedicoCurante();
                     break;
-                default: 
+                default:
                     break;
             }
-        
-        
+
+
 
 
         default:
@@ -63,14 +62,14 @@ function validazione(task1, controller1, task2)
 function validazioneCredenziali()
 {
     //
-    
+
     jQuery.validator.addMethod("password", function (valore) {
         //espressione regolare per la password
         var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
         return valore.match(regex);
-        }, "La password consta da 6 a 10 caratteri, contiene almeno un numero, una lettera \n\
-        maiuscola,una lettera minuscola. ");
-    
+    }, "Da 6 a 10 caratteri con un numero ed una lettera \n\
+        maiuscola. ");
+
     $('#formModificaPassword').validate({
         rules:
                 {
@@ -82,7 +81,7 @@ function validazioneCredenziali()
                     ripetiPassword:
                             {
                                 required: true,
-                                equalTo: "#password"
+                                equalTo: "#nuovaPassword"
                             }
                 },
         messages:
@@ -94,14 +93,14 @@ function validazioneCredenziali()
                     ripetiPassword:
                             {
                                 required: "Inserire nuovamente la password",
-                                equalTo: "La password deve essere sempre la stessa"
+                                equalTo: "Le password non corrispondono"
                             }
                 },
-        submitHandler: function(form)
-        {            
-            
-            inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
-        } 
+        submitHandler: function ()
+        {
+
+            inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#contenutoAreaPersonale");
+        }
     });
 }
 
@@ -109,24 +108,24 @@ function validazioneInformazioni()
 {
     $('#formModificaInformazioni').validate({
         rules:
-            {
-                Via:
-                    {
-                        required: true,
-                        maxlength: 30
-                    },
-                NumCivico:
-                    {
-                        number: true,
-                        min: 0
-                    },
-                CAP:
-                    {
-                        required: true,
-                        minlength: 5,
-                        maxlength: 5
-                    }
-            },
+                {
+                    Via:
+                            {
+                                required: true,
+                                maxlength: 30
+                            },
+                    NumCivico:
+                            {
+                                number: true,
+                                min: 0
+                            },
+                    CAP:
+                            {
+                                required: true,
+                                minlength: 5,
+                                maxlength: 5
+                            }
+                },
         messages:
                 {
                     Via:
@@ -146,7 +145,7 @@ function validazioneInformazioni()
                                 maxlength: "Il CAP è un numero lungo 5"
                             }
                 },
-        submitHandler: function(form)
+        submitHandler: function ()
         {
             alert("submit handler");
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
@@ -154,6 +153,57 @@ function validazioneInformazioni()
     });
 }
 
+function validazioneCodiceFiscaleMedicoCurante()
+{
+    jQuery.validator.addMethod("codiceFiscale", function (valore) {
+        //espressione regolare per codice fiscale
+        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        return valore.match(regex);
+    }, "Il codice fiscale deve essere del tipo DMRCLD89S42G438S");
+    
+    $("#formModificaMedico").validate({
+        /*
+         * Il plugin di default invia una richiesta ajax  per la regola remote
+         * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+         * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+         * in questo modo l'input che richiama la regola remote sarà validata con una sola chiamata ajax
+         * una volta che abbiamo terminato di digitare l'input.
+         */
+        onkeyup: false,
+        rules:
+                {
+                    codiceFiscaleMedicoUtente:
+                            {
+                                required: true,
+                                codiceFiscale: true,
+                                maxlength: 16,
+                                minlength: 16,
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/codice/medico"
+                                        }
+                            }
+                },
+        messages:
+                {
+                    
+                    codiceFiscaleMedicoUtente:
+                            {
+                                required: "Inserire il proprio codice fiscale",
+                                maxlength: "Il codice fiscale è lungo 16 caratteri",
+                                minlength: "Il codice fiscale è lungo 16 caratteri",
+                                remote: "Medico non esistente in Sanitapp"
+                            }
+                },
+        submitHandler: function ()
+        {
+            inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#contenutoAreaPersonale");
+
+        }
+    });
+}
+    
 function validazioneCodiceFiscale()
 {
     jQuery.validator.addMethod("codiceFiscale", function (valore) {
@@ -170,11 +220,11 @@ function validazioneCodiceFiscale()
                                 codiceFiscale: true,
                                 maxlength: 16,
                                 minlength: 16,
-                                remote: 
-                                    {
-                                        type: "POST",
-                                        url: "ricerca/utente"
-                                    }
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/utente"
+                                        }
                             }
 
                 },
@@ -188,31 +238,31 @@ function validazioneCodiceFiscale()
                                 remote: "Utente non esistente, inserire un codice fiscale di un utente già registrato"
                             }
                 },
-        submitHandler: function(form)
+        submitHandler: function ()
         {
-            
-            var codiceFiscale = $("form input[type='text']" ).val();
+
+            var codiceFiscale = $("form input[type='text']").val();
             var nomeClinica = $("form input[type='submit']").attr('data-nomeClinica');
-            if(typeof(nomeClinica)!='undefined')
+            if (typeof (nomeClinica) !== 'undefined')
             {
                 $.ajax({
-                    type:'GET',
-                    url: 'esami/all/' + nomeClinica, 
-                    success: function(datiRisposta)
+                    type: 'GET',
+                    url: 'esami/all/' + nomeClinica,
+                    success: function (datiRisposta)
                     {
                         $("#contenutoAreaPersonale").html(datiRisposta);
 //                        //aggiungo il campo nascosto codice fiscale 
                         $('<input>').attr({
                             type: 'hidden',
                             id: 'codiceFiscaleUtentePrenotaEsame',
-                            name: 'codiceFiscaleUtentePrenotaEsame', 
-                            value:  codiceFiscale  
+                            name: 'codiceFiscaleUtentePrenotaEsame',
+                            value: codiceFiscale
                         }).appendTo('table');
 //                        
                         $('.tablesorter').tablesorter({
-                        theme: 'blue',
-                        widgets: ["filter"],
-                        widgetOptions: {
+                            theme: 'blue',
+                            widgets: ["filter"],
+                            widgetOptions: {
                                 // filter_anyMatch replaced! Instead use the filter_external option
                                 // Set to use a jQuery selector (or jQuery object) pointing to the
                                 // external filter (column specific or any match)
@@ -229,35 +279,34 @@ function validazioneCodiceFiscale()
 
                     }
                 });
-            }
-            else
+            } else
             {
                 $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codiceFiscale); //aggiungo il codice fiscale al button nex in prenotazione/esame/idEsame
                 $("p").show();
                 var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
                 var giorniNonLavorativi = getGiorniNonLavorativiClinica(partitaIVAClinica);
                 $("#calendarioPrenotazioneEsame").datepicker({
-                    firstDay:1,
+                    firstDay: 1,
                     dateFormat: "dd-mm-yy",
                     regional: "it",
                     minDate: 1,
-                    beforeShowDay: function (date){
+                    beforeShowDay: function (date) {
                         return [disabilitaGiorniNonLavorativi(date, giorniNonLavorativi)];
                     },
-                    onSelect: function(dateText, inst) { 
-                    var data = dateText; //the first parameter of this function
-                    $('#nextPrenotazioneEsame').attr('data-data', data);
-                    alert(data);
-                    
-                    var dataObject = $(this).datepicker( 'getDate' ); //the getDate method
-                    alert(dataObject);
-                    
-                    var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
-                    alert(nomeGiorno);
+                    onSelect: function (dateText, inst) {
+                        var data = dateText; //the first parameter of this function
+                        $('#nextPrenotazioneEsame').attr('data-data', data);
+                        alert(data);
+
+                        var dataObject = $(this).datepicker('getDate'); //the getDate method
+                        alert(dataObject);
+
+                        var nomeGiorno = $.datepicker.formatDate('DD', dataObject);
+                        alert(nomeGiorno);
 //                    var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
 //                    alert("PartitaIVA: " + partitaIVAClinica);
-                    var idEsame = $("#idEsame").val();
-                    orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
+                        var idEsame = $("#idEsame").val();
+                        orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
                     }});
                 $("#nextPrenotazioneEsame").show();
             }
@@ -288,7 +337,7 @@ function validazioneLogIn(form)
                     usernameLogIn:
                             {
                                 required: true,
-                                username: true                               
+                                username: true
                             },
                     passwordLogIn:
                             {
@@ -307,6 +356,9 @@ function validazioneLogIn(form)
                                 required: "Inserire password"
                             }
                 },
+        errorPlacement: function (error, element) {
+            return true;
+        },
         submitHandler: function ()
         {
             alert('I dati log in sono stati inseriti correttamente');
@@ -324,10 +376,10 @@ function validazioneLogIn(form)
  */
 function validazioneUtente()
 {
-    
 
 
-    
+
+
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("password", function (valore) {
@@ -353,12 +405,12 @@ function validazioneUtente()
 
     $("#inserisciUtente").validate({
         /*
-        * Il plugin di default invia una richiesta ajax  per la regola remote
-        * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
-        * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
-        * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
-        * una volta che abbiamo terminato di digitare l'input.
-        */
+         * Il plugin di default invia una richiesta ajax  per la regola remote
+         * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+         * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+         * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
+         * una volta che abbiamo terminato di digitare l'input.
+         */
         onkeyup: false, //turn off auto validate whilst typing
 //        focusCleanup: true,
         rules:
@@ -379,13 +431,13 @@ function validazioneUtente()
                                 codiceFiscale: true,
                                 maxlength: 16,
                                 minlength: 16,
-                                remote: 
-                                    {
-                                        type: "POST",
-                                        url: "ricerca/codice/utente" 
-                                  
-                                    }
-                                    
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/codice/utente"
+
+                                        }
+
                             },
                     indirizzo:
                             {
@@ -408,10 +460,10 @@ function validazioneUtente()
                                 required: true,
                                 email: true,
                                 remote:
-                                        { 
-                                           type: 'POST',
-                                           url: "ricerca/email"
-                                        }             
+                                        {
+                                            type: 'POST',
+                                            url: "ricerca/email"
+                                        }
                             },
                     username:
                             {
@@ -419,11 +471,11 @@ function validazioneUtente()
                                 username: true,
                                 minlength: 2,
                                 maxlength: 15,
-                                remote: 
-                                    {
-                                        type: "POST",
-                                        url: "ricerca/username"
-                                    }                                  
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/username"
+                                        }
                             },
                     passwordUtente:
                             {
@@ -523,15 +575,15 @@ function validazioneMedico()
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
         return valore.match(regex);
     }, "Può contenere numeri, lettere maiuscole o minuscole");
-    
+
     $("#inserisciMedico").validate({
         /*
-        * Il plugin di default invia una richiesta ajax  per la regola remote
-        * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
-        * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
-        * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
-        * una volta che abbiamo terminato di digitare l'input.
-        */
+         * Il plugin di default invia una richiesta ajax  per la regola remote
+         * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+         * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+         * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
+         * una volta che abbiamo terminato di digitare l'input.
+         */
         onkeyup: false,
         rules:
                 {
@@ -549,14 +601,14 @@ function validazioneMedico()
                     codiceFiscale:
                             {
                                 required: true,
-                                codiceFiscale:true,
+                                codiceFiscale: true,
                                 maxlength: 16,
                                 minlength: 16,
-                                remote: 
-                                    {
-                                        type: "POST",
-                                        url: "ricerca/codice/medico"
-                                    }
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/codice/medico"
+                                        }
                             },
                     indirizzoMedico:
                             {
@@ -579,10 +631,10 @@ function validazioneMedico()
                                 required: true,
                                 email: true,
                                 remote:
-                                        { 
-                                           type: "POST",
-                                           url: "ricerca/email"  
-                                        }             
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/email"
+                                        }
                             },
                     username:
                             {
@@ -590,11 +642,11 @@ function validazioneMedico()
                                 username: true,
                                 minlength: 2,
                                 maxlength: 15,
-                                remote: 
-                                    {
-                                        type: "POST",
-                                        url: "ricerca/username",
-                                    }                               
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/username"
+                                        }
                             },
                     passwordMedico:
                             {
@@ -609,11 +661,11 @@ function validazioneMedico()
                             {
                                 required: true,
                                 email: true,
-                                remote: 
-                                    {
-                                        type: "POST",
-                                        url: "ricerca/PEC",
-                                    } 
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/PEC"
+                                        }
                             },
                     provinciaAlbo:
                             {
@@ -729,7 +781,7 @@ function validazioneClinica()
         var regex = /[0-9]{11}/;
         return valore.match(regex);
     }, "La partita IVA deve essere una sequenza di 11 numeri");
-    
+
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{2,15}/;
@@ -738,12 +790,12 @@ function validazioneClinica()
 
     $("#inserisciClinica").validate({
         /*
-        * Il plugin di default invia una richiesta ajax  per la regola remote
-        * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
-        * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
-        * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
-        * una volta che abbiamo terminato di digitare l'input.
-        */
+         * Il plugin di default invia una richiesta ajax  per la regola remote
+         * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+         * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+         * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
+         * una volta che abbiamo terminato di digitare l'input.
+         */
         onkeyup: false,
         rules:
                 {
@@ -760,14 +812,14 @@ function validazioneClinica()
                     partitaIVA:
                             {
                                 required: true,
-                                partitaIVA:true,
+                                partitaIVA: true,
                                 maxlength: 11,
                                 minlength: 11,
-                                remote: 
-                                    {
-                                        type: "POST",
-                                        url: "ricerca/partitaIVA",
-                                    }
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/partitaIVA"
+                                        }
                             },
                     indirizzoClinica:
                             {
@@ -800,37 +852,37 @@ function validazioneClinica()
                                 required: true,
                                 email: true,
                                 remote:
-                                        { 
-                                           type: 'POST',
-                                           url: 'ricerca/email' 
-                                        }             
+                                        {
+                                            type: 'POST',
+                                            url: 'ricerca/email'
+                                        }
                             },
                     PEC:
                             {
                                 required: true,
                                 email: true,
-                                remote: 
-                                    {
-                                        type: "POST",
-                                        url: "ricerca/PEC",
-                                    } 
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/PEC"
+                                        }
                             },
                     username:
                             {
                                 required: true,
-                                username:true,
+                                username: true,
                                 minlength: 2,
                                 maxlength: 15,
-                                remote: 
-                                    {
-                                        type: "POST",
-                                        url: "ricerca/username",
-                                    }
-                                },
+                                remote:
+                                        {
+                                            type: "POST",
+                                            url: "ricerca/username"
+                                        }
+                            },
                     passwordClinica:
                             {
                                 required: true,
-                                password:true
+                                password: true
                             },
                     ripetiPasswordClinica:
                             {
@@ -865,7 +917,7 @@ function validazioneClinica()
                                 required: "Inserire la partita IVA",
                                 maxlength: "La sequenza massima di numeri è 11",
                                 minlength: "La sequenza minima di numeri è 11",
-                                remote: "Partita IVA già esistente"         
+                                remote: "Partita IVA già esistente"
                             },
                     indirizzoClinica:
                             {
@@ -897,7 +949,7 @@ function validazioneClinica()
                             {
                                 required: "Inserire l'email della clinica",
                                 email: "Deve essere un'email",
-                                remote:"Email già esistente"
+                                remote: "Email già esistente"
 //                                                    
                             },
                     PEC:
@@ -912,7 +964,7 @@ function validazioneClinica()
                                 required: "Inserire username",
                                 minlength: "La sequenza alfanumerica minima  è 2",
                                 maxlength: "La sequenza alfanumerica massima è 15",
-                                remote: "Username già esistente"                                
+                                remote: "Username già esistente"
                             },
                     passwordClinica:
                             {
@@ -1083,7 +1135,7 @@ function validazioneEsame()
                                 number: true,
                                 max: 20,
                                 min: 1
-                            },
+                            }
 //                    descrizioneEsame:
 //                            {
 //                                required: true,
@@ -1125,7 +1177,7 @@ function validazioneEsame()
                                 number: "Deve essere un numero",
                                 min: "Minimo 1",
                                 max: "Massimo 20"
-                            },
+                            }
 //                    descrizioneEsame:
 //                            {
 //                                required: "Inserisci una breve descrizione",
@@ -1155,13 +1207,13 @@ function validazioneReferto() {
             }
 
         },
-        messages:{
+        messages: {
             referto: {
                 required: "selezionare un file",
                 accept: "selezionare un file pdf"
             }
         },
-        submitHandler:function(){
+        submitHandler: function () {
             uploadReferto(); //si trova in click clinica
         }
 

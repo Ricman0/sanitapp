@@ -104,6 +104,16 @@ button, input[type = 'submit'], input[type='button']
     padding-left: 20px;
     padding-right: 20px;
     box-sizing: border-box;
+    margin: 20px auto;
+}
+
+button.sottile{
+    margin: 0;
+    
+}
+
+.error{
+    border-color: red;
 }
 
 input.time 

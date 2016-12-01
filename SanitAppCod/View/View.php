@@ -147,10 +147,8 @@ class View extends Smarty {
      */
     final public function getTask2() 
     {
-        echo "ss";
         if (isset($_REQUEST['task2'])) 
         {
-            echo "2";
             return $_REQUEST['task2'];
         }
         else 
