@@ -205,4 +205,15 @@ class VImpostazioni extends View{
     {
         return $this->recuperaValore('password');
     }
+    
+    /**
+     * Metodo che consente di recuperare il codice fiscale del nuovo medico
+     * 
+     * @access public
+     * @return string Il codice fiscale del nuovo medico
+     */
+    function recuperaCFMedico() 
+    {
+        return $this->recuperaValore('medicoUtente');
+    }
 }

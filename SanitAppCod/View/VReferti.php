@@ -80,4 +80,14 @@ class VReferti extends View{
 //        $this->visualizzaFeedback($messaggio);
         
     }
+    
+    public function downloadReferto($file) {
+
+        header("Cache-Control: public");
+        header("Content-type:application/pdf");
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename= " . $file);
+        header("Content-Transfer-Encoding: binary");
+        readfile($file);
+    }
 }

@@ -457,8 +457,8 @@ class EUtente extends EUser {
     public function modificaPassword($password) 
     {
         parent::setPassword($password);
-        $fUtente = USingleton::getInstance('FUtente');
-        return $fUtente->modificaPassword(parent::getUsername(), parent::getPassword());
+        $fUser = USingleton::getInstance('FUser');
+        return $fUser->modificaPassword(parent::getUsername(), parent::getPassword());
     }
     
     /**

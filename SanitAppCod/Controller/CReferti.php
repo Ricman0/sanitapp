@@ -39,12 +39,7 @@ class CReferti {
                 $idPrenotazione = $vReferti->recuperaValore('id');
                 $eReferto = new EReferto($idPrenotazione);
                 if (file_exists($eReferto->getContenutoReferto())) {
-                    header("Cache-Control: public");
-                    header("Content-type:application/pdf");
-                    header("Content-Description: File Transfer");
-                    header("Content-Disposition: attachment; filename= " . $eReferto->getContenutoReferto());
-                    header("Content-Transfer-Encoding: binary");
-                    readfile($eReferto->getContenutoReferto());
+                    $vReferti->downloadReferto($eReferto->getContenutoReferto());
                 } else {
                     throw new XFileException('Attenzione, problema imprevisto, il file non esiste. ');
                 }
@@ -117,8 +112,7 @@ class CReferti {
                     $this->uploadReferto();
                 } 
                 catch (XDatiRefertoException $e) {
-                    print_r( $e->getMessage());
-                    $vReferti->visualizzaFeedback($messaggio);
+                    $vReferti->visualizzaFeedback('Problema upload. ');
                     
 
                 }
