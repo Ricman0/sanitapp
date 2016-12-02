@@ -303,6 +303,7 @@ function validazioneCodiceFiscale()
                         alert(dataObject);
 
                         var nomeGiorno = $.datepicker.formatDate('DD', dataObject);
+                        nomeGiorno = nomeGiorno.replace('ì','i');
                         alert(nomeGiorno);
 //                    var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
 //                    alert("PartitaIVA: " + partitaIVAClinica);

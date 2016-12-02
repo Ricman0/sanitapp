@@ -10,7 +10,7 @@
 
 
   RewriteCond %{REQUEST_METHOD} GET 
-  RewriteRule ^(agenda)?$ index.php?controller=$1 [L]
+  
   RewriteRule ^(agenda)/(visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(logOut)?$ index.php?controller=$1
   RewriteRule ^(ricerca)/(utente)/(\w+)?$ index.php?controller=$1&task=$2&codice=$3 [L]
@@ -48,6 +48,7 @@ RewriteRule ^(referti)/(aggiungi|visualizza|download)/([[:alnum:]]+)?$ index.php
 
 
     RewriteCond %{REQUEST_METHOD} POST 
+    RewriteRule ^(agenda)?$ index.php?controller=$1 [L]
     RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)?$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(ricerca)/(codice)/(utente|medico)?$ index.php?controller=$1&task=$2&tipoUser=$3 [L]
     RewriteRule ^(prenotazione)/(riepilogo|conferma|elimina|modifica)?$ index.php?controller=$1&task=$2 [L]

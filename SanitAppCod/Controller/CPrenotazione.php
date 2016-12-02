@@ -640,15 +640,15 @@ class CPrenotazione {
         }
         if ($eUtente->checkIfCan($idEsame, $partitaIVAClinica, $data, $orario, $durata) === TRUE) { //@throws XDBException Se c'è un errore durante l'esecuzione della query
             $modifica = $vPrenotazione->recuperaValore('modifica');
-            
-            if ($modifica==true)
+            print_r($modifica);
+            if ($modifica===true || $modifica==='1')
             { 
                 $idPrenotazione =  $vPrenotazione->recuperaValore('idPrenotazione');                
                 $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice, $modifica, $idPrenotazione);
             }
             else
-            {            
-                echo "dai pero";
+            {
+                $modifica = FALSE; // sovrascrivo il false con FALSE in maniera che non ci siano problemi con smarty
                 $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice, $modifica);
             }
             

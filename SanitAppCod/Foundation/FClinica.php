@@ -291,17 +291,30 @@ class FClinica extends FUser{
      * 
      * @access public
      * @param string $partitaIVAClinica La partita IVA della clinica di cui si vogliono cercare gli appuntamenti
+     * @param string $start Stringa contenente data e ora in formato YYYY-MM-DD hh:mm da cui bisogna inziare il recupero
+     * @param string $end Stringa contenente data e ora in formato YYYY-MM-DD hh:mm fino cui bisogna effettuare il recupero
      * @throws XDBException Se la query non è stata eseguita con successo
      */
-    public function cercaAppuntamenti($partitaIVAClinica) {
-        $dataOdierna = date('Y-m-d');  // stringa contenente la data odierna
-        $dataOdierna = "2016-11-30";// da eliminare serve solo per vedere se la query funziona
+    public function cercaAppuntamenti($partitaIVAClinica, $start, $end) {
+//        $dataStart = substr($start, 0, 10); // solo la data
+//        $dataEnd = substr($end, 0, 10);
+//        $oraStart = substr($start, 11, 5);
+//        $oraEnd = substr($end, 11, 5);
+        
+//        $dataOdierna = date('Y-m-d');  // stringa contenente la data odierna
+//        $dataOdierna = "2016-11-30";// da eliminare serve solo per vedere se la query funziona
         $query = "SELECT IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, TIME(DataEOra) as Orario, DATE(DataEOra)as Data, esame.Durata "
                 . "FROM prenotazione,esame,utente "
                 . "WHERE prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "' AND "
                 . "prenotazione.IDEsame=esame.IDEsame AND "
                 . "prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale AND "
-                . "DATE(DataEOra)='" . $dataOdierna . "'";
+//                . "DATE(DataEOra)='" . $dataOdierna . "'";
+                . "DataEOra>='" . $start . "' AND "
+                . "DataEOra<='" . $end . "'";
+        print_r($query);
         return $this->eseguiQuery($query);
     }
+    
+    
+    
 }

@@ -9,13 +9,13 @@ $(document).ready(function () {
 
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
 
-        $.ajax({
-            type: 'GET',
-//            url: 'agenda/visualizza',
-            url:'agenda',
-            success: function(datiRisposta)
-            {
-                alert(datiRisposta);
+//        $.ajax({
+//            type: 'GET',
+////            url: 'agenda/visualizza',
+//            url:'agenda',
+//            success: function(datiRisposta)
+//            {
+//                alert(datiRisposta);
                 $('#contenutoAreaPersonale').append("<div id='agenda'></div>");
                 $('#agenda').fullCalendar({
                 header: 
@@ -39,8 +39,8 @@ $(document).ready(function () {
                         
                 
                 
-            }
-        });
+//            }
+//        });
 
     });
 
@@ -624,15 +624,21 @@ function inviaCodiceFiscale(controller1, task1, ajaxdiv)
 function agendaViewDisplay(view, element)
 {
     var agendaView = $('#agenda').fullCalendar('getView'); //memorizzo il View Object in agendaView
-    console.log(agendaView);
+    // mi salvo date e orari per passarli durante la chiamata così all'interno di questo range posso trovare gli appuntamenti
+    var startDataOra = agendaView.start.format('YYYY-MM-DD') + " " + agendaView.calendar.options.minTime ; // data e ora di inizio della view
+    var endDataOra = agendaView.end.format('YYYY-MM-DD') + " 00:00:00" ;// ultima data e ora della view
+    // forse i trim sono inutili
+    startDataOra = $.trim(startDataOra);// elimino gli eventuali spazi iniziali e finali con la funzione di jquery
+    endDataOra = $.trim(endDataOra);
     $.ajax({
-            type: 'GET',
+            type: 'POST',
 //            url: 'agenda/visualizza',
             url:'agenda',
+            data:{start:startDataOra, end: endDataOra},
             success: function(datiRisposta)
             {
                  //rendo oggetto JS i dati JSON ricevuti
-            datiRisposta = JSON.parse(datiRisposta);
+//            datiRisposta = JSON.parse(datiRisposta);
 
             console.log(datiRisposta);
             // aggiungo appuntamenti all'agenda
@@ -663,6 +669,109 @@ function agendaViewDisplay(view, element)
 
             switch(agendaView.name) // recupero il nome della View
             {
+                case 'basicWeek':
+                case 'agendaWeek':
+                    var currDateStart = agendaView .start;
+                    var currDateEnd = GeneralFunctions.clone(currDateStart).addDays(1);
+
+                                // Add custom unavailable periods (they are always displayed
+                                // on the calendar, even if the provider won't work on that day).
+                                $.each(response.unavailables, function(index, unavailable) {
+                                   //if (currDateStart.toString('dd/MM/yyyy')
+                                   //        === Date.parse(unavailable.start_datetime).toString('dd/MM/yyyy')) {
+                                        unavailablePeriod = {
+                                            'title': EALang['unavailable'] + ' <br><small>' + ((unavailable.notes.length > 30)
+                                                    ? unavailable.notes.substring(0, 30) + '...'
+                                                    : unavailable.notes) + '</small>',
+                                            'start': Date.parse(unavailable.start_datetime),
+                                            'end': Date.parse(unavailable.end_datetime),
+                                            'allDay': false,
+                                            'color': '#879DB4',
+                                            'editable': true,
+                                            'className': 'fc-unavailable fc-custom',
+                                            'data': unavailable
+                                        };
+                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, false);
+                                   //}
+                                });
+
+                                $.each(workingPlan, function(index, workingDay) {
+
+                                    if (workingDay == null) {
+                                        // Add a full day unavailable event.
+                                        unavailablePeriod = {
+                                            'title': EALang['not_working'],
+                                            'start': GeneralFunctions.clone(currDateStart),
+                                            'end': GeneralFunctions.clone(currDateEnd),
+                                            'allDay': false,
+                                            'color': '#BEBEBE',
+                                            'editable': false,
+                                            'className': 'fc-unavailable'
+                                        };
+                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, true);
+                                        currDateStart.addDays(1);
+                                        currDateEnd.addDays(1);
+                                        return; // Go to the next loop.
+                                    }
+
+                                    var start, end;
+
+                                    // Add unavailable period before work starts.
+                                    start = Date.parseExact(currDateStart.toString('dd/MM/yyyy')
+                                            + ' ' + workingDay.start, 'dd/MM/yyyy HH:mm');
+                                    if (currDateStart < start) {
+                                        unavailablePeriod = {
+                                            'title': EALang['not_working'],
+                                            'start': GeneralFunctions.clone(currDateStart),
+                                            'end': GeneralFunctions.clone(start),
+                                            'allDay': false,
+                                            'color': '#BEBEBE',
+                                            'editable': false,
+                                            'className': 'fc-unavailable'
+                                        };
+                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, true);
+                                    }
+
+                                    // Add unavailable period after work ends.
+                                    end = Date.parseExact(currDateStart.toString('dd/MM/yyyy')
+                                            + ' ' + workingDay.end, 'dd/MM/yyyy HH:mm');
+                                    if (currDateEnd > end) {
+                                        unavailablePeriod = {
+                                            'title': EALang['not_working'],
+                                            'start': GeneralFunctions.clone(end),
+                                            'end': GeneralFunctions.clone(currDateEnd),
+                                            'allDay': false,
+                                            'color': '#BEBEBE',
+                                            'editable': false,
+                                            'className': 'fc-unavailable fc-brake'
+                                        };
+                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, false);
+                                    }
+
+                                    // Add unavailable periods during day breaks.
+                                    var breakStart, breakEnd;
+                                    $.each(workingDay.breaks, function(index, currBreak) {
+                                        breakStart = Date.parseExact(currDateStart.toString('dd/MM/yyyy')
+                                                + ' ' + currBreak.start, 'dd/MM/yyyy HH:mm');
+                                        breakEnd = Date.parseExact(currDateStart.toString('dd/MM/yyyy')
+                                                + ' ' + currBreak.end, 'dd/MM/yyyy HH:mm');
+                                        var unavailablePeriod = {
+                                            'title': EALang['break'],
+                                            'start': breakStart,
+                                            'end': breakEnd,
+                                            'allDay': false,
+                                            'color': '#BEBEBE',
+                                            'editable': false,
+                                            'className': 'fc-unavailable fc-break'
+                                        };
+                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, false);
+                                    });
+
+                                    currDateStart.addDays(1);
+                                    currDateEnd.addDays(1);
+                                });
+                    break;
+                    
                 default: // il nome della View è agendaDay
                     
                     var nomeGiorno = agendaView.start.format('dddd'); // della view prendo il moment start e di questo prendo solo il nome del giorno in formato stringa
