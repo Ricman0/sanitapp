@@ -638,7 +638,7 @@ function agendaViewDisplay(view, element)
             success: function(datiRisposta)
             {
                  //rendo oggetto JS i dati JSON ricevuti
-//            datiRisposta = JSON.parse(datiRisposta);
+            datiRisposta = JSON.parse(datiRisposta);
 
             console.log(datiRisposta);
             // aggiungo appuntamenti all'agenda
@@ -665,111 +665,100 @@ function agendaViewDisplay(view, element)
             $('#agenda').fullCalendar('addEventSource', appuntamentiAgenda);// Aggiunge dinamicamente gli event source
         // .fullCalendar( 'addEventSource', source ) // source può essere Array/URL/Function. Gli eeventi sono immediatamente presi dal source e inseriti nel calendario/agenda
 
-
+            console.log(agendaView.name);
 
             switch(agendaView.name) // recupero il nome della View
             {
                 case 'basicWeek':
                 case 'agendaWeek':
-                    var currDateStart = agendaView .start;
-                    var currDateEnd = GeneralFunctions.clone(currDateStart).addDays(1);
+                    var currDateStart = agendaView.start;
+                    var currDateStartString = currDateStart.format('YYYY-MM-DD'); // recupero la stringa della data da cui inizia il calendario 
+                    var currDateEnd = moment(currDateStartString); // creo un moment dalla stringa
+                    currDateEnd = currDateEnd.add(1,'days'); // aggiungo un giorno
+                    var currDateEndString = currDateEnd.format('YYYY-MM-DD');
+                    $.each(datiRisposta.workingPlan, function(index, workingDay) {
 
-                                // Add custom unavailable periods (they are always displayed
-                                // on the calendar, even if the provider won't work on that day).
-                                $.each(response.unavailables, function(index, unavailable) {
-                                   //if (currDateStart.toString('dd/MM/yyyy')
-                                   //        === Date.parse(unavailable.start_datetime).toString('dd/MM/yyyy')) {
-                                        unavailablePeriod = {
-                                            'title': EALang['unavailable'] + ' <br><small>' + ((unavailable.notes.length > 30)
-                                                    ? unavailable.notes.substring(0, 30) + '...'
-                                                    : unavailable.notes) + '</small>',
-                                            'start': Date.parse(unavailable.start_datetime),
-                                            'end': Date.parse(unavailable.end_datetime),
-                                            'allDay': false,
-                                            'color': '#879DB4',
-                                            'editable': true,
-                                            'className': 'fc-unavailable fc-custom',
-                                            'data': unavailable
-                                        };
-                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, false);
-                                   //}
-                                });
+                        if (workingDay === null) {
+                            // Add a full day unavailable event.
+                            periodoNonDisponibile = {
+                                'title': 'GIORNO NON LAVORATIVO',
+                                'start': currDateStartString,
+                                'end': currDateEndString,
+                                'allDay': false,
+                                'color': '#BEBEBE',
+                                'editable': false,
+                            };
+                            $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, true);
+                            currDateStart.add(1, 'days');
+                            currDateStartString = currDateStart.format('YYYY-MM-DD');
+                            currDateEnd.add(1, 'days');
 
-                                $.each(workingPlan, function(index, workingDay) {
 
-                                    if (workingDay == null) {
-                                        // Add a full day unavailable event.
-                                        unavailablePeriod = {
-                                            'title': EALang['not_working'],
-                                            'start': GeneralFunctions.clone(currDateStart),
-                                            'end': GeneralFunctions.clone(currDateEnd),
-                                            'allDay': false,
-                                            'color': '#BEBEBE',
-                                            'editable': false,
-                                            'className': 'fc-unavailable'
-                                        };
-                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, true);
-                                        currDateStart.addDays(1);
-                                        currDateEnd.addDays(1);
-                                        return; // Go to the next loop.
-                                    }
+                        }
+                        else
+                        {
+                            // aggiungo un periodoNonDisponibile prima dell'orario lavorativo
+                            var startClinicaString= currDateStartString + ' ' + workingDay.Start + ':00';// aggiungo l'orario di inizio 
+                            var startClinica = Date.parse(startClinicaString); // da stringa ad oggetto Date e ritornano i millisecondi tra la stringa passata  e la mezzanotte del 1° Gennaio 1970.
+                            var startAgendaString = currDateStartString + " " + agendaView.calendar.options.minTime;
+                            var startDayAgenda = Date.parse(startAgendaString);
+                            if (startDayAgenda < startClinica)  // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
+                            {
+        //                        agendaView.calendar.options.minTime
+        //                        var minTimeClinica = workingDay.Start + ':00';
+        //                        $('#agenda').fullCalendar('option', 'minTime', minTimeClinica);
+                                //usando le 8 righe seguenti posso inserire un periodo invece con le 2 righe precedenti riadatto l'orario di inizio attività della clinica
+                                periodoNonDisponibile = {
+                                    'title': 'CLINICA CHIUSA',
+                                    'start': startAgendaString,
+                                    'end': startClinicaString,
+                                    'allDay': false,
+                                    'color': 'red'
+                                };
+                                $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false); 
+                            }
+                            // aggiungo un periodo non disponibile al termine dell'orario di lavoro
+                            var endDayAgendaString = currDateStartString + " " + agendaView.calendar.options.maxTime ; // l'ultima data visibile nella view 
+                            var dataEOraEndString = currDateStartString + ' ' + workingDay.End; //concateno la data end agenda formato string con l'orario di chiusura della clinica
+                            var dataEOraEnd = Date.parse(dataEOraEndString);                    
+                            var endDayAgenda = Date.parse(endDayAgendaString); 
+                            if (endDayAgenda > dataEOraEnd) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
+                            {
+        //                        var maxTimeClinica = workingPlan[nomeGiorno].End + ':00';
+        //                        $('#agenda').fullCalendar('option', 'maxTime', maxTimeClinica);
 
-                                    var start, end;
+                                var periodoNonDisponibile = {
+                                    'title': 'CLINICA CHIUSA',
+                                    'start': dataEOraEndString,
+                                    'end': endDayAgendaString,
+                                    'allDay': false,
+                                    'color': 'red'
+                                };
+                                $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false);
+                            }
 
-                                    // Add unavailable period before work starts.
-                                    start = Date.parseExact(currDateStart.toString('dd/MM/yyyy')
-                                            + ' ' + workingDay.start, 'dd/MM/yyyy HH:mm');
-                                    if (currDateStart < start) {
-                                        unavailablePeriod = {
-                                            'title': EALang['not_working'],
-                                            'start': GeneralFunctions.clone(currDateStart),
-                                            'end': GeneralFunctions.clone(start),
-                                            'allDay': false,
-                                            'color': '#BEBEBE',
-                                            'editable': false,
-                                            'className': 'fc-unavailable'
-                                        };
-                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, true);
-                                    }
-
-                                    // Add unavailable period after work ends.
-                                    end = Date.parseExact(currDateStart.toString('dd/MM/yyyy')
-                                            + ' ' + workingDay.end, 'dd/MM/yyyy HH:mm');
-                                    if (currDateEnd > end) {
-                                        unavailablePeriod = {
-                                            'title': EALang['not_working'],
-                                            'start': GeneralFunctions.clone(end),
-                                            'end': GeneralFunctions.clone(currDateEnd),
-                                            'allDay': false,
-                                            'color': '#BEBEBE',
-                                            'editable': false,
-                                            'className': 'fc-unavailable fc-brake'
-                                        };
-                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, false);
-                                    }
-
-                                    // Add unavailable periods during day breaks.
-                                    var breakStart, breakEnd;
-                                    $.each(workingDay.breaks, function(index, currBreak) {
-                                        breakStart = Date.parseExact(currDateStart.toString('dd/MM/yyyy')
-                                                + ' ' + currBreak.start, 'dd/MM/yyyy HH:mm');
-                                        breakEnd = Date.parseExact(currDateStart.toString('dd/MM/yyyy')
-                                                + ' ' + currBreak.end, 'dd/MM/yyyy HH:mm');
-                                        var unavailablePeriod = {
-                                            'title': EALang['break'],
-                                            'start': breakStart,
-                                            'end': breakEnd,
-                                            'allDay': false,
-                                            'color': '#BEBEBE',
-                                            'editable': false,
-                                            'className': 'fc-unavailable fc-break'
-                                        };
-                                        $calendar.fullCalendar('renderEvent', unavailablePeriod, false);
-                                    });
-
-                                    currDateStart.addDays(1);
-                                    currDateEnd.addDays(1);
-                                });
+                            // Aggiungo un periodoNonDisponibile per ogni pausa
+                            var breakStart, breakEnd;
+                            $.each(workingDay.Pausa, function(index, pausaGiornaliera) 
+                            {
+                                breakStart = currDateStartString + ' ' + pausaGiornaliera.Start;
+                                breakEnd = currDateStartString + ' ' + pausaGiornaliera.End;
+                                var pausa = {
+                                    'title': 'Pausa',
+                                    'start': breakStart,
+                                    'end': breakEnd,
+                                    'allDay': false,
+                                    'color': 'pink',
+                                    'editable': true
+                                };
+                                $('#agenda').fullCalendar('renderEvent', pausa, false);
+                            });
+                            currDateStart.add(1, 'days');
+                            currDateStartString = currDateStart.format('YYYY-MM-DD');
+                            currDateEnd.add(1, 'days');
+                            }
+                        });
+                                    
                     break;
                     
                 default: // il nome della View è agendaDay
@@ -790,67 +779,69 @@ function agendaViewDisplay(view, element)
                             };
                             $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, true);                        
                     }
-                    
-                    // aggiungo un periodoNonDisponibile prima dell'orario lavorativo
-                    var startDayAgendaString = agendaView.start.format('YYYY-MM-DD'); // la data di start della view 
-                    var dataEOraStartString= startDayAgendaString + ' ' + workingPlan[nomeGiorno].Start;// aggiungo l'orario di inizio 
-                    var dataEOraStart = Date.parse(dataEOraStartString); // da stringa ad oggetto Date e ritornano i millisecondi tra la stringa passata  e la mezzanotte del 1° Gennaio 1970.
-                    startDayAgendaString = startDayAgendaString + " " + agendaView.calendar.options.minTime;
-                    var startDayAgenda = Date.parse(startDayAgendaString);
-                    if (startDayAgenda < dataEOraStart)  // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
+                    else
                     {
-//                        agendaView.calendar.options.minTime
-//                        var minTimeClinica = workingPlan[nomeGiorno].Start + ':00';
-//                        $('#agenda').fullCalendar('option', 'minTime', minTimeClinica);
-                        //usando le 8 righe seguenti posso inserire un periodo invece con le 2 righe precedenti riadatto l'orario di inizio attività della clinica
-                        periodoNonDisponibile = {
-                            'title': 'CLINICA CHIUSA',
-                            'start': startDayAgendaString,
-                            'end': dataEOraStartString,
-                            'allDay': false,
-                            'color': 'red'
-                        };
-                        $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false); 
-                    }
+                        // aggiungo un periodoNonDisponibile prima dell'orario lavorativo
+                        var startDayAgendaString = agendaView.start.format('YYYY-MM-DD'); // la data di start della view 
+                        var dataEOraStartString= startDayAgendaString + ' ' + workingPlan[nomeGiorno].Start;// aggiungo l'orario di inizio 
+                        var dataEOraStart = Date.parse(dataEOraStartString); // da stringa ad oggetto Date e ritornano i millisecondi tra la stringa passata  e la mezzanotte del 1° Gennaio 1970.
+                        startDayAgendaString = startDayAgendaString + " " + agendaView.calendar.options.minTime;
+                        var startDayAgenda = Date.parse(startDayAgendaString);
+                        if (startDayAgenda < dataEOraStart)  // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
+                        {
+    //                        agendaView.calendar.options.minTime
+    //                        var minTimeClinica = workingPlan[nomeGiorno].Start + ':00';
+    //                        $('#agenda').fullCalendar('option', 'minTime', minTimeClinica);
+                            //usando le 8 righe seguenti posso inserire un periodo invece con le 2 righe precedenti riadatto l'orario di inizio attività della clinica
+                            periodoNonDisponibile = {
+                                'title': 'CLINICA CHIUSA',
+                                'start': startDayAgendaString,
+                                'end': dataEOraStartString,
+                                'allDay': false,
+                                'color': 'red'
+                            };
+                            $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false); 
+                        }
 
-                    // aggiungo un periodo non disponibile al termine dell'orario di lavoro
-                    var endDayAgendaString = agendaView.start.format('YYYY-MM-DD') + " " + agendaView.calendar.options.maxTime ; // l'ultima data visibile nella view 
-                    var dataEOraEndString = agendaView.start.format('YYYY-MM-DD') + ' ' + workingPlan[nomeGiorno].End; //concateno la data end agenda formato string con l'orario di chiusura della clinica
-                    var dataEOraEnd = Date.parse(dataEOraEndString);                    
-                    var endDayAgenda = Date.parse(endDayAgendaString); 
-                    if (endDayAgenda > dataEOraEnd) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
-                    {
-//                        var maxTimeClinica = workingPlan[nomeGiorno].End + ':00';
-//                        $('#agenda').fullCalendar('option', 'maxTime', maxTimeClinica);
+                        // aggiungo un periodo non disponibile al termine dell'orario di lavoro
+                        var endDayAgendaString = agendaView.start.format('YYYY-MM-DD') + " " + agendaView.calendar.options.maxTime ; // l'ultima data visibile nella view 
+                        var dataEOraEndString = agendaView.start.format('YYYY-MM-DD') + ' ' + workingPlan[nomeGiorno].End; //concateno la data end agenda formato string con l'orario di chiusura della clinica
+                        var dataEOraEnd = Date.parse(dataEOraEndString);                    
+                        var endDayAgenda = Date.parse(endDayAgendaString); 
+                        if (endDayAgenda > dataEOraEnd) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
+                        {
+    //                        var maxTimeClinica = workingPlan[nomeGiorno].End + ':00';
+    //                        $('#agenda').fullCalendar('option', 'maxTime', maxTimeClinica);
+
+                            var periodoNonDisponibile = {
+                                'title': 'CLINICA CHIUSA',
+                                'start': dataEOraEndString,
+                                'end': endDayAgendaString,
+                                'allDay': false,
+                                'color': 'red'
+                            };
+                            $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false);
+                        }
                         
-                        var periodoNonDisponibile = {
-                            'title': 'CLINICA CHIUSA',
-                            'start': dataEOraEndString,
-                            'end': endDayAgendaString,
-                            'allDay': false,
-                            'color': 'red'
-                        };
-                        $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false);
+                        // fino a qui ok
+
+                        // Aggiungo un periodoNonDisponibile per ogni pausa
+                        var breakStart, breakEnd;
+                        $.each(workingPlan[nomeGiorno].Pausa, function(index, pausaGiornaliera) 
+                        {
+                            breakStart = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.Start;
+                            breakEnd = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.End;
+                            var pausa = {
+                                'title': 'Pausa',
+                                'start': breakStart,
+                                'end': breakEnd,
+                                'allDay': false,
+                                'color': 'pink',
+                                'editable': true
+                            };
+                            $('#agenda').fullCalendar('renderEvent', pausa, false);
+                        });
                     }
-                    alert('ch e');
-                    // fino a qui ok
-                    
-                    // Aggiungo un periodoNonDisponibile per ogni pausa
-                    var breakStart, breakEnd;
-                    $.each(workingPlan[nomeGiorno].Pausa, function(index, pausaGiornaliera) 
-                    {
-                        breakStart = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.Start;
-                        breakEnd = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.End;
-                        var pausa = {
-                            'title': 'Pausa',
-                            'start': breakStart,
-                            'end': breakEnd,
-                            'allDay': false,
-                            'color': 'pink',
-                            'editable': true
-                        };
-                        $('#agenda').fullCalendar('renderEvent', pausa, false);
-                    });
 
                     break;
             }

@@ -823,8 +823,6 @@ class EClinica extends EUser {
      */
     public function recuperaAppuntamenti($start, $end) {
         $fClinica = USingleton::getInstance('FClinica');
-        print_r($start);
-        print_r($end);
         $risultato = $fClinica->cercaAppuntamenti($this->getPartitaIVAClinica(),$start, $end);
 
         if(is_array($risultato) && count($risultato)>=0)

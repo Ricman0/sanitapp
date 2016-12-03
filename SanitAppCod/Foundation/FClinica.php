@@ -311,7 +311,7 @@ class FClinica extends FUser{
 //                . "DATE(DataEOra)='" . $dataOdierna . "'";
                 . "DataEOra>='" . $start . "' AND "
                 . "DataEOra<='" . $end . "'";
-        print_r($query);
+        
         return $this->eseguiQuery($query);
     }
     
