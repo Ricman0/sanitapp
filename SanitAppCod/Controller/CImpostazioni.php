@@ -34,7 +34,11 @@ class CImpostazioni {
                 {
                     case 'utente':                
                         $eUtente = new EUtente(NULL, $username);
-                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
+                        $CFMedicoCurante = $eUtente->getMedicoCurante();
+                        if(isset($CFMedicoCurante)){
+                            $eMedico = new EMedico($CFMedicoCurante);
+                        }
+                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
                         break;
 
                     case 'clinica':
@@ -144,7 +148,11 @@ class CImpostazioni {
                             if ($eUtente->modificaMedicoCurante($uValidazione->getDatiValidi()['codiceFiscale'])===TRUE)
                             {
                                 //modifiche effettuate
-                                $vImpostazioni->visualizzaImpostazioniUtente($eUtente);
+                                $CFMedicoCurante = $eUtente->getMedicoCurante();
+                                if(isset($CFMedicoCurante)){
+                                 $eMedico = new EMedico($CFMedicoCurante);
+                                }
+                                $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
 //                                $vJSON = USingleton::getInstance('VJSON');
 //                                $vJSON->inviaDatiJSON(TRUE);
                             }
