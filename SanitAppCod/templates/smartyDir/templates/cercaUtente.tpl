@@ -7,7 +7,7 @@
 <form id='ricercaUtente'>
     
     <label for="codiceFiscaleRicercaUtente" class="elementiForm">Codice Fiscale</label>
-    <input type="text" name="codiceFiscaleRicercaUtente" id="codiceFiscaleRicercaUtente" class="elementiForm" placeholder="DMRCLD89S42G438S"  required />
+    <input type="text" name="codiceFiscaleRicercaUtente" maxlength="16" id="codiceFiscaleRicercaUtente" class="elementiForm" placeholder="DMRCLD89S42G438S"  required />
     <br>
     
     <div id="submitDivRicercaUtente" >

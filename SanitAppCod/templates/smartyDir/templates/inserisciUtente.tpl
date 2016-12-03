@@ -12,7 +12,7 @@
     <br>
     
     <label for="codiceFiscale" class="elementiForm">Codice Fiscale</label>
-    <input type="text" name="codiceFiscale" id="codiceFiscaleUtente" class="elementiForm" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required />
+    <input type="text" name="codiceFiscale" maxlength="16" id="codiceFiscaleUtente" class="elementiForm" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required />
     <br>
     
 
@@ -26,7 +26,7 @@
     
 
     <label for="CAP" class="elementiForm">CAP</label>
-    <input type="text" name="CAP" id="CAP" class="elementiForm" placeholder="65017" value="{if isset($datiValidi.CAP)}{$datiValidi.CAP}{/if}" required />
+    <input type="text" name="CAP" id="CAP" class="elementiForm" maxlength="5" placeholder="65017" value="{if isset($datiValidi.CAP)}{$datiValidi.CAP}{/if}" required />
     <br>
     
 
