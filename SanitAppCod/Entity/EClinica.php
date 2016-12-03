@@ -816,12 +816,16 @@ class EClinica extends EUser {
      * Metodo che consente di recuparare gli appuntamenti della clinica in questo caso giornalieri
      * 
      * @access public
+     * @param string $start Stringa contenente data e ora in formato YYYY-MM-DD hh:mm da cui bisogna inziare il recupero
+     * @param string $end Stringa contenente data e ora in formato YYYY-MM-DD hh:mm fino cui bisogna effettuare il recupero
      * @throws XDBException Se la query non è stata eseguita con successo
      * @throws XClinicaException Se la query ritorna un array
      */
-    public function recuperaAppuntamenti() {
+    public function recuperaAppuntamenti($start, $end) {
         $fClinica = USingleton::getInstance('FClinica');
-        $risultato = $fClinica->cercaAppuntamenti($this->getPartitaIVAClinica());
+        print_r($start);
+        print_r($end);
+        $risultato = $fClinica->cercaAppuntamenti($this->getPartitaIVAClinica(),$start, $end);
 
         if(is_array($risultato) && count($risultato)>=0)
         {
@@ -930,11 +934,13 @@ class EClinica extends EUser {
      * Metodo che consente di recuperare appuntamenti e working plan della clinica
      * 
      * @access public
+     * @param string $start Stringa contenente data e ora in formato YYYY-MM-DD hh:mm da cui bisogna inziare il recupero
+     * @param string $end Stringa contenente data e ora in formato YYYY-MM-DD hh:mm fino cui bisogna effettuare il recupero
      * @return Array Contiene un array di appuntamenti e un array workingPlan
      */
-    public function recuperaAppuntamentiEWorkingPlan() 
+    public function recuperaAppuntamentiEWorkingPlan($start, $end) 
     {
-        $appuntamenti = $this->recuperaAppuntamenti();
+        $appuntamenti = $this->recuperaAppuntamenti($start, $end);
         $workingPlan = $this->getWorkingPlanClinica();
         return Array('appuntamenti'=>$appuntamenti, 'workingPlan'=>$workingPlan);
     }

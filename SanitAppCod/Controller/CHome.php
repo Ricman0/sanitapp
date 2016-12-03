@@ -49,10 +49,7 @@ class CHome {
 //                $cAutenticazione = USingleton::getInstance('CAutenticazione');
 //                $cAutenticazione->autenticaUser();
 //                break;
-            case 'agenda':
-                $cAgenda = USingleton::getInstance('CGestisciAgenda');
-                $cAgenda->gestisciAgenda();                
-                break;
+            
             
             case 'clienti':
                 $cClienti = USingleton::getInstance('CGestisciClienti');
@@ -179,6 +176,11 @@ class CHome {
     {
         switch ($controller) 
         {
+            case 'agenda':
+                $cAgenda = USingleton::getInstance('CGestisciAgenda');
+                $cAgenda->gestisciAgenda();                
+                break;
+            
             case 'autenticazione':
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->tryAutenticaUser();

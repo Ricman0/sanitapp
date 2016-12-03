@@ -42,6 +42,7 @@ class VPrenotazione extends View{
             $this->assegnaVariabiliTemplate('clinica', $eClinica);
             $this->assegnaVariabiliTemplate('esame', $eEsame);  
             $this->assegnaVariabiliTemplate('modifica', $modifica);
+            print_r($modifica);
             if(isset($idPrenotazione))
             { 
                 $this->assegnaVariabiliTemplate('idPrenotazione', $idPrenotazione);

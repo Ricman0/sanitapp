@@ -62,6 +62,7 @@ $(document).ready(function (){
                         //Formatta la data dataObject in un valore stringa in base al formato specificato come primo parametro. 
                         // in questo caso giorno
                         var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
+                        nomeGiorno = nomeGiorno.replace('ì', 'i');
     //                    alert(nomeGiorno);// da eliminare
 
     //                    alert("PartitaIVA: " + partitaIVAClinica);// da eliminare
@@ -112,6 +113,7 @@ $(document).ready(function (){
             modifica = true;
             idPrenotazione = $('#nextPrenotazioneEsame').attr('data-idPrenotazione');
         }
+        alert(modifica);
         inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, durataEsame, modifica, ajaxDiv, idPrenotazione);
     });
     
@@ -314,6 +316,7 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
                     //Formatta la data dataObject in un valore stringa in base al formato specificato come primo parametro. 
                     // in questo caso giorno
                     var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
+                    nomeGiorno = nomeGiorno.replace('ì','i');
 //                    alert(nomeGiorno);// da eliminare
                     
 //                    alert("PartitaIVA: " + partitaIVAClinica);// da eliminare

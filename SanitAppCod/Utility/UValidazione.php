@@ -219,8 +219,22 @@ class UValidazione {
     }
     
     
-    
-    
+    /**
+     * Metodo che consente di validare una stringa contenente data in formato YYYY-MM-DD e ora hh:mm
+     * 
+     * @access public
+     * @param string $dataOra Data e ora da validare
+     * @return boolean TRUE se la stringa valida, FALSE altrimenti.
+     */
+    public function validaDataOraString($dataOra) 
+    {
+        $this->setValidati(TRUE);
+        $pattern = '/^[0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-2]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$/';
+        $stringaErrore = "Data e ora non validi";
+        $this->validaDato($pattern, 'DataOra', $dataOra, $stringaErrore);
+        return $this->_validati;
+        
+    }
     
     
     

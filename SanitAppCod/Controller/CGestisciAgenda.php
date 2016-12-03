@@ -28,14 +28,28 @@ class CGestisciAgenda {
                 $this->tryVisualizzaAgenda();
                 break;
 
-            default:// get agenda
-                $sessione = USingleton::getInstance('USession');
-                $username = $sessione->leggiVariabileSessione('usernameLogIn');
-                $eClinica = new EClinica($username); //@throws XClinicaException Se la clinica  è inesistente
-                $risultato = $eClinica->recuperaAppuntamentiEWorkingPlan();
-                $vJSON = USingleton::getInstance('VJSON');
-                $vJSON->inviaDatiJSON($risultato); 
-                
+            default:// get agenda 
+                $start = $vAgenda->recuperaValore('start');
+                $end = $vAgenda->recuperaValore('end');
+                $validazione = USingleton::getInstance('UValidazione');
+//                if($validazione->validaDataOraString($start)===TRUE && $validazione->validaDataOraString($end)===TRUE )
+                {
+                    $sessione = USingleton::getInstance('USession');
+                    $username = $sessione->leggiVariabileSessione('usernameLogIn');
+                    $eClinica = new EClinica($username); //@throws XClinicaException Se la clinica  è inesistente
+                    $risultato = $eClinica->recuperaAppuntamentiEWorkingPlan($start, $end);
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON($risultato);
+                }
+//                else
+//                {
+//                    $messaggio = "";
+//                    foreach ($validazione->getDatiErrati() as $value) {
+//                        $messaggio = $messaggio . " " . $value;
+//                    }
+//                    $vAgenda ->visualizzaFeedback($messaggio);
+//                }  
+                    
                 
                 break;
         }
