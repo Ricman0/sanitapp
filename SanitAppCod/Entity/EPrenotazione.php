@@ -491,12 +491,28 @@ class EPrenotazione {
      * Confronta la data della prenotazione con quella odierna
      * 
      * @access public
+     * @return boolean TRUE se la data di ieri è precedente alla data di prenotazione esame
      */
     public function controllaData()
     {
-        $data = $this->getData();
-        echo "$data";
-        strtotime($data);
+        $dataPrenotazione = $this->getData(); // recupero la stringa data in formato Y-m-d
         
+//        $dataPrenotazione = strtotime($dataPrenotazione); // la converto in un timestamp
+//        // devo usare il timestamp altrimenti potrebbero esserci problemi nel caso di mesi/ anni diversi 
+//        // ad esempio data di prenotazione 16-03-2013 e la data odierna 11-04-2013
+//        $dataOdierna = strtotime(date('Y-m-d')); // prendo la data odierna in questo modo posso effettuare il confronto
+        
+       // osservazione: dal momento che uso il formato Y-m-d non c'è bisogno di effettuare la conversione in timestamp
+
+        $ieri = mktime ( 0, 0 , 0, date("m") , date("d")-1, date("Y")); //ora, minuti, secondi, mesi, giorno, anno
+        if($ieri < $dataPrenotazione)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+         
     }
 }

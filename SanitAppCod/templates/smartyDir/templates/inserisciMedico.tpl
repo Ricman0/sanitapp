@@ -13,7 +13,7 @@
 
     <br>
     <label for="codiceFiscaleMedico" class="elementiForm">Codice Fiscale</label>
-    <input type="text" name="codiceFiscale" class="elementiForm" maxlength="16" id="codiceFiscaleMedico" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required/>
+    <input type="text" name="codiceFiscale" class="elementiForm" id="codiceFiscaleMedico" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required/>
 
     <br>
 
@@ -27,7 +27,7 @@
 
     <br>
     <label for="CAPMedico" class="elementiForm">CAP</label>
-    <input type="text" name="CAPMedico" class="elementiForm" id="CAPMedico" maxlength="5" placeholder="65017" value="{if isset($datiValidi.CAP)}{$datiValidi.CAP}{/if}" required/>
+    <input type="text" name="CAPMedico" class="elementiForm" id="CAPMedico" placeholder="65017" value="{if isset($datiValidi.CAP)}{$datiValidi.CAP}{/if}" required/>
 
     <br>
     <label for="numeroIscrizione" class="elementiForm">Numero Iscrizione</label>

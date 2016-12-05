@@ -105,6 +105,7 @@ class CImpostazioni {
 
                     case 'medico':
                         $this->modificaMedicoCurante($vImpostazioni, $username);
+
                         break;
 
                     case 'credenziali':

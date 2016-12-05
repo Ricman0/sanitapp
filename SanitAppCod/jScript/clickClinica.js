@@ -25,7 +25,8 @@ $(document).ready(function () {
                     right: 'month,basicWeek,agendaDay'
                 },
                 axisFormat: 'HH:mm',
-                timeFormat: 'HH:mm{ - HH:mm}',
+                timeFormat: 'HH:mm',
+//                        'HH:mm{ - HH:mm}',
 //                        {
 //                agenda: 'H:mm{ - h:mm}'
 //                },

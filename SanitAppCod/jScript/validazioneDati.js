@@ -148,6 +148,7 @@ function validazioneInformazioni()
         submitHandler: function ()
         {
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#contenutoAreaPersonale");
+
         }
     });
 }

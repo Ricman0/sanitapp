@@ -1,6 +1,6 @@
 {if {$servizi}===TRUE}
     <div id="infoEsame">
-        <form name="modificaEsame" method="update" id="modificaEsame"> 
+        <form name="modificaEsame" method="post" id="modificaEsame"> 
 
             <input type="hidden" name="controller" value="servizi" />
             <input type="hidden" name="task" value="modifica" />
@@ -17,7 +17,7 @@
             <select  name="categoriaEsame" id="categoriaEsame" class="elementiForm" required disabled>
                 <option disabled selected  value=""> {$esame->getNomeCategoriaEsame()} </option>
                 {foreach from=$categorie item=curr_row}
-                    <option value={$curr_row['Nome']}>{$curr_row['Nome']}</option>
+                    <option value="{$curr_row['Nome']}">{$curr_row['Nome']}</option>
                 {/foreach}
 
             </select>

@@ -11,7 +11,7 @@
                 <input type="text" name="cognome" value ="{$utente->getCognomeUtente()}" readonly />
                 <br>
                 <label for="codice">Codice Fiscale :</label>
-                <input type="text" name="codice" maxlength="16" value ="{$utente->getCodiceFiscaleUtente()}" readonly />
+                <input type="text" name="codice" value ="{$utente->getCodiceFiscaleUtente()}" readonly />
                 <br>
                 <label for="email">Email :</label>
                 <input type="text" name="email" value ="{$utente->getEmail()}" readonly />
@@ -24,7 +24,7 @@
                             <input type="text" name="NumCivico" value="{$utente->getNumCivicoUtente()}" />
                             <br>
                             <label for="CAP">CAP :</label>
-                            <input type="text" name="CAP" maxlength="5" value="{$utente->getCAPUtente()}" />
+                            <input type="text" name="CAP" value="{$utente->getCAPUtente()}" />
                             <br>
                             <input type="submit" id="modificaIndirizzoUtenteFatto" value="OK" />
                         </form>
@@ -35,7 +35,7 @@
                         <input type="text" name="NumCivico" value="{$utente->getNumCivicoUtente()}" readonly />
                         <br>
                         <label for="CAP">CAP :</label>
-                        <input type="text" name="CAP" maxlength="5" value="{$utente->getCAPUtente()}" readonly />
+                        <input type="text" name="CAP" value="{$utente->getCAPUtente()}" readonly />
                         <br>
                         <input type="button" id="modificaIndirizzoUtente" value="Modifica Indirizzo" />  
                     {/if}
@@ -51,18 +51,15 @@
             {if isset($modificaMedicoCurante)}
                 <form id='formModificaMedico'>
                     <input id ='inverti' type="hidden" name="inverti" value="si" />
-                    <label for="codiceFiscale">Codice Fiscale Medico :</label>
-                    <input type="text" name="codiceFiscale" maxlength="16" value ="{$utente->getMedicoCurante()}" />
+                    <label for="codiceFiscale">Medico :</label>
+                    <input type="text" name="codiceFiscale" value ="{$utente->getMedicoCurante()}" />
                     <br>
                     <input type="submit" id="medicoUtenteModificato" value="OK" />
                 </form>
             {else}
-                {if NULL !== $utente->getMedicoCurante() && isset($medico)}
-                    <label for="nomeMedico">Nome Medico :</label>
-                    <input type="text" name="nomeMedico" value ="{$medico->getNomeMedico()}" readonly />
-                    <br>
-                    <label for="cognomeMedico">Cognome Medico :</label>
-                    <input type="text" name="cognomeMedico" value ="{$medico->getCognomeMedico()}" readonly />
+                {if NULL !== $utente->getMedicoCurante()}
+                    <label for="codiceFiscale">Medico :</label>
+                    <input type="text" name="codiceFiscale" value ="{$utente->getMedicoCurante()}" readonly />
                     <br>
                     <input type="button" id="modificaMedicoUtente" value="Modifica Medico" />  
                 {else}
