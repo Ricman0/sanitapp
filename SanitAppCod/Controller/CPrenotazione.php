@@ -684,6 +684,7 @@ class CPrenotazione {
      * @access public
      */
     public function tryModificaPrenotazione() {
+        $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $idPrenotazione = $vPrenotazione->recuperaValore('id'); 
         if(isset($idPrenotazione))// GET prenotazione/modifica/idPrenotazione
         {
