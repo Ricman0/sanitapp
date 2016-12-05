@@ -80,7 +80,10 @@
                 <div id="main">
                     {$mainRicerca}
                 </div> 
-                <div id="agenda"></div>
+                
+            </div>
+            <div id="dialog" title="Attenzione" >
+                <p id='messaggioDialogBox' ></p>
             </div>
             <!--Footer della pagina-->
             <div id="footer">

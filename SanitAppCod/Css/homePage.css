@@ -214,6 +214,10 @@ input, select{
 #logInForm2{
     width: 350px;
 }
+
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
 /*@media only screen and (max-width: 1200px){
     #main{
         padding-left: 5%;

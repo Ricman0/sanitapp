@@ -4,56 +4,54 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function(){
-    $('#headerMain').on("click", "#prenotazioniAreaPersonaleUtente", function(){
+$(document).ready(function () {
+    $('#headerMain').on("click", "#prenotazioniAreaPersonaleUtente", function () {
 //        $( "#prenotazioniAreaPersonaleUtente").addClass("Attivo");
-        inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale"); 
+        inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
     });
-    
-    $('#headerMain').on("click", "#impostazioniAreaPersonaleUtente", function(){
+
+    $('#headerMain').on("click", "#impostazioniAreaPersonaleUtente", function () {
         inviaControllerTask('impostazioni', 'visualizza', "#contenutoAreaPersonale");
-    });   
-    
+    });
+
     $('#headerMain').on("click", "#refertiAreaPersonaleUtente", function () {
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
-    
-    $('#headerMain').on("click", "#iconaAggiungiPrenotazioneUtente", function(){
+
+    $('#headerMain').on("click", "#iconaAggiungiPrenotazioneUtente", function () {
         inviaController('ricercaEsami', "#contenutoAreaPersonale");
     });
-    
-    $('#headerMain').on("click", "#confermaPrenotazioneUtente", function(){
+
+    $('#headerMain').on("click", "#confermaPrenotazioneUtente", function () {
         var id = $('#confermaPrenotazioneUtente').attr('data-idprenotazione');
         alert(id);
         confermaPrenotazioneUtente('prenotazione', 'conferma', id, "#contenutoAreaPersonale");
     });
-    
-    
-     
-    $('#headerMain').on("click", "#modificaIndirizzoUtente", function(){
+
+    $('#headerMain').on("click", "#modificaIndirizzoUtente", function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
     });
-    
-    $('#headerMain').on("click", "#modificaMedicoUtente", function(){
+
+    $('#headerMain').on("click", "#modificaMedicoUtente", function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'medico', "#medicoCurante");
     });
-    
-    $('#headerMain').on("click", "#modificaPasswordUtente", function(){
+
+    $('#headerMain').on("click", "#modificaPasswordUtente", function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
     });
-    
+
 //    $('#headerMain').on("click", "#modificaIndirizzoUtenteFatto", function(){
 //        
 //    });
-    
+
 //     $('#headerMain').on("click", "#medicoUtenteModificato", function(){
 //        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#medicoCurante");
 //    });
-    
+
 //    $('#headerMain').on("click", "inviaNuovaPasswordUtente", function(){
 //        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
 //    });
-     
+
 });
 
 function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
@@ -76,43 +74,32 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
     var dati = $("div.daModificare > form").serialize();
 //    alert(dati);
     $.ajax({
-        type:'POST',
-        url: controller + '/' + task  + '/' + task2,
+        type: 'POST',
+        url: controller + '/' + task + '/' + task2,
         data: dati,
-        success: function(datiRisposta)
+        success: function (datiRisposta)
         {
             $(ajaxdiv).html(datiRisposta);
-            if(task2==='credenziali')
-                {
-                    alert('Credenziali modificate con successo!');
+            $('#messaggioDialogBox').empty();
+            if (task2 === 'credenziali')
+            {
 
-                }
-                
-            if(task2==='informazioni')
-                {
-                    alert('Informazioni personali modificate con successo!');
+                $('#messaggioDialogBox').text('Credenziali modificate con successo!');
+
+            }
+            if (task2 === 'medico')
+            {
+                $('#messaggioDialogBox').text('Medico cambiato con successo!');
+
+
+            }
+            if (task2 === 'informazioni')
+            {
+                $('#messaggioDialogBox').text('Informazioni personali modificate con successo!');
 //                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
 //                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
-                }
-//            alert(datiRisposta);
-//            datiRisposta = JSON.parse(datiRisposta);
-//            if(datiRisposta===true)
-//            {
-//                if(task2==='informazioni')
-//                {
-//                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
-////                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
-//                }
-//                if(task2==='credenziali')
-//                {
-//                    alert('Credenziali modificate con successo!')
-//                    $('#inviaNuovaPasswordUtente').remove();// elimino il tasto OK
-//
-//                }
-//                
-//                $(".daModificare > input[type='text']").attr("readonly", true); //aggiungo il readonly 
-//                $("div").removeClass("daModificare");// elimino la classe daModificare al div
-//            }
+            }
+            dialogBox();
         }
     });
 }
@@ -120,15 +107,15 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
 function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
 {
     $.ajax({
-        type : 'GET',
-        url : controller + '/' + task + '/' + task2  ,
-        success: function(datiRisposta)
+        type: 'GET',
+        url: controller + '/' + task + '/' + task2,
+        success: function (datiRisposta)
         {
             alert(datiRisposta);
             $(ajaxdiv).replaceWith(datiRisposta);
-            $(ajaxdiv).addClass( "daModificare" );// aggiunge una classe al div in modo che poi è più semplice recuperare i dati 
+            $(ajaxdiv).addClass("daModificare");// aggiunge una classe al div in modo che poi è più semplice recuperare i dati 
         },
-        complete:function()
+        complete: function ()
         {
             validazione(task, controller, task2);
         }
@@ -138,25 +125,25 @@ function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
 function confermaPrenotazioneUtente(controller, task, id, ajaxDiv)
 {
     $.ajax({
-        type:'GET',
+        type: 'GET',
         url: controller + '/' + task + '/' + id,
 //        dataType:JSON,
-        success:function(datiRisposta)
+        success: function (datiRisposta)
         {
             alert("success");
             alert(datiRisposta);
             datiRisposta = JSON.parse(datiRisposta);
             alert(datiRisposta);
-            if(datiRisposta===true)
+            if (datiRisposta === true)
             {
                 $('#divConfermaPrenotazioneUtente').empty();// svuoto il div 
                 $('#divConfermaPrenotazioneUtente').text('Prenotazione: Confermata');// aggiungo il testo Confermata al div
-  
+
             }
 //            $(ajaxDiv).html(datiRisposta);
-            
+
         },
-        error: function (xhr, ajaxOptions, thrownError) 
+        error: function (xhr, ajaxOptions, thrownError)
         {
             alert(xhr);
             alert(xhr.status);
@@ -164,8 +151,3 @@ function confermaPrenotazioneUtente(controller, task, id, ajaxDiv)
         }
     });
 }
-
-
-
-
-

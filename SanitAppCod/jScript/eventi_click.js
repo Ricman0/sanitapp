@@ -6,9 +6,9 @@
  * Quando avviene il click su registrazione, viene eseguita la funzione inviaControllerTask
  */
 $(document).ready(function () {
-    
 
-    
+
+
 
 
 
@@ -24,11 +24,11 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#registrazioneUtente", function () {
         inviaControllerTask('registrazione', 'utente', '#main');
     });
-    
+
     $('#headerMain').on("click", "#recuperaPassword", function () {
         inviaController('recuperaPassword', '#main');
     });
-    
+
     $('#headerMain').on("click", ".rigaClinica", function () {
         var id = $(this).attr('id'); // id della riga che coincide con l'id dell'esame
 //        var nomeClinica = $('.rigaNomeClinica').html();
@@ -40,9 +40,9 @@ $(document).ready(function () {
         clickRiga('cliniche', 'visualizza', id, contenitore);
 //        }
     });
-    
-     $('#headerMain').on("click", ".scaricaReferto", function () {
-         var id = $(this).attr('data-idPrenotazione');
+
+    $('#headerMain').on("click", ".scaricaReferto", function () {
+        var id = $(this).attr('data-idPrenotazione');
         download(id);
     });
 
@@ -153,11 +153,11 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
 function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
 {
     // per ciascun input text all'interno della form, esegui il trim del testo e poi assegnalo al testo dell'elemento di cui si è eseguito il trim
-    $(id + " input[type='text']").each(function() {
-        $( this ).val($( this ).val().trim()) ;
-       
+    $(id + " input[type='text']").each(function () {
+        $(this).val($(this).val().trim());
+
     });
-    
+
     alert($(id + " input[type='password']").val());
     //recupera tutti i valori del form automaticamente
     var dati = $(id).serialize();
@@ -179,13 +179,33 @@ function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
     });
 }
 
-function download(id){
-    
+function download(id) {
+
     $.ajax({
         type: "GET",
-        url: "referti/download/"+id,
-        success:function(){
-            document.location = "referti/download/"+id;
+        url: "referti/download/" + id,
+        success: function () {
+            document.location = "referti/download/" + id;
         }
     });
+}
+
+function dialogBox() {
+
+    $("#dialog").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        dialogClass: "no-close",
+        buttons: [
+            {
+                text: "OK",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }
+        ]
+    });
+
 }
