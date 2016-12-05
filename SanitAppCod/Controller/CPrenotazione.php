@@ -56,21 +56,8 @@ class CPrenotazione {
                     break;
                 
                 case 'modifica': 
-                    $idPrenotazione = $vPrenotazione->recuperaValore('id'); 
-                    if(isset($idPrenotazione))// GET prenotazione/modifica/idPrenotazione
-                    {
-                        $ePrenotazione= new EPrenotazione($idPrenotazione);
-                        $ePrenotazione->controllaData();// confronta la data della prenotazione con quella odierna
-                        $idEsame = $ePrenotazione->getIdEsamePrenotazione();
-                        $eEsame = new EEsame($idEsame);
-                        $partitaIVAClinica = $ePrenotazione->getPartitaIVAPrenotazione();
-                        $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                        $nomeEsame = $eEsame->getNomeEsame();
-                        $durataEsame = $eEsame->getDurataEsame();
-                        $nomeClinica = $eClinica->getNomeClinica();
-                        $codiceFiscale = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
-                        $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale);
-                    }
+                    $this->tryModificaPrenotazione();
+                    
                     break;
 
                 
@@ -136,6 +123,7 @@ class CPrenotazione {
                   $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
                   $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare XClinicaException('Clinica inesistente')                      
                 }
+                $cancellaPrenota = $ePrenotazione->controllaData();
                 switch ($tipoUser) {
                     case 'utente':
                         if($ePrenotazione->getTipoPrenotazione()==='U')
@@ -150,15 +138,15 @@ class CPrenotazione {
                             $nome = $eMedico->getNomeMedico();
                             $cognome = $eMedico->getCognomeMedico();
                         }
-                        $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome);
+                        $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome,$cancellaPrenota);
                         break;
                     
                     case 'medico':
-                          
+    
                             $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione()); // potrebbe lanciare UtenteException('Utente non esistente')
                             $nome = $eUtente->getNomeUtente();
                             $cognome = $eUtente->getCognomeUtente(); 
-                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL) ;
+                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL,$cancellaPrenota) ;
                         break;
                     
                     case 'clinica': 
@@ -166,7 +154,7 @@ class CPrenotazione {
                         $eUtente = new EUtente($CFUtente);
                         $nomeUtente = $eUtente->getNomeUtente();
                         $cognomeUtente = $eUtente->getCognomeUtente();                       
-                        $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
+                        $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL, $cancellaPrenota);
                         break;
                     
                                    
@@ -655,6 +643,79 @@ class CPrenotazione {
         } else {
             $feedback = "Non puoi effettuare questa prenotazione.\n Hai già una prenotazione per questa esame  o  hai una prenotazione durante l'orario di questo esame";
             $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($feedback);
+        }
+    }
+    
+    /**
+     * Metodo che consente di ottenere la pagina per la modifica di una prenotazione se la data di prenotazione è successiva a quella odierna e di ieri
+     * 
+     * @access public
+     * @param string $idPrenotazione L'id della prenotazione da modificare
+     * @throws XPrenotazioneException Se la prenotazione con l'id passato come parametro non è stata trovata
+     * @throws XEsameException Se l'esame non esiste
+     * @throws XClinicaException Se la clinica è inesistente
+     */
+    public function modificaPrenotazione($idPrenotazione) 
+    {
+        $vPrenotazione = USingleton::getInstance('VPrenotazione');
+        $ePrenotazione= new EPrenotazione($idPrenotazione);
+        if($ePrenotazione->controllaData()===TRUE)// confronta la data della prenotazione con quella odierna; TRUE se la data odierna è precedente a quella dela prenotazione
+        {
+            $idEsame = $ePrenotazione->getIdEsamePrenotazione();
+            $eEsame = new EEsame($idEsame);
+            $partitaIVAClinica = $ePrenotazione->getPartitaIVAPrenotazione();
+            $eClinica = new EClinica(NULL, $partitaIVAClinica);
+            $nomeEsame = $eEsame->getNomeEsame();
+            $durataEsame = $eEsame->getDurataEsame();
+            $nomeClinica = $eClinica->getNomeClinica();
+            $codiceFiscale = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
+            $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale);
+        }
+        else {
+            $messaggio = 'Non è possibile modificare la data della prenotazione a partire dal giorno precedente la data di prenotazione';
+            $vPrenotazione->visualizzaFeedback($messaggio);
+
+        }
+    }
+    
+    /**
+     * Metodo che consente di ottenere la pagina per la modifica gestendo tutti gli errori ed eccezioni
+     * 
+     * @access public
+     */
+    public function tryModificaPrenotazione() {
+        $idPrenotazione = $vPrenotazione->recuperaValore('id'); 
+        if(isset($idPrenotazione))// GET prenotazione/modifica/idPrenotazione
+        {
+            try 
+            {
+                $this->modificaPrenotazione($idPrenotazione);
+            } 
+            catch (XPrenotazioneException $ex) 
+            {
+                $messaggio = "La prenotazione inesistente";
+                $vPrenotazione->visualizzaFeedback($messaggio);
+            }
+            catch (XEsameException $ex) 
+            {
+                $messaggio = "Esame inesistente"; // Se l'esame non esiste
+                $vPrenotazione->visualizzaFeedback($messaggio);
+            }
+            catch (XClinicaException $ex) 
+            {
+                $messaggio = "Clinica inesistente"; // Se la clinica non esiste
+                $vPrenotazione->visualizzaFeedback($messaggio);
+            }
+            catch (XClinicaException $ex) 
+            {
+                $messaggio = "Clinica inesistente"; // Se la clinica non esiste
+                $vPrenotazione->visualizzaFeedback($messaggio);
+            }
+        }                    
+        else
+        {
+            $messaggio = "C'è stato un errore. Non è stato trovato l'id della prenotazione";
+            $vPrenotazione->visualizzaFeedback($messaggio);
         }
     }
     
