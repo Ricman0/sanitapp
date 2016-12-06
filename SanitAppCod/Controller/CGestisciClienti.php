@@ -38,11 +38,8 @@ class CGestisciClienti {
                         // vogliamo visualizzare tutti i pazienti del medico
                         $eClinica = new EClinica($username);
                         $risultato = $eClinica->cercaClienti();          
+                        $vClienti->visualizzaClienti($risultato);
                         
-                        if (is_array($risultato))
-                        {
-                            $vClienti->visualizzaClienti($risultato);
-                        }
                     }
                     else
                         {
