@@ -31,7 +31,7 @@ class CGestisciAgenda {
             default:// get agenda 
                 $start = $vAgenda->recuperaValore('start');
                 $end = $vAgenda->recuperaValore('end');
-                $validazione = USingleton::getInstance('UValidazione');
+//                $validazione = USingleton::getInstance('UValidazione');
 //                if($validazione->validaDataOraString($start)===TRUE && $validazione->validaDataOraString($end)===TRUE )
                 {
                     $sessione = USingleton::getInstance('USession');

@@ -35,21 +35,43 @@ class CGestisciPazienti {
     private function visualizza() 
     {
         $vPazienti = USingleton::getInstance('VGestisciPazienti');
-        $sessione = USingleton::getInstance('USession');
-        $usernameMedico = $sessione->leggiVariabileSessione('usernameLogIn');
         $cf = $vPazienti->recuperaValore('id');
         if ($cf === FALSE) {
             // vogliamo visualizzare tutti i pazienti del medico
-            $eMedico = new EMedico(null, $usernameMedico);
-            $risultato = $eMedico->cercaPazienti();
-            if (is_array($risultato)) {
-                $vPazienti->visualizzaPazienti($risultato);
-            }
-        } else {
+            $this->tryVisualizzaPazienti();
+        } 
+        else {
             // si cerca un solo paziente
             $eUtente = new EUtente($cf);
             $vPazienti->visualizzaInfoUtente($eUtente);
         }
+    }
+    
+    /**
+     * Metodo che consente di visualizzare tutti i pazienti di un medico gestendo eventuali errori 
+     * 
+     * @access private
+     */
+    public function tryVisualizzaPazienti() {
+        $vPazienti = USingleton::getInstance('VGestisciPazienti');
+        try{
+                $sessione = USingleton::getInstance('USession');
+                $usernameMedico = $sessione->leggiVariabileSessione('usernameLogIn');
+                $eMedico = new EMedico(null, $usernameMedico);
+                $risultato = $eMedico->cercaPazienti();
+                $vPazienti->visualizzaPazienti($risultato);
+            } 
+            catch (XMedicoException $e)
+            {
+                $messaggio = $e->getMessage();
+                $vPazienti->visualizzaFeedback($messaggio);
+            }
+            catch (XDBException $e)
+            {
+                $messaggio = $e->getMessage();// per il debug ma è da eliminare e da decommentare la riga che segue
+//                $messaggio = "C'è stato un errore, il sistema non è stato in grado di recuperare i pazienti";
+                $vPazienti->visualizzaFeedback($messaggio);
+            }
     }
 
 }

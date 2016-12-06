@@ -21,8 +21,11 @@ class VGestisciPazienti extends View{
      */
     public function visualizzaPazienti($risultato) 
     {
-        echo "visualizzaPazienti";
-        $this->assegnaVariabiliTemplate('dati', $risultato);
+        if(count($risultato)>0)
+        {
+            $this->assegnaVariabiliTemplate('pazienti', TRUE);
+            $this->assegnaVariabiliTemplate('dati', $risultato);
+        } 
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         return $this->visualizzaTemplate('tabellaPazienti');
     }
