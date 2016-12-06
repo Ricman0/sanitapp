@@ -27,11 +27,11 @@
     <br>
     
     <label for="durataEsame" class="elementiForm">Durata</label>
-    <input type="text" name="durataEsame" id="durataEsame" class="elementiForm time"  placeholder="3" required/>
+    <input type="text" name="durataEsame" id="durataEsame" class="elementiForm time"  placeholder="00:15" required/>
     <br>
     
     <label for="numPrestazioniSimultanee" class="elementiForm">Numero Prestazioni Simultanee</label>
-    <input type="number" name="numPrestazioniSimultanee" id="numPrestazioniSimultanee" class="elementiForm" min="1" max="1000" placeholder="1" required>
+    <input type="number" name="numPrestazioniSimultanee" id="numPrestazioniSimultanee" class="elementiForm" value="1" readonly >
     <br>
       
     <label for="descrizioneEsame" class="elementiForm">Descrizione Esame</label>    
