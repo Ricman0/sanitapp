@@ -19,64 +19,65 @@ class CReferti {
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vReferti = USingleton::getInstance('VReferti');
         $task = $vReferti->getTask();
-        switch ($task) {
-            
-            case 'aggiungi':
+        try {
+            switch ($task) {
 
-                $idPrenotazione = $vReferti->recuperaValore('id');
-                $ePrenotazione = new EPrenotazione($idPrenotazione);
-                if($ePrenotazione->getEseguitaPrenotazione()){
-                    $idEsame = $ePrenotazione->getIdEsamePrenotazione();
-                    $partitaIva = $ePrenotazione->getPartitaIVAPrenotazione();
-                    $eEsame = new EEsame($idEsame);
-                    $medicoEsame = $eEsame->getMedicoEsame();
-                    $vReferti->restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame);
-                }
-                break;
-            
-            case 'download':
-                
-                $idPrenotazione = $vReferti->recuperaValore('id');
-                $eReferto = new EReferto($idPrenotazione);
-                if (file_exists($eReferto->getContenutoReferto())) {
-                    $vReferti->downloadReferto($eReferto->getContenutoReferto());
-                } else {
-                    throw new XFileException('Attenzione, problema imprevisto, il file non esiste. ');
-                }
+                case 'aggiungi':
 
-                break;
-            
-            case 'visualizza':
-                $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
-                switch ($tipoUser) {
-                    case 'clinica':
-                        $this->visualizzaRefertiClinica($username, $tipoUser, $vReferti);
-                        break;
-                    case 'medico':
-                        $eMedico = new EMedico(null, $username);
-                        $risultato = $eMedico->cercaReferti();
-                        if (!is_bool($risultato)) {
-                            print_r($risultato);
-                            $vReferti->restituisciPaginaRisultatoReferti($risultato, $tipoUser);
-                        } else {
-                            echo "errore in CReferti VisualizzaReferti in clinica";
-                        }
-                        break;
+                    $idPrenotazione = $vReferti->recuperaValore('id');
+                    $ePrenotazione = new EPrenotazione($idPrenotazione);
+                    if ($ePrenotazione->getEseguitaPrenotazione()) {
+                        $idEsame = $ePrenotazione->getIdEsamePrenotazione();
+                        $partitaIva = $ePrenotazione->getPartitaIVAPrenotazione();
+                        $eEsame = new EEsame($idEsame);
+                        $medicoEsame = $eEsame->getMedicoEsame();
+                        $vReferti->restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame);
+                    }else{$vReferti->visualizzaFeedback('Impossibile aggiungere il referto, esame non eseguito');}
+                    break;
 
-                    case 'utente':
-                        $eUtente = new EUtente(NULL, $username);
-                        $referti = $eUtente->cercaReferti();
-                        $vReferti->restituisciPaginaRisultatoReferti($referti, $tipoUser);
-                        break;
-                    default:
-                        break;
-                }
-                break;
+                case 'download':
 
-            
+                    $idPrenotazione = $vReferti->recuperaValore('id');
+                    $eReferto = new EReferto($idPrenotazione);
+                    if ($eReferto->checkEsistenzaReferto()) {                       //eccezione XFileException
+                        $vReferti->downloadReferto($eReferto->getContenutoReferto());
+                    }
 
-            default:
-                break;
+                    break;
+
+                case 'visualizza':
+                    $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
+                    switch ($tipoUser) {
+                        case 'clinica':
+                            $this->visualizzaRefertiClinica($username, $tipoUser, $vReferti);
+                            break;
+                        case 'medico':
+                            $eMedico = new EMedico(null, $username);
+                            $risultato = $eMedico->cercaReferti();
+                            if (!is_bool($risultato)) {
+                                $vReferti->restituisciPaginaRisultatoReferti($risultato, $tipoUser);
+                            } else {
+                                $vReferti->visualizzaFeedback( "errore in CReferti VisualizzaReferti in clinica. ");
+                            }
+                            break;
+
+                        case 'utente':
+                            $eUtente = new EUtente(NULL, $username);
+                            $referti = $eUtente->cercaReferti();
+                            $vReferti->restituisciPaginaRisultatoReferti($referti, $tipoUser);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+
+
+
+                default:
+                    break;
+            }
+        } catch (XFileException $e) {
+            $vReferti->visualizzaFeedback($e->getMessage());
         }
     }
 
@@ -89,7 +90,7 @@ class CReferti {
 //                print_r($referti);
                 $vReferti->restituisciPaginaRisultatoReferti($referti, $tipoUser);
             } else {
-                echo "errore in CReferti VisualizzaReferti in clinica";
+                 $vReferti->visualizzaFeedback("errore in CReferti VisualizzaReferti in clinica");
             }
         } else {    //visualizzo le info di un solo referto
             $eReferto = new EReferto($idPrenotazioneReferto);
@@ -107,16 +108,12 @@ class CReferti {
         $task = $vReferti->getTask();
         switch ($task) {
             case 'upload':
-                try
-                {
+                try {
                     $this->uploadReferto();
-                } 
-                catch (XDatiRefertoException $e) {
+                } catch (XDatiRefertoException $e) {
                     $vReferti->visualizzaFeedback('Problema upload. ');
-                    
-
                 }
-                
+
 
                 break;
 
@@ -129,19 +126,16 @@ class CReferti {
         $vReferti = USingleton::getInstance('VReferti');
         $uValidazione = USingleton::getInstance('UValidazione');
         $infoFile = $vReferti->recuperaInfoFile('referto');
-        if ($uValidazione->validaDatiReferto($infoFile)){
+        if ($uValidazione->validaDatiReferto($infoFile)) {
             $datiReferto = $vReferti->recuperaDatiReferto();
-            print_r($datiReferto);
             $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['partitaIVA'], $datiReferto['idEsame'], $datiReferto['medicoEsame'], $infoFile['fileName']);
             $eReferto->spostaReferto($infoFile['tmpName']);
-            if ($eReferto->inserisciReferto()) 
-            {
-                $vReferti->refertoAggiunto();
+            if ($eReferto->inserisciReferto()) {
+                $messaggio = 'Il referto è stato aggiunto correttamente. ';
+                $vReferti->visualizzaFeedback($messaggio);
             }
-        }
-        else
-            {
-            throw new XDatiRefertoException($uValidazione->getDatiErrati());
+        } else {
+            $vReferti->visualizzaFeedback($uValidazione->getDatiErrati());
         }
     }
 

@@ -73,13 +73,6 @@ class VReferti extends View{
 
     }
     
-    public function refertoAggiunto() {
-        $messaggio = 'Il referto è stato aggiunto correttamente.';   
-        $this->assegnaVariabiliTemplate('messaggio', $messaggio);
-        $this->visualizzaTemplate('feedbacks');
-//        $this->visualizzaFeedback($messaggio);
-        
-    }
     
     public function downloadReferto($file) {
 

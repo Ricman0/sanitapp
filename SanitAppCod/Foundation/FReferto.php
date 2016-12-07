@@ -95,7 +95,6 @@ class FReferto extends FDatabase{
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
     private function getAttributi($referto) {        
-        echo('ciao '. $referto->getPartitaIvaClinica());
         $valoriAttributi = "'" . $referto->getIDReferto() . "', '" 
                 . $this->trimEscapeStringa($referto->getIDPrenotazione()) . "', '" 
                 . $this->trimEscapeStringa($referto->getIDEsame()) . "', '" 
@@ -112,7 +111,8 @@ class FReferto extends FDatabase{
      * una nuovo referto
      * 
      * @param EReferto $referto l'entità referto da inserire nel db
-     * @return bool TRUE se l'iserimente è avvenuto con successo
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return bool TRUE se l'iserimento è avvenuto con successo
      */
     public function inserisciReferto($referto) {
         //recupero i valori contenuti negli attributi
@@ -124,6 +124,18 @@ class FReferto extends FDatabase{
         
         // eseguo la query
         return $this->eseguiQuery($query);
+    }
+    
+    
+    /**
+     * Controlla se il file esiste
+     * @param string $nomeFile Il nome del file da controllare
+     * @return bool TRUE se il file esiste, FALSE altrimenti
+     */
+    public function checkEsistenzaReferto($nomeFile) {
+        
+        return file_exists($nomeFile);
+        
     }
     
     /**

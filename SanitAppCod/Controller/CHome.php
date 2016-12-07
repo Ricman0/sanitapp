@@ -174,6 +174,7 @@ class CHome {
      */
     private function smistaControllerPOST($controller)
     {
+        print_r($_REQUEST);
         switch ($controller) 
         {
             case 'agenda':
@@ -234,6 +235,7 @@ class CHome {
             
             default:
                 echo "ora non lo so che fargli fare";
+                print_r($_REQUEST);
 //                $vHome->restituisciHomePage();
                 break;
         }

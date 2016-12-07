@@ -484,55 +484,28 @@ function aggiuntaReferto(id)
         error: function ()
         {
             alert("Sbagliato click aggiuntaReferto ");
+        },
+        complete: function(){
+            alert('in click riga');
+            validazioneReferto();
         }
     });
 
 }
 
 function uploadReferto()
-{
-    var dati = $("#formUploadReferto").serialize();
-    alert(dati);
-
+{alert('uff');
+//    var dati = $("#formUploadReferto").serialize();{idPrenotazione:$("input[name=idPrenotazione]").val(),idEsame:$("input[name=idEsame]").val()};
+//    var dati;
+    
     $.ajax({
-        type: "POST",
-        url: "referto/upload",
-        data: dati,
+        type: 'POST',
+        url: 'referto/upload',
+//        data: dati,
 //        dataType: "html",
         success: function (datiRisposta)
         {
-            //provo a fare il parse json dei dati risposta
-            // ciò genera un errore se non ho json
-            alert(datiRisposta);
-            $('#contenutoAreaPersonale').html(datiRisposta);
-//            try
-//            {
-//                var dati = JSON.parse(datiRiposta);
-//                alert('Referto inserito con successo');
-//                $.ajax({
-//                    type:'GET',
-//                    url: 'mySanitApp', 
-//                    success: function(datiRisposta)
-//                    {
-//                        
-////                        //aggiungo il campo nascosto codice fiscale 
-////                        $('#contenutoAreaPersonale').append('<form id="formCodiceFiscaleUtentePrenotaEsame" />');
-//                    }
-//                });
-//            }catch(errore)
-//                {
-//                    alert("Non è stato possibile aggiungere il referto");
-//                      $.ajax({
-//                          type:'GET',
-////                          url: 'mySanitApp',
-//                          url: 'prenotazioni/visualizza',
-//                          success: function(datiRisposta)
-//                          {
-//                              $('#contenutoAreaPersonale').html(datiRisposta);
-//                          }
-//                      });
-//                }
-        }
+            $('#contenutoAreaPersonale').html(datiRisposta); }
 
     });
 }

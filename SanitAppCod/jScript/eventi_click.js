@@ -184,8 +184,9 @@ function download(id) {
     $.ajax({
         type: "GET",
         url: "referti/download/" + id,
-        success: function () {
+        success: function (dati) {alert(dati);
             document.location = "referti/download/" + id;
+            
         }
     });
 }

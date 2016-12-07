@@ -1198,16 +1198,14 @@ function validazioneEsame()
 
 function validazioneReferto() {
 
-
+alert('ciao d');
 
     $("#formUploadReferto").validate({
         rules: {
             referto: {
                 required: true,
                 accept: "application/pdf"
-
             }
-
         },
         messages: {
             referto: {
@@ -1216,6 +1214,7 @@ function validazioneReferto() {
             }
         },
         submitHandler: function () {
+            alert('ciao');
             uploadReferto(); //si trova in click clinica
         }
 

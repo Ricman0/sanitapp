@@ -256,7 +256,7 @@ CREATE TABLE referto (
   IDPrenotazione varchar(13) DEFAULT NULL,
   IDEsame varchar(13) DEFAULT NULL,
   PartitaIVAClinica varchar(20) DEFAULT NULL,
-  Contenuto longblob NOT NULL,
+  Contenuto varchar(200) NOT NULL,
   MedicoReferto varchar(40) NOT NULL,
   DataReferto date NOT NULL,
   PRIMARY KEY (IDReferto),
@@ -276,10 +276,3 @@ CREATE TABLE referto (
 -- (1, 1, 1, '12345', 0x696c207265666572746f20, 'Riga', '2016-04-26');
 
 -- --------------------------------------------------------
-
-
-
-
-
-
-
