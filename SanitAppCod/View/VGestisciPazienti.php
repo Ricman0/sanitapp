@@ -42,4 +42,14 @@ class VGestisciPazienti extends View{
         $this->assegnaVariabiliTemplate('utente', $utente);
         return $this->visualizzaTemplate("infoUtente");
     }
+    
+    /**
+     * Metodo che consente di visualizzare la form per aggiungere un nuovo paziente
+     * 
+     * @access public
+     */
+    public function restituisciFormAggiungiPaziente() 
+    {
+        $this->visualizzaTemplate("inserisciUtente");
+    }
 }

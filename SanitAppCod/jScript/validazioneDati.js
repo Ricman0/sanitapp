@@ -25,14 +25,22 @@ function validazione(task1, controller1, task2)
             break;
 
         case "aggiungi":
-            if (controller1 === "prenotazioni")
+        {
+            switch (controller1)
             {
-                validazioneCodiceFiscale();
-            } else
-            {
-                validazioneEsame();
+                case 'prenotazioni':
+                    validazioneCodiceFiscale();
+                    break;
+                case 'pazienti':
+                    validazioneUtente();
+                    break;
+                default:
+                    validazioneEsame();
+                    break;
             }
-            break;
+        }
+        break;  
+            
 
         case 'modifica':
             switch (task2)
@@ -1216,6 +1224,7 @@ function validazioneReferto() {
             }
         },
         submitHandler: function () {
+            alert('submit handler upload');
             uploadReferto(); //si trova in click clinica
         }
 

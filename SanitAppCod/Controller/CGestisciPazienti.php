@@ -26,9 +26,12 @@ class CGestisciPazienti {
             case 'visualizza':
                 $this->visualizza();
                 break;
-
+            case 'aggiungi': // GET pazienti/aggiungi
+                $vPazienti->restituisciFormAggiungiPaziente(); 
+                break;
             default:
                 break;
+           
         }
     }
 
