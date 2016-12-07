@@ -1,7 +1,8 @@
 function validazione(task1, controller1, task2)
-{
+{alert('validazione');
     switch (task1)
     {
+        
         case "utente":
             validazioneUtente();
             break;
@@ -379,7 +380,7 @@ function validazioneLogIn(form)
 function validazioneUtente()
 {
 
-
+alert('validazione utente');
 
 
     //aggiungo un metodo di validazione per poter validare correttamente la password

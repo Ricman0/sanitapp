@@ -21,9 +21,10 @@ class VImpostazioni extends View{
      * @param EUtente $utente Una entità utente
      * @return type Description
      */
-    public function visualizzaImpostazioniUtente($utente)
+    public function visualizzaImpostazioniUtente($utente, $medico=NULL)
     {  
         $this->assegnaVariabiliTemplate('utente', $utente);
+        $this->assegnaVariabiliTemplate('medico', $medico);
         $this->assegnaVariabiliTemplate('informazioniGenerali', TRUE);
         $this->assegnaVariabiliTemplate('medicoCurante', TRUE);
         $this->assegnaVariabiliTemplate('credenziali', TRUE);
