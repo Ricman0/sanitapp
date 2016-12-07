@@ -22,6 +22,11 @@ $(document).ready(function(){
         inviaController('ricercaEsami', "#contenutoAreaPersonale");
     });
     
+    $('#headerMain').on("click", "#iconaAggiungiPaziente", function () {
+        inviaControllerTask('pazienti', 'aggiungi', "#contenutoAreaPersonale");
+    });
+    
+    
 //    $('#main').on("click", "#refertiAreaPersonaleUtente", function(){
 //        inviaControllerTask('referti', 'utente', "#contenutoAreaPersonale");
 //    });
@@ -29,11 +34,7 @@ $(document).ready(function(){
 //    $('#main').on("click", "#impostazioniAreaPersonaleUtente", function(){
 //        inviaControllerTask('impostazioni', 'utente', "#contenutoAreaPersonale");
 //    });
-//    
-//    $('#main').on("click", "#iconaAggiungiPrenotazione", function(){
-//        inviaControllerTask('prenotazioni', 'aggiungi', "#contenutoAreaPersonale");
-//    });
-//    
+   
     
     
     $('#headerMain').on("click", ".rigaPaziente" , function(){
@@ -41,5 +42,6 @@ $(document).ready(function(){
         clickRiga('pazienti', 'visualizza', id, "#contenutoAreaPersonale");
     });
         
+       
      
 });

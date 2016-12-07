@@ -17,34 +17,50 @@ class CGestisciServizi {
     public function gestisciServizi() 
     {
         $vServizi = USingleton::getInstance('VGestisciServizi');
-        $sessione = USingleton::getInstance('USession');
-        $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
         $task = $vServizi->getTask();
-        $this->gestisciAzione($task, $nomeClinica);
+        $this->gestisciAzione($task);
         
     }
     
-    
+    /**
+     * 
+     * @throws XDBException Se la query non è stata eseguita con successo
+     */
     public function gestisciServiziPost() 
     {
         $sessione = USingleton::getInstance('USession');
-        $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
-        echo " nome clinica: " . $nomeClinica;
-//        $fClinica = USingleton::getInstance('FClinica');
-//        $partitaIVA = $fClinica->cercaClinica($nomeClinica);
+        
         $vServizi = USingleton::getInstance('VGestisciServizi');
         $task = $vServizi->getTask();
         if($task==="aggiungi")
         {
+            //recupero i dati 
+            $vServizi = USingleton::getInstance('VGestisciServizi');
+            $datiEsame = $vServizi->recuperaDatiEsame(); // recupero i dati dell'esame/servizio
             //valido dati immessi attraverso UValidazione
-            if ($this->recuperaDatiECreaEsame()) {
-                echo "esame inserito";
-            } else {
-                echo "esame non inserito";
+            $validazione = USingleton::getInstance('UValidazione');
+            if($validazione->validaDatiEsame($datiEsame)===TRUE)
+            {
+                try {
+                    $username = $sessione->leggiVariabileSessione('usernameLogIn');
+                    $eClinica = new EClinica($username);
+                    $eEsame = new EEsame(NULL, $datiEsame['nome'], $datiEsame['medico'],
+                    $datiEsame['categoria'], $datiEsame['prezzo'], 
+                    $datiEsame['durata'], $datiEsame['numPrestazioniSimultanee'], 
+                    $datiEsame['descrizione'], $eClinica->getPartitaIVAClinica());
+                    $eEsame->inserisciEsameDB();
+                    $messaggio = 'Servizio inserito con successo';
+                } 
+                catch (XDBException $ex) {
+                    $messaggio = $ex->getMessage();                 
+                }
+                catch (XClinicaException $ex) {
+                    $messaggio = $ex->getMessage();                 
+                }
+                $vServizi->visualizzaFeedback($messaggio);
+                
             }
-
-            // l'oggetto di tipo EEsame richiama una funzione per aggiungere
-            //l'esame nel db ovvero crea un FESame e poi inserisce l'esame
+            
         }
         
     }
@@ -54,10 +70,11 @@ class CGestisciServizi {
      * 
      * 
      */
-    private function gestisciAzione($azione, $nomeClinica)
+    private function gestisciAzione($azione)
     {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
         $vServizi = USingleton::getInstance('VGestisciServizi');
         switch ($azione)// azione sarebbe task
         {
@@ -116,78 +133,5 @@ class CGestisciServizi {
         }
         
     }
-    
-    
-    /**
-     * Metodo che recupera i tutti i dati di un esame dalla form 
-     * per poter inserire un nuovo easme. I dati vengono memorizzati
-     *  nell'array $datiEsame
-     * 
-     * @access private
-     * @return Array I dati per memorizzare l'esame
-     */
-    private function recuperaDatiEsame()
-    {
-        //creo un array in cui inserirsco i valori recuperati
-        //pb: secondo te è una stupidaggine fare così e poi aggiungo del tempo  inutile
-       $datiEsame = Array();
-       $datiEsame['nome'] = $this->recuperaValore('nomeEsame');
-       $datiEsame['medico'] = $this->recuperaValore('medicoEsame'); 
-       $datiEsame['categoria'] = $this->recuperaValore('categoriaEsame');
-       $datiEsame['prezzo'] =$this->recuperaValore('prezzoEsame');
-       $datiEsame['durata'] = $this->recuperaValore('durataEsame');
-       $datiEsame['numPrestazioniSimultanee'] = $this->recuperaValore('numPrestazioniSimultanee');
-       $datiEsame['descrizione'] = $this->recuperaValore('descrizioneEsame');
-       return $datiEsame;
-    }
-    
-    private function recuperaDatiECreaEsame() 
-    {
-       //recupero i dati 
-       $datiEsame = $this->recuperaDatiEsame();
-       print_r($datiEsame);
-       //ho recuperato tutti i dati inseriti nella form di inserimento dell'esame
-       //ora è necessario che vengano validati prima della creazione di un nuovo esame
-//       $uValidazione = USingleton::getInstance('UValidazione');
-//       $validi = $uValidazione->validaDati($datiUtente);
-       // se i dati sono validi
-//       if($validi)
-//       {
-           
-           
-           $eEsame = new EEsame(NULL, $datiEsame['nome'], $datiEsame['medico'],
-                   $datiEsame['categoria'], $datiEsame['prezzo'], 
-                   $datiEsame['durata'], $datiEsame['numPrestazioniSimultanee'], 
-                   $datiEsame['descrizione']);
-           
-        //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
-           $inserito = $eEsame->inserisciEsameDB();
-//       }
-//       else
-//       {
-//           // i dati errati
-//          $uValidazione->getDatiErrati(); 
-//          // i dati validi
-//          $inserito = $uValidazione->getDatiValidi();
-//          
-//       }
-       return $inserito;
-    }
-    
-    /**
-     * Metodo che permette di recuperare dall'array POST il valore inserito dall'utente
-     * in un campo della form. Il campo è individuato dall'indice.
-     * 
-     * @access private
-     * @param string $indice Il nome dell'indice che deve essere recuperato dall'array POST
-     * @return string Il valore recuperato
-     */
-    private function  recuperaValore($indice) 
-    {
-        if(isset($_POST[$indice]))
-       {
-            $parametro = $_POST[$indice];
-       }
-       return $parametro;
-    }
+
 }

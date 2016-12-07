@@ -21,7 +21,6 @@ class VGestisciClienti extends View{
      */
     public function visualizzaClienti($risultato) 
     {
-        echo "visualizzaClienti";
         $this->assegnaVariabiliTemplate('dati', $risultato);
         return $this->visualizzaTemplate('tabellaClienti');
     }

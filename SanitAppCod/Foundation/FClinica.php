@@ -279,7 +279,7 @@ class FClinica extends FUser{
         $query2 = "SELECT appuser.Email, utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, utente.CodFiscale  "
                 . "FROM utente, appuser "
                 . "WHERE utente.Username=appuser.Username";
-        $query =  "SELECT * "
+        $query =  "SELECT DISTINCT * "
                 . "FROM (" . $query1 .")t1 "
                 . "INNER JOIN (" . $query2 . ")t2 "
                 . "ON t1.CodFiscale=t2.CodFiscale";

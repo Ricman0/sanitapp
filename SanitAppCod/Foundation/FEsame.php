@@ -37,14 +37,6 @@ class FEsame extends FDatabase {
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
     private function getAttributi($esame) {
-        //devo trovare la partita IVA della clinica che vuole inserire l'esame
-        $sessione = USingleton::getInstance('USession');
-        $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
-        $fClinica = USingleton::getInstance('FClinica');
-        $partitaIVA = $fClinica->cercaPartitaIVAClinica($nomeClinica);
-        
-        
-        
         $valoriAttributi = "'" . $esame->getIDEsame() . "', '" 
                 . $this->trimEscapeStringa($esame->getNomeEsame()) . "', '" 
                 . $this->trimEscapeStringa($esame->getDescrizioneEsame()) . "', '" 
@@ -53,8 +45,8 @@ class FEsame extends FDatabase {
                 . $this->trimEscapeStringa($esame->getMedicoEsame()) . "', '" 
                 . $esame->getNumeroPrestazioniSimultaneeEsame() . "', '"  
                 . $this->trimEscapeStringa($esame->getNomeCategoriaEsame()) . "', '" 
-                . $partitaIVA . "'"; 
-                // manca la partita IVA della clinica;
+                . $esame->getPartitaIVAClinicaEsame() . "'"; 
+                
         return $valoriAttributi;
     }
 
@@ -64,6 +56,8 @@ class FEsame extends FDatabase {
      * 
      * @param EEsame $esame L'oggetto di tipo EEsame che si vuole salvare nella
      *                       tabella Esame
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se è stato inserito con successo l'esame
      */
     public function inserisciEsame($esame) {
         //recupero i valori contenuti negli attributi
@@ -73,7 +67,7 @@ class FEsame extends FDatabase {
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
         $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
         // eseguo la query
-        $this->eseguiQuery($query);
+        return $this->eseguiQuery($query);
     }
     
     

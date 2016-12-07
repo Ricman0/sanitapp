@@ -81,7 +81,7 @@ class EEsame
      * @throws XEsameException Se l'esame non esiste
      */
   
-    public function __construct($id=NULL, $nomeEsame="", $medico="", $nomeCategoria="", $prezzo="", $durata="", $numPrestazioniSimultanee=1, $descrizione='', $PartitaIVAClinica="") 
+    public function __construct($id=NULL, $nomeEsame="", $medico="", $nomeCategoria="", $prezzo="", $durata="", $numPrestazioniSimultanee=1, $descrizione='', $partitaIVAClinica="") 
     {
         if(isset($id))
         {
@@ -106,15 +106,16 @@ class EEsame
         }
         else
         {
-        $this->_idEsame = uniqid();
-        $this->_nomeEsame = $nomeEsame;
-        $this->_medicoEsame = $medico;
-        $this->_nomeCategoria = $nomeCategoria;  
-        $this->_prezzo = $prezzo;
-        $this->_durata = $durata;
-        $this->_numeroPrestazioniSimultanee = $numPrestazioniSimultanee;
-        $this->_descrizione = $descrizione;
-        $this->_PartitaIVA = $PartitaIVAClinica;
+            $this->_idEsame = uniqid();
+            $this->_nomeEsame = $nomeEsame;
+            $this->_medicoEsame = $medico;
+            $this->_nomeCategoria = $nomeCategoria;  
+            $this->_prezzo = $prezzo;
+            $this->_durata = $durata;
+            $this->_numeroPrestazioniSimultanee = $numPrestazioniSimultanee;
+            $this->_descrizione = $descrizione;
+            $this->_partitaIVAClinica = $partitaIVAClinica;
+            
         }
     }
     
@@ -122,21 +123,14 @@ class EEsame
      * Metodo che permette di inserire un oggetto di tipo EEsame nel DB
      * 
      * @access public
-     * @return Boolean TRUE se l'esame è stato inserito correttamente, altrimenti FALSE
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return Boolean TRUE se l'esame è stato inserito correttamente
      */
     public function inserisciEsameDB() 
     {
         //crea un oggetto fEsame se non è esistente, si collega al DB e lo inserisce
         $fEsame = USingleton::getInstance('FEsame');
-        
-        if($fEsame->inserisciEsame($this) === TRUE)
-        {
-            return TRUE;
-        }
-        else
-        {
-            return FALSE;
-        }
+        return $fEsame->inserisciEsame($this);        
     }
     
     /**

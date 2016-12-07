@@ -146,6 +146,7 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
         {
             //la funzione validazione si trova in validazioneDati.js
             validazione(task1, controller1);
+            
         }
     });
 }

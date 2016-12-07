@@ -21,8 +21,11 @@ class VGestisciPazienti extends View{
      */
     public function visualizzaPazienti($risultato) 
     {
-        echo "visualizzaPazienti";
-        $this->assegnaVariabiliTemplate('dati', $risultato);
+        if(count($risultato)>0)
+        {
+            $this->assegnaVariabiliTemplate('pazienti', TRUE);
+            $this->assegnaVariabiliTemplate('dati', $risultato);
+        } 
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         return $this->visualizzaTemplate('tabellaPazienti');
     }
@@ -38,5 +41,15 @@ class VGestisciPazienti extends View{
     {
         $this->assegnaVariabiliTemplate('utente', $utente);
         return $this->visualizzaTemplate("infoUtente");
+    }
+    
+    /**
+     * Metodo che consente di visualizzare la form per aggiungere un nuovo paziente
+     * 
+     * @access public
+     */
+    public function restituisciFormAggiungiPaziente() 
+    {
+        $this->visualizzaTemplate("inserisciUtente");
     }
 }

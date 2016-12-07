@@ -256,32 +256,29 @@ class UValidazione {
             $stringaErrore = "";
             switch ($chiave) 
             {
-                case 'nomeEsame':
-                case 'medicoEsame':
-                    // scrivere quello che c'è da fare
-                    $pattern = '/^[a-zA-Zàèìùò\s]{2,20}$/' ;
+                case 'nome':
+                case 'medico':
+                case 'descrizione':
+                case 'categoria':
+                    $pattern = '/^[a-zA-Zàèìùò\s]+$/' ;
                     $stringaErrore = "Il " . $chiave . " deve essere una sequenza di caratteri. Minimo 2 e massimo 20";
                     break;
                 
-                case 'categoriaEsame':
-                    $pattern = '/^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/' ;
-                    $stringaErrore = "Il " . $chiave .  " è una sequenza di alfanumerica del tipo DMRCLD89S42G438S ";
-                    break;
-                
-                case 'prezzoEsame':
-                    $pattern = '/^[a-zA-Zàèìùò\s]{1,30}$/' ;
+                case 'prezzo':
+                    $pattern = '/^[0-9]+$/' ;
                     $stringaErrore = "Il " . $chiave . " deve essere un numero";
                     break;
                 
-                case 'durataEsame':
-                    $pattern = '/(0?\d|1[0-2]):(0\d|[0-5]\d)';
-                    $stringaErrore = "La " . $chiave . " deve essere una durata valida";
+                case 'durata':
+                    $pattern = '/^[0-2]{1}[0-9]{1}:([0-5]{1}[0-9]{1})$/';
+                    $stringaErrore = "La " . $chiave . " deve essere una durata valida ";
                     break;
                 
                 case "numPrestazioniSimultanee":
-                    $pattern = '/^[0-9]{2}$/';
-                    $stringaErrore = "Il" . $chiave . " deve essere una sequenza di 2 numeri";
+                    $pattern = '/^[0-9]{0,2}$/';
+                    $stringaErrore = "Il " . $chiave . " deve essere una sequenza di massimo 2 numeri";
                     break;
+                
                 
                 default:
                     echo "c'è qualcosa di sbagliato UValidazione validaDatiUtente";
@@ -304,7 +301,7 @@ class UValidazione {
      */
     private function validaDato($pattern, $chiave, $valore, $stringaErrore) 
     {
-//        echo ($chiave);
+        echo ($chiave);
         if (preg_match($pattern, $valore)) 
         {
             // gli echo sono da eliminare, solo solo per un rapido debug
@@ -316,6 +313,7 @@ class UValidazione {
         } 
         else
         {
+            echo "errore"; 
 //            echo ($chiave);
 //            echo ($stringaErrore);
             $this->_datiErrati[$chiave] = $stringaErrore;

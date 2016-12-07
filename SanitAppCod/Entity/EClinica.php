@@ -142,6 +142,7 @@ class EClinica extends EUser {
                 $attributiClinica = $fClinica->cercaClinicaByUsername($username);
             }
             if (is_array($attributiClinica) && count($attributiClinica) === 1) {
+                
                 $this->_partitaIVA = $attributiClinica[0]["PartitaIVA"];
                 $this->_nomeClinica = $attributiClinica[0]["NomeClinica"];
                 $this->_titolareClinica = $attributiClinica[0]["Titolare"];

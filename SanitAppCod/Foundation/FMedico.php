@@ -124,6 +124,7 @@ class FMedico extends FUser {
      * 
      * @access public
      * @param string $usernameMedico L'username del medico
+     * @throws XDBException Se la query non è stata eseguita con successo
      * @return type Description
      */
     public function cercaPazienti($usernameMedico) 
@@ -134,7 +135,7 @@ class FMedico extends FUser {
         $query2 = "SELECT appuser.Email, utente.CodFiscale "
                 . "FROM utente, appuser "
                 . "WHERE utente.Username=appuser.Username";
-        $query =  "SELECT * "
+        $query =  "SELECT DISTINCT * "
                 . "FROM (" . $query1 .")t1 "
                 . "INNER JOIN (" . $query2 . ")t2 "
                 . "ON t1.CodFiscale=t2.CodFiscale";
@@ -158,7 +159,6 @@ class FMedico extends FUser {
                 . "appuser.Username=" . $this->_nomeTabella . ".Username";
 //        return $this->eseguiQuery($query);    
         $risultato = $this->eseguiQuery($query);
-        print_r($risultato);
         return $risultato;
         
     }

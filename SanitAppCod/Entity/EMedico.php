@@ -310,12 +310,17 @@ class EMedico extends EUser {
     
     /**
      * Permette di trovare tutti i pazienti del medico
-     * @return array|boolean Tutti i pazienti del medico se ci sono
+     * 
+     * @access public
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return array|string Tutti i pazienti del medico se ci sono, altrimenti un messaggio 
      */
     public function cercaPazienti() 
     {
         $fMedico = USingleton::getInstance("FMedico");
-        return $fMedico->cercaPazienti(parent::getUsername());
+        $pazienti = $fMedico->cercaPazienti(parent::getUsername());
+        return $pazienti;                     
+        
     }
     
    /**
