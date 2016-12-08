@@ -1,4 +1,7 @@
 {if isset($prenotazioni)}
+    <h3>Prenotazioni</h3>
+    <h4>Clicca su una riga della tabella per visualizzare la prenotazione corrispondente.</h4>
+    <h4>Clicca sull'icona successiva per aggiungere una prenotazione.</h4>
     <table id="tabellaPrenotazioni" class="tablesorter">
     <thead>
         <th>ID Prenotazione</th>
