@@ -84,7 +84,15 @@ class FUtente extends FUser{
                 . $this->trimEscapeStringa($utente->getViaUtente()) . "', "
                 . $utente->getNumCivicoUtente() . ", '"
                 . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getUsername()) . "', NULL ";
+                . $this->trimEscapeStringa($utente->getUsername()) . "', ";
+        if(NULL !== $utente->getMedicoCurante())
+        {
+            $valoriAttributi = $valoriAttributi . "'" . $utente->getMedicoCurante() . "'";
+        }
+        else 
+        {
+            $valoriAttributi = $valoriAttributi . "NULL "; 
+        }     
         return $valoriAttributi;
     }
     

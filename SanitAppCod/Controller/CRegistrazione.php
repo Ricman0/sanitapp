@@ -254,10 +254,23 @@ class CRegistrazione {
        // se i dati sono validi
        if($uValidazione->getValidati()===TRUE)
        {
+           
            // crea utente 
            $eUtente = new EUtente($datiUtente['codiceFiscale'], $datiUtente['username'], $datiUtente['password'], $datiUtente['email'], $datiUtente['nome'], $datiUtente['cognome'],
                     $datiUtente['indirizzo'], 
                    $datiUtente['numeroCivico'], $datiUtente['CAP']);
+           $sessione = USingleton::getInstance('USession');
+           $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
+           
+           if($tipoUser==='medico')
+           {
+               
+               $username = $sessione->leggiVariabileSessione('usernameLogIn');
+               $eMedico = new EMedico(NULL, $username);
+               $cf=$eMedico->getCodiceFiscaleMedico();
+               echo "$cf";
+               $eUtente->setMedicoCurante($eMedico->getCodiceFiscaleMedico());
+           }
            //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
            return $eUtente->inserisciUtenteDB();
        }

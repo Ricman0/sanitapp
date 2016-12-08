@@ -1,5 +1,5 @@
 function validazione(task1, controller1, task2)
-{alert('validazione');
+{
     switch (task1)
     {
         
@@ -26,12 +26,19 @@ function validazione(task1, controller1, task2)
             break;
 
         case "aggiungi":
-            if (controller1 === "prenotazioni")
+            switch(controller1)
             {
-                validazioneCodiceFiscale();
-            } else
-            {
-                validazioneEsame();
+                case 'prenotazioni':
+                    validazioneCodiceFiscale();
+                    break;
+                    
+                case 'pazienti':
+                    validazioneUtente();
+                    break;
+                
+                default:
+                    validazioneEsame();
+                    break;
             }
             break;
 
@@ -379,8 +386,6 @@ function validazioneLogIn(form)
  */
 function validazioneUtente()
 {
-
-alert('validazione utente');
 
 
     //aggiungo un metodo di validazione per poter validare correttamente la password

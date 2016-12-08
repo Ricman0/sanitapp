@@ -174,7 +174,6 @@ class CHome {
      */
     private function smistaControllerPOST($controller)
     {
-        print_r($_REQUEST);
         switch ($controller) 
         {
             case 'agenda':
