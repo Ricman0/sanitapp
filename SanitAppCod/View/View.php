@@ -183,10 +183,11 @@ class View extends Smarty {
      * 
      * @access public
      * @param string $indice Il nome dell'indice che deve essere recuperato dall'array FILES
+     * @throws XDatiRefertoException Lanciata se il file non esiste oppure ha dimensione nulla
      * @return array le proprietà del file recuperato
      */
     public function recuperaInfoFile($indice) {
-        if ($this->recuperaValore('upload') && $_FILES[$indice]['size'] > 0) 
+        if ($_FILES[$indice]['size'] > 0) 
         {
             $infoFile['uploadDir'] = './uploadedFiles/referti/';
             $infoFile['fileName'] = basename($_FILES[$indice]['name']);

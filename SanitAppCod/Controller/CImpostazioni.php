@@ -179,7 +179,7 @@ class CImpostazioni {
         if ($uValidazione->validaDati($arrayDati)) {// se i dati sono validi
             $eUtente = new EUtente(NULL, $username);
             if ($eUtente->modificaPassword($uValidazione->getDatiValidi()['password']) === TRUE) {
-                //modifiche effettuate$CFMedicoCurante = $eUtente->getMedicoCurante();
+                //modifiche effettuate
                 $CFMedicoCurante = $eUtente->getMedicoCurante();
                 if (isset($CFMedicoCurante)) {
                     $eMedico = new EMedico($CFMedicoCurante);

@@ -125,6 +125,7 @@ class CReferti {
     public function uploadReferto() {
         $vReferti = USingleton::getInstance('VReferti');
         $uValidazione = USingleton::getInstance('UValidazione');
+        print_r($_FILES);
         $infoFile = $vReferti->recuperaInfoFile('referto');
         if ($uValidazione->validaDatiReferto($infoFile)) {
             $datiReferto = $vReferti->recuperaDatiReferto();

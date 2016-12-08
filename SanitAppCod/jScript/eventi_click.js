@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 
 
-    $('#headerMain').on("click", "#mySanitApp", function () {
+    $('#headerMain').on("click", ".mySanitApp", function () {
         inviaController('mySanitApp', '#main');
     });
     $('#headerMain').on("click", "#registrazioneClinica", function () {

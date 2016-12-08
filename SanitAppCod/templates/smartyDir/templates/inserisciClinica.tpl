@@ -13,7 +13,7 @@
 
     <br>
     <label for="partitaIVA" class="elementiForm">Partita IVA</label>
-    <input type="text" name="partitaIVA" class="elementiForm" id="partitaIVA" maxlenght="11" placeholder="JAJF59382YHC3930" value="{if isset($datiValidi.partitaIVA)}{$datiValidi.partitaIVA}{/if}" required />
+    <input type="text" name="partitaIVA" class="elementiForm" id="partitaIVA" maxlength="11" placeholder="JAJF59382YHC3930" value="{if isset($datiValidi.partitaIVA)}{$datiValidi.partitaIVA}{/if}" required />
 
     <br>
     <label for="emailClinica" class="elementiForm">Email</label>
@@ -42,7 +42,7 @@
 
     <br>
     <label for="CAPClinica" class="elementiForm">CAP</label>
-    <input type="text" name="CAPClinica" class="elementiForm" id="CAPClinica" maxlenght="5" placeholder="65017" value="{if isset($datiValidi.cap)}{$datiValidi.cap}{/if}" required />
+    <input type="text" name="CAPClinica" class="elementiForm" id="CAPClinica" maxlength="5" placeholder="65017" value="{if isset($datiValidi.cap)}{$datiValidi.cap}{/if}" required />
 
     <br>
     <label for="localitàClinica" class="elementiForm">Località</label>
