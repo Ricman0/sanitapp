@@ -9,17 +9,6 @@
 class VPrenotazione extends View{
     
     /**
-     * Metodo che consente di visualizzare se la prenotazione è stata o meno aggiunta
-     * 
-     * @param boolean $aggiunto TRUE la prenotazione è stata aggiunta dal DB, FALSE altrimenti
-     */
-    public function appuntamentoAggiunto($aggiunto) 
-    {
-        $this->assegnaVariabiliTemplate('prenotazioneAggiunta', $aggiunto);
-        $this->visualizzaTemplate('prenotazioneAggiunta');
-    }
-    
-    /**
      * Metodo che consente di visualizzare se la prenotazione è stata o meno eliminata
      * 
      * @param boolean $eliminata TRUE la prenotazione è stata eliminata dal DB, FALSE altrimenti

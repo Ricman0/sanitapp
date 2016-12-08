@@ -160,10 +160,7 @@ $(document).ready(function (){
 //    $('#headerMain').on("click", "#modificaPrenotazione", function(){
 //        taskPrenotazione('prenotazione', 'modifica', "#contenutoAreaPersonale");
 //    });
-    
-    $('#headerMain').on("click", "#prenotazioneAggiunta", function(){
-        inviaController('mySanitApp', '#main');
-    });
+
     
     $('#headerMain').on("click", "#prenotazioneEliminata", function(){
         inviaController('mySanitApp', '#main');

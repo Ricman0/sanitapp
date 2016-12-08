@@ -26,9 +26,9 @@ th, td {
     display: none;
 }
 
-#contenutoAreaPersonale table{
-    width: 85%;
-    margin-left: 9%;
+#contenutoAreaPersonale .tablesorter{
+    width: 90%;
+    margin-left: 5%;
 }
 
 

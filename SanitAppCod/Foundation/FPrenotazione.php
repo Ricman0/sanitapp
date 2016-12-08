@@ -132,7 +132,11 @@ class FPrenotazione extends FDatabase{
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
-    
+    /**
+     * Memorizza una prenotazione nel database
+     * @param EPrenotazione $ePrenotazione L'entita prentazione da memorizzare sul db
+     * @return bool TRUE se memorizzao con successo, False altrimenti
+     */
     public function aggiungiPrenotazione($ePrenotazione) 
     {
         $valoriAttributi = $ePrenotazione->getValoriAttributi();

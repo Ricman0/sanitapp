@@ -404,8 +404,9 @@ class EPrenotazione {
     
     
     
-    /*
-     * Altri metodi
+    /**
+     * Aggiunge la prenotazione
+     * @return bool TRUE se la prenotazione è stata aggiunta con successo, FALSE altrimenti
      */
     public function aggiungiPrenotazioneDB() 
     {

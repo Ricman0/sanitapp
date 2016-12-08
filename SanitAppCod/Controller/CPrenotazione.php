@@ -309,9 +309,14 @@ class CPrenotazione {
                     $ora = $vPrenotazione->recuperaValore('orario');
                     $dataEOra = $data . " " . $ora;
                     $ePrenotazione = new EPrenotazione(NULL, $idEsame, $partitaIVAClinica, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
-
-                    $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB();
-                    $vPrenotazione->appuntamentoAggiunto($risultatoQuery);
+                    if($risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB()){
+                        $messaggio = 'Appuntamento registrato con successo';
+                    }
+                    else{
+                        $messaggio = "C'è stato un problema, il tuo appuntamento non è stato registrato";
+                    }                    
+                    $vPrenotazione->visualizzaFeedback($messaggio);
+//                    $vPrenotazione->appuntamentoAggiunto($risultatoQuery);
                 }
                 break;
                 
@@ -641,7 +646,7 @@ class CPrenotazione {
             }
             
         } else {
-            $feedback = "Non puoi effettuare questa prenotazione.\n Hai già una prenotazione per questa esame  o  hai una prenotazione durante l'orario di questo esame";
+            $feedback = "Non puoi effettuare questa prenotazione.\n Hai già una prenotazione per questa esame o hai una prenotazione durante l'orario di questo esame";
             $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($feedback);
         }
     }
