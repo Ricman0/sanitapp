@@ -13,7 +13,7 @@
                 <i class="fa fa-file-text-o fa-lg" id="icona-esami" aria-hidden="true"></i> Esami</a>
         </li>
         {if isset($username)}
-            <li class="nav" id="mySanitApp">
+            <li class="nav mySanitApp" id="mySanitApp">
                 <a class="nav" href="#"><i class="fa fa-user fa-lg" id="icona-mySanitApp" aria-hidden="true"></i> MySanitApp</a>
             </li>
         {else}

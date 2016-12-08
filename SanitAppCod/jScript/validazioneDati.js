@@ -1218,11 +1218,12 @@ alert('ciao d');
                 required: "selezionare un file",
                 accept: "selezionare un file pdf"
             }
-        },
-        submitHandler: function () {
-            alert('ciao');
-            uploadReferto(); //si trova in click clinica
         }
+//        ,
+//        submitHandler: function () {
+//            alert('ciao');
+//            uploadReferto(); //si trova in click clinica
+//        }
 
     });
 }

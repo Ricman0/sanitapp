@@ -45,7 +45,7 @@ class VImpostazioni extends View{
     }
     
     /**
-     * Metodo che consente di modificare le iformazioni dell'utente
+     * Metodo che consente di modificare le informazioni dell'utente
      * 
      * @access public
      * @param EUtente $utente Una entità utente
