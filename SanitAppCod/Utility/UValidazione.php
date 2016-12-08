@@ -301,7 +301,6 @@ class UValidazione {
      */
     private function validaDato($pattern, $chiave, $valore, $stringaErrore) 
     {
-        echo ($chiave);
         if (preg_match($pattern, $valore)) 
         {
             // gli echo sono da eliminare, solo solo per un rapido debug

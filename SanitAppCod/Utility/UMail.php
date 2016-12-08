@@ -28,6 +28,7 @@ class UMail {
     {
         //se non esiste già un'istanza di PHPMailer, crea un'istanza di PHPMailer
         // il riferimento per tale istanza è $email
+        
         $email = USingleton::getInstance('PHPMailer');
         $config = USingleton::getInstance('Config');
         $emailConfig = $config->getEmailConfig();
@@ -49,6 +50,7 @@ class UMail {
         $this->_email = $email;
         // $this->_email->setLanguage('it','language/'); oppure
         $this->_email->setLanguage('it', "./libs/PHPMailer/language/phpmailer.lang-it.php");
+        $this->_email->CharSet = "UTF-8"; // in questo modo anche i caratteri accentati si leggono bene
         
     }
     
@@ -110,7 +112,7 @@ class UMail {
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Conferma Account SanitApp";// = $subject;
         $testo = "Ciao, " . $dati['nome'] . ", Benvenuto in SanitApp!"
-                . " Questa è un'email riepilogativa dei dati che hai inserito."
+                . " Questa è un'email riepilogativa dei dati che hai inserito.\r\n"
                 . " Nome: " . $dati['nome'] ."\r\n"
                 . " Cognome: ". $dati['cognome'] ."\r\n"
                 . " Codice Fiscale: " . $dati['codiceFiscale'] ."\r\n"
@@ -120,8 +122,9 @@ class UMail {
                 . " Username: ". $dati['username'] ."\r\n"
                 . " Per completare la registrazione, clicca sul link seguente: \n"
                 . "http://sanitapp.altervista.org/registrazione/conferma/" . $codiceConferma . "\n"
-                . "oppure copia e incolla il seguente codice ". $codiceConferma . "nella pagina di conferma "
-                . "subito dopo aver effettuato il primo accesso ";   
+                . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
+                . "subito dopo aver effettuato il primo accesso \n \n \n"
+                . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. ";   
         
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();
@@ -178,7 +181,7 @@ class UMail {
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Account SanitApp";// = $subject;
         $testo = " Benvenuto in SanitApp Dott." . $dati['cognome'] . "!"
-                . " Questa è un'email riepilogativa dei dati che ha inserito."
+                . " Questa è un'email riepilogativa dei dati che ha inserito. \r\n"
                 . " Nome: " . $dati['nome'] ."\r\n"
                 . " Cognome: ". $dati['cognome'] ."\r\n"
                 . " Codice Fiscale: " . $dati['codiceFiscale'] ."\r\n"
@@ -192,8 +195,9 @@ class UMail {
                 //devo inserire anche il link per la conferma
                 . " Per completare la registrazione, clicca sul link seguente: \n"
                 . "http://www.sanitapp/registrazione/conferma/" . $codiceConferma . "\n"
-                . "oppure copia e incolla il seguente codice ". $codiceConferma . "nella pagina di conferma "
-                . "subito dopo aver effettuato il primo accesso ";  
+                . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
+                . "subito dopo aver effettuato il primo accesso \n \n \n"
+                . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. ";  
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();
         return $inviata;
@@ -212,7 +216,7 @@ class UMail {
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Account SanitApp";// = $subject;
         $testo = " Benvenuto in SanitApp clinica " . $dati['nomeClinica'] . "!"
-                . " Questa è un'email riepilogativa dei dati che ha inserito."
+                . " Questa è un'email riepilogativa dei dati che ha inserito. \r\n"
                 . " Nome della clinica: " . $dati['nomeClinica'] ."\r\n"
                 . " Titolare: ". $dati['titolare'] ."\r\n"
                 . " Partita IVA: " . $dati['partitaIVA'] ."\r\n"
@@ -227,8 +231,9 @@ class UMail {
                 //devo inserire anche il link per la conferma
                 . " Per completare la registrazione, clicca sul link seguente: \n"
                 . "http://www.sanitapp/registrazione/conferma/" . $codiceConferma . "\n"
-                . "oppure copia e incolla il seguente codice ". $codiceConferma . "nella pagina di conferma "
-                . "subito dopo aver effettuato il primo accesso ";
+                . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
+                . "subito dopo aver effettuato il primo accesso. \n \n \n"
+                . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. ";
         
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();
