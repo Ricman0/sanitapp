@@ -314,20 +314,5 @@ class FDatabase {
         
     }
     
-    /**
-     * Metodo che permette di confermare l'utente (utente, medico, clinica) che ha
-     * un determinato username
-     * 
-     * @final
-     * @access public
-     * @param string $username Username dell'utente da confermare
-     * @return boolean  TRUE query eseguita con successo, FALSE altrimenti.
-     */
-    final public function confermaUser($username) 
-    {
-        $query = "UPDATE " . $this->_nomeTabella . " SET confermato='TRUE'"
-                ." WHERE Username='" . $username."'"; 
-        return $this->eseguiQuery($query);
-        
-    }
+    
 }

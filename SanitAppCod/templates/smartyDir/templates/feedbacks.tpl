@@ -6,6 +6,12 @@
     {else}
         <h3>{$messaggio}</h3>
     {/if}
-    <h4>Clicca su ok per tornare alla pagina personale.</h4>
-    <input type="button" class="mySanitApp" id="tornaAreaPersonaleButton"  value="OK" />
+
+    {if isset($homePage)}
+        <h4>Clicca su ok per tornare alla Home Page.</h4>
+        <input type="button" id="tornaHomePageButton"  value="OK" />
+    {else}
+        <h4>Clicca su ok per tornare alla pagina personale.</h4>
+        <input type="button" class="mySanitApp" id="tornaAreaPersonaleButton"  value="OK" />
+    {/if}
 </div>

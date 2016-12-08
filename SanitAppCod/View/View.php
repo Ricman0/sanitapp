@@ -202,12 +202,14 @@ class View extends Smarty {
         }
         return $infoFile;
     }
+    
     /**
      * Visualizza una pagina con un messaggio
      * @param string|array $messaggio Il messaggio o i messaggi da mandare in output
-     */
-    public function visualizzaFeedback($messaggio) {
-        $this->assegnaVariabiliTemplate('messaggio', $messaggio);           
+     */    
+    public function visualizzaFeedback($messaggio, $homePage=NULL) {
+        $this->assegnaVariabiliTemplate('messaggio', $messaggio);  
+        $this->assegnaVariabiliTemplate('homePage', $homePage);
         $this->visualizzaTemplate('feedbacks');
         
     }
