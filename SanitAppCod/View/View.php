@@ -202,8 +202,9 @@ class View extends Smarty {
         return $infoFile;
     }
     
-    public function visualizzaFeedback($messaggio) {
-        $this->assegnaVariabiliTemplate('messaggio', $messaggio);           
+    public function visualizzaFeedback($messaggio, $homePage=NULL) {
+        $this->assegnaVariabiliTemplate('messaggio', $messaggio);  
+        $this->assegnaVariabiliTemplate('homePage', $homePage);  
         $this->visualizzaTemplate('feedbacks');
         
     }

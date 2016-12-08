@@ -91,8 +91,11 @@ class EUser {
                     $this->_PEC=$attributiUser[0]['PEC'];
                     $this->_codiceConferma = $attributiUser[0]['CodiceConferma'];
                     $this->_confermato = $attributiUser[0]['Confermato'];
-                    $this->_tipoUser=$attributiUser[0]['TipoUser'];
-                    
+                    $this->_tipoUser=$attributiUser[0]['TipoUser'];   
+                }
+                else
+                {
+                    throw new XUserException("User inesistente");
                 }
             }
             elseif($username ==NULL && $password==NULL && $email!==NULL)
@@ -420,4 +423,35 @@ class EUser {
         $sessione->impostaVariabileSessione('tipoUser', $tipo);
 
     }
+    
+    
+    /**
+     * Metodo che consente di confermare l'account di un user  
+     * 
+     * @access public
+     * @param string $idConferma Il codice di conferma per effettuare la conferma di un account
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE User confermato, FALSE altrimenti.
+     */
+    public function confermaUser($idConferma) 
+    {
+        if($this->getConfermato()==TRUE)
+        {
+            echo "già cinfermato";
+            return TRUE;
+        }
+        else
+        {
+            echo "non ancora confermato";
+            $username = $this->getUsername();
+            $fUser = USingleton::getInstance('FUser');
+            $user = $fUser->cercaUserByUsernameCodiceConferma ($username,$idConferma);
+            if(is_array($user) && count($user)===1)
+            {
+                return $fUser->confermaUser($username);
+            }              
+        }
+        
+    }
+    
 }

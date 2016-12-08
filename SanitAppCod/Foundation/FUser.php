@@ -125,6 +125,25 @@ class FUser extends FDatabase {
         return $this->eseguiQuery($query);
     }
     
+    /**
+     * Metodo che consente di trovare un user usando congiuntamente l'username e il codice di conferma dell'account
+     * 
+     * @access public
+     * @param string $username L'username da cercare
+     * @param string $codiceConferma Il codice conferma da cercare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return Array Array il risultato della query 
+     */
+    public function cercaUserByUsernameCodiceConferma ($username,$codiceConferma)
+    {
+        $username = $this->trimEscapeStringa($username);
+        $codiceConferma = $this->trimEscapeStringa($codiceConferma);
+        $query = "SELECT appuser.* "
+                . "FROM appuser WHERE Username='" . $username . "' "
+                . "AND CodiceConferma='" . $codiceConferma . "' "; 
+        return $this->eseguiQuery($query);
+    }
+    
     
     /**
      * Metodo che consente di verificare se l'user (identificato tramite la coppia username e password) esiste nel DB
@@ -220,4 +239,22 @@ class FUser extends FDatabase {
         return $this->eseguiQuery($query);
     }
    
+    
+    /**
+     * Metodo che consente di conferma un account a cui corrisponde l'username passato come parametro
+     * 
+     * @final
+     * @access public
+     * @param string $username L'username dell'account da confermare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se l'account è stato confermato
+     */
+    final public function confermaUser($username) 
+    {
+        $query = "UPDATE appuser SET Confermato=TRUE 
+                WHERE Username= '" . $username . "'" ;
+        return $this->eseguiQuery($query);
+               
+    }
+    
 }

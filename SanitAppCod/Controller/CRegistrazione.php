@@ -18,19 +18,20 @@ class CRegistrazione {
         $vRegistrazione= USingleton::getInstance('VRegistrazione');
         switch ($vRegistrazione->getTask()) // imposta la pagina in base al task contenuto nell'url
         {
-//            case 'conferma':
-//                
-////                     inserisco una nuova classe controller CConferma. dopo vediamo se eliminarla   
-//                $cConferma = USingleton::getInstance('CConferma');
-//                if($cConferma->confermaUser() === TRUE)
-//                {
-//                    //mandarlo all'area personale
-//                }
-//                else
-//                {
-//                    echo "account non confermato";
-//                }
-//                break;
+            case 'conferma':
+                $username = $vRegistrazione->recuperaValore('username');
+                $idConferma = $vRegistrazione->recuperaValore('id');
+                if($idConferma !== FALSE && $username!== FALSE) //GET registrazione/conferma/username/idConferma
+                {
+                    $this->tryConfermaUser($username, $idConferma);
+                    
+                }
+                else
+                {
+                    $messaggio = "Codice conferma o username non trovato. Non è possibile confermare questo account.";
+                    $vRegistrazione->visualizzaFeedback($messaggio);
+                }
+                break;
             
             case 'clinica':
                 $vRegistrazione->restituisciFormClinica();
@@ -280,6 +281,39 @@ class CRegistrazione {
           return $uValidazione->getDatiValidi();
           
        }
+    }
+    
+    /**
+     * Metodo che consente di confermare un user gestendo anche eventuali eccezioni/errori
+     * 
+     * @access public
+     * @param string $username L'username a cui corrisponde lo user da confermare
+     * @param type $idConferma Il codice di conferma
+     */
+    public function tryConfermaUser($username, $idConferma)
+    {
+        $vRegistrazione = USingleton::getInstance('VRegistrazione');
+        try {
+            $eUser = new EUser($username);
+            if($eUser->confermaUser($idConferma)===TRUE)
+            {
+                $messaggio = 'User Confermato';
+                $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
+            }
+            else
+            {
+                $messaggio = "C'è stato un errore, non è possibile confermare questo account.";
+                $vRegistrazione->visualizzaFeedback($messaggio);
+            }            
+        } 
+        catch (XUserException $ex) 
+        {
+            $vRegistrazione->visualizzaFeedback($ex->getMessage());
+        }
+        catch (XDBException $ex) 
+        {
+            $vRegistrazione->visualizzaFeedback($ex->getMessage());
+        }
     }
     
 }
