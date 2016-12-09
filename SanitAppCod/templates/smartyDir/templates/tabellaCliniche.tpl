@@ -1,3 +1,5 @@
+<h4>Risultato della ricerca</h4>
+<br>
 <table id="tabellaCliniche" class="tablesorter">
     <thead>
         <th>Clinica</th>
