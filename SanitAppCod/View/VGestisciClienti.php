@@ -24,4 +24,16 @@ class VGestisciClienti extends View{
         $this->assegnaVariabiliTemplate('dati', $risultato);
         return $this->visualizzaTemplate('tabellaClienti');
     }
+    
+    /**
+     * Metodo che consente di visualizzare le informazioni di un utente
+     * 
+     * @access public
+     * @param EUtente $eUtente L'utente di cui si vogliono visualizzare le informazioni
+     */
+    public function visualizzaInfoUtente($eUtente) 
+    {
+        $this->assegnaVariabiliTemplate('utente', $eUtente);
+        $this->visualizzaTemplate("infoUtente");
+    }
 }

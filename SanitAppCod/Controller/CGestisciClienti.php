@@ -30,30 +30,31 @@ class CGestisciClienti {
                 $tipoUser = $sessione->leggiVariabileSessione('tipoUser');// secondo te devo controllare che il tipo di utente sia una clinica??
                 if ($tipoUser === 'clinica')
                 {
-                    
-//                    $partitaIVA = $eClinica->getPartitaIVAClinica();
                     $cf = $vClienti->recuperaValore('id');
-                    if ($cf === FALSE)
+                    if ($cf === FALSE) // GET clienti/visualizza
                     {
-                        // vogliamo visualizzare tutti i pazienti del medico
-                        $eClinica = new EClinica($username);
-                        $risultato = $eClinica->cercaClienti();          
-                        $vClienti->visualizzaClienti($risultato);
-                        
+                        $this->tryVisualizzaClientiClinica($username);// cerca e visualizza clienti
                     }
                     else
                         {
-                         // si cerca un solo paziente
-            //                $eMedico = new Medico();
-                                $futente = USingleton::getInstance('FUtente');
-                                $utenteCercato = $futente->cercaUtenteByCF($cf);
-                                $vClienti->visualizzaInfoUtente($utenteCercato[0]);
+                            // si cerca un solo cliente
+                            try {
+                               $eUtente = new EUtente($cf);
+                               $vClienti->visualizzaInfoUtente($eUtente);
+                            } 
+                            catch (XUtenteException $ex) {
+                                $vClienti->visualizzaFeedback('Utente inesistente. Non è stato possibile recuperare le informazioni richieste');
+                            }
+                            
+//                                $futente = USingleton::getInstance('FUtente');
+//                                $utenteCercato = $futente->cercaUtenteByCF($cf);
+//                                $vClienti->visualizzaInfoUtente($utenteCercato[0]);
                         }
                     
                 }
                 else
                 {
-                    echo ' errore in CGestisciClienti visualizza ';
+                    $vClienti->visualizzaFeedback('Errore');
                 }
                 break;
 
@@ -62,5 +63,35 @@ class CGestisciClienti {
         }
         
         
+    }
+    
+    /**
+     * Metodo che consenti di cercare e visualizzare tutti i clienti di una clinica, il cui username è passato come 
+     * parametro, gestendo errori ed eccezioni
+     * 
+     * @access public
+     * @param type $username L'username della clinica di cui si vogliono cercare i clienti
+     */
+    public function tryVisualizzaClientiClinica($username) {
+        $vClienti = USingleton::getInstance('VGestisciClienti');
+        try {
+            $eClinica = new EClinica($username);
+            $risultato = $eClinica->cercaClienti();
+            if(is_array($risultato) && count($risultato)>0)
+            {
+                $vClienti->visualizzaClienti($risultato);
+            }
+            else
+            {
+                $messaggio = "Non presenti clienti";
+                $vClienti->visualizzaFeedback($messaggio);
+            }
+        } 
+        catch (XClinicaException $ex) {
+            $vClienti->visualizzaFeedback('Clinica inesistente. Non è stato possibile recuperare i clienti');
+        }
+        catch (XDBException $ex) {
+            $vClienti->visualizzaFeedback('Non è stato possibile recuperare i clienti');
+        }
     }
 }

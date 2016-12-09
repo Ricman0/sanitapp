@@ -73,8 +73,8 @@ function inviaController($controller, ajaxdiv)
 
 function clickRiga(controller, task, id, ajaxdiv)
 {
+    
     var codiceFiscale = $("#codiceFiscaleUtentePrenotaEsame").val();
-    alert(codiceFiscale);
     $.ajax({
         // definisco il tipo della chiamata
         type: 'GET',

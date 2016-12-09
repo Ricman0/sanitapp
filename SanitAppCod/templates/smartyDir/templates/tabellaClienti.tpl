@@ -1,4 +1,5 @@
-<h4>Clienti della clinica</h4>
+<h3>Clienti della clinica</h3>
+<h4>Clicca su una riga per avere informazioni sul cliente corrispondente</h4>
 <table id="tabellaClienti" class="tablesorter">
     <thead>
         <th>Codice Fiscale</th>
@@ -10,7 +11,7 @@
     </thead>
     <tbody>        
         {foreach from=$dati item=curr_row}
-            <tr id="{$curr_row['CodFiscale']}" class="rigaPaziente">
+            <tr id="{$curr_row['CodFiscale']}" class="rigaCliente">
                 <td>{$curr_row['CodFiscale']}</td>
                 <td>{$curr_row['Nome']}</td>
                 <td>{$curr_row['Cognome']}</td>

@@ -10,7 +10,7 @@
 
 
   RewriteCond %{REQUEST_METHOD} GET 
-
+  RewriteRule ^(clienti)/(visualizza)/([[:alnum:]]{16})?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(registrazione)/(conferma)/([[:alnum:]]+)/([[:alnum:]]{32})$ index.php?controller=$1&task=$2&username=$3&id=$4 [L]
   RewriteRule ^(pazienti)/(aggiungi)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(agenda)/(visualizza)?$ index.php?controller=$1&task=$2 [L]

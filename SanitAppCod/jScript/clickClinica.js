@@ -6,6 +6,13 @@
 
 
 $(document).ready(function () {
+    
+    $('#headerMain').on("click", ".rigaCliente" , function(){
+        var id = $(this).attr('id');
+        alert(id);
+        clickRiga('clienti', 'visualizza', id, "#contenutoAreaPersonale");
+    });
+    
     //click sul tasto Agenda 
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
         $('#contenutoAreaPersonale').empty(); // elimino tutti gli elementi interni al div contenutoAreaPersonale

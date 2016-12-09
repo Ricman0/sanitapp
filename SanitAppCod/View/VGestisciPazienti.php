@@ -40,7 +40,7 @@ class VGestisciPazienti extends View{
     public function visualizzaInfoUtente($utente) 
     {
         $this->assegnaVariabiliTemplate('utente', $utente);
-        return $this->visualizzaTemplate("infoUtente");
+        $this->visualizzaTemplate("infoUtente");
     }
     
     /**
