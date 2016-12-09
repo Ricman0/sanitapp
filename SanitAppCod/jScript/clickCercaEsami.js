@@ -5,12 +5,13 @@
  */
 
 $(document).ready(function () {
-    $('#headerMain').on("click", "#ricercaEsamiCerca", function () {
+    $('#headerMain').on("click", ".ricercaEsamiCerca", function () {
         var id = $(this).attr('id');// id= ricercaEsamiCerca 
         alert (id);
         //this si riferisce al button ricercaEsamiCerca. Io cerco il div più vicino che abbia come id contenutoAreaPersonale 
         // e poi prendo id che ovviamente è contenutoAreaPersonale.
-        var ajaxDiv = "#" + $(this).closest('div[id=contenutoAreaPersonale]').prop('id');
+        var ajaxDiv = "#" + $(this).closest('div').prop('id');
+        alert (ajaxDiv);
         if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
         {
            ajaxDiv = '#main';
@@ -22,13 +23,15 @@ $(document).ready(function () {
 function inviaDatiForm(ajaxDiv)
 {
     
-    var controller = $("#controllerFormRicercaEsami").val();
-    var nomeClinica = (($("#nomeClinicaFormRicercaEsami").val()).toLowerCase()).trim();
-    nomeClinica = nomeClinica.replace(" ", "_");
-
-    var nomeEsame = (($("#nomeEsameFormRicercaEsami").val()).toLowerCase()).trim();
+    var controller = $(".controllerFormRicercaEsami").val();
+    var nomeClinica = '';
+    if($("input[name=clinica]").length){
+        nomeClinica = (($("input[name=clinica]").val()).toLowerCase()).trim();
+        nomeClinica = nomeClinica.replace(" ", "_");
+    }
+    var nomeEsame = (($("input[name=esame]").val()).toLowerCase()).trim();
     nomeEsame = nomeEsame.replace(" ", "_");
-    var luogo = (($("#luogoClinicaFormRicercaEsami").val()).toLowerCase()).trim();
+    var luogo = (($("input[name=luogo]").val()).toLowerCase()).trim();
     luogo = luogo.replace(" ", "_");
     var url;
 

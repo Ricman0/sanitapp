@@ -2,7 +2,8 @@
     <div id="inputMainRicerca" class="affiancato verticalmenteAllineato">
         
         <img src="./Immagini/iconaRicerca.png" id="iconaMainRicercaRicerca" class="affiancato verticalmenteAllineato">
-        <form id="formMainRicerca" class="affiancato verticalmenteAllineato" method="POST"> 
+        <form id="formMainRicerca" class="affiancato verticalmenteAllineato"> 
+            <input type="hidden" name="controller" value="esami" class ='controllerFormRicercaEsami' id="controllerFormMainRicerca"/> 
             <label for="esame" class="ricerca">Esame</label>
             <input type="text" name="esame" class="ricerca" id="mainRicercaEsame" target="_blank" 
                    placeholder="Raggi"/>
@@ -10,7 +11,7 @@
             <input type="text" name="luogo" class="ricerca" id="mainRicercaLuogo" target="_blank" 
                    placeholder="Roma"/>
             <br>
-            <input type="submit" class="ricerca" id="mainRicercaCerca" value="Cerca"> 
+            <input type="button" class="ricerca ricercaEsamiCerca" id="mainRicercaCerca" value="Cerca"> 
         </form>
     </div>
 
