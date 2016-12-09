@@ -722,6 +722,7 @@ class EClinica extends EUser {
      * Metodo che consente di cercare tutti gli esami/servizi della clinica
      * 
      * @access public
+     * @throws XDBException Se la query non è stata eseguita con successo
      * @return Array Tutti gli esami/servizi che offre la clinica
      */
     public function cercaEsami() {

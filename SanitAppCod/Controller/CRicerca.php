@@ -105,10 +105,16 @@ class CRicerca {
                 //imposto il risutlato della ricerca a NULL così che vada bene per il remote di JQUERY VALIDATION
                 $risultato = TRUE;
                 if ($uValidazione->validaDati($dati)) {
-                    $eUser = new EUser($dati['username']);
-                    if ($eUser->getUsername() !== NULL) {
-                        $risultato = NULL;
+                    try {
+                        $eUser = new EUser($dati['username']);
+                        if ($eUser->getUsername() !== NULL) {
+                            $risultato = NULL;
+                        }
+                    } catch (XUserException $ex) {
+                       // non faccio nulla perchè $risultato=TRUE  
                     }
+                    
+                    
                 }
                 break;
 
@@ -117,9 +123,13 @@ class CRicerca {
                 $uValidazione = USingleton::getInstance('UValidazione');
                 $risultato = TRUE;
                 if ($uValidazione->validaDati($dati)) {
-                    $eUser = new EUser(NULL, NULL, $dati['email']);
-                    if ($eUser->getEmail() !== NULL) {
-                        $risultato = NULL; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
+                    try {
+                        $eUser = new EUser(NULL, NULL, $dati['email']);
+                        if ($eUser->getEmail() !== NULL) {
+                            $risultato = NULL; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
+                        }
+                    } catch (XUserException $ex) {
+                       // non faccio nulla perchè $risultato=TRUE  
                     }
                 }
                 break;

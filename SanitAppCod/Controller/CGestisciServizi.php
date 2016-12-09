@@ -91,8 +91,22 @@ class CGestisciServizi {
                 if($idEsame === FALSE)
                 {
                     // visualizza tutti gli esami 
-                    $eClinica = new EClinica($username);
-                    $vServizi->visualizzaEsami($eClinica->cercaEsami());//i servizi cercati vengono visualizzati
+                    try {
+                        $eClinica = new EClinica($username);
+                        $servizi = $eClinica->cercaEsami();
+                        if (is_array($servizi) && count($servizi)>0)
+                        {
+                            $vServizi->visualizzaEsami($servizi);//i servizi cercati vengono visualizzati
+                        }
+                        
+                    } 
+                    catch (XClinicaException $ex) {
+                        $vServizi->visualizzaFeedback($ex->getMessage());                       
+                    }
+                    catch (XDBException $ex) {
+                       $vServizi->visualizzaFeedback($ex->getMessage());
+                    }
+                    
                     /*
                      * commento un momento perchè non so se sia meglio usare l'entity EClinica per cercare tutti gli esami
                      * 
