@@ -64,7 +64,16 @@ class CReferti {
                         case 'utente':
                             $eUtente = new EUtente(NULL, $username);
                             $referti = $eUtente->cercaReferti();
-                            $vReferti->restituisciPaginaRisultatoReferti($referti, $tipoUser);
+                            if(is_array($referti) && count($referti)>0)
+                            {
+                               $vReferti->restituisciPaginaRisultatoReferti($referti, $tipoUser); 
+                            }
+                            else
+                            {
+                                $vReferti->visualizzaFeedback('Non sono presenti referti.');
+                            }
+                            
+                            
                             break;
                         default:
                             break;
