@@ -1,5 +1,4 @@
-<h4>Form Ricerca Esami</h4>
-<p>Riempi i campi della form se vuoi affinare la ricerca</p>
+<h4>Ricerca Esame</h4>
 <br>
 <form id="formRicercaEsami" method="POST">
     <div  id="inputRicercaEsami">

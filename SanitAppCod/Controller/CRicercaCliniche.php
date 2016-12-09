@@ -60,7 +60,16 @@ class CRicercaCliniche {
         $vCliniche = USingleton::getInstance('VRicercaCliniche');
         $fCliniche = USingleton::getInstance('FClinica');
         $risultato = $fCliniche->cercaClinica($vCliniche->recuperaValore('parametro1'), $vCliniche->recuperaValore('parametro2'));       
-        $vCliniche->restituisciPaginaRisultatoCliniche($risultato);
+        if(is_array($risultato) && count($risultato)>0)
+        {
+            $vCliniche->restituisciPaginaRisultatoCliniche($risultato);
+        }
+        else
+        {
+            $messaggio="La ricerca non prodotto alcun risultato.";
+            $vCliniche->visualizzaFeedback($messaggio, TRUE);
+        }
+        
         
         /*
         // se la form di ricerca possiede sia il nome che il luogo della clinica

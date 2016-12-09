@@ -28,7 +28,16 @@ class CRicercaEsami {
         try        
         {
             $risultato = $fEsami->cercaEsame($vEsami->recuperaValore('parametro1'), $vEsami->recuperaValore('parametro2'), $vEsami->recuperaValore('parametro3'));
-            $vEsami->restituisciPaginaRisultatoEsami($risultato);  
+            if(is_array($risultato) && count($risultato)>0)
+            {
+                $vEsami->restituisciPaginaRisultatoEsami($risultato);
+            }
+            else
+            {
+                $messaggio="La ricerca non prodotto alcun risultato.";
+                $vEsami->visualizzaFeedback($messaggio, TRUE);
+            }
+              
         }
         catch (XDBException $e)
         {

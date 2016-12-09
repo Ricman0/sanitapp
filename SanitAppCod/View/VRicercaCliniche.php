@@ -30,8 +30,6 @@ class VRicercaCliniche extends View{
      */
     public function restituisciPaginaRisultatoCliniche($cliniche) 
     {
-        //http://stackoverflow.com/questions/29297553/smarty-populate-html-table-columns-with-smarty-array-variable
-        // html table nella documentazione di smarty
         $this->assegnaVariabiliTemplate('dati', $cliniche);
         $this->visualizzaTemplate('tabellaCliniche');
     }
@@ -43,8 +41,6 @@ class VRicercaCliniche extends View{
      */
     public function visualizzaInfoClinicaOspite($clinica) 
     {
-        echo " visualizzaInfoClinica ";
-        print_r($clinica);
         $this->assegnaVariabiliTemplate('clinica', $clinica);
         return $this->visualizzaTemplate("infoClinica");
         
