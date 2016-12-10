@@ -40,7 +40,6 @@ class CImpostazioni {
 
                         case 'clinica': {
                                 $eClinica = new EClinica($username);
-//                            $eClinica->businessHours();
                                 $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getWorkingPlanClinica());
                             }
                             break;
