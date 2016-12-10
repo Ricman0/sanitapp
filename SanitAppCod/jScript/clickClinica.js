@@ -34,7 +34,8 @@ $(document).ready(function () {
             defaultView: 'agendaDay',
             minTime: "00:00:00",
             maxTime: "24:00:00",
-            'viewRender': agendaViewDisplay
+            'viewRender': agendaViewDisplay,
+            'dayClick': agendaDayClick
             
         });
 
@@ -607,7 +608,27 @@ function inviaCodiceFiscale(controller1, task1, ajaxdiv)
 
 
 /**
- * Funzione per visualizzare gli eventi sull'agenda
+ * Metodo che consente di trasferire automaticamente 
+ * 
+ * Quando la clinica fa clic su un quadrato di un giorno sul calendario, allora verrà
+ *  automaticamente trasferito alla vista giornaliera di quel giorno.
+ * @param Moment date La data cliccata
+ * @param {type} allDay 
+ * @param {type} jsEvent L'evento JavaScript
+ * @param {type} view   
+ * @return {undefined} 
+ */
+function agendaDayClick(date, allDay, jsEvent, view) 
+{
+        if (allDay) 
+        {
+            $('#agenda').fullCalendar('gotoDate', date);// va alla data cliccata
+            $('#agenda').fullCalendar('changeView', 'agendaDay');// cambia la view in agendaDay
+        }
+}
+
+/**
+ * Funzione per visualizzare gli eventi(appuntamenti, pause e giornate non lavorative) sull'agenda
  * 
  * @returns {undefined}
  */
