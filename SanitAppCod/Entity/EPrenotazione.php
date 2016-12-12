@@ -517,5 +517,31 @@ class EPrenotazione {
             return FALSE;
         }
          
+        
+        
+    }
+    
+    /**
+     * Metodo che consente di modificare lo stato di esecuzione di una prenotazione nel DB
+     * 
+     * @access public
+     * @param boolean $eseguita Indica se la prenotazione è stata modificata
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la query è stata eseguita con successo
+     */
+    public function modificaEseguitaPrenotazione($eseguita)
+    {
+        if($eseguita==='true')
+        {
+            $eseguita = TRUE;
+            
+        }
+        else
+        {
+            $eseguita = FALSE; 
+        }
+        $this->setEseguitaPrenotazione($eseguita);
+        $fPrenotazione = USingleton::getInstance('FPrenotazione');
+        return $fPrenotazione->modificaPrenotazioneEseguita($this->getIdPrenotazione(), $eseguita);
     }
 }

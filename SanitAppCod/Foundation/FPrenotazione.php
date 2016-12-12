@@ -234,14 +234,30 @@ class FPrenotazione extends FDatabase{
      * di cui si passa come paramtro l'id.
      * 
      * @access public
-     * @param type $idPrenotazione Identificativo della prenotazione da modificare
-     * @param type $dataEOra Data e orario della prenotazione
+     * @param string $idPrenotazione Identificativo della prenotazione da modificare
+     * @param string $dataEOra Data e orario della prenotazione
      * @throws XDBException Se la query non è stata eseguita con successo
-     * @return boolean TRUE se la query è stata eeguita con successo
+     * @return boolean TRUE se la query è stata eseguita con successo
      */
     public function modificaPrenotazione($idPrenotazione, $dataEOra) 
     {
         $query = "UPDATE " . $this->_nomeTabella . " SET DataEOra='" . $dataEOra . "' WHERE IDPrenotazione='" . $idPrenotazione . "'";
+        return $this->eseguiQuery($query);
+    }
+    
+    /**
+     * Metodo che consente di modificare lo stato di esecuzione della prenotazione(ovvero se la prenotazione è stata eseguita o meno)
+     * di cui si passa come paramtro l'id.
+     * 
+     * @access public
+     * @param string $idPrenotazione Identificativo della prenotazione da modificare
+     * @param boolean $eseguita La prenotazione è stata eseguita.
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la query è stata eseguita con successo
+     */
+    public function modificaPrenotazioneEseguita($idPrenotazione, $eseguita)
+    {
+        $query = "UPDATE " . $this->_nomeTabella . " SET Eseguita='" . $eseguita . "' WHERE IDPrenotazione='" . $idPrenotazione . "'";
         return $this->eseguiQuery($query);
     }
     

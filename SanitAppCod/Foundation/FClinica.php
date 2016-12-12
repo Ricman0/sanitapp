@@ -303,7 +303,7 @@ class FClinica extends FUser{
         
 //        $dataOdierna = date('Y-m-d');  // stringa contenente la data odierna
 //        $dataOdierna = "2016-11-30";// da eliminare serve solo per vedere se la query funziona
-        $query = "SELECT IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, TIME(DataEOra) as Orario, DATE(DataEOra)as Data, esame.Durata "
+        $query = "SELECT IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, TIME(DataEOra) as Orario, DATE(DataEOra)as Data, esame.Durata, Eseguita "
                 . "FROM prenotazione,esame,utente "
                 . "WHERE prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "' AND "
                 . "prenotazione.IDEsame=esame.IDEsame AND "

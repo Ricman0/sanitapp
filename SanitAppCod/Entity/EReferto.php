@@ -85,7 +85,7 @@ class EReferto {
                 $this->_dataReferto = $risultato[0]['DataReferto'];
             } else {
                 throw new XRefertoException('Referto inesistente');
-                $this->_IDReferto = NULL;
+//                $this->_IDReferto = NULL;
             }
         }
     }

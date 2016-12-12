@@ -870,9 +870,13 @@ class EClinica extends EUser {
                             $intervalEnd = date('H:i', $end); // rendo stringa il timestamp $end nel formato minuti:secondi
                             $end =$dataOdierna . " " . $intervalEnd;
                             break;
+                        case 'Eseguita':
+                            $eseguita = $value;
+                            break;
+                         
                     }
                 }
-                $appuntamenti[$i] = Array('id'=>$id, 'title'=> $title, 'start'=>$data, 'intervalStart'=> $start, 'intervalEnd'=>$intervalEnd, 'end'=>$data, 'esame'=>$esame, 'cliente'=>$cliente);//, 
+                $appuntamenti[$i] = Array('id'=>$id, 'title'=> $title, 'start'=>$data, 'intervalStart'=> $start, 'intervalEnd'=>$intervalEnd, 'end'=>$data, 'esame'=>$esame, 'cliente'=>$cliente, 'eseguito'=>$eseguita );//, 
                 $i++;
             }
             return $appuntamenti;
