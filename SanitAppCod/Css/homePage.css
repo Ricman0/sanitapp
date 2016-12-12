@@ -106,6 +106,7 @@ button, input[type = 'submit'], input[type='button']
     padding-right: 20px;
     box-sizing: border-box;
     margin: 20px auto;
+    cursor: pointer;
 }
 
 button.sottile{
@@ -214,6 +215,9 @@ orarioSelezionato {
 
 .verde{
     color: green;
+}
+.grigio{
+    color: #444444;
 }
 
 .bordo

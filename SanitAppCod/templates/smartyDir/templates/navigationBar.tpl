@@ -1,12 +1,12 @@
 <nav id="navigationBar">
     <ul class="nav">
         <li class="nav" id="home">
-            <a class="nav" href="#" id="homeNavBar">
+            <a class="nav homepage" href="#" id="homeNavBar">
                 <i class="fa fa-home fa-2x" id="icona-home" aria-hidden="true" ></i>
             </a>
         </li>
         <li class="nav" id="cliniche">    
-            <a class="nav" href="#"><i class="fa fa-hospital-o fa-lg" id="icona-cliniche" aria-hidden="true"></i> Cliniche</a> 
+            <a class="nav" href="#ricercaCliniche"><i class="fa fa-hospital-o fa-lg" id="icona-cliniche" aria-hidden="true"></i> Cliniche</a> 
         </li>
         <li class="nav" id="esami">
             <a  class="nav"href="#">

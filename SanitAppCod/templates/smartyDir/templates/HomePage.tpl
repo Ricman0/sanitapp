@@ -28,7 +28,8 @@
         <script type="text/javascript" src="./plugins/additional-methods.min.js"></script>
         <script type="text/javascript" src="./plugins/tablesorter/jquery.tablesorter.js"></script>
         <script type="text/javascript" src="./plugins/tablesorter/jquery.tablesorter.widgets.js"></script>
-        <script type="text/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>
+        <script type="text/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>        
+        <script type="text/javascript" src="./plugins/history.js"></script>
 
         <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
         <script type="text/javascript" src="./jScript/eventi_click.js"></script>

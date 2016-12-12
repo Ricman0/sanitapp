@@ -6,6 +6,7 @@
 
 $(document).ready(function () {
     $('#headerMain').on("click", ".ricercaEsamiCerca", function () {
+        
         var id = $(this).attr('id');// id= ricercaEsamiCerca 
         alert (id);
         //this si riferisce al button ricercaEsamiCerca. Io cerco il div più vicino che abbia come id contenutoAreaPersonale 
@@ -33,9 +34,7 @@ function inviaDatiForm(ajaxDiv)
     nomeEsame = nomeEsame.replace(" ", "_");
     var luogo = (($("input[name=luogo]").val()).toLowerCase()).trim();
     luogo = luogo.replace(" ", "_");
-    var url;
-
-    url = controller;
+    var url= controller;
     //nome esame !=0
     if (nomeEsame.length !== 0)
     {
@@ -81,6 +80,7 @@ function inviaDatiForm(ajaxDiv)
 
         }
     }
+    history.pushState(null, null, 'ricercaCliniche');
     $.ajax({
         //url della risorsa alla quale viene inviata la richiesta
         // url:  "index.php",

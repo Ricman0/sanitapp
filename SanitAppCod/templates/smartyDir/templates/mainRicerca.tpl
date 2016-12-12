@@ -1,6 +1,6 @@
 <div id="elementiFormMainRicerca" class="affiancato">
     <div id="inputMainRicerca" class="affiancato verticalmenteAllineato">
-        
+        <h3 class="grigio">Cosa cerchi?</h3>
         <img src="./Immagini/iconaRicerca.png" id="iconaMainRicercaRicerca" class="affiancato verticalmenteAllineato">
         <form id="formMainRicerca" class="affiancato verticalmenteAllineato"> 
             <input type="hidden" name="controller" value="esami" class ='controllerFormRicercaEsami' id="controllerFormMainRicerca"/> 

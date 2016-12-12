@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("#headerMain").on("click", "#homeNavBar", function(){
+    $("#headerMain").on("click", ".homepage", function(){
         $.ajax({
             type : "GET",
             url: "index.php",
