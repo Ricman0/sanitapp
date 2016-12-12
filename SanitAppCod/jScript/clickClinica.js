@@ -17,7 +17,11 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
         $('#contenutoAreaPersonale').empty(); // elimino tutti gli elementi interni al div contenutoAreaPersonale
         $('#contenutoAreaPersonale').append("<h1>Appuntamenti</h1>");
-        $('#contenutoAreaPersonale').append("<div id='agenda'></div>");
+        $('#contenutoAreaPersonale').append("<div id='agenda'></div>");// aggiungo il div agenda per inserire fullcalendar
+        $('#contenutoAreaPersonale').append("<div id='contenutoEvento' title='Dettaglio evento'><div id='infoEvento'></div>");
+               
+    
+        
         $('#agenda').fullCalendar({
             header:
                     {
@@ -25,24 +29,21 @@ $(document).ready(function () {
                         center: 'title',
                         right: 'month,basicWeek,agendaDay'
                     },
-            axisFormat: 'HH:mm',
+            allDaySlot:false,
+            slotDuration:'00:15:00',
+            slotLabelFormat: 'HH:mm',
+            slotEventOverlap:true,
             timeFormat: 'HH:mm',
-//                        'HH:mm{ - HH:mm}',
-//                        {
-//                agenda: 'H:mm{ - h:mm}'
-//                },
             theme: true,
             defaultView: 'agendaDay',
             minTime: "00:00:00",
             maxTime: "24:00:00",
-            'viewRender': agendaViewDisplay
+            'viewRender': agendaViewDisplay,
+            'dayClick': agendaDayClick,
+            'eventClick': agendaEventClick,
             
         });
 
-
-
-//            }
-//        });
 
     });
 
@@ -612,7 +613,27 @@ function inviaCodiceFiscale(controller1, task1, ajaxdiv)
 
 
 /**
- * Funzione per visualizzare gli eventi sull'agenda
+ * Metodo che consente di trasferire automaticamente 
+ * 
+ * Quando la clinica fa clic su un quadrato di un giorno sul calendario, allora verrà
+ *  automaticamente trasferito alla vista giornaliera di quel giorno.
+ * @param Moment date La data cliccata
+ * @param {type} allDay 
+ * @param {type} jsEvent L'evento JavaScript
+ * @param {type} view   
+ * @return {undefined} 
+ */
+function agendaDayClick(date, allDay, jsEvent, view) 
+{
+        if (allDay) 
+        {
+            $('#agenda').fullCalendar('gotoDate', date);// va alla data cliccata
+            $('#agenda').fullCalendar('changeView', 'agendaDay');// cambia la view in agendaDay
+        }
+}
+
+/**
+ * Funzione per visualizzare gli eventi(appuntamenti, pause e giornate non lavorative) sull'agenda
  * 
  * @returns {undefined}
  */
@@ -636,7 +657,7 @@ function agendaViewDisplay(view, element)
             datiRisposta = JSON.parse(datiRisposta);
             // aggiungo appuntamenti all'agenda
             var appuntamentiAgenda = [];// array in cui inserirò tutti gli appuntamenti che voglio visualizzare in agenda
-
+            console.log(datiRisposta);
             // ciclo su datiRisposta.appuntamenti(1°paramentro); 2°parametro la funzione che sarà eseguita su ogni oggetto. 
             // La funzione di callback avrà indice e valore associato all'indice che chiamo apputnamento.
             $.each(datiRisposta.appuntamenti, function (indice, appuntamento) {
@@ -645,8 +666,9 @@ function agendaViewDisplay(view, element)
                     'title': appuntamento['title'],
                     'start': appuntamento['start'] + " " + appuntamento['intervalStart'],
                     'end': appuntamento['end'] + " " + appuntamento['intervalEnd'],
+                    'cliente':appuntamento['cliente'],
+                    'esame':appuntamento['esame'],
                     'allDay': false,
-                    //            'data': appuntamento, // Store appointment data for later use.
                     'backgroundColor': 'yellow',
                     'borderColor': 'white',
                     'textColor': 'blue'
@@ -677,16 +699,40 @@ function agendaViewDisplay(view, element)
                                 'start': currDateStartString,
                                 'end': currDateEndString,
                                 'allDay': true,
-                                'color': '#BEBEBE',
-                                'editable': false,
+                                'color': 'light-grey',
+//                                'color': '#BEBEBE',
+                                'editable': false
                             };
                             $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, true);
-                            
-
-
                         } 
                         else
-                        {
+                            {
+                                // Aggiungo un periodoNonDisponibile per ogni pausa
+                                var breakStart, breakEnd;
+                                if(typeof(workingDay.BreakStart)!='undefined' && typeof(workingDay.BreakEnd)!='undefined' )
+                                {
+                                    breakStart = currDateStartString + ' ' + workingDay.BreakStart;
+                                    breakEnd = currDateStartString + ' ' + workingDay.BreakEnd;
+                                    var pausa = {
+                                        'title': 'Pausa',
+                                        'start': breakStart,
+                                        'end': breakEnd,
+                                        'allDay': false,
+                                        'color': 'pink',
+                                        'editable': true
+                                    };
+                                    $('#agenda').fullCalendar('renderEvent', pausa, false);
+                                }
+                            
+
+                            }
+                            currDateStart.add(1, 'days');
+                            currDateStartString = currDateStart.format('YYYY-MM-DD');
+                            currDateEnd.add(1, 'days');
+                            });
+                            
+                            
+                        
 //                            // aggiungo un periodoNonDisponibile prima dell'orario lavorativo
 //                            var startClinicaString = currDateStartString + ' ' + workingDay.Start + ':00';// aggiungo l'orario di inizio 
 //                            var startClinica = Date.parse(startClinicaString); // da stringa ad oggetto Date e ritornano i millisecondi tra la stringa passata  e la mezzanotte del 1° Gennaio 1970.
@@ -727,6 +773,7 @@ function agendaViewDisplay(view, element)
 //                                $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false);
 //                            }
 
+/* da decommetare se volessimo fare più pause in una giornata
                             // Aggiungo un periodoNonDisponibile per ogni pausa
                             var breakStart, breakEnd;
                             $.each(workingDay.Pausa, function (index, pausaGiornaliera)
@@ -749,6 +796,7 @@ function agendaViewDisplay(view, element)
                         currDateStartString = currDateStart.format('YYYY-MM-DD');
                         currDateEnd.add(1, 'days');
                     });
+                    */
                     
 
                     break;
@@ -763,15 +811,17 @@ function agendaViewDisplay(view, element)
                     var currDateTempEndString = currDateTempEnd.format('YYYY-MM-DD');
                     var currDateStartMonth = Date.parse(currDateStartString); // rendo in millisecondi la data di inzio della view mensile
                     var currDateEndMonth = Date.parse(currDateEndString);
+                    
                     while ( currDateStartMonth < currDateEndMonth) // non metto <= perchè all'interno c'è il foreach di 7 giorni quindi arriva fino all'ultimo giorno
                     {
                         $.each(datiRisposta.workingPlan, function (index, workingDay) {
+                            
                             if (workingDay === null) {
                                 // Aggiungo un giorno non lavorativo dato che workingDay è null
                                 giornoNonLavorativo = {
                                     'title': 'GIORNO NON LAVORATIVO',
                                     'start': currDateStartString,
-                                    'end': currDateTempEndString,
+                                    'end': currDateStartString,
                                     'allDay': true,
                                     'color': '#BEBEBE',
                                     'editable': false
@@ -780,12 +830,12 @@ function agendaViewDisplay(view, element)
                             } 
                             else
                             {
-                                //Aggiungo una pausa per ogni pausaGiornaliera
+                                // aggiungo una pausa  se presente
                                 var breakStart, breakEnd;
-                                $.each(workingDay.Pausa, function (index, pausaGiornaliera)
+                                if(typeof(workingDay.BreakStart)!='undefined' && typeof(workingDay.BreakEnd)!='undefined' )
                                 {
-                                    breakStart = currDateStartString + ' ' + pausaGiornaliera.Start;
-                                    breakEnd = currDateStartString + ' ' + pausaGiornaliera.End;
+                                    breakStart = currDateStartString + ' ' + workingDay.BreakStart;
+                                    breakEnd = currDateStartString + ' ' + workingDay.BreakEnd;
                                     var pausa = {
                                         'title': 'Pausa',
                                         'start': breakStart,
@@ -795,17 +845,37 @@ function agendaViewDisplay(view, element)
                                         'editable': true
                                     };
                                     $('#agenda').fullCalendar('renderEvent', pausa, false);
-                                }); 
+                                }
+                               
+                                
+//                                //Aggiungo una pausa per ogni pausaGiornaliera
+//                                var breakStart, breakEnd;
+//                                $.each(workingDay.Pausa, function (index, pausaGiornaliera)
+//                                {
+//                                    breakStart = currDateStartString + ' ' + pausaGiornaliera.Start;
+//                                    breakEnd = currDateStartString + ' ' + pausaGiornaliera.End;
+//                                    var pausa = {
+//                                        'title': 'Pausa',
+//                                        'start': breakStart,
+//                                        'end': breakEnd,
+//                                        'allDay': false,
+//                                        'color': 'pink',
+//                                        'editable': true
+//                                    };
+//                                    $('#agenda').fullCalendar('renderEvent', pausa, false);
+//                                }); 
+                            
                             }
                             currDateStart.add(1, 'days'); // aggiungo un giorno alla giornata di inizio
                             currDateStartString = currDateStart.format('YYYY-MM-DD');
                             currDateTempEnd.add(1, 'days');//aggiungo un giorno alla giornata di fine termporanea
                             currDateTempEndString = currDateTempEnd.format('YYYY-MM-DD');
-//                        
-//                        
-                        });
-//                            
-                        currDateStartMonth = Date.parse(currDateStartString);
+                            
+                        });         
+                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
+                            currDateStartString = currDateStart.format('YYYY-MM-DD');
+                            currDateStartMonth = Date.parse(currDateStartString);
+                            
                     }
                 break;
 
@@ -870,13 +940,13 @@ function agendaViewDisplay(view, element)
 //                            };
 //                            $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false);
                         }
-
-                        // Aggiungo un periodoNonDisponibile per ogni pausa
+                        
+                        // aggiungo una pausa se presente
                         var breakStart, breakEnd;
-                        $.each(workingPlan[nomeGiorno].Pausa, function (index, pausaGiornaliera)
+                        if(typeof(workingPlan[nomeGiorno].BreakStart)!= "undefined" && typeof(workingPlan[nomeGiorno].BreakEnd)!= "undefined" )
                         {
-                            breakStart = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.Start;
-                            breakEnd = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.End;
+                            breakStart = agendaView.start.format('YYYY-MM-DD') + ' ' + workingPlan[nomeGiorno].BreakStart;
+                            breakEnd = agendaView.start.format('YYYY-MM-DD') + ' ' + workingPlan[nomeGiorno].BreakEnd;
                             var pausa = {
                                 'title': 'Pausa',
                                 'start': breakStart,
@@ -886,7 +956,23 @@ function agendaViewDisplay(view, element)
                                 'editable': true
                             };
                             $('#agenda').fullCalendar('renderEvent', pausa, false);
-                        });
+                        }
+//                        // Aggiungo un periodoNonDisponibile per ogni pausa
+//                        var breakStart, breakEnd;
+//                        $.each(workingPlan[nomeGiorno].Pausa, function (index, pausaGiornaliera)
+//                        {
+//                            breakStart = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.Start;
+//                            breakEnd = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.End;
+//                            var pausa = {
+//                                'title': 'Pausa',
+//                                'start': breakStart,
+//                                'end': breakEnd,
+//                                'allDay': false,
+//                                'color': 'pink',
+//                                'editable': true
+//                            };
+//                            $('#agenda').fullCalendar('renderEvent', pausa, false);
+//                        });
                     }
 
                     break;
@@ -896,5 +982,52 @@ function agendaViewDisplay(view, element)
 
 
     });
+}
+
+/**
+ * 
+ * @param Event event Oggetto evento che contiene le informazioni dell'evento (data, titolo, ecc)
+ * @param {type} jsEvent jsEvent tiene l'evento nativo JavaScript con informazioni di basso livello come ad esempio coordinate click.
+ * @param View view contiente la corrente View Object
+ * @return {undefined}
+ */
+function agendaEventClick(event, jsEvent, view)
+{
+    var title;
+   // The Dialog widget fa parte di jQuery UI; 
+   // permette di visualizzare il contenuto all'interno di una finestra floating cha hanno un title bar,
+   //  un content area, button bar, drag handle eclose button; e può essere mosso, chiuso e ridimensionato
+    if(event.title=='Pausa')
+    {
+        alert('in pausa');
+    var descrizionePausa = "<p>Inizio Pausa: " + event.start.format('HH:mm')  + "</p><p>Fine Pausa: " + event.end.format('HH:mm') + "</p>";
+        $("#infoEvento").append(descrizionePausa);
+        title = event.title;
+        
+    }   
+    else
+    {
+        console.log(event);
+         
+        var descrizioneAppuntamento = "<p>Cliente: " + event.cliente  + "</p>";
+        descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
+        descrizioneAppuntamento = descrizioneAppuntamento + "<p>Start: " + event.start.format('HH:mm')  + "</p><p>End: " + event.end.format('HH:mm') + "</p>" ;
+        $("#infoEvento").append(descrizioneAppuntamento);
+        title = 'Appuntamento';
+        
+    }
+
+    //per creare una finestra di pop up richiamo il metodo .dialog() su un div
+    $("#contenutoEvento").dialog({ 
+        modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+        title: title ,
+        buttons: {   
+            'ok': function() {
+              $(this).dialog('close');
+              $("#infoEvento").html('');
+            }
+        }
+    });
+
 }
    

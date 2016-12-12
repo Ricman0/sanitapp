@@ -834,7 +834,7 @@ class EClinica extends EUser {
             $dataOdierna = date('Y-m-d');
             foreach ($risultato as $appuntamento) 
             {
-                $title = ""; $start =""; $end="";
+                $title = ""; $start =""; $end=""; $cliente="";
                 foreach ($appuntamento as $key => $value) 
                 {
                     switch ($key) 
@@ -844,11 +844,13 @@ class EClinica extends EUser {
                             break;
                         
                         case 'NomeEsame':
-                            $title = $value;
+                            $esame = ucfirst($value);
+                            $title = ucfirst($value);
                             break;
                         case 'Nome':
                         case 'Cognome':
-                            $title = $title . " " . $value;
+                            $cliente = $cliente . " " . ucfirst($value);
+                            $title = $title . " " . ucfirst($value);
                             break;
                         case 'Orario':
                             $start = substr($value, 0, 5);
@@ -870,7 +872,7 @@ class EClinica extends EUser {
                             break;
                     }
                 }
-                $appuntamenti[$i] = Array('id'=>$id, 'title'=> $title, 'start'=>$data, 'intervalStart'=> $start, 'intervalEnd'=>$intervalEnd, 'end'=>$data);//, 
+                $appuntamenti[$i] = Array('id'=>$id, 'title'=> $title, 'start'=>$data, 'intervalStart'=> $start, 'intervalEnd'=>$intervalEnd, 'end'=>$data, 'esame'=>$esame, 'cliente'=>$cliente);//, 
                 $i++;
             }
             return $appuntamenti;
