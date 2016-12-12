@@ -17,7 +17,11 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
         $('#contenutoAreaPersonale').empty(); // elimino tutti gli elementi interni al div contenutoAreaPersonale
         $('#contenutoAreaPersonale').append("<h1>Appuntamenti</h1>");
-        $('#contenutoAreaPersonale').append("<div id='agenda'></div>");
+        $('#contenutoAreaPersonale').append("<div id='agenda'></div>");// aggiungo il div agenda per inserire fullcalendar
+        $('#contenutoAreaPersonale').append("<div id='contenutoEvento' title='Dettaglio evento'><div id='infoEvento'></div>");
+               
+    
+        
         $('#agenda').fullCalendar({
             header:
                     {
@@ -35,7 +39,8 @@ $(document).ready(function () {
             minTime: "00:00:00",
             maxTime: "24:00:00",
             'viewRender': agendaViewDisplay,
-            'dayClick': agendaDayClick
+            'dayClick': agendaDayClick,
+            'eventClick': agendaEventClick,
             
         });
 
@@ -661,6 +666,8 @@ function agendaViewDisplay(view, element)
                     'title': appuntamento['title'],
                     'start': appuntamento['start'] + " " + appuntamento['intervalStart'],
                     'end': appuntamento['end'] + " " + appuntamento['intervalEnd'],
+                    'cliente':appuntamento['cliente'],
+                    'esame':appuntamento['esame'],
                     'allDay': false,
                     'backgroundColor': 'yellow',
                     'borderColor': 'white',
@@ -975,5 +982,52 @@ function agendaViewDisplay(view, element)
 
 
     });
+}
+
+/**
+ * 
+ * @param Event event Oggetto evento che contiene le informazioni dell'evento (data, titolo, ecc)
+ * @param {type} jsEvent jsEvent tiene l'evento nativo JavaScript con informazioni di basso livello come ad esempio coordinate click.
+ * @param View view contiente la corrente View Object
+ * @return {undefined}
+ */
+function agendaEventClick(event, jsEvent, view)
+{
+    var title;
+   // The Dialog widget fa parte di jQuery UI; 
+   // permette di visualizzare il contenuto all'interno di una finestra floating cha hanno un title bar,
+   //  un content area, button bar, drag handle eclose button; e può essere mosso, chiuso e ridimensionato
+    if(event.title=='Pausa')
+    {
+        alert('in pausa');
+    var descrizionePausa = "<p>Inizio Pausa: " + event.start.format('HH:mm')  + "</p><p>Fine Pausa: " + event.end.format('HH:mm') + "</p>";
+        $("#infoEvento").append(descrizionePausa);
+        title = event.title;
+        
+    }   
+    else
+    {
+        console.log(event);
+         
+        var descrizioneAppuntamento = "<p>Cliente: " + event.cliente  + "</p>";
+        descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
+        descrizioneAppuntamento = descrizioneAppuntamento + "<p>Start: " + event.start.format('HH:mm')  + "</p><p>End: " + event.end.format('HH:mm') + "</p>" ;
+        $("#infoEvento").append(descrizioneAppuntamento);
+        title = 'Appuntamento';
+        
+    }
+
+    //per creare una finestra di pop up richiamo il metodo .dialog() su un div
+    $("#contenutoEvento").dialog({ 
+        modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+        title: title ,
+        buttons: {   
+            'ok': function() {
+              $(this).dialog('close');
+              $("#infoEvento").html('');
+            }
+        }
+    });
+
 }
    
