@@ -688,21 +688,25 @@ class CPrenotazione {
             $codice = $vPrenotazione->recuperaValore('codice'); // throws XRecuperaVAloreException Se il valore è inesistente
             $eUtente = new EUtente($codice);        //throws XUtenteException Se l'utente non esiste               
         }
-        if ($eUtente->checkIfCan($idEsame, $partitaIVAClinica, $data, $orario, $durata) === TRUE) { //@throws XDBException Se c'è un errore durante l'esecuzione della query
-            $modifica = $vPrenotazione->recuperaValore('modifica');
-            print_r($modifica);
-            if ($modifica===true || $modifica==='1')
+        $modifica = $vPrenotazione->recuperaValore('modifica');
+        if ($eUtente->checkIfCan($idEsame, $partitaIVAClinica, $data, $orario, $durata, $modifica) === TRUE) { //@throws XDBException Se c'è un errore durante l'esecuzione della query
+            echo ($modifica);
+            if ($modifica==true || $modifica==='1')
             { 
-                $idPrenotazione =  $vPrenotazione->recuperaValore('idPrenotazione');                
+                $idPrenotazione = $vPrenotazione->recuperaValore('idPrenotazione');  
+                echo "in modificia ";
+                echo ($modifica);
                 $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice, $modifica, $idPrenotazione);
             }
             else
             {
+                echo "non in modificia";
                 $modifica = FALSE; // sovrascrivo il false con FALSE in maniera che non ci siano problemi con smarty
                 $vPrenotazione->restituisciPaginaRiepilogoPrenotazione(NULL, $eEsame, $eClinica, $eUtente, $data, $orario, $codice, $modifica);
             }
             
-        } else {
+        } 
+        else {
             $feedback = "Non puoi effettuare questa prenotazione.\n Hai già una prenotazione per questa esame o hai una prenotazione durante l'orario di questo esame";
             $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($feedback);
         }

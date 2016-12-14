@@ -22,16 +22,16 @@ class VPrenotazione extends View{
     
     public function restituisciPaginaRiepilogoPrenotazione($errore, $eEsame=NULL, $eClinica=NULL, $eUtente=NULL, $data=NULL, $orario=NULL, $codice=NULL, $modifica=FALSE, $idPrenotazione=NULL)
     {
+        
         if(!isset($errore))
         {
-          $this->assegnaVariabiliTemplate('codice', $codice);
+            $this->assegnaVariabiliTemplate('codice', $codice);
             $this->assegnaVariabiliTemplate('utente', $eUtente);
             $this->assegnaVariabiliTemplate('orario', $orario);
             $this->assegnaVariabiliTemplate('data', $data);
             $this->assegnaVariabiliTemplate('clinica', $eClinica);
             $this->assegnaVariabiliTemplate('esame', $eEsame);  
             $this->assegnaVariabiliTemplate('modifica', $modifica);
-            print_r($modifica);
             if(isset($idPrenotazione))
             { 
                 $this->assegnaVariabiliTemplate('idPrenotazione', $idPrenotazione);
