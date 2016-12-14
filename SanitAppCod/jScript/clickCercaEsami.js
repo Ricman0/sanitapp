@@ -7,16 +7,21 @@
 $(document).ready(function () {
     $('#headerMain').on("click", ".ricercaEsamiCerca", function () {
         
-        var id = $(this).attr('id');// id= ricercaEsamiCerca 
-        alert (id);
-        //this si riferisce al button ricercaEsamiCerca. Io cerco il div più vicino che abbia come id contenutoAreaPersonale 
-        // e poi prendo id che ovviamente è contenutoAreaPersonale.
-        var ajaxDiv = "#" + $(this).closest('div').prop('id');
+//        var id = $(this).attr('id');// id= ricercaEsamiCerca 
+//        alert (id);
+//        //this si riferisce al button ricercaEsamiCerca. Io cerco il div più vicino che abbia come id contenutoAreaPersonale 
+//        // e poi prendo id che ovviamente è contenutoAreaPersonale.
+//        var ajaxDiv = "#" + $(this).closest('div').prop('id');
+        var ajaxDiv = '#main';
+        //se esiste il div contenutoAreaPersonale
+        if ($('#contenutoAreaPersonale').length) {
+            ajaxDiv ='#contenutoAreaPersonale';
+          }
         alert (ajaxDiv);
-        if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
-        {
-           ajaxDiv = '#main';
-        }
+//        if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
+//        {
+//           ajaxDiv = '#main';
+//        }
         inviaDatiForm(ajaxDiv);
     });
 });
