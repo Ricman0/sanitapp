@@ -178,8 +178,7 @@ input, select{
     width: 400px;
 }
 
-orarioSelezionato {
-    background: indianred none repeat scroll 0 0;
+.orarioSelezionato {
     border-radius: 15px;
     color: #0aaadc;
     font-weight: bold;
