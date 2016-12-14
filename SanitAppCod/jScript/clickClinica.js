@@ -12,6 +12,8 @@ $(document).ready(function () {
         alert(id);
         clickRiga('clienti', 'visualizza', id, "#contenutoAreaPersonale");
     });
+
+   
     
     //click sul tasto Agenda 
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
@@ -668,6 +670,7 @@ function agendaViewDisplay(view, element)
                     'end': appuntamento['end'] + " " + appuntamento['intervalEnd'],
                     'cliente':appuntamento['cliente'],
                     'esame':appuntamento['esame'],
+                    'eseguito': appuntamento['eseguito'],
                     'allDay': false,
                     'backgroundColor': 'yellow',
                     'borderColor': 'white',
@@ -997,26 +1000,36 @@ function agendaEventClick(event, jsEvent, view)
    // The Dialog widget fa parte di jQuery UI; 
    // permette di visualizzare il contenuto all'interno di una finestra floating cha hanno un title bar,
    //  un content area, button bar, drag handle eclose button; e può essere mosso, chiuso e ridimensionato
-    if(event.title=='Pausa')
-    {
-        alert('in pausa');
-    var descrizionePausa = "<p>Inizio Pausa: " + event.start.format('HH:mm')  + "</p><p>Fine Pausa: " + event.end.format('HH:mm') + "</p>";
-        $("#infoEvento").append(descrizionePausa);
-        title = event.title;
-        
-    }   
-    else
-    {
-        console.log(event);
-         
-        var descrizioneAppuntamento = "<p>Cliente: " + event.cliente  + "</p>";
-        descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
-        descrizioneAppuntamento = descrizioneAppuntamento + "<p>Start: " + event.start.format('HH:mm')  + "</p><p>End: " + event.end.format('HH:mm') + "</p>" ;
-        $("#infoEvento").append(descrizioneAppuntamento);
-        title = 'Appuntamento';
-        
-    }
-
+   switch(event.title) 
+   {
+        case 'CLINICA CHIUSA':
+            var descrizione = "<p>La clinica resterà chiusa tutta la giornata</p>";
+            $("#infoEvento").append(descrizione);
+            title = event.title;
+            break;
+        case 'Pausa':
+            var descrizionePausa = "<p>Inizio Pausa: " + event.start.format('HH:mm')  + "</p><p>Fine Pausa: " + event.end.format('HH:mm') + "</p>";
+            $("#infoEvento").append(descrizionePausa);
+            title = event.title;
+            break;
+        default:
+            var descrizioneAppuntamento = "<p>Cliente: " + event.cliente  + "</p>";
+            descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
+            descrizioneAppuntamento = descrizioneAppuntamento + "<p>ID Prenotazione: " + event.id + "</p>";
+            descrizioneAppuntamento = descrizioneAppuntamento + "<p>Start: " + event.start.format('HH:mm')  + "</p><p>End: " + event.end.format('HH:mm') + "</p>" ;
+            if(event.eseguito==false)
+            {
+               descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-times fa-lg rosso modificaEseguito' aria-hidden='true'></i></p>";
+            }
+            else
+            {
+                descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-check fa-lg verde' aria-hidden='true'></i></p>" ;   
+            }
+            $("#infoEvento").append(descrizioneAppuntamento);
+            title = 'Appuntamento';
+            break;
+    } 
+ 
     //per creare una finestra di pop up richiamo il metodo .dialog() su un div
     $("#contenutoEvento").dialog({ 
         modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
@@ -1027,6 +1040,46 @@ function agendaEventClick(event, jsEvent, view)
               $("#infoEvento").html('');
             }
         }
+    });
+    
+    $('.modificaEseguito').on('click', function () {
+        // apro un'altra finestra
+        $('#contenutoAreaPersonale').append("<div id='altroContenutoEvento' title='Dettaglio evento'><div id='eseguito'></div>");
+        $('#eseguito').append('<p>Per modificare la prenotazione in prenotazione eseguita, clicca su Eseguita</p>');
+        $("#altroContenutoEvento").dialog({ 
+            modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+            title: 'Modifica Prenotazione' ,
+            buttons: {   
+                'Eseguita': function() {
+                  
+                  $.ajax({
+                      type:'POST',
+                      url: 'prenotazione/modifica/' + event.id,
+                      data:{eseguita: true},
+                      success: function (datiRisposta)
+                      {
+                        var obj = JSON.parse(datiRisposta);
+                        if(obj==="ok")
+                        {
+                            alert('Prenotazione eseguita');
+                            $('i.modificaEseguito').replaceWith("<i class='fa fa-check fa-lg verde' aria-hidden='true'></i>");
+                        }
+                        else
+                        {
+                           alert('Prenotazione eseguita errore'); 
+                        }
+                        $("#altroContenutoEvento").dialog('close');
+                        $("#eseguito").html('');
+                      }
+                  });
+                  
+                },
+                'Annulla': function() {
+                    $("#altroContenutoEvento").dialog('close');
+                }
+            }
+        });
+        
     });
 
 }
