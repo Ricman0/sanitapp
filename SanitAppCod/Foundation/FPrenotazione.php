@@ -48,7 +48,7 @@ class FPrenotazione extends FDatabase{
         {
             // si vuole visualizzare una prenotazione dell'utente
             $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "
-                . "DataEOra, Eseguita, esame.MedicoEsame "
+                . "DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
@@ -60,11 +60,14 @@ class FPrenotazione extends FDatabase{
             // solo il codice fiscale quindi si vogliono visualizzare tutte le 
             //prenotazioni di un utente
             $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "
-                . "DataEOra, Eseguita, esame.MedicoEsame "
+                . "DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "')) ";
+        
+            //CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita
+            // quando Eseguita=0 ovvero è false, rimpliazza lo zero con NO, altrimenti con SI
         }
 //        echo $query; // per il debug, da eliminare
         $risultato = $this->eseguiQuery($query);
