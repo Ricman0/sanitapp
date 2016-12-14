@@ -23,7 +23,6 @@ class VReferti extends View{
      */
     public function restituisciPaginaRisultatoReferti($referti, $tipoUser) 
     {
-        echo "$tipoUser";
         if($tipoUser==='clinica')
         {
             $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);

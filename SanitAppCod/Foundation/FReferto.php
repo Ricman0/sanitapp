@@ -70,6 +70,8 @@ class FReferto extends FDatabase{
     /**
      * Permette di trovare tutti referti relativi ai pazienti di un dato medico
      * @param string $cfMedico codice fiscale del medico 
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return Array I referti dei pazienti del medico
      */
     public function cercaRefertiPazientiMedico($cfMedico) 
     {
@@ -81,7 +83,7 @@ class FReferto extends FDatabase{
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(utente.CodFiscaleMedico='" . $cfMedico . "')) ";
         $risultato = $this->eseguiQuery($query);
-        print_r($risultato);
+        
         return $risultato;
         
     }

@@ -49,24 +49,13 @@ class CReferti {
                     $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
                     switch ($tipoUser) {
                         case 'clinica':
-                            $this->visualizzaRefertiClinica($username, $tipoUser, $vReferti);
+                            $this->visualizzaRefertiClinica($username);
                             break;
                         case 'medico':
-                            $eMedico = new EMedico(null, $username);
-                            $risultato = $eMedico->cercaReferti();
-                            if (!is_bool($risultato)) {
-                                $vReferti->restituisciPaginaRisultatoReferti($risultato, $tipoUser);
-                            } else {
-                                $vReferti->visualizzaFeedback( "errore in CReferti VisualizzaReferti in clinica. ");
-                            }
+                            $this->tryVisualizzaRefertiMedico($username);
                             break;
-
                         case 'utente':
                             $this->tryVisualizzaRefertiUtente($username);
-                            
-                            
-                            
-                            
                             break;
                         default:
                             break;
@@ -83,54 +72,7 @@ class CReferti {
         }
     }
 
-    public function visualizzaRefertiClinica($username, $tipoUser, $vReferti) {
-        $idPrenotazioneReferto = $vReferti->recuperaValore('id');
-        if ($idPrenotazioneReferto === FALSE) {    //visualizzo tutti i referti
-            try {
-                $eClinica = new EClinica($username);
-                $referti = $eClinica->cercaReferti();
-                if (is_array($referti) && count($referti)>0) {  //ci sono referti da visualizzare
-                    $vReferti->restituisciPaginaRisultatoReferti($referti, $tipoUser);
-                } 
-                else 
-                {
-                    $vReferti->visualizzaFeedback("Non sono ancora stati caricati referti");
-                }
-            } 
-            catch (XClinicaException $ex) {
-                $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
-            }
-            catch (XDBException $ex) {
-                $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
-            }
-            
-        } 
-        else {    //visualizzo le info di un solo referto
-            try {
-                $eReferto = new EReferto($idPrenotazioneReferto);
-                $ePrenotazione = new EPrenotazione($idPrenotazioneReferto);
-                $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
-                $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
-                $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
-                $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, $tipoUser);
-            } 
-            catch (XRefertoException $ex) {
-                $vReferti->visualizzaFeedback("Referto inesistente. Non è stato possibile recuperare il referto");
-            }
-            catch (XPrenotazioneException $ex) {
-                $vReferti->visualizzaFeedback("Prenotazione inesistente. Non è stato possibile recuperare le informazioni del referto");
-            }
-            catch (XEsameException $ex) {
-                $vReferti->visualizzaFeedback("Esame inesistente. Non è stato possibile recuperare le informazioni del referto");
-            }
-            catch (XClinicaException $ex) {
-                $vReferti->visualizzaFeedback("Clinica inesistente. Non è stato possibile recuperare le informazioni del referto");
-            }
-            catch (XUtenteException $ex) {
-                $vReferti->visualizzaFeedback("Utente inesistente. Non è stato possibile recuperare le informazioni del referto");
-            }
-        }
-    }
+    
 
     public function gestisciRefertiPOST() {
 
@@ -184,7 +126,7 @@ class CReferti {
             $referti = $eUtente->cercaReferti();
             if(is_array($referti) && count($referti)>0)
             {
-               $vReferti->restituisciPaginaRisultatoReferti($referti, $tipoUser); 
+               $vReferti->restituisciPaginaRisultatoReferti($referti, 'utente'); 
             }
             else
             {
@@ -197,5 +139,95 @@ class CReferti {
         catch (XDBException $ex) {
             $vReferti->visualizzaFeedback("Non è stato possibile recuperare le informazioni del referto");
         } 
+    }
+    
+    /**
+     * Metodo che consente ad un medico di visualizzare tutti i referti dei propri pazienti
+     * 
+     * @access public
+     * @param string $username L'username dell'utente di cui si vogliono visualizzare i referti
+     */
+    public function tryVisualizzaRefertiMedico($username) {
+        $vReferti = USingleton::getInstance('VReferti');
+        try 
+        {
+            $eMedico = new EMedico(null, $username);
+            $referti = $eMedico->cercaReferti();
+            if(is_array($referti) && count($referti)>0)
+            {
+               $vReferti->restituisciPaginaRisultatoReferti($referti, 'medico'); 
+            }
+            else
+            {
+                $vReferti->visualizzaFeedback('Non sono presenti referti.');
+            }
+        } 
+        catch (XMedicoException $ex) {
+            $vReferti->visualizzaFeedback('Medico inestistente. Non è stato possibile recuperare i referti');
+        }
+        catch (XDBException $ex) {
+            $vReferti->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperare i referti");
+        }   
+    }
+
+    /**
+     * Metodo che consente ad una clinica di visualizzare tutti i referti dei propri clienti
+     * 
+     * @access public
+     * @param string $username L'username della clinica di cui si vogliono visualizzare i referti
+     */
+    public function tryVisualizzaRefertiClinica($username) {
+        $vReferti = USingleton::getInstance('VReferti');
+        try {
+                $eClinica = new EClinica($username);
+                $referti = $eClinica->cercaReferti();
+                if (is_array($referti) && count($referti)>0) {  //ci sono referti da visualizzare
+                    $vReferti->restituisciPaginaRisultatoReferti($referti, 'clinica');
+                } 
+                else 
+                {
+                    $vReferti->visualizzaFeedback("Non sono ancora stati caricati referti");
+                }
+            } 
+            catch (XClinicaException $ex) {
+                $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
+            }
+            catch (XDBException $ex) {
+                $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
+            }
+    }
+    
+    
+    public function visualizzaRefertiClinica($username) {
+        $vReferti = USingleton::getInstance('VReferti');
+        $idPrenotazioneReferto = $vReferti->recuperaValore('id');
+        if ($idPrenotazioneReferto === FALSE) {    //visualizzo tutti i referti
+            $this->tryVisualizzaRefertiClinica($username); 
+        } 
+        else {    //visualizzo le info di un solo referto
+            try {
+                $eReferto = new EReferto($idPrenotazioneReferto);
+                $ePrenotazione = new EPrenotazione($idPrenotazioneReferto);
+                $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
+                $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
+                $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
+                $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, 'clinica');
+            } 
+            catch (XRefertoException $ex) {
+                $vReferti->visualizzaFeedback("Referto inesistente. Non è stato possibile recuperare il referto");
+            }
+            catch (XPrenotazioneException $ex) {
+                $vReferti->visualizzaFeedback("Prenotazione inesistente. Non è stato possibile recuperare le informazioni del referto");
+            }
+            catch (XEsameException $ex) {
+                $vReferti->visualizzaFeedback("Esame inesistente. Non è stato possibile recuperare le informazioni del referto");
+            }
+            catch (XClinicaException $ex) {
+                $vReferti->visualizzaFeedback("Clinica inesistente. Non è stato possibile recuperare le informazioni del referto");
+            }
+            catch (XUtenteException $ex) {
+                $vReferti->visualizzaFeedback("Utente inesistente. Non è stato possibile recuperare le informazioni del referto");
+            }
+        }
     }
 }

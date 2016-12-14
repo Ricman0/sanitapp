@@ -426,6 +426,7 @@ class EUtente extends EUser {
      * Metodo che consente di cercare tutti i referti di un utente
      * 
      * @access public
+     * @throws XDBException Se la query non è stata eseguita con successo
      * @return Array Un array contenente tutti i referti di un utente
      */
     public function cercaReferti() 

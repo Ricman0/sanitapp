@@ -312,7 +312,6 @@ class UValidazione {
         } 
         else
         {
-            echo "errore"; 
 //            echo ($chiave);
 //            echo ($stringaErrore);
             $this->_datiErrati[$chiave] = $stringaErrore;
