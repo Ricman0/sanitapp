@@ -23,7 +23,7 @@ class FReferto extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "referto";
-        $this->_attributiTabella = "IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, " .
+        $this->_attributiTabella = "IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, FileName, " .
                 "Contenuto, MedicoReferto, DataReferto";
     }
     
@@ -100,7 +100,8 @@ class FReferto extends FDatabase{
         $valoriAttributi = "'" . $referto->getIDReferto() . "', '" 
                 . $this->trimEscapeStringa($referto->getIDPrenotazione()) . "', '" 
                 . $this->trimEscapeStringa($referto->getIDEsame()) . "', '" 
-                . $this->trimEscapeStringa($referto->getPartitaIvaClinica()) . "', '" 
+                . $this->trimEscapeStringa($referto->getPartitaIvaClinica()) . "', '"
+                . $referto->getFileNameReferto() . "', '"  
                 . $referto->getContenutoReferto() . "', '"  
                 . $this->trimEscapeStringa($referto->getMedicoReferto()) . "', '" 
                 . $referto->getDataReferto() . "'"; 
@@ -130,7 +131,7 @@ class FReferto extends FDatabase{
     
     
     /**
-     * Controlla se il file esiste
+     * NON IN USO Controlla se il file esiste 
      * @param string $nomeFile Il nome del file da controllare
      * @return bool TRUE se il file esiste, FALSE altrimenti
      */

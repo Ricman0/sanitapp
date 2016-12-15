@@ -203,6 +203,12 @@ class View extends Smarty {
         return $infoFile;
     }
     
+     public function recuperaFile($indice) {
+        $file = addslashes(file_get_contents($_FILES[$indice]['tmp_name']));
+        return $file;
+    }
+    
+    
     /**
      * Visualizza una pagina con un messaggio
      * @param string|array $messaggio Il messaggio o i messaggi da mandare in output
