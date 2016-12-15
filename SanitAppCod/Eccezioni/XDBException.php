@@ -14,7 +14,7 @@
 class XDBException extends Exception{
     
 /**
-     * Costruttore di XXDBException
+     * Costruttore di XDBException
      * 
      * @param string $messaggio Il messaggio dell'eccezione
      */

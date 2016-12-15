@@ -40,10 +40,16 @@ class EReferto {
     private $_medicoReferto;
 
     /**
-     * @var string $_contenuto Il nome del file referto
+     * @var string $_contenuto Il file referto
      */
     private $_contenuto;
 
+    /**
+     * @var string $_fileName Il nome del file referto
+     */
+    private $_fileName;
+    
+    
     /**
      * @var date $_dataReferto la data di inserimento del referto
      */
@@ -55,24 +61,25 @@ class EReferto {
      */
     private $_partitaIVAClinica;
 
-    const cartellaReferti = './uploadedFiles/referti/';
 
     /**
      * Costruttore di EReferto
      * 
      * @param string $medico
      * @param blob $contenuto
+     * @throws XRefertoException 
      */
-    public function __construct($idPrenotazione, $partitaIvaClinica = NULL, $idEsame = NULL, $medico = NULL, $contenuto = NULL) {
-        if ($medico !== NULL) {
+    public function __construct($idPrenotazione, $partitaIvaClinica = NULL, $idEsame = NULL, $medico = NULL, $contenuto = NULL, $fileName= NULL) {
+        if ($medico !== NULL) { //caso nuovo referto
             $this->_IDReferto = uniqid();
             $this->_idPrenotazione = $idPrenotazione;
             $this->_idEsame = $idEsame;
             $this->_partitaIVAClinica = $partitaIvaClinica;
             $this->_medicoReferto = $medico;
             $this->_contenuto = $contenuto;
+            $this->_fileName = $fileName;
             $this->_dataReferto = date('Y-m-d', time());
-        } else {
+        } else { //caso referto recuperato dal db
             $fReferto = USingleton::getInstance('FReferto');
             $risultato = $fReferto->cercaReferto($idPrenotazione);
             if (is_array($risultato) && count($risultato) === 1) {
@@ -82,10 +89,10 @@ class EReferto {
                 $this->_partitaIVAClinica = $risultato[0]['PartitaIVAClinica'];
                 $this->_medicoReferto = $risultato[0]['MedicoReferto'];
                 $this->_contenuto = $risultato[0]['Contenuto'];
+                $this->_fileName = $risultato[0]['FileName'];
                 $this->_dataReferto = $risultato[0]['DataReferto'];
-            } else {
+            } else { //nessun risultato relativo a quella prenotazione
                 throw new XRefertoException('Referto inesistente');
-//                $this->_IDReferto = NULL;
             }
         }
     }
@@ -135,11 +142,20 @@ class EReferto {
     public function getMedicoReferto() {
         return $this->_medicoReferto;
     }
-
+    
     /**
      * Metodo che restituisce il path del referto
      * 
      * @return string Il path del referto
+     */
+    public function getFileNameReferto() {
+        return $this->_fileName;
+    }
+
+    /**
+     * Metodo che restituisce il referto
+     * 
+     * @return referto
      */
     public function getContenutoReferto() {
         return $this->_contenuto;
@@ -155,7 +171,7 @@ class EReferto {
     }
 
     /**
-     * Controlla se il referto esiste
+     * NON IN USO Controlla se il referto esiste 
      * @throws XFileException Lancia l'eccezione se il file non esiste
      * @return bool TRUE se il file esiste, FALSE altrimenti
      */
