@@ -195,4 +195,25 @@ class FMedico extends FUser {
                 . "appuser.Username=" . $this->_nomeTabella . ".Username";
         return $this->eseguiQuery($query);
     }
+    
+    /**
+     * Metodo che permette di modificare via, numero civico e CAP di un medico nel DB
+     * 
+     * @access public
+     * @param string $codFiscale Il codice fiscale dell'utente il cui indirizzo deve essere modificato
+     * @param string $via la nuova via
+     * @param int $numeroCivico  il numero civico da modificare
+     * @param string $CAP Il CAP modificare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaIndirizzoCAP($codFiscale, $via, $numeroCivico,  $CAP) 
+    {
+        $via = $this->trimEscapeStringa($via);
+        $CAP = $this->trimEscapeStringa($CAP);
+        $query = "UPDATE " . $this->_nomeTabella . " SET Via='" . $via . "', "
+                . "NumCivico='" . $numeroCivico . "', CAP='" . $CAP . "' "
+                . "WHERE CodFiscale='" . $codFiscale . "'";
+        return $this->eseguiQuery($query);
+    }
 }

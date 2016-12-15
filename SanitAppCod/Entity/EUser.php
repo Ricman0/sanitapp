@@ -454,4 +454,18 @@ class EUser {
         
     }
     
+    /**
+     * Metodo che permette di modificare la password (la modifica avviene anche nel DB)
+     * 
+     * @access public
+     * @param string $password password da modificare
+     * @return boolean TRUE modifica effettuata, FALSE altrimenti
+     */
+    public function modificaPassword($password) 
+    {
+        $this->setPassword($password);
+        $fUser = USingleton::getInstance('FUser');
+        return $fUser->modificaPassword($this->getUsername(), $this->getPassword());
+    }
+    
 }

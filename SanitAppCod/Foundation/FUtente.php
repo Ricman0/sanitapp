@@ -194,7 +194,8 @@ class FUtente extends FUser{
      * @param string $via la nuova via
      * @param int $numeroCivico  il numero civico da modificare
      * @param string $CAP Il CAP modificare
-     * @return boolean TRUE se la modifica è andata a buon fine, FALSE altrimenti
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function modificaIndirizzoCAP($codFiscale, $via, $numeroCivico,  $CAP) 
     {

@@ -198,7 +198,7 @@ class CReferti {
     }
     
     
-    public function visualizzaRefertiClinica($username) {
+    private function visualizzaRefertiClinica($username) {
         $vReferti = USingleton::getInstance('VReferti');
         $idPrenotazioneReferto = $vReferti->recuperaValore('id');
         if ($idPrenotazioneReferto === FALSE) {    //visualizzo tutti i referti

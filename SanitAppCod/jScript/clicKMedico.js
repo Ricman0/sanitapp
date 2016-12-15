@@ -5,6 +5,19 @@
  */
 
 $(document).ready(function(){
+    $('#headerMain').on("click", "#modificaIndirizzoMedico", function () {
+        clickModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGenerali");
+    });
+
+    $('#headerMain').on("click", "#modificaMedico", function () {
+        clickModificaImpostazioni('impostazioni', 'modifica', 'alboNum', "#informazioniGenerali");
+    });
+
+    $('#headerMain').on("click", "#modificaPassword", function () {
+        clickModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
+    });
+    
+    
     $('#headerMain').on("click", "#pazientiAreaPersonaleMedico", function(){
 //        $( "#prenotazioniAreaPersonaleUtente").addClass("Attivo");
         inviaControllerTask('pazienti', 'visualizza', "#contenutoAreaPersonale"); 
@@ -13,6 +26,11 @@ $(document).ready(function(){
     $('#headerMain').on("click", "#refertiAreaPersonaleMedico", function () {
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
+    
+    $('#headerMain').on("click", "#impostazioniAreaPersonaleMedico", function () {
+        inviaControllerTask('impostazioni', 'visualizza', "#contenutoAreaPersonale");
+    });
+    
      
     $('#headerMain').on("click", "#prenotazioniAreaPersonaleMedico", function () {
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");

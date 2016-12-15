@@ -36,7 +36,7 @@ $(document).ready(function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'medico', "#medicoCurante");
     });
 
-    $('#headerMain').on("click", "#modificaPasswordUtente", function () {
+    $('#headerMain').on("click", "#modificaPassword", function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
     });
 

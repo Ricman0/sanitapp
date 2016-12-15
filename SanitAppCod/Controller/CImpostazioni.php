@@ -38,6 +38,11 @@ class CImpostazioni {
                             $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
                             break;
 
+                        case 'medico':
+                            $eMedico = new EMedico(NULL, $username);
+                            $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+                            break;
+                            
                         case 'clinica': {
                                 $eClinica = new EClinica($username);
                                 $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getWorkingPlanClinica());
@@ -55,7 +60,13 @@ class CImpostazioni {
                         case 'utente':
                             $eUtente = new EUtente(NULL, $username);
                             $modificaImpostazioni = $vImpostazioni->getTask2();
-                            $vImpostazioni->modificaImpostazioniUtente($eUtente, $modificaImpostazioni);
+                            $vImpostazioni->modificaImpostazioni($eUtente, $modificaImpostazioni, 'utente');
+                            break;
+                        
+                        case 'medico':
+                            $eMedico = new EMedico(NULL, $username);
+                            $modificaImpostazioni = $vImpostazioni->getTask2();
+                            $vImpostazioni->modificaImpostazioni($eMedico, $modificaImpostazioni, 'medico');
                             break;
 
                         case 'clinica':
@@ -105,6 +116,10 @@ class CImpostazioni {
                     case 'medico':
                         $this->modificaMedicoCurante($vImpostazioni, $username);
                         break;
+                    
+                    case 'alboNum':
+                        $this->modificaAlboNum($vImpostazioni, $username);
+                        break;
 
                     case 'credenziali':
                         $this->modificaCredenziali($vImpostazioni, $username);
@@ -120,22 +135,42 @@ class CImpostazioni {
     }
 
     public function modificaInformazioni($vImpostazioni, $username) {
+        $session = USingleton::getInstance('USession');
+        $tipoUser = $session->leggiVariabileSessione('tipoUser');
         $dati = $vImpostazioni->recuperaInformazioni();
         $uValidazione = USingleton::getInstance('UValidazione');
         if ($uValidazione->validaDati($dati)) {// se i dati sono validi
-            $eUtente = new EUtente(NULL, $username);
-            if ($eUtente->modificaIndirizzoCAP($uValidazione->getDatiValidi()) === TRUE) {
-                //modifiche effettuate
-//                                    $vJSON = USingleton::getInstance('VJSON');
-//                                    $vJSON->inviaDatiJSON(TRUE);
-                $CFMedicoCurante = $eUtente->getMedicoCurante();
-                if (isset($CFMedicoCurante)) {
-                    $eMedico = new EMedico($CFMedicoCurante);
+            if($tipoUser==='utente') 
+            {//tipoUser=utente
+                $eUtente = new EUtente(NULL, $username);
+                if ($eUtente->modificaIndirizzoCAP($uValidazione->getDatiValidi()) === TRUE) {
+                    //modifiche effettuate
+    //                                    $vJSON = USingleton::getInstance('VJSON');
+    //                                    $vJSON->inviaDatiJSON(TRUE);
+                    $CFMedicoCurante = $eUtente->getMedicoCurante();
+                    if (isset($CFMedicoCurante)) {
+                        $eMedico = new EMedico($CFMedicoCurante);
+                    }
+                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                } 
+                else {
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON(FALSE);
                 }
-                $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
-            } else {
-                $vJSON = USingleton::getInstance('VJSON');
-                $vJSON->inviaDatiJSON(FALSE);
+            }
+            else
+            {
+                //tipouser medico
+                $eMedico = new EMedico(NULL, $username);
+                $modificato = $eMedico->modificaIndirizzoCAP($uValidazione->getDatiValidi());
+                if($modificato === TRUE)
+                {
+                    $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+                }
+                else
+                {
+                    $vImpostazioni->visualizzaFeedback("C'è stato un errore non è stato possibile modificare le informazioni");
+                }
             }
         } else {
             // non tutti i dati sono validi 
@@ -172,25 +207,41 @@ class CImpostazioni {
     }
 
     public function modificaCredenziali($vImpostazioni, $username) {
+        $session = USingleton::getInstance('USession');
+        $tipoUser = $session->leggiVariabileSessione('tipoUser');
         $dati = $vImpostazioni->recuperaCredenziali();
         $arrayDati['password'] = $dati;
         $uValidazione = USingleton::getInstance('UValidazione');
         if ($uValidazione->validaDati($arrayDati)) {// se i dati sono validi
-            $eUtente = new EUtente(NULL, $username);
-            if ($eUtente->modificaPassword($uValidazione->getDatiValidi()['password']) === TRUE) {
-                //modifiche effettuate
-                $CFMedicoCurante = $eUtente->getMedicoCurante();
-                if (isset($CFMedicoCurante)) {
-                    $eMedico = new EMedico($CFMedicoCurante);
+            
+                $eUser = new EUser($username);
+                if ($eUser->modificaPassword($uValidazione->getDatiValidi()['password']) === TRUE) {
+                    //modifiche effettuate
+                    if($tipoUser==='utente')
+                    {
+                        $eUtente = new EUtente(NULL, $username);
+                        $CFMedicoCurante = $eUtente->getMedicoCurante();
+                        if (isset($CFMedicoCurante)) {
+                            $eMedico = new EMedico($CFMedicoCurante);
+                        }
+                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+        //                                $vJSON = USingleton::getInstance('VJSON');
+        //                              $vJSON->inviaDatiJSON(TRUE);
+                    }
+                    else
+                    {
+                        $eMedico = new EMedico(NULL, $username);
+                        $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+                        
+                    }
+                } 
+                else {
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON(FALSE);
                 }
-                $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
-//                                $vJSON = USingleton::getInstance('VJSON');
-//                                $vJSON->inviaDatiJSON(TRUE);
-            } else {
-                $vJSON = USingleton::getInstance('VJSON');
-                $vJSON->inviaDatiJSON(FALSE);
-            }
-        } else {
+                
+        } 
+        else {
             // non tutti i dati sono validi 
             $vJSON = USingleton::getInstance('VJSON');
             $vJSON->inviaDatiJSON(FALSE);

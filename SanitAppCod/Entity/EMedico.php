@@ -146,7 +146,7 @@ class EMedico extends EUser {
      * @return string Il nome del medico
      */
     public function getNomeMedico() {
-        return $this->_nome;
+        return ucwords($this->_nome); // imposta la lettera  maiuscola a tutte le parole
     }
 
     /**
@@ -155,7 +155,7 @@ class EMedico extends EUser {
      * @return string Il cognome del medico
      */
     public function getCognomeMedico() {
-        return $this->_cognome;
+        return ucwords($this->_cognome);
     }
 
     /**
@@ -173,7 +173,7 @@ class EMedico extends EUser {
      * @return string Il nome della via in cui risiede il medico
      */
     public function getViaMedico() {
-        return $this->_via;
+        return ucwords($this->_via);
     }
 
     /**
@@ -210,7 +210,7 @@ class EMedico extends EUser {
      * 
      * @return string Il numero d'iscrizione del medico all'albo
      */
-    public function getnumIscrizioneMedico() {
+    public function getNumIscrizioneMedico() {
         return $this->_numIscrizione;
     }
 
@@ -363,6 +363,22 @@ class EMedico extends EUser {
         {
             return FALSE;
         }
+    }
+    
+    /**
+     * Metodo che permette di modificare l'indirizzo, numero civico e CAP (la modifica avviene anche nel DB)
+     * 
+     * @access public
+     * @param Array $datiIndirizzoValidi Array contenente i valori di indirizzo, numero civico e CAP validi
+     * @return boolean TRUE modifica effettuata, FALSE altrimenti
+     */
+    public function modificaIndirizzoCAP($datiIndirizzoValidi) 
+    {
+        $this->setViaMedico($datiIndirizzoValidi['Via']);
+        $this->setNumCivicoMedico($datiIndirizzoValidi['NumCivico']);
+        $this->setCAPMedico($datiIndirizzoValidi['CAP']);
+        $fMedico = USingleton::getInstance('FMedico');
+        return $fMedico->modificaIndirizzoCAP($this->getCodiceFiscaleMedico(), $this->getViaMedico(), $this->getNumCivicoMedico(),  $this->getCAPMedico());
     }
 
 }

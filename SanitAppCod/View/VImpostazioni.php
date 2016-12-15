@@ -13,6 +13,19 @@
  */
 class VImpostazioni extends View{
     
+    /**
+     * Metodo che consente di visualizzare le impostazioni/informazioni del medico
+     * 
+     * @access public
+     * @param EMedico $medico Una entità medico
+     */
+    public function visualizzaImpostazioniMedico($medico)
+    {  
+        $this->assegnaVariabiliTemplate('medico', $medico);
+        $this->assegnaVariabiliTemplate('informazioniGenerali', TRUE);
+        $this->assegnaVariabiliTemplate('credenziali', TRUE);
+        $this->visualizzaTemplate('impostazioniMedico'); 
+    }
     
     /**
      * Metodo che consente di visualizzare le impostazioni dell'utente
@@ -48,10 +61,10 @@ class VImpostazioni extends View{
      * Metodo che consente di modificare le informazioni dell'utente
      * 
      * @access public
-     * @param EUtente $utente Una entità utente
+     * @param EUtente|EMedico $user Una entità user 
      * @return type Description
      */
-    public function modificaImpostazioniUtente($utente, $modificaInformazioni)
+    public function modificaImpostazioni($user, $modificaInformazioni, $tipoUser)
     {  
         switch ($modificaInformazioni) 
         {
@@ -65,7 +78,10 @@ class VImpostazioni extends View{
                 $this->assegnaVariabiliTemplate('medicoCurante', TRUE);
                 $this->assegnaVariabiliTemplate('modificaMedicoCurante', TRUE );
                 break;
-
+            case 'alboNum':
+                $this->assegnaVariabiliTemplate('informazioniGenerali', TRUE);
+                $this->assegnaVariabiliTemplate('modifica', TRUE );
+                break;
             case 'credenziali':
                 $this->assegnaVariabiliTemplate('credenziali', TRUE);
                 $this->assegnaVariabiliTemplate('modificaCredenziali', TRUE );
@@ -74,8 +90,17 @@ class VImpostazioni extends View{
             default:
                 break;
         }
-        $this->assegnaVariabiliTemplate('utente', $utente);
-        $this->visualizzaTemplate('impostazioniUtente'); 
+        if($tipoUser==='utente')
+        {
+            $this->assegnaVariabiliTemplate('utente', $user);
+            $this->visualizzaTemplate('impostazioniUtente');
+        }
+        else
+        {
+            $this->assegnaVariabiliTemplate('medico', $user);
+            $this->visualizzaTemplate('impostazioniMedico');
+        }
+        
     }
     
     

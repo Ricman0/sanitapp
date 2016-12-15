@@ -223,7 +223,7 @@ class EUtente extends EUser {
      * @return string Il nome dell'utente
      */
     public function getNomeUtente() {
-        return $this->_nome;
+        return ucwords($this->_nome);
     }
 
     /**
@@ -232,7 +232,7 @@ class EUtente extends EUser {
      * @return string Il cognome dell'utente
      */
     public function getCognomeUtente() {
-        return $this->_cognome;
+        return ucwords($this->_cognome);
     }
 
     /**
@@ -252,7 +252,7 @@ class EUtente extends EUser {
      * @return string Il nome della via in cui risiede l'utente
      */
     public function getViaUtente() {
-        return $this->_via;
+        return ucwords($this->_via);
     }
 
     /**
@@ -452,19 +452,7 @@ class EUtente extends EUser {
         return $fUtente->modificaIndirizzoCAP($this->_codFiscale, $this->_via, $this->_numeroCivico,  $this->_CAP);
     }
 
-    /**
-     * Metodo che permette di modificare la password (la modifica avviene anche nel DB)
-     * 
-     * @access public
-     * @param string $password password da modificare
-     * @return boolean TRUE modifica effettuata, FALSE altrimenti
-     */
-    public function modificaPassword($password) 
-    {
-        parent::setPassword($password);
-        $fUser = USingleton::getInstance('FUser');
-        return $fUser->modificaPassword(parent::getUsername(), parent::getPassword());
-    }
+    
     
     /**
      * 
