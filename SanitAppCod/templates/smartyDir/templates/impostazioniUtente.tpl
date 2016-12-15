@@ -93,7 +93,7 @@
                     <label for="username">Username :</label>
                     <input type="text" name="username" value ="{$utente->getUsername()}" readonly />
                     <br>
-                    <input type="button" id="modificaPasswordUtente" value="Modifica Credenziali" />
+                    <input type="button" id="modificaPassword" value="Modifica Credenziali" />
                 {/if}
             {/if}
         </div>

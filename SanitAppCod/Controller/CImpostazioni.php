@@ -169,7 +169,10 @@ class CImpostazioni {
                 }
                 else
                 {
-                    $vImpostazioni->visualizzaFeedback("C'è stato un errore non è stato possibile modificare le informazioni");
+//                    $vImpostazioni->visualizzaFeedback("C'è stato un errore non è stato possibile modificare le informazioni");
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON(FALSE);
+                    
                 }
             }
         } else {

@@ -57,7 +57,7 @@ class FReferto extends FDatabase{
      */
     public function cercaRefertiUtente($codiceFiscale)
     {
-        $query =   "SELECT IDReferto, esame.IDEsame, prenotazione.IDPrenotazione, esame.NomeEsame, clinica.NomeClinica,  "
+        $query =   "SELECT IDReferto, prenotazione.IDPrenotazione, esame.IDEsame, esame.NomeEsame, clinica.NomeClinica,  "
                 . "DataReferto "
                 . "FROM referto, prenotazione, esame, clinica "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "

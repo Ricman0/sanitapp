@@ -23,16 +23,20 @@ class VReferti extends View{
      */
     public function restituisciPaginaRisultatoReferti($referti, $tipoUser) 
     {
-        if($tipoUser==='clinica')
+        if(is_array($referti) && count($referti)>0)
         {
-            $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
+            $this->assegnaVariabiliTemplate('referti', $referti);
+            if($tipoUser==='clinica')
+            {
+                $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
+            }
+            else
+            {
+                $this->assegnaVariabiliTemplate('tastoAggiungi', FALSE);
+            }
+            $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
+            $this->assegnaVariabiliTemplate('dati', $referti);
         }
-        else
-        {
-            $this->assegnaVariabiliTemplate('tastoAggiungi', FALSE);
-        }
-        $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
-        $this->assegnaVariabiliTemplate('dati', $referti);
         $this->visualizzaTemplate('tabellaReferti');
     }
     

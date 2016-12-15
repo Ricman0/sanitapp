@@ -689,9 +689,10 @@ class CPrenotazione {
             $eUtente = new EUtente($codice);        //throws XUtenteException Se l'utente non esiste               
         }
         $modifica = $vPrenotazione->recuperaValore('modifica');
+        
         if ($eUtente->checkIfCan($idEsame, $partitaIVAClinica, $data, $orario, $durata, $modifica) === TRUE) { //@throws XDBException Se c'è un errore durante l'esecuzione della query
             echo ($modifica);
-            if ($modifica==true || $modifica==='1')
+            if ($modifica==='true' || $modifica==='1')
             { 
                 $idPrenotazione = $vPrenotazione->recuperaValore('idPrenotazione');  
                 echo "in modificia ";
