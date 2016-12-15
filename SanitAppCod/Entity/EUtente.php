@@ -426,6 +426,7 @@ class EUtente extends EUser {
      * Metodo che consente di cercare tutti i referti di un utente
      * 
      * @access public
+     * @throws XDBException Se la query non è stata eseguita con successo
      * @return Array Un array contenente tutti i referti di un utente
      */
     public function cercaReferti() 
@@ -491,18 +492,22 @@ class EUtente extends EUser {
      * @param string $data La data della prenotazione(dd-mm-yyyy)
      * @param string $ora L'orario della prenotazione (mm:ss)
      * @param string $durata La durata della prenotazione(hh:mm:ss)
+     * @param boolean $modifica true se si vuole effettuare la modifica di un esame, false altrimenti.
      * @throws XDBException Se c'è un errore durante l'esecuzione della query
      * @return boolean TRUE se l'utente può effettuare la prenotazione, FALSE altrimenti
      */
-    public function checkIfCan($idEsame, $partitaIVA, $data, $ora, $durata) 
+    public function checkIfCan($idEsame, $partitaIVA, $data, $ora, $durata, $modifica) 
     {
         $canBook = TRUE;
-        $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-        $prenotazioni = $fPrenotazioni->cercaTraPrenotazioni($this->_codFiscale, $idEsame, $partitaIVA, $data, $ora, $durata);
-        if(is_array($prenotazioni) && count($prenotazioni)>0)// se ci sono prenotazioni
+        if($modifica!=="true")
         {
-            $canBook = FALSE; // non si può prenotare
-        }
+            $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+            $prenotazioni = $fPrenotazioni->cercaTraPrenotazioni($this->_codFiscale, $idEsame, $partitaIVA, $data, $ora, $durata);
+            if(is_array($prenotazioni) && count($prenotazioni)>0)// se ci sono prenotazioni
+            {
+                $canBook = FALSE; // non si può prenotare
+            }
+        } 
         return $canBook;
         
     }
