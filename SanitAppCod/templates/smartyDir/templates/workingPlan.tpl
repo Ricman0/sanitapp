@@ -85,8 +85,8 @@
             <td>{$curr_row['OraInizio']}</td>
             <td>{$curr_row['OraFine']}</td>
             <td>
-                <a href="#"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
+                <a ><i class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
+                <a ><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
             </td>
         </tr>
     {/foreach}

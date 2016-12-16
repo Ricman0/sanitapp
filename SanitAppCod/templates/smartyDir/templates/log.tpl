@@ -17,7 +17,7 @@
             <button type="submit" id="submitLogIn" class="loginButton sottile">Login</button>
             <input type="checkbox" checked="checked"> Remember me &nbsp
 
-            <a href="#" id='recuperaPassword'> Password dimenticata?</a>
+            <a  id='recuperaPassword'> Password dimenticata?</a>
 
         </form>
     </div>

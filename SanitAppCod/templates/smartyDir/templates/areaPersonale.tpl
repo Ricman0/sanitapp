@@ -1,14 +1,14 @@
 <div id="divSideNavBarUtente">
     
     <ul class="sideNavBar" id="sideNavBarUtente">
-        <li><a id="prenotazioniAreaPersonaleUtente" href="#">Prenotazioni</a></li>
-        <li><a id="refertiAreaPersonaleUtente" class="active" href="#">Referti</a></li>
+        <li><a id="prenotazioniAreaPersonaleUtente" >Prenotazioni</a></li>
+        <li><a id="refertiAreaPersonaleUtente" class="active" >Referti</a></li>
         <li id="pulsanteDropdown">
-            <a id="impostazioniAreaPersonaleUtente" href="#">Impostazioni</a>
+            <a id="impostazioniAreaPersonaleUtente" >Impostazioni</a>
             <div class="dropside-content">
-                <a id="#modificaCredenzialiUtente" href="#">Modifica Credenziali</a>
-                <a id="#modificaMedicoCurante" href="#">Modifica Medico Curante</a>
-                <a id="#modificaDatiUtente" href="#">Modifica dati personali</a>
+                <a id="#modificaCredenzialiUtente" >Modifica Credenziali</a>
+                <a id="#modificaMedicoCurante" >Modifica Medico Curante</a>
+                <a id="#modificaDatiUtente" >Modifica dati personali</a>
             </div>
         </li>
     </ul>

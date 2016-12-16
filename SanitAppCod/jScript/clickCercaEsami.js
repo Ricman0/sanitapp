@@ -85,7 +85,7 @@ function inviaDatiForm(ajaxDiv)
 
         }
     }
-    history.pushState(null, null, 'ricercaCliniche');
+  
     $.ajax({
         //url della risorsa alla quale viene inviata la richiesta
         // url:  "index.php",

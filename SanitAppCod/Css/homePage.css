@@ -51,6 +51,7 @@ fieldset.noBordo{
     box-sizing: border-box;
     
 }
+
 #footer{
     position:relative;
     bottom:0;
@@ -60,6 +61,7 @@ fieldset.noBordo{
 }
 a
 {
+    cursor: pointer;
     outline: none;
 }
 

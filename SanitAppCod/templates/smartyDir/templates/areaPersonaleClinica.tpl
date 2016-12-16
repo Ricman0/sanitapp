@@ -1,11 +1,11 @@
 <div id="divSideNavBarClinica">
     
     <ul class="sideNavBar" id="sideNavBarClinica">
-      <li><a id="serviziAreaPersonaleClinica" href="#">Servizi</a></li>
-      <li><a id="prenotazioniAreaPersonaleClinica" href="#">Prenotazioni</a></li>
-      <li><a id="refertiAreaPersonaleClinica" class="active" href="#">Referti</a></li>
-      <li><a id="clientiAreaPersonaleClinica" href="#">Clienti</a></li>
-      <li><a id="impostazioniAreaPersonaleClinica" href="#">Impostazioni</a></li>
+      <li><a id="serviziAreaPersonaleClinica" >Servizi</a></li>
+      <li><a id="prenotazioniAreaPersonaleClinica" >Prenotazioni</a></li>
+      <li><a id="refertiAreaPersonaleClinica" class="active" >Referti</a></li>
+      <li><a id="clientiAreaPersonaleClinica" >Clienti</a></li>
+      <li><a id="impostazioniAreaPersonaleClinica" >Impostazioni</a></li>
     </ul>
     
 </div>

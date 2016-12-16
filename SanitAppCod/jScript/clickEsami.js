@@ -1,8 +1,11 @@
 $(document).ready(function () {
 
     
-    $('#headerMain').on("click", "#esami", function () {
+    $('#headerMain').on("click", "#esami", function (e) {
+//        e.preventDefault();
         inviaController('ricercaEsami', '#main');
+          var History = window.history;
+    History.pushState('esami', null, 'esami');
     });
     
     $('#headerMain').on("click", ".rigaEsame", function () {
@@ -11,7 +14,7 @@ $(document).ready(function () {
 //        alert(nomeClinica);
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
         var controller = $("#controllerTabella").attr("value");
-        if(controller == "esami")
+        if(controller === "esami")
         {
             clickRiga(controller, 'visualizza', id, contenitore);
         }
