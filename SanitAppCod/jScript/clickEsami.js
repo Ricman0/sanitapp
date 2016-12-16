@@ -1,11 +1,9 @@
 $(document).ready(function () {
-
     
     $('#headerMain').on("click", "#esami", function (e) {
 //        e.preventDefault();
         inviaController('ricercaEsami', '#main');
-          var History = window.history;
-    History.pushState('esami', null, 'esami');
+          
     });
     
     $('#headerMain').on("click", ".rigaEsame", function () {
@@ -21,25 +19,3 @@ $(document).ready(function () {
 
     });
 });
-
-function inviaController($controller, ajaxdiv)
-    {
-       $.ajax({
-            type: 'GET',
-            url: $controller ,
-            success: function(datiRisposta)
-            {
-                
-                alert(datiRisposta);
-                $(ajaxdiv).html(datiRisposta);
-//                if(ajaxdiv === '#contenutoAreaPersonale')
-//                {
-//                    $('#ricercaEsamiCerca').attr('data-AreaPersonale','SI');
-//                }
-            },
-            error:function()
-            {
-                alert("Sbagliato ESAMI");
-            }
-        });  
-    }

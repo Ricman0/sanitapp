@@ -7,11 +7,6 @@
  */
 $(document).ready(function () {
 
-
-
-
-
-
     $('#headerMain').on("click", ".mySanitApp", function () {
         inviaController('mySanitApp', '#main');
     });
@@ -49,11 +44,12 @@ $(document).ready(function () {
 });
 
 
-function inviaController($controller, ajaxdiv)
+function inviaController(controller, ajaxdiv)
 {
+    history.pushState(null, controller, controller);
     $.ajax({
         type: 'GET',
-        url: $controller,
+        url: controller,
         success: function (datiRisposta)
         {
             alert(datiRisposta);
