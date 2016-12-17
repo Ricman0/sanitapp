@@ -81,7 +81,7 @@ CREATE TABLE clinica (
   NumCivico smallint(6) DEFAULT NULL,
   CAP varchar(5) NOT NULL,
   Località varchar (40) NOT NULL,
-  Provincia varchar (20) NOT NULL,
+  Provincia varchar (22) NOT NULL,
   Regione varchar (20) NOT NULL,
   Username varchar(15) NOT NULL,
   Telefono int(10) DEFAULT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE medico (
   CAP varchar(5) NOT NULL,
   Username varchar(15) NOT NULL,
   Validato tinyint(1) DEFAULT '0',
-  ProvinciaAlbo varchar(2) NOT NULL,
+  ProvinciaAlbo varchar (22) NOT NULL,
   NumIscrizione smallint(6) NOT NULL,
   PRIMARY KEY (CodFiscale),
   FOREIGN KEY (Username) REFERENCES appUser (Username)
@@ -174,7 +174,7 @@ CREATE TABLE medico (
 --
 
 INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username,  Validato, ProvinciaAlbo, NumIscrizione) VALUES
-('DMRCLD89S42G438S', 'claudia', 'di marco', 'acquaventina', 30, '65017', 'claudim', 0, ' P', 5464);
+('DMRCLD89S42G438S', 'claudia', 'di marco', 'acquaventina', 30, '65017', 'claudim', 0, 'PESCARA', 5464);
 
 -- --------------------------------------------------------
 
