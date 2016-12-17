@@ -118,7 +118,7 @@ class CImpostazioni {
                         break;
                     
                     case 'alboNum':
-                        $this->modificaAlboNum($vImpostazioni, $username);
+                        $this->modificaAlboNum();
                         break;
 
                     case 'credenziali':
@@ -209,6 +209,45 @@ class CImpostazioni {
         }
     }
 
+    
+    public function modificaAlboNum() {
+        $vImpostazioni = USingleton::getInstance('VImpostazioni');
+        $session = USingleton::getInstance('USession');
+        $tipoUser = $session->leggiVariabileSessione('tipoUser');
+        $username = $session->leggiVariabileSessione('usernameLogIn');
+        $provincia = $vImpostazioni->recuperaValore('provinciaAlbo');
+        $numIscrizione= $vImpostazioni->recuperaValore('numeroIscrizione');
+        $dati = Array('provinciaAlbo'=>$provincia, 'numeroIscrizione'=>$numIscrizione);
+        $uValidazione = USingleton::getInstance('UValidazione');
+        if ($uValidazione->validaDati($dati)) {// se i dati sono validi
+            try {
+                $eMedico = new EMedico(NULL, $username);
+                if($eMedico->modificaProvAlboENumIscrizione($provincia, $numIscrizione)===TRUE)
+                {
+                    // visualizza la modifica nel tpl
+                    $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+                }
+//                else {
+//                        $vJSON = USingleton::getInstance('VJSON');
+//                        $vJSON->inviaDatiJSON(FALSE);
+//                    } 
+            } 
+            catch (XDBException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
+            catch (XMedicoException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }      
+        } 
+        else {
+            // non tutti i dati sono validi 
+            $vJSON = USingleton::getInstance('VJSON');
+            $vJSON->inviaDatiJSON(FALSE);
+        }
+    }
+    
     public function modificaCredenziali($vImpostazioni, $username) {
         $session = USingleton::getInstance('USession');
         $tipoUser = $session->leggiVariabileSessione('tipoUser');
