@@ -229,9 +229,15 @@ window.onpopstate = function(event) {
         var object= JSON.parse(dati);
         // essendo un oggetto, object.url accede alla proprietà url dove ho memorizzato l'url prima di effettuare
         //pushstate, in maniera da avere indipendeza da dove è collocata la cartella
-        console.log(object.url);
+        
         console.log(window.location);
 //	createView(event.state, false);
         // ricarica la pagina giusta
-        $('#main').load(object.url);
+        try {
+                $('#main').load(object.url);
+            }
+        catch(err) {
+            $('#wrapper').load('index.php');
+        }
+        
 };
