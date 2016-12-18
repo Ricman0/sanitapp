@@ -377,6 +377,7 @@ class CPrenotazione {
                     //Se la clinica o l'utente  è inesistente
                 }
                 break;
+            
             case 'modifica':
                 $vPrenotazione = USingleton::getInstance('VPrenotazione');
                 $id = $vPrenotazione->recuperaValore('id');

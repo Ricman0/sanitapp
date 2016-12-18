@@ -55,6 +55,9 @@ function validazione(task1, controller1, task2)
                 case 'medico':
                     validazioneCodiceFiscaleMedicoCurante();
                     break;
+                case 'alboNum':
+                    validazioneAlboNum();
+                    break;
                 default:
                     break;
             }
@@ -159,6 +162,45 @@ function validazioneInformazioni()
 
         }
     });
+}
+
+function validazioneAlboNum()
+{
+    $("#formModificaAlboNum").validate({
+        rules:
+                {
+                   provinciaAlbo:
+                            {
+                                required: true,
+                                maxlength: 22
+                            },
+                    numeroIscrizione:
+                            {
+                                required: true,
+                                rangelength: [6, 6]
+                            } 
+                },
+        messages:
+                {
+                    provinciaAlbo:
+                            {
+                                required: 'richiesto',
+                                maxlength: 'massimo 22 caratteri'
+                            },
+                    numeroIscrizione:
+                            {
+                                required: 'richiesto',
+                                rangelength: '6 cifre'
+                            }
+                },
+        submitHandler: function ()
+        {
+            inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'alboNum', "#contenutoAreaPersonale");
+        }
+    });
+    
+    
+                            
 }
 
 function validazioneCodiceFiscaleMedicoCurante()
@@ -678,7 +720,7 @@ function validazioneMedico()
                     provinciaAlbo:
                             {
                                 required: true,
-                                rangelength: [2, 2]
+                                maxlength: 22
                             },
                     numeroIscrizione:
                             {
@@ -752,7 +794,8 @@ function validazioneMedico()
                     provinciaAlbo:
                             {
                                 required: "Inserire la provincia dell'albo a cui si è iscritti",
-                                maxlength: "Inserire la sigla della provincia"
+                                maxlength: "La sequenza massima di caratteri è 22"
+                            
                             },
                     numeroIscrizione:
                             {
@@ -853,7 +896,7 @@ function validazioneClinica()
                     provinciaClinica:
                             {
                                 required: true,
-                                maxlength: 20
+                                maxlength: 22
                             },
                     email:
                             {
@@ -951,7 +994,7 @@ function validazioneClinica()
                     provinciaClinica:
                             {
                                 required: "Inserire la provincia della clinica",
-                                maxlength: "La sequenza massima di caratteri è 20"
+                                maxlength: "La sequenza massima di caratteri è 22"
                             },
                     email:
                             {

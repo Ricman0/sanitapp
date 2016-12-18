@@ -216,4 +216,23 @@ class FMedico extends FUser {
                 . "WHERE CodFiscale='" . $codFiscale . "'";
         return $this->eseguiQuery($query);
     }
+    
+    /**
+     * Metodo che permette di modificare la provincia dell'albo in cui è 
+     * iscritto il medico e il numero d'iscrizione all'albo  nel DB
+     * 
+     * @access public
+     * @param string $codFiscale Il codice fiscale del medico 
+     * @param string $provincia La nuova provincia
+     * @param int $numIscrizione  Il nuovo numero d'iscrizione 
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaProvAlboENumIscrizione($codiceFiscaleMedico, $provincia, $numIscrizione){
+        $provincia = $this->trimEscapeStringa($provincia);
+        $query = "UPDATE " . $this->_nomeTabella . " SET ProvinciaAlbo='" . $provincia . "', "
+                . "NumIscrizione=" . $numIscrizione . " "
+                . "WHERE CodFiscale='" . $codiceFiscaleMedico . "'";
+        return $this->eseguiQuery($query);
+    }
 }

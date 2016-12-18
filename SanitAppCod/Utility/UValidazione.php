@@ -164,8 +164,8 @@ class UValidazione {
                     break;                    
                
                 case 'provinciaAlbo':
-                    $pattern = '/^[A-Z]{2}$/';
-                    $stringaErrore = "La provincia dell'albo a cui si è iscritti deve essere del tipo PE";
+                    $pattern = '/^[A-Z]{2,22}$/';
+                    $stringaErrore = "La provincia dell'albo a cui si è iscritti deve essere del tipo PESCARA";
                     break;
                 
                 case 'numeroIscrizione':

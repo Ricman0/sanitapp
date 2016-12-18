@@ -93,6 +93,13 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
 
 
             }
+            if (task2 === 'alboNum')
+            {
+                $('#messaggioDialogBox').text('Provincia Albo e Numero Iscrizione Albo modificati con successo!');
+
+
+            }
+            
             if (task2 === 'informazioni')
             {
                 $('#messaggioDialogBox').text('Informazioni personali modificate con successo!');
