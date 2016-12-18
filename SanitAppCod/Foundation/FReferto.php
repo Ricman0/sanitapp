@@ -35,7 +35,7 @@ class FReferto extends FDatabase{
     {
         
         $query =   "SELECT IDReferto, esame.IDEsame, prenotazione.IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, "
-                . "DataReferto, prenotazione.CodFiscaleUtenteEffettuaEsame "
+                . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto, prenotazione.CodFiscaleUtenteEffettuaEsame "
                 . "FROM referto, prenotazione, esame, utente "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
@@ -58,7 +58,7 @@ class FReferto extends FDatabase{
     public function cercaRefertiUtente($codiceFiscale)
     {
         $query =   "SELECT IDReferto, prenotazione.IDPrenotazione, esame.IDEsame, esame.NomeEsame, clinica.NomeClinica,  "
-                . "DataReferto "
+                . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto "
                 . "FROM referto, prenotazione, esame, clinica "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscale . "') AND "
@@ -77,7 +77,7 @@ class FReferto extends FDatabase{
     {
         
         $query =   "SELECT IDReferto, esame.IDEsame, prenotazione.IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, "
-                . "DataReferto, prenotazione.CodFiscaleUtenteEffettuaEsame "
+                . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto, prenotazione.CodFiscaleUtenteEffettuaEsame "
                 . "FROM referto, prenotazione, esame, utente "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "

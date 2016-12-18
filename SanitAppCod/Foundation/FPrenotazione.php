@@ -48,7 +48,7 @@ class FPrenotazione extends FDatabase{
         {
             // si vuole visualizzare una prenotazione dell'utente
             $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "
-                . "DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
+                . "DATE_FORMAT(DataEOra,'%d-%m-%Y %h:%i') AS DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
@@ -60,7 +60,7 @@ class FPrenotazione extends FDatabase{
             // solo il codice fiscale quindi si vogliono visualizzare tutte le 
             //prenotazioni di un utente
             $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "
-                . "DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
+                . "DATE_FORMAT(DataEOra,'%d-%m-%Y %h:%i') AS DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
@@ -82,7 +82,7 @@ class FPrenotazione extends FDatabase{
      */
     public function cercaPrenotazioniMedico($cf) {
         $query =   "SELECT IDPrenotazione, prenotazione.IDEsame, clinica.NomeClinica, esame.NomeEsame, utente.Nome, utente.Cognome, "
-                . "DataEOra, utente.CodFiscale "
+                . "DATE_FORMAT(DataEOra,'%d-%m-%Y %h:%i') AS DataEOra, utente.CodFiscale "
                 . "FROM prenotazione, esame, utente, clinica "
                 . "WHERE ((prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND (prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
@@ -102,7 +102,7 @@ class FPrenotazione extends FDatabase{
     {
         //si vogliono visualizzare tutte le prenotazioni di una clinica
         $query =   "SELECT IDPrenotazione, prenotazione.IDEsame, esame.NomeEsame, utente.Nome, utente.Cognome, "
-                . "DataEOra, utente.CodFiscale "
+                . "DATE_FORMAT(DataEOra,'%d-%m-%Y %h:%i') AS DataEOra, utente.CodFiscale "
                 . "FROM prenotazione, esame, utente "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
