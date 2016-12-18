@@ -46,7 +46,8 @@ $(document).ready(function () {
 
 function inviaController(controller, ajaxdiv)
 {
-    history.pushState(null, controller, controller);
+    data={url:controller}
+    history.pushState(data, controller, controller);
     $.ajax({
         type: 'GET',
         url: controller,
@@ -221,8 +222,16 @@ function dialogBox() {
 window.onpopstate = function(event) {
 	// We use false as the second argument below 
 	// - state will already be on the stack when going Back/Forwards
-        alert();
+        alert('onpopstate');
+        //in dati memorizzo in stringa lo stato dell'evento (1° parametro pushstate)
+        var dati = JSON.stringify(event.state);
+        //rendo oggetto la stringa dati
+        var object= JSON.parse(dati);
+        // essendo un oggetto, object.url accede alla proprietà url dove ho memorizzato l'url prima di effettuare
+        //pushstate, in maniera da avere indipendeza da dove è collocata la cartella
+        console.log(object.url);
         console.log(window.location);
 //	createView(event.state, false);
-        $('#main').load(event.title);
+        // ricarica la pagina giusta
+        $('#main').load(object.url);
 };
