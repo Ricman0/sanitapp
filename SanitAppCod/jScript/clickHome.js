@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $("#headerMain").on("click", ".homepage", function(){
         var History = window.history;
-        History.pushState(null, 'home', 'index.php');
+    History.pushState(null, 'home', 'index.php');
         $.ajax({
             type : "GET",
             url: "index.php",

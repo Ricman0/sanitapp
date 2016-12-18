@@ -208,3 +208,21 @@ function dialogBox() {
     });
 
 }
+
+//function createView(stateObject, pushHistory) {
+////	document.getElementById('contentBox').innerHTML = '<h1>'+stateObject.title+'</h1>'+boxcontent[stateObject.contentId];
+////	currentPage = stateObject.contentId;
+// 
+//	if (pushHistory) {
+//            history.pushState(stateObject, stateObject.title, stateObject.url);
+//        }
+//}
+//Innesca la funzione ogni volta che si clicca su back o forward
+window.onpopstate = function(event) {
+	// We use false as the second argument below 
+	// - state will already be on the stack when going Back/Forwards
+        alert();
+        console.log(window.location);
+//	createView(event.state, false);
+        $('#main').load(event.title);
+};
