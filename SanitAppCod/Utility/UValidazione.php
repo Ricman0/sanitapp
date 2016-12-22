@@ -141,7 +141,7 @@ class UValidazione {
                 case 'indirizzo':
                 case 'via':
                 case 'Via':
-                    $pattern = '/^[a-zA-Zàèìùò\s]{1,30}$/' ;
+                    $pattern = '/^[.\'\-a-zA-Zàèìùò\s]{1,30}$/' ;
                     $stringaErrore = "L'" . $chiave . " deve essere una sequenza di caratteri. Massimo 30";
                     break;
                 

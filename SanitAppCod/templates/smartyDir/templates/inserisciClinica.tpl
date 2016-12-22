@@ -1,3 +1,4 @@
+<h4>Inserisci i dati</h4>
 <form class="formInserisci" name="inserisciClinica" method="post" id="inserisciClinica">
 
     <input type="hidden" name="controller" value="registrazione" />

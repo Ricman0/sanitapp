@@ -91,8 +91,13 @@ class EPrenotazione {
                 $this->_eseguita = $attributiPrenotazione[0]["Eseguita"];
                 $this->_codFisUtenteEffettuaEsame = $attributiPrenotazione[0]["CodFiscaleUtenteEffettuaEsame"];
                 $this->_codFisUtentePrenotaEsame = $attributiPrenotazione[0]["CodFiscaleUtentePrenotaEsame"];
-                $this->_codFisMedicoPrenotaEsame= $attributiPrenotazione[0]["CodFiscaleMedicoPrenotaEsame"];
-                $this->_dataEOra = $attributiPrenotazione[0]["DataEOra"];                
+                $this->_codFisMedicoPrenotaEsame= $attributiPrenotazione[0]["CodFiscaleMedicoPrenotaEsame"]; 
+                // Creo un array dividendo la data e l'ora sulla base dello spazio
+                $partiDataOra = explode(" ", $attributiPrenotazione[0]["DataEOra"]);
+                // Creo un array dividendo la data YYYY-MM-DD sulla base del trattino
+                $partiData = explode("-", $partiDataOra[0]); 
+                // Riorganizzo gli elementi in stile DD-MM-YYYY hh:mm
+                $this->_dataEOra = $partiData[2] . "-" . $partiData[1] . "-" . $partiData[0] . " " . substr($partiDataOra[1], 0, 5); 
             }
             else
             {

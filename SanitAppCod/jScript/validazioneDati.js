@@ -600,7 +600,13 @@ function validazioneUtente()
         {
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            inviaDatiRegistrazione('#inserisciUtente', 'registrazione', 'utente', '#main');
+            var ajaxDiv = "#main";
+            if ($('#contenutoAreaPersonale').length)// se nel DOM esiste il div contenutoAreaPersonale
+            {
+                ajaxDiv ='#contenutoAreaPersonale';
+            }
+            alert(ajaxDiv);
+            inviaDatiRegistrazione('#inserisciUtente', 'registrazione', 'utente', ajaxDiv);
         }
     });
 }

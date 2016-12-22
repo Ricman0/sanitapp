@@ -107,9 +107,9 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
 Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan) VALUES
-('12345', 'appignano', 'riccardo', 'del carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'appi',  0856478563, 10000,
+('12345', 'Appignano', 'Riccardo', 'Del Carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'appi',  0856478563, 10000,
  '{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}'),
-('12346', 'bisenti', 'lucio', 'del corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'bise', 8613, 123456780,   
+('12346', 'Bisenti', 'Lucio', 'Del Corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'bise', 8613, 123456780,   
 '{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}');
 
 -- --------------------------------------------------------
@@ -143,8 +143,8 @@ ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(NomeEsame);
 
 INSERT INTO esame (IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, 
 NumPrestazioniSimultanee, NomeCategoria, PartitaIVAClinica) VALUES
-(1, 'raggi braccio', 'raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345'),
-(2, 'raggi piede', 'raggi al piede', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345');
+(1, 'Raggi Braccio', 'Raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345'),
+(2, 'Raggi Piede', 'Raggi al piede', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345');
 
 -- --------------------------------------------------------
 
@@ -174,7 +174,7 @@ CREATE TABLE medico (
 --
 
 INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username,  Validato, ProvinciaAlbo, NumIscrizione) VALUES
-('DMRCLD89S42G438S', 'claudia', 'di marco', 'acquaventina', 30, '65017', 'claudim', 0, 'PESCARA', 5464);
+('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Acquaventina', 30, '65017', 'claudim', 0, 'PESCARA', 5464);
 
 -- --------------------------------------------------------
 
@@ -206,8 +206,8 @@ ALTER TABLE utente ADD FULLTEXT INDEX fullTextCodFiscaleUtente(CodFiscale);
 
 INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, 
  Username,  CodFiscaleMedico) VALUES
-('DMTNNA89S42G438S', ' anna', ' di matteo', ' acquaventina', 30, '65017', 'annadima', 'DMRCLD89S42G438S'),
-('MNTRCR89H21A488L', 'riccardo', 'mantini', 'del carmine', 31, '64034', 'ricman', 'DMRCLD89S42G438S');
+('DMTNNA89S42G438S', ' Anna', ' Di Matteo', ' Acquaventina', 30, '65017', 'annadima', 'DMRCLD89S42G438S'),
+('MNTRCR89H21A488L', 'Riccardo', 'Mantini', 'Del Carmine', 31, '64034', 'ricman', 'DMRCLD89S42G438S');
 
 
 

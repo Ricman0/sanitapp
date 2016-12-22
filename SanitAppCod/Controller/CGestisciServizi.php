@@ -44,10 +44,10 @@ class CGestisciServizi {
                 try {
                     $username = $sessione->leggiVariabileSessione('usernameLogIn');
                     $eClinica = new EClinica($username);
-                    $eEsame = new EEsame(NULL, $datiEsame['nome'], $datiEsame['medico'],
+                    $eEsame = new EEsame(NULL, ucwords($datiEsame['nome']), ucwords($datiEsame['medico']),
                     $datiEsame['categoria'], $datiEsame['prezzo'], 
                     $datiEsame['durata'], $datiEsame['numPrestazioniSimultanee'], 
-                    $datiEsame['descrizione'], $eClinica->getPartitaIVAClinica());
+                    ucfirst($datiEsame['descrizione']), $eClinica->getPartitaIVAClinica());
                     $eEsame->inserisciEsameDB();
                     $messaggio = 'Servizio inserito con successo';
                 } 

@@ -184,9 +184,10 @@ class VRegistrazione extends View {
        $datiUtente['password'] = $this->recuperaValore('passwordUtente');
        return $datiUtente;
     }
-    public function confermaMailInviata($inviata)
-    {        
-        $this->assegnaVariabiliTemplate("inviata", $inviata);
-        $this->visualizzaTemplate('mailInviata');
-    }
+    
+//    public function confermaMailInviata($inviata)
+//    {        
+//        $this->assegnaVariabiliTemplate("inviata", $inviata);
+//        $this->visualizzaTemplate('mailInviata');
+//    }
 }

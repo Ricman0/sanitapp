@@ -51,6 +51,7 @@ class UMail {
         // $this->_email->setLanguage('it','language/'); oppure
         $this->_email->setLanguage('it', "./libs/PHPMailer/language/phpmailer.lang-it.php");
         $this->_email->CharSet = "UTF-8"; // in questo modo anche i caratteri accentati si leggono bene
+        $email->IsHTML(true);//di default, il content-type è text/plain. Dato che voglio inserire dell'html per non far vedere il link cambio il content-type in text/html
         
     }
     
@@ -114,19 +115,19 @@ class UMail {
         $url = "http://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
         $url = "<html><a href=" . $url . "'>Conferma</a></html>";
         
-        $testo = "Ciao, " . $dati['nome'] . ", Benvenuto in SanitApp!"
-                . " Questa è un'email riepilogativa dei dati che hai inserito.\r\n"
-                . " Nome: " . $dati['nome'] ."\r\n"
-                . " Cognome: ". $dati['cognome'] ."\r\n"
-                . " Codice Fiscale: " . $dati['codiceFiscale'] ."\r\n"
-                . " Indirizzo: " . $dati['indirizzo'] ."\r\n"
-                . " CAP: ". $dati['CAP'] ."\r\n"
-                . " Email: ". $dati['email'] . "\r\n"
-                . " Username: ". $dati['username'] ."\r\n"
-                . " Per completare la registrazione, clicca sul link seguente: \n"
-                . $url . "\n"
+        $testo = "<h4>Ciao " . $dati['nome'] . ", Benvenuto in SanitApp!</h4>"
+                . " Questa è un'email riepilogativa dei dati che hai inserito: <br>"
+                . " <h5>Nome:</h5> " . $dati['nome'] 
+                . " <h5>Cognome:</h5> ". $dati['cognome'] ."\n"
+                . " <h5>Codice Fiscale:</h5> " . $dati['codiceFiscale'] ."\n"
+                . " <h5>Indirizzo:</h5> " . $dati['indirizzo'] ."\n"
+                . " <h5>CAP:</h5> ". $dati['CAP'] ."\n"
+                . " <h5>Email:</h5> ". $dati['email'] . "\n"
+                . " <h5>Username:</h5> ". $dati['username'] ."<br><br>"
+                . " Per completare la registrazione, clicca sul link seguente: <br>"
+                . $url . "<br>"
                 . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
-                . "subito dopo aver effettuato il primo accesso \n \n \n"
+                . "subito dopo aver effettuato il primo accesso <br><br>"
                 . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. ";   
         
         $this->_email->Body = $testo;
@@ -182,25 +183,28 @@ class UMail {
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($_POST['emailMedico']);
         // imposto l'oggetto dell'email
+        $url = "http://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
+        $url = "<html><a href=" . $url . "'>Conferma</a></html>";
         $this->_email->Subject = "Account SanitApp";// = $subject;
-        $testo = " Benvenuto in SanitApp Dott." . $dati['cognome'] . "!"
-                . " Questa è un'email riepilogativa dei dati che ha inserito. \r\n"
-                . " Nome: " . $dati['nome'] ."\r\n"
-                . " Cognome: ". $dati['cognome'] ."\r\n"
-                . " Codice Fiscale: " . $dati['codiceFiscale'] ."\r\n"
-                . " Indirizzo: " . $dati['via'] ."\r\n"
-                . " CAP: ". $dati['CAP'] ."\r\n"
-                . " Email: ". $dati['email'] . "\r\n"
-                . " Username: ". $dati['username'] ."\r\n"
-                . " PEC: ". $dati['PEC'] ."\r\n"
-                . " Provincia Albo: ". $dati['provinciaAlbo'] ."\r\n"
-                . " Iscrizione numero: ". $dati['numeroIscrizione'] ."\r\n"
+        $testo = "<h4>Benvenuto in SanitApp Dott." . $dati['cognome'] . "!</h4>"
+                . " Questa è un'email riepilogativa dei dati che ha inserito. <br>"
+                . " <h5>Nome:</h5> " . $dati['nome'] ."\r\n"
+                . " <h5>Cognome:</h5> ". $dati['cognome'] ."\r\n"
+                . " <h5>Codice Fiscale:</h5> " . $dati['codiceFiscale'] ."\r\n"
+                . " <h5>Indirizzo:</h5> " . $dati['via'] ."\r\n"
+                . " <h5>CAP:</h5> ". $dati['CAP'] ."\r\n"
+                . " <h5>Email:</h5> ". $dati['email'] . "\r\n"
+                . " <h5>Username:</h5> ". $dati['username'] ."\r\n"
+                . " <h5>PEC:</h5> ". $dati['PEC'] ."\r\n"
+                . " <h5>Provincia Albo:</h5> ". $dati['provinciaAlbo'] ."\r\n"
+                . " <h5>Iscrizione numero:</h5> ". $dati['numeroIscrizione'] ."<br><br>"
                 //devo inserire anche il link per la conferma
-                . " Per completare la registrazione, clicca sul link seguente: \n"
-                . "http://www.sanitapp/registrazione/conferma/" . $codiceConferma . "\n"
+                . " Per completare la registrazione, clicca sul link seguente: <br>"
+                . $url . "<br>"
                 . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
-                . "subito dopo aver effettuato il primo accesso \n \n \n"
-                . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. ";  
+                . "subito dopo aver effettuato il primo accesso <br><br>"
+                . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. ";   
+         
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();
         return $inviata;
@@ -218,25 +222,27 @@ class UMail {
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Account SanitApp";// = $subject;
-        $testo = " Benvenuto in SanitApp clinica " . $dati['nomeClinica'] . "!"
-                . " Questa è un'email riepilogativa dei dati che ha inserito. \r\n"
-                . " Nome della clinica: " . $dati['nomeClinica'] ."\r\n"
-                . " Titolare: ". $dati['titolare'] ."\r\n"
-                . " Partita IVA: " . $dati['partitaIVA'] ."\r\n"
-                . " Indirizzo: " . $dati['via'] ."\r\n"
-                . " CAP: " . $dati['cap'] ."\r\n"
-                . " Località: " . $dati['localitàClinica'] . "\r\n"
-                . " Provincia: " . $dati['provinciaClinica'] . "\r\n"
-                . " Email: ". $dati['email'] . "\r\n"
-                . " Username: ". $dati['username'] ."\r\n"
-                . " PEC: ". $dati['PEC'] ."\r\n"
-                . " Telefono: ". $dati['telefono'] ."\r\n"
+        $url = "http://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
+        $url = "<html><a href=" . $url . "'>Conferma</a></html>";
+        $testo = " <h4>Benvenuto in SanitApp clinica " . $dati['nomeClinica'] . "!</h4>"
+                . " Questa è un'email riepilogativa dei dati che ha inserito. <br>"
+                . " <h5>Nome della clinica:</h5> " . $dati['nomeClinica'] ."\n"
+                . " <h5>Titolare:</h5> ". $dati['titolare'] ."\n"
+                . " <h5>Partita IVA:</h5> " . $dati['partitaIVA'] ."\n"
+                . " <h5>Indirizzo:</h5> " . $dati['via'] ."\n"
+                . " <h5>CAP:</h5> " . $dati['cap'] ."\n"
+                . " <h5>Località:</h5> " . $dati['localitàClinica'] . "\n"
+                . " <h5>Provincia:</h5> " . $dati['provinciaClinica'] . "\n"
+                . " <h5>Email:</h5> ". $dati['email'] . "\n"
+                . " <h5>Username:</h5> ". $dati['username'] ."\n"
+                . " <h5>PEC:</h5> ". $dati['PEC'] ."\n"
+                . " <h5>Telefono:</h5> ". $dati['telefono'] ."<br><br>"
                 //devo inserire anche il link per la conferma
-                . " Per completare la registrazione, clicca sul link seguente: \n"
-                . "http://www.sanitapp/registrazione/conferma/" . $codiceConferma . "\n"
+                . " Per completare la registrazione, clicca sul link seguente: <br>"
+                . $url . "<br>"
                 . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
-                . "subito dopo aver effettuato il primo accesso. \n \n \n"
-                . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. ";
+                . "subito dopo aver effettuato il primo accesso <br><br>"
+                . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. ";   
         
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();

@@ -75,12 +75,21 @@ class CRegistrazione {
                        if ($mail->inviaMailRegistrazioneClinica($codiceODatiValidi, $uValidazione->getDatiValidi()) === TRUE)
                        {
                            // visualizzo che un'email è stata inviata sulla propria mail
-                           $vRegistrazione->confermaMailInviata(TRUE);
+//                           $vRegistrazione->confermaMailInviata(TRUE);
+                           $messaggio[0]= "Un'email è stata inviata all'indirizzo email inserito nella form. ";
+                           $messaggio[1]= "Per confermare la registrazione clicca sul link contenuto nella mail.";
+                           $sessione = USingleton::getInstance('USession');
+                           $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
+                           
                        }
                        else
                        {
-                           $vRegistrazione->confermaMailInviata(FALSE);
+                           $messaggio[0]= "C'è stato un errore durante l'invio della mail riepilogativa. ";
+                           $messaggio[1]= "Per risolvere il problema, contatta un amministratore alla seguente mail:\n"
+                            . "onizuka-89@hotmail.it oppure claudimarco@hotmail.it ";
+                           $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
                        }
+                           
                     }
                 else
                     {
@@ -108,16 +117,22 @@ class CRegistrazione {
                             $mail = USingleton::getInstance('UMail');
                             if ($mail->inviaMailRegistrazioneMedico($codiceODatiValidi, $uValidazione->getDatiValidi())  === TRUE)
                             {
-                                // visualizzo che un'email è stata inviata sulla propria mail
-                                $vRegistrazione->confermaMailInviata(TRUE);
-                 
-                            }
-                            else
-                            {
-                                $vRegistrazione->confermaMailInviata(FALSE);
-                            }                        
-                    }
-                    
+                           // visualizzo che un'email è stata inviata sulla propria mail
+//                           $vRegistrazione->confermaMailInviata(TRUE);
+                            $messaggio[0]= "Un'email è stata inviata all'indirizzo email inserito nella form. ";
+                            $messaggio[1]= "Per confermare la registrazione clicca sul link contenuto nella mail.";
+                            $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
+
+                             }
+                             else
+                             {
+                                 $messaggio[0]= "C'è stato un errore durante l'invio della mail riepilogativa. ";
+                                 $messaggio[1]= "Per risolvere il problema, contatta un amministratore alla seguente mail:\n"
+                                  . "onizuka-89@hotmail.it oppure claudimarco@hotmail.it ";
+                                  $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
+
+                              }
+
                             }
                 else
                     {
@@ -125,9 +140,10 @@ class CRegistrazione {
                         return $vRegistrazione->restituisciFormMedico($codiceODatiValidi);
                     }
                         
-                    }  
+                    }
+                    
                 break;
-            
+            }
             case 'utente':
             {
                 $codiceODatiValidi = $this->recuperaDatiECreaUtente();
@@ -140,11 +156,36 @@ class CRegistrazione {
                        if ($mail->inviaMailRegistrazioneUtente($codiceODatiValidi, $uValidazione->getDatiValidi()) === TRUE)
                        {
                            // visualizzo che un'email è stata inviata sulla propria mail
-                           $vRegistrazione->confermaMailInviata(TRUE);
+//                           $vRegistrazione->confermaMailInviata(TRUE);
+                           $messaggio[0]= "Un'email è stata inviata all'indirizzo email inserito nella form. ";
+                           $messaggio[1]= "Per confermare la registrazione clicca sul link contenuto nella mail.";
+                           $sessione = USingleton::getInstance('USession');
+                           if($sessione->leggiVariabileSessione('tipoUser')==='medico')
+                           {
+                               $vRegistrazione->visualizzaFeedback($messaggio);
+                           }
+                           else
+                           {
+                               $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
+                           }
                        }
                        else
                        {
-                           $vRegistrazione->confermaMailInviata(FALSE);
+                           $messaggio[0]= "C'è stato un errore durante l'invio della mail riepilogativa. ";
+                           $messaggio[1]= "Per risolvere il problema, contatta un amministratore alla seguente mail:\n"
+                            . "onizuka-89@hotmail.it oppure claudimarco@hotmail.it ";
+                           $sessione = USingleton::getInstance('USession');
+                           if($sessione->leggiVariabileSessione('tipoUser')==='medico')
+                           {
+                               $vRegistrazione->visualizzaFeedback($messaggio);
+                           }
+                           else
+                           {
+                               $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
+                           }
+                           
+                           
+//                           $vRegistrazione->confermaMailInviata(FALSE);
                        }
                     }
                 else
@@ -181,10 +222,10 @@ class CRegistrazione {
        if($uValidazione->getValidati()===TRUE)
        {           
             // crea la clinica
-            $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], $datiClinica['nomeClinica'], 
+            $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], ucwords($datiClinica['nomeClinica']), 
                     $datiClinica['password'], $datiClinica['email'],
-                   $datiClinica['titolare'], $datiClinica['via'], $datiClinica['numeroCivico'],
-                   $datiClinica['cap'],$datiClinica['localitàClinica'], $datiClinica['provinciaClinica'],  $datiClinica['PEC'], 
+                   ucwords($datiClinica['titolare']), ucwords($datiClinica['via']), $datiClinica['numeroCivico'],
+                   $datiClinica['cap'],ucwords($datiClinica['localitàClinica']), $datiClinica['provinciaClinica'],  $datiClinica['PEC'], 
                    $datiClinica['telefono'],$datiClinica['capitaleSociale']);
             //eClinica richiama il metodo per creare FClinica poi FClinica aggiunge l'utente nel DB
             return $eClinica->inserisciClinicaDB(); // "ritorno" il codice di conferma
@@ -219,8 +260,8 @@ class CRegistrazione {
        if($uValidazione->getValidati()===TRUE)
        {
            // crea utente 
-           $eMedico = new EMedico($datiMedico['codiceFiscale'], $datiMedico['username'], $datiMedico['nome'], $datiMedico['cognome'],
-                    $datiMedico['via'], $datiMedico['numeroCivico'],
+           $eMedico = new EMedico($datiMedico['codiceFiscale'], $datiMedico['username'], ucwords($datiMedico['nome']), ucwords($datiMedico['cognome']),
+                    ucwords($datiMedico['via']), $datiMedico['numeroCivico'],
                    $datiMedico['CAP'], $datiMedico['email'], 
                    $datiMedico['password'], $datiMedico['PEC'],
                    $datiMedico['provinciaAlbo'],$datiMedico['numeroIscrizione']);
@@ -257,8 +298,8 @@ class CRegistrazione {
        {
            
            // crea utente 
-           $eUtente = new EUtente($datiUtente['codiceFiscale'], $datiUtente['username'], $datiUtente['password'], $datiUtente['email'], $datiUtente['nome'], $datiUtente['cognome'],
-                    $datiUtente['indirizzo'], 
+           $eUtente = new EUtente($datiUtente['codiceFiscale'], $datiUtente['username'], $datiUtente['password'], $datiUtente['email'], ucwords($datiUtente['nome']), ucwords($datiUtente['cognome']),
+                    ucwords($datiUtente['indirizzo']), 
                    $datiUtente['numeroCivico'], $datiUtente['CAP']);
            $sessione = USingleton::getInstance('USession');
            $tipoUser = $sessione->leggiVariabileSessione('tipoUser');

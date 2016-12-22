@@ -6,7 +6,7 @@
             </a>
         </li>
         <li class="nav" id="cliniche">    
-            <a class="nav"><i class="fa fa-hospital-o fa-lg" id="icona-cliniche" aria-hidden="true"></i> Cliniche</a> 
+            <a class="nav" href="ricercaCliniche"><i class="fa fa-hospital-o fa-lg" id="icona-cliniche" aria-hidden="true"></i> Cliniche</a> 
         </li>
         <li class="nav" id="esami">
             <a  class="nav" >

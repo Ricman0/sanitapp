@@ -1,7 +1,8 @@
 $(document).ready(function() {
     
     
-    $('#headerMain').on("click","#cliniche", function(){
+    $('#headerMain').on("click","#cliniche", function(event){
+        event.preventDefault();
         inviaController('ricercaCliniche', '#main');
     });
     

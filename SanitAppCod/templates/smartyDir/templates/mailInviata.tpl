@@ -9,7 +9,7 @@
     <div>
         C'è stato un errore durante l'invio della mail riepilogativa. 
         <br>
-        Per risolvere il problema contatta un amministratore alla seguente mail:
+        Per risolvere il problema, contatta un amministratore alla seguente mail:
         onizuka-89@hotmail.it oppure claudimarco@hotmail.it
         
     </div>

@@ -48,9 +48,9 @@ class CPrenotazione {
                         $eEsame = new EEsame($id);
                         $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
                         $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                        $nomeEsame = $eEsame->getNomeEsame();
+                        $nomeEsame = ucwords($eEsame->getNomeEsame());
                         $durataEsame = $eEsame->getDurataEsame();
-                        $nomeClinica = $eClinica->getNomeClinica();
+                        $nomeClinica = ucwords($eClinica->getNomeClinica());
                         $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id, $durataEsame);
                     }
                     break;
