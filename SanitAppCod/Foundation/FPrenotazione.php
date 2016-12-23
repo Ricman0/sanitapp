@@ -264,4 +264,25 @@ class FPrenotazione extends FDatabase{
         return $this->eseguiQuery($query);
     }
     
+    
+    /**
+     * Metodo che consente di trovare tutte le prenotazioni che dovranno essere 
+     * eseguite in una specifica data passata come parametro.
+     * 
+     * @access public
+     * @param date $data La data in formato d-m-Y
+     * @return Array Array di prenotazioni che devo essere eseguite in quella data
+     */
+    public function cercaPrenotazioniData($data) 
+    {
+        $data = date('Y-m-d', strtotime($data));
+        $query = "SELECT * "
+                . "FROM prenotazione "
+//                . "WHERE (DATE(DataEOra)='" . $data . "')"; 
+                . "WHERE (DATE(DataEOra)='2016-12-27')";
+        return $this->eseguiQuery($query);
+        
+        
+    }
+    
 }

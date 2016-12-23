@@ -788,5 +788,59 @@ class CPrenotazione {
         }
     }
     
+    /**
+     * Metodo che cerca tutte le prenotazioni da effettuare in una determinata
+     * data passata come parametro. Per ogni prenotazione trovata invia una mail
+     * per ricordare all'utente la prenotazione.  Non c'è il passaggio attarverso l'entità
+     * 
+     * @access public
+     * @param date $data La data in formato d-m-Y
+     */
+    public function cercaPrenotazioniEInviaMemoPrenotazione($data) {
+        // non c'è il passaggio attraverso l'entità per trovare tutte le prenotazioni 
+        $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+        $prenotazioni = $fPrenotazioni->cercaPrenotazioniData($data);
+        foreach ($prenotazioni as $prenotazione) {
+            $infoPrenotazione;
+            foreach ($prenotazione as $key => $value) {
+                switch ($key) {
+                    case 'IDEsame':
+                        $eEsame = new EEsame($value);
+                        $infoPrenotazione['nomeEsame'] = $eEsame->getNomeEsame();
+                        break;
+                    
+                    case 'PartitaIVAClinica':
+                        $eClinica = new EClinica(NULL, $value);
+                        $infoPrenotazione['nomeClinica'] = $eClinica->getNomeClinica();
+                        $infoPrenotazione['indirizzoClinica'] = $eClinica->getIndirizzoClinica();
+                        break;
+                    
+                    case 'CodFiscaleUtenteEffettuaEsame':
+                        $eUtente = new EUtente($value);
+                        $infoPrenotazione['nomeUtente'] = $eUtente->getNomeUtente();
+                        $infoPrenotazione['cognomeUtente'] = $eUtente->getCognomeUtente();
+                        $infoPrenotazione['email'] = $eUtente->getEmail();
+                        break;
+                    
+                    case 'DataEOra':
+                        $data = strtotime(substr($value, 0, 10));
+                        $infoPrenotazione['data'] = date('d-m-Y', $data);
+                        $infoPrenotazione['ora'] = substr($value, 11,5);
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
+            // ora ho tutte le info per inviare una mail di memo ad un utente per una prenotazione
+            $mail = USingleton::getInstance('UMail');
+            if($mail->inviaMailMemoPrenotazione($infoPrenotazione)=== FALSE)
+            {
+                return FALSE;
+            }; // se la mail non è stata inviata che si fa?
+         
+        }
+    }
+    
 }
 

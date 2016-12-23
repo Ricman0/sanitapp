@@ -215,6 +215,7 @@ class UMail {
      * i dati inseriti nella form e un link per validare l'account.
      * 
      * @access public
+     * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
     public function inviaMailRegistrazioneClinica($codiceConferma, $dati)
     {
@@ -246,10 +247,7 @@ class UMail {
         
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();
-        if ($inviata ===TRUE)
-        {
-            echo "";
-        }
+        return $inviata;
     }
     /**
      * Metodo che restituisce l'errore che si è avuto durante l'invio dell'email 
@@ -262,27 +260,31 @@ class UMail {
         $this->_email->setLanguage('it', "./libs/PHPMailer/language/phpmailer.lang-it.php");
         return $this->_email->ErrorInfo;
     }
+    
+    /**
+     * Metodo che consente di inviare una mail di memo per la prenotazione ad un utente
+     * 
+     * @access public
+     * @param Array $infoPrenotazione Contiene tutte le informazioni per inviare la mail di memo prenotazione(emailUtente,nomeUtente,cognomeUtente, nomeEsame, nomeClinica, indirizzoClinica, data e ora prenotazione)
+     * @return boolean TRUE email inviata correttamente, FALSE altrimenti
+     */
+    public function inviaMailMemoPrenotazione($infoPrenotazione) {
+        //aggiunge l'indirizzo email a cui inviare l'email ("to:")
+        $this->_email->addAddress($infoPrenotazione['email']);
+        // imposto l'oggetto dell'email
+        $this->_email->Subject = 'Memo Prenotazione ';// = $subject;
+        $testo = 'Gentile ' . $infoPrenotazione['nomeUtente'] . ' ' . $infoPrenotazione['cognomeUtente'] . ",<br>"
+                . 'le ricordiamo che  <h4>il giorno ' . $infoPrenotazione['data'] . ' alle ore ' 
+                . $infoPrenotazione['ora'] . "</h4> ha prenotato <h4>l'esame " . $infoPrenotazione['nomeEsame'] 
+                . '</h4> presso <h4>la clinica ' . $infoPrenotazione['nomeClinica'] . '</h4> indirizzo: ' 
+                . $infoPrenotazione['indirizzoClinica'] . '.<br><br>'
+                . 'Inoltre, le ricordiamo che può disdire la prenotazione fino alla mezzanotte di oggi.\n'
+                . "Qualora non si presenti all'appuntamento, la clinica segnerà la prenotazione come non eseguita.\n"
+                . "Dopo 3 prenotazioni non eseguite, il sistema bloccherà l'accoount. ";
+        $this->_email->Body = $testo;
+        $inviata = $this->_email->send();
+        return $inviata;
+    }
 }
     
-    
-//    $mittente = "server@vostrodominio.it";
-//    $nomemittente = "Richiesta Informazioni";
-//    $destinatario = "info@vostrodominio.it";
-//    $ServerSMTP = "smtp.vostrodominio.it"  //server SMTP 
-//    $corpo_messaggio = "Grazie per averci contattato!!\n"
-//            ."Cordiali Saluti,\nServizio Clienti";
-//
-//    $messaggio = new PHPMailer;
-//    // utilizza la classe SMTP invece del comando mail() di php
-//    $messaggio->IsSMTP(); 
-//    $messaggio->SMTPKeepAlive = "true";
-//    $messaggio->Host  = $ServerSMTP;
-//    $messaggio->From   = $mittente;
-//    $messaggio->FromName = $nomemittente;
-//    $messaggio->AddAddress($destinatario); 
-//    $messaggio->Body = $corpo_messaggio;
-//    if(!$messaggio->Send()) {
-//            echo "errore nella spedizione: ".$messaggio->ErrorInfo;
-//    } else {
-//            echo "messaggio inviato correttamente";
-//    }
+

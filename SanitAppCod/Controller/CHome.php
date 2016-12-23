@@ -14,18 +14,53 @@ class CHome {
      */
     public function impostaPagina() 
     {
-        $vHome = USingleton::getInstance('VHome');            
-        switch ($vHome->getRequestMethod())  
-        {
-            case 'GET':
-                $this->smistaControllerGET($vHome->getController());
-                break;
-            case 'POST':
-                $this->smistaControllerPOST($vHome->getController());
-                break;
-            default:
-                break;
-        } 
+        $vHome = USingleton::getInstance('VHome');   
+        
+        if (PHP_SAPI === 'cli') {
+            $argument1 = $argv[1];
+            $argument2 = $argv[2];
+            switch ($argument1) {
+                case 'controlla':
+                    break;
+                case 'memo':
+                    
+                    break;
+                case 'notifica':
+                    break;
+                case 'blocca':
+                    break;
+                default:
+                    break;
+            }
+        }
+        else {// in questo caso PHP_SAPI = apache2handler
+            switch ($vHome->getRequestMethod())  
+            {
+                case 'GET':
+                    $this->smistaControllerGET($vHome->getController());
+                    break;
+                case 'POST':
+                    $this->smistaControllerPOST($vHome->getController());
+                    break;
+                default:
+//                    $dataOdierna = date("d-m-Y");
+////                    $dataLimite = strtotime ( '-1 month' , strtotime ($dataOdierna)) ;
+//                    $dataLimite = strtotime ( '-3 day' , strtotime ($dataOdierna)) ;
+////                    $dataLimite = strtotime ( '-10 year' , strtotime ($dataOdierna)) ;
+//                    $dataLimite = date('d-m-Y' , $dataLimite);
+//                    $cPrenotazione = USingleton::getInstance('CPrenotazione');
+//                    print_r($dataLimite);
+                    
+                    $dataOdierna = date("d-m-Y");
+                    $dataPrenotazione = strtotime ( '+2 day' , strtotime($dataOdierna)) ;
+                    $dataPrenotazione = date('d-m-Y', $dataPrenotazione);
+                    
+                    $cPrenotazione = USingleton::getInstance('CPrenotazione');
+                    $cPrenotazione->cercaPrenotazioniEInviaMemoPrenotazione($dataPrenotazione);
+                   // se la mail non è stata inviata che si fa?
+                    break;
+            } 
+        }
     }
     
 
