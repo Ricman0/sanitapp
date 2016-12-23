@@ -278,8 +278,8 @@ class FPrenotazione extends FDatabase{
         $data = date('Y-m-d', strtotime($data));
         $query = "SELECT * "
                 . "FROM prenotazione "
-//                . "WHERE (DATE(DataEOra)='" . $data . "')"; 
-                . "WHERE (DATE(DataEOra)='2016-12-27')";
+                . "WHERE (DATE(DataEOra)='" . $data . "')"; 
+                //. "WHERE (DATE(DataEOra)='2016-12-27')";
         return $this->eseguiQuery($query);
         
         
