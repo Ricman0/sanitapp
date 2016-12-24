@@ -41,9 +41,9 @@ ALTER TABLE appUser ADD FULLTEXT INDEX fullTextPassword(Password);
 INSERT INTO appUser (Username, Password, Email, PEC, Confermato, CodiceConferma, TipoUser) VALUES 
 ('appi', 'Appig4', 'info@appignano.it', 'info@appignano.pec' ,TRUE, 'ciidisjwhf', 'clinica'),
 ('bise', 'Bisenti5', 'info@bisenti.it',  'info@bisenti.pec' ,TRUE, 'cjdjdhdhrf', 'clinica'),
-('claudim', 'Clau89', 'claudia@homail.it', 'clau@dim.pec.it',TRUE, 'cwjwjhrf', 'medico'),
-('ricman', 'Riccardo89', 'riccardo@gmail.it', NULL,TRUE, 'cjdjdehahah', 'utente'),
-('annadima', 'Anna49', 'annadim@alice.it',NULL,TRUE, 'annasjdjdhdhrf', 'utente');
+('claudim', 'Clau89', 'claudimarco@homail.it', 'clau@dim.pec.it',TRUE, 'cwjwjhrf', 'medico'),
+('ricman', 'Riccardo89', 'onizuka-89@hotmail.it', NULL,TRUE, 'cjdjdehahah', 'utente'),
+('annadima', 'Anna49', 'annadima@alice.it',NULL,TRUE, 'annasjdjdhdhrf', 'utente');
 
 -- --------------------------------------------------------
 

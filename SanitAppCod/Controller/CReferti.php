@@ -67,7 +67,15 @@ class CReferti {
                 } catch (XDBException $ex) {
                     $vReferti->visualizzaFeedback("Errore durante l'inserimento dei referti");
                 }
-
+                catch (XPrenotazioneException $ex) {
+                    $vReferti->visualizzaFeedback("Prenotazione inesistente. Referto inserito ma non è stato possibile rinviare la mail di notifica. Contatti l'amministratore per risolvere il problema.");
+                }
+                catch (XEsameException $ex) {
+                    $vReferti->visualizzaFeedback("Esame inesistente. Referto inserito ma non è stato possibile rinviare la mail di notifica. Contatti l'amministratore per risolvere il problema.");
+                }
+                catch (XUtenteException $ex) {
+                    $vReferti->visualizzaFeedback("Utente inesistente. Referto inserito ma non è stato possibile rinviare la mail di notifica. Contatti l'amministratore per risolvere il problema.");
+                }
                 break;
 
             default:
@@ -184,7 +192,27 @@ class CReferti {
             $file = $vReferti->recuperaFile('referto');
             $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['partitaIVA'], $datiReferto['idEsame'], $datiReferto['medicoEsame'], $file, $infoFile['fileName']);
             if ($eReferto->inserisciReferto()) {
+                $ePrenotazione = new EPrenotazione($datiReferto['idPrenotazione']);
+                $eEsame = new EEsame($datiReferto['idEsame']);
+                $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
+                $datiNotifica['nomeUtente'] = $eUtente->getNomeUtente();
+                $datiNotifica['cognomeUtente'] = $eUtente->getCognomeUtente();
+                $datiNotifica['email'] = $eUtente->getEmail();
+                $dataEOra = $ePrenotazione->getDataEOra();
+                $data = strtotime(substr($dataEOra, 0, 10));
+                $datiNotifica['data'] = date('d-m-Y', $data);
+                $datiNotifica['ora'] = substr($dataEOra, 11,5);
+                $datiNotifica['nomeEsame'] = $eEsame->getNomeEsame();
+                $mail = USingleton::getInstance('UMail');
                 $messaggio = 'Il referto è stato aggiunto correttamente. ';
+                if($mail->inviaNotificaReferto($datiNotifica)===TRUE)
+                {
+                   $messaggio = $messaggio . " É stata inviata una mail di notifica all'utente. "; 
+                }
+                else
+                {
+                    $messaggio = $messaggio . "  Non è stata possibile inviare una mail di notifica all'utente. Contattare l'amministratore. "; 
+                }
                 $vReferti->visualizzaFeedback($messaggio);
             }
         } else {

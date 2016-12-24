@@ -23,9 +23,17 @@ class CHome {
                 case 'controlla':
                     break;
                 case 'memo':
+                    $dataOdierna = date("d-m-Y");
+                    $dataPrenotazione = strtotime ( '+2 day' , strtotime($dataOdierna)) ;
+                    $dataPrenotazione = date('d-m-Y', $dataPrenotazione);
                     
+                    $cPrenotazione = USingleton::getInstance('CPrenotazione');
+                    $cPrenotazione->cercaPrenotazioniEInviaMemoPrenotazione($dataPrenotazione);
+                   // se la mail non è stata inviata che si fa?
                     break;
+                
                 case 'notifica':
+                    
                     break;
                 case 'blocca':
                     break;
@@ -51,13 +59,9 @@ class CHome {
 //                    $cPrenotazione = USingleton::getInstance('CPrenotazione');
 //                    print_r($dataLimite);
                     
-                    $dataOdierna = date("d-m-Y");
-                    $dataPrenotazione = strtotime ( '+2 day' , strtotime($dataOdierna)) ;
-                    $dataPrenotazione = date('d-m-Y', $dataPrenotazione);
+                   
                     
-                    $cPrenotazione = USingleton::getInstance('CPrenotazione');
-                    $cPrenotazione->cercaPrenotazioniEInviaMemoPrenotazione($dataPrenotazione);
-                   // se la mail non è stata inviata che si fa?
+                    
                     break;
             } 
         }

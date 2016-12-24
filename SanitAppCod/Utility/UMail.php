@@ -268,7 +268,8 @@ class UMail {
      * @param Array $infoPrenotazione Contiene tutte le informazioni per inviare la mail di memo prenotazione(emailUtente,nomeUtente,cognomeUtente, nomeEsame, nomeClinica, indirizzoClinica, data e ora prenotazione)
      * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
-    public function inviaMailMemoPrenotazione($infoPrenotazione) {
+    public function inviaMailMemoPrenotazione($infoPrenotazione) 
+    {
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($infoPrenotazione['email']);
         // imposto l'oggetto dell'email
@@ -281,6 +282,28 @@ class UMail {
                 . 'Inoltre, le ricordiamo che può disdire la prenotazione fino alla mezzanotte di oggi.\n'
                 . "Qualora non si presenti all'appuntamento, la clinica segnerà la prenotazione come non eseguita.\n"
                 . "Dopo 3 prenotazioni non eseguite, il sistema bloccherà l'accoount. ";
+        $this->_email->Body = $testo;
+        $inviata = $this->_email->send();
+        return $inviata;
+    }
+    
+    /**
+     * Metodo che consente di inviare una mail come notifica di inserimento di un referto.
+     * 
+     * @access public
+     * @param Array $datiNotifica Contiene tutte le informazioni per inviare la mail di motifica referto(emailUtente,nomeUtente,cognomeUtente, nomeEsame, nomeClinica, indirizzoClinica, data e ora della prenotazione)
+     * @return boolean TRUE email inviata correttamente, FALSE altrimenti
+     */
+    public function inviaNotificaReferto($datiNotifica)
+    {
+        //aggiunge l'indirizzo email a cui inviare l'email ("to:")
+        $this->_email->addAddress($datiNotifica['email']);
+        // imposto l'oggetto dell'email
+        $this->_email->Subject = 'Notifica referto ';// = $subject;
+        $testo = 'Gentile ' . $datiNotifica['nomeUtente'] . ' ' . $datiNotifica['cognomeUtente'] . ",<br>"
+                . "la informaimo che è stato inserito un suo referto per l'esame " . $datiNotifica['nomeEsame'] . " eseguito il giorno " . $datiNotifica['data'] . ' alle ore ' 
+                . $datiNotifica['ora'] . ".<br><br>"
+                . "Saluti,<br>SanitApp";
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();
         return $inviata;
