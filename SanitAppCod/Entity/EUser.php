@@ -46,10 +46,16 @@ class EUser {
     private $_codiceConferma;
 
     /**
-     * @var string $_confermato permette di capire se l'account dell'user è 
+     * @var boolean $_confermato permette di capire se l'account dell'user è 
      * stato confermato(TRUE) o meno         
      */
     private $_confermato;
+    
+    /**
+     * @var boolean $_bloccato permette di capire se l'account dell'user è 
+     * stato bloccato(TRUE) o meno         
+     */
+    private $_bloccato;
     
     /**
      * @var string $_tipoUser, variabile di tipo string, che contiene la tipologia di user (ad esempio medico)
@@ -74,6 +80,7 @@ class EUser {
             $this->_password = md5($password.$username);
             $this->_codiceConferma = md5($username.$email.date('mY'));
             $this->_confermato = FALSE;
+            $this->_bloccato = FALSE;
             $this->_tipoUser="";
             $this->_PEC = $PEC;
         }
@@ -91,6 +98,7 @@ class EUser {
                     $this->_PEC=$attributiUser[0]['PEC'];
                     $this->_codiceConferma = $attributiUser[0]['CodiceConferma'];
                     $this->_confermato = $attributiUser[0]['Confermato'];
+                    $this->_bloccato = $attributiUser[0]['Bloccato'];
                     $this->_tipoUser=$attributiUser[0]['TipoUser'];   
                 }
                 else
@@ -109,6 +117,7 @@ class EUser {
                     $this->_email = $attributiUser[0]['Email'];
                     $this->_codiceConferma = $attributiUser[0]['CodiceConferma'];
                     $this->_confermato = $attributiUser[0]['Confermato'];
+                    $this->_bloccato = $attributiUser[0]['Bloccato'];
                     $this->_tipoUser=$attributiUser[0]['TipoUser'];
                 }
             }
@@ -123,6 +132,7 @@ class EUser {
                     $this->_email = $attributiUser[0]['Email'];
                     $this->_codiceConferma = $attributiUser[0]['CodiceConferma'];
                     $this->_confermato = $attributiUser[0]['Confermato'];
+                    $this->_bloccato = $attributiUser[0]['Bloccato'];
                     $this->_tipoUser=$attributiUser[0]['TipoUser'];
                 }
                 else // utente non  esistente
@@ -277,6 +287,16 @@ class EUser {
     }
     
     /**
+     * Metodo che permette di capire se l'account è stato bloccato o meno
+     * 
+     * @return boolean TRUE se l'account è stato bloccato, FALSE altrimenti
+     */
+    public function getBloccato() 
+    {
+        return $this->_bloccato;
+    }
+    
+    /**
      * Metodo per conoscere il tipo di user
      * 
      * @return string il tipo di user
@@ -349,6 +369,16 @@ class EUser {
     public function setConfermato($confermato) 
     {
         $this->_confermato = $confermato;
+    }
+    
+    /**
+     * Metodo che permette di impostare il blocco dell'account 
+     * 
+     * @param boolean $bloccato Imposta il blocco dell'account 
+     */
+    public function setBloccato($bloccato) 
+    {
+        $this->_bloccato = $bloccato;
     }
     
     /**
@@ -437,12 +467,10 @@ class EUser {
     {
         if($this->getConfermato()==TRUE)
         {
-            echo "già cinfermato";
             return TRUE;
         }
         else
         {
-            echo "non ancora confermato";
             $username = $this->getUsername();
             $fUser = USingleton::getInstance('FUser');
             $user = $fUser->cercaUserByUsernameCodiceConferma ($username,$idConferma);

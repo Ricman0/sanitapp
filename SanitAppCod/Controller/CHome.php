@@ -36,6 +36,13 @@ class CHome {
                     
                     break;
                 case 'blocca':
+                    
+                    // per ogni utente devo controllare tutte le prenotazioni
+                    // devono avere la data < della data odierna 
+                    // eseguito deve essere false
+                    // devo fare il count se >3 bisogna bloccare l'utente
+                    $cUtenti = USingleton::getInstance('CGestisciUtenti');
+                    $cUtenti->cercaUtentiDaBloccare();
                     break;
                 default:
                     break;
@@ -60,7 +67,8 @@ class CHome {
 //                    print_r($dataLimite);
                     
                    
-                    
+                    $cUtenti = USingleton::getInstance('CGestisciUtenti');
+                    $cUtenti->cercaUtentiDaBloccare();
                     
                     break;
             } 

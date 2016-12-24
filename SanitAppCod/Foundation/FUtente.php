@@ -215,12 +215,23 @@ class FUtente extends FUser{
      * @param string $codFiscaleMedico Il codice fiscale del nuovo medico
      * @return boolean TRUE se la modifica è andata a buon fine, FALSE altrimenti
      */
-    public function modificaMedicoCurante($codFiscale, $codFiscaleMedico) {
+    public function modificaMedicoCurante($codFiscale, $codFiscaleMedico) 
+    {
         $codFiscaleMedico = $this->trimEscapeStringa($codFiscaleMedico);
         $query = "UPDATE " . $this->_nomeTabella . " SET CodFiscaleMedico='" . $codFiscaleMedico . " ' "
                 . "WHERE CodFiscale='" . $codFiscale . "'";
         return $this->eseguiQuery($query);
         
     }
+    
+    public function getUtentiNonBloccati() 
+    {
+        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+                . "WHERE appuser.Bloccato=FALSE AND "
+                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+        return $this->eseguiQuery($query);
+    }
+    
+    
     
 }

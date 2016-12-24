@@ -93,6 +93,7 @@ class EUtente extends EUser {
                 parent::setPassword($attributiUtente[0]['Password']);
                 parent::setEmail($attributiUtente[0]['Email']);
                 parent::setPEC($attributiUtente[0]['PEC']);
+                parent::setBloccato($attributiUtente[0]['Bloccato']);
                 parent::setConfermato($attributiUtente[0]['Confermato']);
                 parent::setCodiceConfermaUtente($attributiUtente[0]['CodiceConferma']);
                 parent::setTipoUser($attributiUtente[0]['TipoUser']);
@@ -496,8 +497,22 @@ class EUtente extends EUser {
                 $canBook = FALSE; // non si può prenotare
             }
         } 
-        return $canBook;
-        
+        return $canBook;    
+    }
+    
+    /**
+     * Metodo che controlla se un utente deve essere bloccato
+     * 
+     * @access public
+     */
+    public function controllaSeBloccare($dataOdierna) 
+    {
+        $fPrenotazioni = USingleton::getInstance('FPrenotazione');
+        $prenotazioniNonEffettuate = $fPrenotazioni->cercaPrenotazioniNonEffettuate($this->getCodiceFiscaleUtente(), $dataOdierna);
+        if(count($prenotazioniNonEffettuate)>=3)
+        {
+            $this->setBloccato(TRUE);
+        }
     }
 
 }

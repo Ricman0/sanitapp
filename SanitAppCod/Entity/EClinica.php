@@ -159,6 +159,7 @@ class EClinica extends EUser {
                 $this->_telefono = $attributiClinica[0]["Telefono"];
                 $this->_capitaleSociale = $attributiClinica[0]["CapitaleSociale"];
                 $this->_workingPlan = $attributiClinica[0]["WorkingPlan"];
+                parent::setBloccato($attributiClinica[0]['Bloccato']);
                 parent::setConfermato($attributiClinica[0]["Confermato"]);
                 parent::setCodiceConfermaUtente($attributiClinica[0]["CodiceConferma"]);
                 $this->_esami = Array();

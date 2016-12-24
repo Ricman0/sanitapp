@@ -279,10 +279,30 @@ class FPrenotazione extends FDatabase{
         $query = "SELECT * "
                 . "FROM prenotazione "
                 . "WHERE (DATE(DataEOra)='" . $data . "')"; 
-                //. "WHERE (DATE(DataEOra)='2016-12-27')";
+//                . "WHERE (DATE(DataEOra)='2016-12-27')";
         return $this->eseguiQuery($query);
         
         
     }
     
+    /**
+     * Metodo che consente di cercare tutte le prenotazioni che un utente 
+     * non ha effettuato fino ad una data passata come parametro
+     * 
+     * @access public
+     * @param type $cfUtente
+     * @param type $dataOdierna 
+     */
+    public function cercaPrenotazioniNonEffettuate($cfUtente, $dataOdierna)
+    {
+        $query = "SELECT * "
+                . "FROM prenotazione "
+                . "WHERE (CodFiscaleUtenteEffettuaEsame='" . $cfUtente . "' AND "
+                . "Eseguita=FALSE AND "
+                . "DATE(DataEOra)<'" . $dataOdierna . "')";
+        $risultato = $this->eseguiQuery($query);
+        return  $risultato;
+        
+        
+    }
 }

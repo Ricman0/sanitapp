@@ -102,6 +102,7 @@ class EMedico extends EUser {
                 parent::setPassword($attributiMedico[0]['Password']);
                 parent::setEmail($attributiMedico[0]['Email']);                
                 parent::setPEC($attributiMedico[0]['PEC']);
+                parent::setBloccato($attributiMedico[0]['Bloccato']);
                 parent::setConfermato($attributiMedico[0]['Confermato']);
                 parent::setCodiceConfermaUtente($attributiMedico[0]['CodiceConferma']);
                 parent::setTipoUser($attributiMedico[0]['TipoUser']);

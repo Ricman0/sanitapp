@@ -22,6 +22,7 @@ CREATE TABLE appUser (
   Password varchar(10) NOT NULL,
   Email varchar(320) NOT NULL,
   PEC varchar(320) DEFAULT NULL,
+  Bloccato boolean DEFAULT FALSE,
   Confermato boolean DEFAULT FALSE,
   CodiceConferma varchar (255) NOT NULL,
   TipoUser ENUM('utente', 'medico', 'clinica', 'amministratore') NOT NULL,
@@ -38,12 +39,12 @@ ALTER TABLE appUser ADD FULLTEXT INDEX fullTextPassword(Password);
 -- Dump dei dati per la tabella `user`
 --
 
-INSERT INTO appUser (Username, Password, Email, PEC, Confermato, CodiceConferma, TipoUser) VALUES 
-('appi', 'Appig4', 'info@appignano.it', 'info@appignano.pec' ,TRUE, 'ciidisjwhf', 'clinica'),
-('bise', 'Bisenti5', 'info@bisenti.it',  'info@bisenti.pec' ,TRUE, 'cjdjdhdhrf', 'clinica'),
-('claudim', 'Clau89', 'claudimarco@homail.it', 'clau@dim.pec.it',TRUE, 'cwjwjhrf', 'medico'),
-('ricman', 'Riccardo89', 'onizuka-89@hotmail.it', NULL,TRUE, 'cjdjdehahah', 'utente'),
-('annadima', 'Anna49', 'annadima@alice.it',NULL,TRUE, 'annasjdjdhdhrf', 'utente');
+INSERT INTO appUser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES 
+('appi', 'Appig4', 'info@appignano.it', 'info@appignano.pec', FALSE, TRUE, 'ciidisjwhf', 'clinica'),
+('bise', 'Bisenti5', 'info@bisenti.it',  'info@bisenti.pec', FALSE,TRUE, 'cjdjdhdhrf', 'clinica'),
+('claudim', 'Clau89', 'claudimarco@homail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
+('ricman', 'Riccardo89', 'onizuka-89@hotmail.it', NULL,FALSE,TRUE, 'cjdjdehahah', 'utente'),
+('annadima', 'Anna49', 'annadima@alice.it',NULL,FALSE,TRUE, 'annasjdjdhdhrf', 'utente');
 
 -- --------------------------------------------------------
 
