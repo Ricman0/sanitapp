@@ -16,39 +16,6 @@ class CHome {
     {
         $vHome = USingleton::getInstance('VHome');   
         
-        if (PHP_SAPI === 'cli') {
-            $argument1 = $argv[1];
-            $argument2 = $argv[2];
-            switch ($argument1) {
-                case 'controlla':
-                    break;
-                case 'memo':
-                    $dataOdierna = date("d-m-Y");
-                    $dataPrenotazione = strtotime ( '+2 day' , strtotime($dataOdierna)) ;
-                    $dataPrenotazione = date('d-m-Y', $dataPrenotazione);
-                    
-                    $cPrenotazione = USingleton::getInstance('CPrenotazione');
-                    $cPrenotazione->cercaPrenotazioniEInviaMemoPrenotazione($dataPrenotazione);
-                   // se la mail non è stata inviata che si fa?
-                    break;
-                
-                case 'notifica':
-                    
-                    break;
-                case 'blocca':
-                    
-                    // per ogni utente devo controllare tutte le prenotazioni
-                    // devono avere la data < della data odierna 
-                    // eseguito deve essere false
-                    // devo fare il count se >3 bisogna bloccare l'utente
-                    $cUtenti = USingleton::getInstance('CGestisciUtenti');
-                    $cUtenti->cercaUtentiDaBloccare();
-                    break;
-                default:
-                    break;
-            }
-        }
-        else {// in questo caso PHP_SAPI = apache2handler
             switch ($vHome->getRequestMethod())  
             {
                 case 'GET':
@@ -73,10 +40,39 @@ class CHome {
                     break;
             } 
         }
-    }
     
 
+    public function smistaJob($argv) {
+            $argument1 = $argv[1];
+//            $argument2 = $argv[2];
+            switch ($argument1) {
+                case 'controlla':
+                    break;
+                case 'memo':
+                    $dataOdierna = date("d-m-Y");
+                    $dataPrenotazione = strtotime ( '+2 day' , strtotime($dataOdierna)) ;
+                    $dataPrenotazione = date('d-m-Y', $dataPrenotazione);                    
+                    $cPrenotazione = USingleton::getInstance('CPrenotazione');
+                    $cPrenotazione->cercaPrenotazioniEInviaMemoPrenotazione($dataPrenotazione);
+                   // se la mail non è stata inviata che si fa?
+                    break;
+                
+                case 'notifica':
+                    break;
+                case 'blocca':
+                    
+                    // per ogni utente devo controllare tutte le prenotazioni
+                    // devono avere la data < della data odierna 
+                    // eseguito deve essere false
+                    // devo fare il count se >3 bisogna bloccare l'utente
+                    $cUtenti = USingleton::getInstance('CGestisciUtenti');
+                    $cUtenti->cercaUtentiDaBloccare();
+                    break;
+                default:
+                    break;
     
+    }
+    }
     
     
     

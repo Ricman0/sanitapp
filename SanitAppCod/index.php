@@ -1,9 +1,13 @@
- <?php
+<?php
 
-require_once './include/SPL Autoload.php';
-require_once './include/Config.php';
-
+require_once __DIR__ . '/include/SPL Autoload.php';
+require_once __DIR__ . '/include/Config.php';
 $cHome= USingleton::getInstance('CHome');
-$cHome->impostaPagina();
-
-?>
+if (PHP_SAPI === 'cli') 
+    {
+        $cHome->smistaJob($argv);
+    }
+else
+    {
+        $cHome->impostaPagina();
+    }

@@ -29,10 +29,15 @@ function SanitAppAutoload($nomeClasse)
      *      require $nomeFile;
      *   }
      */
+    // in __DIR__ è contenuta il percorso della cartella che contiene il file ma Autoloder.php non si trova in include ma in libs 
+    // per questo bisogna eliminare include dal path
+    $dir = explode('\\', __DIR__); // tutte le parole che conpongono il path vengono memorizzate in un elemento dell'array $dir
+    array_pop($dir);// elimino l'ultimo elemento (ovvero la parola include)
+    $dir = implode('\\',$dir);// riassemblo il path
     switch ($nomeClasse[0])
     {
         case'C':
-            $nomeFile = './Controller/' . $nomeClasse . '.php';
+            $nomeFile = $dir . '/Controller/' . $nomeClasse . '.php';
             if (is_readable($nomeFile))
             {
                 require ($nomeFile);
@@ -40,7 +45,7 @@ function SanitAppAutoload($nomeClasse)
             break;
             
         case'E':
-            $nomeFile = './Entity/' . $nomeClasse . '.php';
+            $nomeFile = $dir . '/Entity/' . $nomeClasse . '.php';
             if (is_readable($nomeFile))
             {
                 require ($nomeFile);
@@ -48,7 +53,7 @@ function SanitAppAutoload($nomeClasse)
             break;
             
         case'F':
-            $nomeFile = './Foundation/' . $nomeClasse . '.php';
+            $nomeFile = $dir . '/Foundation/' . $nomeClasse . '.php';
             if (is_readable($nomeFile))
             {
                 require ($nomeFile);
@@ -56,7 +61,7 @@ function SanitAppAutoload($nomeClasse)
             break;
             
         case'U':
-            $nomeFile = './Utility/' . $nomeClasse . '.php';
+            $nomeFile = $dir . '/Utility/' . $nomeClasse . '.php';
             if (is_readable($nomeFile))
             {
                 require ($nomeFile);
@@ -64,7 +69,7 @@ function SanitAppAutoload($nomeClasse)
             break;
             
         case'V':
-            $nomeFile = './View/' . $nomeClasse . '.php';
+            $nomeFile = $dir . '/View/' . $nomeClasse . '.php';
             if (is_readable($nomeFile))
             {
                 require ($nomeFile);
@@ -72,7 +77,7 @@ function SanitAppAutoload($nomeClasse)
             break;
         
         case'X':
-            $nomeFile = './Eccezioni/' . $nomeClasse . '.php';
+            $nomeFile = $dir . '/Eccezioni/' . $nomeClasse . '.php';
             if (is_readable($nomeFile))
             {
                 require ($nomeFile);
