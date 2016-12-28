@@ -25,18 +25,6 @@ class CHome {
                     $this->smistaControllerPOST($vHome->getController());
                     break;
                 default:
-//                    $dataOdierna = date("d-m-Y");
-////                    $dataLimite = strtotime ( '-1 month' , strtotime ($dataOdierna)) ;
-//                    $dataLimite = strtotime ( '-3 day' , strtotime ($dataOdierna)) ;
-////                    $dataLimite = strtotime ( '-10 year' , strtotime ($dataOdierna)) ;
-//                    $dataLimite = date('d-m-Y' , $dataLimite);
-//                    $cPrenotazione = USingleton::getInstance('CPrenotazione');
-//                    print_r($dataLimite);
-                    
-                   
-                    $cUtenti = USingleton::getInstance('CGestisciUtenti');
-                    $cUtenti->cercaUtentiDaBloccare();
-                    
                     break;
             } 
         }
@@ -46,8 +34,6 @@ class CHome {
             $argument1 = $argv[1];
 //            $argument2 = $argv[2];
             switch ($argument1) {
-                case 'controlla':
-                    break;
                 case 'memo':
                     $dataOdierna = date("d-m-Y");
                     $dataPrenotazione = strtotime ( '+2 day' , strtotime($dataOdierna)) ;
@@ -57,8 +43,6 @@ class CHome {
                    // se la mail non è stata inviata che si fa?
                     break;
                 
-                case 'notifica':
-                    break;
                 case 'blocca':
                     
                     // per ogni utente devo controllare tutte le prenotazioni
@@ -91,7 +75,6 @@ class CHome {
 //                $cAutenticazione = USingleton::getInstance('CAutenticazione');
 //                $cAutenticazione->autenticaUser();
 //                break;
-            
             
             case 'clienti':
                 $cClienti = USingleton::getInstance('CGestisciClienti');

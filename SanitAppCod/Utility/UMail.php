@@ -9,11 +9,12 @@
 
 // in __DIR__ è contenuta il percorso della cartella che contiene il file ma Autoloder.php non si trova in include ma in libs 
 // per questo bisogna eliminare include dal path
-$dir = explode('\\', __DIR__); // tutte le parole che conpongono il path vengono memorizzate in un elemento dell'array $dir
 
+// in __DIR__ è contenuta il percorso della cartella che contiene il file ma Autoloder.php non si trova in include ma in libs 
+// per questo bisogna eliminare include dal path
+$dir = explode(DIRECTORY_SEPARATOR, __DIR__); // tutte le parole che conpongono il path vengono memorizzate in un elemento dell'array $dir
 array_pop($dir);// elimino l'ultimo elemento (ovvero la parola include)
-
-$dir = implode('\\',$dir);// riassemblo il path
+$dir = implode(DIRECTORY_SEPARATOR, $dir);// riassemblo il path
 require $dir . '/libs/PHPMailer/PHPMailerAutoload.php';
 
 class UMail {
@@ -286,9 +287,11 @@ class UMail {
                 . $infoPrenotazione['ora'] . "</h4> ha prenotato <h4>l'esame " . $infoPrenotazione['nomeEsame'] 
                 . '</h4> presso <h4>la clinica ' . $infoPrenotazione['nomeClinica'] . '</h4> indirizzo: ' 
                 . $infoPrenotazione['indirizzoClinica'] . '.<br><br>'
-                . 'Inoltre, le ricordiamo che può disdire la prenotazione fino alla mezzanotte di oggi.\n'
-                . "Qualora non si presenti all'appuntamento, la clinica segnerà la prenotazione come non eseguita.\n"
-                . "Dopo 3 prenotazioni non eseguite, il sistema bloccherà l'accoount. ";
+                . 'Inoltre, le ricordiamo che può disdire la prenotazione fino alla mezzanotte di oggi.<br>'
+                . "Qualora non si presenti all'appuntamento, la clinica segnerà la prenotazione come non eseguita.<br>"
+                . "Dopo 3 prenotazioni non eseguite, il sistema bloccherà l'account.<br><br> "
+                . "Saluti,<br>"
+                . "SANITAPP";
         $this->_email->Body = $testo;
         $inviata = $this->_email->send();
         return $inviata;

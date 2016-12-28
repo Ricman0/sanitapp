@@ -13,11 +13,12 @@
  * @author Claudia Di Marco & Riccardo Mantini
  */
 
+    
 // in __DIR__ è contenuta il percorso della cartella che contiene il file ma Autoloder.php non si trova in include ma in libs 
 // per questo bisogna eliminare include dal path
-$dir = explode('\\', __DIR__); // tutte le parole che conpongono il path vengono memorizzate in un elemento dell'array $dir
+$dir = explode(DIRECTORY_SEPARATOR, __DIR__); // tutte le parole che conpongono il path vengono memorizzate in un elemento dell'array $dir
 array_pop($dir);// elimino l'ultimo elemento (ovvero la parola include)
-$dir = implode('\\',$dir);// riassemblo il path
+$dir = implode(DIRECTORY_SEPARATOR, $dir);// riassemblo il path
 require_once ($dir . '/libs/smartyLib/Autoloader.php');
 
 class Config {
@@ -99,14 +100,11 @@ class Config {
      */
     private function setSmartyConfig() 
     {
-        
         // in __DIR__ è contenuta il percorso della cartella che contiene il file ma Autoloder.php non si trova in include ma in libs 
         // per questo bisogna eliminare include dal path
-        $dir = explode('\\', __DIR__); // tutte le parole che conpongono il path vengono memorizzate in un elemento dell'array $dir
-
+        $dir = explode(DIRECTORY_SEPARATOR, __DIR__); // tutte le parole che conpongono il path vengono memorizzate in un elemento dell'array $dir
         array_pop($dir);// elimino l'ultimo elemento (ovvero la parola include)
-
-        $dir = implode('\\',$dir);// riassemblo il path
+        $dir = implode(DIRECTORY_SEPARATOR, $dir);// riassemblo il path
         Smarty_Autoloader::register();
         $this->smartyConfig['template_dir'] = $dir . '/templates/smartyDir/templates/';
         $this->smartyConfig['compile_dir'] = $dir . '/templates/smartyDir/templates_c/';
