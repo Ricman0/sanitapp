@@ -44,6 +44,7 @@ INSERT INTO appUser (Username, Password, Email, PEC, Bloccato, Confermato, Codic
 ('bise', 'Bisenti5', 'info@bisenti.it',  'info@bisenti.pec', FALSE,TRUE, 'cjdjdhdhrf', 'clinica'),
 ('claudim', 'Clau89', 'claudimarco@homail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
 ('ricman', 'Riccardo89', 'onizuka-89@hotmail.it', NULL,FALSE,TRUE, 'cjdjdehahah', 'utente'),
+('ricla', 'Ricla89', 'mantini.riccardo@gmail.com', NULL,FALSE,TRUE, 'cjdjdehahag', 'amministratore'),
 ('annadima', 'Anna49', 'annadima@alice.it',NULL,FALSE,TRUE, 'annasjdjdhdhrf', 'utente');
 
 -- --------------------------------------------------------
@@ -120,12 +121,13 @@ Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan) VALUES
 CREATE TABLE amministratore (
   IdAmministratore int NOT NULL AUTO_INCREMENT,
   Username varchar(15) NOT NULL,
-  Telefono int(10) DEFAULT NULL,
-  Fax int(10) DEFAULT NULL,
+  Telefono varchar(10) DEFAULT NULL,
+  Fax varchar(10) DEFAULT NULL,
   PRIMARY KEY (IdAmministratore),
   FOREIGN KEY (Username) REFERENCES appUser (Username)
 );
 
+INSERT INTO amministratore (IdAmministratore, Username, Telefono,Fax) VALUES (NULL, 'ricla', '0858279642', '0861999999');
 
 -- --------------------------------------------------------
 
