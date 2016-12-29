@@ -9,8 +9,19 @@ and open the template in the editor.
 */
 
 #logoSanitApp{
-    width: 25%;
-    float: left;
+    
     margin-top: 5px;
 }
 
+.logoBig{
+    width: 25%;
+}
+
+.logoSmall{
+    width: 20%;
+}
+
+.logoSmallFisso{
+    width: 270px;
+    height: 90px;
+}

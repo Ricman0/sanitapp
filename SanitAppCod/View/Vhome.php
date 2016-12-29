@@ -22,23 +22,7 @@ class VHome extends View {
     {
         return $_SERVER['REQUEST_METHOD'];
     }
-    /**
-     * Metodo che permette di conoscere il valore di controller dell'URL
-     * 
-     * @access public
-     * @return mixed Ritorna il valore di controller, se è settato. FALSE altrimenti
-     */
-    public function getController() 
-    {
-        if (isset($_REQUEST['controller'])) 
-            {
-                return $_REQUEST['controller'];
-            } 
-        else 
-            {
-                return "FALSE";
-            }
-    }
+    
     
     /**
      * Metodo che consente di impostare l'header di una pagina html

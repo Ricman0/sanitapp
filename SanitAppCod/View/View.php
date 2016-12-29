@@ -125,6 +125,24 @@ class View extends Smarty {
     final public function visualizzaTemplate($nomeTemplate) {
         $this->display($nomeTemplate . '.tpl');
     }
+    
+    /**
+     * Metodo che permette di conoscere il valore di controller dell'URL
+     * 
+     * @access public
+     * @return mixed Ritorna il valore di controller, se è settato. FALSE altrimenti
+     */
+    public function getController() 
+    {
+        if (isset($_REQUEST['controller'])) 
+            {
+                return $_REQUEST['controller'];
+            } 
+        else 
+            {
+                return "FALSE";
+            }
+    }
 
     /**
      *  Metodo che permette di conoscere il valore di task dell'URL
