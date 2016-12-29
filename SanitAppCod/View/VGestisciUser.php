@@ -22,8 +22,28 @@ class VGestisciUser extends View{
     {
         if(count($risultato)>0)
         {
+            $this->assegnaVariabiliTemplate('bloccati', FALSE);
             $this->assegnaVariabiliTemplate('dati', $risultato);
+            $this->visualizzaTemplate('tabellaUser');
         }
-        $this->visualizzaTemplate('tabellaUser');
+        else
+        {
+            $this->visualizzaFeedback('Non esistono user che non siano amministratori'); 
+        }
+        
+    }
+    
+    public function visualizzaUserBloccati($usersBloccati) {
+        if(count($usersBloccati)>0)
+        {
+            $this->assegnaVariabiliTemplate('bloccati', TRUE);
+            $this->assegnaVariabiliTemplate('dati', $usersBloccati);
+            $this->visualizzaTemplate('tabellaUser');
+        }
+        else
+        {
+            $this->visualizzaFeedback('Non esistono user bloccati'); 
+        }
+        
     }
 }

@@ -35,6 +35,12 @@ class CGestisciUser {
                 }
                 
                 break;
+            
+            case 'bloccati':
+                $eAmministratore = new EAmministratore($username);
+                $usersBloccati= $eAmministratore->cercaAppUserBloccati();
+                $vUsers->visualizzaUserBloccati($usersBloccati);
+                break;
         }
         
     }

@@ -76,6 +76,12 @@ class EAmministratore extends EUser{
         return $this->_fax;
     }
     
+    /**
+     * Metodo che consente di trovare tutti gli user dell'applicazione che non sono amministratori.
+     * 
+     * @access public
+     * @return Array Tutti gli user non amministratori dell'applicazione
+     */
     public function cercaAppUserNonAmministratori()
     {
         $fAmministratore = USingleton::getInstance('FAmministratore');
@@ -83,6 +89,17 @@ class EAmministratore extends EUser{
         
     }
     
+    /**
+     * Metodo che consente di trovare tutti gli user dell'applicazione che sono stati bloccati
+     * 
+     * @access public
+     * @return Array User bloccati
+     */
+    public function cercaAppUserBloccati() 
+    {
+       $fAmministratore = USingleton::getInstance('FAmministratore');
+       return $fAmministratore->cercaAppUserBloccati(); 
+    }
     
     
 }

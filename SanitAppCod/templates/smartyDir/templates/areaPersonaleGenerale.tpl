@@ -14,7 +14,7 @@
     </ul>   
 </div>    
 
-<div class="contenutoAreaPersonale affiancato" id="contenutoAreaPersonale">
+<div class="contenutoAreaPersonale affiancato verticalmenteAllineato " id="contenutoAreaPersonale">
     {if isset($contenutoAreaPersonale)}
         {$contenutoAreaPersonale}
     {else}

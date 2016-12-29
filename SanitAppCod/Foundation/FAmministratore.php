@@ -96,4 +96,19 @@ class FAmministratore extends FUser{
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;
     }
+    
+    public function cercaAppUserBloccati() {
+        $queryMultipla = "SELECT appuser.Username, appuser.Email, appuser.TipoUser, clinica.NomeClinica "
+                . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username AND "
+                . "appuser.Bloccato=TRUE);"// fine prima query.  //trovo le cliniche bloccate
+                . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, medico.Nome, medico.Cognome  "
+                . "FROM appuser,medico WHERE (appuser.Username=medico.Username AND "
+                . "appuser.Bloccato=TRUE);" // fine seconda query.  //trovo i medici bloccati
+                . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, utente.Nome, utente.Cognome "
+                . "FROM appuser,utente WHERE (appuser.Username=utente.Username AND "
+                . "appuser.Bloccato=TRUE);"; // fine terza query.  //trovo gli utenti
+        
+        $risultato = $this->eseguiQueryMultiple($queryMultipla);
+        return $risultato;
+    }
 }
