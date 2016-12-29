@@ -22,7 +22,6 @@ class VGestisciUser extends View{
     {
         if(count($risultato)>0)
         {
-            $this->assegnaVariabiliTemplate('user', TRUE);
             $this->assegnaVariabiliTemplate('dati', $risultato);
         }
         $this->visualizzaTemplate('tabellaUser');

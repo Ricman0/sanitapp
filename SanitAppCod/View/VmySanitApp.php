@@ -48,8 +48,15 @@ class VmySanitApp extends View {
                 $tastiLaterali['impostazioniAreaPersonaleUtente'] = "Impostazioni";
                 break;
             
+            case 'amministratore':                
+                $tastiLaterali['usersAreaPersonaleAmministratore'] = "Users";
+                $tastiLaterali['bloccatiAreaPersonaleAmministratore'] = "Users Bloccati";
+                $tastiLaterali['daValidareAreaPersonaleAmministratore'] = "Users da Validare";
+                break;
+            
             default: 
-                echo " errore in VAutenticazione impostaPaginaPersonale";
+                $messaggio ="C'è stato un errore.";
+                $this->visualizzaFeedback($messaggio, TRUE);// da controllare 
                 break;
         }
         //prelevo  i template

@@ -141,7 +141,7 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
         },
         complete: function ()
         {
-            alert('invia controlle e task');
+            alert('invia controller e task');
             //la funzione validazione si trova in validazioneDati.js
             validazione(task1, controller1);
             

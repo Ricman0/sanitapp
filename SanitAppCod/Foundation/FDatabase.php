@@ -211,6 +211,7 @@ class FDatabase {
      */
     final public function eseguiQueryMultiple($query)
     {
+        $this->_result = array(); //  è già stato inizializzata così, ma non lo eliminino perchè ne ho bisogno per essere sicuri che in questa variabile ci sia solo il risultato della query che si effettuerà e non quelle precedenti
 //        // eseguo la query e salvo il risultato in $multiQueryResult
 //        $multiQueryResult = $this->_connessione->multi_query($query); 
         $this->_connessione->multi_query($query);

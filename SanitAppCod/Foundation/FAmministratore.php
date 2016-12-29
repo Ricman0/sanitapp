@@ -39,8 +39,8 @@ class FAmministratore extends FUser{
     {
         $valoriAttributi = "'" . $amministratore->getID() . "', '" 
                 . $this->trimEscapeStringa($amministratore->getUsername()) .  "', '"
-                . $amministratore->getTelefono() .  "', '" 
-                . $amministratore->getFax() . "'";
+                . $this->trimEscapeStringa($amministratore->getTelefono()) .  "', '" 
+                . $this->trimEscapeStringa($amministratore->getFax()) . "'";
         return $valoriAttributi;
     }
     
@@ -80,21 +80,19 @@ class FAmministratore extends FUser{
     
     public function cercaAmministratore($username){
         $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
-                . "FROM appuser," . $this->_nomeTabella . " WHERE (Username ='" . $username . "' AND "
+                . "FROM appuser," . $this->_nomeTabella . " WHERE (amministratore.Username ='" . $username . "' AND "
                 . "appuser.Username=amministratore.Username)";
         return $this->eseguiQuery($query);
     }
     
     public function cercaAppUserNonAmministratori() {
-        $queryMultipla = "SELECT appuser.*, clinica.* "
-                . "FROM appuser,clinica WHERE (Username ='" . $username . "' AND "
-                . "appuser.Username=clinica.Username);"// fine prima query.  //trovo le cliniche
-                . "SELECT appuser.*, medico.* "
-                . "FROM appuser,medico WHERE (Username ='" . $username . "' AND "
-                . "appuser.Username=medico.Username);"
-                . "SELECT appuser.*, utente.* "
-                . "FROM appuser,utente WHERE (Username ='" . $username . "' AND "
-                . "appuser.Username=utente.Username)"; // cerco tra inizio della prenotazione e la fine della prenotazione;
+        $queryMultipla = "SELECT appuser.Username, appuser.Email, appuser.TipoUser, CASE WHEN appuser.Bloccato=0 THEN 'NO' ELSE 'SI' END AS Bloccato "
+                . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username);"// fine prima query.  //trovo le cliniche
+                . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, CASE WHEN appuser.Bloccato=0 THEN 'NO' ELSE 'SI' END AS Bloccato  "
+                . "FROM appuser,medico WHERE (appuser.Username=medico.Username);" // fine seconda query.  //trovo i medici
+                . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, CASE WHEN appuser.Bloccato=0 THEN 'NO' ELSE 'SI' END AS Bloccato  "
+                . "FROM appuser,utente WHERE (appuser.Username=utente.Username);"; // fine terza query.  //trovo gli utenti
+        
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;
     }

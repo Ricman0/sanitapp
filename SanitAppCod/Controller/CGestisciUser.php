@@ -17,9 +17,25 @@ class CGestisciUser {
     {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        $eAmministratore = new EAmministratore($username);
-        $risultato = $eAmministratore->cercaAppUserNonAmministratori();
-        $vUser = USingleton::getInstance('VGestisciUser');
-        $vUser->visualizzaUserNonAmministratori($risultato);
+        $vUsers = USingleton::getInstance('VGestisciUser');
+        $task = $vUsers->getTask();
+        switch ($task) 
+        {
+            case 'visualizza':
+                $cf = $vUsers->recuperaValore('id');
+                if ($cf === FALSE) // GET users/visualizza
+                {
+                    $eAmministratore = new EAmministratore($username);
+                    $risultato = $eAmministratore->cercaAppUserNonAmministratori();
+                    $vUsers->visualizzaUserNonAmministratori($risultato);
+                }
+                else //GET users/visualizza/id
+                {
+                    
+                }
+                
+                break;
+        }
+        
     }
 }

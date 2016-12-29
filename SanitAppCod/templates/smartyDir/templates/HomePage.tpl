@@ -42,6 +42,7 @@
         <script type="text/javascript" src="./jScript/clickUtente.js"></script>
         <script type="text/javascript" src="./jScript/clickMedico.js"></script>
         <script type="text/javascript" src="./jScript/clickPrenotazione.js"></script>
+        <script type="text/javascript" src="./jScript/clickAmministratore.js"></script>
         <script src='plugins/moment.js'></script>
         <script src='plugins/fullcalendar/fullcalendar.js'></script>
         <script src='plugins/fullcalendar/locale/it.js'></script>
