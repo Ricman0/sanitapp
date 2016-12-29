@@ -27,7 +27,7 @@ class VGestisciPazienti extends View{
             $this->assegnaVariabiliTemplate('dati', $risultato);
         } 
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
-        return $this->visualizzaTemplate('tabellaPazienti');
+        $this->visualizzaTemplate('tabellaPazienti');
     }
     
     /**

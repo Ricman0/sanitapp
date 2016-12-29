@@ -113,6 +113,20 @@ Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan) VALUES
 ('12346', 'Bisenti', 'Lucio', 'Del Corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'bise', 8613, 123456780,   
 '{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}');
 
+--
+-- Struttura della tabella `amministratore`
+--
+
+CREATE TABLE amministratore (
+  IdAmministratore int NOT NULL AUTO_INCREMENT,
+  Username varchar(15) NOT NULL,
+  Telefono int(10) DEFAULT NULL,
+  Fax int(10) DEFAULT NULL,
+  PRIMARY KEY (IdAmministratore),
+  FOREIGN KEY (Username) REFERENCES appUser (Username)
+);
+
+
 -- --------------------------------------------------------
 
 --

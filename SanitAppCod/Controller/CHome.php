@@ -177,6 +177,10 @@ class CHome {
                 $cServizi->gestisciServizi();
                 break;
             
+            case 'users':
+                $cUsers = USingleton::getInstance('CGestisciUser');
+                $cUsers->gestisciUsers();
+                break;
             
             default:
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');

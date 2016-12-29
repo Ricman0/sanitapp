@@ -48,8 +48,8 @@ class FClinica extends FUser{
                 . $this->trimEscapeStringa($clinica->getLocalitàClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getProvinciaClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getRegioneClinica()). "', '" 
-                . $this->trimEscapeStringa($clinica->getUsernameClinica()) .  "', '"
-                . $this->trimEscapeStringa($clinica->getPECClinica()) .  "', '"
+                . $this->trimEscapeStringa($clinica->getUsername()) .  "', '"
+                . $this->trimEscapeStringa($clinica->getPEC()) .  "', '"
                 . $clinica->getTelefonoClinica() .  "', '" 
                 . $clinica->getCapitaleSocialeClinica() . "'";
         return $valoriAttributi;
@@ -69,7 +69,7 @@ class FClinica extends FUser{
         $valoriAttributi = $this->getAttributi($clinica);
         $valoriAttributiUser = parent::getAttributi($clinica);
     
-        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'medico')";
+        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'clinica')";
         $query2 = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella . ") VALUES( " . $valoriAttributi . ")";
         try {
             // First of all, let's begin a transaction
