@@ -22,8 +22,8 @@ class CGestisciUser {
         switch ($task) 
         {
             case 'visualizza':
-                $cf = $vUsers->recuperaValore('id');
-                if ($cf === FALSE) // GET users/visualizza
+                $idUser = $vUsers->recuperaValore('id');
+                if ($idUser === FALSE) // GET users/visualizza
                 {
                     $eAmministratore = new EAmministratore($username);
                     $risultato = $eAmministratore->cercaAppUserNonAmministratori();
@@ -31,6 +31,17 @@ class CGestisciUser {
                 }
                 else //GET users/visualizza/id
                 {
+                    $eAmministratore = new EAmministratore($username);
+                    $userCercato = $eAmministratore->cercaAppUser($idUser);
+                    if (is_array($userCercato) && count($userCercato)===1)
+                    {
+                       $vUsers->visualizzaInfoUser($userCercato[0]); 
+                    }
+                    else
+                    {
+                        $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile recuperare i dati dello user.'); 
+                    }
+                    
                     
                 }
                 

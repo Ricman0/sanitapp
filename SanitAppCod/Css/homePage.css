@@ -9,6 +9,10 @@ and open the template in the editor.
     Author     : Claudia Di Marco & Riccardo Mantini
 */
 
+span.grassetto {
+    font-weight: bold;
+}
+
 html,body{
     height: 100%;
     padding: 0;
@@ -67,8 +71,8 @@ fieldset.noBordo{
     height:30px;   /* Height of the footer */
 
 }
-a
-{
+
+a{
     cursor: pointer;
     outline: none;
 }
@@ -76,6 +80,7 @@ a
 .ricerca{
     margin: 10px 0px;
 }
+
 label.ricerca
 {
     display:block;

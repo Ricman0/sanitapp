@@ -34,6 +34,12 @@ class VGestisciUser extends View{
         
     }
     
+    /**
+     * Metodo che consente di visualizzare una tabella di tutti gli user bloccati dell'applicazione.
+     * 
+     * @access public
+     * @param Array $usersBloccati Gli users bloccati
+     */
     public function visualizzaUserBloccati($usersBloccati) {
         if(count($usersBloccati)>0)
         {
@@ -49,6 +55,12 @@ class VGestisciUser extends View{
         
     }
     
+    /**
+     * Metodo che consente di visualizzare una tabella di tutti gli user dell'applicazione che l'amministratore deve validare.
+     * 
+     * @access public
+     * @param Array $usersDaValidare Gli users da validare
+     */
     public function visualizzaUserDaValidare($usersDaValidare){
         if(count($usersDaValidare)>0)
         {
@@ -61,5 +73,46 @@ class VGestisciUser extends View{
         {
             $this->visualizzaFeedback('Non esistono user da validare'); 
         }
+    }
+    
+    /**
+     * Metodo che visualizza tutte le informazione di uno user passato come parametro.
+     * 
+     * @access public
+     * @param Array $user Lo user di cui si vogliono visualizzare tutte le informazioni
+     */
+    public function visualizzaInfoUser($user){
+        if ($user['Bloccato']==0)
+        {
+            $user['Bloccato']= 'NO';
+        }
+        else
+        {
+            $user['Bloccato']= 'SI';
+        }
+        if ($user['Confermato']==0)
+        {
+            $user['Confermato']= 'NO';
+        }
+        else
+        {
+            $user['Confermato']= 'SI';
+        }
+        if($user['TipoUser']!=='utente')
+        {
+            if ($user['Validato']==0)
+            {
+                $user['Validato']= 'NO';
+            }
+            else
+            {
+                $user['Validato']= 'SI';
+            }
+        }
+        
+        $this->assegnaVariabiliTemplate('user', $user);
+        $this->assegnaVariabiliTemplate('tipoUser', $user['TipoUser']);
+        
+        $this->visualizzaTemplate('infoUser');
     }
 }

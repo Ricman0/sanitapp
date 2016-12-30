@@ -25,7 +25,7 @@ class FClinica extends FUser{
         // imposto il nome della tabella
         $this->_nomeTabella = "clinica";
         $this->_attributiTabella = "PartitaIVA, NomeClinica, Titolare, Via, " 
-                . "NumCivico, CAP, Località, Provincia, Regione, Username, PEC, Telefono, "
+                . "NumCivico, CAP, Localita, Provincia, Regione, Username, PEC, Telefono, "
                 . "CapitaleSociale, Validato"; 
     }
     
@@ -45,7 +45,7 @@ class FClinica extends FUser{
                 . $this->trimEscapeStringa($clinica->getViaClinica()). "', '" 
                 . $clinica->getNumeroCivicoClinica() . "', '" 
                 . $this->trimEscapeStringa($clinica->getCAPClinica()) . "', '" 
-                . $this->trimEscapeStringa($clinica->getLocalitàClinica()). "', '"
+                . $this->trimEscapeStringa($clinica->getLocalitaClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getProvinciaClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getRegioneClinica()). "', '" 
                 . $this->trimEscapeStringa($clinica->getUsername()) .  "', '"
@@ -201,22 +201,22 @@ class FClinica extends FUser{
         {
             if(!empty($luogo))
             {
-                $query =  "SELECT NomeClinica, Località, Provincia, "
+                $query =  "SELECT NomeClinica, Localita, Provincia, "
                         . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE), "
-                        . "MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
+                        . "MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "FROM clinica "
                         . "WHERE (MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE) "
-                        . "AND (MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "AND (MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))";
             }
             else
             {  
-                $query =  "SELECT NomeClinica, Località, Provincia, "
+                $query =  "SELECT NomeClinica, Localita, Provincia, "
                         . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE) "
                         . "FROM clinica "
                         . "WHERE MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE)";
@@ -226,20 +226,20 @@ class FClinica extends FUser{
         {
             if(!empty($luogo))
             {
-                $query =  "SELECT NomeClinica, Località, Provincia, "
-                        . "MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE), "
+                $query =  "SELECT NomeClinica, Localita, Provincia, "
+                        . "MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "FROM clinica "
-                        . "WHERE (MATCH (Località) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "WHERE (MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE))";
             }
             else
             {
-                $query = "SELECT NomeClinica, Località, Provincia, PartitaIVA FROM clinica";
+                $query = "SELECT NomeClinica, Localita, Provincia, PartitaIVA FROM clinica";
             }
         }        
         $risultato = $this->eseguiQuery($query);

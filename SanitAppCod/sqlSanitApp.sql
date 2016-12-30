@@ -82,11 +82,11 @@ CREATE TABLE clinica (
   Via varchar(30) NOT NULL,
   NumCivico smallint(6) DEFAULT NULL,
   CAP varchar(5) NOT NULL,
-  Località varchar (40) NOT NULL,
+  Localita varchar (40) NOT NULL,
   Provincia varchar (22) NOT NULL,
   Regione varchar (20) NOT NULL,
   Username varchar(15) NOT NULL,
-  Telefono int(10) DEFAULT NULL,
+  Telefono varchar(10) DEFAULT NULL,
   CapitaleSociale int(11) DEFAULT NULL,
   WorkingPlan text DEFAULT NULL,
   Validato boolean DEFAULT FALSE,
@@ -97,7 +97,7 @@ CREATE TABLE clinica (
 
 
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextNomeClinica(NomeClinica);
-ALTER TABLE clinica ADD FULLTEXT INDEX fullTextLocalitàClinica(Località);
+ALTER TABLE clinica ADD FULLTEXT INDEX fullTextLocalitaClinica(Localita);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextProvinciaClinica(Provincia);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextRegioneClinica(Regione);
 ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
@@ -108,7 +108,7 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 -- Dump dei dati per la tabella `clinica`
 --
 
-INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
+INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Localita,
 Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan, Validato) VALUES
 ('12345', 'Appignano', 'Riccardo', 'Del Carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'appi',  0856478563, 10000,
  '{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}', TRUE),

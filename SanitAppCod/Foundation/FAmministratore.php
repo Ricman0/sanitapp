@@ -122,5 +122,19 @@ class FAmministratore extends FUser{
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;
     }
+    
+    public function cercaAppUser($idUser) {
+        $queryMultipla = "SELECT appuser.*, clinica.* "
+                . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username AND "
+                . "appuser.Username='" . $idUser . "');"// fine prima query.  //cerco lo user tra le cliniche
+                . "SELECT appuser.*, medico.* "
+                . "FROM appuser, medico WHERE (appuser.Username=medico.Username AND "
+                . "appuser.Username='" . $idUser . "');" // fine seconda query.  //cerco lo user tra i medici 
+                . "SELECT appuser.*, utente.* "
+                . "FROM appuser,utente WHERE (appuser.Username=utente.Username AND "
+                . "appuser.Username='" . $idUser . "');"; // fine terza query // cerco lo user tra gli utenti
+        $risultato = $this->eseguiQueryMultiple($queryMultipla);
+        return $risultato;
+    }
 }   
 

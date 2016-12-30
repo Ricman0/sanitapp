@@ -112,4 +112,15 @@ class EAmministratore extends EUser{
         return $fAmministratore->cercaAppUserDaValidare(); 
     }
     
+    /**
+     * Metodo che consente di cercare uno specifico user dell'applicazione.
+     * 
+     * @access public
+     * @param string $idUser Username dell'user
+     */
+    public function cercaAppUser($idUser) {
+        $fAmministratore = USingleton::getInstance('FAmministratore');
+        return $fAmministratore->cercaAppUser($idUser); 
+        
+    }
 }

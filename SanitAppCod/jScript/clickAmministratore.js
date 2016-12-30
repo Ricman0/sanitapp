@@ -12,5 +12,10 @@ $(document).ready(function(){
       inviaControllerTask('users', 'daValidare', '#contenutoAreaPersonale');
   });
   
+   $('#headerMain').on("click", ".rigaUser" , function(){
+        var id = $(this).attr('id');
+        clickRiga('users', 'visualizza', id, "#contenutoAreaPersonale");
+    });
+  
 });
 
