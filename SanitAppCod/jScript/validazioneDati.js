@@ -156,6 +156,12 @@ function validazioneInformazioni()
                                 maxlength: "Il CAP è un numero lungo 5"
                             }
                 },
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
         submitHandler: function ()
         {
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#contenutoAreaPersonale");
@@ -193,6 +199,12 @@ function validazioneAlboNum()
                                 rangelength: '6 cifre'
                             }
                 },
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
         submitHandler: function ()
         {
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'alboNum', "#contenutoAreaPersonale");
@@ -247,6 +259,12 @@ function validazioneCodiceFiscaleMedicoCurante()
                                 remote: "Medico non esistente in Sanitapp"
                             }
                 },
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
         submitHandler: function ()
         {
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#contenutoAreaPersonale");
@@ -289,6 +307,12 @@ function validazioneCodiceFiscale()
                                 remote: "Utente non esistente, inserire un codice fiscale di un utente già registrato"
                             }
                 },
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
         submitHandler: function ()
         {
 
@@ -408,9 +432,15 @@ function validazioneLogIn(form)
                                 required: "Inserire password"
                             }
                 },
-        errorPlacement: function (error, element) {
-            return true;
-        },
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
+//        errorPlacement: function (error, element) {
+//            return true;
+//        },
         submitHandler: function ()
         {
             alert('I dati log in sono stati inseriti correttamente');
@@ -596,7 +626,13 @@ function validazioneUtente()
                                 equalTo: "La password deve essere sempre la stessa"
                             }
                 },
-        submitHandler: function (form)
+                 errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
+        submitHandler: function ()
         {
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
@@ -809,7 +845,13 @@ function validazioneMedico()
                                 rangelength: "Deve avere 6 numeri"
                             }
                 },
-        submitHandler: function (form)
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
+        submitHandler: function ()
         {
             alert('I dati sono stati inseriti correttamente');
             inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#main');
@@ -1043,7 +1085,13 @@ function validazioneClinica()
                                 maxlength: "La sequenza massima di numeri è 11"
                             }
                 },
-        submitHandler: function (form)
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
+        submitHandler: function ()
         {
             alert('I dati sono stati inseriti correttamente');
             inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#main');
@@ -1139,7 +1187,13 @@ function validazioneImpostazioniClinica()
 //                                required: true
 //                            } 
 //                },
-        submitHandler: function (form)
+errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
+        submitHandler: function ()
         {
             alert('Impostazioni inserite correttamente');
             // inviaDatiEsame si trova in clickGestisciServizi.js
@@ -1242,6 +1296,12 @@ function validazioneEsame()
 //                        
 //                            }
                 },
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
         submitHandler: function ()
         {
             alert('I dati sono stati inseriti correttamente');
@@ -1267,7 +1327,13 @@ alert('ciao d');
                 required: "selezionare un file",
                 accept: "selezionare un file pdf"
             }
-        }
+        },
+        errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  }
 //        ,
 //        submitHandler: function () {
 //            alert('ciao');

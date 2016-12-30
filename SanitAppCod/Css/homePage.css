@@ -131,7 +131,7 @@ button.sottile{
 }
 
 .error{
-    border-color: red;
+    border-color: red !important;
 }
 
 input.time 

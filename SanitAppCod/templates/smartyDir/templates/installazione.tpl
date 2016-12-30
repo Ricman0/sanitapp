@@ -16,7 +16,7 @@
         <script type="text/javascript" src="./plugins/jquery.validate.js"></script>
 
         <script type="text/javascript" src="./jScript/eventi_click.js"></script>
-        <script type="text/javascript" src="./jScript/validazioneDati.js"></script>
+        <script type="text/javascript" src="./jScript/validazioneSetup.js"></script>
 
     </head>
 
@@ -56,11 +56,11 @@
                     <br>
 
                     <label for="password_db" class="elementiForm">Password</label>
-                    <input type="password" name="password_db" id="password_db" class="elementiForm" value="{if isset($dati_registrazione.password_db)}{$dati_registrazione.password_db}{/if}" required/>
+                    <input type="password" name="password" id="password_db" class="elementiForm" value="{if isset($dati_registrazione.password_db)}{$dati_registrazione.password_db}{/if}" required/>
                     <br>
 
                     <label for="confermapassword_db" class="elementiForm">Conferma password</label>
-                    <input type="password" name="confermapassword_db" id="confermapassword_db" class="elementiForm" value="{if isset($dati_registrazione.password_db)}{$dati_registrazione.password_db}{/if}" required/>
+                    <input type="password" name="confermaPassword" id="confermapassword_db" class="elementiForm" value="{if isset($dati_registrazione.password_db)}{$dati_registrazione.password_db}{/if}" required/>
                     <br>
                     <br>
                     Server SMTP
@@ -100,8 +100,8 @@
                     <input type="password" name="password" id="password" class="elementiForm" value="{if isset($dati_registrazione.password)}{$dati_registrazione.password}{/if}" required/>
                     <br>
 
-                    <label for="confermapassword" class="elementiForm">Conferma password</label>
-                    <input type="password" name="confermapassword" id="confermapassword" class="elementiForm" value="{if isset($dati_registrazione.password)}{$dati_registrazione.password}{/if}" required/>
+                    <label for="confermaPassword" class="elementiForm">Conferma password</label>
+                    <input type="password" name="confermaPassword" id="confermaPassword" class="elementiForm" value="{if isset($dati_registrazione.password)}{$dati_registrazione.password}{/if}" required/>
                     <br>
 
                     <label for="email" class="elementiForm">E-mail</label>
@@ -109,7 +109,7 @@
                     <br>
 
                 </div>
-                    <input type="button" class="centrato nuovaRiga" id="registrazione" name="submit" value="Installa" />
+                    <input type="submit" class="centrato nuovaRiga" id="registrazione" name="submit" value="Installa" />
                 <br>
               <!--  <div id="loading">
                     <i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i>

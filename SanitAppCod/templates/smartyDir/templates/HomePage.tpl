@@ -70,7 +70,7 @@
                 <!-- Header della pagina-->
 
                 <div class="header" id="header">
-                    <img id="logoSanitApp" class="affiancato" src="Immagini/logoSanitApp.png" alt="logoSanitApp">
+                    <img id="logoSanitApp" class="logoBig" src="Immagini/logoSanitApp.png" alt="logoSanitApp">
                     <div id="logNavBar">
                         {$logIn}
                         {$navigationBar}    <!-- Navigation bar della pagina-->
