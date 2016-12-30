@@ -23,6 +23,7 @@ class VGestisciUser extends View{
         if(count($risultato)>0)
         {
             $this->assegnaVariabiliTemplate('bloccati', FALSE);
+            $this->assegnaVariabiliTemplate('daValidare', FALSE);
             $this->assegnaVariabiliTemplate('dati', $risultato);
             $this->visualizzaTemplate('tabellaUser');
         }
@@ -37,6 +38,7 @@ class VGestisciUser extends View{
         if(count($usersBloccati)>0)
         {
             $this->assegnaVariabiliTemplate('bloccati', TRUE);
+            $this->assegnaVariabiliTemplate('daValidare', FALSE);
             $this->assegnaVariabiliTemplate('dati', $usersBloccati);
             $this->visualizzaTemplate('tabellaUser');
         }
@@ -45,5 +47,19 @@ class VGestisciUser extends View{
             $this->visualizzaFeedback('Non esistono user bloccati'); 
         }
         
+    }
+    
+    public function visualizzaUserDaValidare($usersDaValidare){
+        if(count($usersDaValidare)>0)
+        {
+            $this->assegnaVariabiliTemplate('bloccati', FALSE);
+            $this->assegnaVariabiliTemplate('daValidare', TRUE);
+            $this->assegnaVariabiliTemplate('dati', $usersDaValidare);
+            $this->visualizzaTemplate('tabellaUser');
+        }
+        else
+        {
+            $this->visualizzaFeedback('Non esistono user da validare'); 
+        }
     }
 }

@@ -101,5 +101,15 @@ class EAmministratore extends EUser{
        return $fAmministratore->cercaAppUserBloccati(); 
     }
     
+    /**
+     * Metodo che consente di trovare tutti gli user dell'applicazione che sono da validare
+     * 
+     * @access public
+     * @return Array User da validare
+     */
+    public function cercaAppUserDaValidare(){
+        $fAmministratore = USingleton::getInstance('FAmministratore');
+        return $fAmministratore->cercaAppUserDaValidare(); 
+    }
     
 }
