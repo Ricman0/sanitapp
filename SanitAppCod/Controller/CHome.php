@@ -255,6 +255,10 @@ class CHome {
                 $cServizi->gestisciServiziPost();
                 break;
             
+            case 'users':
+                $cUsers = USingleton::getInstance('CGestisciUser');
+                $cUsers->gestisciUsersPOST();
+                break;
             case 'validazione':
                 $cValidazione = USingleton::getInstance('CValidazione');
                 $cValidazione->gestisciValidazione();                

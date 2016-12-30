@@ -136,5 +136,67 @@ class FAmministratore extends FUser{
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;
     }
+    
+    /**
+     * Metodo che consente di bloccare un account a cui corrisponde l'username passato come parametro
+     * 
+     * @final
+     * @access public
+     * @param string $username L'username dell'account da bloccare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se l'account è stato bloccato
+     */
+    public function bloccaUser($username) {
+        $query = "UPDATE appuser SET Bloccato=TRUE 
+                WHERE Username= '" . $username . "'" ;
+        return $this->eseguiQuery($query);
+    }
+    
+    /**
+     * Metodo che consente di sbloccare un account a cui corrisponde l'username passato come parametro
+     * 
+     * @final
+     * @access public
+     * @param string $username L'username dell'account da sbloccare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se l'account è stato sbloccato
+     */
+    public function sbloccaUser($username) {
+        $query = "UPDATE appuser SET Bloccato=FALSE 
+                WHERE Username= '" . $username . "'" ;
+        return $this->eseguiQuery($query);
+    }
+    
+    /**
+     * Metodo che consente di confermare un account a cui corrisponde l'username passato come parametro
+     * 
+     * @final
+     * @access public
+     * @param string $username L'username dell'account da confermare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se l'account è stato confermato
+     */
+    final public function amministratoreConfermaUser($username) 
+    {
+        $query = "UPDATE appuser SET Confermato=TRUE 
+                WHERE Username= '" . $username . "'" ;
+        return $this->eseguiQuery($query);          
+    }
+    
+    /**
+     * Metodo che consente di validare un account a cui corrisponde l'username passato come parametro
+     * 
+     * @final
+     * @access public
+     * @param string $username L'username dell'account da validare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se l'account è stato validato
+     */
+    final public function validaUser($username) 
+    {
+        $query = "UPDATE clinica, medico SET medico.Validato=TRUE, clinica.Validato=TRUE WHERE medico.Username= '" . $username . "' OR clinica.Username= '" . $username . "'";
+        return $this->eseguiQuery($query);            
+    }
 }   
+
 
