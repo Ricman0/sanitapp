@@ -1,5 +1,5 @@
 <div class="header" id="header">
-    <img id="logoSanitApp" src="Immagini/logoSanitApp.png" alt="logoSanitApp">
+    <img id="logoSanitApp" class='logoBig' src="Immagini/logoSanitApp.png" alt="logoSanitApp">
     {$log}
     {$navigationBar}    <!-- Navigation bar della pagina-->
 </div>
