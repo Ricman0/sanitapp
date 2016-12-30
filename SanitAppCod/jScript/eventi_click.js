@@ -40,13 +40,32 @@ $(document).ready(function () {
         var id = $(this).attr('data-idPrenotazione');
         download(id);
     });
+    
+    $('#headerMain').on("click", "#recuperaPassword", function () {
+        inviaController('recuperaPassword', '#main');
+    });
+    
+    $(function() {
+            $(document).tooltip({
+                items: 'input.error',
+                tooltipClass: 'error',
+                position: {
+                    my: "center bottom",
+                    at: "right top"
+                  }
+
+//                content: function(){
+//                    return $(this).next('label.error').text();
+//                }
+            });
+         });
 
 });
 
 
 function inviaController(controller, ajaxdiv)
 {
-    data={url:controller}
+    data={url:controller};
     history.pushState(data, controller, controller);
     $.ajax({
         type: 'GET',
