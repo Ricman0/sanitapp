@@ -89,6 +89,7 @@ CREATE TABLE clinica (
   Telefono int(10) DEFAULT NULL,
   CapitaleSociale int(11) DEFAULT NULL,
   WorkingPlan text DEFAULT NULL,
+  Validato boolean DEFAULT FALSE,
   PRIMARY KEY (PartitaIVA),
   FOREIGN KEY (Username) REFERENCES appUser (Username)
 );
@@ -108,11 +109,11 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 --
 
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Località,
-Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan) VALUES
+Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan, Validato) VALUES
 ('12345', 'Appignano', 'Riccardo', 'Del Carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'appi',  0856478563, 10000,
- '{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}'),
+ '{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}', TRUE),
 ('12346', 'Bisenti', 'Lucio', 'Del Corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'bise', 8613, 123456780,   
-'{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}');
+'{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}',TRUE);
 
 --
 -- Struttura della tabella `amministratore`
@@ -177,9 +178,9 @@ CREATE TABLE medico (
   NumCivico smallint(6) DEFAULT NULL,
   CAP varchar(5) NOT NULL,
   Username varchar(15) NOT NULL,
-  Validato tinyint(1) DEFAULT '0',
   ProvinciaAlbo varchar (22) NOT NULL,
   NumIscrizione smallint(6) NOT NULL,
+  Validato boolean DEFAULT FALSE,
   PRIMARY KEY (CodFiscale),
   FOREIGN KEY (Username) REFERENCES appUser (Username)
 );
@@ -190,8 +191,8 @@ CREATE TABLE medico (
 -- Dump dei dati per la tabella `medico`
 --
 
-INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username,  Validato, ProvinciaAlbo, NumIscrizione) VALUES
-('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Acquaventina', 30, '65017', 'claudim', 0, 'PESCARA', 5464);
+INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username, ProvinciaAlbo, NumIscrizione, Validato) VALUES
+('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Acquaventina', 30, '65017', 'claudim','PESCARA', 5464, TRUE);
 
 -- --------------------------------------------------------
 

@@ -25,7 +25,7 @@ class FMedico extends FUser {
         // imposto il nome della tabella
         $this->_nomeTabella = "medico";
         $this->_attributiTabella = "CodFiscale, Nome, Cognome, Via, NumCivico, "
-                . "CAP, Username, PEC, Validato, ProvinciaAlbo, NumIscrizione";
+                . "CAP, Username, PEC, Validato, ProvinciaAlbo, NumIscrizione, Validato";
     }
     
     /**
@@ -56,7 +56,7 @@ class FMedico extends FUser {
         
         $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'medico')";
         $query2 = "INSERT INTO medico ( CodFiscale, Nome, Cognome, Via, NumCivico, "
-                . "CAP, Username, PEC, Validato, ProvinciaAlbo, NumIscrizione) VALUES( " . $valoriAttributi . ")";
+                . "CAP, Username, PEC, Validato, ProvinciaAlbo, NumIscrizione, Validato) VALUES( " . $valoriAttributi . ")";
         try {
             // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
@@ -109,9 +109,10 @@ class FMedico extends FUser {
                 . $this->trimEscapeStringa($medico->getPECMedico()) . "', '" 
                  
                 . $this->trimEscapeStringa($medico->getValidatoMedico()) . "', '"
-                . $this->trimEscapeStringa($medico->getProvinciaAlboMedico()) . "', '" 
+                . $this->trimEscapeStringa($medico->getProvinciaAlboMedico()) . "', " 
 //                . $this->trimEscapeStringa($medico->getNumIscrizioneMedico()) . "', "
-                . $medico->getNumIscrizioneMedico() . "'";
+                . $medico->getNumIscrizioneMedico() . "', '"
+                . $medico->getValidatoMedico();
                
                 
         return $valoriAttributi;

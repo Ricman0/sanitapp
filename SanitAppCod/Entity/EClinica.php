@@ -85,6 +85,11 @@ class EClinica extends EUser {
      * @var Array(EEsame) $_esami array che contiente gli esami/servizi che la clinica fornisce
      */
     private $_esami;
+    
+    /**
+     * @var boolean $_validato Indica se la clinica è stata validata dall' amministratore
+     */
+    private $_validato;
 
     // costruttore
 
@@ -106,9 +111,10 @@ class EClinica extends EUser {
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
      * @param int o string? $cod Il codice per confermare l'account
      * @param array $esami Array di esami/servizi che la clinica fornisce
+     * @param boolean $validato TRUE se il medico è validato, FALSE altrimenti
      * @throws XClinicaException Se la clinica  è inesistente
      */
-    public function __construct($username = NULL, $partitaIVA = NULL, $nomeClinica = NULL, $password = NULL, $email = NULL, $titolareClinica = NULL, $via = NULL, $numeroCivico = NULL, $cap = NULL, $località = NULL, $provincia = NULL, $PEC = NULL, $telefono = NULL, $capitaleSociale = NULL, $workingPlan = NULL, $esami = NULL) {
+    public function __construct($username = NULL, $partitaIVA = NULL, $nomeClinica = NULL, $password = NULL, $email = NULL, $titolareClinica = NULL, $via = NULL, $numeroCivico = NULL, $cap = NULL, $località = NULL, $provincia = NULL, $PEC = NULL, $telefono = NULL, $capitaleSociale = NULL, $workingPlan = NULL, $esami = NULL, $validato=FALSE) {
 
         if ($partitaIVA !== NULL && $username !== NULL) {
             parent::__construct($username, $password, $email, $PEC);
@@ -125,6 +131,7 @@ class EClinica extends EUser {
             $this->_telefono = $telefono;
             $this->_capitaleSociale = $capitaleSociale;
             $this->_workingPlan = $workingPlan;
+            $this->_validato = $validato;
             $this->_esami = Array();
             if (isset($esami)) {
                 $this->_esami = $esami;
@@ -162,6 +169,7 @@ class EClinica extends EUser {
                 parent::setBloccato($attributiClinica[0]['Bloccato']);
                 parent::setConfermato($attributiClinica[0]["Confermato"]);
                 parent::setCodiceConfermaUtente($attributiClinica[0]["CodiceConferma"]);
+                $this->setValidatoClinica($attributiClinica[0]["Validato"]);
                 $this->_esami = Array();
             } else {
                 throw new XClinicaException('Clinica inesistente');
@@ -183,6 +191,7 @@ class EClinica extends EUser {
             $this->_telefono = $telefono;
             $this->_capitaleSociale = $capitaleSociale;
             $this->_workingPlan = $workingPlan;
+            $this->_validato = $validato;
             $this->_esami = Array();
         }
 
@@ -296,6 +305,15 @@ class EClinica extends EUser {
      */
     public function getEsamiClinica() {
         return $this->_esami;
+    }
+    
+    /**
+     * Metodo per conoscere se la clinica è stata validata
+     * 
+     * @return boolean TRUE se la clinica è stata validata, FALSE altrimenti
+     */
+    public function getValidatoClinica() {
+        return $this->_validato;
     }
 
     /**
@@ -435,6 +453,15 @@ class EClinica extends EUser {
         $this->_via = $via;
     }
 
+    /**
+     * Metodo che permette di modificare la validità della clinica
+     * 
+     * @param boolean $validato TRUE se la clinica è stata validata, FALSE altrimenti
+     */
+    public function setValidatoClinica($validato) {
+        $this->_validato = $validato;
+    }
+    
     /**
      * Metodo che imposta il numero civico della clinica
      * 

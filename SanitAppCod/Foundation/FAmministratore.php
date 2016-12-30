@@ -111,4 +111,16 @@ class FAmministratore extends FUser{
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;
     }
-}
+    
+    public function cercaAppUserDaValidare() {
+        $queryMultipla = "SELECT appuser.Username, appuser.Email, appuser.TipoUser, clinica.NomeClinica "
+                . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username AND "
+                . "clinica.Validato=FALSE);"// fine prima query.  //trovo le cliniche da validare
+                . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, medico.Nome, medico.Cognome  "
+                . "FROM appuser,medico WHERE (appuser.Username=medico.Username AND "
+                . "medico.Validato=FALSE);"; // fine seconda query.  //trovo i medici da validare
+        $risultato = $this->eseguiQueryMultiple($queryMultipla);
+        return $risultato;
+    }
+}   
+

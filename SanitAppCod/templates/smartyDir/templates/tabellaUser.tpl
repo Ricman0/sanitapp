@@ -1,6 +1,6 @@
 <table id="tabellaUser" class="tablesorter">
     <thead>
-        {if $bloccati===TRUE }
+        {if ($bloccati===TRUE  || $daValidare===TRUE)}
             <td>Nome</td>
         {/if}
         <th>Username</th>
@@ -15,12 +15,14 @@
         <br>
         {if $bloccati===TRUE }
             <h4>User Bloccati</h4>
+        {elseif $daValidare===TRUE}
+            <h4>User Da Validare</h4>
         {else}
             <h4>User</h4>
         {/if}
         {foreach from=$dati item=curr_row}
             <tr id="{$curr_row['Username']}" class="rigaUser">
-                {if $bloccati===TRUE }
+                {if ($bloccati===TRUE  || $daValidare===TRUE) }
                     {if ($curr_row['TipoUser']==='utente' || $curr_row['TipoUser']==='medico')}
                         <td>{$curr_row['Nome']} {$curr_row['Cognome']}</td>
                     {else}

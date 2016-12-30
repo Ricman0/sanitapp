@@ -41,6 +41,12 @@ class CGestisciUser {
                 $usersBloccati= $eAmministratore->cercaAppUserBloccati();
                 $vUsers->visualizzaUserBloccati($usersBloccati);
                 break;
+            
+            case 'daValidare':
+                $eAmministratore = new EAmministratore($username);
+                $usersDaValidare= $eAmministratore->cercaAppUserDaValidare();
+                $vUsers->visualizzaUserDaValidare($usersDaValidare);
+                break;
         }
         
     }

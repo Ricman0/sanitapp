@@ -8,5 +8,9 @@ $(document).ready(function(){
       inviaControllerTask('users', 'bloccati', '#contenutoAreaPersonale');
   });
   
+  $('#headerMain').on('click', '#daValidareAreaPersonaleAmministratore', function(){
+      inviaControllerTask('users', 'daValidare', '#contenutoAreaPersonale');
+  });
+  
 });
 

@@ -26,7 +26,7 @@ class FClinica extends FUser{
         $this->_nomeTabella = "clinica";
         $this->_attributiTabella = "PartitaIVA, NomeClinica, Titolare, Via, " 
                 . "NumCivico, CAP, Località, Provincia, Regione, Username, PEC, Telefono, "
-                . "CapitaleSociale"; 
+                . "CapitaleSociale, Validato"; 
     }
     
     /**
@@ -51,7 +51,8 @@ class FClinica extends FUser{
                 . $this->trimEscapeStringa($clinica->getUsername()) .  "', '"
                 . $this->trimEscapeStringa($clinica->getPEC()) .  "', '"
                 . $clinica->getTelefonoClinica() .  "', '" 
-                . $clinica->getCapitaleSocialeClinica() . "'";
+                . $clinica->getCapitaleSocialeClinica() . "', "
+                . $clinica->getValidatoClinica();
         return $valoriAttributi;
     }
     

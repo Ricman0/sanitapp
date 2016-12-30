@@ -46,7 +46,7 @@ class EMedico extends EUser {
 
 
     /**
-     * @var boolean $_validato Indica se il medico è stato validato dal amministratore
+     * @var boolean $_validato Indica se il medico è stato validato dall' amministratore
      */
     private $_validato;
 
@@ -59,6 +59,8 @@ class EMedico extends EUser {
      * @var string $_numIscrizione Indica il numero di iscrizione del medico nell'albo
      */
     private $_numIscrizione;
+    
+    
 
     /**
      * Costruttore della classe EMedico
@@ -74,9 +76,10 @@ class EMedico extends EUser {
      * @param string $provinciaAlbo La provincia dell'albo in cui il medico è iscritto
      * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
      * @param int o string? $cod Il codice per confermare l'account
+     * @param boolean $validato TRUE se il medico è validato, FALSE altrimenti
      * @throws XMedicoException Se il medico relativo al codice fiscale immesso non esiste
      */
-    public function __construct($cf = NULL, $username=NULL, $nome='', $cognome='', $via='', $numeroCivico='', $cap='', $email='', $password='',  $provinciaAlbo='', $numIscrizione='') 
+    public function __construct($cf = NULL, $username=NULL, $nome='', $cognome='', $via='', $numeroCivico='', $cap='', $email='', $password='',  $provinciaAlbo='', $numIscrizione='', $validato = FALSE) 
     {
         if ($cf === NULL || $username === NULL) 
         {
@@ -114,6 +117,7 @@ class EMedico extends EUser {
                 $this->setCAPMedico($attributiMedico[0]['CAP']);
                 $this->setProvinciaAlboMedico($attributiMedico[0]['ProvinciaAlbo']);
                 $this->setnumIscrizioneMedico($attributiMedico[0]['NumIscrizione']);
+                $this->setValidatoMedico($attributiMedico[0]['Validato']);
             } 
             else {
                 //il medico cercato non esiste 
@@ -137,6 +141,7 @@ class EMedico extends EUser {
             $this->_CAP = $cap;
             $this->_provinciaAlbo = $provinciaAlbo;
             $this->_numIscrizione = $numIscrizione;
+            $this->_validato = $validato;
         }
     }
 
