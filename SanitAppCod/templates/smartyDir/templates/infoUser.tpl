@@ -50,13 +50,13 @@
 
 <div id='tastiInfoUser'>
     
-    {if ($user.Bloccato==='SI')}
+    {if ($user.Bloccato==='SI'  && $bloccato===TRUE)}
         <input type="button" id="sbloccaUser" value="Sblocca User" data-username="{$user.Username}" />     
     {else}
         <input type="button" id="bloccaUser" value="Blocca User" data-username="{$user.Username}" />      
     {/if}
 
-    {if ($user.Validato==='NO')}
+    {if ($user.Validato==='NO' && $validato===TRUE)}
         <input type="button" id="validaUser" value="Valida User" data-username="{$user.Username}" />        
     {/if}
 

@@ -6,6 +6,8 @@ $(document).ready(function(){
   
   $('#headerMain').on('click', '#bloccatiAreaPersonaleAmministratore', function(){
       inviaControllerTask('users', 'bloccati', '#contenutoAreaPersonale');
+      
+      
   });
   
   $('#headerMain').on('click', '#daValidareAreaPersonaleAmministratore', function(){
@@ -16,6 +18,17 @@ $(document).ready(function(){
         var id = $(this).attr('id');
         clickRiga('users', 'visualizza', id, "#contenutoAreaPersonale");
     });
+    
+    $('#headerMain').on("click", ".rigaUserBloccati" , function(){
+        var id = $(this).attr('id');
+        clickRiga('usersBloccati', 'visualizza', id, "#contenutoAreaPersonale");
+    });
+    
+    $('#headerMain').on("click", ".rigaUserDaValidare" , function(){
+        var id = $(this).attr('id');
+        clickRiga('usersBloccati', 'visualizza', id, "#contenutoAreaPersonale");
+    });
+    
     
     $('#headerMain').on('click', '#bloccaUser', function(){
         var username = $(this).attr('data-username');

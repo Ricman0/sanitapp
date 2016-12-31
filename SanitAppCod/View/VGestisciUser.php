@@ -111,8 +111,92 @@ class VGestisciUser extends View{
         }
         
         $this->assegnaVariabiliTemplate('user', $user);
+        $this->assegnaVariabiliTemplate('bloccato', TRUE);
+        $this->assegnaVariabiliTemplate('validato', TRUE);
         $this->assegnaVariabiliTemplate('tipoUser', $user['TipoUser']);
         
+        $this->visualizzaTemplate('infoUser');
+    }
+    
+    /**
+     * Metodo che visualizza tutte le informazione di uno user bloccato passato come parametro.
+     * 
+     * @access public
+     * @param Array $user Lo user bloccato di cui si vogliono visualizzare tutte le informazioni
+     */
+    public function visualizzaInfoUserBloccato($user) {
+        if ($user['Bloccato']==0)
+        {
+            $user['Bloccato']= 'NO';
+        }
+        else
+        {
+            $user['Bloccato']= 'SI';
+        }
+        if ($user['Confermato']==0)
+        {
+            $user['Confermato']= 'NO';
+        }
+        else
+        {
+            $user['Confermato']= 'SI';
+        }
+        if($user['TipoUser']!=='utente')
+        {
+            if ($user['Validato']==0)
+            {
+                $user['Validato']= 'NO';
+            }
+            else
+            {
+                $user['Validato']= 'SI';
+            }
+        }
+        $this->assegnaVariabiliTemplate('user', $user);
+        $this->assegnaVariabiliTemplate('bloccato', TRUE);
+        $this->assegnaVariabiliTemplate('validato', FALSE);
+        $this->assegnaVariabiliTemplate('tipoUser', $user['TipoUser']);
+        $this->visualizzaTemplate('infoUser');
+    }
+    
+    /**
+     * Metodo che visualizza tutte le informazione di uno user da validare passato come parametro.
+     * 
+     * @access public
+     * @param Array $user Lo user da validare di cui si vogliono visualizzare tutte le informazioni
+     */
+    public function visualizzaInfoUserDaValidare($user) {
+        if ($user['Bloccato']==0)
+        {
+            $user['Bloccato']= 'NO';
+        }
+        else
+        {
+            $user['Bloccato']= 'SI';
+        }
+        if ($user['Confermato']==0)
+        {
+            $user['Confermato']= 'NO';
+        }
+        else
+        {
+            $user['Confermato']= 'SI';
+        }
+        if($user['TipoUser']!=='utente')
+        {
+            if ($user['Validato']==0)
+            {
+                $user['Validato']= 'NO';
+            }
+            else
+            {
+                $user['Validato']= 'SI';
+            }
+        }
+        $this->assegnaVariabiliTemplate('user', $user);
+        $this->assegnaVariabiliTemplate('bloccato', FALSE);
+        $this->assegnaVariabiliTemplate('validato', TRUE);
+        $this->assegnaVariabiliTemplate('tipoUser', $user['TipoUser']);
         $this->visualizzaTemplate('infoUser');
     }
 }

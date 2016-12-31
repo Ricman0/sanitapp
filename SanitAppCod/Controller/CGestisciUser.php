@@ -163,4 +163,61 @@ class CGestisciUser {
         }
     }
     
+    public function gestisciUsersBloccati(){
+        $sessione = USingleton::getInstance('USession');
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $vUsers = USingleton::getInstance('VGestisciUser');
+        $task = $vUsers->getTask();
+        if($task==='visualizza') //usersBloccati/visualizza/id
+        {
+            $idUser = $vUsers->recuperaValore('id');
+            if($idUser!==FALSE)
+            {
+                $eAmministratore = new EAmministratore($username);
+                $userCercato = $eAmministratore->cercaAppUser($idUser);
+                if (is_array($userCercato) && count($userCercato)===1)
+                {
+                   $vUsers->visualizzaInfoUserBloccato($userCercato[0]); 
+                }
+                else
+                {
+                    $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile recuperare i dati dello user.'); 
+                }
+            }
+            
+        }
+        else
+        {
+            $vUsers->visualizzaFeedback("C'è stato un errore.");
+        }
+    } 
+    
+    public function gestisciUsersDaValidare(){
+        $sessione = USingleton::getInstance('USession');
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+        $vUsers = USingleton::getInstance('VGestisciUser');
+        $task = $vUsers->getTask();
+        if($task==='visualizza') //usersBloccati/visualizza/id
+        {
+            $idUser = $vUsers->recuperaValore('id');
+            if($idUser!==FALSE)
+            {
+                $eAmministratore = new EAmministratore($username);
+                $userCercato = $eAmministratore->cercaAppUser($idUser);
+                if (is_array($userCercato) && count($userCercato)===1)
+                {
+                   $vUsers->visualizzaInfoUserDaValidare($userCercato[0]); 
+                }
+                else
+                {
+                    $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile recuperare i dati dello user.'); 
+                }
+            }
+            
+        }
+        else
+        {
+            $vUsers->visualizzaFeedback("C'è stato un errore.");
+        }
+    } 
 }
