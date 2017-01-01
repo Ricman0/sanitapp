@@ -26,7 +26,7 @@ $(document).ready(function(){
     
     $('#headerMain').on("click", ".rigaUserDaValidare" , function(){
         var id = $(this).attr('id');
-        clickRiga('usersBloccati', 'visualizza', id, "#contenutoAreaPersonale");
+        clickRiga('usersDaValidare', 'visualizza', id, "#contenutoAreaPersonale");
     });
     
     

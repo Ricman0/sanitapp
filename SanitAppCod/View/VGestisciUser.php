@@ -111,8 +111,9 @@ class VGestisciUser extends View{
         }
         
         $this->assegnaVariabiliTemplate('user', $user);
-        $this->assegnaVariabiliTemplate('bloccato', TRUE);
-        $this->assegnaVariabiliTemplate('validato', TRUE);
+        $this->assegnaVariabiliTemplate('tastoBloccato', TRUE);
+        $this->assegnaVariabiliTemplate('tastoValidato', TRUE);
+        $this->assegnaVariabiliTemplate('tastoConfermato', TRUE);
         $this->assegnaVariabiliTemplate('tipoUser', $user['TipoUser']);
         
         $this->visualizzaTemplate('infoUser');
@@ -153,8 +154,9 @@ class VGestisciUser extends View{
             }
         }
         $this->assegnaVariabiliTemplate('user', $user);
-        $this->assegnaVariabiliTemplate('bloccato', TRUE);
-        $this->assegnaVariabiliTemplate('validato', FALSE);
+        $this->assegnaVariabiliTemplate('tastoBloccato', TRUE);
+        $this->assegnaVariabiliTemplate('tastoValidato', FALSE);
+        $this->assegnaVariabiliTemplate('tastoConfermato', FALSE);
         $this->assegnaVariabiliTemplate('tipoUser', $user['TipoUser']);
         $this->visualizzaTemplate('infoUser');
     }
@@ -194,8 +196,9 @@ class VGestisciUser extends View{
             }
         }
         $this->assegnaVariabiliTemplate('user', $user);
-        $this->assegnaVariabiliTemplate('bloccato', FALSE);
-        $this->assegnaVariabiliTemplate('validato', TRUE);
+        $this->assegnaVariabiliTemplate('tastoBloccato', FALSE);
+        $this->assegnaVariabiliTemplate('tastoValidato', TRUE);
+        $this->assegnaVariabiliTemplate('tastoConfermato', FALSE);
         $this->assegnaVariabiliTemplate('tipoUser', $user['TipoUser']);
         $this->visualizzaTemplate('infoUser');
     }

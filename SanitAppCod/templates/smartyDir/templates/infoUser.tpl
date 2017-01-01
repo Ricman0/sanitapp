@@ -49,19 +49,24 @@
 {/if}
 
 <div id='tastiInfoUser'>
-    
-    {if ($user.Bloccato==='SI'  && $bloccato===TRUE)}
-        <input type="button" id="sbloccaUser" value="Sblocca User" data-username="{$user.Username}" />     
-    {else}
-        <input type="button" id="bloccaUser" value="Blocca User" data-username="{$user.Username}" />      
+    {if $tastoBloccato===TRUE}
+        {if ($user.Bloccato==='SI')}
+            <input type="button" id="sbloccaUser" value="Sblocca User" data-username="{$user.Username}" />     
+        {else}
+            <input type="button" id="bloccaUser" value="Blocca User" data-username="{$user.Username}" />      
+        {/if}
     {/if}
 
-    {if ($user.Validato==='NO' && $validato===TRUE)}
-        <input type="button" id="validaUser" value="Valida User" data-username="{$user.Username}" />        
+    {if $tastoValidato===TRUE}
+        {if ($user.Validato==='NO')}
+            <input type="button" id="validaUser" value="Valida User" data-username="{$user.Username}" />        
+        {/if}
     {/if}
 
-    {if ($user.Confermato==='NO')}
-        <input type="button" id="confermaUser" value="Conferma User" data-username="{$user.Username}" />          
+    {if $tastoConfermato===TRUE}
+        {if ($user.Confermato==='NO')}
+            <input type="button" id="confermaUser" value="Conferma User" data-username="{$user.Username}" />          
+        {/if}
     {/if}
-    
+
 </div>
