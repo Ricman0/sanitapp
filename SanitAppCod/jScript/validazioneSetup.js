@@ -17,12 +17,10 @@ $(document).ready(function(){
 //                }
             });
          });
-
-
     
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
-    jQuery.validator.addMethod("password", function (valore) {
+    jQuery.validator.addMethod("passwordMethod", function (valore) {
         //espressione regolare per la password
         var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
         return valore.match(regex);
@@ -31,9 +29,9 @@ $(document).ready(function(){
     
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[0-9a-zA-Z\_\-]{2,15}/;
+        var regex = /[0-9a-zA-Z\_\-]{4,15}/;
         return valore.match(regex);
-    }, "Può contenere numeri, lettere maiuscole o minuscole");
+    }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
 
     $("#formInstallazione").validate({
         /*
@@ -47,6 +45,36 @@ $(document).ready(function(){
 //        focusCleanup: true,
         rules:
                 {
+                    host:
+                            {
+                                required: true
+                            },                            
+                    userDb:
+                            {
+                                required: true
+                            },                    
+                    passwordDb:
+                            {
+                                required: true
+                            },
+                    confermaPasswordDb:
+                            {
+                                required: true,
+                                equalTo: "#passwordDb"
+                            },                            
+                    smtp:
+                            {
+                                required: true
+                            },
+                    emailSmtp:
+                            {
+                              required: true,
+                              email: true
+                            },
+                    passwordEmail:
+                            {
+                                required: true
+                            },
                     nome:
                             {
                                 required: true,
@@ -57,7 +85,7 @@ $(document).ready(function(){
                                 required: true,
                                 maxlength: 20
                             },                   
-                    email:
+                    emailAdmin:
                             {
                                 required: true,
                                 email: true,
@@ -67,22 +95,29 @@ $(document).ready(function(){
                                             url: "ricerca/email"
                                         }
                             },
+                    telefono:
+                            {
+                                required: true,
+                                number: true,
+                                maxlength: 10,
+                                minlength: 4
+                            },
                     username:
                             {
                                 required: true,
                                 username: true,
-                                minlength: 2,
-                                maxlength: 15,
-                                remote:
-                                        {
-                                            type: "POST",
-                                            url: "ricerca/username"
-                                        }
+                                minlength: 4,
+                                maxlength: 15
+//                                remote:
+//                                        {
+//                                            type: "POST",
+//                                            url: "ricerca/username"
+//                                        }
                             },
                     password:
                             {
                                 required: true,
-                                password: true
+                                passwordMethod: true
                             },
                     confermaPassword:
                             {
@@ -92,6 +127,36 @@ $(document).ready(function(){
                 },
         messages:
                 {
+                    host:
+                            {
+                                required: "Inserire Host Name"
+                            },                            
+                    userDb:
+                            {
+                                required: "Inserire nome User Database"
+                            },                    
+                    passwordDb:
+                            {
+                                required: "Inserire password database"
+                            },
+                    confermaPasswordDb:
+                            {
+                                required: "Inserire nuovamente la password",
+                                equalTo: "La password non coincide"
+                            },
+                    smtp:
+                            {
+                                required: "Inserire server smtp"
+                            },
+                    emailSmtp:
+                            {
+                              required: "Inserire e-mail",
+                              email: "Inserire una e-mail valida"
+                            },
+                     passwordEmail:
+                            {
+                                required: "Inserire Password"
+                            },
                     nome:
                             {
                                 required: "Inserire nome",
@@ -102,18 +167,25 @@ $(document).ready(function(){
                                 required: "Inserire cognome",
                                 maxlength: "La lunghezza massima è 20"
                             },
-                    email:
+                    emailAdmin:
                             {
                                 required: "Inserire l'email",
                                 email: "Inserire un'email valida del tipo mario.rossi@gmail.com",
                                 remote: "Email già esistente"
                             },
+                    telefono:
+                            {
+                                required: "Inserire il numero di telefono",
+                                number: "Contiene solo numeri",
+                                maxlength: "Massimo 10 cifre",
+                                minlength: "Minimo 4 cifre"
+                            },
                     username:
                             {
                                 required: "Inserire username",
-                                minlength: "La lunghezza minime dello username è 2",
-                                maxlength: "La lunghezza massima dello username è 15",
-                                remote: "Username già esistente"
+                                minlength: "La lunghezza minime dello username è 4",
+                                maxlength: "La lunghezza massima dello username è 15"
+//                                remote: "Username già esistente"
                             },
                     password:
                             {
@@ -122,7 +194,7 @@ $(document).ready(function(){
                     confermaPassword:
                             {
                                 required: "Inserire nuovamente la password",
-                                equalTo: "La password deve essere sempre la stessa"
+                                equalTo: "La password non coincide"
                             }
                 },
                 errorPlacement: function(error, element){
