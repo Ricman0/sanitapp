@@ -6,7 +6,7 @@
         <th>Username</th>
         <th>Email</th>
         <th>Tipo User</th>
-        {if $bloccati!==TRUE }
+        {if ($bloccati!==TRUE && $daValidare!==TRUE) }
             <th>Bloccato</th>
         {/if}
        <!-- <th>Validato</th> -->
@@ -32,7 +32,7 @@
                 <td>{$curr_row['Username']}</td>
                 <td>{$curr_row['Email']}</td>
                 <td>{$curr_row['TipoUser']}</td>
-                {if $bloccati!==TRUE }
+                {if ($bloccati!==TRUE && $daValidare!==TRUE) }
                 <td>{$curr_row['Bloccato']}</td>
                 {/if}
                 

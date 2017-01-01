@@ -181,6 +181,16 @@ class CHome {
                 $cUsers->gestisciUsers();
                 break;
             
+            case 'usersBloccati':
+                $cUsers = USingleton::getInstance('CGestisciUser');
+                $cUsers->gestisciUsersBloccati();
+                break;
+            
+            case 'usersDaValidare':
+                $cUsers = USingleton::getInstance('CGestisciUser');
+                $cUsers->gestisciUsersDaValidare();
+                break;
+            
             default:
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->controllaUserAutenticatoEImpostaHeader() ;
@@ -255,6 +265,10 @@ class CHome {
                 $cServizi->gestisciServiziPost();
                 break;
             
+            case 'users':
+                $cUsers = USingleton::getInstance('CGestisciUser');
+                $cUsers->gestisciUsersPOST();
+                break;
             case 'validazione':
                 $cValidazione = USingleton::getInstance('CValidazione');
                 $cValidazione->gestisciValidazione();                

@@ -157,6 +157,21 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
             $('.time').timepicker({
                 stepMinute: 5
             });
+            
+            if (controller1==='users' && task1==='bloccati')
+            {
+                $('.rigaUser').addClass('rigaUserBloccati');// aggiungo la classe rigaUserBloccati alle righe della tabella User
+                $('.rigaUserBloccati').removeClass('rigaUser'); // elimino la lcasse rigaUser.
+                // in questo modo non ho lo stesso click sulle righe delle diverse tabelle
+            }
+            if (controller1==='users' && task1==='daValidare')
+            {
+                $('.rigaUser').addClass('rigaUserDaValidare');// aggiungo la classe rigaUserDaValidare alle righe della tabella User
+                $('.rigaUserDaValidare').removeClass('rigaUser'); // elimino la lcasse rigaUser.
+                // in questo modo non ho lo stesso click sulle righe delle diverse tabelle
+            }
+            
+            
         },
         complete: function ()
         {

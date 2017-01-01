@@ -123,4 +123,54 @@ class EAmministratore extends EUser{
         return $fAmministratore->cercaAppUser($idUser); 
         
     }
+    
+    /**
+     * Metodo che consente all'amministratore di bloccare uno user.
+     * 
+     * @access public
+     * @param string $idUser L'username dello user da bloccare
+     * @return boolean TRUE se è andato a buon fine il blocco dell'user, lancia un XDBException altrimenti
+     */
+    public function bloccaUser($idUser) {
+        $fAmministratore = USingleton::getInstance('FAmministratore');
+        return $fAmministratore->bloccaUser($idUser);
+    }
+    
+    /**
+     * Metodo che consente all'amministratore di sbloccare uno user.
+     * 
+     * @access public
+     * @param string $idUser L'username dello user da sbloccare
+     * @return boolean TRUE se è andato a buon fine lo sblocco dell'user, lancia un XDBException altrimenti
+     */
+    public function sbloccaUser($idUser) {
+        $fAmministratore = USingleton::getInstance('FAmministratore');
+        return $fAmministratore->sbloccaUser($idUser);
+    }
+    
+    /**
+     * Metodo che consente all'amministratore di validare uno user.
+     * 
+     * @access public
+     * @param string $idUser L'username dello user da validare
+     * @return boolean TRUE se la validazione è andata a buon fine, lancia un XDBException altrimenti
+     */
+    public function validaUser($idUser) {
+        $fAmministratore = USingleton::getInstance('FAmministratore');
+        $ris = $fAmministratore->validaUser($idUser);
+       
+        return $ris ;
+    }
+    
+    /**
+     * Metodo che consente all'amministratore di confermare uno user.
+     * 
+     * @access public
+     * @param string $idUser L'username dello user da confermare
+     * @return boolean TRUE se la conferma è andata a buon fine, lancia un XDBException altrimenti
+     */
+    public function confermaUser($idUser) {
+        $fAmministratore = USingleton::getInstance('FAmministratore');
+        return $fAmministratore->amministratoreConfermaUser($idUser);
+    }
 }
