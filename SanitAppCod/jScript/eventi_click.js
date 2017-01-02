@@ -8,16 +8,33 @@
 $(document).ready(function () {
 
     $('#headerMain').on("click", ".mySanitApp", function () {
+        
         inviaController('mySanitApp', '#main');
     });
     $('#headerMain').on("click", "#registrazioneClinica", function () {
-        inviaControllerTask('registrazione', 'clinica', '#main');
+        var  ajaxDiv = '#main';
+        if( $("#contenutoAreaPersonale").length  ) 
+        {
+            ajaxDiv = '#contenutoAreaPersonale';
+        }
+        inviaControllerTask('registrazione', 'clinica', ajaxDiv);
     });
     $('#headerMain').on("click", "#registrazioneMedico", function () {
-        inviaControllerTask('registrazione', 'medico', '#main');
+        var  ajaxDiv = '#main';
+        if( $("#contenutoAreaPersonale").length  ) 
+        {
+            ajaxDiv = '#contenutoAreaPersonale';
+        }
+        inviaControllerTask('registrazione', 'medico', ajaxDiv);
     });
     $('#headerMain').on("click", "#registrazioneUtente", function () {
-        inviaControllerTask('registrazione', 'utente', '#main');
+        var  ajaxDiv = '#main';
+        if( $("#contenutoAreaPersonale").length  ) 
+        {
+            ajaxDiv = '#contenutoAreaPersonale';
+        }
+        alert (ajaxDiv); 
+        inviaControllerTask('registrazione', 'utente', ajaxDiv);
     });
 
     $('#headerMain').on("click", "#recuperaPassword", function () {
@@ -185,7 +202,8 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
 
 function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
 {
-    // per ciascun input text all'interno della form, esegui il trim del testo e poi assegnalo al testo dell'elemento di cui si è eseguito il trim
+    $( "#loading" ).show();
+   // per ciascun input text all'interno della form, esegui il trim del testo e poi assegnalo al testo dell'elemento di cui si è eseguito il trim
     $(id + " input[type='text']").each(function () {
         $(this).val($(this).val().trim());
 
@@ -208,6 +226,10 @@ function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
         error: function ()
         {
             alert("Chiamata fallita, si prega di riprovare...");
+        },
+        complete: function()
+        {
+            $("#loading").hide();
         }
     });
 }

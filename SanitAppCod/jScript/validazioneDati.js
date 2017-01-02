@@ -634,6 +634,7 @@ function validazioneUtente()
                   },
         submitHandler: function ()
         {
+            $("#loading").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var ajaxDiv = "#main";
@@ -853,8 +854,14 @@ function validazioneMedico()
                   },
         submitHandler: function ()
         {
+            $("#loading").show();
+            var ajaxDiv = "#main";
+            if ($('#contenutoAreaPersonale').length)// se nel DOM esiste il div contenutoAreaPersonale
+            {
+                ajaxDiv ='#contenutoAreaPersonale';
+            }
             alert('I dati sono stati inseriti correttamente');
-            inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', '#main');
+            inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', ajaxDiv);
         }
     });
 }
@@ -1093,8 +1100,14 @@ function validazioneClinica()
                   },
         submitHandler: function ()
         {
+            $("#loading").show();
+            var ajaxDiv = "#main";
+            if ($('#contenutoAreaPersonale').length)// se nel DOM esiste il div contenutoAreaPersonale
+            {
+                ajaxDiv ='#contenutoAreaPersonale';
+            }
             alert('I dati sono stati inseriti correttamente');
-            inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', '#main');
+            inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', ajaxDiv);
         }
     });
 }
