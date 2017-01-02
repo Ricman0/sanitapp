@@ -28,7 +28,7 @@ class UValidazione {
     private $_datiErrati;
     
     /**
-     * Variabile booleana che permette di capire se i dati sonno sono validi 
+     * Variabile booleana che permette di capire se i dati sono validi 
      * 
      * @access private
      * @var boolean TRUE i dati sono stati validati, FALSE altrimenti
@@ -113,6 +113,8 @@ class UValidazione {
                     $stringaErrore = "Il" . $chiave . "deve essere una sequenza alfanumerica";
                     break;
                 
+                case "passwordDb":
+                case "passwordEmail":
                 case "password":
                     $pattern = '/^(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})$/';
                     $stringaErrore = "La password deve contenere almeno un "
@@ -158,6 +160,7 @@ class UValidazione {
                     break;
                 
                 case "email":
+                case "emailAdmin":
                 case 'PEC':
                     $pattern = '/^[a-zA-Z0-9\.\_\-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/';
                     $stringaErrore =  $chiave . " deve essere una sequenza del tipo mario.rossi@gmail.com";

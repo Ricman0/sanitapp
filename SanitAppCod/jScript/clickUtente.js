@@ -106,7 +106,7 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
 //                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
 //                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
             }
-            dialogBox();
+            dialogBox(); //in eventi_click.js
         }
     });
 }

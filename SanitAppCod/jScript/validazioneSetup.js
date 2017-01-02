@@ -5,19 +5,19 @@
  */
 
 
-$(document).ready(function(){
-    
-    
-   
-       $(function() {
-            $(document).tooltip({
-                items: 'input.error'
+$(document).ready(function () {
+
+
+
+    $(function () {
+        $(document).tooltip({
+            items: 'input.error'
 //                content: function(){
 //                    return $(this).next('label.error').text();
 //                }
-            });
-         });
-    
+        });
+    });
+
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("passwordMethod", function (valore) {
@@ -26,7 +26,7 @@ $(document).ready(function(){
         return valore.match(regex);
     }, "Inserire da 6 a 10 caratteri che contengano almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
-    
+
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{4,15}/;
@@ -48,11 +48,11 @@ $(document).ready(function(){
                     host:
                             {
                                 required: true
-                            },                            
+                            },
                     userDb:
                             {
                                 required: true
-                            },                    
+                            },
                     passwordDb:
                             {
                                 required: true
@@ -61,15 +61,15 @@ $(document).ready(function(){
                             {
                                 required: true,
                                 equalTo: "#passwordDb"
-                            },                            
+                            },
                     smtp:
                             {
                                 required: true
                             },
                     emailSmtp:
                             {
-                              required: true,
-                              email: true
+                                required: true,
+                                email: true
                             },
                     passwordEmail:
                             {
@@ -84,16 +84,21 @@ $(document).ready(function(){
                             {
                                 required: true,
                                 maxlength: 20
-                            },                   
+                            },
                     emailAdmin:
                             {
                                 required: true,
-                                email: true,
-                                remote:
-                                        {
-                                            type: 'POST',
-                                            url: "ricerca/email"
-                                        }
+                                email: true
+//                                remote:
+//                                        {
+//                                            type: 'POST',
+//                                            url: "ricerca/email"
+//                                        }
+                            },
+                    pecAdmin:
+                            {
+                                required: true,
+                                email: true
                             },
                     telefono:
                             {
@@ -130,11 +135,11 @@ $(document).ready(function(){
                     host:
                             {
                                 required: "Inserire Host Name"
-                            },                            
+                            },
                     userDb:
                             {
                                 required: "Inserire nome User Database"
-                            },                    
+                            },
                     passwordDb:
                             {
                                 required: "Inserire password database"
@@ -150,10 +155,10 @@ $(document).ready(function(){
                             },
                     emailSmtp:
                             {
-                              required: "Inserire e-mail",
-                              email: "Inserire una e-mail valida"
+                                required: "Inserire e-mail",
+                                email: "Inserire una e-mail valida"
                             },
-                     passwordEmail:
+                    passwordEmail:
                             {
                                 required: "Inserire Password"
                             },
@@ -170,8 +175,13 @@ $(document).ready(function(){
                     emailAdmin:
                             {
                                 required: "Inserire l'email",
-                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com",
-                                remote: "Email già esistente"
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
+//                                remote: "Email già esistente"
+                            },
+                    pecAdmin:
+                            {
+                                required: "Inserire l'email",
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
                             },
                     telefono:
                             {
@@ -197,26 +207,56 @@ $(document).ready(function(){
                                 equalTo: "La password non coincide"
                             }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
-
-
-
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             alert('I dati sono stati inseriti correttamente');
-            var ajaxDiv = "#main";
-            alert(ajaxDiv);
-            inviaDatiInstallazione('#inserisciUtente', 'registrazione', 'utente', ajaxDiv);
+            inviaDatiInstallazione();
         }
     });
 });
 
-function inviaDatiInstallazione(){
-    
+function inviaDatiInstallazione() {
+    var dati = $('#formInstallazione').serialize();
+    $.ajax({
+        type: 'POST',
+        url: 'installa',
+        data: dati,
+        success: function (datiRisposta)
+        {
+            $('#wrapper').html(datiRisposta);
+        },
+        complete: function () {
+            alert('cro');
+            if ($('#host').attr('value') !== null) {
+                alert('ci');
+                $('#messaggioDialogBox').empty();
+                $('#messaggioDialogBox').text('Dati non validi, reinserire i dati!');
+
+
+                $("#dialog").dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    dialogClass: "no-close",
+                    buttons: [
+                        {
+                            text: "OK",
+                            click: function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                });
+
+            }
+        }
+    });
 }
 
