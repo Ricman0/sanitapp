@@ -404,7 +404,7 @@ function validazioneLogIn(form)
         maiuscola,una lettera minuscola. ");
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[0-9a-zA-Z\_\-]{2,15}/;
+        var regex = /[0-9a-zA-Z\_\-]{4,15}/;
         return valore.match(regex);
     }, "L'username contiene solo _ , - , numeri, lettere maiuscole o minuscole");
     $(form).validate({
@@ -477,9 +477,9 @@ function validazioneUtente()
 
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[0-9a-zA-Z\_\-]{2,15}/;
+        var regex = /[0-9a-zA-Z\_\-]{4,15}/;
         return valore.match(regex);
-    }, "Può contenere numeri, lettere maiuscole o minuscole");
+    }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
 
 
 
@@ -549,7 +549,7 @@ function validazioneUtente()
                             {
                                 required: true,
                                 username: true,
-                                minlength: 2,
+                                minlength: 4,
                                 maxlength: 15,
                                 remote:
                                         {
@@ -612,7 +612,7 @@ function validazioneUtente()
                     username:
                             {
                                 required: "Inserire username",
-                                minlength: "La lunghezza minime dello username è 2",
+                                minlength: "La lunghezza minime dello username è 4",
                                 maxlength: "La lunghezza massima dello username è 15",
                                 remote: "Username già esistente"
                             },
@@ -664,9 +664,9 @@ function validazioneMedico()
 
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[0-9a-zA-Z\_\-]{2,15}/;
+        var regex = /[0-9a-zA-Z\_\-]{4,15}/;
         return valore.match(regex);
-    }, "Può contenere numeri, lettere maiuscole o minuscole");
+    }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
 
     $("#inserisciMedico").validate({
         /*
@@ -732,7 +732,7 @@ function validazioneMedico()
                             {
                                 required: true,
                                 username: true,
-                                minlength: 2,
+                                minlength: 4,
                                 maxlength: 15,
                                 remote:
                                         {
@@ -814,7 +814,7 @@ function validazioneMedico()
                     username:
                             {
                                 required: "Inserire username",
-                                minlength: "La lunghezza minima dello username è 2",
+                                minlength: "La lunghezza minima dello username è 4",
                                 maxlength: "La lunghezza massima dello username è 15",
                                 remote: "Username già esistente"
                             },
@@ -883,9 +883,9 @@ function validazioneClinica()
 
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[0-9a-zA-Z\_\-]{2,15}/;
+        var regex = /[0-9a-zA-Z\_\-]{4,15}/;
         return valore.match(regex);
-    }, "Può contenere numeri, lettere maiuscole o minuscole");
+    }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
 
     $("#inserisciClinica").validate({
         /*
@@ -970,7 +970,7 @@ function validazioneClinica()
                             {
                                 required: true,
                                 username: true,
-                                minlength: 2,
+                                minlength: 4,
                                 maxlength: 15,
                                 remote:
                                         {
@@ -1061,7 +1061,7 @@ function validazioneClinica()
                     username:
                             {
                                 required: "Inserire username",
-                                minlength: "La sequenza alfanumerica minima  è 2",
+                                minlength: "La sequenza alfanumerica minima  è 4",
                                 maxlength: "La sequenza alfanumerica massima è 15",
                                 remote: "Username già esistente"
                             },

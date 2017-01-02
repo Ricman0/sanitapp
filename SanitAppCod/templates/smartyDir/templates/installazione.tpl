@@ -51,16 +51,16 @@
                     <input type="text" name="host" id="host" class="elementiForm" value="{if isset($dati_registrazione.host)}{$dati_registrazione.host}{/if}" required/>
                     <br>
 
-                    <label for="user_db" class="elementiForm">User db</label>
-                    <input type="text" name="user_db" id="user_db" class="elementiForm" value="{if isset($dati_registrazione.user_db)}{$dati_registrazione.user_db}{/if}" required/>
+                    <label for="userDb" class="elementiForm">User db</label>
+                    <input type="text" name="userDb" id="userDb" class="elementiForm" value="{if isset($dati_registrazione.user_db)}{$dati_registrazione.user_db}{/if}" required/>
                     <br>
 
-                    <label for="password_db" class="elementiForm">Password</label>
-                    <input type="password" name="password" id="password_db" class="elementiForm" value="{if isset($dati_registrazione.password_db)}{$dati_registrazione.password_db}{/if}" required/>
+                    <label for="passwordDb" class="elementiForm">Password Database</label>
+                    <input type="password" name="passwordDb" id="passwordDb" class="elementiForm" value="{if isset($dati_registrazione.password_db)}{$dati_registrazione.password_db}{/if}" required/>
                     <br>
 
-                    <label for="confermapassword_db" class="elementiForm">Conferma password</label>
-                    <input type="password" name="confermaPassword" id="confermapassword_db" class="elementiForm" value="{if isset($dati_registrazione.password_db)}{$dati_registrazione.password_db}{/if}" required/>
+                    <label for="confermapasswordDb" class="elementiForm">Conferma password</label>
+                    <input type="password" name="confermaPasswordDb" id="confermapasswordDb" class="elementiForm" value="{if isset($dati_registrazione.password_db)}{$dati_registrazione.password_db}{/if}" required/>
                     <br>
                     <br>
                     Server SMTP
@@ -69,11 +69,11 @@
                     <label for="smtp" class="elementiForm">Server SMTP</label>
                     <input type="text" name="smtp" id="smtp" class="elementiForm" value="{if isset($dati_registrazione.smtp)}{$dati_registrazione.smtp}{/if}" required/>
                     <br>
-                    <label for="email_admin" class="elementiForm">E-mail</label>
-                    <input type="email" name="email_admin" id="email_admin" class="elementiForm" value="{if isset($dati_registrazione.email_admin)}{$dati_registrazione.email_admin}{/if}" required/>
+                    <label for="emailSmtp" class="elementiForm">E-mail</label>
+                    <input type="email" name="emailSmtp" id="emailSmtp" class="elementiForm" value="{if isset($dati_registrazione.email_admin)}{$dati_registrazione.email_admin}{/if}" required/>
                     <br>
-                    <label for="password_mail" class="elementiForm">Password</label>
-                    <input type="password" name="password_mail" id="password_mail" class="elementiForm" value="{if isset($dati_registrazione.password_mail)}{$dati_registrazione.password_mail}{/if}" required/>
+                    <label for="passwordEmail" class="elementiForm">Password E-mail</label>
+                    <input type="password" name="passwordEmail" id="passwordEmail" class="elementiForm" value="{if isset($dati_registrazione.password_mail)}{$dati_registrazione.password_mail}{/if}" required/>
                     <br>
                     <br>
                 </div>
@@ -85,15 +85,23 @@
                     <br>  <br>  
 
                     <label for="nome" class="elementiForm">Nome</label>
-                    <input type="text" name="nome" id="nome" class="elementiForm" value="{if isset($dati_registrazione.nome)}{$dati_registrazione.nome}{/if}" required/>
+                    <input type="text" name="nome" id="nome" class="elementiForm" maxlength="20" value="{if isset($dati_registrazione.nome)}{$dati_registrazione.nome}{/if}" required/>
                     <br>
 
                     <label for="cognome" class="elementiForm">Cognome</label>
-                    <input type="text" name="cognome" id="cognome" class="elementiForm" value="{if isset($dati_registrazione.cognome)}{$dati_registrazione.cognome}{/if}" required/>
+                    <input type="text" name="cognome" id="cognome" class="elementiForm" maxlength="20" value="{if isset($dati_registrazione.cognome)}{$dati_registrazione.cognome}{/if}" required/>
+                    <br>
+                    
+                    <label for="emailAdmin" class="elementiForm">E-mail</label>
+                    <input type="email" name="emailAdmin" id="emailAdmin" class="elementiForm" value="{if isset($dati_registrazione.email)}{$dati_registrazione.email}{/if}" required/>
+                    <br>
+                    
+                    <label for="telefono" class="elementiForm">Telefono</label>
+                    <input type="text" name="telefono" id="telefono" class="elementiForm"  maxlength="10" value="{if isset($dati_registrazione.email)}{$dati_registrazione.email}{/if}" required/>
                     <br>
 
                     <label for="username" class="elementiForm">Username</label>
-                    <input type="text" name="username" id="username" class="elementiForm" value="{if isset($dati_registrazione.username)}{$dati_registrazione.username}{/if}" required/> 
+                    <input type="text" name="username" id="username" class="elementiForm" maxlength="15" value="{if isset($dati_registrazione.username)}{$dati_registrazione.username}{/if}" required/> 
                     <br>
 
                     <label for="password" class="elementiForm">Password</label>
@@ -102,10 +110,6 @@
 
                     <label for="confermaPassword" class="elementiForm">Conferma password</label>
                     <input type="password" name="confermaPassword" id="confermaPassword" class="elementiForm" value="{if isset($dati_registrazione.password)}{$dati_registrazione.password}{/if}" required/>
-                    <br>
-
-                    <label for="email" class="elementiForm">E-mail</label>
-                    <input type="email" name="email" id="email" class="elementiForm" value="{if isset($dati_registrazione.email)}{$dati_registrazione.email}{/if}" required/>
                     <br>
 
                 </div>
