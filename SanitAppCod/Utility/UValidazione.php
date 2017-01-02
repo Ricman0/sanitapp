@@ -104,7 +104,7 @@ class UValidazione {
         $this->setValidati(TRUE);
         foreach ($dati as $chiave => $valore) 
         {
-            $pattern = "";
+            $pattern = '/^.+$/';
             $stringaErrore = "";
             switch ($chiave) 
             {

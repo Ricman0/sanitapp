@@ -66,7 +66,7 @@ class FAmministratore extends FUser{
             $this->_connessione->begin_transaction();
 
             // A set of queries; if one fails, an exception should be thrown
-             $this->eseguiquery($query1);
+             $this->eseguiQuery($query1);
              $this->eseguiQuery($query2);
 
             // If we arrive here, it means that no exception was thrown
