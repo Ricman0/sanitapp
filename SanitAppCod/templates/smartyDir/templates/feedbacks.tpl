@@ -8,7 +8,7 @@
     {/if}
 
     {if isset($homePage)}
-        <h4>Clicca su ok per tornare alla Home Page.</h4>
+        <h4>Clicca su ok per andare alla Home Page.</h4>
         <input type="button" class ="homepage" id="tornaHomePageButton"  value="OK" />
     {else}
         <h4>Clicca su ok per tornare alla pagina personale.</h4>

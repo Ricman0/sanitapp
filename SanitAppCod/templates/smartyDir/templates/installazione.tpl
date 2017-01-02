@@ -70,7 +70,7 @@
                     <input type="text" name="smtp" id="smtp" class="elementiForm" value="{if isset($datiInstallazione.smtp)}{$datiInstallazione.smtp}{/if}" required/>
                     <br>
                     <label for="emailSmtp" class="elementiForm">E-mail</label>
-                    <input type="email" name="emailSmtp" id="emailSmtp" class="elementiForm" value="{if isset($datiInstallazione.emailSmtp)}{$datiInstallazione.emailSmtp}{/if}" required/>
+                    <input type="email" name="emailSmtp" id="emailSmtp" class="elementiForm" value="{if isset($datiInstallazione.email)}{$datiInstallazione.email}{/if}" required/>
                     <br>
                     <label for="passwordEmail" class="elementiForm">Password E-mail</label>
                     <input type="password" name="passwordEmail" id="passwordEmail" class="elementiForm"  required/>
@@ -101,7 +101,7 @@
                     <br>
                     
                     <label for="telefono" class="elementiForm">Telefono</label>
-                    <input type="text" name="telefono" id="telefono" class="elementiForm"  maxlength="10" value="{if isset($datiInstallazione.email)}{$datiInstallazione.email}{/if}" required/>
+                    <input type="text" name="telefono" id="telefono" class="elementiForm"  maxlength="10" value="{if isset($datiInstallazione.telefono)}{$datiInstallazione.telefono}{/if}" required/>
                     <br>
 
                     <label for="username" class="elementiForm">Username</label>
