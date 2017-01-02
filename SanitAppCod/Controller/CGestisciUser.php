@@ -160,6 +160,37 @@ class CGestisciUser {
                 }
                 
                 break;
+                
+            case 'elimina':
+                $tipoUserDaEliminare = $vUsers->recuperaValore('tipoUser');
+                if($tipoUserDaEliminare !=='clinica')
+                {
+                    try {
+                        $eAmministratore = new EAmministratore($username);
+                        if($eAmministratore->eliminaUser($idUser)===TRUE)
+                            {
+                                $messaggio = "User eliminato";   
+                            }
+                        else
+                            {
+                                $messaggio = "C'è stato un errore. User non eliminato"; 
+                            }
+                        $vUsers->visualizzaFeedback($messaggio);
+
+                    } catch (XAmministratoreException $ex) {
+                        $messaggio = "Amministratore inesistente. Non è stato possibile eseguire l'eliminazione dell'user";
+                        $vUsers->visualizzaFeedback($messaggio);
+                    }
+                    catch (XDBException $ex) {
+                       $vUsers->visualizzaFeedback($ex->getMessage());
+                    }
+                }
+                else // tipoUserDa eliminare è clinica. per ora la nostra applicazione non permette l'eliminazione della clinica.
+                {// ho inserito questo if else per sicurezza, ora non permetto all'amministratore di visualizzare il tasto elimina user per clinica
+                    $messaggio = "Per ora, non è possibile eliminare una clinica. Blocchi la clinica."; 
+                    $vUsers->visualizzaFeedback($messaggio);
+                }
+                break;
         }
     }
     

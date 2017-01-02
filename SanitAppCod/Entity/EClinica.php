@@ -47,9 +47,9 @@ class EClinica extends EUser {
     private $_CAP;
 
     /**
-     * @var  string $_località Città o paese in cui si trova la clinica
+     * @var  string $_localita Città o paese in cui si trova la clinica
      */
-    private $_località;
+    private $_localita;
 
     /**
      * @var  string $_provincia Provincia della città o paese in cui si trova la clinica
@@ -101,7 +101,7 @@ class EClinica extends EUser {
      * @param string $cf Il codice fiscale del medico
      * @param string $via La via in cui risiede il medico
      * @param string $cap Il cap del paese in cui risiede il medico
-     * @param string $località Città o paese in cui risiede la clinica
+     * @param string $localita Città o paese in cui risiede la clinica
      * @param string $provincia Provincia della città o paese in cui risiede la clinica
      * @param string $regione Regione della città o paese in cui risiede la clinica
      * @param string $email L'email del medico
@@ -114,7 +114,7 @@ class EClinica extends EUser {
      * @param boolean $validato TRUE se il medico è validato, FALSE altrimenti
      * @throws XClinicaException Se la clinica  è inesistente
      */
-    public function __construct($username = NULL, $partitaIVA = NULL, $nomeClinica = NULL, $password = NULL, $email = NULL, $titolareClinica = NULL, $via = NULL, $numeroCivico = NULL, $cap = NULL, $località = NULL, $provincia = NULL, $PEC = NULL, $telefono = NULL, $capitaleSociale = NULL, $workingPlan = NULL, $esami = NULL, $validato=FALSE) {
+    public function __construct($username = NULL, $partitaIVA = NULL, $nomeClinica = NULL, $password = NULL, $email = NULL, $titolareClinica = NULL, $via = NULL, $numeroCivico = NULL, $cap = NULL, $localita = NULL, $provincia = NULL, $PEC = NULL, $telefono = NULL, $capitaleSociale = NULL, $workingPlan = NULL, $esami = NULL, $validato=FALSE) {
 
         if ($partitaIVA !== NULL && $username !== NULL) {
             parent::__construct($username, $password, $email, $PEC);
@@ -124,7 +124,7 @@ class EClinica extends EUser {
             $this->_via = $via;
             $this->_numeroCivico = $numeroCivico;
             $this->_CAP = $cap;
-            $this->_località = $località;
+            $this->_localita = $localita;
             $this->_provincia = $provincia;
             // trova la regione a cui appartiene la provincia inserita nella form dalla clinica e lo assegno
             $this->_regione = $this->trovaRegione($provincia);
@@ -156,7 +156,7 @@ class EClinica extends EUser {
                 $this->_via = $attributiClinica[0]["Via"];
                 $this->_numeroCivico = $attributiClinica[0]["NumCivico"];
                 $this->_CAP = $attributiClinica[0]["CAP"];
-                $this->_località = $attributiClinica[0]["Località"];
+                $this->_localita= $attributiClinica[0]["Localita"];
                 $this->_provincia = $attributiClinica[0]["Provincia"];
                 $this->_regione = $attributiClinica[0]["Regione"];
                 parent::setEmail($attributiClinica[0]["Email"]);
@@ -181,7 +181,7 @@ class EClinica extends EUser {
             $this->_via = $via;
             $this->_numeroCivico = $numeroCivico;
             $this->_CAP = $cap;
-            $this->_località = $località;
+            $this->_localita = $localita;
             $this->_provincia = $provincia;
             $this->_regione = $this->trovaRegione($provincia);
             $this->_email = $email;
@@ -211,7 +211,7 @@ class EClinica extends EUser {
 //                }
 //
 //            $this->_CAP = $cap;
-//            $this->_località = $località;
+//            $this->_localita= $localita;
 //            $this->_provincia = $provincia;
 //            $this->_regione = $regione;
 //            $this->_email = $email;
@@ -258,7 +258,7 @@ class EClinica extends EUser {
 //                $this->_via = $attributiClinica[0]["Via"];
 //                $this->_numeroCivico = $attributiClinica[0]["NumCivico"];
 //                $this->_CAP = $attributiClinica[0]["CAP"];
-//                $this->_località = $attributiClinica[0]["Località"];
+//                $this->_localita = $attributiClinica[0]["Localita"];
 //                $this->_provincia = $attributiClinica[0]["Provincia"];
 //                $this->_regione = $attributiClinica[0]["Regione"];
 //                $this->_email =$attributiClinica[0]["Email"];
@@ -340,7 +340,7 @@ class EClinica extends EUser {
      */
     public function getIndirizzoClinica() {
 
-        return $this->_via . " " . $this->_numeroCivico . " " . $this->_località . " " . $this->_provincia;
+        return $this->_via . " " . $this->_numeroCivico . " " . $this->_localita . " " . $this->_provincia;
     }
 
     /**
@@ -385,7 +385,7 @@ class EClinica extends EUser {
      * @return string La città o paese della clinica
      */
     public function getLocalitaClinica() {
-        return $this->_località;
+        return $this->_localita;
     }
 
     /**
@@ -483,10 +483,10 @@ class EClinica extends EUser {
     /**
      * Metodo che imposta la città o paese della clinica
      * 
-     * @param string Località della clinica
+     * @param string  Località della clinica
      */
-    public function setLocalitàClinica($località) {
-        $this->_località = $località;
+    public function setLocalitaClinica($localita) {
+        $this->_localita= $localita;
     }
 
     /**

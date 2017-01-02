@@ -58,7 +58,7 @@
     {/if}
 
     {if $tastoValidato===TRUE}
-        {if ($user.Validato==='NO')}
+        {if ($tipoUser!=='utente'  &&  $user.Validato==='NO')}
             <input type="button" id="validaUser" value="Valida User" data-username="{$user.Username}" />        
         {/if}
     {/if}
@@ -68,5 +68,12 @@
             <input type="button" id="confermaUser" value="Conferma User" data-username="{$user.Username}" />          
         {/if}
     {/if}
+    
+    {if $tastoElimina===TRUE && $tipoUser!=='clinica'}
+        <input type="button" id="eliminaUser" value="Elimina User" data-username="{$user.Username}" data-tipoUser="{$tipoUser}" />          
+    {/if}
 
+    {if $tastoModifica===TRUE}
+        <input type="button" id="modificaUser" value="Modifica User" data-username="{$user.Username}" data-tipoUser="{$tipoUser}" />          
+    {/if}
 </div>

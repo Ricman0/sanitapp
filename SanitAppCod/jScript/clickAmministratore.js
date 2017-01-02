@@ -6,8 +6,6 @@ $(document).ready(function(){
   
   $('#headerMain').on('click', '#bloccatiAreaPersonaleAmministratore', function(){
       inviaControllerTask('users', 'bloccati', '#contenutoAreaPersonale');
-      
-      
   });
   
   $('#headerMain').on('click', '#daValidareAreaPersonaleAmministratore', function(){
@@ -32,34 +30,53 @@ $(document).ready(function(){
     
     $('#headerMain').on('click', '#bloccaUser', function(){
         var username = $(this).attr('data-username');
-        inviaControllerTaskPOST('users', 'blocca', username, '#contenutoAreaPersonale');
+        var datiPOST = {id:username};
+        inviaControllerTaskPOST('users', 'blocca', datiPOST, '#contenutoAreaPersonale');
     });
     
     $('#headerMain').on('click', '#sbloccaUser', function(){
         var username = $(this).attr('data-username');
-        inviaControllerTaskPOST('users', 'sblocca', username, '#contenutoAreaPersonale');
+        var datiPOST = {id:username};
+        inviaControllerTaskPOST('users', 'sblocca', datiPOST, '#contenutoAreaPersonale');
     });
     
     $('#headerMain').on('click', '#validaUser', function(){
         var username = $(this).attr('data-username');
-        inviaControllerTaskPOST('users', 'valida', username, '#contenutoAreaPersonale');
+        var datiPOST = {id:username };
+        inviaControllerTaskPOST('users', 'valida', datiPOST, '#contenutoAreaPersonale');
     });
     
     $('#headerMain').on('click', '#confermaUser', function(){
         var username = $(this).attr('data-username');
-        inviaControllerTaskPOST('users', 'conferma', username, '#contenutoAreaPersonale');
+        var datiPOST = {id:username };
+        inviaControllerTaskPOST('users', 'conferma', datiPOST, '#contenutoAreaPersonale');
+    });
+    
+    $('#headerMain').on('click', '#eliminaUser', function(){
+        var username = $(this).attr('data-username');
+        var tipoUser = $(this).attr('data-tipoUser');
+        var datiPOST = {id:username , tipoUser:tipoUser};
+        inviaControllerTaskPOST('users', 'elimina', datiPOST, '#contenutoAreaPersonale');
+    });
+    
+    $('#headerMain').on('click', '#modificaUser', function(){
+        var username = $(this).attr('data-username');
+        var tipoUser = $(this).attr('data-tipoUser');
+        var datiPOST = {id:username , tipoUser:tipoUser};
+        inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
     });
   
+    
 });
 
-function inviaControllerTaskPOST(controller,task, id, ajaxdiv)
+function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
 {
     
-    var dati = {id:id};
+    
     $.ajax({
         type: 'POST',
         url: controller + '/' + task ,
-        data: dati,
+        data: datiPOST,
         success: function (datiRisposta)
         {
             alert(datiRisposta);

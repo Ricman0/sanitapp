@@ -14,11 +14,17 @@
     <tbody>
         <br>
         {if $bloccati===TRUE }
-            <h4>User Bloccati</h4>
+            <h3>User Bloccati</h3>
+            <h4>Clicca su una riga della tabella per visualizzare l'user corrispondente.</h4>
         {elseif $daValidare===TRUE}
-            <h4>User Da Validare</h4>
+            <h3>User Da Validare</h3>
+            <h4>Clicca su una riga della tabella per visualizzare l'user corrispondente.</h4>
         {else}
-            <h4>User</h4>
+            <h3>User</h3>
+            <h4>Clicca su una riga della tabella per visualizzare l'user corrispondente.</h4>
+            <h4>Clicca sull'icona successiva per aggiungere un nuovo user.</h4>
+            <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiUser" aria-hidden="true" ></i>              
+            <br>
         {/if}
         {foreach from=$dati item=curr_row}
             <tr id="{$curr_row['Username']}" class="rigaUser">
