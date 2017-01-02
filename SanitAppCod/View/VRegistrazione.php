@@ -33,7 +33,7 @@ class VRegistrazione extends View {
      * @access public
      * @return Array I dati contenuti in $_datiValidi
      */
-    public function getDatiValidi($dati)
+    public function getDatiValidi()
     {
         return $this->_datiValidi;
     }
