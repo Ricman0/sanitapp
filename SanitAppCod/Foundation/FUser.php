@@ -38,7 +38,17 @@ class FUser extends FDatabase {
     {
         $valoriAttributi ="'" . $this->trimEscapeStringa($user->getUsername()) . "', '" 
                 . $this->trimEscapeStringa($user->getPassword()) . "', '"
-                . $this->trimEscapeStringa($user->getEmail()) . "', " ;
+                . $this->trimEscapeStringa($user->getEmail()) . "', '" 
+                . $this->trimEscapeStringa($user->getPEC()) . "', " ;
+                
+        if ($user->getBloccato()===TRUE)
+        {
+            $valoriAttributi = $valoriAttributi . $user->getBloccato() . ", ";
+        }
+        else
+        {
+             $valoriAttributi = $valoriAttributi .  "FALSE, ";
+        }
         if ($user->getConfermato()===TRUE)
         {
             $valoriAttributi = $valoriAttributi . $user->getConfermato() . ", '";

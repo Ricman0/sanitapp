@@ -200,7 +200,7 @@ class UMail {
                 . " <strong>NOME  :  </strong><span>" . $dati['nome'] . "</span><br><br>"
                 . " <strong>COGNOME  :  </strong><span>" . $dati['cognome'] . "</span><br><br>"
                 . " <strong>CODICE FISCALE  :  </strong><span>" . $dati['codiceFiscale'] . "</span><br><br>"
-                . " <strong>INDIRIZZO  :  </strong><span>" . $dati['indirizzo'] . "</span><br><br>"
+                . " <strong>INDIRIZZO  :  </strong><span>" . $dati['via'] . ", " . $dati['numeroCivico'] . "</span><br><br>"
                 . " <strong>CAP  :  </strong><span>" . $dati['CAP'] . "</span><br><br>"
                 . " <strong>EMAIL  :  </strong><span>" . $dati['email'] . "</span><br><br>"
                 . " <strong>USERNAME  :  </strong><span>" . $dati['username'] . "</span><br><br>"

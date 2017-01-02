@@ -78,8 +78,8 @@ class EMedico extends EUser {
      * @param int o string? $cod Il codice per confermare l'account
      * @param boolean $validato TRUE se il medico è validato, FALSE altrimenti
      * @throws XMedicoException Se il medico relativo al codice fiscale immesso non esiste
-     */
-    public function __construct($cf = NULL, $username=NULL, $nome='', $cognome='', $via='', $numeroCivico='', $cap='', $email='', $password='',  $provinciaAlbo='', $numIscrizione='', $validato = FALSE) 
+     */               
+    public function __construct($cf = NULL, $username=NULL, $nome='', $cognome='', $via='', $numeroCivico='', $cap='', $email='', $password='', $PEC=NULL, $provinciaAlbo='', $numIscrizione='', $validato = FALSE) 
     {
         if ($cf === NULL || $username === NULL) 
         {
@@ -137,7 +137,6 @@ class EMedico extends EUser {
             } else {
                 $this->_numeroCivico = NULL;
             }
-
             $this->_CAP = $cap;
             $this->_provinciaAlbo = $provinciaAlbo;
             $this->_numIscrizione = $numIscrizione;

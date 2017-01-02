@@ -25,7 +25,7 @@ class FMedico extends FUser {
         // imposto il nome della tabella
         $this->_nomeTabella = "medico";
         $this->_attributiTabella = "CodFiscale, Nome, Cognome, Via, NumCivico, "
-                . "CAP, Username, PEC, Validato, ProvinciaAlbo, NumIscrizione, Validato";
+                . "CAP, Username, ProvinciaAlbo, NumIscrizione, Validato";
     }
     
     /**
@@ -36,8 +36,7 @@ class FMedico extends FUser {
      *                       tabella Medico
      */
     public function inserisciMedico($medico)
-    {       
-        
+    {
         //recupero i valori contenuti negli attributi
         $valoriAttributi = $this->getAttributi($medico);
         $valoriAttributiUser = parent::getAttributi($medico);
@@ -54,9 +53,10 @@ class FMedico extends FUser {
 //        
         //oppure
         
-        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'medico')";
+        $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'medico')";
         $query2 = "INSERT INTO medico ( CodFiscale, Nome, Cognome, Via, NumCivico, "
-                . "CAP, Username, PEC, Validato, ProvinciaAlbo, NumIscrizione, Validato) VALUES( " . $valoriAttributi . ")";
+                . "CAP, Username, ProvinciaAlbo, NumIscrizione, Validato) VALUES( " . $valoriAttributi . ")";
+       
         try {
             // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
@@ -67,7 +67,7 @@ class FMedico extends FUser {
 
             // If we arrive here, it means that no exception was thrown
             // i.e. no query has failed, and we can commit the transaction
-            $this->_connessione->commit();
+            return $this->_connessione->commit();
         } catch (Exception $e) {
             // An exception has been thrown
             // We must rollback the transaction
@@ -106,13 +106,17 @@ class FMedico extends FUser {
                 . $medico->getNumCivicoMedico() . "', '" 
                 . $this->trimEscapeStringa($medico->getCAPMedico()) . "', '" 
                 . $this->trimEscapeStringa($medico->getUsername()) . "', '"             
-                . $this->trimEscapeStringa($medico->getPECMedico()) . "', '" 
-                 
-                . $this->trimEscapeStringa($medico->getValidatoMedico()) . "', '"
-                . $this->trimEscapeStringa($medico->getProvinciaAlboMedico()) . "', " 
+                . $this->trimEscapeStringa($medico->getProvinciaAlboMedico()) . "', '" 
 //                . $this->trimEscapeStringa($medico->getNumIscrizioneMedico()) . "', "
-                . $medico->getNumIscrizioneMedico() . "', '"
-                . $medico->getValidatoMedico();
+                . $medico->getNumIscrizioneMedico() . "', ";
+                if ($medico->getValidatoMedico()===TRUE)
+                {
+                    $valoriAttributi = $valoriAttributi . $medico->getValidatoMedico();
+                }
+                else
+                {
+                     $valoriAttributi = $valoriAttributi .  "FALSE";
+                }
                
                 
         return $valoriAttributi;

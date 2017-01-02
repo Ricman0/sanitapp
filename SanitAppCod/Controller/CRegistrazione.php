@@ -271,6 +271,7 @@ class CRegistrazione {
                    $datiMedico['password'], $datiMedico['PEC'],
                    $datiMedico['provinciaAlbo'],$datiMedico['numeroIscrizione']);
            //eMedico richiama il metodo per creare FMedico poi FMedico aggiunge l'utente nel DB
+           
            return $eMedico->inserisciMedicoDB();
        }
        else
