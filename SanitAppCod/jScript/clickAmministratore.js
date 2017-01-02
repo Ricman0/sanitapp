@@ -1,16 +1,21 @@
 
 $(document).ready(function(){
-  $('#headerMain').on('click', '#usersAreaPersonaleAmministratore', function(){
-      inviaControllerTask('users', 'visualizza', '#contenutoAreaPersonale');
-  }); 
+    $('#headerMain').on('click', '#usersAreaPersonaleAmministratore', function(){
+        inviaControllerTask('users', 'visualizza', '#contenutoAreaPersonale');
+    }); 
+
+    $('#headerMain').on('click', '#bloccatiAreaPersonaleAmministratore', function(){
+        inviaControllerTask('users', 'bloccati', '#contenutoAreaPersonale');
+    });
+
+    $('#headerMain').on('click', '#daValidareAreaPersonaleAmministratore', function(){
+        inviaControllerTask('users', 'daValidare', '#contenutoAreaPersonale');
+    });
+
+    $('#headerMain').on('click', '#categorieEsamiAmministratore', function(){
+        inviaControllerTask('users', 'categorie', '#contenutoAreaPersonale');
+    });
   
-  $('#headerMain').on('click', '#bloccatiAreaPersonaleAmministratore', function(){
-      inviaControllerTask('users', 'bloccati', '#contenutoAreaPersonale');
-  });
-  
-  $('#headerMain').on('click', '#daValidareAreaPersonaleAmministratore', function(){
-      inviaControllerTask('users', 'daValidare', '#contenutoAreaPersonale');
-  });
   
    $('#headerMain').on("click", ".rigaUser" , function(){
         var id = $(this).attr('id');
@@ -64,6 +69,28 @@ $(document).ready(function(){
         var tipoUser = $(this).attr('data-tipoUser');
         var datiPOST = {id:username , tipoUser:tipoUser};
         inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
+    });
+    
+    $('#headerMain').on('click', '#iconaAggiungiUser', function(){
+        $('#iconaAggiungiUser').siblings().remove(); // elimino tutti i fratelli di iconaAggiungiUser
+        //aggiungo i tasti dopo l'icona aggiungi (come fratelli non come figli)
+        $( "#iconaAggiungiUser" ).after( 
+         "<input type=button' id='registrazioneUtente' class='tasti fa-lg' value='&#xf007; Utente' aria-hidden='true' /> "
+        +  "<input type=button' id='registrazioneMedico'  class='tasti fa-lg' value='&#xf0f0; Medico' aria-hidden='true' /> "
+        +  "<input type=button' id='registrazioneClinica' class='tasti fa-lg' value='&#xf0f8; Clinica' aria-hidden='true' /> " 
+//        $('#iconaAggiungiUser').append( "<br><br>"
+//        +  "<input type=button' id='registrazioneUtente' class='tasti' value=' Utente' />"
+//        +  "<input type=button' id='registrazioneMedico'  class='tasti'value='&#xf0f0; Medico' />"
+//        +  "<input type=button' id='registrazioneClinica' class='tasti' value='&#xf0f8; Clinica' />"
+
+//            + "<a id='registrazioneUtente' ><i class='fa fa-user fa-lg' id='icona-esami' aria-hidden='true'></i> Utente</a>"
+//            + "<a id='registrazioneMedico' ><i class='fa fa-user-md fa-lg' id='icona-esami' aria-hidden='true'></i> Medico</a>"
+//            + "<a id='registrazioneClinica' ><i class='fa fa-hospital-o fa-lg' id='icona-esami' aria-hidden='true'></i> Clinica</a>" 
+            + "<br>");
+        $( "#iconaAggiungiUser" ).after( "<h4>Clicca su uno dei seguenti tasti per inserire nell'applicazione</h4>"
+        +  "<h4>un nuovo utente, un nuovo medico o una nuova clinica.</h4>");
+        $( "#iconaAggiungiUser" ).remove();
+    
     });
   
     

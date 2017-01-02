@@ -141,6 +141,11 @@ class CRegistrazione {
                     }
                         
                     }
+                    else
+                    {
+                        // dati corretti ma errore nel database
+                        return $vRegistrazione->restituisciFormMedico($codiceODatiValidi);
+                    }
                     
                 break;
             }
@@ -223,7 +228,7 @@ class CRegistrazione {
        {           
             // crea la clinica
             $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], ucwords($datiClinica['nomeClinica']), 
-                    $datiClinica['password'], $datiClinica['email'],
+                   $datiClinica['password'], $datiClinica['email'],
                    ucwords($datiClinica['titolare']), ucwords($datiClinica['via']), $datiClinica['numeroCivico'],
                    $datiClinica['cap'],ucwords($datiClinica['localitàClinica']), $datiClinica['provinciaClinica'],  $datiClinica['PEC'], 
                    $datiClinica['telefono'],$datiClinica['capitaleSociale']);
@@ -310,7 +315,6 @@ class CRegistrazione {
                $username = $sessione->leggiVariabileSessione('usernameLogIn');
                $eMedico = new EMedico(NULL, $username);
                $cf=$eMedico->getCodiceFiscaleMedico();
-               echo "$cf";
                $eUtente->setMedicoCurante($eMedico->getCodiceFiscaleMedico());
            }
            //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB

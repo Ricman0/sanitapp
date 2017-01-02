@@ -46,9 +46,9 @@ class FCategoria extends FDatabase{
      * 
      * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
      */
-    public function getCategorie() {
+    public function cercaCategorie() {
         
-        $query = 'SELECT Nome FROM categoria';
+        $query = 'SELECT * FROM ' .  $this->_nomeTabella ;
         $result = $this->eseguiQuery($query);
         return $result;
     }

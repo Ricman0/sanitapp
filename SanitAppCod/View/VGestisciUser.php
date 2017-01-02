@@ -208,4 +208,17 @@ class VGestisciUser extends View{
         $this->assegnaVariabiliTemplate('tipoUser', $user['TipoUser']);
         $this->visualizzaTemplate('infoUser');
     }
+    
+    public function visualizzaCategorie($categorieEsami) {
+        
+        if(count($categorieEsami)>0)
+        {
+            $this->assegnaVariabiliTemplate('dati', $categorieEsami);
+            $this->visualizzaTemplate('tabellaCategorie');
+        }
+        else
+        {
+            $this->visualizzaFeedback('Non è stata impostata nessuna categoria'); 
+        }
+    }
 }

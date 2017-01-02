@@ -9,6 +9,52 @@ and open the template in the editor.
     Author     : Claudia Di Marco & Riccardo Mantini
 */
 
+/* css per loading icon*/
+.loading{
+    display: none;
+    border: 10px solid #f3f3f3 ; /* Light grey oppure metto transparent */
+    border-top: 10px solid rgb(11, 190, 210);  /*con border top prendo solo il lato top del quadrato*/
+    border-radius: 50%; /* 25% dell'intero quadrato(div)  e lo rendo curvo */
+    width: 100px;
+    height: 100px;
+/*    animation-name: spin;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;*/
+   animation: spin 4s  linear infinite;
+   -webkit-animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+
+/*fine css per loading icon*/
+
 span.grassetto {
     font-weight: bold;
 }
@@ -115,6 +161,7 @@ select.elementiForm, input.elementiForm {
     -moz-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;  
 }
+
 button, input[type = 'submit'], input[type='button']
 {
     color:white;
@@ -128,6 +175,23 @@ button, input[type = 'submit'], input[type='button']
     box-sizing: border-box;
     margin: 20px auto;
     cursor: pointer;
+}
+
+.tasti{
+font-family: Verdana,sans-serif, FontAwesome; 
+    text-align: center;
+    color:white;
+    background-color:rgb(11, 190, 210);
+    border-radius: 4px;
+    border:none;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    margin: 20px auto;
+    cursor: pointer;
+    width: auto;
 }
 
 button.sottile{

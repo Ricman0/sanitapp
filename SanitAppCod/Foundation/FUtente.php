@@ -42,9 +42,9 @@ class FUtente extends FUser{
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
          
         $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'utente')";
-        print_r($query1);
+        
         $query2 = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
-        print_r($query2);
+        
         // eseguo le queries
         try {
             // inzia la transazione

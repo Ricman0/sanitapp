@@ -50,6 +50,7 @@ class VAutenticazione extends View {
                 $this->_tastiLaterali['usersAreaPersonaleAmministratore'] = "Users";
                 $this->_tastiLaterali['bloccatiAreaPersonaleAmministratore'] = "Users Bloccati";
                 $this->_tastiLaterali['daValidareAreaPersonaleAmministratore'] = "Users da Validare";
+                $this->_tastiLaterali['categorieEsamiAmministratore'] = "Categorie Esami";
                 break;
             default:
                 break;

@@ -216,10 +216,28 @@ class EAmministratore extends EUser{
         return $fAmministratore->amministratoreConfermaUser($idUser);
     }
     
+    /**
+     * Metodo che consente all'amministratore di eliminare uno user.
+     * 
+     * @access public
+     * @param string $idUser L'username dello user da eliminare
+     * @return boolean TRUE se l'eliminazione è andata a buon fine, lancia un XDBException altrimenti
+     */
     public function eliminaUser($idUser) {
 
         $fAmministratore = USingleton::getInstance('FAmministratore');
         return $fAmministratore->eliminaUser($idUser);
+    }
+    
+    /**
+     * Metodo che consente all'amministratore di cercare tutte le categorie degli esami dell'applicazione.
+     * 
+     * @access public
+     * @return Array TLe categorie dell'applicazione
+     */
+    public function cercaCategorie() {
+        $fCategorie = USingleton::getInstance('FCategoria');
+        return $fCategorie->cercaCategorie(); 
     }
     
 }

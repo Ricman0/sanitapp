@@ -87,6 +87,11 @@
             <div id="dialog" title="Attenzione" >
                 <p id='messaggioDialogBox' ></p>
             </div>
+                
+            <div id="loading" class="loading">
+                <!-- per l'animazione durante il caricamento di una pagina -->
+            </div>
+            
             <!--Footer della pagina-->
             <div id="footer">
                 <span class="copyright">©2016 Copyright - SanitApp</span>

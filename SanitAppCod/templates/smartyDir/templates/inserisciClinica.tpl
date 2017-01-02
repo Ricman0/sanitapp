@@ -296,7 +296,7 @@
                 <br>
             </div>
         </div>
-    </div>
+
     <div class="submit">
         <input type="submit" value="Invia" id="submitRegistrazioneClinica">
     </div>
