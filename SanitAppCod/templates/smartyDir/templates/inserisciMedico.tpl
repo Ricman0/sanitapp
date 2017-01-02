@@ -24,7 +24,7 @@
     <br>
 
     <label for="numeroCivicoMedico" class="elementiForm">Numero Civico</label>
-    <input type="number" name="numeroCivicoMedico" class="elementiForm" id="numeroCivicoMedico" min="0" max="1000" placeholder="30" value="{if isset($datiValidi.numeroCivico)}{$datiValidi.numeroCivico}{/if}" required/>
+    <input type="number" name="numeroCivicoMedico" class="elementiForm" id="numeroCivicoMedico" min="0" max="1000" placeholder="30" value="{if isset($datiValidi.numeroCivico)}{$datiValidi.numeroCivico}{/if}" required />
 
     <br>
     <label for="CAPMedico" class="elementiForm">CAP</label>

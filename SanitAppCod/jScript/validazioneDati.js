@@ -750,7 +750,7 @@ function validazioneMedico()
                                 required: true,
                                 equalTo: "#passwordMedico"
                             },
-                    PECMedico:
+                    PEC:
                             {
                                 required: true,
                                 email: true,
@@ -828,7 +828,7 @@ function validazioneMedico()
                                 required: "Inserire nuovamente la password",
                                 equalTo: "La password deve essere sempre la stessa"
                             },
-                    PECMedico:
+                    PEC:
                             {
                                 required: "Inserire la PEC",
                                 email: "Inserire un'email valida",
