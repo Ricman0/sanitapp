@@ -199,10 +199,21 @@ class FAmministratore extends FUser{
         return $this->eseguiQuery($query);            
     }
     
+    /**
+     * Metodo che consente di eliminare un account a cui corrisponde l'username passato come parametro
+     * 
+     * @final
+     * @access public
+     * @param string $username L'username dell'account da eliminare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se l'account è stato eliminato
+     */
     public function eliminaUser($username) {
         $query = "DELETE FROM appUser WHERE appUser.Username= '" . $username . "'";
         return $this->eseguiQuery($query);      
     }
+    
+  
 }   
 
 

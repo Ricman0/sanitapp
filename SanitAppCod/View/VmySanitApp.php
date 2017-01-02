@@ -52,6 +52,7 @@ class VmySanitApp extends View {
                 $tastiLaterali['usersAreaPersonaleAmministratore'] = "Users";
                 $tastiLaterali['bloccatiAreaPersonaleAmministratore'] = "Users Bloccati";
                 $tastiLaterali['daValidareAreaPersonaleAmministratore'] = "Users da Validare";
+                $tastiLaterali['categorieEsamiAmministratore'] = "Categorie Esami";
                 break;
             
             default: 

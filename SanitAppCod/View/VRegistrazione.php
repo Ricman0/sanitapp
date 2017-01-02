@@ -126,7 +126,7 @@ class VRegistrazione extends View {
         $datiClinica['email'] = $this->recuperaValore('email');
         $datiClinica['username'] = $this->recuperaValore('username');
         $datiClinica['password'] = $this->recuperaValore('passwordClinica');
-        $datiClinica['PEC'] = $this->recuperaValore('PECClinica');
+        $datiClinica['PEC'] = $this->recuperaValore('PEC');
         $datiClinica['telefono'] = $this->recuperaValore('telefonoClinica');
         $datiClinica['capitaleSociale'] = $this->recuperaValore('capitaleSociale');        
         return $datiClinica;
