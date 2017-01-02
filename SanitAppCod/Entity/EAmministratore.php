@@ -23,20 +23,26 @@ class EAmministratore extends EUser{
     private $_telefono;
     
     /**
-     * @var int $_fax contiene il numero di fax
+     * @var string $_nome, variabile di tipo string,  che contiente il nome dell'amministratore
      */
-    private $_fax;
+    private $_nome;
+
+    /**
+     * @var string $_cognome, variabile di tipo string,  che contiente il cognome dell'amministratore
+     */
+    private $_cognome;
     
     
-    public function __construct($username, $password=NULL, $email=NULL, $pec=NULL, $telefono=NULL, $fax=NULL){
-        if($password!==NULL && $email!==NULL && $pec!==NULL)
+    public function __construct($username, $password=NULL, $email=NULL, $PEC=NULL, $telefono=NULL, $nome=NULL, $cognome= NULL){
+        if($password!==NULL && $email!==NULL && $PEC!==NULL)
         {
             parent::__construct($username, $password, $email);
             parent::setTipoUser('amministratore');
             parent::setPEC($PEC);
             $this->_id = NULL; // nel db è autoincrement
             $this->_telefono = $telefono;
-            $this->_fax = $fax;
+            $this->_nome = $nome;
+            $this->_cognome = $cognome;
         }
         else
         {
@@ -54,7 +60,8 @@ class EAmministratore extends EUser{
                 parent::setTipoUser($attributiAmministratore[0]['TipoUser']);
                 $this->_id = $attributiAmministratore[0]['IdAmministratore']; // nel db è autoincrement
                 $this->_telefono = $attributiAmministratore[0]['Telefono'];
-                $this->_fax = $attributiAmministratore[0]['Fax'];
+                $this->_nome = $attributiAmministratore[0]['Nome'];
+                $this->_cognome = $attributiAmministratore[0]['Cognome'];
                 
             }
         }
@@ -71,9 +78,44 @@ class EAmministratore extends EUser{
         return $this->_telefono;
     }
     
-    public function getFax() 
-    {
-        return $this->_fax;
+    
+    /**
+     * Metodo per conoscere il nome dell'amministratore
+     * 
+     * @access public
+     * @return string Il nome dell'amministratore
+     */
+    public function getNomeUtente() {
+        return ucwords($this->_nome);
+    }
+
+    /**
+     * Metodo per conoscere il cognome dell'amministratore
+     * 
+     * @return string Il cognome dell'amministratore
+     */
+    public function getCognomeUtente() {
+        return ucwords($this->_cognome);
+    }
+    
+    /**
+     * Metodo che permette di modificare il nome dell'amministratore
+     * 
+     * @access public
+     * @param string $nome Il nome dell'amministratore
+     */
+    public function setNome($nome) {
+        $this->_nome = $nome;
+    }
+
+    /**
+     * Metodo che permette di modificare il cognome dell'amministratore
+     * 
+     * @access public
+     * @param string $cognome Il cognome dell'amministratore
+     */
+    public function setCognome($cognome) {
+        $this->_cognome = $cognome;
     }
     
     /**
@@ -173,4 +215,11 @@ class EAmministratore extends EUser{
         $fAmministratore = USingleton::getInstance('FAmministratore');
         return $fAmministratore->amministratoreConfermaUser($idUser);
     }
+    
+    public function eliminaUser($idUser) {
+
+        $fAmministratore = USingleton::getInstance('FAmministratore');
+        return $fAmministratore->eliminaUser($idUser);
+    }
+    
 }

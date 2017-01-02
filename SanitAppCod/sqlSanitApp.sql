@@ -91,7 +91,7 @@ CREATE TABLE clinica (
   WorkingPlan text DEFAULT NULL,
   Validato boolean DEFAULT FALSE,
   PRIMARY KEY (PartitaIVA),
-  FOREIGN KEY (Username) REFERENCES appUser (Username)
+  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE
 );
 
 
@@ -122,13 +122,14 @@ Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan, Validato) 
 CREATE TABLE amministratore (
   IdAmministratore int NOT NULL AUTO_INCREMENT,
   Username varchar(15) NOT NULL,
+  Nome varchar(20) NOT NULL,
+  Cognome varchar(20) NOT NULL,
   Telefono varchar(10) DEFAULT NULL,
-  Fax varchar(10) DEFAULT NULL,
   PRIMARY KEY (IdAmministratore),
-  FOREIGN KEY (Username) REFERENCES appUser (Username)
+  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE
 );
 
-INSERT INTO amministratore (IdAmministratore, Username, Telefono,Fax) VALUES (NULL, 'ricla', '0858279642', '0861999999');
+INSERT INTO amministratore (IdAmministratore, Username, Nome, Cognome, Telefono) VALUES (NULL, 'ricla', 'Riccardo', 'Claudia', '0858279642');
 
 -- --------------------------------------------------------
 
@@ -148,7 +149,7 @@ CREATE TABLE esame(
   PartitaIVAClinica varchar(20) NOT NULL,
   PRIMARY KEY (IDEsame,PartitaIVAClinica),
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
-  FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome)
+  FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome) ON DELETE NO ACTION
 
 );
 
@@ -182,7 +183,7 @@ CREATE TABLE medico (
   NumIscrizione smallint(6) NOT NULL,
   Validato boolean DEFAULT FALSE,
   PRIMARY KEY (CodFiscale),
-  FOREIGN KEY (Username) REFERENCES appUser (Username)
+  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE
 );
 
 
@@ -211,8 +212,8 @@ CREATE TABLE utente (
   Username varchar(15) NOT NULL,
   CodFiscaleMedico varchar(21) DEFAULT NULL,
   PRIMARY KEY (CodFiscale),
-  FOREIGN KEY (CodFiscaleMedico) REFERENCES medico (CodFiscale),
-  FOREIGN KEY (Username) REFERENCES appUser (Username)
+  FOREIGN KEY (CodFiscaleMedico) REFERENCES medico (CodFiscale) ON DELETE SET NULL,
+  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE
 ) ;
 
 
@@ -247,9 +248,9 @@ CREATE TABLE prenotazione (
   PRIMARY KEY (IDPrenotazione, IDEsame, PartitaIVAClinica),
   FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame),
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
-  FOREIGN KEY (CodFiscaleUtenteEffettuaEsame) REFERENCES utente (CodFiscale),
-  FOREIGN KEY (CodFiscaleMedicoPrenotaEsame) REFERENCES medico (CodFiscale),
-  FOREIGN KEY (CodFiscaleUtentePrenotaEsame) REFERENCES utente (CodFiscale)
+  FOREIGN KEY (CodFiscaleUtenteEffettuaEsame) REFERENCES utente (CodFiscale) ON DELETE CASCADE,
+  FOREIGN KEY (CodFiscaleMedicoPrenotaEsame) REFERENCES medico (CodFiscale) ON DELETE SET NULL,
+  FOREIGN KEY (CodFiscaleUtentePrenotaEsame) REFERENCES utente (CodFiscale) ON DELETE SET NULL
 );
 
 --
@@ -279,9 +280,9 @@ CREATE TABLE referto (
   MedicoReferto varchar(40) NOT NULL,
   DataReferto date NOT NULL,
   PRIMARY KEY (IDReferto),
-  FOREIGN KEY (IDPrenotazione) REFERENCES prenotazione (IDPrenotazione),
+  FOREIGN KEY (IDPrenotazione) REFERENCES prenotazione (IDPrenotazione) ON DELETE CASCADE,
   FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame),
-  FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA)
+  FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA) 
 );
 
 

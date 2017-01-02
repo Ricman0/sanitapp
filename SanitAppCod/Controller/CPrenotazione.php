@@ -130,21 +130,48 @@ class CPrenotazione {
                       $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
                       $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare XClinicaException('Clinica inesistente')                      
                     }
+                    
                     $cancellaPrenota = $ePrenotazione->controllaData();
                     switch ($tipoUser) {
                         case 'utente':
                             if($ePrenotazione->getTipoPrenotazione()==='U')
                             {
-                                $eUtente = new EUtente($ePrenotazione->getUtentePrenotaEsamePrenotazione());
+                                $cfUtentePrenotaEsame = $ePrenotazione->getUtentePrenotaEsamePrenotazione();
+                                if(isset($cfUtentePrenotaEsame))
+                                {
+                                    $eUtente = new EUtente($cfUtentePrenotaEsame);
+                                    
+                                }
+                                else // caso in cui l'utente che ha prenotato l'esame viene eliminato dal sistema
+                                {
+                                    $codFiscaleUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
+                                    $ePrenotazione->setUtentePrenotaEsamePrenotazione($codFiscaleUtente);
+                                    $eUtente = new EUtente($codFiscaleUtente);        
+                                }
                                 $nome = $eUtente->getNomeUtente();
                                 $cognome = $eUtente->getCognomeUtente();
                             }
                             else
                             {
-                                $eMedico = new EMedico($ePrenotazione->getMedicoPrenotaEsamePrenotazione());
-                                $nome = $eMedico->getNomeMedico();
-                                $cognome = $eMedico->getCognomeMedico();
+                                $cfMedico = $ePrenotazione->getMedicoPrenotaEsamePrenotazione();
+                                if(isset($cfMedico))
+                                {
+                                    $eMedico = new EMedico($ePrenotazione->getMedicoPrenotaEsamePrenotazione());
+                                    $nome = $eMedico->getNomeMedico();
+                                    $cognome = $eMedico->getCognomeMedico();
+                                }
+                                else // caso in cui il medico che ha effettuato la prenotazione è stato cancellato
+                                {
+                                    $ePrenotazione->setTipoPrenotazione('U');
+                                    $codFiscaleUtente = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
+                                    $ePrenotazione->setUtentePrenotaEsamePrenotazione($codFiscaleUtente);
+                                    $eUtente = new EUtente($codFiscaleUtente);
+                                    $nome = $eUtente->getNomeUtente();
+                                    $cognome = $eUtente->getCognomeUtente();
+                                }
                             }
+                             
+                            
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome,$cancellaPrenota);
                             break;
 
@@ -166,12 +193,13 @@ class CPrenotazione {
 
 
                         default:
-                            $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni(NULL, NULL, TRUE);
+                            $vPrenotazioni->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperate la prenotazione");
                             break;
 
                         }
-                } catch (XPrenotazioneException $ex) {
-                    $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni(NULL, NULL, TRUE);
+                } 
+                catch (XPrenotazioneException $ex) {
+                    $vPrenotazioni->visualizzaFeedback($ex->getMessage());
                 }
                 catch (XEsameException $ex) {
                     $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni(NULL, NULL, TRUE);

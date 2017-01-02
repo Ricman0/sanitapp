@@ -78,12 +78,6 @@
     </tbody>
 </table>
 {else}
-    {if isset($errore)}
-        C'è stato un errore!Non è stato possibile recuperare le prenotazioni
-        {if is_string($errore)}
-            <p>{$errore}</p>
-        {/if}
-    {else}
         <h4>Non sono presenti prenotazioni</h4>
         <p>Per aggiungere una prenotazione, clicca sul tasto aggiungi</p>
         <br>
@@ -91,5 +85,4 @@
                 <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiPrenotazione{$tipoUser}" aria-hidden="true" ></i>               
             {/if}
         <br>
-    {/if}
 {/if}

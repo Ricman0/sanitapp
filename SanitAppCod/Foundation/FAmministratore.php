@@ -24,7 +24,7 @@ class FAmministratore extends FUser{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "amministratore";
-        $this->_attributiTabella = "IdAmministratore, Username, Telefono, Fax"; 
+        $this->_attributiTabella = "IdAmministratore, Username, Nome, Cognome, Telefono"; 
     }
     
     /**
@@ -39,8 +39,9 @@ class FAmministratore extends FUser{
     {
         $valoriAttributi = "'" . $amministratore->getID() . "', '" 
                 . $this->trimEscapeStringa($amministratore->getUsername()) .  "', '"
-                . $this->trimEscapeStringa($amministratore->getTelefono()) .  "', '" 
-                . $this->trimEscapeStringa($amministratore->getFax()) . "'";
+                . $this->trimEscapeStringa($amministratore->getNomeUtente()) . "', '"
+                . $this->trimEscapeStringa($amministratore->getCognomeUtente()) . "', '"
+                . $this->trimEscapeStringa($amministratore->getTelefono()) .  "'";
         return $valoriAttributi;
     }
     
@@ -196,6 +197,11 @@ class FAmministratore extends FUser{
     {
         $query = "UPDATE clinica, medico SET medico.Validato=TRUE, clinica.Validato=TRUE WHERE medico.Username= '" . $username . "' OR clinica.Username= '" . $username . "'";
         return $this->eseguiQuery($query);            
+    }
+    
+    public function eliminaUser($username) {
+        $query = "DELETE FROM appUser WHERE appUser.Username= '" . $username . "'";
+        return $this->eseguiQuery($query);      
     }
 }   
 
