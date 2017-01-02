@@ -4,9 +4,9 @@
  */
 
 
-DROP DATABASE IF EXISTS sanitapp;
-CREATE DATABASE sanitapp;
-USE sanitapp;
+DROP DATABASE IF EXISTS sanitapp2;
+CREATE DATABASE sanitapp2;
+USE sanitapp2;
 
 --
 -- Database: `sanitapp`

@@ -21,7 +21,7 @@ array_pop($dir);// elimino l'ultimo elemento (ovvero la parola include)
 $dir = implode(DIRECTORY_SEPARATOR, $dir);// riassemblo il path
 require_once ($dir . '/libs/smartyLib/Autoloader.php');
 
-class installazione {
+class config {
     
     /**
      * @var Array Array associativo: come chiavi  i nomi degli attributi 

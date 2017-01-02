@@ -216,6 +216,19 @@ $(document).ready(function () {
         submitHandler: function ()
         {
             alert('I dati sono stati inseriti correttamente');
+            $('#messaggioDialogBox').empty();
+            $('#messaggioDialogBox').text('Installazione...');
+            $('#dialog').append("<div id='progressBar'></div>");
+            $("#dialog").dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 600,
+                    modal: true,
+                    dialogClass: "no-close"
+                });
+            $( "#progressBar" ).progressbar({
+          value: false          
+        });
             inviaDatiInstallazione();
         }
     });
@@ -233,6 +246,8 @@ function inviaDatiInstallazione() {
         },
         complete: function () {
             alert('cro');
+            $('#dialog').dialog('close');
+            $('#progressBar').progressbar('close');
             if ($('#host').attr('value') !== null) {
                 alert('ci');
                 $('#messaggioDialogBox').empty();
