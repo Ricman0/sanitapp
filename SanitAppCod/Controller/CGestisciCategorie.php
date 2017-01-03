@@ -72,6 +72,31 @@ class CGestisciCategorie {
                 }
 
                 break;
+            
+            case 'elimina':
+                $nomeCategoria = $vUsers->recuperaValore('id');
+                if($nomeCategoria !== FALSE)
+                {
+                    try {
+                            $eCategoria = new ECategoria($nomeCategoria);
+                            $eliminatoOMessaggio = $eCategoria->eliminaCategoria();
+                            if($eliminatoOMessaggio === TRUE)
+                            {
+                                $vUsers->visualizzaFeedback('Categoria eliminata.');
+                            }
+                            else 
+                            {
+                                $vUsers->visualizzaFeedback($eliminatoOMessaggio); 
+                            }
+                    } 
+                    catch (XCategoriaException $ex) {
+                        $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile eliminare la categoria dal sistema.'); 
+                    }
+                    catch (XDBException $ex) {
+                        $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile eliminare la categoria dal nel sistema.'); 
+                    }
+                }
+                break;
 
             default:
                 break;

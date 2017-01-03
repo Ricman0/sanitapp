@@ -123,6 +123,12 @@ $(document).ready(function(){
 //        inviaControllerTask('users', 'visualizza', '#contenutoAreaPersonale');
     }); 
     
+    $('#headerMain').on("click", ".rigaCategoria" , function(){
+        var id = $(this).attr('id');
+        var datiPOST = {id:id};
+        inviaControllerTaskPOST('categorie', 'elimina', datiPOST, '#contenutoAreaPersonale');
+    });
+    
     
     
 });

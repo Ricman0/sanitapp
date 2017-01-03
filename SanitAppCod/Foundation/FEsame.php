@@ -234,4 +234,18 @@ class FEsame extends FDatabase {
         return $risultato;
     }
 
+    /**
+     * Metodo che permette di cercare tutti gli esami che possiedono una determinata categoria.
+     * 
+     * @access public
+     * @param string $nomeCategoria Il nome della categoria 
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return Array Esami che hanno la categoria passata come parametro
+     */
+    public function cercaEsamiByCategoria($nomeCategoria) {
+        $query =  "SELECT * "
+                . "FROM esame " 
+                . "WHERE NomeCategoria ='" . $nomeCategoria . "'";
+        return $this->eseguiQuery($query);
+    }
 }

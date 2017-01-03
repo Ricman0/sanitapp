@@ -57,6 +57,7 @@ class FCategoria extends FDatabase{
      * Metodo che permette di aggiungere una categoria
      * 
      * @access public
+     * @param ECategoria $categoria la Categoria che si vuole aggiungere 
      * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      */
@@ -64,5 +65,18 @@ class FCategoria extends FDatabase{
         $valoriAttributi = $this->getAttributi($categoria);
         $query = "INSERT INTO " . $this->_nomeTabella . "(" . $this->_attributiTabella . ") VALUES( " .  $valoriAttributi . ")";
         return $this->eseguiQuery($query);       
+    }
+    
+    /**
+     * Metodo che permette di aggiungere una categoria
+     * 
+     * @access public
+     * @param string $nomeCategoria il nome della Categoria che si vuole eliminare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     */
+    public function eliminaCategoria($nomeCategoria) {
+        $query = "DELETE FROM " . $this->_nomeTabella . " WHERE Nome ='" . $nomeCategoria . "'" ;
+        return $this->eseguiQuery($query);
     }
 }
