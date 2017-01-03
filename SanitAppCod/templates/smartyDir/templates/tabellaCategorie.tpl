@@ -7,7 +7,7 @@
     </thead>
     <tbody>  
         <br>
-        <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungi" aria-hidden="true" ></i>
+        <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiCategoria" aria-hidden="true" ></i>
         <br>
         {foreach from=$dati item=curr_row}
             <tr id="{$curr_row['Nome']}" class="rigaCategoria">

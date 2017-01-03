@@ -138,7 +138,6 @@ class UValidazione {
                     $pattern = '/^[a-zA-Zàèìùò\s]{2,20}$/' ;
                     $stringaErrore = "Il " . $chiave . " deve essere una sequenza di caratteri. Minimo 2 e massimo 20";
                     break;
-
                 
                 case 'indirizzo':
                 case 'via':
@@ -354,5 +353,21 @@ class UValidazione {
         
         return $this->_validati;
 
+    }
+    
+    /**
+     * Metodo che consente di validare il nome di una categoria
+     * 
+     * @access public
+     * @param string $nomeCategoria Il nome della categoria
+     * @return boolean TRUE dato valido, FALSE altrimenti
+     */
+    public function validaCategoria($nomeCategoria) {
+        // non l'ho inserito nelle funzioni generiche perchè non è un array
+        $this->setValidati(TRUE);
+        $pattern = '/^[a-zA-Zàèìùò\s]{0,30}$/' ;
+        $stringaErrore = "La categoria deve essere una sequenza di caratteri. Massimo 30";
+        $this->validaDato($pattern, 'categoria', $nomeCategoria, $stringaErrore);
+        return $this->_validati;
     }
 }

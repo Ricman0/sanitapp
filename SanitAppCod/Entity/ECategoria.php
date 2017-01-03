@@ -36,4 +36,16 @@ class ECategoria {
         return $this->_nome;
     }
     
+    /**
+     * Metodo che consente di aggiungere una categoria.
+     * 
+     * @access public
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     */
+    public function aggiungiCategoria() {
+        $fCategorie = USingleton::getInstance('FCategoria');
+        return $fCategorie->aggiungiCategoria($this); 
+    }
+    
 }

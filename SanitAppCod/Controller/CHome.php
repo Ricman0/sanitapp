@@ -75,6 +75,10 @@ class CHome {
 //                $cAutenticazione = USingleton::getInstance('CAutenticazione');
 //                $cAutenticazione->autenticaUser();
 //                break;
+            case 'categorie':
+                $cCategorie = USingleton::getInstance('CGestisciCategorie');
+                $cCategorie->gestisciCategorieGET();
+                break;
             
             case 'clienti':
                 $cClienti = USingleton::getInstance('CGestisciClienti');
@@ -224,6 +228,11 @@ class CHome {
                 $cAutenticazione->tryAutenticaUser();
                 break;
             
+            case 'categorie':
+                $cCategorie = USingleton::getInstance('CGestisciCategorie');
+                $cCategorie->gestisciCategorie();
+                break;
+            
             case 'cliniche':
                 $cCliniche = USingleton::getInstance('CRicercaCliniche');
                 $cCliniche->impostaPaginaRisultatoCliniche();
@@ -276,7 +285,7 @@ class CHome {
             
             default:
                 echo "ora non lo so che fargli fare";
-                print_r($_REQUEST);
+               
 //                $vHome->restituisciHomePage();
                 break;
         }

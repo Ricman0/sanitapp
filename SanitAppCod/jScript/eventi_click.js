@@ -11,6 +11,7 @@ $(document).ready(function () {
         
         inviaController('mySanitApp', '#main');
     });
+    
     $('#headerMain').on("click", "#registrazioneClinica", function () {
         var  ajaxDiv = '#main';
         if( $("#contenutoAreaPersonale").length  ) 
@@ -19,6 +20,7 @@ $(document).ready(function () {
         }
         inviaControllerTask('registrazione', 'clinica', ajaxDiv);
     });
+    
     $('#headerMain').on("click", "#registrazioneMedico", function () {
         var  ajaxDiv = '#main';
         if( $("#contenutoAreaPersonale").length  ) 
@@ -27,6 +29,7 @@ $(document).ready(function () {
         }
         inviaControllerTask('registrazione', 'medico', ajaxDiv);
     });
+    
     $('#headerMain').on("click", "#registrazioneUtente", function () {
         var  ajaxDiv = '#main';
         if( $("#contenutoAreaPersonale").length  ) 

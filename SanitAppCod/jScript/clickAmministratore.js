@@ -13,7 +13,7 @@ $(document).ready(function(){
     });
 
     $('#headerMain').on('click', '#categorieEsamiAmministratore', function(){
-        inviaControllerTask('users', 'categorie', '#contenutoAreaPersonale');
+        inviaController('categorie', '#contenutoAreaPersonale');
     });
   
   
@@ -93,6 +93,37 @@ $(document).ready(function(){
     
     });
   
+  
+    $('#headerMain').on('click', '#iconaAggiungiCategoria', function(){
+        $('#iconaAggiungiCategoria').siblings().remove(); // elimino tutti i fratelli di iconaAggiungiUser
+        //aggiungo i tasti dopo l'icona aggiungi (come fratelli non come figli)
+        $('#iconaAggiungiCategoria').after("<form name='aggiungiCategoria' method='post' id='aggiungiCategoria'></form>");
+        // aggiungo label e input per il nome
+        $( "#aggiungiCategoria" ).append("<label for='nomeCategoria' class='elementiForm'>Nome</label>");
+        $( "#aggiungiCategoria" ).append("<input type='text' name='nomeCategoria' id='nomeCategoria' class='elementiForm' required />");  
+        $( "#aggiungiCategoria" ).append("<br>"); 
+        // aggiungo il tasto  aggiungi
+        $( "#aggiungiCategoria" ).append("<span id='aggiungiCategoria' ></span>  ");
+        $( "#aggiungiCategoria" ).append("<input type='submit' value='Aggiungi' id='submitAggiungiCategoria'>  ");
+        // aggiungo il tasto annulla
+        $( "#aggiungiCategoria" ).append("<span id='annullaCategoria' ></span>  ");
+        $( "#annullaCategoria" ).append("<input type='button' value='Annulla' id='annullaAggiungiCategoria'>");
+        // aggiungo del testo per migliorare la comprensione della pagina
+        $( "#iconaAggiungiCategoria" ).after( "<h4>Clicca su 'Annulla' per annullare l'inserimento di una nuova categoria.</h4>");
+        $( "#iconaAggiungiCategoria" ).after( "<h4>Clicca su 'Aggiungi' per aggiungere una nuova categoria.</h4>");
+        $( "#iconaAggiungiCategoria" ).after( "<h4>Inserisci i dati per aggiungere una nuova categoria.</h4>");
+        // elimino il tasto + di aggiungi categoria
+        $( "#iconaAggiungiCategoria" ).remove();
+        validazioneCategoria();
+    });
+  
+    //click sul tasto annulla aggiunta categoria
+    $('#headerMain').on('click', '#annullaAggiungiCategoria', function(){
+        inviaController('mySanitApp', '#main');
+//        inviaControllerTask('users', 'visualizza', '#contenutoAreaPersonale');
+    }); 
+    
+    
     
 });
 

@@ -94,7 +94,7 @@
             
             <!--Footer della pagina-->
             <div id="footer">
-                <span class="copyright">©2016 Copyright - SanitApp</span>
+                <span class="copyright">©2017 Copyright - SanitApp</span>
             </div>
         </div>
     </body>
