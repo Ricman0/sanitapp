@@ -882,7 +882,7 @@ function validazioneClinica()
 //        return  valore.match(regex);
 //    }, "Inserire un orario del tipo: 08:30 oppure 08:30:00");
 
-    jQuery.validator.addMethod("patitaIVA", function (valore) {
+    jQuery.validator.addMethod("partitaIVA", function (valore) {
         //espressione regolare per la partita IVA 
         var regex = /[0-9]{11}/;
         return valore.match(regex);

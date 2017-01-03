@@ -25,8 +25,8 @@ class FClinica extends FUser{
         // imposto il nome della tabella
         $this->_nomeTabella = "clinica";
         $this->_attributiTabella = "PartitaIVA, NomeClinica, Titolare, Via, " 
-                . "NumCivico, CAP, Localita, Provincia, Regione, Username, PEC, Telefono, "
-                . "CapitaleSociale, Validato"; 
+                . "NumCivico, CAP, Localita, Provincia, Regione, Username, Telefono, "
+                . "CapitaleSociale, WorkingPlan, Validato"; 
     }
     
     /**
@@ -49,10 +49,26 @@ class FClinica extends FUser{
                 . $this->trimEscapeStringa($clinica->getProvinciaClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getRegioneClinica()). "', '" 
                 . $this->trimEscapeStringa($clinica->getUsername()) .  "', '"
-                . $this->trimEscapeStringa($clinica->getPEC()) .  "', '"
                 . $clinica->getTelefonoClinica() .  "', '" 
-                . $clinica->getCapitaleSocialeClinica() . "', "
-                . $clinica->getValidatoClinica();
+                . $clinica->getCapitaleSocialeClinica() . "', ";
+               
+                if ($clinica->getJSONWorkingPlanClinica()!== NULL)
+                {
+                    $valoriAttributi = $valoriAttributi . "'" . $clinica->getJSONWorkingPlanClinica() . "', ";
+                }
+                else
+                {
+                     $valoriAttributi = $valoriAttributi .  "NULL, ";
+                }
+                if ($clinica->getValidatoClinica()===TRUE)
+                {
+                    $valoriAttributi = $valoriAttributi . $clinica->getValidatoClinica();
+                }
+                else
+                {
+                     $valoriAttributi = $valoriAttributi .  "FALSE";
+                }
+                
         return $valoriAttributi;
     }
     
@@ -69,9 +85,10 @@ class FClinica extends FUser{
         //recupero i valori contenuti negli attributi
         $valoriAttributi = $this->getAttributi($clinica);
         $valoriAttributiUser = parent::getAttributi($clinica);
-    
-        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'clinica')";
+  
+        $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'clinica')";
         $query2 = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella . ") VALUES( " . $valoriAttributi . ")";
+        print_r($query2);
         try {
             // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
@@ -82,7 +99,7 @@ class FClinica extends FUser{
 
             // If we arrive here, it means that no exception was thrown
             // i.e. no query has failed, and we can commit the transaction
-            $this->_connessione->commit();
+            return $this->_connessione->commit();
         } catch (Exception $e) {
             // An exception has been thrown
             // We must rollback the transaction

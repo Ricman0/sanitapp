@@ -23,8 +23,9 @@ class FUser extends FDatabase {
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "appuser";
-        $this->_attributiTabella = "Username, Password, Email, Confermato, CodiceConferma, TipoUser";
+        $this->_attributiTabella = "Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser";
     }
+    
     
     /** 
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari

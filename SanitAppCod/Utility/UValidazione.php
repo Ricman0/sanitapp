@@ -209,7 +209,7 @@ class UValidazione {
                     break;
                 
                 case 'capitaleSociale':
-                    $pattern = '/^[0-9]{1,11}$/';
+                    $pattern = '/^[0-9\.\,]{1,11}$/';
                     $stringaErrore = "Il" . $chiave . "deve essere una sequenza di numeri";
                     break;
                 

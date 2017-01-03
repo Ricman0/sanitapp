@@ -34,7 +34,7 @@ function inviaDatiLogIn(id, ajaxdiv)
         type: 'POST',
         //url della risorsa alla quale viene inviata la richiesta
         //url:  "index.php",
-        url: "autenticazione/",
+        url: "autenticazione",
         //che può essere un oggetto del tipo {chiave : valore, chiave2 : valore}, 
         //oppure una stringa del tipo "chiave=valore&chiave2=valore2"
         // contenente dei dati da inviare al server
@@ -50,10 +50,14 @@ function inviaDatiLogIn(id, ajaxdiv)
            alert("Username e password inviati per effettuare il log in"); 
            $(ajaxdiv).html(msg);
         },
-        error: function()
-        {
-            alert("Chiamata fallita, si prega di riprovare...");
-        }
+        
+            error: function(xhr, status, error) 
+            {
+                alert(xhr.responseText);
+                alert(error);
+                alert("Chiamata fallita, si prega di riprovare...");
+            }
+        
       
  });
  }

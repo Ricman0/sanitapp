@@ -101,7 +101,8 @@ class CRegistrazione {
                 break;
             
             case 'medico':
-            { $codiceODatiValidi = $this->recuperaDatiECreaMedico();
+            { 
+                $codiceODatiValidi = $this->recuperaDatiECreaMedico();
 //                return $vRegistrazione->restituisciFormMedico();
                  if(is_string($codiceODatiValidi) === TRUE)
                     {
@@ -223,9 +224,10 @@ class CRegistrazione {
        //ora è necessario che vengano validati prima della creazione di una nuova clinica
        $uValidazione = USingleton::getInstance('UValidazione');
        $uValidazione->validaDati($datiClinica);
+       
        // se i dati sono validi
        if($uValidazione->getValidati()===TRUE)
-       {           
+       {  
             // crea la clinica
             $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], ucwords($datiClinica['nomeClinica']), 
                    $datiClinica['password'], $datiClinica['email'],
@@ -233,6 +235,7 @@ class CRegistrazione {
                    $datiClinica['cap'],ucwords($datiClinica['localitàClinica']), $datiClinica['provinciaClinica'],  $datiClinica['PEC'], 
                    $datiClinica['telefono'],$datiClinica['capitaleSociale']);
             //eClinica richiama il metodo per creare FClinica poi FClinica aggiunge l'utente nel DB
+            
             return $eClinica->inserisciClinicaDB(); // "ritorno" il codice di conferma
        }
        else

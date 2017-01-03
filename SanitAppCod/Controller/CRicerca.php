@@ -91,10 +91,12 @@ class CRicerca {
                 //imposto il risutlato della ricerca a NULL così che vada bene per il remote di JQUERY VALIDATION
                 $risultato = TRUE;
                 if ($uValidazione->validaDati($dati)) {
-                    $eClinica = new EClinica(NULL, $dati['partitaIVA']);
-                    if ($eClinica->getPartitaIVAClinica() !== NULL) {
+                    try {
+                        $eClinica = new EClinica(NULL, $dati['partitaIVA']);
                         $risultato = NULL;
-                    }
+                    } catch (XClinicaException $ex) {
+                        // non faccio nulla perchè $risultato=TRUE  
+                    }  
                 }
                 break;
 

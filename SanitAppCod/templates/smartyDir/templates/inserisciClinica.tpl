@@ -38,7 +38,7 @@
     <input type="text" name="indirizzoClinica" class="elementiForm" id="indirizzoClinica" placeholder="Via/C.da Acquaventina" value="{if isset($datiValidi.via)}{$datiValidi.via}{/if}" required />
 
     <br>
-    <label for="mumeroCivicoClinica" class="elementiForm">Numero Civico</label>
+    <label for="numeroCivicoClinica" class="elementiForm">Numero Civico</label>
     <input type="number" name="numeroCivicoClinica" class="elementiForm" id="numeroCivicoClinica" min="0" max="1000" placeholder="3" value="{if isset($datiValidi.numeroCivico)}{$datiValidi.numeroCivico}{/if}" />
 
     <br>
