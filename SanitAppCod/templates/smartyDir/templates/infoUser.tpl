@@ -14,7 +14,9 @@
 {if ($tipoUser=='utente' || $tipoUser=='medico')}
     <span class="grassetto">CODICE FISCALE:</span><span>  {$user.CodFiscale}</span>
     <br>
-    <span class="grassetto">NOME:</span><span>  {$user.Nome} {$user.Cognome}</span>
+    <span class="grassetto">NOME:</span><span>  {$user.Nome}</span>
+    <br>
+    <span class="grassetto">COGNOME:</span><span>  {$user.Cognome}</span>
     <br>
     <span class="grassetto">INDIRIZZO:</span><span>  {$user.Via}, {$user.NumCivico}, {$user.CAP} </span>
     <br>
