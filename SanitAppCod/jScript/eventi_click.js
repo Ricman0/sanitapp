@@ -26,6 +26,7 @@ $(document).ready(function () {
         }
         inviaControllerTask('registrazione', 'clinica', ajaxDiv);
     });
+    
     $('#headerMain').on("click", "#registrazioneMedico", function () {
         var  ajaxDiv = '#main';
         if( $("#contenutoAreaPersonale").length  ) 
@@ -34,6 +35,7 @@ $(document).ready(function () {
         }
         inviaControllerTask('registrazione', 'medico', ajaxDiv);
     });
+    
     $('#headerMain').on("click", "#registrazioneUtente", function () {
         var  ajaxDiv = '#main';
         if( $("#contenutoAreaPersonale").length  ) 
@@ -98,6 +100,27 @@ function inviaController(controller, ajaxdiv)
         {
             alert(datiRisposta);
             $(ajaxdiv).html(datiRisposta);
+            $('.tablesorter').tablesorter({
+                theme: 'blue',
+                widgets: ["filter"],
+                widgetOptions: {
+                    // filter_anyMatch replaced! Instead use the filter_external option
+                    // Set to use a jQuery selector (or jQuery object) pointing to the
+                    // external filter (column specific or any match)
+                    filter_external: '.search',
+                    // add a default type search to the first name column
+                    filter_defaultFilter: {1: '~{query}'},
+                    // include column filters
+                    filter_columnFilters: true,
+                    filter_placeholder: {search: 'Search...'},
+                    filter_saveFilters: true,
+                    filter_reset: '.reset'
+                }
+
+            });
+            $('.time').timepicker({
+                stepMinute: 5
+            });
         },
         error: function ()
         {

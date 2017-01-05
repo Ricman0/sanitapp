@@ -36,4 +36,55 @@ class ECategoria {
         return $this->_nome;
     }
     
+    /**
+     * Metodo che consente di aggiungere una categoria.
+     * 
+     * @access public
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     */
+    public function aggiungiCategoria() {
+        $fCategorie = USingleton::getInstance('FCategoria');
+        return $fCategorie->aggiungiCategoria($this); 
+    }
+    
+    /**
+     * Metodo che consente una categoria se non ci sono esami che rientrano in quella categoria.
+     * 
+     * @access public
+     */
+    public function eliminaCategoria() {
+        if($this->checkIfCanDelete()===TRUE)
+        {
+            $fCategorie = USingleton::getInstance('FCategoria');
+            return $fCategorie->eliminaCategoria($this->getNome()); 
+        }
+        else
+        {
+            $messaggio = 'Non è possibile eliminare la categoria poichè ci sono esami con quella categoria';
+            return $messaggio;
+        }
+        
+    }
+    
+    /**
+     * Metodo che consente di controllare se una cetegoria può essere cancellata.
+     * 
+     * @access public
+     */
+    public function checkIfCanDelete() {
+        $fEsami = USingleton::getInstance('FEsame');
+        $esami = $fEsami->cercaEsamiByCategoria($this->getNome());
+        if(count($esami)>0)
+        {
+            return FALSE;
+        }
+        else
+        {
+            return TRUE;
+            
+        }
+    }
+    
+    
 }

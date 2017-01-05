@@ -7,14 +7,13 @@
  */
 
 /**
- * Description of XDBException
+ * Description of XCategoriaException
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class XDBException extends Exception{
-    
+class XCategoriaException extends Exception{
     /**
-     * Costruttore di XDBException
+     * Costruttore di XCategoriaException
      * 
      * @param string $messaggio Il messaggio dell'eccezione
      */

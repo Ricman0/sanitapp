@@ -1,5 +1,5 @@
 <h3>Categorie dell'applicazione</h3>
-<h4>Clicca su una riga per avere informazioni sulla categoria corrispondente.</h4>
+<h4>Clicca su una riga per eliminare la categoria corrispondente.</h4>
 <h4>Clicca sull'icona seguente per aggiungere una categoria.</h4>
 <table id="tabellaCategorie" class="tablesorter">
     <thead>
@@ -7,7 +7,7 @@
     </thead>
     <tbody>  
         <br>
-        <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungi" aria-hidden="true" ></i>
+        <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiCategoria" aria-hidden="true" ></i>
         <br>
         {foreach from=$dati item=curr_row}
             <tr id="{$curr_row['Nome']}" class="rigaCategoria">

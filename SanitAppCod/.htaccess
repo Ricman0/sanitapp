@@ -10,7 +10,8 @@
 
 
   RewriteCond %{REQUEST_METHOD} GET 
-  RewriteRule ^(users)/(visualizza|bloccati|daValidare|categorie)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(categorie)$ index.php?controller=$1 [L]
+  RewriteRule ^(users)/(visualizza|bloccati|daValidare)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(users|usersBloccati|usersDaValidare)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(clienti)/(visualizza)/([[:alnum:]]{16})$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(registrazione)/(conferma)/([[:alnum:]]+)/([[:alnum:]]{32})$ index.php?controller=$1&task=$2&username=$3&id=$4 [L]
@@ -48,6 +49,7 @@
 
     RewriteCond %{REQUEST_METHOD} POST 
     RewriteRule ^(autenticazione)$ index.php?controller=$1 [L]
+    RewriteRule ^(categorie)/(aggiungi|elimina)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(users)/(blocca|sblocca|valida|conferma|elimina)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(agenda)$ index.php?controller=$1 [L]
     RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)$ index.php?controller=$1&task=$2 [L]

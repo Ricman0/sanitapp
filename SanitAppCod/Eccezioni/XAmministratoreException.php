@@ -7,14 +7,14 @@
  */
 
 /**
- * Description of XDBException
+ * Description of XAmministratoreException
  *
+ * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
  */
-class XDBException extends Exception{
-    
+class XAmministratoreException extends XUserException{
     /**
-     * Costruttore di XDBException
+     * Costruttore di XAmministratoreException
      * 
      * @param string $messaggio Il messaggio dell'eccezione
      */

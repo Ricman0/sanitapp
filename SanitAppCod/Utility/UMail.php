@@ -132,14 +132,6 @@ class UMail {
                 . " <strong>CAP  :  </strong><span>" . $dati['CAP'] . "</span><br><br>"
                 . " <strong>EMAIL  :  </strong><span>" . $dati['email'] . "</span><br><br>"
                 . " <strong>USERNAME  :  </strong><span>" . $dati['username'] . "</span><br><br>"
-                
-                
-//                . " <h5>Cognome:</h5> ". $dati['cognome'] ."\n"
-//                . " <h5>Codice Fiscale:</h5> " . $dati['codiceFiscale'] ."\n"
-//                . " <h5>Indirizzo:</h5> " . $dati['indirizzo'] ."\n"
-//                . " <h5>CAP:</h5> ". $dati['CAP'] ."\n"
-//                . " <h5>Email:</h5> ". $dati['email'] . "\n"
-//                . " <h5>Username:</h5> ". $dati['username'] ."<br><br>"
                 . " Per completare la registrazione, clicca sul link seguente: <br>"
                 . $url . "<br>"
                 . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "

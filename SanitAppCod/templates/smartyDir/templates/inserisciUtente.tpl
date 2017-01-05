@@ -21,7 +21,7 @@
     <input type="text" name="indirizzo" id="indirizzoUtente" class="elementiForm" placeholder="Via/C.da Acquaventina" value="{if isset($datiValidi.indirizzo)}{$datiValidi.indirizzo}{/if}" required />
     <br>
     
-    <label for="mumeroCivico" class="elementiForm">Numero Civico</label>
+    <label for="numeroCivico" class="elementiForm">Numero Civico</label>
     <input type="number" name="numeroCivico" id="numeroCivico" class="elementiForm" min="0" max="1000" placeholder="3" value="{if isset($datiValidi.numeroCivico)}{$datiValidi.numeroCivico}{/if}" />
     <br>
     

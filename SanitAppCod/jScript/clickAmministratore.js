@@ -13,7 +13,7 @@ $(document).ready(function(){
     });
 
     $('#headerMain').on('click', '#categorieEsamiAmministratore', function(){
-        inviaControllerTask('users', 'categorie', '#contenutoAreaPersonale');
+        inviaController('categorie', '#contenutoAreaPersonale');
     });
   
   
@@ -64,12 +64,7 @@ $(document).ready(function(){
         inviaControllerTaskPOST('users', 'elimina', datiPOST, '#contenutoAreaPersonale');
     });
     
-    $('#headerMain').on('click', '#modificaUser', function(){
-        var username = $(this).attr('data-username');
-        var tipoUser = $(this).attr('data-tipoUser');
-        var datiPOST = {id:username , tipoUser:tipoUser};
-        inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
-    });
+    
     
     $('#headerMain').on('click', '#iconaAggiungiUser', function(){
         $('#iconaAggiungiUser').siblings().remove(); // elimino tutti i fratelli di iconaAggiungiUser
@@ -93,6 +88,112 @@ $(document).ready(function(){
     
     });
   
+  
+    $('#headerMain').on('click', '#iconaAggiungiCategoria', function(){
+        $('#iconaAggiungiCategoria').siblings().remove(); // elimino tutti i fratelli di iconaAggiungiUser
+        //aggiungo i tasti dopo l'icona aggiungi (come fratelli non come figli)
+        $('#iconaAggiungiCategoria').after("<form name='aggiungiCategoria' method='post' id='aggiungiCategoria'></form>");
+        // aggiungo label e input per il nome
+        $( "#aggiungiCategoria" ).append("<label for='nomeCategoria' class='elementiForm'>Nome</label>");
+        $( "#aggiungiCategoria" ).append("<input type='text' name='nomeCategoria' id='nomeCategoria' class='elementiForm' required />");  
+        $( "#aggiungiCategoria" ).append("<br>"); 
+        // aggiungo il tasto  aggiungi
+        $( "#aggiungiCategoria" ).append("<span id='aggiungiCategoria' ></span>  ");
+        $( "#aggiungiCategoria" ).append("<input type='submit' value='Aggiungi' id='submitAggiungiCategoria'>  ");
+        // aggiungo il tasto annulla
+        $( "#aggiungiCategoria" ).append("<span id='annullaCategoria' ></span>  ");
+        $( "#annullaCategoria" ).append("<input type='button' value='Annulla' id='annullaAggiungiCategoria'>");
+        // aggiungo del testo per migliorare la comprensione della pagina
+        $( "#iconaAggiungiCategoria" ).after( "<h4>Clicca su 'Annulla' per annullare l'inserimento di una nuova categoria.</h4>");
+        $( "#iconaAggiungiCategoria" ).after( "<h4>Clicca su 'Aggiungi' per aggiungere una nuova categoria.</h4>");
+        $( "#iconaAggiungiCategoria" ).after( "<h4>Inserisci i dati per aggiungere una nuova categoria.</h4>");
+        // elimino il tasto + di aggiungi categoria
+        $( "#iconaAggiungiCategoria" ).remove();
+        validazioneCategoria();
+    });
+  
+    //click sul tasto annulla aggiunta categoria
+    $('#headerMain').on('click', '#annullaAggiungiCategoria', function(){
+        inviaController('mySanitApp', '#main');
+//        inviaControllerTask('users', 'visualizza', '#contenutoAreaPersonale');
+    }); 
+    
+    $('#headerMain').on("click", ".rigaCategoria" , function(){
+        var id = $(this).attr('id');
+        var datiPOST = {id:id};
+        inviaControllerTaskPOST('categorie', 'elimina', datiPOST, '#contenutoAreaPersonale');
+    });
+    
+    $('#headerMain').on('click', '#modificaUser', function(){
+        // modifico il 'titolo' da INFORMAZIONI a MODIFICA USER
+        $('#contenutoAreaPersonale').find('h3').replaceWith("<h3>MODIFICA USER</h3>");
+        var tipoUser = $(this).attr('data-tipoUser');
+        tipoUser = tipoUser[0].toUpperCase() + tipoUser.slice(1); //in questo modo ho la prima lettera di tipoUser maiuscola
+        $('h3').after("<form id='modifica" + tipoUser +"'></form>");
+        var nomeLabel = "";
+        $( '#contenutoAreaPersonale > span' ).each(function( index ) {
+            
+            if(index%2===0)
+            { 
+                nomeLabel = $( this ).text().trim();
+                var lunghezzaLabel = nomeLabel.length;
+                nomeLabel = nomeLabel.substring(0, lunghezzaLabel-1); // elimino i ':' finali
+                nomeLabel = nomeLabel.toLowerCase(); // tutto minuscolo
+                var paroleNomeLabel = nomeLabel.split(" "); // separo le parole di nomeLabel
+                nomeLabel = '';
+                $.each(paroleNomeLabel ,function(index, value){
+                    nomeLabel = nomeLabel + " " + value.substring(0,1).toUpperCase() + value.slice(1);  // in questo modo se label è composta da più parole ho una notazione a cammello anche nell'id, ecc..
+                }) ;
+                if(nomeLabel.trim() !== 'Indirizzo')
+                { 
+                    $( '#modifica' + tipoUser).append("<label for='" + nomeLabel.trim().replace(' ','') + tipoUser  + "' class='elementiForm'>" + nomeLabel.toUpperCase() + ": </label>");
+                }     
+            }
+            else
+            {
+                if( nomeLabel.trim() === 'Indirizzo')
+                {
+                    var indirizzo = $(this).text().trim();
+                    // indirizzo contene almeno  via, numero civico, cap 
+                    indirizzo = indirizzo.split(','); 
+                    $( '#modifica' + tipoUser).append("<label for='via" + tipoUser  + "' class='elementiForm'>VIA: </label>");
+                    $( '#modifica' + tipoUser).append("<input type='text' name='via" +  tipoUser +"' class='elementiForm' id='via" + tipoUser  + "' value='" + indirizzo[0].trim() +"' /><br>");
+                    $( '#modifica' + tipoUser).append("<label for='numeroCivico" + tipoUser  + "' class='elementiForm'>NUMERO CIVICO: </label>");
+                    $( '#modifica' + tipoUser).append("<input type='text' name='numeroCivico" +  tipoUser +"' class='elementiForm' id='numeroCivico" + tipoUser  + "' value='" + indirizzo[1].trim() +"' /><br>");
+                    $( '#modifica' + tipoUser).append("<label for='CAP" + tipoUser  + "' class='elementiForm'>CAP: </label>");
+                    if (tipoUser === 'Clinica')
+                    {
+                        var CapLocalitàProvincia = indirizzo[2].trim().split(" ");
+                        $( '#modifica' + tipoUser).append("<input type='text' name='CAP" +  tipoUser + "' class='elementiForm' id='CAP" + tipoUser  + "' value='" + CapLocalitàProvincia[0].trim() +"' /><br>");
+                        $( '#modifica' + tipoUser).append("<label for='località" + tipoUser  + "' class='elementiForm'>LOCALITÁ: </label>");
+                        $( '#modifica' + tipoUser).append("<input type='text' name='località" +  tipoUser +"' class='elementiForm' id='località" + tipoUser  + "' value='" + CapLocalitàProvincia[1].trim() +"' /><br>");
+                        $( '#modifica' + tipoUser).append("<label for='provincia" + tipoUser  + "' class='elementiForm'>PROVINCIA: </label>");
+                        $( '#modifica' + tipoUser).append("<input type='text' name='provincia" +  tipoUser +"' class='elementiForm' id='provincia" + tipoUser  + "' value='" + CapLocalitàProvincia[2].trim() +"' /><br>");
+                    } 
+                    else
+                    {
+                        $('#modifica' + tipoUser).append("<input type='text' name='CAP" +  tipoUser + "' class='elementiForm' id='CAP" + tipoUser  + "' value='" + indirizzo[2].trim() + "' /><br>"); 
+                    }
+                }
+                else
+                {
+                    $( '#modifica' + tipoUser).append("<input type='text' name='" + nomeLabel.trim().replace(' ','') + tipoUser +"' class='elementiForm' id='" +  nomeLabel.trim().replace(' ','') + tipoUser  + "' value='" + $(this).text().trim() +"' /><br>");
+                }
+            }
+        });
+        $( 'span' ).remove();
+        $('#tastiInfoUser').remove();
+        $( '#modifica' + tipoUser).append("<input type='submit' value='Modifica " + tipoUser +" ' id='submitModifica" + tipoUser + "'>  ");
+        $( '#modifica' + tipoUser).append("<input type='button' value='Modifica Password " + tipoUser +"' id='modificaPasswordUser" + tipoUser + "' data-tipoUser='" + tipoUser + "'>");
+        
+    });
+    
+    $('#headerMain').on("click", "#modificaPasswordUser" , function(){
+        var tipoUser = $(this).attr('data-tipoUser');
+        $( '#modifica' + tipoUser).append("<label for='password" + tipoUser + "' class='elementiForm'>PASSWORD: </label>");
+        $( '#modifica' + tipoUser).append("<input type='password' name='password" + tipoUser + "' class='elementiForm'  id='password" + tipoUser + "' /><br>");
+        $("#modificaPasswordUser").remove();
+    });
     
 });
 

@@ -9,6 +9,7 @@
 /**
  * Description of XClinicaException
  *
+ * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class XClinicaException extends XUserException{
