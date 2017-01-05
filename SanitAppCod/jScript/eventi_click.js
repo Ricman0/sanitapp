@@ -6,6 +6,12 @@
  * Quando avviene il click su registrazione, viene eseguita la funzione inviaControllerTask
  */
 $(document).ready(function () {
+    
+    $("#headerMain").on("click", ".homepage", function(){
+        inviaController('index.php', '#wrapper');
+//        var History = window.history;
+//        History.pushState(null, 'home', 'index.php');
+    });
 
     $('#headerMain').on("click", ".mySanitApp", function () {
         
