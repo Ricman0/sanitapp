@@ -191,6 +191,9 @@ class CGestisciUser {
                     $vUsers->visualizzaFeedback($messaggio);
                 }
                 break;
+            case 'modifica':
+                
+                break;
         }
     }
     

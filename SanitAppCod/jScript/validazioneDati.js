@@ -1432,16 +1432,40 @@ function validazioneCategoria() {
  }
  
  
-function validaBloccatoClinica(){
-    jQuery.validator.addMethod("bloccato", function (valore) {
+
+
+
+function validazioneModificaUtente(){
+ alert('cioa');
+    //aggiungo un metodo di validazione per poter validare correttamente la password
+    // il nome della classe, la funzione per validare e il messaggio in caso di errore
+    jQuery.validator.addMethod("password", function (valore) {
         //espressione regolare per la password
-        var regex = /(SI|NO)/;
+        var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
         return valore.match(regex);
-    }, "Inserire SI per user bloccato, NO per user non bloccato");
+    }, "Inserire da 6 a 10 caratteri che contengano almeno un numero, una lettera \n\
+        maiuscola,una lettera minuscola");
+
+    jQuery.validator.addMethod("codiceFiscale", function (valore) {
+        //espressione regolare per codice fiscale
+        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        return valore.match(regex);
+    }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+
+    jQuery.validator.addMethod("alfanumerico", function(valore) {
+        var regex = /[a-zA-Z0-9]+/;
+        return valore.match(regex);
+    });
+    
+    jQuery.validator.addMethod("username", function (valore) {
+        //espressione regolare per codice fiscale
+        var regex = /[0-9a-zA-Z\_\-]{4,15}/;
+        return valore.match(regex);
+    }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
 
 
-    $("#BloccatoClinicaForm").validate({
-        
+
+    $("#modificaUserUtente").validate({
         /*
          * Il plugin di default invia una richiesta ajax  per la regola remote
          * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
@@ -1449,24 +1473,155 @@ function validaBloccatoClinica(){
          * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
          * una volta che abbiamo terminato di digitare l'input.
          */
-        onkeyup: false,
+        onkeyup: false, //turn off auto validate whilst typing
+//        focusCleanup: true,
+        onclick: true, // Valida checkboxes e radio buttons on click. 
         rules:
                 {
-                    BloccatoClinica:
+                    username:
                             {
-                                maxlength: 2
-                            }
+                                required: true,
+                                username: true,
+                                minlength: 4,
+                                maxlength: 15
+                            },
+                    email:
+                            {
+                                required: true,
+                                email: true
+                            },
+                    confermato:
+                            {
+                                required:true
+                            },
+                    codiceConferma:
+                            {
+                                required:true,
+                                alfanumerico: true,
+                                minlength: 16,
+                                maxlength: 64
+                                
+                            },
+                    bloccato:
+                            {
+                                required:true
+                            },
+                    codiceFiscale:
+                            {
+                                required: true,
+                                codiceFiscale: true,
+                                maxlength: 16,
+                                minlength: 16
+                            },
+                     nome:
+                            {
+                                required: true,
+                                maxlength: 20
+                            },
+                    cognome:
+                            {
+                                required: true,
+                                maxlength: 20
+                            },
+                    via:
+                            {
+                                required: true,
+                                maxlength: 30
+                            },
+                    numeroCivico:
+                            {
+                                number: true,
+                                min: 0
+                            },
+                    CAP:
+                            {
+                                required: true,
+                                minlength: 5,
+                                maxlength: 5
+                            },
+                    
                 },
-        
-        errorPlacement: function(error, element){
-            $(element).attr('title', error.text());
-        },
-        unhighlight: function(element) {
-            $(element).removeAttr('title').removeClass('error');
-          },
+        messages:
+                {
+                    username:
+                            {
+                                required: "Inserire username",
+                                minlength: "La lunghezza minime dello username è 4",
+                                maxlength: "La lunghezza massima dello username è 15"
+                            },
+                    email:
+                            {
+                                required: "Inserire l'email",
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com",
+                                remote: "Email già esistente"
+                            },
+                    confermato:
+                            {
+                                required:"cliccato SI, non cliccato NO"
+                            },
+                    codiceConferma:
+                            {
+                                required: 'Inserire codice conferma ',
+                                alfanumerico: 'Il codice deve essere alfanumerico',
+                                minlength: 'Minima lunghezza 16',
+                                maxlength: 'Massima lunghezza 64'
+                                
+                            },
+                    bloccato:
+                            {
+                                required:"cliccato SI, non cliccato NO"
+                            },
+                    codiceFiscale:
+                            {
+                                required: "Inserire il proprio codice fiscale",
+                                maxlength: "Il codice fiscale è lungo 16 caratteri",
+                                minlength: "Il codice fiscale è lungo 16 caratteri",
+                                remote: "Utente già esistente"
+                            },
+                    nome:
+                            {
+                                required: "Inserire nome",
+                                maxlength: "La lunghezza massima è 20"
+                            },
+                    cognome:
+                            {
+                                required: "Inserire cognome",
+                                maxlength: "La lunghezza massima è 20"
+                            },
+                    
+                    via:
+                            {
+                                required: "Inserire indirizzo",
+                                maxlength: "La lunghezza massima è 30"
+                            },
+                    numeroCivico:
+                            {
+                                number: "Il numero civico è un numero",
+                                min: "Inserire un numero maggiore o uguale a zero"
+                            },
+                    CAP:
+                            {
+                                required: "Inserire il CAP",
+                                minlength: "Il CAP è un numero lungo 5",
+                                maxlength: "Il CAP è un numero lungo 5"
+                            },
+                    
+                    
+                },
+                 errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
         submitHandler: function ()
         {
-            alert('ok');
+            $("#loading").show();
+            alert('I dati sono stati inseriti correttamente');
+            // inviaDatiRegistrazione si trova in clickRegistrazione.js
+            var datiPOST = $('form').serialize();
+            inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
+            
         }
     });
 }
