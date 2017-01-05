@@ -50,7 +50,7 @@
     RewriteCond %{REQUEST_METHOD} POST 
     RewriteRule ^(autenticazione)$ index.php?controller=$1 [L]
     RewriteRule ^(categorie)/(aggiungi|elimina)$ index.php?controller=$1&task=$2 [L]
-    RewriteRule ^(users)/(blocca|sblocca|valida|conferma|elimina)$ index.php?controller=$1&task=$2 [L]
+    RewriteRule ^(users)/(blocca|sblocca|valida|conferma|elimina|modifica)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(agenda)$ index.php?controller=$1 [L]
     RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(ricerca)/(codice)/(utente|medico)$ index.php?controller=$1&task=$2&tipoUser=$3 [L]
