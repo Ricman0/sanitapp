@@ -1552,8 +1552,7 @@ function validazioneModificaUtente(){
                     email:
                             {
                                 required: "Inserire l'email",
-                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com",
-                                remote: "Email già esistente"
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
                             },
                     confermato:
                             {
@@ -1575,8 +1574,215 @@ function validazioneModificaUtente(){
                             {
                                 required: "Inserire il proprio codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
-                                minlength: "Il codice fiscale è lungo 16 caratteri",
-                                remote: "Utente già esistente"
+                                minlength: "Il codice fiscale è lungo 16 caratteri"
+                            },
+                    nome:
+                            {
+                                required: "Inserire nome",
+                                maxlength: "La lunghezza massima è 20"
+                            },
+                    cognome:
+                            {
+                                required: "Inserire cognome",
+                                maxlength: "La lunghezza massima è 20"
+                            },
+                    
+                    via:
+                            {
+                                required: "Inserire indirizzo",
+                                maxlength: "La lunghezza massima è 30"
+                            },
+                    numeroCivico:
+                            {
+                                number: "Il numero civico è un numero",
+                                min: "Inserire un numero maggiore o uguale a zero"
+                            },
+                    CAP:
+                            {
+                                required: "Inserire il CAP",
+                                minlength: "Il CAP è un numero lungo 5",
+                                maxlength: "Il CAP è un numero lungo 5"
+                            }
+                },
+                 errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
+        submitHandler: function ()
+        {
+            $("#loading").show();
+            alert('I dati sono stati inseriti correttamente');
+            // inviaDatiRegistrazione si trova in clickRegistrazione.js
+            var datiPOST = $('form').serialize();
+            
+            inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
+            
+        }
+    });
+}
+
+function validazioneModificaMedico(){
+ alert('cioa');
+    //aggiungo un metodo di validazione per poter validare correttamente la password
+    // il nome della classe, la funzione per validare e il messaggio in caso di errore
+    jQuery.validator.addMethod("password", function (valore) {
+        //espressione regolare per la password
+        var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
+        return valore.match(regex);
+    }, "Inserire da 6 a 10 caratteri che contengano almeno un numero, una lettera \n\
+        maiuscola,una lettera minuscola");
+
+    jQuery.validator.addMethod("codiceFiscale", function (valore) {
+        //espressione regolare per codice fiscale
+        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        return valore.match(regex);
+    }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+
+    jQuery.validator.addMethod("alfanumerico", function(valore) {
+        var regex = /[a-zA-Z0-9]+/;
+        return valore.match(regex);
+    });
+    
+    jQuery.validator.addMethod("username", function (valore) {
+        //espressione regolare per codice fiscale
+        var regex = /[0-9a-zA-Z\_\-]{4,15}/;
+        return valore.match(regex);
+    }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
+
+
+
+    $("#modificaUserMedico").validate({
+        /*
+         * Il plugin di default invia una richiesta ajax  per la regola remote
+         * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+         * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+         * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
+         * una volta che abbiamo terminato di digitare l'input.
+         */
+        onkeyup: false, //turn off auto validate whilst typing
+//        focusCleanup: true,
+        onclick: true, // Valida checkboxes e radio buttons on click. 
+        rules:
+                {
+                    username:
+                            {
+                                required: true,
+                                username: true,
+                                minlength: 4,
+                                maxlength: 15
+                            },
+                    email:
+                            {
+                                required: true,
+                                email: true
+                            },
+                    confermato:
+                            {
+                                required:true
+                            },
+                    codiceConferma:
+                            {
+                                required:true,
+                                alfanumerico: true,
+                                minlength: 16,
+                                maxlength: 64
+                                
+                            },
+                    bloccato:
+                            {
+                                required:true
+                            },
+                    codiceFiscale:
+                            {
+                                required: true,
+                                codiceFiscale: true,
+                                maxlength: 16,
+                                minlength: 16
+                            },
+                     nome:
+                            {
+                                required: true,
+                                maxlength: 20
+                            },
+                    cognome:
+                            {
+                                required: true,
+                                maxlength: 20
+                            },
+                    via:
+                            {
+                                required: true,
+                                maxlength: 30
+                            },
+                    numeroCivico:
+                            {
+                                number: true,
+                                min: 0
+                            },
+                    CAP:
+                            {
+                                required: true,
+                                minlength: 5,
+                                maxlength: 5
+                            },
+                    provinciaAlbo:
+                            {
+                                required: true,
+                                maxlength: 22
+                            },
+                    numeroIscrizioneAlbo:
+                            {
+                                required: true,
+                                rangelength: [6, 6]
+                            },
+                    PEC:
+                            {
+                                required: true,
+                                email: true
+                                
+                            },
+                    validato:
+                            {
+                                required:true
+                            }
+                    
+                },
+        messages:
+                {
+                    username:
+                            {
+                                required: "Inserire username",
+                                minlength: "La lunghezza minime dello username è 4",
+                                maxlength: "La lunghezza massima dello username è 15"
+                            },
+                    email:
+                            {
+                                required: "Inserire l'email",
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
+                            },
+                    confermato:
+                            {
+                                required:"cliccato SI, non cliccato NO"
+                            },
+                    codiceConferma:
+                            {
+                                required: 'Inserire codice conferma ',
+                                alfanumerico: 'Il codice deve essere alfanumerico',
+                                minlength: 'Minima lunghezza 16',
+                                maxlength: 'Massima lunghezza 64'
+                                
+                            },
+                    bloccato:
+                            {
+                                required:"cliccato SI, non cliccato NO"
+                            },
+                    codiceFiscale:
+                            {
+                                required: "Inserire il proprio codice fiscale",
+                                maxlength: "Il codice fiscale è lungo 16 caratteri",
+                                minlength: "Il codice fiscale è lungo 16 caratteri"
                             },
                     nome:
                             {
@@ -1605,7 +1811,26 @@ function validazioneModificaUtente(){
                                 minlength: "Il CAP è un numero lungo 5",
                                 maxlength: "Il CAP è un numero lungo 5"
                             },
-                    
+                    PEC:
+                            {
+                                required: "Inserire la PEC",
+                                email: "Inserire un'email valida"
+                            },
+                    provinciaAlbo:
+                            {
+                                required: "Inserire la provincia dell'albo a cui si è iscritti",
+                                maxlength: "La sequenza massima di caratteri è 22"
+                            
+                            },
+                    numeroIscrizioneAlbo:
+                            {
+                                required: "Inserire il numero di iscrizione",
+                                rangelength: "Deve avere 6 numeri"
+                            },
+                    validato:
+                            {
+                                required:'SI validato , No non validato'
+                            },
                     
                 },
                  errorPlacement: function(error, element){
@@ -1624,4 +1849,215 @@ function validazioneModificaUtente(){
             
         }
     });
+}
+
+function validazioneModificaClinica(){
+    $("#modificaUserMedico").validate({
+        /*
+         * Il plugin di default invia una richiesta ajax  per la regola remote
+         * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+         * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+         * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
+         * una volta che abbiamo terminato di digitare l'input.
+         */
+        onkeyup: false, //turn off auto validate whilst typing
+//        focusCleanup: true,
+        onclick: true, // Valida checkboxes e radio buttons on click. 
+        rules:
+                {
+                    username:
+                            {
+                                required: true,
+                                username: true,
+                                minlength: 4,
+                                maxlength: 15
+                            },
+                    email:
+                            {
+                                required: true,
+                                email: true
+                            },
+                    confermato:
+                            {
+                                required:true
+                            },
+                    codiceConferma:
+                            {
+                                required:true,
+                                alfanumerico: true,
+                                minlength: 16,
+                                maxlength: 64
+                                
+                            },
+                    bloccato:
+                            {
+                                required:true
+                            },
+                    nomeClinica:
+                            {
+                                required: true,
+                                maxlength: 30
+                            },
+                    titolareClinica:
+                            {
+                                required: true,
+                                maxlength: 50
+                            },
+                    partitaIva:
+                            {
+                                required: true,
+                                partitaIVA: true,
+                                maxlength: 11,
+                                minlength: 11
+                            },
+                    via:
+                            {
+                                required: true,
+                                maxlength: 30
+                            },
+                    numeroCivico:
+                            {
+                                number: true,
+                                min: 0
+                            },
+                    località:
+                            {
+                                required: true,
+                                maxlength: 40
+                            },
+                    provincia:
+                            {
+                                required: true,
+                                maxlength: 22
+                            },
+                    CAP:
+                            {
+                                required: true,
+                                minlength: 5,
+                                maxlength: 5
+                            },
+                    
+                    PEC:
+                            {
+                                required: true,
+                                email: true
+                                
+                            },
+                    telefono:
+                            {
+                                required: true,
+                                maxlength: 10
+                            },
+                    validato:
+                            {
+                                required:true
+                            }
+                    
+                },
+        messages:
+                {
+                    username:
+                            {
+                                required: "Inserire username",
+                                minlength: "La lunghezza minime dello username è 4",
+                                maxlength: "La lunghezza massima dello username è 15"
+                            },
+                    email:
+                            {
+                                required: "Inserire l'email",
+                                email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
+                            },
+                    confermato:
+                            {
+                                required:"cliccato SI, non cliccato NO"
+                            },
+                    codiceConferma:
+                            {
+                                required: 'Inserire codice conferma ',
+                                alfanumerico: 'Il codice deve essere alfanumerico',
+                                minlength: 'Minima lunghezza 16',
+                                maxlength: 'Massima lunghezza 64'
+                                
+                            },
+                    bloccato:
+                            {
+                                required:"cliccato SI, non cliccato NO"
+                            },
+                    nomeClinica:
+                            {
+                                required: "Inserire il nome della clinica",
+                                maxlength: "La sequenza di caratteri deve essere massimo 30"
+                            },
+                    titolareClinica:
+                            {
+                                required: "Inserire il nome e cognome del titolare",
+                                maxlength: "La sequenza di caratteri deve essere massimo 50"
+                            },
+                    partitaIva:
+                            {
+                                required: "Inserire la partita IVA",
+                                maxlength: "La sequenza massima di numeri è 11",
+                                minlength: "La sequenza minima di numeri è 11"
+                            },
+                    
+                    
+                    via:
+                            {
+                                required: "Inserire indirizzo",
+                                maxlength: "La lunghezza massima è 30"
+                            },
+                    numeroCivico:
+                            {
+                                number: "Il numero civico è un numero",
+                                min: "Inserire un numero maggiore o uguale a zero"
+                            },
+                    CAP:
+                            {
+                                required: "Inserire il CAP",
+                                minlength: "Il CAP è un numero lungo 5",
+                                maxlength: "Il CAP è un numero lungo 5"
+                            },
+                    località:
+                            {
+                                required: "Inserire la località della clinica",
+                                maxlength: "La sequenza massima di caratteri è 40"
+                            },
+                    provincia:
+                            {
+                                required: "Inserire la provincia della clinica",
+                                maxlength: "La sequenza massima di caratteri è 22"
+                            },
+                    PEC:
+                            {
+                                required: "Inserire la PEC",
+                                email: "Inserire un'email valida"
+                            },
+                    telefono:
+                            {
+                                required: "Inserire il telefono",
+                                maxlength: "La sequenza massima di numeri è 10"
+                            },
+                    validato:
+                            {
+                                required:'SI validato , No non validato'
+                            }
+                    
+                },
+                 errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
+        submitHandler: function ()
+        {
+            $("#loading").show();
+            alert('I dati sono stati inseriti correttamente');
+            // inviaDatiRegistrazione si trova in clickRegistrazione.js
+            var datiPOST = $('form').serialize();
+            inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
+            
+        }
+    });
+
 }

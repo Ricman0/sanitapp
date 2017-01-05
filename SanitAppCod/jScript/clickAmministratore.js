@@ -135,11 +135,11 @@ $(document).ready(function(){
         }
         else if(tipoUser==='Medico')
         {
-            validazioneMedico();
+            validazioneModificaMedico();
         }
         else
         {
-            validazioneClinica();
+            validazioneModificaClinica();
         }
         $('h3').after("<form id='modificaUser" + tipoUser + "'></form>");
         var nomeLabel = "";
@@ -154,14 +154,16 @@ $(document).ready(function(){
                 var paroleNomeLabel = nomeLabel.split(" "); // separo le parole di nomeLabel
                 nomeLabel = '';
                 $.each(paroleNomeLabel ,function(index, value){
-                    nomeLabel = nomeLabel + " " + value.substring(0,1).toUpperCase() + value.slice(1);  // in questo modo se label è composta da più parole ho una notazione a cammello anche nell'id, ecc..
+                    nomeLabel = nomeLabel + " " + value.substring(0,1).toUpperCase() + value.slice(1);
+                    alert(nomeLabel);// in questo modo se label è composta da più parole ho una notazione a cammello anche nell'id, ecc..
                 }) ;
                 nomeLabel = nomeLabel.trim();
                 nomeLabel = nomeLabel.substring(0,1).toLowerCase() + nomeLabel.slice(1);
-                alert(nomeLabel);
+                
                 if(nomeLabel !== 'indirizzo')
                 { 
-                    $( '#modificaUser' + tipoUser).append("<label for='" + nomeLabel.replace(' ','')  + "' class='elementiForm'>" + nomeLabel.toUpperCase() + ": </label>");
+                    alert(nomeLabel.replace(' ',''));
+                    $( '#modificaUser' + tipoUser).append("<label for='" + nomeLabel.replace(" ",'').replace(" ",'')  +  "' class='elementiForm'>" + nomeLabel.toUpperCase() + ": </label>");
                 }     
             }
             else
