@@ -129,18 +129,7 @@ $(document).ready(function(){
         $('#contenutoAreaPersonale').find('h3').replaceWith("<h3>MODIFICA USER</h3>");
         var tipoUser = $(this).attr('data-tipoUser');
         tipoUser = tipoUser[0].toUpperCase() + tipoUser.slice(1); //in questo modo ho la prima lettera di tipoUser maiuscola
-         if(tipoUser === 'Utente')
-        {
-            validazioneModificaUtente();
-        }
-        else if(tipoUser==='Medico')
-        {
-            validazioneMedico();
-        }
-        else
-        {
-            validazioneClinica();
-        }
+        
         $('h3').after("<form id='modificaUser" + tipoUser + "'></form>");
         var nomeLabel = "";
         $( '#contenutoAreaPersonale > span' ).each(function( index ) {
@@ -224,7 +213,18 @@ $(document).ready(function(){
         $( '#modificaUser' + tipoUser).append("<input type='submit' value='Modifica " + tipoUser +" ' id='submitModifica" + tipoUser + "'>  ");
         $( '#modificaUser' + tipoUser).append("<input type='button' value='Modifica Password " + tipoUser +"' id='modificaPasswordUser" + tipoUser + "' data-tipoUser='" + tipoUser + "'>");
         
-       
+        if(tipoUser === 'Utente')
+        {
+            validazioneModificaUtente();
+        }
+        else if(tipoUser==='Medico')
+        {
+            validazioneMedico();
+        }
+        else
+        {
+            validazioneClinica();
+        }
     });
     
     $('#headerMain').on("click", "#modificaPasswordUser" , function(){

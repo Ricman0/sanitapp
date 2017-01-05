@@ -1464,7 +1464,6 @@ function validazioneModificaUtente(){
     }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
 
 
-
     $("#modificaUserUtente").validate({
         /*
          * Il plugin di default invia una richiesta ajax  per la regola remote
@@ -1500,7 +1499,6 @@ function validazioneModificaUtente(){
                                 alfanumerico: true,
                                 minlength: 16,
                                 maxlength: 64
-                                
                             },
                     bloccato:
                             {
@@ -1538,7 +1536,7 @@ function validazioneModificaUtente(){
                                 required: true,
                                 minlength: 5,
                                 maxlength: 5
-                            },
+                            }
                     
                 },
         messages:
@@ -1604,8 +1602,7 @@ function validazioneModificaUtente(){
                                 required: "Inserire il CAP",
                                 minlength: "Il CAP è un numero lungo 5",
                                 maxlength: "Il CAP è un numero lungo 5"
-                            },
-                    
+                            }
                     
                 },
                  errorPlacement: function(error, element){
