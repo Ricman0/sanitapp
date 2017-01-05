@@ -26,7 +26,7 @@ class CSetup {
             $dati = $view->recuperaDatiInstallazione();
             if($validazione->validaDati($dati)){
                 $this->_datiSetup = $dati;
-                if ($this->caricaDbDaFile()) {
+                if ($this->caricaDbDaFile('sqlSanitAppInstallazione.sql')) {
                     if ($this->inserisciAdmin()) 
                     {
                         if (!is_bool($this->creaFileConfig())) {
@@ -88,6 +88,7 @@ class CSetup {
     
      public function inserisciAdmin() {
         $conn = new mysqli($this->_datiSetup['host'], $this->_datiSetup['userDb'], $this->_datiSetup['passwordDb'], 'sanitapp2');
+        
         
         
 //        $admin['username'] = $this->_datiSetup['username']; 
@@ -172,17 +173,16 @@ class CSetup {
      * Il metodo carica il database 
      * @return boolean
      */
-    public function caricaDbDaFile() {
+    public function caricaDbDaFile($file) {
 
 
         $conn = new mysqli($this->_datiSetup['host'], $this->_datiSetup['userDb'], $this->_datiSetup['passwordDb']);
 
         if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+            die("Connessione al database fallita: " . $conn->connect_error);
         }
         $templine = '';
-
-        $lines = file('sqlSanitAppInstallazione.sql');
+        $lines = file($file);
         foreach ($lines as $line) {
             if (substr($line, 0, 2) == '--' || $line == '') {
                 continue;
