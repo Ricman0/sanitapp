@@ -146,6 +146,8 @@ function clickRiga(controller, task, id, ajaxdiv)
             $(ajaxdiv).html(datiRisposta);
             $('#aggiungiPrenotazioneButton').attr('data-codiceFiscale', codiceFiscale);
         }
+
+        
     });
 }
 

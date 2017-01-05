@@ -129,7 +129,7 @@ $(document).ready(function(){
         $('#contenutoAreaPersonale').find('h3').replaceWith("<h3>MODIFICA USER</h3>");
         var tipoUser = $(this).attr('data-tipoUser');
         tipoUser = tipoUser[0].toUpperCase() + tipoUser.slice(1); //in questo modo ho la prima lettera di tipoUser maiuscola
-        $('h3').after("<form id='modifica" + tipoUser +"'></form>");
+        $('h3').after("<form id='modificaUser" + tipoUser + "'></form>");
         var nomeLabel = "";
         $( '#contenutoAreaPersonale > span' ).each(function( index ) {
             
@@ -146,7 +146,7 @@ $(document).ready(function(){
                 }) ;
                 if(nomeLabel.trim() !== 'Indirizzo')
                 { 
-                    $( '#modifica' + tipoUser).append("<label for='" + nomeLabel.trim().replace(' ','') + tipoUser  + "' class='elementiForm'>" + nomeLabel.toUpperCase() + ": </label>");
+                    $( '#modificaUser' + tipoUser).append("<label for='" + nomeLabel.trim().replace(' ','') + tipoUser  + "' class='elementiForm'>" + nomeLabel.toUpperCase() + ": </label>");
                 }     
             }
             else
@@ -156,46 +156,88 @@ $(document).ready(function(){
                     var indirizzo = $(this).text().trim();
                     // indirizzo contene almeno  via, numero civico, cap 
                     indirizzo = indirizzo.split(','); 
-                    $( '#modifica' + tipoUser).append("<label for='via" + tipoUser  + "' class='elementiForm'>VIA: </label>");
-                    $( '#modifica' + tipoUser).append("<input type='text' name='via" +  tipoUser +"' class='elementiForm' id='via" + tipoUser  + "' value='" + indirizzo[0].trim() +"' /><br>");
-                    $( '#modifica' + tipoUser).append("<label for='numeroCivico" + tipoUser  + "' class='elementiForm'>NUMERO CIVICO: </label>");
-                    $( '#modifica' + tipoUser).append("<input type='text' name='numeroCivico" +  tipoUser +"' class='elementiForm' id='numeroCivico" + tipoUser  + "' value='" + indirizzo[1].trim() +"' /><br>");
-                    $( '#modifica' + tipoUser).append("<label for='CAP" + tipoUser  + "' class='elementiForm'>CAP: </label>");
+                    $( '#modificaUser' + tipoUser).append("<label for='via" + tipoUser  + "' class='elementiForm'>VIA: </label>");
+                    $( '#modificaUser' + tipoUser).append("<input type='text' name='via" +  tipoUser +"' class='elementiForm' id='via" + tipoUser  + "' value='" + indirizzo[0].trim() +"' /><br>");
+                    $( '#modificaUser' + tipoUser).append("<label for='numeroCivico" + tipoUser  + "' class='elementiForm'>NUMERO CIVICO: </label>");
+                    $( '#modificaUser' + tipoUser).append("<input type='text' name='numeroCivico" +  tipoUser +"' class='elementiForm' id='numeroCivico" + tipoUser  + "' value='" + indirizzo[1].trim() +"' /><br>");
+                    $( '#modificaUser' + tipoUser).append("<label for='CAP" + tipoUser  + "' class='elementiForm'>CAP: </label>");
                     if (tipoUser === 'Clinica')
                     {
                         var CapLocalitàProvincia = indirizzo[2].trim().split(" ");
-                        $( '#modifica' + tipoUser).append("<input type='text' name='CAP" +  tipoUser + "' class='elementiForm' id='CAP" + tipoUser  + "' value='" + CapLocalitàProvincia[0].trim() +"' /><br>");
-                        $( '#modifica' + tipoUser).append("<label for='località" + tipoUser  + "' class='elementiForm'>LOCALITÁ: </label>");
-                        $( '#modifica' + tipoUser).append("<input type='text' name='località" +  tipoUser +"' class='elementiForm' id='località" + tipoUser  + "' value='" + CapLocalitàProvincia[1].trim() +"' /><br>");
-                        $( '#modifica' + tipoUser).append("<label for='provincia" + tipoUser  + "' class='elementiForm'>PROVINCIA: </label>");
-                        $( '#modifica' + tipoUser).append("<input type='text' name='provincia" +  tipoUser +"' class='elementiForm' id='provincia" + tipoUser  + "' value='" + CapLocalitàProvincia[2].trim() +"' /><br>");
+                        $( '#modificaUser' + tipoUser).append("<input type='text' name='CAP" +  tipoUser + "' class='elementiForm' id='CAP" + tipoUser  + "' value='" + CapLocalitàProvincia[0].trim() +"' /><br>");
+                        $( '#modificaUser' + tipoUser).append("<label for='località" + tipoUser  + "' class='elementiForm'>LOCALITÁ: </label>");
+                        $( '#modificaUser' + tipoUser).append("<input type='text' name='località" +  tipoUser +"' class='elementiForm' id='località" + tipoUser  + "' value='" + CapLocalitàProvincia[1].trim() +"' /><br>");
+                        $( '#modificaUser' + tipoUser).append("<label for='provincia" + tipoUser  + "' class='elementiForm'>PROVINCIA: </label>");
+                        $( '#modificaUser' + tipoUser).append("<input type='text' name='provincia" +  tipoUser +"' class='elementiForm' id='provincia" + tipoUser  + "' value='" + CapLocalitàProvincia[2].trim() +"' /><br>");
                     } 
                     else
                     {
-                        $('#modifica' + tipoUser).append("<input type='text' name='CAP" +  tipoUser + "' class='elementiForm' id='CAP" + tipoUser  + "' value='" + indirizzo[2].trim() + "' /><br>"); 
+                        $('#modificaUser' + tipoUser).append("<input type='text' name='CAP" +  tipoUser + "' class='elementiForm' id='CAP" + tipoUser  + "' value='" + indirizzo[2].trim() + "' /><br>"); 
                     }
                 }
                 else
                 {
-                    $( '#modifica' + tipoUser).append("<input type='text' name='" + nomeLabel.trim().replace(' ','') + tipoUser +"' class='elementiForm' id='" +  nomeLabel.trim().replace(' ','') + tipoUser  + "' value='" + $(this).text().trim() +"' /><br>");
+                    $( '#modificaUser' + tipoUser).append("<input type='text' name='" + nomeLabel.trim().replace(' ','') + tipoUser +"' class='elementiForm' id='" +  nomeLabel.trim().replace(' ','') + tipoUser  + "' value='" + $(this).text().trim() +"' /><br>");
                 }
             }
         });
         $( 'span' ).remove();
         $('#tastiInfoUser').remove();
-        $( '#modifica' + tipoUser).append("<input type='submit' value='Modifica " + tipoUser +" ' id='submitModifica" + tipoUser + "'>  ");
-        $( '#modifica' + tipoUser).append("<input type='button' value='Modifica Password " + tipoUser +"' id='modificaPasswordUser" + tipoUser + "' data-tipoUser='" + tipoUser + "'>");
+        validaBloccatoClinica();
+//        $( '#modifica' + tipoUser).append("<input type='submit' value='Modifica " + tipoUser +" ' id='submitModifica" + tipoUser + "'>  ");
+//        $( '#modifica' + tipoUser).append("<input type='button' value='Modifica Password " + tipoUser +"' id='modificaPasswordUser" + tipoUser + "' data-tipoUser='" + tipoUser + "'>");
         
+        
+//       
+//        if(tipoUser === 'Clinica')
+//        {
+//            validaModificaClinica();
+//        }
+//        else if(tipoUser==='Medico')
+//        {
+//            validaModificaMedico();
+//        }
+//        else
+//        {
+//            validaModificaUtente();
+//        }
     });
     
     $('#headerMain').on("click", "#modificaPasswordUser" , function(){
         var tipoUser = $(this).attr('data-tipoUser');
-        $( '#modifica' + tipoUser).append("<label for='password" + tipoUser + "' class='elementiForm'>PASSWORD: </label>");
-        $( '#modifica' + tipoUser).append("<input type='password' name='password" + tipoUser + "' class='elementiForm'  id='password" + tipoUser + "' /><br>");
+        $( '#modificaUser' + tipoUser).append("<label for='password" + tipoUser + "' class='elementiForm'>PASSWORD: </label>");
+        $( '#modificaUser' + tipoUser).append("<input type='password' name='password" + tipoUser + "' class='elementiForm'  id='password" + tipoUser + "' /><br>");
         $("#modificaPasswordUser").remove();
     });
     
+    
+    
+    
+   
+    
+    $('#headerMain').on("change", "#modificaUserClinica >input[type='text']" , function(){
+        
+        
+        
+        var valoreNuovo = $(this).val();
+        var idElementoInput = $(this).attr("id");
+        var nomeFunzioneDaRichiamare = "valida" + idElementoInput ;
+        // vorrei richiamre una funzione il cui nome viene passato come stringa
+//        eval(nomeFunzioneDaRichiamare);
+        
+//        [nomeFunzioneDaRichiamare]();
+        var valoreLabel = $("label[for='" + idElementoInput + "']").val().trim();
+        valoreLabel = valoreLabel.substring(0,1).toUpperCase() + valoreLabel.slice(1);
+        $("label[for='" + idElementoInput + "']").wrap( "<form id='" + idElementoInput + "Form'></form>" );
+        $( this ).insertAfter( "label[for='" + idElementoInput + "']" );
+        $(this).after("<input type='submit' value='Modifica "+ valoreLabel + "' id='submitModifica" + idElementoInput + "'>  ");
+    });
+    
+    
 });
+
+// $("input").prop('required',true) 
+
 
 function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
 {

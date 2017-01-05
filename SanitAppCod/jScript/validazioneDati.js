@@ -1375,6 +1375,12 @@ function validazioneCategoria() {
                                     maxlength: "La lunghezza massima è 30"
                                 }
                     },
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
             submitHandler: function ()
             {
                 alert('I dati sono stati inseriti correttamente');
@@ -1424,3 +1430,43 @@ function validazioneCategoria() {
       
  });
  }
+ 
+ 
+function validaBloccatoClinica(){
+    jQuery.validator.addMethod("bloccato", function (valore) {
+        //espressione regolare per la password
+        var regex = /(SI|NO)/;
+        return valore.match(regex);
+    }, "Inserire SI per user bloccato, NO per user non bloccato");
+
+
+    $("#BloccatoClinicaForm").validate({
+        
+        /*
+         * Il plugin di default invia una richiesta ajax  per la regola remote
+         * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+         * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+         * in questo modo limput che richiama la regola remote sarà validata con una sola chiamata ajax
+         * una volta che abbiamo terminato di digitare l'input.
+         */
+        onkeyup: false,
+        rules:
+                {
+                    BloccatoClinica:
+                            {
+                                maxlength: 2
+                            }
+                },
+        
+        errorPlacement: function(error, element){
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function(element) {
+            $(element).removeAttr('title').removeClass('error');
+          },
+        submitHandler: function ()
+        {
+            alert('ok');
+        }
+    });
+}
