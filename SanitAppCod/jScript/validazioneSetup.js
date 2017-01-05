@@ -7,7 +7,7 @@
 
 $(document).ready(function () {
 
-
+ validazioneInstallazione();
 
     $(function () {
         $(document).tooltip({
@@ -18,6 +18,18 @@ $(document).ready(function () {
         });
     });
 
+    $("#dialog").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: 600,
+        modal: true,
+        dialogClass: "no-close"
+    });
+
+});
+
+function validazioneInstallazione(){
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("passwordMethod", function (valore) {
@@ -33,6 +45,12 @@ $(document).ready(function () {
         return valore.match(regex);
     }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
 
+    jQuery.validator.addMethod("domainName", function (valore) {
+        //espressione regolare per codice fiscale
+        var regex = /^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?)*\.?$/;
+        return valore.match(regex);
+    }, "Inserire un valore valido");
+
     $("#formInstallazione").validate({
         /*
          * Il plugin di default invia una richiesta ajax  per la regola remote
@@ -47,11 +65,13 @@ $(document).ready(function () {
                 {
                     host:
                             {
-                                required: true
+                                required: true,
+                                domainName: true
                             },
                     userDb:
                             {
-                                required: true
+                                required: true,
+                                username: true
                             },
                     passwordDb:
                             {
@@ -64,7 +84,8 @@ $(document).ready(function () {
                             },
                     smtp:
                             {
-                                required: true
+                                required: true,
+                                domainName: true
                             },
                     emailSmtp:
                             {
@@ -105,7 +126,7 @@ $(document).ready(function () {
                                 required: true,
                                 number: true,
                                 maxlength: 10,
-                                minlength: 4
+                                minlength: 3
                             },
                     username:
                             {
@@ -215,24 +236,18 @@ $(document).ready(function () {
         },
         submitHandler: function ()
         {
-            alert('I dati sono stati inseriti correttamente');
             $('#messaggioDialogBox').empty();
             $('#messaggioDialogBox').text('Installazione...');
             $('#dialog').append("<div id='progressBar'></div>");
-            $("#dialog").dialog({
-                    resizable: false,
-                    height: "auto",
-                    width: 600,
-                    modal: true,
-                    dialogClass: "no-close"
-                });
-            $( "#progressBar" ).progressbar({
-          value: false          
-        });
+            $('#dialog').dialog('option', 'buttons',{}).dialog('open');
+            $("#progressBar").progressbar({
+                value: false
+            });
+            alert('invio dati');
             inviaDatiInstallazione();
         }
     });
-});
+    }
 
 function inviaDatiInstallazione() {
     var dati = $('#formInstallazione').serialize();
@@ -242,33 +257,40 @@ function inviaDatiInstallazione() {
         data: dati,
         success: function (datiRisposta)
         {
-            $('#wrapper').html(datiRisposta);
+            $('#main').html(datiRisposta);
         },
         complete: function () {
-            alert('cro');
+            $('#progressBar').progressbar('destroy');
             $('#dialog').dialog('close');
-            $('#progressBar').progressbar('close');
-            if ($('#host').attr('value') !== null) {
-                alert('ci');
+            if ($('#formInstallazione').length) {
                 $('#messaggioDialogBox').empty();
                 $('#messaggioDialogBox').text('Dati non validi, reinserire i dati!');
-
-
-                $("#dialog").dialog({
-                    resizable: false,
-                    height: "auto",
-                    width: 400,
-                    modal: true,
-                    dialogClass: "no-close",
-                    buttons: [
+                // forse aggiungere un add listener
+                $("#dialog").dialog('option', 'buttons',[
                         {
                             text: "OK",
                             click: function () {
                                 $(this).dialog("close");
                             }
                         }
-                    ]
-                });
+                    ] );
+                $("#dialog").dialog('open');
+                validazioneInstallazione();
+//                        {
+//                    resizable: false,
+//                    height: "auto",
+//                    width: 400,
+//                    modal: true,
+//                    dialogClass: "no-close",
+//                    buttons: [
+//                        {
+//                            text: "OK",
+//                            click: function () {
+//                                $(this).dialog("close");
+//                            }
+//                        }
+//                    ]
+//                });
 
             }
         }

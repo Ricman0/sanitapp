@@ -23,12 +23,8 @@ class CSetup {
         switch ($controller)
         {
         case 'installa':
-            echo 'ciao';
             $dati = $view->recuperaDatiInstallazione();
-            print_r($dati);
-            $validato = $validazione->validaDati($dati);
-            echo $validato;
-            if($validazione){
+            if($validazione->validaDati($dati)){
                 $this->_datiSetup = $dati;
                 if ($this->caricaDbDaFile()) {
                     if ($this->inserisciAdmin()) 
@@ -38,7 +34,7 @@ class CSetup {
                             unlink('./include/config.php') or die("erorre cancellazione");
                             rename('./include/installazione.php', './include/config.php') or die("Errore nel rinominare il file");
                             unlink('index.php');
-                            rename('index1.php', 'index.php');
+                            rename('site.php', 'index.php');
                             $view->visualizzaFeedback('Installazione completata. Puoi iniziare ad utilizzare Sanitapp', TRUE);
 //                            echo $view->acquisisci_template('messaggi');
                         }
@@ -47,9 +43,8 @@ class CSetup {
             }
             else{
                 $datiValidi = $validazione->getDatiValidi();
-                $view->restituisciPaginaInstallazione($datiValidi);
+                $view->restituisciFormInstallazione($datiValidi);
             }
-            
          
         break;
         default:
@@ -197,7 +192,6 @@ class CSetup {
             if (substr(trim($line), -1, 1) == ';') {
 
                 if ($conn->query($templine)) {
-                    echo $templine;
                     $templine = '';
                 } else {
 

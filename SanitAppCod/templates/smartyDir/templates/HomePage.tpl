@@ -37,7 +37,6 @@
         <script type="text/javascript" src="./jScript/clickCercaCliniche.js"></script>
         <script type="text/javascript" src="./jScript/clickCercaEsami.js"></script>
         <script type="text/javascript" src="./jScript/validazioneDati.js"></script>
-        <script type="text/javascript" src="./jScript/clickHome.js"></script>
         <script type="text/javascript" src="./jScript/clickClinica.js"></script>
         <script type="text/javascript" src="./jScript/clickUtente.js"></script>
         <script type="text/javascript" src="./jScript/clickMedico.js"></script>

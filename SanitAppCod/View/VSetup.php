@@ -42,17 +42,23 @@ class VSetup extends View{
     }
 
     /**
-     * Metodo che  restituisce la form di installazione dalla form. 
+     * Metodo che  restituisce la pagina di installazione dall'applicazione. 
      * 
      * @access public
      */
-    public function restituisciPaginaInstallazione($dati = NULL) {
+    public function restituisciPaginaInstallazione() {
+        $formInstallazione = $this->prelevaTemplate('formInstallazione');
+        $this->assegnaVariabiliTemplate('contenuto', $formInstallazione);
+        $this->visualizzaTemplate('installazione');
+        
+    }
+    
+    public function restituisciFormInstallazione($dati = NULL) {
         if(isset($dati)){
             $this->assegnaVariabiliTemplate('datiInstallazione', $dati);
                     
         }
-        $this->visualizzaTemplate('installazione');
-        
+        $this->visualizzaTemplate('formInstallazione');
     }
     
      /**
@@ -77,7 +83,7 @@ class VSetup extends View{
        $datiInstallazione['PEC'] = $this->recuperaValore('pecAdmin');
        $datiInstallazione['telefono'] = $this->recuperaValore('telefono');
        $datiInstallazione['username'] =$this->recuperaValore('username');
-       $datiInstallazione['password'] = $this->recuperaValore('passwordUtente');
+       $datiInstallazione['password'] = $this->recuperaValore('password');
        return $datiInstallazione;
     }
 }

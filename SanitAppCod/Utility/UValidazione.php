@@ -113,8 +113,6 @@ class UValidazione {
                     $stringaErrore = "Il" . $chiave . "deve essere una sequenza alfanumerica";
                     break;
                 
-                case "passwordDb":
-                case "passwordEmail":
                 case "password":
                     $pattern = '/^(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})$/';
                     $stringaErrore = "La password deve contenere almeno un "
@@ -138,7 +136,6 @@ class UValidazione {
                     $pattern = '/^[a-zA-Zàèìùò\s]{2,20}$/' ;
                     $stringaErrore = "Il " . $chiave . " deve essere una sequenza di caratteri. Minimo 2 e massimo 20";
                     break;
-
                 
                 case 'indirizzo':
                 case 'via':
@@ -176,7 +173,11 @@ class UValidazione {
                     $stringaErrore = "Il numero di iscrizione all'albo deve essere una sequenza di 6 numeri ";
                     break;
                 
-                
+//                case 'host':
+//                case 'smtp':
+//                    $pattern = '/^(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|([a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]))\.([a-zA-Z]{2,6}|[a-zA-Z0-9-]{2,30}\.[a-zA-Z]{2,3})$/';
+//                    $stringaErrore = $chiave . "non valido";
+//                    break;
                 
                 case 'nomeClinica':
                     $pattern = '/^[a-z^[0-9a-zA-Zàèìùò\s]{1,20}$/' ;
@@ -204,7 +205,7 @@ class UValidazione {
                     break;
                 
                 case 'telefono':
-                    $pattern = '/^[0-9]{10}$/';
+                    $pattern = '/^[0-9]{3,10}$/';
                     $stringaErrore = "Il" . $chiave . "deve essere una sequenza di numeri";
                     break;
                 
