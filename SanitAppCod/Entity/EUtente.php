@@ -504,6 +504,7 @@ class EUtente extends EUser {
      * Metodo che controlla se un utente deve essere bloccato
      * 
      * @access public
+     * date ("Y/m/d")"
      */
     public function controllaSeBloccare($dataOdierna) 
     {
@@ -514,5 +515,73 @@ class EUtente extends EUser {
             $this->setBloccato(TRUE);
         }
     }
-
+    
+    /**
+     * Metodo che consente di modificare i dati dell'utente
+     * 
+     * @access public
+     * @param Array $datiDaModificare I dati dell'utente da modificare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaUtente($datiDaModificare) {
+        foreach ($datiDaModificare as $key => $value) {
+            switch ($key) {
+                case 'username':
+                    $this->setUsername($value);
+                    break;
+                case 'codiceConferma':
+                    $this->setCodiceConfermaUtente($value);
+                    break;
+                case 'confermato':
+                    if($value === 'SI' || $value == TRUE ||  $value ===1)
+                    {
+                        $this->setConfermato(TRUE);
+                    }
+                    else 
+                    {
+                        $this->setConfermato(FALSE);
+                    }
+                    
+                    break;
+                case 'bloccato':
+                    if($value === 'SI' || $value == TRUE ||  $value ===1)
+                        
+                    {
+                        $dataOdierna = date ("Y/m/d");
+                        $this->controllaSeBloccare($dataOdierna);
+                    }
+                    else
+                    {
+                        $this->setBloccato(FALSE);
+                    }
+                    break;
+                case 'email':
+                    $this->setEmail($value);
+                    break;
+                case 'codiceFiscale':
+                    $this->setCodiceFiscaleUtente($value);
+                    break;
+                case 'nome':
+                    $this->setNomeUtente($value);
+                    break;
+                case 'cognome':
+                    $this->setCognomeUtente($value);
+                    break;
+                case 'via':
+                    $this->setViaUtente($value);
+                    break;
+                case 'numeroCivico':
+                    $this->setNumCivicoUtente($value);
+                    break;
+                case 'CAP':
+                    $this->setCAPUtente($value);
+                    break;
+                default:
+                    break;
+            }
+        }
+        $fUtente = USingleton::getInstance('FUtente');
+        return $fUtente->modificaUtente($this);
+    }
 }

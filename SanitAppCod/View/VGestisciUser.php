@@ -12,6 +12,23 @@
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VGestisciUser extends View{
+    
+    /**
+     * Metodo che consente di recuparare i dati inviati tramite POST
+     * 
+     * @access public
+     * @return Array I dati da validare
+     */
+    public function recuperaDatidaValidare(){
+        $datiDaValidare;
+         print_r($_REQUEST);
+       
+        foreach ($_POST as $key => $value) {
+            $datiDaValidare[$key] = $value;
+        }
+        return $datiDaValidare;
+    }
+    
     /**
      * Metodo che permette di visualizzare tutti gli user dell'applicazione fatta eccezione per gli amministratori
      * 

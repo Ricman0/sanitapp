@@ -71,7 +71,7 @@ class FAmministratore extends FUser{
 
             // If we arrive here, it means that no exception was thrown
             // i.e. no query has failed, and we can commit the transaction
-            $this->_connessione->commit();
+            return $this->_connessione->commit();
         } catch (Exception $e) {
             // An exception has been thrown
             // We must rollback the transaction

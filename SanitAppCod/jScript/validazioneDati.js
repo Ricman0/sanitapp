@@ -1614,7 +1614,7 @@ function validazioneModificaUtente(){
             $("#loading").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            var datiPOST = $('form').serialize();
+            var datiPOST = $('form').serialize() + "&tipoUser=Utente";
             
             inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
             
@@ -1649,7 +1649,6 @@ function validazioneModificaMedico(){
         var regex = /[0-9a-zA-Z\_\-]{4,15}/;
         return valore.match(regex);
     }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
-
 
 
     $("#modificaUserMedico").validate({
@@ -1851,7 +1850,33 @@ function validazioneModificaMedico(){
 }
 
 function validazioneModificaClinica(){
-    $("#modificaUserMedico").validate({
+    //aggiungo un metodo di validazione per poter validare correttamente la password
+    // il nome della classe, la funzione per validare e il messaggio in caso di errore
+    jQuery.validator.addMethod("password", function (valore) {
+        //espressione regolare per la password
+        var regex = /(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})/;
+        return valore.match(regex);
+    }, "Inserire da 6 a 10 caratteri che contengano almeno un numero, una lettera \n\
+        maiuscola,una lettera minuscola");
+
+    jQuery.validator.addMethod("codiceFiscale", function (valore) {
+        //espressione regolare per codice fiscale
+        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        return valore.match(regex);
+    }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+
+    jQuery.validator.addMethod("alfanumerico", function(valore) {
+        var regex = /[a-zA-Z0-9]+/;
+        return valore.match(regex);
+    });
+    
+    jQuery.validator.addMethod("username", function (valore) {
+        //espressione regolare per codice fiscale
+        var regex = /[0-9a-zA-Z\_\-]{4,15}/;
+        return valore.match(regex);
+    }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
+
+    $("#modificaUserClinica").validate({
         /*
          * Il plugin di default invia una richiesta ajax  per la regola remote
          * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
@@ -2054,6 +2079,7 @@ function validazioneModificaClinica(){
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize();
+            console.log(datiPOST);
             inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
             
         }

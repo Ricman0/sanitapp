@@ -192,7 +192,63 @@ class CGestisciUser {
                 }
                 break;
             case 'modifica':
-                
+                $vUsers= USingleton::getInstance('VGestisciUser');
+                $uValidazione = USingleton::getInstance('UValidazione');
+                $datiDaValidare = $vUsers->recuperaDatidaValidare();
+               
+                $validato = $uValidazione->validaDati($datiDaValidare);
+                if( $validato===TRUE)
+                {
+                    
+                    $tipoUser = $datiDaValidare['tipoUser'];
+                    echo ($tipoUser);
+                    switch ($tipoUser) {
+                        case 'Utente':
+                            
+                            try {
+                           echo('ciao');
+                                $eUtente = new EUtente( NULL, $datiDaValidare['username']);
+                                echo('i');
+                                $eUtente->modificaUtente($datiDaValidare);
+                                echo ('c');
+                                $vUsers->visualizzaFeedback("Modifica all'utente effetuata");
+                            } 
+                            catch (XUtenteException $ex) 
+                            {
+                                echo 'y';
+                                try{
+                                    $eUtente = new EUtente( $datiDaValidare['codiceFiscale']);
+                                    $eUtente->modificaUtente($datiDaValidare);
+                                    $vUsers->visualizzaFeedback("Modifica all'utente effetuata");
+                                }catch (XUtenteException $ex) 
+                                {
+                                    $messaggio[0] = "C'è stato un errore, non è stato possibile modificare l'utente.";
+                                    $messaggio[1] =  "Prova a modificare l'username e il codice fiscale separatamente.";
+                                    $vUsers->visualizzaTemplate($messaggio);
+                                }
+                            }
+                            catch (XDBException $ex)
+                            {
+                                echo 's';
+                                $messaggio[0] = "C'è stato un errore, non è stato possibile modificare l'utente.";
+                                $messaggio[1] =  "Prova a modificare l'username e il codice fiscale separatamente.";
+                                $vUsers->visualizzaTemplate($messaggio);
+                            }
+                            
+                            break;
+                        case 'Medico':
+                            echo 'p';
+                            break;
+                        default:// Clinica
+                            echo 'v';
+                            break;
+                    }
+                }
+                else
+                    {
+                        $messaggio[0] = "C'è stato un errore, non è stato possibile modificare l'utente.";
+                        $vUsers->visualizzaTemplate($messaggio);
+                    }
                 break;
         }
     }
