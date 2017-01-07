@@ -56,7 +56,7 @@ class EAmministratore extends EUser{
                 parent::setPEC($attributiAmministratore[0]['PEC']);
                 parent::setBloccato($attributiAmministratore[0]['Bloccato']);
                 parent::setConfermato($attributiAmministratore[0]['Confermato']);
-                parent::setCodiceConfermaUtente($attributiAmministratore[0]['CodiceConferma']);
+                parent::setCodiceConfermaUser($attributiAmministratore[0]['CodiceConferma']);
                 parent::setTipoUser($attributiAmministratore[0]['TipoUser']);
                 $this->_id = $attributiAmministratore[0]['IdAmministratore']; // nel db è autoincrement
                 $this->_telefono = $attributiAmministratore[0]['Telefono'];

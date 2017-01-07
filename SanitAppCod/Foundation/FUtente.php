@@ -250,6 +250,7 @@ class FUtente extends FUser{
                 . $utente->getPassword() . "', Email='" . $utente->getEmail() . "', Bloccato=" . $utente->getBloccato() . ", "
                 . "Confermato=" .  $utente->getConfermato() . ", CodiceConferma='" . $utente->getCodiceConferma() . "' "
                 .  " WHERE (Username='" . $utente->getUsername() . "') OR (Email='" . $utente->getEmail() .  "')";
+       
         try {
 //            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();

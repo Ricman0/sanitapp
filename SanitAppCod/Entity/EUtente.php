@@ -95,7 +95,7 @@ class EUtente extends EUser {
                 parent::setPEC($attributiUtente[0]['PEC']);
                 parent::setBloccato($attributiUtente[0]['Bloccato']);
                 parent::setConfermato($attributiUtente[0]['Confermato']);
-                parent::setCodiceConfermaUtente($attributiUtente[0]['CodiceConferma']);
+                parent::setCodiceConfermaUser($attributiUtente[0]['CodiceConferma']);
                 parent::setTipoUser($attributiUtente[0]['TipoUser']);
                 $this->setNomeUtente($attributiUtente[0]['Nome']);
                 $this->setCognomeUtente($attributiUtente[0]['Cognome']);
@@ -155,7 +155,7 @@ class EUtente extends EUser {
 //                $this->setUsernameUtente($attributiUtente[0]['Username']);
 //                $this->setPasswordUtente($attributiUtente[0]['Password']);
 //                $this->setConfermatoUtente($attributiUtente[0]['Confermato']);
-//                $this->setCodiceConfermaUtente($attributiUtente[0]['CodiceConferma']);
+//                $this->setCodiceConfermaUser($attributiUtente[0]['CodiceConferma']);
 //                $this->_medicoCurante = $attributiUtente[0]['CodFiscaleMedico'];
 //            }
 //            
@@ -208,7 +208,7 @@ class EUtente extends EUser {
 //                $this->setUsernameUtente($attributiUtente[0]['Username']);
 //                $this->setPasswordUtente($attributiUtente[0]['Password']);
 //                $this->setConfermatoUtente($attributiUtente[0]['Confermato']);
-//                $this->setCodiceConfermaUtente($attributiUtente[0]['CodiceConferma']);
+//                $this->setCodiceConfermaUser($attributiUtente[0]['CodiceConferma']);
 //                $this->_medicoCurante = $attributiUtente[0]['CodFiscaleMedico'];
 //            }
 //    
@@ -531,21 +531,21 @@ class EUtente extends EUser {
                     $this->setUsername($value);
                     break;
                 case 'codiceConferma':
-                    $this->setCodiceConfermaUtente($value);
+                    $this->setCodiceConfermaUser($value);
                     break;
                 case 'confermato':
-                    if($value === 'SI' || $value == TRUE ||  $value ===1)
+                    if($value === true || $value === TRUE ||  $value === 'SI')
                     {
                         $this->setConfermato(TRUE);
                     }
                     else 
                     {
-                        $this->setConfermato(FALSE);
+                        $this->setConfermato('FALSE');
                     }
                     
                     break;
                 case 'bloccato':
-                    if($value === 'SI' || $value == TRUE ||  $value ===1)
+                    if($value === 'SI' || $value === TRUE   || $value === true)
                         
                     {
                         $dataOdierna = date ("Y/m/d");
@@ -553,7 +553,7 @@ class EUtente extends EUser {
                     }
                     else
                     {
-                        $this->setBloccato(FALSE);
+                        $this->setBloccato('FALSE');
                     }
                     break;
                 case 'email':

@@ -1474,7 +1474,7 @@ function validazioneModificaUtente(){
          */
         onkeyup: false, //turn off auto validate whilst typing
 //        focusCleanup: true,
-        onclick: true, // Valida checkboxes e radio buttons on click. 
+//        onclick: true, // Valida checkboxes e radio buttons on click. 
         rules:
                 {
                     username:
@@ -1489,20 +1489,12 @@ function validazioneModificaUtente(){
                                 required: true,
                                 email: true
                             },
-                    confermato:
-                            {
-                                required:true
-                            },
                     codiceConferma:
                             {
                                 required:true,
                                 alfanumerico: true,
                                 minlength: 16,
                                 maxlength: 64
-                            },
-                    bloccato:
-                            {
-                                required:true
                             },
                     codiceFiscale:
                             {
@@ -1552,10 +1544,6 @@ function validazioneModificaUtente(){
                                 required: "Inserire l'email",
                                 email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
                             },
-                    confermato:
-                            {
-                                required:"cliccato SI, non cliccato NO"
-                            },
                     codiceConferma:
                             {
                                 required: 'Inserire codice conferma ',
@@ -1564,10 +1552,7 @@ function validazioneModificaUtente(){
                                 maxlength: 'Massima lunghezza 64'
                                 
                             },
-                    bloccato:
-                            {
-                                required:"cliccato SI, non cliccato NO"
-                            },
+                    
                     codiceFiscale:
                             {
                                 required: "Inserire il proprio codice fiscale",
@@ -1615,6 +1600,20 @@ function validazioneModificaUtente(){
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Utente";
+            $("#modificaUserUtente input[type='checkbox']").each(function( index ) {
+                alert('ciao');
+                console.log($(this));
+               if($(this).val()!==true)
+               {
+                   alert('v');
+                   var valore =  $(this).attr("name");
+                   datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
+               }
+                
+              
+                
+            });
+            
             
             inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
             
@@ -1623,7 +1622,8 @@ function validazioneModificaUtente(){
 }
 
 function validazioneModificaMedico(){
- alert('cioa');
+ 
+ alert('ci');
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("password", function (valore) {
@@ -1661,7 +1661,7 @@ function validazioneModificaMedico(){
          */
         onkeyup: false, //turn off auto validate whilst typing
 //        focusCleanup: true,
-        onclick: true, // Valida checkboxes e radio buttons on click. 
+        
         rules:
                 {
                     username:
@@ -1676,10 +1676,6 @@ function validazioneModificaMedico(){
                                 required: true,
                                 email: true
                             },
-                    confermato:
-                            {
-                                required:true
-                            },
                     codiceConferma:
                             {
                                 required:true,
@@ -1687,10 +1683,6 @@ function validazioneModificaMedico(){
                                 minlength: 16,
                                 maxlength: 64
                                 
-                            },
-                    bloccato:
-                            {
-                                required:true
                             },
                     codiceFiscale:
                             {
@@ -1740,12 +1732,7 @@ function validazioneModificaMedico(){
                                 required: true,
                                 email: true
                                 
-                            },
-                    validato:
-                            {
-                                required:true
                             }
-                    
                 },
         messages:
                 {
@@ -1760,10 +1747,6 @@ function validazioneModificaMedico(){
                                 required: "Inserire l'email",
                                 email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
                             },
-                    confermato:
-                            {
-                                required:"cliccato SI, non cliccato NO"
-                            },
                     codiceConferma:
                             {
                                 required: 'Inserire codice conferma ',
@@ -1771,10 +1754,6 @@ function validazioneModificaMedico(){
                                 minlength: 'Minima lunghezza 16',
                                 maxlength: 'Massima lunghezza 64'
                                 
-                            },
-                    bloccato:
-                            {
-                                required:"cliccato SI, non cliccato NO"
                             },
                     codiceFiscale:
                             {
@@ -1824,11 +1803,7 @@ function validazioneModificaMedico(){
                             {
                                 required: "Inserire il numero di iscrizione",
                                 rangelength: "Deve avere 6 numeri"
-                            },
-                    validato:
-                            {
-                                required:'SI validato , No non validato'
-                            },
+                            }
                     
                 },
                  errorPlacement: function(error, element){
@@ -1842,9 +1817,16 @@ function validazioneModificaMedico(){
             $("#loading").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            var datiPOST = $('form').serialize();
+            var datiPOST = $('form').serialize() + "&tipoUser=Medico";
+            $("#modificaUserMedico input[type='checkbox']").each(function( index ) {
+                
+               if($(this).val()!==true)
+               {
+                   var valore =  $(this).attr("name");
+                   datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
+               }
+            });
             inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
-            
         }
     });
 }
@@ -1886,7 +1868,7 @@ function validazioneModificaClinica(){
          */
         onkeyup: false, //turn off auto validate whilst typing
 //        focusCleanup: true,
-        onclick: true, // Valida checkboxes e radio buttons on click. 
+         
         rules:
                 {
                     username:
@@ -1901,10 +1883,6 @@ function validazioneModificaClinica(){
                                 required: true,
                                 email: true
                             },
-                    confermato:
-                            {
-                                required:true
-                            },
                     codiceConferma:
                             {
                                 required:true,
@@ -1912,10 +1890,6 @@ function validazioneModificaClinica(){
                                 minlength: 16,
                                 maxlength: 64
                                 
-                            },
-                    bloccato:
-                            {
-                                required:true
                             },
                     nomeClinica:
                             {
@@ -1971,10 +1945,6 @@ function validazioneModificaClinica(){
                             {
                                 required: true,
                                 maxlength: 10
-                            },
-                    validato:
-                            {
-                                required:true
                             }
                     
                 },
@@ -1991,10 +1961,6 @@ function validazioneModificaClinica(){
                                 required: "Inserire l'email",
                                 email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
                             },
-                    confermato:
-                            {
-                                required:"cliccato SI, non cliccato NO"
-                            },
                     codiceConferma:
                             {
                                 required: 'Inserire codice conferma ',
@@ -2002,10 +1968,6 @@ function validazioneModificaClinica(){
                                 minlength: 'Minima lunghezza 16',
                                 maxlength: 'Massima lunghezza 64'
                                 
-                            },
-                    bloccato:
-                            {
-                                required:"cliccato SI, non cliccato NO"
                             },
                     nomeClinica:
                             {
@@ -2060,10 +2022,6 @@ function validazioneModificaClinica(){
                             {
                                 required: "Inserire il telefono",
                                 maxlength: "La sequenza massima di numeri è 10"
-                            },
-                    validato:
-                            {
-                                required:'SI validato , No non validato'
                             }
                     
                 },
@@ -2078,10 +2036,16 @@ function validazioneModificaClinica(){
             $("#loading").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            var datiPOST = $('form').serialize();
-            console.log(datiPOST);
+            var datiPOST = $('form').serialize() + "&tipoUser=Clinica";
+            $("#modificaUserUtente input[type='checkbox']").each(function( index ) {
+                
+               if($(this).val()!==true)
+               {
+                   var valore =  $(this).attr("name");
+                   datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
+               }
+            });
             inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
-            
         }
     });
 

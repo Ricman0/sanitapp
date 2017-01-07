@@ -168,6 +168,7 @@ class UValidazione {
                     $stringaErrore = "La provincia dell'albo a cui si è iscritti deve essere del tipo PESCARA";
                     break;
                 
+                case 'numeroIscrizioneAlbo':
                 case 'numeroIscrizione':
                     $pattern = '/^[0-9]{6}$/';
                     $stringaErrore = "Il numero di iscrizione all'albo deve essere una sequenza di 6 numeri ";

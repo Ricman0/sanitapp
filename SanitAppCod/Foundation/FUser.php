@@ -58,8 +58,8 @@ class FUser extends FDatabase {
         {
              $valoriAttributi = $valoriAttributi .  "FALSE, '";
         }
-        $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($user->getCodiceConferma()) . "' "
-                . $user->getTipoUser() ;
+        $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($user->getCodiceConferma()) . "',' "
+                . $user->getTipoUser() . "'" ;
         return $valoriAttributi;
         
         

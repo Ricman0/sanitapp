@@ -333,6 +333,47 @@ class FClinica extends FUser{
         return $this->eseguiQuery($query);
     }
     
-    
+    /**
+     * Metodo che consente di modificare gli attributi della clinica
+     * 
+     * @access public
+     * @param EClinica $clinica La clinica da modificare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaClinica($clinica) {
+        $query1 = "UPDATE " . $this->_nomeTabella . " SET PartitaIVA='" . $clinica->getPartitaIVAClinica() . "', NomeClinica='" . $clinica->getNomeClinica() . "', Titolare='" . $clinica->getTitolareClinica() . "', "
+                . "', Via='" . $clinica->getViaClinica() . "', "
+                . "NumCivico='" . $clinica->getNumeroCivicoClinica() . "', CAP='" . $clinica->getCAPClinica() . "', "
+                . " Localita='" . $clinica->getLocalitaClinica() . "', Provincia='" . $clinica->getProvinciaClinica() . "', Regione='" . $clinica->getRegioneClinica() . "', Username='"
+                . $clinica->getUsername() . "', Telefono='" . $clinica->getTelefonoClinica() . "', CapitaleSociale='" 
+                . $clinica->getCapitaleSocialeClinica() . "', WorkingPlan='" . $clinica->getJSONWorkingPlanClinica() . "', Validato=" . $clinica->getValidatoClinica() . " WHERE (Username='" . $clinica->getUsername() . "') OR (PartitaIVA='" . $clinica->getPartitaIVAClinica() .  "')";
+
+        $query2 = "UPDATE appUser SET Username='" . $clinica->getUsername() . "', Password='"
+                . $clinica->getPassword() . "', Email='" . $clinica->getEmail() . "', Bloccato=" . $clinica->getBloccato() . ", "
+                . "Confermato=" .  $clinica->getConfermato() . ", CodiceConferma='" . $clinica->getCodiceConferma() . "' "
+                .  " WHERE (Username='" . $clinica->getUsername() . "') OR (Email='" . $clinica->getEmail() .  "')";
+        print_r($query1);
+        try {
+//            // First of all, let's begin a transaction
+           $this->_connessione->begin_transaction();
+
+            // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query1);
+             
+            $this->eseguiQuery($query2);
+             
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            echo ('errore');
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
+    }
     
 }

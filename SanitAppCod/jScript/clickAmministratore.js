@@ -144,14 +144,14 @@ $(document).ready(function(){
                 nomeLabel = '';
                 $.each(paroleNomeLabel ,function(index, value){
                     nomeLabel = nomeLabel + " " + value.substring(0,1).toUpperCase() + value.slice(1);
-                    alert(nomeLabel);// in questo modo se label è composta da più parole ho una notazione a cammello anche nell'id, ecc..
+                    // in questo modo se label è composta da più parole ho una notazione a cammello anche nell'id, ecc..
                 }) ;
                 nomeLabel = nomeLabel.trim();
                 nomeLabel = nomeLabel.substring(0,1).toLowerCase() + nomeLabel.slice(1);
                 
                 if(nomeLabel !== 'indirizzo')
                 { 
-                    alert(nomeLabel.replace(' ',''));
+                    
                     $( '#modificaUser' + tipoUser).append("<label for='" + nomeLabel.replace(" ",'').replace(" ",'')  +  "' class='elementiForm'>" + nomeLabel.toUpperCase() + ": </label>");
                 }     
             }
@@ -186,7 +186,7 @@ $(document).ready(function(){
                     var valore = $(this).text().trim();
                     if( valore === 'SI')
                     {
-                        $("label[for='" +  nomeLabel.replace(' ','')  + "']").append(" <input type='checkbox' checked>"
+                        $("label[for='" +  nomeLabel.replace(' ','')  + "']").append(" <input type='checkbox' name='" + nomeLabel + "' value='true' checked>"
                        
                        +" <div class='slider round'></div>"
                        +"</label>");
@@ -196,7 +196,7 @@ $(document).ready(function(){
                     else
                     {
                        $("label[for='" +  nomeLabel.replace(' ','')  + "']").append("<label class='switch'>" 
-                       + " <input type='checkbox' >"
+                       + " <input type='checkbox' name='" + nomeLabel + "' value='false' >"
                        + " <div class='slider round'></div>"
                        + " </label>"); 
                     }
@@ -205,27 +205,28 @@ $(document).ready(function(){
                 }
                 else
                 {
-                    $( '#modificaUser' + tipoUser).append("<input type='text' name='" + nomeLabel.replace(' ','')  +"' class='elementiForm' id='" +  nomeLabel.replace(' ','') + tipoUser  + "' value='" + $(this).text().trim() +"' /><br>");
+                    $( '#modificaUser' + tipoUser).append("<input type='text' name='" + nomeLabel.replace(" ",'').replace(" ",'')  +"' class='elementiForm' id='" +  nomeLabel.replace(' ','') + tipoUser  + "' value='" + $(this).text().trim() +"' /><br>");
                 }
             }
         });
         $( '#contenutoAreaPersonale > span' ).remove();
         $('#tastiInfoUser').remove();
        
-        $( '#modificaUser' + tipoUser).append("<input type='submit' value='Modifica " + tipoUser +" ' id='submitModifica" + tipoUser + "'>  ");
+        $( '#modificaUser' + tipoUser).append("<input type='submit' value='Conferma Modifica " + tipoUser +" ' id='submitModifica" + tipoUser + "'>  ");
         $( '#modificaUser' + tipoUser).append("<input type='button' value='Modifica Password " + tipoUser +"' id='modificaPasswordUser" + tipoUser + "' data-tipoUser='" + tipoUser + "'>");
         
         if(tipoUser === 'Utente')
         {
             validazioneModificaUtente();
         }
-        else if(tipoUser==='Medico')
+        else if(tipoUser === 'Medico')
         {
-            validazioneMedico();
+            alert('valida medico');
+            validazioneModificaMedico();
         }
         else
         {
-            validazioneClinica();
+            validazioneModificaClinica();
         }
     });
     
@@ -237,9 +238,25 @@ $(document).ready(function(){
     });
     
     
+//    
+    $('#headerMain').on("change", "#modificaUserUtente input[type='checkbox']" , function(){
+       
+        $(this).val($(this).prop('checked')); // assegno al valore del checkbox il valore della proprietà checked
     
+    });
     
-   
+    $('#headerMain').on("change", "#modificaUserClinica input[type='checkbox']" , function(){
+       
+        $(this).val($(this).prop('checked')); // assegno al valore del checkbox il valore della proprietà checked
+    
+    });
+    
+    $('#headerMain').on("change", "#modificaUserMedico input[type='checkbox']" , function(){
+       
+        $(this).val($(this).prop('checked')); // assegno al valore del checkbox il valore della proprietà checked
+    
+    });
+//   
     
 //    $('#headerMain').on("change", "#modificaUserClinica >input[type='text']" , function(){
 //        
@@ -262,7 +279,6 @@ $(document).ready(function(){
     
 });
 
-// $("input").prop('required',true) 
 
 
 function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)

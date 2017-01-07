@@ -59,7 +59,7 @@ class FAmministratore extends FUser{
         $valoriAttributi = $this->getAttributi($amministratore);
         $valoriAttributiUser = parent::getAttributi($amministratore);
     
-        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'amministratore')";
+        $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'amministratore')";
         $query2 = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella . ") VALUES( " . $valoriAttributi . ")";
         try {
             // First of all, let's begin a transaction

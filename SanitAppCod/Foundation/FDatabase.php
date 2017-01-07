@@ -133,7 +133,7 @@ class FDatabase {
          * mentre in quello else verrà impostato a true.
          */             
     }
-    
+
     /**
      * Metodo che permette di cancellare i separatori inizialie finali (trim)
      * e di effettuare l'escape dei caratteri speciali di una stringa

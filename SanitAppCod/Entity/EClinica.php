@@ -168,7 +168,7 @@ class EClinica extends EUser {
                 $this->_workingPlan = $attributiClinica[0]["WorkingPlan"];
                 parent::setBloccato($attributiClinica[0]['Bloccato']);
                 parent::setConfermato($attributiClinica[0]["Confermato"]);
-                parent::setCodiceConfermaUtente($attributiClinica[0]["CodiceConferma"]);
+                parent::setCodiceConfermaUser($attributiClinica[0]["CodiceConferma"]);
                 $this->setValidatoClinica($attributiClinica[0]["Validato"]);
                 $this->_esami = Array();
             } else {
@@ -479,6 +479,16 @@ class EClinica extends EUser {
     public function setCAPClinica($cap) {
         $this->_CAP = $cap;
     }
+    
+    /**
+     * Metodo che imposta il nome della clinica
+     * 
+     * @param string nome della clinica
+     */
+    public function setNomeClinica($nome) {
+        $this->_nomeClinica = $nome;
+    }
+    
 
     /**
      * Metodo che imposta la città o paese della clinica
@@ -979,6 +989,98 @@ class EClinica extends EUser {
         $appuntamenti = $this->recuperaAppuntamenti($start, $end);
         $workingPlan = $this->getWorkingPlanClinica();
         return Array('appuntamenti'=>$appuntamenti, 'workingPlan'=>$workingPlan);
+    }
+    
+    
+    /**
+     * Metodo che consente di modificare i dati della clinica
+     * 
+     * @access public
+     * @param Array $datiDaModificare I dati della clinica da modificare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaClinica($datiDaModificare) {
+        foreach ($datiDaModificare as $key => $value) {
+            switch ($key) {
+                case 'username':
+                    $this->setUsername($value);
+                    break;
+                case 'codiceConferma':
+                    $this->setCodiceConfermaUser($value);
+                    break;
+                case 'confermato':
+                    if($value === true || $value === TRUE ||  $value === 'SI')
+                    {
+                        $this->setConfermato(TRUE);
+                    }
+                    else 
+                    {
+                        $this->setConfermato('FALSE');
+                    }
+                    
+                    break;
+                case 'validato':
+                    if($value === true || $value === TRUE ||  $value === 'SI')
+                    {
+                        $this->setValidatoClinica(TRUE);
+                    }
+                    else 
+                    {
+                        $this->setValidatoClinica('FALSE');
+                    }
+                    break;
+                case 'bloccato':
+                    if($value === 'SI' || $value === TRUE   || $value === true)
+                    {
+                        $this->setBloccato(TRUE);
+                    }
+                    else
+                    {
+                        $this->setBloccato('FALSE');
+                    }
+                    break;
+                case 'email':
+                    $this->setEmail($value);
+                    break;
+                
+                case 'partitaIva':
+                    $this->setTitolareClinica($value);
+                    break;
+                case 'nomeClinica':
+                    $this->setNomeClinica($value);
+                    break;
+                case 'titolareClinica':
+                    $this->setTitolareClinica($value);
+                    break;
+                case 'via':
+                    $this->setViaUtente($value);
+                    break;
+                case 'numeroCivico':
+                    $this->setNumCivicoUtente($value);
+                    break;
+                case 'CAP':
+                    $this->setCAPUtente($value);
+                    break;
+                case 'località':
+                    $this->setLocalitaClinica($value);
+                    break;
+                case 'provincia':
+                    $this->setProvinciaClinica($value);
+                    $this->trovaRegione($value);
+                    break;
+                case 'PEC':
+                    $this->setPEC($value);
+                    break;
+                case 'telefono':
+                    $this->setTelefonoClinica($value);
+                    break;
+                default:
+                    break;
+            }
+        }
+        $fClinica = USingleton::getInstance('FClinica');
+        return $fClinica->modificaClinica($this);
     }
 }
 
