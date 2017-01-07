@@ -240,4 +240,41 @@ class FMedico extends FUser {
                 . "WHERE CodFiscale='" . $codiceFiscaleMedico . "'";
         return $this->eseguiQuery($query);
     }
+    
+    /**
+     * Metodo che consente di modificare gli attributi del medico
+     * 
+     * @access public
+     * @param EMedico $medico Il medico da modificare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaMedico($medico) {
+        $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $medico->getCodiceFiscaleMedico() .  "', Nome='"
+                . $medico->getNomeMedico() . "', Cognome='" . $medico->getCognomeMedico() . "', Via='" . $medico->getViaMedico() . "', "
+                . "NumCivico='" . $medico->getNumCivicoMedico() . "', CAP='" . $medico->getCAPMedico() . "', Username='"
+                . $medico->getUsername() . "', ProvinciaAlbo='" . $medico->getProvinciaAlboMedico() . "', NumIscrizione='" 
+                . $medico->getNumIscrizioneMedico() . "', Validato=" . $medico->getValidatoMedico() . " WHERE (Username='" . $medico->getUsername() . "') OR (CodFiscale='" . $medico->getCodiceFiscaleMedico() .  "')";
+
+        $query2 = "UPDATE appUser SET Username='" . $medico->getUsername() . "', Password='"
+                . $medico->getPassword() . "', Email='" . $medico->getEmail() . "', Bloccato=" . $medico->getBloccato() . ", "
+                . "Confermato=" .  $medico->getConfermato() . ", CodiceConferma='" . $medico->getCodiceConferma() . "' "
+                .  " WHERE (Username='" . $medico->getUsername() . "') OR (Email='" . $medico->getEmail() .  "')";
+       try {
+//            // First of all, let's begin a transaction
+            $this->_connessione->begin_transaction();
+
+             // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query2); 
+            $this->eseguiQuery($query1);
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
+    }
 }

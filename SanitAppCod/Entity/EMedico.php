@@ -107,7 +107,7 @@ class EMedico extends EUser {
                 parent::setPEC($attributiMedico[0]['PEC']);
                 parent::setBloccato($attributiMedico[0]['Bloccato']);
                 parent::setConfermato($attributiMedico[0]['Confermato']);
-                parent::setCodiceConfermaUtente($attributiMedico[0]['CodiceConferma']);
+                parent::setCodiceConfermaUser($attributiMedico[0]['CodiceConferma']);
                 parent::setTipoUser($attributiMedico[0]['TipoUser']);
                 $this->setNomeMedico($attributiMedico[0]['Nome']);
                 $this->setCognomeMedico($attributiMedico[0]['Cognome']);
@@ -299,7 +299,8 @@ class EMedico extends EUser {
      * 
      * @param string $numIscrizione Il numero d'iscrizione del medico all'albo
      */
-    public function setnumIscrizioneMedico($numIscrizione) {
+    public function setNumIscrizioneMedico($numIscrizione) {
+        
         $this->_numIscrizione = $numIscrizione;
     }
 
@@ -402,5 +403,95 @@ class EMedico extends EUser {
         $this->setnumIscrizioneMedico($numIscrizione);
         $fMedico = USingleton::getInstance('FMedico');
         return $fMedico->modificaProvAlboENumIscrizione($this->getCodiceFiscaleMedico(), $provincia, $numIscrizione); 
+    }
+    
+    /**
+     * Metodo che consente di modificare i dati del medico
+     * 
+     * @access public
+     * @param Array $datiDaModificare I dati del medico da modificare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaMedico($datiDaModificare) {
+        echo 'da modfica';
+        print_r($datiDaModificare);
+        foreach ($datiDaModificare as $key => $value) {
+            switch ($key) {
+                case 'username':
+                    $this->setUsername($value);
+                    break;
+                case 'codiceConferma':
+                    $this->setCodiceConfermaUser($value);
+                    break;
+                case 'confermato':
+                    if($value === 'true')
+                    {
+                        
+                        $this->setConfermato(TRUE);
+                    }
+                    else 
+                    {
+                        $this->setConfermato('FALSE');
+                    }
+                    break;
+                case 'validato':
+                    if($value === 'true' )
+                    {
+                        $this->setValidatoMedico(TRUE);
+                    }
+                    else 
+                    {
+                        $this->setValidatoMedico('FALSE');
+                    }
+                    break;
+                case 'bloccato':
+                    if($value === 'true')
+                        
+                    {
+                       $this->setBloccato(TRUE);
+                    }
+                    else
+                    {
+                        $this->setBloccato('FALSE');
+                    }
+                    break;
+                case 'email':
+                    $this->setEmail($value);
+                    break;
+                case 'codiceFiscale':
+                    $this->setCodiceFiscaleMedico($value);
+                    break;
+                case 'nome':
+                    $this->setNomeMedico($value);
+                    break;
+                case 'cognome':
+                    $this->setCognomeMedico($value);
+                    break;
+                case 'via':
+                    $this->setViaMedico($value);
+                    break;
+                case 'numeroCivico':
+                    $this->setNumCivicoMedico($value);
+                    break;
+                case 'CAP':
+                    $this->setCAPMedico($value);
+                    break;
+                case 'PEC':
+                    $this->setPEC($value);
+                    break;
+                case 'provinciaAlbo':
+                    $this->setProvinciaAlboMedico($value);
+                    break;
+                case 'numeroIscrizioneAlbo':
+                    $this->setNumIscrizioneMedico($value);
+                    break;
+                default:
+                    break;
+            }
+        }
+        $fMedico = USingleton::getInstance('FMedico');
+        return $fMedico->modificaMedico($this);
+    
     }
 }

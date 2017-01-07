@@ -168,7 +168,7 @@ class EUser {
 //                $this->setUsernameUtente($risultato[0]['Username']);
 //                $this->setPasswordUtente($risultato[0]['Password']);
 //                $this->setConfermatoUtente($risultato[0]['Confermato']);
-//                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
+//                $this->setCodiceConfermaUser($risultato[0]['CodiceConferma']);
 //                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
 //            }
 //            
@@ -221,7 +221,7 @@ class EUser {
 //                $this->setUsernameUtente($risultato[0]['Username']);
 //                $this->setPasswordUtente($risultato[0]['Password']);
 //                $this->setConfermatoUtente($risultato[0]['Confermato']);
-//                $this->setCodiceConfermaUtente($risultato[0]['CodiceConferma']);
+//                $this->setCodiceConfermaUser($risultato[0]['CodiceConferma']);
 //                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
 //            }
 //    
@@ -354,7 +354,7 @@ class EUser {
      * 
      * @param string $cod Il nuovo codice per la conferma dell'user
      */
-    public function setCodiceConfermaUtente($cod) 
+    public function setCodiceConfermaUser($cod) 
     {
         $this->_codiceConferma = $cod;
     }

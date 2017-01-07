@@ -129,7 +129,7 @@ $(document).ready(function(){
         $('#contenutoAreaPersonale').find('h3').replaceWith("<h3>MODIFICA USER</h3>");
         var tipoUser = $(this).attr('data-tipoUser');
         tipoUser = tipoUser[0].toUpperCase() + tipoUser.slice(1); //in questo modo ho la prima lettera di tipoUser maiuscola
-        
+
         $('h3').after("<form id='modificaUser" + tipoUser + "'></form>");
         var nomeLabel = "";
         $( '#contenutoAreaPersonale > span' ).each(function( index ) {
@@ -143,14 +143,16 @@ $(document).ready(function(){
                 var paroleNomeLabel = nomeLabel.split(" "); // separo le parole di nomeLabel
                 nomeLabel = '';
                 $.each(paroleNomeLabel ,function(index, value){
-                    nomeLabel = nomeLabel + " " + value.substring(0,1).toUpperCase() + value.slice(1);  // in questo modo se label è composta da più parole ho una notazione a cammello anche nell'id, ecc..
+                    nomeLabel = nomeLabel + " " + value.substring(0,1).toUpperCase() + value.slice(1);
+                    // in questo modo se label è composta da più parole ho una notazione a cammello anche nell'id, ecc..
                 }) ;
                 nomeLabel = nomeLabel.trim();
                 nomeLabel = nomeLabel.substring(0,1).toLowerCase() + nomeLabel.slice(1);
-                alert(nomeLabel);
+                
                 if(nomeLabel !== 'indirizzo')
                 { 
-                    $( '#modificaUser' + tipoUser).append("<label for='" + nomeLabel.replace(' ','')  + "' class='elementiForm'>" + nomeLabel.toUpperCase() + ": </label>");
+                    
+                    $( '#modificaUser' + tipoUser).append("<label for='" + nomeLabel.replace(" ",'').replace(" ",'')  +  "' class='elementiForm'>" + nomeLabel.toUpperCase() + ": </label>");
                 }     
             }
             else
@@ -184,7 +186,7 @@ $(document).ready(function(){
                     var valore = $(this).text().trim();
                     if( valore === 'SI')
                     {
-                        $("label[for='" +  nomeLabel.replace(' ','')  + "']").append(" <input type='checkbox' checked>"
+                        $("label[for='" +  nomeLabel.replace(' ','')  + "']").append(" <input type='checkbox' name='" + nomeLabel + "' value='true' checked>"
                        
                        +" <div class='slider round'></div>"
                        +"</label>");
@@ -194,7 +196,7 @@ $(document).ready(function(){
                     else
                     {
                        $("label[for='" +  nomeLabel.replace(' ','')  + "']").append("<label class='switch'>" 
-                       + " <input type='checkbox' >"
+                       + " <input type='checkbox' name='" + nomeLabel + "' value='false' >"
                        + " <div class='slider round'></div>"
                        + " </label>"); 
                     }
@@ -203,27 +205,27 @@ $(document).ready(function(){
                 }
                 else
                 {
-                    $( '#modificaUser' + tipoUser).append("<input type='text' name='" + nomeLabel.replace(' ','')  +"' class='elementiForm' id='" +  nomeLabel.replace(' ','') + tipoUser  + "' value='" + $(this).text().trim() +"' /><br>");
+                    $( '#modificaUser' + tipoUser).append("<input type='text' name='" + nomeLabel.replace(" ",'').replace(" ",'')  +"' class='elementiForm' id='" +  nomeLabel.replace(' ','')   + "' value='" + $(this).text().trim() +"' /><br>");
                 }
             }
         });
         $( '#contenutoAreaPersonale > span' ).remove();
         $('#tastiInfoUser').remove();
        
-        $( '#modificaUser' + tipoUser).append("<input type='submit' value='Modifica " + tipoUser +" ' id='submitModifica" + tipoUser + "'>  ");
+        $( '#modificaUser' + tipoUser).append("<input type='submit' value='Conferma Modifica " + tipoUser +" ' id='submitModifica" + tipoUser + "'>  ");
         $( '#modificaUser' + tipoUser).append("<input type='button' value='Modifica Password " + tipoUser +"' id='modificaPasswordUser" + tipoUser + "' data-tipoUser='" + tipoUser + "'>");
         
         if(tipoUser === 'Utente')
         {
             validazioneModificaUtente();
         }
-        else if(tipoUser==='Medico')
+        else if(tipoUser === 'Medico')
         {
-            validazioneMedico();
+            validazioneModificaMedico();
         }
         else
         {
-            validazioneClinica();
+            validazioneModificaClinica();
         }
     });
     
@@ -235,9 +237,25 @@ $(document).ready(function(){
     });
     
     
+//    
+    $('#headerMain').on("change", "#modificaUserUtente input[type='checkbox']" , function(){
+       
+        $(this).val($(this).prop('checked')); // assegno al valore del checkbox il valore della proprietà checked
     
+    });
     
-   
+    $('#headerMain').on("change", "#modificaUserClinica input[type='checkbox']" , function(){
+       
+        $(this).val($(this).prop('checked')); // assegno al valore del checkbox il valore della proprietà checked
+    
+    });
+    
+    $('#headerMain').on("change", "#modificaUserMedico input[type='checkbox']" , function(){
+       
+        $(this).val($(this).prop('checked')); // assegno al valore del checkbox il valore della proprietà checked
+    
+    });
+//   
     
 //    $('#headerMain').on("change", "#modificaUserClinica >input[type='text']" , function(){
 //        
@@ -260,7 +278,6 @@ $(document).ready(function(){
     
 });
 
-// $("input").prop('required',true) 
 
 
 function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
@@ -275,6 +292,7 @@ function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
         {
             alert(datiRisposta);
             $(ajaxdiv).html(datiRisposta);
+            $("#loading").hide();
         },
         error: function ()
         {

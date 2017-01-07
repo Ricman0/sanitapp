@@ -59,7 +59,7 @@ class FAmministratore extends FUser{
         $valoriAttributi = $this->getAttributi($amministratore);
         $valoriAttributiUser = parent::getAttributi($amministratore);
     
-        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'amministratore')";
+        $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'amministratore')";
         $query2 = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella . ") VALUES( " . $valoriAttributi . ")";
         try {
             // First of all, let's begin a transaction
@@ -71,7 +71,7 @@ class FAmministratore extends FUser{
 
             // If we arrive here, it means that no exception was thrown
             // i.e. no query has failed, and we can commit the transaction
-            $this->_connessione->commit();
+            return $this->_connessione->commit();
         } catch (Exception $e) {
             // An exception has been thrown
             // We must rollback the transaction

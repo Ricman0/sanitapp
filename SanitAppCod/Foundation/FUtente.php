@@ -232,6 +232,45 @@ class FUtente extends FUser{
         return $this->eseguiQuery($query);
     }
     
+    /**
+     * Metodo che consente di modificare gli attributi dell'utente
+     * 
+     * @access public
+     * @param EUtente $utente L'utente da modificare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaUtente($utente) {
+        $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "', Nome='"
+                . $utente->getNomeUtente() . "', Cognome='" . $utente->getCognomeUtente() . "', Via='" . $utente->getViaUtente() . "', "
+                . "NumCivico='" . $utente->getNumCivicoUtente() . "', CAP='" . $utente->getCAPUtente() . "', Username='"
+                . $utente->getUsername() . "' WHERE (Username='" . $utente->getUsername() . "') OR (CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "')";
+
+        $query2 = "UPDATE appUser SET Username='" . $utente->getUsername() . "', Password='"
+                . $utente->getPassword() . "', Email='" . $utente->getEmail() . "', Bloccato=" . $utente->getBloccato() . ", "
+                . "Confermato=" .  $utente->getConfermato() . ", CodiceConferma='" . $utente->getCodiceConferma() . "' "
+                .  " WHERE (Username='" . $utente->getUsername() . "') OR (Email='" . $utente->getEmail() .  "')";
+       
+        try {
+//            // First of all, let's begin a transaction
+           $this->_connessione->begin_transaction();
+
+            // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query1);
+             
+            $this->eseguiQuery($query2);
+             
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
+    }
     
-    
+   
 }
