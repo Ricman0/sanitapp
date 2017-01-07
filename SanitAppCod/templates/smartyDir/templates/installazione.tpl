@@ -41,6 +41,7 @@
                             Riattivalo accedendo alle impostazioni del browser se vuoi usufruire dei nostri servizi
                         </div>
                     </noscript> 
+                      
                     {$contenuto}
                 </div> 
                 

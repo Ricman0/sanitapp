@@ -53,7 +53,11 @@ class VSetup extends View{
         
     }
     
-    public function restituisciFormInstallazione($dati = NULL) {
+    public function restituisciFormInstallazione($dati = NULL, $errore= NULL) {
+        if(isset($errore)){
+            $this->assegnaVariabiliTemplate('errore', $errore);
+           
+        }
         if(isset($dati)){
             $this->assegnaVariabiliTemplate('datiInstallazione', $dati);
                     

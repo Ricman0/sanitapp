@@ -1,20 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 $(document).ready(function () {
 
- validazioneInstallazione();
+    validazioneInstallazione();
 
     $(function () {
         $(document).tooltip({
             items: 'input.error'
-//                content: function(){
-//                    return $(this).next('label.error').text();
-//                }
         });
     });
 
@@ -29,7 +19,7 @@ $(document).ready(function () {
 
 });
 
-function validazioneInstallazione(){
+function validazioneInstallazione() {
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("passwordMethod", function (valore) {
@@ -40,13 +30,11 @@ function validazioneInstallazione(){
         maiuscola,una lettera minuscola");
 
     jQuery.validator.addMethod("username", function (valore) {
-        //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{4,15}/;
         return valore.match(regex);
     }, "Deve contenere almeno 4 caratteri al massimo 15. Può contenere numeri, lettere maiuscole o minuscole");
 
     jQuery.validator.addMethod("domainName", function (valore) {
-        //espressione regolare per codice fiscale
         var regex = /^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?)*\.?$/;
         return valore.match(regex);
     }, "Inserire un valore valido");
@@ -60,7 +48,6 @@ function validazioneInstallazione(){
          * una volta che abbiamo terminato di digitare l'input.
          */
         onkeyup: false, //turn off auto validate whilst typing
-//        focusCleanup: true,
         rules:
                 {
                     host:
@@ -110,11 +97,6 @@ function validazioneInstallazione(){
                             {
                                 required: true,
                                 email: true
-//                                remote:
-//                                        {
-//                                            type: 'POST',
-//                                            url: "ricerca/email"
-//                                        }
                             },
                     pecAdmin:
                             {
@@ -134,11 +116,6 @@ function validazioneInstallazione(){
                                 username: true,
                                 minlength: 4,
                                 maxlength: 15
-//                                remote:
-//                                        {
-//                                            type: "POST",
-//                                            url: "ricerca/username"
-//                                        }
                             },
                     password:
                             {
@@ -239,15 +216,14 @@ function validazioneInstallazione(){
             $('#messaggioDialogBox').empty();
             $('#messaggioDialogBox').text('Installazione...');
             $('#dialog').append("<div id='progressBar'></div>");
-            $('#dialog').dialog('option', 'buttons',{}).dialog('open');
+            $('#dialog').dialog('option', 'buttons', {}).dialog('open');
             $("#progressBar").progressbar({
                 value: false
             });
-            alert('invio dati');
             inviaDatiInstallazione();
         }
     });
-    }
+}
 
 function inviaDatiInstallazione() {
     var dati = $('#formInstallazione').serialize();
@@ -266,34 +242,17 @@ function inviaDatiInstallazione() {
                 $('#messaggioDialogBox').empty();
                 $('#messaggioDialogBox').text('Dati non validi, reinserire i dati!');
                 // forse aggiungere un add listener
-                $("#dialog").dialog('option', 'buttons',[
-                        {
-                            text: "OK",
-                            click: function () {
-                                $(this).dialog("close");
-                            }
+                $("#dialog").dialog('option', 'buttons', [
+                    {
+                        text: "OK",
+                        click: function () {
+                            $(this).dialog("close");
                         }
-                    ] );
+                    }
+                ]);
                 $("#dialog").dialog('open');
                 validazioneInstallazione();
-//                        {
-//                    resizable: false,
-//                    height: "auto",
-//                    width: 400,
-//                    modal: true,
-//                    dialogClass: "no-close",
-//                    buttons: [
-//                        {
-//                            text: "OK",
-//                            click: function () {
-//                                $(this).dialog("close");
-//                            }
-//                        }
-//                    ]
-//                });
-
             }
         }
     });
 }
-
