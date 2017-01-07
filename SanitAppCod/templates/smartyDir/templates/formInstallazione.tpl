@@ -1,3 +1,8 @@
+{if isset($errore)}
+    {foreach from=$errore item=curr_mess}
+        <span ><b class="rosso">! </b>{$curr_mess}<b class="rosso"> !</b></span><br>
+    {/foreach}
+{/if} 
 <form id="formInstallazione">
     <div id="databaseEmailConfig" class="affiancato verticalmenteAllineato">
         <h3>Configurazione</h3>
@@ -77,9 +82,4 @@
     </div>
         <input type="submit" class="centrato nuovaRiga" id="installazione" value="Installa" />
     <br>
-  <!--  <div id="loading">
-        <i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i>
-    </div>
-  -->
-
 </form>

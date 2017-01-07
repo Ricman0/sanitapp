@@ -184,7 +184,7 @@ class View extends Smarty {
   
 
     /**
-     * Metodo che permette di recuperare dall'array REQUEST il valore dell'elemento a cui corrisponde l'indice èassato come parametro
+     * Metodo che permette di recuperare dall'array REQUEST il valore dell'elemento a cui corrisponde l'indice passato come parametro
      * 
      * @access public
      * @param string $indice Il nome dell'indice il cui valore deve essere recuperato dall'array REQUEST
@@ -194,7 +194,7 @@ class View extends Smarty {
     {
         if (isset($_REQUEST[$indice])) 
             {
-                return $_REQUEST[$indice];
+                return trim($_REQUEST[$indice]);
             } 
         else 
             {

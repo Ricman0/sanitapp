@@ -1,61 +1,55 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CSetup
  *
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CSetup {
-    
+
     private $_datiSetup = array();
+    private $_datiSetupErrati = array();
 
     public function impostaPagina() {
-        
+
         $view = USingleton::getInstance('VSetup');
         $validazione = USingleton::getInstance('UValidazione');
         $controller = $view->getController();
-        switch ($controller)
-        {
-        case 'installa':
-            $dati = $view->recuperaDatiInstallazione();
-            if($validazione->validaDati($dati)){
-                $this->_datiSetup = $dati;
-                if ($this->caricaDbDaFile('sqlSanitAppInstallazione.sql')) {
-                    if ($this->inserisciAdmin()) 
-                    {
-                        if (!is_bool($this->creaFileConfig())) {
-                            
-                            unlink('./include/config.php') or die("erorre cancellazione");
-                            rename('./include/installazione.php', './include/config.php') or die("Errore nel rinominare il file");
-                            unlink('index.php');
-                            rename('site.php', 'index.php');
-                            $view->visualizzaFeedback('Installazione completata. Puoi iniziare ad utilizzare Sanitapp', TRUE);
-//                            echo $view->acquisisci_template('messaggi');
+        switch ($controller) {
+            case 'installa':
+                $dati = $view->recuperaDatiInstallazione();
+                if ($validazione->validaDati($dati)) {
+                    $this->_datiSetup = $dati;
+                    $risultato = $this->caricaDbDaFile('sqlSanitAppInstallazione.sql');
+                    if ($risultato === TRUE) {
+                        if ($this->inserisciAdmin()) {
+                            if (!is_bool($this->creaFileConfig())) {
+
+                                unlink('./include/config.php') or die("erorre cancellazione");
+                                rename('./include/installazione.php', './include/config.php') or die("Errore nel rinominare il file");
+                                unlink('index.php');
+                                rename('site.php', 'index.php');
+                                $view->visualizzaFeedback('Installazione completata. Puoi iniziare ad utilizzare Sanitapp', TRUE);
+                            }
                         }
+                    } else {
+                        $datiValidi = $this->_datiSetup;
+                        $view->restituisciFormInstallazione($datiValidi, $risultato);
                     }
+                } else {
+                    $datiValidi = $validazione->getDatiValidi();
+                    $view->restituisciFormInstallazione($datiValidi);
                 }
-            }
-            else{
-                $datiValidi = $validazione->getDatiValidi();
-                $view->restituisciFormInstallazione($datiValidi);
-            }
-         
-        break;
-        default:
-            $view->restituisciPaginaInstallazione();
-        break;
+
+                break;
+            default:
+                $view->restituisciPaginaInstallazione();
+                break;
         }
     }
-    
+
     /**
-     * Il metodo salva su file il file di configurazione
-     * @return boolean
+     * Il metodo crea la configurazione e la salva su file
+     * @return boolean TRUE on success, FALSE altrimenti
      */
     public function creaFileConfig() {
 
@@ -86,100 +80,79 @@ class CSetup {
         return $scrittura;
     }
     
-     public function inserisciAdmin() {
+/**
+ * Aggiunge l'amministratore sul database
+ * @return bool TRUE on success, FALSE altrimenti
+ */
+    public function inserisciAdmin() {
         $conn = new mysqli($this->_datiSetup['host'], $this->_datiSetup['userDb'], $this->_datiSetup['passwordDb'], 'sanitapp2');
-        
-        
-        
-//        $admin['username'] = $this->_datiSetup['username']; 
-//        $admin['password'] = $this->_datiSetup['password'];
-//        $admin['email'] = $this->_datiSetup['emailAdmin'];
-//        $admin['pec'] = $this->_datiSetup['PEC'];
-//        $admin['bloccato'] = FALSE;
-//        $admin['confermato'] = FALSE;
-//        $admin['codiceConferma'] = uniqid();
-//        $admin['tipo'] = "amministratore";
-//        $admin['nome'] = $this->_datiSetup['nome'];
-//        $admin['cognome'] = $this->_datiSetup['cognome'];
-//        $admin['telefono'] = $this->_datiSetup['telefono'];
-       
-        
 
-//        $validazione = USingleton::getInstaces('UValidazione');
-//
-//        $validazione->valida($admin);
-//
-//        if ($validazione->error) {
-//            $vreg = USingleton::getInstaces('VRegistrazione');
-//            echo $vreg->set_errori($admin, $validazione->dati_errati, 'installazione');
-//            return false;
-//        } 
-        
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
+        } else {
+            $conn->query("SET NAMES 'utf8'");
+        }
+        //sanifico l'input, per ogni valore dell'array _datiSetup faccio il trim e se è una stringa faccio anche l'escape
+        foreach ($this->_datiSetup as $key => $value) {
+            $value = trim($value);
+            if (is_string($value)) {
+                $value = $conn->real_escape_string($value);
+            }
+            $this->_datiSetup[$key] = $value;
         }
 
-//        $primoElemento = true;
-//        $campi = '';
-//        $valori = '';
-//        foreach ($admin as $indice => $valore) {
-//
-//            if (!$primoElemento) {
-//                $campi .= ',';
-//                $valori .=',';
-//            } else {
-//                $primoElemento = false;
-//            }
-//
-//            $elemento = mysql_escape_string($indice);
-//            $dato = mysql_escape_string($valore);
-//            $campi .= '`' . $elemento . '`';
-//            $valori .= '\'' . $dato . '\'';
-//        }
-        
-        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( "
-                .  $this->_datiSetup['username'] . ", ".  $this->_datiSetup['password'] . ", "
-                .  $this->_datiSetup['emailAdmin'] . ", ". FALSE . ", " .  uniqid() . ", 'amministratore')";
+        $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( '"
+                . $this->_datiSetup['username'] . "', '" . $this->_datiSetup['password'] . "', '"
+                . $this->_datiSetup['emailAdmin'] . "', '" . $this->_datiSetup['PEC'] . "', FALSE, TRUE, '" . md5($this->_datiSetup['username'] . $this->_datiSetup['emailAdmin'] . date('mY')) . "', 'amministratore')";
         $query2 = "INSERT INTO amministratore (IdAmministratore, Username, Nome, Cognome, Telefono) VALUES("
-                . NULL .", ". $this->_datiSetup['username'] . ", " . $this->_datiSetup['nome'] . ", "
-                 . $this->_datiSetup['cognome'].", " . $this->_datiSetup['telefono'] .")";
+                . "NULL, '" . $this->_datiSetup['username'] . "', '" . $this->_datiSetup['nome'] . "', '"
+                . $this->_datiSetup['cognome'] . "', '" . $this->_datiSetup['telefono'] . "')";
+
         try {
             // First of all, let's begin a transaction
             $conn->begin_transaction();
 
             // A set of queries; if one fails, an exception should be thrown
-             $conn->query($query1);
-             $conn->query($query2);
+            $conn->query($query1);
+            $conn->query($query2);
 
             // If we arrive here, it means that no exception was thrown
             // i.e. no query has failed, and we can commit the transaction
-            $conn->commit();
+            return $conn->commit();
         } catch (Exception $e) {
             // An exception has been thrown
             // We must rollback the transaction
+            alert($e->getMessage());
             $conn->rollback();
             die("Errore mysql: " . $conn->error);
         }
-//        $query = 'INSERT INTO `utente` (' . $campi . ') VALUES (' . $valori . ')';
-//        if (!$result = $conn->query($query)) {
-//            die("Errore mysql: " . $conn->error);
-//        }
-        return true;
     }
-
-
 
     /**
      * Il metodo carica il database 
-     * @return boolean
+     * @return mixed 
      */
     public function caricaDbDaFile($file) {
 
-
-        $conn = new mysqli($this->_datiSetup['host'], $this->_datiSetup['userDb'], $this->_datiSetup['passwordDb']);
-
+        $conn = @new mysqli($this->_datiSetup['host'], $this->_datiSetup['userDb'], $this->_datiSetup['passwordDb']);
         if ($conn->connect_error) {
-            die("Connessione al database fallita: " . $conn->connect_error);
+            print_r($conn->connect_errno);
+            print_r($conn->connect_error);
+            switch ($conn->connect_errno) {
+                case '2002':
+                    $this->_datiSetupErrati['host'] = "Connessione al database fallita: host sconosciuto";
+                    unset($this->_datiSetup['host']);
+                    break;
+
+                case '1045':
+                    $this->_datiSetupErrati['userDb'] = "Connessione al database fallita: user o password database errati";
+                    unset($this->_datiSetup['userDb']);
+                    break;
+
+                default:
+                    break;
+            }
+            return $this->_datiSetupErrati;
         }
         $templine = '';
         $lines = file($file);
@@ -202,7 +175,5 @@ class CSetup {
 
         return $conn->close();
     }
-    
-    
-    
+
 }
