@@ -205,7 +205,7 @@ $(document).ready(function(){
                 }
                 else
                 {
-                    $( '#modificaUser' + tipoUser).append("<input type='text' name='" + nomeLabel.replace(" ",'').replace(" ",'')  +"' class='elementiForm' id='" +  nomeLabel.replace(' ','') + tipoUser  + "' value='" + $(this).text().trim() +"' /><br>");
+                    $( '#modificaUser' + tipoUser).append("<input type='text' name='" + nomeLabel.replace(" ",'').replace(" ",'')  +"' class='elementiForm' id='" +  nomeLabel.replace(' ','')   + "' value='" + $(this).text().trim() +"' /><br>");
                 }
             }
         });
@@ -221,7 +221,6 @@ $(document).ready(function(){
         }
         else if(tipoUser === 'Medico')
         {
-            alert('valida medico');
             validazioneModificaMedico();
         }
         else

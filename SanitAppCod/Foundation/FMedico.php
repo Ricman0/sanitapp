@@ -260,23 +260,17 @@ class FMedico extends FUser {
                 . $medico->getPassword() . "', Email='" . $medico->getEmail() . "', Bloccato=" . $medico->getBloccato() . ", "
                 . "Confermato=" .  $medico->getConfermato() . ", CodiceConferma='" . $medico->getCodiceConferma() . "' "
                 .  " WHERE (Username='" . $medico->getUsername() . "') OR (Email='" . $medico->getEmail() .  "')";
-        print_r($query1);
-        print_r($query2);
-        try {
+       try {
 //            // First of all, let's begin a transaction
-           $this->_connessione->begin_transaction();
+            $this->_connessione->begin_transaction();
 
-            // A set of queries; if one fails, an exception should be thrown
+             // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query2); 
             $this->eseguiQuery($query1);
-             
-            $this->eseguiQuery($query2);
-             
-
             // If we arrive here, it means that no exception was thrown
             // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            echo ('errore');
             // An exception has been thrown
             // We must rollback the transaction
             $this->_connessione->rollback();

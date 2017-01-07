@@ -216,6 +216,7 @@ class CGestisciUser {
                             {
                                
                                 try{
+                                    
                                     $eUtente = new EUtente( $datiDaValidare['codiceFiscale']);
                                     $eUtente->modificaUtente($datiDaValidare);
                                     $vUsers->visualizzaFeedback("Modifica all'utente effetuata");
@@ -223,15 +224,16 @@ class CGestisciUser {
                                 {
                                     $messaggio[0] = "C'è stato un errore, non è stato possibile modificare l'utente.";
                                     $messaggio[1] =  "Prova a modificare l'username e il codice fiscale separatamente.";
-                                    $vUsers->visualizzaTemplate($messaggio);
+                                    $vUsers->visualizzaFeedback($messaggio);
                                 }
+                                
                             }
                             catch (XDBException $ex)
                             {
                                 
                                 $messaggio[0] = "C'è stato un errore, non è stato possibile modificare l'utente.";
                                 $messaggio[1] =  "Prova a modificare l'username e il codice fiscale separatamente.";
-                                $vUsers->visualizzaTemplate($messaggio);
+                                $vUsers->visualizzaFeedback($messaggio);
                             }
                             
                             break;
@@ -243,6 +245,13 @@ class CGestisciUser {
                                 
                                 $vUsers->visualizzaFeedback("Modifica al medico effetuata");
                             } 
+                            catch (XDBException $ex)
+                            {
+                                
+                                $messaggio[0] = "C'è stato un errore, non è stato possibile modificare il medico.";
+                                $messaggio[1] =  "Prova a modificare l'username e il codice fiscale separatamente.";
+                                $vUsers->visualizzaFeedback($messaggio);
+                            }
                             catch (XMedicoException $ex) 
                             {
                                
@@ -254,16 +263,18 @@ class CGestisciUser {
                                 {
                                     $messaggio[0] = "C'è stato un errore, non è stato possibile modificare il medico.";
                                     $messaggio[1] =  "Prova a modificare l'username e il codice fiscale separatamente.";
-                                    $vUsers->visualizzaTemplate($messaggio);
+                                    $vUsers->visualizzaFeedback($messaggio);
                                 }
-                            }
-                            catch (XDBException $ex)
-                            {
+                                catch (XDBException $ex)
+                                {
+
+                                    $messaggio[0] = "C'è stato un errore, non è stato possibile modificare il medico.";
+                                    $messaggio[1] =  "Prova a modificare l'username e il codice fiscale separatamente.";
+                                    $vUsers->visualizzaFeedback($messaggio);
+                                }
                                 
-                                $messaggio[0] = "C'è stato un errore, non è stato possibile modificare il medico.";
-                                $messaggio[1] =  "Prova a modificare l'username e il codice fiscale separatamente.";
-                                $vUsers->visualizzaTemplate($messaggio);
                             }
+                            
                             
                             
                             break;
@@ -286,7 +297,7 @@ class CGestisciUser {
                                 {
                                     $messaggio[0] = "C'è stato un errore, non è stato possibile modificare la clinica.";
                                     $messaggio[1] =  "Prova a modificare l'username e la partita IVA separatamente.";
-                                    $vUsers->visualizzaTemplate($messaggio);
+                                    $vUsers->visualizzaFeedback($messaggio);
                                 }
                             }
                             catch (XDBException $ex)
@@ -294,7 +305,7 @@ class CGestisciUser {
                                 
                                 $messaggio[0] = "C'è stato un errore, non è stato possibile modificare la clinica.";
                                 $messaggio[1] =  "Prova a modificare l'username e la partita IVA separatamente.";
-                                $vUsers->visualizzaTemplate($messaggio);
+                                $vUsers->visualizzaFeedback($messaggio);
                             }
                             break;
                     }

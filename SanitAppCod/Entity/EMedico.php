@@ -299,7 +299,8 @@ class EMedico extends EUser {
      * 
      * @param string $numIscrizione Il numero d'iscrizione del medico all'albo
      */
-    public function setnumIscrizioneMedico($numIscrizione) {
+    public function setNumIscrizioneMedico($numIscrizione) {
+        
         $this->_numIscrizione = $numIscrizione;
     }
 
@@ -413,6 +414,8 @@ class EMedico extends EUser {
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function modificaMedico($datiDaModificare) {
+        echo 'da modfica';
+        print_r($datiDaModificare);
         foreach ($datiDaModificare as $key => $value) {
             switch ($key) {
                 case 'username':
@@ -422,19 +425,18 @@ class EMedico extends EUser {
                     $this->setCodiceConfermaUser($value);
                     break;
                 case 'confermato':
-                    if($value === true || $value === TRUE ||  $value === 'SI')
+                    if($value === 'true')
                     {
+                        
                         $this->setConfermato(TRUE);
                     }
                     else 
                     {
                         $this->setConfermato('FALSE');
                     }
-                    
-                    
                     break;
                 case 'validato':
-                    if($value === true || $value === TRUE ||  $value === 'SI')
+                    if($value === 'true' )
                     {
                         $this->setValidatoMedico(TRUE);
                     }
@@ -444,7 +446,7 @@ class EMedico extends EUser {
                     }
                     break;
                 case 'bloccato':
-                    if($value === 'SI' || $value === TRUE   || $value === true)
+                    if($value === 'true')
                         
                     {
                        $this->setBloccato(TRUE);
@@ -482,7 +484,7 @@ class EMedico extends EUser {
                     $this->setProvinciaAlboMedico($value);
                     break;
                 case 'numeroIscrizioneAlbo':
-                    $this->setnumIscrizioneMedico($value);
+                    $this->setNumIscrizioneMedico($value);
                     break;
                 default:
                     break;

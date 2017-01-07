@@ -20,11 +20,9 @@ class VGestisciUser extends View{
      * @return Array I dati da validare
      */
     public function recuperaDatidaValidare(){
-        $datiDaValidare;
-         print_r($_REQUEST);
-       
+        $datiDaValidare; 
         foreach ($_POST as $key => $value) {
-            $datiDaValidare[$key] = $value;
+            $datiDaValidare[$key] = trim($value);
         }
         return $datiDaValidare;
     }

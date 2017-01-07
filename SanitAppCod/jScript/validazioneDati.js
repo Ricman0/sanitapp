@@ -1935,7 +1935,7 @@ function validazioneModificaClinica(){
                                 maxlength: 5
                             },
                     
-                    PEC:
+                    pec:
                             {
                                 required: true,
                                 email: true
@@ -1985,8 +1985,6 @@ function validazioneModificaClinica(){
                                 maxlength: "La sequenza massima di numeri è 11",
                                 minlength: "La sequenza minima di numeri è 11"
                             },
-                    
-                    
                     via:
                             {
                                 required: "Inserire indirizzo",
@@ -2013,7 +2011,7 @@ function validazioneModificaClinica(){
                                 required: "Inserire la provincia della clinica",
                                 maxlength: "La sequenza massima di caratteri è 22"
                             },
-                    PEC:
+                    pec:
                             {
                                 required: "Inserire la PEC",
                                 email: "Inserire un'email valida"
@@ -2037,7 +2035,7 @@ function validazioneModificaClinica(){
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Clinica";
-            $("#modificaUserUtente input[type='checkbox']").each(function( index ) {
+            $("#modificaUserClinica input[type='checkbox']").each(function( index ) {
                 
                if($(this).val()!==true)
                {

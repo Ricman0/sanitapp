@@ -1010,7 +1010,7 @@ class EClinica extends EUser {
                     $this->setCodiceConfermaUser($value);
                     break;
                 case 'confermato':
-                    if($value === true || $value === TRUE ||  $value === 'SI')
+                    if($value === 'true')
                     {
                         $this->setConfermato(TRUE);
                     }
@@ -1021,7 +1021,7 @@ class EClinica extends EUser {
                     
                     break;
                 case 'validato':
-                    if($value === true || $value === TRUE ||  $value === 'SI')
+                    if($value === 'true')
                     {
                         $this->setValidatoClinica(TRUE);
                     }
@@ -1031,7 +1031,7 @@ class EClinica extends EUser {
                     }
                     break;
                 case 'bloccato':
-                    if($value === 'SI' || $value === TRUE   || $value === true)
+                    if($value === 'true')
                     {
                         $this->setBloccato(TRUE);
                     }
