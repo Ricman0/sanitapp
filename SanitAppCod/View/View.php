@@ -244,5 +244,19 @@ class View extends Smarty {
         $this->visualizzaTemplate('feedbacks');
         
     }
+    
+    /**
+     * Metodo che consente di recuparare i dati inviati tramite POST
+     * 
+     * @access public
+     * @return Array I dati da validare
+     */
+    public function recuperaDatidaValidare(){
+        $datiDaValidare; 
+        foreach ($_POST as $key => $value) {
+            $datiDaValidare[$key] = trim($value);
+        }
+        return $datiDaValidare;
+    }
 
 }

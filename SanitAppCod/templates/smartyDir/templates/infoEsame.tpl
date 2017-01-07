@@ -39,14 +39,14 @@
             <br>
 
             <label for="descrizioneEsame" class="elementiForm">Descrizione Esame</label>    
-            <textarea form="aggiungiEsame" name="descrizioneEsame" id="descrizioneEsame" class="elementiForm" value="{$esame->getDescrizioneEsame()}" maxlength="200" disabled required></textarea>
+            <textarea form="aggiungiEsame" name="descrizioneEsame" id="descrizioneEsame" class="elementiForm" value="{$esame->getDescrizioneEsame()}" maxlength="200" disabled required ></textarea>
             <br>
 
-            <button id="modificaEsameButton">Modifica</button>
+         <!--   <button id="modificaEsameButton">Modifica</button>
             <button id="disattibaEsameButton">Disattiva</button>
             <button id="eliminaEsameButton">Elimina</button>
             <br>
-            <button id="indietroEsameButton">Indietro</button>
+            <button id="indietroEsameButton">Indietro</button> -->
 
 
         </form>
@@ -58,31 +58,27 @@
             {if isset($informazioniClinica)}
                 {$informazioniClinica}
             {/if}
-            <h4>Informazioni Esame</h4>
-            <span>
-                Nome: {$esame->getNomeEsame()}
-            </span>
-            <span>
-                Categoria: {$esame->getNomeCategoriaEsame()}
-            </span>
+            <h3>INFORMAZIONI ESAME</h3>
+            <span class="grassetto">NOME:</span><span>  {$esame->getNomeEsame()}</span>
             <br>
-            <span>
-                Prezzo: {$esame->getPrezzoEsame()}
-            </span>
-            <span>
-                Durata: {$esame->getDurataEsame()}
-            </span>
+            <span class="grassetto">CATEGORIA:</span><span>  {$esame->getNomeCategoriaEsame()}</span>
             <br>
-            <span>
-                Medico Responsabile: {$esame->getMedicoEsame()}
-            </span>
-            <span>
-                Numero Prestazioni Simutanee: {$esame->getNumeroPrestazioniSimultaneeEsame()}
-            </span>
+            <span class="grassetto">PREZZO:</span><span>  {$esame->getPrezzoEsame()}</span>
             <br>
-            <span>Descrizione: {$esame->getDescrizioneEsame()}</span>
+            <span class="grassetto">DURATA:</span><span>  {$esame->getDurataEsame()}</span>
             <br>
-        
+            <span class="grassetto">MEDICO RESPONSABILE:</span><span>  {$esame->getMedicoEsame()}</span>
+            <br>
+            <!--
+            <span class="grassetto">NUMERO PRESTAZIONI SIMULTANEE:</span><span>  {$esame->getNumeroPrestazioniSimultaneeEsame()}</span>
+            <br>
+            -->
+            <span class="grassetto">DESCRIZIONE:</span><span>  {$esame->getDescrizioneEsame()}</span>
+            <br>
+            
+            <input type="button" id="modificaEsame" value="Modifica Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />
+            <input type="button" id="disattivaEsame" value="Disattiva Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" /> 
+            <input type="button" id="eliminaEsame" value="Elimina Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />          
             <input type="button" id="aggiungiPrenotazioneButton" value="Prenota"  data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" {if isset($codiceFiscale)} data-codiceFiscale="{$codiceFiscale}"{/if} />
         </div>
 {/if}

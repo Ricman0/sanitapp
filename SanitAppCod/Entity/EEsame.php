@@ -295,4 +295,43 @@ class EEsame
     {
         $this->_nomeCategoria= $nomeCategoria;
     }
+    
+    /**
+     * Metodo che consente di modificare i dati dell'esame
+     * 
+     * @access public
+     * @param Array $datiEsame I dati dell'esame da modificare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaEsame($datiEsame) {
+        foreach ($datiEsame as $key => $value) {
+            switch ($key) {
+                case 'nome':
+                    $this->setNomeEsame($value);
+                    break;
+                case 'medicoResponsabile':
+                    $this->setMedicoEsame($value);
+                    break;
+                case 'categoria':
+                    $this->setNomeCategoriaEsame($value);
+                    break;
+                case 'prezzo':
+                    $this->setPrezzoEsame($value);
+                    break;
+                case 'durataEsame':
+                    $this->setDurataEsame($value);
+                    break;
+                case 'descrizione':
+                    $this->setDescrizioneEsame($value);
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+        $fEsame = USingleton::getInstance('FEsame');
+        return $fEsame->modificaEsame($this);
+    }
+    
 }

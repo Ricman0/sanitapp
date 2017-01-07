@@ -267,6 +267,7 @@ class UValidazione {
             {
                 case 'nome':
                 case 'medico':
+                case 'medicoResponsabile':
                 case 'descrizione':
                 case 'categoria':
                     $pattern = '/^[a-zA-Zàèìùò\s]+$/' ;
@@ -279,6 +280,7 @@ class UValidazione {
                     break;
                 
                 case 'durata':
+                case 'durataEsame':
                     $pattern = '/^[0-2]{1}[0-9]{1}:([0-5]{1}[0-9]{1})$/';
                     $stringaErrore = "La " . $chiave . " deve essere una durata valida ";
                     break;

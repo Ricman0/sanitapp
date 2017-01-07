@@ -2048,3 +2048,103 @@ function validazioneModificaClinica(){
     });
 
 }
+
+function validazioneModificaEsame(){
+    var idClinica = $('#submitModificaEsame').attr('data-idClinica');
+    var idEsame = $('#submitModificaEsame').attr('data-idEsame');
+    
+    jQuery.validator.addMethod("time", function (valore) {
+        //espressione regolare per la durata
+        var regex = /([0-2][0-3]):([0-5]\d)/;
+        return valore.match(regex);
+    }, "La durata è nel formato hh:mm");
+
+    $("#modificaEsameForm").validate({
+        rules:
+                {
+                    nome:
+                            {
+                                required: true,
+                                maxlength: 50
+                            },
+                    medicoResponsabile:
+                            {
+                                required: true,
+                                maxlength: 40
+                            },
+                    categoria:
+                            {
+                                required: true,
+                                maxlength: 30
+                            },
+                    prezzo:
+                            {
+                                number: true,
+                                required: true,
+                                max: 10000,
+                                min: 1
+
+                            },
+                    durataEsame:
+                            {
+                                required: true,
+                                time: true
+                            }
+//                    descrizione:
+//                            {
+//                                required: true,
+//                                maxlenght: 200
+//                            }
+
+                },
+        messages:
+                {
+                    nome:
+                            {
+                                required: "Inserire nome",
+                                maxlength: "La lunghezza massima è 50"
+                            },
+                    medicoResponsabile:
+                            {
+                                required: "Inserire medico",
+                                maxlength: "La lunghezza massima è 40"
+                            },
+                    categoria:
+                            {
+                                required: "Inserire la categoria",
+                                maxlength: "La lunghezza massima è 30"
+                            },
+                    prezzo:
+                            {
+                                number: "Inserire un numero",
+                                required: "Inserire il prezzo",
+                                max: "Massimo 10000€",
+                                min: "Minimo 1"
+                            },
+                    durataEsame:
+                            {
+                                required: "Selezionare la durata"
+                            }
+//                    descrizione:
+//                            {
+//                                required: "Inserisci una breve descrizione",
+//                                maxlenght:"Max 200 caratteri"
+//                        
+//                            }
+                },
+                errorPlacement: function(error, element){
+                    $(element).attr('title', error.text());
+                },
+                unhighlight: function(element) {
+                    $(element).removeAttr('title').removeClass('error');
+                  },
+        submitHandler: function ()
+        {
+            alert('I dati sono stati inseriti correttamente');
+            
+            var datiPOST = $('form').serialize() + "&idClinica=" + idClinica + "&idEsame=" + idEsame;
+            alert(datiPOST);
+            inviaControllerTaskPOST('servizi', 'modifica', datiPOST, '#contenutoAreaPersonale');
+        }
+    });
+}

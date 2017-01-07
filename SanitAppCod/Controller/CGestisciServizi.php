@@ -32,36 +32,72 @@ class CGestisciServizi {
         
         $vServizi = USingleton::getInstance('VGestisciServizi');
         $task = $vServizi->getTask();
-        if($task==="aggiungi")
-        {
-            //recupero i dati 
-            $vServizi = USingleton::getInstance('VGestisciServizi');
-            $datiEsame = $vServizi->recuperaDatiEsame(); // recupero i dati dell'esame/servizio
-            //valido dati immessi attraverso UValidazione
-            $validazione = USingleton::getInstance('UValidazione');
-            if($validazione->validaDatiEsame($datiEsame)===TRUE)
-            {
-                try {
-                    $username = $sessione->leggiVariabileSessione('usernameLogIn');
-                    $eClinica = new EClinica($username);
-                    $eEsame = new EEsame(NULL, ucwords($datiEsame['nome']), ucwords($datiEsame['medico']),
-                    $datiEsame['categoria'], $datiEsame['prezzo'], 
-                    $datiEsame['durata'], $datiEsame['numPrestazioniSimultanee'], 
-                    ucfirst($datiEsame['descrizione']), $eClinica->getPartitaIVAClinica());
-                    $eEsame->inserisciEsameDB();
-                    $messaggio = 'Servizio inserito con successo';
-                } 
-                catch (XDBException $ex) {
-                    $messaggio = $ex->getMessage();                 
+        switch ($task) {
+            case "aggiungi":
+                //recupero i dati 
+                $vServizi = USingleton::getInstance('VGestisciServizi');
+                $datiEsame = $vServizi->recuperaDatiEsame(); // recupero i dati dell'esame/servizio
+                //valido dati immessi attraverso UValidazione
+                $validazione = USingleton::getInstance('UValidazione');
+                if($validazione->validaDatiEsame($datiEsame)===TRUE)
+                {
+                    try {
+                        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+                        $eClinica = new EClinica($username);
+                        $eEsame = new EEsame(NULL, ucwords($datiEsame['nome']), ucwords($datiEsame['medico']),
+                        $datiEsame['categoria'], $datiEsame['prezzo'], 
+                        $datiEsame['durata'], $datiEsame['numPrestazioniSimultanee'], 
+                        ucfirst($datiEsame['descrizione']), $eClinica->getPartitaIVAClinica());
+                        $eEsame->inserisciEsameDB();
+                        $messaggio = 'Servizio inserito con successo';
+                    } 
+                    catch (XDBException $ex) {
+                        $messaggio = $ex->getMessage();                 
+                    }
+                    catch (XClinicaException $ex) {
+                        $messaggio = $ex->getMessage();                 
+                    }
+                    $vServizi->visualizzaFeedback($messaggio);
+
                 }
-                catch (XClinicaException $ex) {
-                    $messaggio = $ex->getMessage();                 
-                }
-                $vServizi->visualizzaFeedback($messaggio);
-                
-            }
+                break;
             
+            case 'modifica':
+                $vServizi = USingleton::getInstance('VGestisciServizi');
+                $datiEsame = $vServizi->recuperaDatidaValidare();
+                $uValidazione = USingleton::getInstance('UValidazione');
+                $validato = $uValidazione->validaDati($datiEsame);
+                if($validato === TRUE)
+                {
+                    try {
+                        $idEsame = $datiEsame['idEsame'];
+                        $eEsame = new EEsame($idEsame);
+                        $eEsame->modificaEsame($datiEsame);
+                        $vServizi->visualizzaFeedback("Esame modificato con successo.");
+                    } 
+                    catch (XEsameException $ex) {
+                        $messaggio = "C'è stato un errore, non è stato possibile modificare l'esame.";
+                        $vServizi->visualizzaFeedback($messaggio);
+                    }
+                    catch (XDBException $ex) {
+                        $messaggio = "C'è stato un errore, non è stato possibile modificare l'esame.";
+                        $vServizi->visualizzaFeedback($messaggio);
+                    }
+                    
+                }
+                else 
+                {
+                   
+                    $messaggio = "C'è stato un errore, non è stato possibile modificare l'utente.";
+                    $vServizi->visualizzaTemplate($messaggio);
+                     
+                }
+                break;
+
+            default:
+                break;
         }
+        
         
     }
     
@@ -79,11 +115,18 @@ class CGestisciServizi {
         switch ($azione)// azione sarebbe task
         {
             case 'aggiungi':
-                //vai a fare la query per recuperare le categorie
+                try {
+                    $eClinica = new EClinica($username);
+                    $listaCategorie = $eClinica->getCategorieApplicazione();
+                    $vServizi->restituisciFormAggiungiServizi($listaCategorie);
+                } 
+                catch (XDBException $ex) {
+                    $vServizi->visualizzaFeedback("C'è stato un errore. Non è possibile visualizzare la form per aggiungere i servizi. "); 
+                }
+                catch (XClinicaException $ex) {
+                    $vServizi->visualizzaFeedback('Clinica inesistente. Non è possibile visualizzare la form per aggiungere i servizi.'); 
+                }
                 
-                $categorie = USingleton::getInstance('FCategoria');
-                $listaCategorie = $categorie->getCategorie();
-                $vServizi->restituisciFormAggiungiServizi($listaCategorie);
                 break;
             
             case 'visualizza':
@@ -124,8 +167,7 @@ class CGestisciServizi {
                 }
                 break;
        
-            case 'modifica':
-                break;
+            
             
             case 'disabilita':
                 break;

@@ -246,7 +246,7 @@ CREATE TABLE prenotazione (
   CodFiscaleUtentePrenotaEsame varchar(16) DEFAULT NULL,
   DataEOra DATETIME NOT NULL,
   PRIMARY KEY (IDPrenotazione, IDEsame, PartitaIVAClinica),
-  FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame),
+  FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame) ON UPDATE CASCADE,
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
   FOREIGN KEY (CodFiscaleUtenteEffettuaEsame) REFERENCES utente (CodFiscale) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (CodFiscaleMedicoPrenotaEsame) REFERENCES medico (CodFiscale) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -281,7 +281,7 @@ CREATE TABLE referto (
   DataReferto date NOT NULL,
   PRIMARY KEY (IDReferto),
   FOREIGN KEY (IDPrenotazione) REFERENCES prenotazione (IDPrenotazione) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame),
+  FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame) ON UPDATE CASCADE,
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA) ON UPDATE CASCADE 
 );
 

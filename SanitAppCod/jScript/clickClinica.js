@@ -65,7 +65,7 @@ $(document).ready(function () {
         inviaControllerTask('clienti', 'visualizza', "#contenutoAreaPersonale");
     });
 
-    $('#headerMain').on("click", "#iconaAggiungi", function () {
+    $('#headerMain').on("click", "#iconaAggiungiservizi", function () {
         inviaControllerTask('servizi', 'aggiungi', "#contenutoAreaPersonale");
     });
 
@@ -153,8 +153,78 @@ $(document).ready(function () {
         }
     });
 
+    $('#headerMain').on('click', '#modificaEsame', function(){
+        // modifico il 'titolo' da INFORMAZIONI a MODIFICA USER
+        $('#contenutoAreaPersonale').find('h3').replaceWith("<h3>MODIFICA ESAME</h3>");
+        
 
-
+        $('h3').after("<form id='modificaEsameForm'></form>");
+        $('#modificaEsameForm').unwrap();
+//        $('#infoEsame').remove();
+        var nomeLabel = "";
+        $( '#contenutoAreaPersonale > span' ).each(function( index ) {
+            
+            if(index%2===0)
+            { 
+                nomeLabel = $( this ).text().trim();
+                alert(nomeLabel);
+                var lunghezzaLabel = nomeLabel.length;
+                nomeLabel = nomeLabel.substring(0, lunghezzaLabel-1); // elimino i ':' finali
+                nomeLabel = nomeLabel.toLowerCase(); // tutto minuscolo
+                var paroleNomeLabel = nomeLabel.split(" "); // separo le parole di nomeLabel
+                nomeLabel = '';
+                $.each(paroleNomeLabel ,function(index, value){
+                    nomeLabel = nomeLabel + " " + value.substring(0,1).toUpperCase() + value.slice(1);
+                    // in questo modo se label è composta da più parole ho una notazione a cammello anche nell'id, ecc..
+                }) ;
+                nomeLabel = nomeLabel.trim();
+                nomeLabel = nomeLabel.substring(0,1).toLowerCase() + nomeLabel.slice(1);
+                if(nomeLabel !== '')
+                {
+                    $( '#modificaEsameForm').append("<label for='" + nomeLabel.replace(" ",'').replace(" ",'')  +  "' class='elementiForm'>" + nomeLabel.toUpperCase() + ": </label>");
+                }   
+            }
+            else
+            {
+                if(nomeLabel !=='durata')
+                {
+                    $( '#modificaEsameForm').append("<input type='text' name='" + nomeLabel.replace(" ",'').replace(" ",'')  +"' class='elementiForm' id='" +  nomeLabel.replace(' ','')   + "' value='" + $(this).text().trim() +"' /><br>");
+                }
+                else if(nomeLabel === 'durata')
+                {
+                    var valore = $(this).text().trim().substring(0, 5); 
+                    $( '#modificaEsameForm').append("<input type='text'  class='elementiForm time hasDatepicker' name='durataEsame' id='modificaDurataEsame' aria-required='true'  placeholder='" + valore + "' required /><br>");
+//                    $('.time').timepicker({
+//                        stepMinute: 5
+//                    });
+                }
+                else
+                {
+                    
+                }
+                
+                
+                
+                
+            }
+        });
+        $('#contenutoAreaPersonale > span' ).remove();
+        $("#contenutoAreaPersonale input[type='button']").remove();
+        var idClinica = $('#modificaEsame').attr('data-idClinica');
+        alert (idClinica); 
+        var idEsame = $('#modificaEsame').attr('data-idEsame');
+        $( '#modificaEsameForm' ).append("<input type='submit' value='Conferma Modifica' id='submitModificaEsame' data-idEsame='" + idEsame + "' data-idClinica='" + idClinica + "' >");
+        
+        $('#contenutoAreaPersonale > br' ).remove();
+        validazioneModificaEsame();
+    });
+    
+    $('#headerMain').on('focus',"#modificaDurataEsame", function(){
+        $('#modificaDurataEsame').timepicker({
+            stepMinute: 5
+        });
+    });
+    
 });
 
 function inviaImpostazioniClinica(id, controller1, task1, task2, ajaxdiv)

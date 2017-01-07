@@ -1082,6 +1082,18 @@ class EClinica extends EUser {
         $fClinica = USingleton::getInstance('FClinica');
         return $fClinica->modificaClinica($this);
     }
+    
+    /**
+     * Metodo che consente di ottenere una lista delle categorie che sono presenti nell'applicazione.
+     * 
+     * @access public
+     * * @throws XDBException Se la query non è stata eseguita con successo
+     * @return array Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     */
+    public function getCategorieApplicazione() {
+        $categorie = USingleton::getInstance('FCategoria');
+        return $listaCategorie = $categorie->cercaCategorie();
+    }
 }
 
 ?>

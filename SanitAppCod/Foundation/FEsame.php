@@ -248,4 +248,22 @@ class FEsame extends FDatabase {
                 . "WHERE NomeCategoria ='" . $nomeCategoria . "'";
         return $this->eseguiQuery($query);
     }
+    
+    /**
+     * Metodo che consente di modificare gli attributi dell'esame
+     * 
+     * @access public
+     * @param EEsame $esame L'esame da modificare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function modificaEsame($esame) {
+        $query = "UPDATE " . $this->_nomeTabella . " SET NomeEsame='" . $esame->getNomeEsame() .  "', Descrizione='"
+                . $esame->getDescrizioneEsame() . "', Prezzo=" . $esame->getPrezzoEsame() . ", Durata='" . $esame->getDurataEsame() . "', "
+                . "MedicoEsame='" . $esame->getMedicoEsame() . "', NomeCategoria='" . $esame->getNomeCategoriaEsame() . "' "
+                . "WHERE (IDEsame='" . $esame->getIDEsame() . "')";
+        return $this->eseguiQuery($query);
+            
+          
+    }
 }

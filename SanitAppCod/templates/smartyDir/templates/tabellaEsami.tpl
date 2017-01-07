@@ -21,7 +21,7 @@
         <tbody>
             <br>
             {if isset($tastoAggiungi)}
-                <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungi" aria-hidden="true" ></i>
+                <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungi{$controller}" aria-hidden="true" ></i>
             {/if}
             <br>
             {if isset($dati)}
@@ -34,7 +34,7 @@
                         <td>{$curr_row['MedicoEsame']}</td>
                         <td>{$curr_row['NomeCategoria']}</td>
                         <td class="rigaNomeClinica">{$curr_row['NomeClinica']}</td>
-                        <td>{$curr_row['Località']}</td>
+                        <td>{$curr_row['Localita']}</td>
                     </tr>
                 {/foreach}
             {/if}
