@@ -153,9 +153,16 @@ $(document).ready(function () {
         }
     });
 
+     $('#headerMain').on('click', '#eliminaEsameButton', function(){
+        var idClinica = $('#eliminaEsameButton').attr('data-idClinica');
+        var idEsame = $('#eliminaEsameButton').attr('data-idEsame');
+        var datiPOST = {idClinica: idClinica,  idEsame : idEsame};
+        inviaControllerTaskPOST('servizi', 'elimina', datiPOST, '#contenutoAreaPersonale');
+        
+     });
+
     $('#headerMain').on('click', '#modificaEsameButton', function(){
-        var idClinica = $('#modificaEsameButton').attr('data-idClinica');
-        alert (idClinica); 
+        var idClinica = $('#modificaEsameButton').attr('data-idClinica'); 
         var idEsame = $('#modificaEsameButton').attr('data-idEsame');
         // modifico il 'titolo' da INFORMAZIONI a MODIFICA USER
         $('#contenutoAreaPersonale').find('h3').replaceWith("<h3>MODIFICA ESAME</h3>");

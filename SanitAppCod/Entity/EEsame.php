@@ -67,6 +67,12 @@ class EEsame
     private $_partitaIVAClinica; 
     
     /**
+     * @var boolean $_eliminato Indica se l'esame p stato eliminato dalla clinica o no. 
+     * 
+     */
+    private $_eliminato;
+    
+    /**
      * Costruttore di EEsame
      * 
      * @access public
@@ -97,7 +103,8 @@ class EEsame
                 $this->_durata = $attributiEsame[0]["Durata"];
                 $this->_numeroPrestazioniSimultanee = $attributiEsame[0]["NumPrestazioniSimultanee"];
                 $this->_descrizione = $attributiEsame[0]["Descrizione"];
-                $this->_partitaIVAClinica= $attributiEsame[0]["PartitaIVAClinica"];   
+                $this->_partitaIVAClinica= $attributiEsame[0]["PartitaIVAClinica"];
+                $this->_eliminato= $attributiEsame[0]["Eliminato"];
             }
             else
             {
@@ -115,6 +122,7 @@ class EEsame
             $this->_numeroPrestazioniSimultanee = $numPrestazioniSimultanee;
             $this->_descrizione = $descrizione;
             $this->_partitaIVAClinica = $partitaIVAClinica;
+            $this->_eliminato ='FALSE';
             
         }
     }
@@ -144,8 +152,18 @@ class EEsame
     }
     
     /**
+     * Metodo che restituisce se l'esame è stato eliminato oppure no
+     * 
+     * @return boolean TRUE l'esame è stato eliminato, FALSE altrimenti
+     */
+    public function getEliminato() {
+        return $this->_eliminato;
+    }
+    
+    /**
      * Metodo che restituisce il nome dell'esame
      * 
+     * @access public
      * @return string Il nome dell'esame
      */
     public function getNomeEsame()
@@ -245,6 +263,16 @@ class EEsame
     }
     
     /**
+     * Metodo che permette la modifica della descrizione dell'esame
+     * 
+     * @param boolean $eliminato TRUE se l'esame deve essere, FALSE altrimenti. 
+     */
+    public function setEliminato($eliminato)
+    {
+        $this->_eliminato= $eliminato;
+    }
+    
+    /**
      * Metodo che permette di modificare il prezzo in euro dell'esame
      * 
      * @param  float $prezzo Il prezzo dell'esame
@@ -335,4 +363,15 @@ class EEsame
         return $fEsame->modificaEsame($this);
     }
     
+    /**
+     * Metodo che consente di eliminare l'esame (In realtà dal db non viene eliminato, viene solo settato come eliminato)
+     * 
+     * @access public
+     * 
+     */
+    public function eliminaEsame() {
+        $this->setEliminato(TRUE);
+        $fEsame = USingleton::getInstance('FEsame');
+        return $fEsame->eliminaEsame($this->getIDEsame());
+    }
 }

@@ -78,7 +78,7 @@
             
             <input type="button" id="modificaEsameButton" value="Modifica Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />
          <!--   <input type="button" id="disattivaEsame" value="Disattiva Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />  -->
-            <input type="button" id="eliminaEsame" value="Elimina Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />          
+            <input type="button" id="eliminaEsameButton" value="Elimina Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />          
             <input type="button" id="aggiungiPrenotazioneButton" value="Prenota"  data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" {if isset($codiceFiscale)} data-codiceFiscale="{$codiceFiscale}"{/if} />
         </div>
 {/if}

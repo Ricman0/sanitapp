@@ -25,7 +25,7 @@ class FEsame extends FDatabase {
         $this->_nomeTabella = "esame";
         $this->_attributiTabella = "IDEsame, NomeEsame, Descrizione, Prezzo, " .
                 "Durata, MedicoEsame, NumPrestazioniSimultanee, " .
-                "NomeCategoria, PartitaIVAClinica";
+                "NomeCategoria, PartitaIVAClinica, Eliminato";
     }
 
     /**
@@ -45,7 +45,15 @@ class FEsame extends FDatabase {
                 . $this->trimEscapeStringa($esame->getMedicoEsame()) . "', '" 
                 . $esame->getNumeroPrestazioniSimultaneeEsame() . "', '"  
                 . $this->trimEscapeStringa($esame->getNomeCategoriaEsame()) . "', '" 
-                . $esame->getPartitaIVAClinicaEsame() . "'"; 
+                . $esame->getPartitaIVAClinicaEsame() . "', ";
+        if ($esame->getEliminato()===TRUE)
+        {
+            $valoriAttributi = $valoriAttributi . $esame->getEliminato();
+        }
+        else
+        {
+             $valoriAttributi = $valoriAttributi .  "FALSE";
+        }
                 
         return $valoriAttributi;
     }
@@ -245,7 +253,7 @@ class FEsame extends FDatabase {
     public function cercaEsamiByCategoria($nomeCategoria) {
         $query =  "SELECT * "
                 . "FROM esame " 
-                . "WHERE NomeCategoria ='" . $nomeCategoria . "'";
+                . "WHERE NomeCategoria ='" . $nomeCategoria . "' ";
         return $this->eseguiQuery($query);
     }
     
@@ -266,4 +274,19 @@ class FEsame extends FDatabase {
             
           
     }
+    
+    /**
+     * Metodo che consente di eliminare l'esame settando come eliminato l'esame
+     * 
+     * @access public
+     * @param string $idEsame L'id dell'esame da eliminare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function eliminaEsame($idEsame) {
+        $query = "UPDATE " . $this->_nomeTabella . " SET Eliminato=TRUE "
+                . "WHERE (IDEsame='" . $idEsame. "')";
+        return $this->eseguiQuery($query);
+    }
 }
+

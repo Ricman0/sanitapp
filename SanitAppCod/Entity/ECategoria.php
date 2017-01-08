@@ -68,7 +68,7 @@ class ECategoria {
     }
     
     /**
-     * Metodo che consente di controllare se una cetegoria può essere cancellata.
+     * Metodo che consente di controllare se una categoria può essere cancellata.
      * 
      * @access public
      */

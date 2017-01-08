@@ -147,6 +147,7 @@ CREATE TABLE esame(
   NumPrestazioniSimultanee smallint(6) NOT NULL,
   NomeCategoria varchar(30) NOT NULL,
   PartitaIVAClinica varchar(20) NOT NULL,
+  Eliminato boolean DEFAULT FALSE,
   PRIMARY KEY (IDEsame,PartitaIVAClinica),
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
   FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome) ON DELETE NO ACTION ON UPDATE CASCADE
@@ -161,9 +162,9 @@ ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(NomeEsame);
 --
 
 INSERT INTO esame (IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, 
-NumPrestazioniSimultanee, NomeCategoria, PartitaIVAClinica) VALUES
-(1, 'Raggi Braccio', 'Raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345'),
-(2, 'Raggi Piede', 'Raggi al piede', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345');
+NumPrestazioniSimultanee, NomeCategoria, PartitaIVAClinica, Eliminato) VALUES
+(1, 'Raggi Braccio', 'Raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345', FALSE),
+(2, 'Raggi Piede', 'Raggi al piede', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345', FALSE);
 
 -- --------------------------------------------------------
 

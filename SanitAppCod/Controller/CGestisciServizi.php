@@ -88,12 +88,37 @@ class CGestisciServizi {
                 else 
                 {
                    
-                    $messaggio = "C'è stato un errore, non è stato possibile modificare l'utente.";
+                    $messaggio = "C'è stato un errore, non è stato possibile modificare l'esame.";
                     $vServizi->visualizzaTemplate($messaggio);
                      
                 }
                 break;
 
+            case 'elimina':
+                $vServizi = USingleton::getInstance('VGestisciServizi');
+                $idEsame = $vServizi->recuperaValore('idEsame');
+                if ($idEsame !== FALSE)
+                {
+                    try{
+                        $eEsame = new EEsame($idEsame);
+                        $eEsame->eliminaEsame();
+                        $vServizi->visualizzaFeedback("Esame eliminato con successo.");
+                    } 
+                    catch (XEsameException $ex) {
+                        $messaggio = "C'è stato un errore, non è stato possibile eliminare l'esame.";
+                        $vServizi->visualizzaFeedback($messaggio);
+                    }
+                    catch (XDBException $ex) {
+                        $messaggio = "C'è stato un errore, non è stato possibile eliminare l'esame.";
+                        $vServizi->visualizzaFeedback($messaggio);
+                    }
+                }
+                else
+                {
+                    $messaggio = "C'è stato un errore, non è stato possibile eliminiare l'esame.";
+                    $vServizi->visualizzaTemplate($messaggio);
+                }
+                break;
             default:
                 break;
         }
