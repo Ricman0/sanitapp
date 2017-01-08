@@ -153,7 +153,10 @@ $(document).ready(function () {
         }
     });
 
-    $('#headerMain').on('click', '#modificaEsame', function(){
+    $('#headerMain').on('click', '#modificaEsameButton', function(){
+        var idClinica = $('#modificaEsameButton').attr('data-idClinica');
+        alert (idClinica); 
+        var idEsame = $('#modificaEsameButton').attr('data-idEsame');
         // modifico il 'titolo' da INFORMAZIONI a MODIFICA USER
         $('#contenutoAreaPersonale').find('h3').replaceWith("<h3>MODIFICA ESAME</h3>");
         
@@ -209,10 +212,9 @@ $(document).ready(function () {
             }
         });
         $('#contenutoAreaPersonale > span' ).remove();
+        
         $("#contenutoAreaPersonale input[type='button']").remove();
-        var idClinica = $('#modificaEsame').attr('data-idClinica');
-        alert (idClinica); 
-        var idEsame = $('#modificaEsame').attr('data-idEsame');
+        
         $( '#modificaEsameForm' ).append("<input type='submit' value='Conferma Modifica' id='submitModificaEsame' data-idEsame='" + idEsame + "' data-idClinica='" + idClinica + "' >");
         
         $('#contenutoAreaPersonale > br' ).remove();

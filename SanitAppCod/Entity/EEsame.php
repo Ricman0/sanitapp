@@ -231,7 +231,7 @@ class EEsame
      */
     public function setNomeEsame( $nome)
     {
-        $this->_nomeEsamee= $nome;
+        $this->_nomeEsame= $nome;
     }
     
     /**
@@ -308,6 +308,7 @@ class EEsame
         foreach ($datiEsame as $key => $value) {
             switch ($key) {
                 case 'nome':
+                    
                     $this->setNomeEsame($value);
                     break;
                 case 'medicoResponsabile':
