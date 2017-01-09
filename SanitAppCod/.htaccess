@@ -11,6 +11,7 @@
 
   RewriteCond %{REQUEST_METHOD} GET 
   RewriteRule ^(categorie)$ index.php?controller=$1 [L]
+  RewriteRule ^(categorie)/(visualizza)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(users)/(visualizza|bloccati|daValidare)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(users|usersBloccati|usersDaValidare)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(clienti)/(visualizza)/([[:alnum:]]{16})$ index.php?controller=$1&task=$2&id=$3 [L]

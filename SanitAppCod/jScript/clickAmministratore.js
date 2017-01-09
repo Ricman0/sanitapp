@@ -13,7 +13,7 @@ $(document).ready(function(){
     });
 
     $('#headerMain').on('click', '#categorieEsamiAmministratore', function(){
-        inviaController('categorie', '#contenutoAreaPersonale');
+        inviaControllerTask('categorie', 'visualizza', '#contenutoAreaPersonale');
     });
   
   

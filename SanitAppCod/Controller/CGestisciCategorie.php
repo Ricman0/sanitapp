@@ -18,16 +18,35 @@ class CGestisciCategorie {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vUsers = USingleton::getInstance('VGestisciUser');
-        try {
-            $eAmministratore = new EAmministratore($username);
-            $categorieEsami = $eAmministratore->cercaCategorie();
-            $vUsers->visualizzaCategorie($categorieEsami);
-        } catch (XAmministratoreException $ex) {
-            $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+        $task = $vUsers->getTask();
+        if($task ==='visualizza')
+        {
+            try {
+                $eAmministratore = new EAmministratore($username);
+                $categorieEsami = $eAmministratore->cercaCategorie();
+                $vUsers->visualizzaCategorie($categorieEsami);
+            } catch (XAmministratoreException $ex) {
+                $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+            }
+            catch (XDBException $ex) {
+                $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+            }
         }
-        catch (XDBException $ex) {
-            $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+        else // get categorie
+        {
+            try {
+                $eClinica = new EClinica($username);
+                $categorieEsami = $eClinica->getCategorieApplicazione();
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON($categorieEsami);
+            } catch (XClinicaException $ex) {
+                $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+            }
+            catch (XDBException $ex) {
+                $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+            }
         }
+        
         
         
     }

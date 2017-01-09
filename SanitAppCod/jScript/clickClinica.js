@@ -196,21 +196,28 @@ $(document).ready(function () {
             }
             else
             {
-                if(nomeLabel !=='durata')
+                
+                if(nomeLabel =='categoria')
                 {
-                    $( '#modificaEsameForm').append("<input type='text' name='" + nomeLabel.replace(" ",'').replace(" ",'')  +"' class='elementiForm' id='" +  nomeLabel.replace(' ','')   + "' value='" + $(this).text().trim() +"' /><br>");
+                    $( '#modificaEsameForm').append("<select name='categoria' id='modificaCategoriaEsame' class='elementiForm' required >"
+                            + "<option selected value='" + $(this).text().trim() + "'> " + $(this).text().trim() + " </option>"
+                            + "</select><br>");
+                    
+
+            
+                            
                 }
                 else if(nomeLabel === 'durata')
                 {
                     var valore = $(this).text().trim().substring(0, 5); 
-                    $( '#modificaEsameForm').append("<input type='text'  class='elementiForm time hasDatepicker' name='durataEsame' id='modificaDurataEsame' aria-required='true'  placeholder='" + valore + "' required /><br>");
+                    $( '#modificaEsameForm').append("<input type='text'  class='elementiForm time hasDatepicker' name='durataEsame' id='modificaDurataEsame' aria-required='true'  value='" + valore + "' required /><br>");
 //                    $('.time').timepicker({
 //                        stepMinute: 5
 //                    });
                 }
                 else
                 {
-                    
+                    $( '#modificaEsameForm').append("<input type='text' name='" + nomeLabel.replace(" ",'').replace(" ",'')  +"' class='elementiForm' id='" +  nomeLabel.replace(' ','')   + "' value='" + $(this).text().trim() +"' /><br>");
                 }
                 
                 
@@ -233,6 +240,37 @@ $(document).ready(function () {
             stepMinute: 5
         });
     });
+    
+    $('#headerMain').on('focus',"#modificaCategoriaEsame", function(){
+        $('#modificaCategoriaEsame option:not(:selected)').remove();
+        $.ajax({
+            type: 'GET',
+            url: 'categorie',
+            success: function (datiRisposta)
+            {
+                console.log(datiRisposta);
+                var categorie = JSON.parse(datiRisposta);
+                console.log(categorie);
+                $.each(categorie, function(index, categoria) {
+                    $.each(categoria, function(indice, valore){
+                        var opzioneSelezionata = $('#modificaCategoriaEsame option:selected').text();
+                        
+                        if (opzioneSelezionata.trim() !== valore.trim())
+                        {
+                            $('#modificaCategoriaEsame').append("<option value=" + valore +">" + valore + "</option>");
+                        }
+                    });
+                });
+                
+
+            },
+            error: function ()
+            {
+                alert("Sbagliato click ");
+            }
+        });
+    });
+    
     
 });
 
