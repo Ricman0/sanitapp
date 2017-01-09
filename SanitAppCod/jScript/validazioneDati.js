@@ -1528,6 +1528,10 @@ function validazioneModificaUtente(){
                                 required: true,
                                 minlength: 5,
                                 maxlength: 5
+                            },
+                    passwordUtente:
+                            {
+                                password:true
                             }
                     
                 },
@@ -1732,6 +1736,10 @@ function validazioneModificaMedico(){
                                 required: true,
                                 email: true
                                 
+                            },
+                    passwordMedico:
+                            {
+                                password:true
                             }
                 },
         messages:
@@ -1945,6 +1953,10 @@ function validazioneModificaClinica(){
                             {
                                 required: true,
                                 maxlength: 10
+                            },
+                    passwordClinica:
+                            {
+                                password:true
                             }
                     
                 },

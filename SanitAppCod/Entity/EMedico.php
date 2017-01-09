@@ -486,6 +486,12 @@ class EMedico extends EUser {
                 case 'numeroIscrizioneAlbo':
                     $this->setNumIscrizioneMedico($value);
                     break;
+                case 'passwordMedico':
+                    if(!empty($value))
+                    {
+                        $this->setPassword($value);
+                    }
+                    break;
                 default:
                     break;
             }

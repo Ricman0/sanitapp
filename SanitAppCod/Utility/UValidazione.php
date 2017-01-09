@@ -114,6 +114,9 @@ class UValidazione {
                     break;
                 
                 case "password":
+                case 'passwordUtente':
+                case 'passwordMedico':
+                case 'passwordClinica':
                     $pattern = '/^(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,10})$/';
                     $stringaErrore = "La password deve contenere almeno un "
                             . "numero, una lettera maiusola, "

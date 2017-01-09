@@ -212,8 +212,8 @@ $(document).ready(function(){
         $( '#contenutoAreaPersonale > span' ).remove();
         $('#tastiInfoUser').remove();
        
-        $( '#modificaUser' + tipoUser).append("<input type='submit' value='Conferma Modifica " + tipoUser +" ' id='submitModifica" + tipoUser + "'>  ");
-        $( '#modificaUser' + tipoUser).append("<input type='button' value='Modifica Password " + tipoUser +"' id='modificaPasswordUser" + tipoUser + "' data-tipoUser='" + tipoUser + "'>");
+        $( '#modificaUser' + tipoUser).append("<input type='submit' value='Conferma Modifica  ' id='submitModifica" + tipoUser + "'>  ");
+        $( '#modificaUser' + tipoUser).append("<input type='button' value='Modifica Password ' id='modificaPasswordUser' data-tipoUser='" + tipoUser + "'>");
         
         if(tipoUser === 'Utente')
         {
@@ -231,8 +231,10 @@ $(document).ready(function(){
     
     $('#headerMain').on("click", "#modificaPasswordUser" , function(){
         var tipoUser = $(this).attr('data-tipoUser');
+        $( '#submitModifica' + tipoUser).remove();
         $( '#modificaUser' + tipoUser).append("<label for='password" + tipoUser + "' class='elementiForm'>PASSWORD: </label>");
         $( '#modificaUser' + tipoUser).append("<input type='password' name='password" + tipoUser + "' class='elementiForm'  id='password" + tipoUser + "' /><br>");
+        $( '#modificaUser' + tipoUser).append("<input type='submit' value='Conferma Modifica  ' id='submitModifica" + tipoUser + "'>  ");
         $("#modificaPasswordUser").remove();
     });
     

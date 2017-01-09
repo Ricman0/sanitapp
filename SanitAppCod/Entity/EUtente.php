@@ -577,6 +577,12 @@ class EUtente extends EUser {
                 case 'CAP':
                     $this->setCAPUtente($value);
                     break;
+                case 'passwordUtente':
+                    if(!empty($value))
+                    {
+                        $this->setPassword($value);
+                    }
+                    break;
                 default:
                     break;
             }

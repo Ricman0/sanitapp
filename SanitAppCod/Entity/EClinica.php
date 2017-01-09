@@ -1075,6 +1075,12 @@ class EClinica extends EUser {
                 case 'telefono':
                     $this->setTelefonoClinica($value);
                     break;
+                case 'passwordClinica':
+                    if(!empty($value))
+                    {
+                        $this->setPassword($value);
+                    }
+                    break;
                 default:
                     break;
             }
