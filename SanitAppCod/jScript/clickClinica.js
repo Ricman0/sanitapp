@@ -19,6 +19,7 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
         $('#contenutoAreaPersonale').empty(); // elimino tutti gli elementi interni al div contenutoAreaPersonale
         $('#contenutoAreaPersonale').append("<h1>Appuntamenti</h1>");
+        $('#contenutoAreaPersonale').append("<input type='button' id='stampaPrenotazioniGiornaliere' value='Stampa Prenostazioni Giornaliere'  />");
         $('#contenutoAreaPersonale').append("<div id='agenda'></div>");// aggiungo il div agenda per inserire fullcalendar
         $('#contenutoAreaPersonale').append("<div id='contenutoEvento' title='Dettaglio evento'><div id='infoEvento'></div>");
                
@@ -47,6 +48,10 @@ $(document).ready(function () {
         });
 
 
+    });
+
+    $('#headerMain').on("click", "#stampaPrenotazioniGiornaliere", function () {
+        window.print();
     });
 
     $('#headerMain').on("click", "#serviziAreaPersonaleClinica", function () {
