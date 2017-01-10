@@ -69,7 +69,8 @@ input:checked + .slider:before {
 
 /* css per loading icon*/
 .loading{
-    display: none;
+    margin: 15% auto;
+    /*display: none;*/
     border: 10px solid #f3f3f3 ; /* Light grey oppure metto transparent */
     border-top: 10px solid rgb(11, 190, 210);  /*con border top prendo solo il lato top del quadrato*/
     border-radius: 50%; /* 25% dell'intero quadrato(div)  e lo rendo curvo */
@@ -112,6 +113,19 @@ input:checked + .slider:before {
 
 
 /*fine css per loading icon*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
 
 span.grassetto {
     font-weight: bold;
@@ -199,7 +213,8 @@ form{
 }
 label.elementiForm {
     display: inline-block;
-    width: 160px;
+    width: 13%;
+    min-width: 150px;
 }
 
 #refertoPath{
@@ -214,7 +229,8 @@ select.elementiForm, input.elementiForm {
     display:inline;
     font-size: 15px; 
     padding:8px;
-    width: 250px;
+    min-width: 200px;
+    width: 20%;
     box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
     -moz-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;  
@@ -265,20 +281,22 @@ input.time
 {
     width: 150px;
 }
+
 button:disabled, input[type = 'submit' ]:disabled, input[type='button']:disabled{
     
     opacity: 0.50;
     cursor:not-allowed;
     
 }
+
 .faAzzurro{
     color:rgb(11, 190, 210);
 }
+
 button:hover, input[type = 'submit']:hover, input[type='button']:hover
 {
     background-color:rgb(10, 170, 220);
 }
-
 
 input, select{
     border: 1px solid #E5E5E5;
@@ -299,8 +317,6 @@ hr{
     margin: auto;
     float: none;
 }
-
-
 
 .affiancato
 {
@@ -384,17 +400,3 @@ hr{
 .ui-dialog-titlebar-close {
     visibility: hidden;
 }
-/*@media only screen and (max-width: 1200px){
-    #main{
-        padding-left: 5%;
-        padding-right: 1%;
-    }
-
-}
-@media only screen and (max-width: 1000px){
-    #main{
-        padding-left: 2%;
-        padding-right: 1%;
-    }
-}*/
-

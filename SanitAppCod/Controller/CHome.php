@@ -148,6 +148,8 @@ class CHome {
                 break;
             
             case 'recuperaPassword':
+                $vAutenticazione = USingleton::getInstance('VAutenticazione');
+                $vAutenticazione->visualizzaTemplate('recuperoCredenziali');
                 break;
             
             case 'referti':
@@ -252,6 +254,11 @@ class CHome {
             case 'prenotazione':
                 $cPrenotazione = USingleton::getInstance('CPrenotazione');
                 $cPrenotazione->gestisciPrenotazionePOST();
+                break;
+            
+            case 'recuperaPassword':
+                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+                $cAutenticazione->nuovaPassword();
                 break;
                 
             case 'referto':

@@ -70,6 +70,7 @@ class EUser {
      * @param string $password La password dell'utente
      * @param string $cod Il codice per confermare l'account
      * @param string $PEC La pec dell'user
+     * @throws XUserException Quando lo user da creare non esiste
      */
     public function __construct($username, $password = NULL, $email = NULL, $PEC=NULL) 
     {
@@ -486,14 +487,45 @@ class EUser {
      * Metodo che permette di modificare la password (la modifica avviene anche nel DB)
      * 
      * @access public
-     * @param string $password password da modificare
+     * @param string $password password da modificare, se non fornito crea una password automaticamente
      * @return boolean TRUE modifica effettuata, FALSE altrimenti
      */
-    public function modificaPassword($password) 
+    public function modificaPassword($password = NULL) 
     {
+        if ($password===NULL)
+        {
+            $password = $this->generatePassword();
+        }
         $this->setPassword($password);
         $fUser = USingleton::getInstance('FUser');
         return $fUser->modificaPassword($this->getUsername(), $this->getPassword());
     }
     
+    /**
+     * Genera una password casuale in conformità dalle regole imposte  
+     * @param int $length lunghezza della password
+     * @return string la password generata automaticamente
+     */
+    private function generatePassword($length = 8) {
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $charsUp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $num = '0123456789';
+    $count= mb_strlen($chars);
+    $countCharsUp = mb_strlen($charsUp);
+    $countNum = mb_strlen($num);
+
+    for ($i = 0, $result = ''; $i < $length-2; $i++) {
+        $index = rand(0, $count - 1);
+        $result .= mb_substr($chars, $index, 1);
+    }
+    
+    $index = rand(0, $countCharsUp - 1);
+    $result .= mb_substr($charsUp, $index, 1);
+    $index = rand(0, $countNum - 1);
+    $result .= mb_substr($num, $index, 1);
+    return $result;
+}
+
+
+
 }

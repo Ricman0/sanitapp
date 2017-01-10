@@ -2,7 +2,7 @@ function validazione(task1, controller1, task2)
 {
     switch (task1)
     {
-        
+
         case "utente":
             validazioneUtente();
             break;
@@ -26,20 +26,24 @@ function validazione(task1, controller1, task2)
             break;
 
         case "aggiungi":
-            switch(controller1)
+            switch (controller1)
             {
                 case 'prenotazioni':
                     validazioneCodiceFiscale();
                     break;
-                    
+
                 case 'pazienti':
                     validazioneUtente();
                     break;
-                
+
                 default:
                     validazioneEsame();
                     break;
             }
+            break;
+
+        case "recuperaPassword":
+            validazioneEmail();
             break;
 
         case 'modifica':
@@ -156,12 +160,12 @@ function validazioneInformazioni()
                                 maxlength: "Il CAP è un numero lungo 5"
                             }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#contenutoAreaPersonale");
@@ -175,7 +179,7 @@ function validazioneAlboNum()
     $("#formModificaAlboNum").validate({
         rules:
                 {
-                   provinciaAlbo:
+                    provinciaAlbo:
                             {
                                 required: true,
                                 maxlength: 22
@@ -184,7 +188,7 @@ function validazioneAlboNum()
                             {
                                 required: true,
                                 rangelength: [6, 6]
-                            } 
+                            }
                 },
         messages:
                 {
@@ -199,20 +203,20 @@ function validazioneAlboNum()
                                 rangelength: '6 cifre'
                             }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'alboNum', "#contenutoAreaPersonale");
         }
     });
-    
-    
-                            
+
+
+
 }
 
 function validazioneCodiceFiscaleMedicoCurante()
@@ -222,7 +226,7 @@ function validazioneCodiceFiscaleMedicoCurante()
         var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
         return valore.match(regex);
     }, "Il codice fiscale deve essere del tipo DMRCLD89S42G438S");
-    
+
     $("#formModificaMedico").validate({
         /*
          * Il plugin di default invia una richiesta ajax  per la regola remote
@@ -250,7 +254,6 @@ function validazioneCodiceFiscaleMedicoCurante()
                 },
         messages:
                 {
-                    
                     codiceFiscale:
                             {
                                 required: "Inserire il proprio codice fiscale",
@@ -259,12 +262,12 @@ function validazioneCodiceFiscaleMedicoCurante()
                                 remote: "Medico non esistente in Sanitapp"
                             }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#contenutoAreaPersonale");
@@ -272,7 +275,7 @@ function validazioneCodiceFiscaleMedicoCurante()
         }
     });
 }
-    
+
 function validazioneCodiceFiscale()
 {
     jQuery.validator.addMethod("codiceFiscale", function (valore) {
@@ -307,12 +310,12 @@ function validazioneCodiceFiscale()
                                 remote: "Utente non esistente, inserire un codice fiscale di un utente già registrato"
                             }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
 
@@ -377,7 +380,7 @@ function validazioneCodiceFiscale()
                         alert(dataObject);
 
                         var nomeGiorno = $.datepicker.formatDate('DD', dataObject);
-                        nomeGiorno = nomeGiorno.replace('ì','i');
+                        nomeGiorno = nomeGiorno.replace('ì', 'i');
                         alert(nomeGiorno);
 //                    var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
 //                    alert("PartitaIVA: " + partitaIVAClinica);
@@ -432,12 +435,12 @@ function validazioneLogIn(form)
                                 required: "Inserire password"
                             }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
 //        errorPlacement: function (error, element) {
 //            return true;
 //        },
@@ -445,7 +448,7 @@ function validazioneLogIn(form)
         {
             alert('I dati log in sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
-            inviaDatiLogIn(form, '#headerMain');
+            inviaDatiGenerico(form, 'autenticazione', '#headerMain');
 
         }
     });
@@ -626,12 +629,12 @@ function validazioneUtente()
                                 equalTo: "La password deve essere sempre la stessa"
                             }
                 },
-                 errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             $("#loading").show();
@@ -640,7 +643,7 @@ function validazioneUtente()
             var ajaxDiv = "#main";
             if ($('#contenutoAreaPersonale').length)// se nel DOM esiste il div contenutoAreaPersonale
             {
-                ajaxDiv ='#contenutoAreaPersonale';
+                ajaxDiv = '#contenutoAreaPersonale';
             }
             alert(ajaxDiv);
             inviaDatiRegistrazione('#inserisciUtente', 'registrazione', 'utente', ajaxDiv);
@@ -838,7 +841,7 @@ function validazioneMedico()
                             {
                                 required: "Inserire la provincia dell'albo a cui si è iscritti",
                                 maxlength: "La sequenza massima di caratteri è 22"
-                            
+
                             },
                     numeroIscrizione:
                             {
@@ -846,19 +849,19 @@ function validazioneMedico()
                                 rangelength: "Deve avere 6 numeri"
                             }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             $("#loading").show();
             var ajaxDiv = "#main";
             if ($('#contenutoAreaPersonale').length)// se nel DOM esiste il div contenutoAreaPersonale
             {
-                ajaxDiv ='#contenutoAreaPersonale';
+                ajaxDiv = '#contenutoAreaPersonale';
             }
             alert('I dati sono stati inseriti correttamente');
             inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', ajaxDiv);
@@ -1092,19 +1095,19 @@ function validazioneClinica()
                                 maxlength: "La sequenza massima di numeri è 11"
                             }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             $("#loading").show();
             var ajaxDiv = "#main";
             if ($('#contenutoAreaPersonale').length)// se nel DOM esiste il div contenutoAreaPersonale
             {
-                ajaxDiv ='#contenutoAreaPersonale';
+                ajaxDiv = '#contenutoAreaPersonale';
             }
             alert('I dati sono stati inseriti correttamente');
             inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', ajaxDiv);
@@ -1200,12 +1203,12 @@ function validazioneImpostazioniClinica()
 //                                required: true
 //                            } 
 //                },
-errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             alert('Impostazioni inserite correttamente');
@@ -1310,12 +1313,12 @@ function validazioneEsame()
 //                        
 //                            }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             alert('I dati sono stati inseriti correttamente');
@@ -1327,7 +1330,7 @@ function validazioneEsame()
 
 function validazioneReferto() {
 
-alert('ciao d');
+    alert('ciao d');
 
     $("#formUploadReferto").validate({
         rules: {
@@ -1342,12 +1345,12 @@ alert('ciao d');
                 accept: "selezionare un file pdf"
             }
         },
-        errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  }
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        }
 //        ,
 //        submitHandler: function () {
 //            alert('ciao');
@@ -1359,46 +1362,45 @@ alert('ciao d');
 
 function validazioneCategoria() {
     $("#aggiungiCategoria").validate({
-            rules:
-                    {
-                        nomeCategoria:
-                                {
-                                    required: true,
-                                    maxlength: 30
-                                }
-                    },
-            messages:
-                    {
-                        nomeCategoria:
-                                {
-                                    required: "Inserire nome",
-                                    maxlength: "La lunghezza massima è 30"
-                                }
-                    },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
+        rules:
+                {
+                    nomeCategoria:
+                            {
+                                required: true,
+                                maxlength: 30
+                            }
                 },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
-            submitHandler: function ()
-            {
-                alert('I dati sono stati inseriti correttamente');
-                // inviaDatiEsame si trova in clickGestisciServizi.js
-                var nomeCategoria = $("#nomeCategoria").val();
-                var datiPOST = {nomeCategoria: nomeCategoria };
-                inviaControllerTaskPOST('categorie', 'aggiungi', datiPOST, '#contenutoAreaPersonale');
-            }
-        });
-    
- }
- 
- function inviaDatiCategoria()
+        messages:
+                {
+                    nomeCategoria:
+                            {
+                                required: "Inserire nome",
+                                maxlength: "La lunghezza massima è 30"
+                            }
+                },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
+        submitHandler: function ()
+        {
+            alert('I dati sono stati inseriti correttamente');
+            // inviaDatiEsame si trova in clickGestisciServizi.js
+            var nomeCategoria = $("#nomeCategoria").val();
+            var datiPOST = {nomeCategoria: nomeCategoria};
+            inviaControllerTaskPOST('categorie', 'aggiungi', datiPOST, '#contenutoAreaPersonale');
+        }
+    });
+
+}
+
+function inviaDatiCategoria()
 {
     //recupera tutti i valori del form automaticamente
-    var dati =  $(id).serialize();
+    var dati = $(id).serialize();
     $.ajax({
-        
         //il tipo di richiesta HTTP da effettuare, di default è GET
         type: 'POST',
         //url della risorsa alla quale viene inviata la richiesta
@@ -1408,35 +1410,34 @@ function validazioneCategoria() {
         //oppure una stringa del tipo "chiave=valore&chiave2=valore2"
         // contenente dei dati da inviare al server
         //data: {datiDaInviare:  dati, controller:controller1, task:task1}, 
-        data:  dati,
+        data: dati,
         dataType: "html",
         //success(data, textStatus, XMLHTTPRequest) : funzione che verrà 
         //eseguita al successo della chiamata. I tre parametri sono, 
         //rispettivamente, l’oggetto della richiesta, lo stato e la 
         //descrizione testuale dell’errore rilevato
-        success: function(msg)
+        success: function (msg)
         {
-           alert("Username e password inviati per effettuare il log in"); 
-           $(ajaxdiv).html(msg);
+            alert("Username e password inviati per effettuare il log in");
+            $(ajaxdiv).html(msg);
         },
-        
-            error: function(xhr, status, error) 
-            {
-                alert(xhr.responseText);
-                alert(error);
-                alert("Chiamata fallita, si prega di riprovare...");
-            }
-        
-      
- });
- }
- 
- 
+        error: function (xhr, status, error)
+        {
+            alert(xhr.responseText);
+            alert(error);
+            alert("Chiamata fallita, si prega di riprovare...");
+        }
+
+
+    });
+}
 
 
 
-function validazioneModificaUtente(){
- alert('cioa');
+
+
+function validazioneModificaUtente() {
+    alert('cioa');
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("password", function (valore) {
@@ -1452,11 +1453,11 @@ function validazioneModificaUtente(){
         return valore.match(regex);
     }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
 
-    jQuery.validator.addMethod("alfanumerico", function(valore) {
+    jQuery.validator.addMethod("alfanumerico", function (valore) {
         var regex = /[a-zA-Z0-9]+/;
         return valore.match(regex);
     });
-    
+
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{4,15}/;
@@ -1491,7 +1492,7 @@ function validazioneModificaUtente(){
                             },
                     codiceConferma:
                             {
-                                required:true,
+                                required: true,
                                 alfanumerico: true,
                                 minlength: 16,
                                 maxlength: 64
@@ -1503,7 +1504,7 @@ function validazioneModificaUtente(){
                                 maxlength: 16,
                                 minlength: 16
                             },
-                     nome:
+                    nome:
                             {
                                 required: true,
                                 maxlength: 20
@@ -1531,9 +1532,9 @@ function validazioneModificaUtente(){
                             },
                     passwordUtente:
                             {
-                                password:true
+                                password: true
                             }
-                    
+
                 },
         messages:
                 {
@@ -1554,9 +1555,8 @@ function validazioneModificaUtente(){
                                 alfanumerico: 'Il codice deve essere alfanumerico',
                                 minlength: 'Minima lunghezza 16',
                                 maxlength: 'Massima lunghezza 64'
-                                
+
                             },
-                    
                     codiceFiscale:
                             {
                                 required: "Inserire il proprio codice fiscale",
@@ -1573,7 +1573,6 @@ function validazioneModificaUtente(){
                                 required: "Inserire cognome",
                                 maxlength: "La lunghezza massima è 20"
                             },
-                    
                     via:
                             {
                                 required: "Inserire indirizzo",
@@ -1592,42 +1591,42 @@ function validazioneModificaUtente(){
                             }
 
                 },
-                 errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             $("#loading").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Utente";
-            $("#modificaUserUtente input[type='checkbox']").each(function( index ) {
+            $("#modificaUserUtente input[type='checkbox']").each(function (index) {
                 alert('ciao');
                 console.log($(this));
-               if($(this).val()!==true)
-               {
-                   alert('v');
-                   var valore =  $(this).attr("name");
-                   datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
-               }
-                
-              
-                
+                if ($(this).val() !== true)
+                {
+                    alert('v');
+                    var valore = $(this).attr("name");
+                    datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
+                }
+
+
+
             });
-            
-            
+
+
             inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
-            
+
         }
     });
 }
 
-function validazioneModificaMedico(){
- 
- alert('ci');
+function validazioneModificaMedico() {
+
+    alert('ci');
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("password", function (valore) {
@@ -1643,11 +1642,11 @@ function validazioneModificaMedico(){
         return valore.match(regex);
     }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
 
-    jQuery.validator.addMethod("alfanumerico", function(valore) {
+    jQuery.validator.addMethod("alfanumerico", function (valore) {
         var regex = /[a-zA-Z0-9]+/;
         return valore.match(regex);
     });
-    
+
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{4,15}/;
@@ -1665,7 +1664,7 @@ function validazioneModificaMedico(){
          */
         onkeyup: false, //turn off auto validate whilst typing
 //        focusCleanup: true,
-        
+
         rules:
                 {
                     username:
@@ -1682,11 +1681,11 @@ function validazioneModificaMedico(){
                             },
                     codiceConferma:
                             {
-                                required:true,
+                                required: true,
                                 alfanumerico: true,
                                 minlength: 16,
                                 maxlength: 64
-                                
+
                             },
                     codiceFiscale:
                             {
@@ -1695,7 +1694,7 @@ function validazioneModificaMedico(){
                                 maxlength: 16,
                                 minlength: 16
                             },
-                     nome:
+                    nome:
                             {
                                 required: true,
                                 maxlength: 20
@@ -1735,11 +1734,11 @@ function validazioneModificaMedico(){
                             {
                                 required: true,
                                 email: true
-                                
+
                             },
                     passwordMedico:
                             {
-                                password:true
+                                password: true
                             }
                 },
         messages:
@@ -1761,7 +1760,7 @@ function validazioneModificaMedico(){
                                 alfanumerico: 'Il codice deve essere alfanumerico',
                                 minlength: 'Minima lunghezza 16',
                                 maxlength: 'Massima lunghezza 64'
-                                
+
                             },
                     codiceFiscale:
                             {
@@ -1779,7 +1778,6 @@ function validazioneModificaMedico(){
                                 required: "Inserire cognome",
                                 maxlength: "La lunghezza massima è 20"
                             },
-                    
                     via:
                             {
                                 required: "Inserire indirizzo",
@@ -1805,41 +1803,41 @@ function validazioneModificaMedico(){
                             {
                                 required: "Inserire la provincia dell'albo a cui si è iscritti",
                                 maxlength: "La sequenza massima di caratteri è 22"
-                            
+
                             },
                     numeroIscrizioneAlbo:
                             {
                                 required: "Inserire il numero di iscrizione",
                                 rangelength: "Deve avere 6 numeri"
                             }
-                    
+
                 },
-                 errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             $("#loading").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Medico";
-            $("#modificaUserMedico input[type='checkbox']").each(function( index ) {
-                
-               if($(this).val()!==true)
-               {
-                   var valore =  $(this).attr("name");
-                   datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
-               }
+            $("#modificaUserMedico input[type='checkbox']").each(function (index) {
+
+                if ($(this).val() !== true)
+                {
+                    var valore = $(this).attr("name");
+                    datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
+                }
             });
             inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
         }
     });
 }
 
-function validazioneModificaClinica(){
+function validazioneModificaClinica() {
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("password", function (valore) {
@@ -1855,11 +1853,11 @@ function validazioneModificaClinica(){
         return valore.match(regex);
     }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
 
-    jQuery.validator.addMethod("alfanumerico", function(valore) {
+    jQuery.validator.addMethod("alfanumerico", function (valore) {
         var regex = /[a-zA-Z0-9]+/;
         return valore.match(regex);
     });
-    
+
     jQuery.validator.addMethod("username", function (valore) {
         //espressione regolare per codice fiscale
         var regex = /[0-9a-zA-Z\_\-]{4,15}/;
@@ -1876,7 +1874,7 @@ function validazioneModificaClinica(){
          */
         onkeyup: false, //turn off auto validate whilst typing
 //        focusCleanup: true,
-         
+
         rules:
                 {
                     username:
@@ -1893,11 +1891,11 @@ function validazioneModificaClinica(){
                             },
                     codiceConferma:
                             {
-                                required:true,
+                                required: true,
                                 alfanumerico: true,
                                 minlength: 16,
                                 maxlength: 64
-                                
+
                             },
                     nomeClinica:
                             {
@@ -1942,12 +1940,11 @@ function validazioneModificaClinica(){
                                 minlength: 5,
                                 maxlength: 5
                             },
-                    
                     pec:
                             {
                                 required: true,
                                 email: true
-                                
+
                             },
                     telefono:
                             {
@@ -1956,9 +1953,9 @@ function validazioneModificaClinica(){
                             },
                     passwordClinica:
                             {
-                                password:true
+                                password: true
                             }
-                    
+
                 },
         messages:
                 {
@@ -1979,7 +1976,7 @@ function validazioneModificaClinica(){
                                 alfanumerico: 'Il codice deve essere alfanumerico',
                                 minlength: 'Minima lunghezza 16',
                                 maxlength: 'Massima lunghezza 64'
-                                
+
                             },
                     nomeClinica:
                             {
@@ -2033,27 +2030,27 @@ function validazioneModificaClinica(){
                                 required: "Inserire il telefono",
                                 maxlength: "La sequenza massima di numeri è 10"
                             }
-                    
+
                 },
-                 errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             $("#loading").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Clinica";
-            $("#modificaUserClinica input[type='checkbox']").each(function( index ) {
-                
-               if($(this).val()!==true)
-               {
-                   var valore =  $(this).attr("name");
-                   datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
-               }
+            $("#modificaUserClinica input[type='checkbox']").each(function (index) {
+
+                if ($(this).val() !== true)
+                {
+                    var valore = $(this).attr("name");
+                    datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
+                }
             });
             inviaControllerTaskPOST('users', 'modifica', datiPOST, '#contenutoAreaPersonale');
         }
@@ -2061,10 +2058,38 @@ function validazioneModificaClinica(){
 
 }
 
-function validazioneModificaEsame(){
+function validazioneEmail() {
+    $('#formRecuperoPassword').validate({
+        rules: {
+            email:
+                    {
+                        required: true,
+                        email: true
+                    }
+        },
+        messages: {
+            email:
+                    {
+                        required: "Inserire l'email",
+                        email: "Inserire un'email valida del tipo mario.rossi@gmail.com"
+                    }
+        },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
+        submitHandler: function(){
+            inviaDatiGenerico('#formRecuperoPassword', 'recuperaPassword', '#main');
+        }
+    });
+}
+
+function validazioneModificaEsame() {
     var idClinica = $('#submitModificaEsame').attr('data-idClinica');
     var idEsame = $('#submitModificaEsame').attr('data-idEsame');
-    
+
     jQuery.validator.addMethod("time", function (valore) {
         //espressione regolare per la durata
         var regex = /([0-2][0-3]):([0-5]\d)/;
@@ -2144,16 +2169,16 @@ function validazioneModificaEsame(){
 //                        
 //                            }
                 },
-                errorPlacement: function(error, element){
-                    $(element).attr('title', error.text());
-                },
-                unhighlight: function(element) {
-                    $(element).removeAttr('title').removeClass('error');
-                  },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             alert('I dati sono stati inseriti correttamente');
-            
+
             var datiPOST = $('form').serialize() + "&idClinica=" + idClinica + "&idEsame=" + idEsame;
             alert(datiPOST);
             inviaControllerTaskPOST('servizi', 'modifica', datiPOST, '#contenutoAreaPersonale');

@@ -66,11 +66,7 @@ $(document).ready(function () {
         var id = $(this).attr('data-idPrenotazione');
         download(id);
     });
-    
-    $('#headerMain').on("click", "#recuperaPassword", function () {
-        inviaController('recuperaPassword', '#main');
-    });
-    
+
     $(function() {
             $(document).tooltip({
                 items: 'input.error',
@@ -125,11 +121,14 @@ function inviaController(controller, ajaxdiv)
         error: function ()
         {
             alert("Sbagliato click ");
+        },
+        complete: function()
+        {
+             if(controller === 'recuperaPassword') 
+             {
+                validazione(controller);
+             }
         }
-//        complete:
-//            function(){
-//                $.getScript("./jScript/clickCercaCliniche");
-//            }
     });
 }
 

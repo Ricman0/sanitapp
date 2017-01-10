@@ -339,6 +339,36 @@ class UMail {
         $inviata = $this->_email->send();
         return $inviata;
     }
+    
+    /**
+     * Metodo che permette l'invio di una mail all'utente contenente
+     * la nuova password
+     * 
+     * @access public
+     * @param array $dati I dati necessari: email, password, username
+     * @return boolean TRUE email inviata correttamente, FALSE altrimenti
+     */
+    public function inviaMailRecuperaPassword($dati)
+    {
+        //@param string $destinatario Il destinatario a cui inviare la mail riepilogativa con link //l'ho eliminato
+        //aggiunge l'indirizzo email a cui inviare l'email ("to:")
+        $this->_email->addAddress($dati['email']);
+        // imposto l'oggetto dell'email
+        $this->_email->Subject = "REcupero Password Account SanitApp";
+        
+        $testo = "<h4>Ciao " . $dati['username'] . "!</h4>"
+                . " Questa è un'email di recupero password."
+                
+                . " La tua nuova password è: <br>"
+                . $dati['password']. "<br>"
+                . "Utilizzala per accedere alla tua area personale, "
+                . "subito dopo aver effettuato il primo accesso sostituiscila con una password da te creata.<br><br>"
+                . "Saluti,<br>"
+                . "SANITAPP";
+        $this->_email->Body = $testo;
+        $inviata = $this->_email->send();
+        return $inviata;
+    }
 }
     
 

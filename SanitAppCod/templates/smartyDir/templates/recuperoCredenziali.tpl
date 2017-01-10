@@ -1,12 +1,14 @@
 <div id="divRecuperoPassword">
-    <h3>Inserisci la tua email. Ti verrà inviata la nuova password.</h3>
-    <form class="" id="formRecuperoPassword">
-        <input type="hidden" name="controller" value="recuperaPassword"/>
-
-        <label for="email" class="elementiForm">Email</label>
-        <input type="email" name="email" class="elementiForm" placeholder="mario.rossi@example.it" value="{if isset($datiValidi.email)}{$datiValidi.email}{/if}" required />
+    <br>
+    <br>
+    <h4>Inserisci l'indirizzo email con il quale ti sei registrato. Ti verrà inviata la nuova password.</h4>
+    <br>
+    <form id="formRecuperoPassword">
+        
+        <label for="emailRecuperoPassword" class="elementiForm">Email</label>
+        <input type="email" name="email" id='emailRecuperoPassword' class="elementiForm" placeholder="mario.rossi@example.it" required />
         <br>
-
-        <button type="submit" id="submitRecuperaPassword" class="">Recupera</button>
+        <br>
+        <input type="submit" id="submitRecuperaPassword" value='Recupera password'>
     </form>
 </div>

@@ -363,4 +363,34 @@ class CAutenticazione {
 //        $vAutenticazione->logOut();
         $vAutenticazione->restituisciHomePage();
     }
+    
+    public function nuovaPassword() {
+        $vAutenticazione = USingleton::getInstance('VAutenticazione');
+        $uMail = USingleton::getInstance('UMail');
+        $dati['email'] = $vAutenticazione->recuperaValore('email');
+                $uValidazione = USingleton::getInstance('UValidazione');
+                if ($uValidazione->validaDati($dati)) {
+                    try {
+                        $eUser = new EUser(NULL, NULL, $dati['email']);
+                        if ($eUser->getEmail() !== NULL) { //l'utente esiste
+                            $eUser->modificaPassword();
+                            $dati['username'] = $eUser->getUsername();
+                            $dati['password'] = $eUser->getPassword();
+                            if($uMail->inviaMailRecuperaPassword($dati)){
+                            $vAutenticazione->visualizzaFeedback('Ti è stata inviata la nuova password sulla mail.', TRUE);
+                            } else{
+                                $vAutenticazione->visualizzaFeedback("Problema con l'invio della mail, contatta l'amministratore", TRUE);                                
+                            }
+                        }else{
+                            $vAutenticazione->visualizzaFeedback("Alla email fornita non corrisponde nessun utente.", TRUE);
+                        }
+                    } catch (XUserException $ex) {//l'utente non esiste                        
+                        $vAutenticazione->visualizzaFeedback("Alla email fornita non corrisponde nessun utente.", TRUE);
+                    }
+                }else{
+                    $vAutenticazione->visualizzaFeedback("Attenzione dati non validi.", TRUE);
+                }
+    }
+    
+    
 }
