@@ -28,7 +28,7 @@ class CGestisciAgenda {
                 $this->tryVisualizzaAgenda();
                 break;
 
-            default:// get agenda 
+            default:// post agenda 
                 $start = $vAgenda->recuperaValore('start');
                 $end = $vAgenda->recuperaValore('end');
 //                $validazione = USingleton::getInstance('UValidazione');

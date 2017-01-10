@@ -17,8 +17,12 @@ $(document).ready(function () {
     
     //click sul tasto Agenda 
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
+        $('#stampaPrenotazioni').parent().remove();
         $('#contenutoAreaPersonale').empty(); // elimino tutti gli elementi interni al div contenutoAreaPersonale
+        $('#divSideNavBar').prepend("<div><input type='button' id='stampaPrenotazioni' value='Stampa Prenotazioni'  /><br><br></div>");
         $('#contenutoAreaPersonale').append("<h1>Appuntamenti</h1>");
+        
+        
         $('#contenutoAreaPersonale').append("<div id='agenda'></div>");// aggiungo il div agenda per inserire fullcalendar
         $('#contenutoAreaPersonale').append("<div id='contenutoEvento' title='Dettaglio evento'><div id='infoEvento'></div>");
                
@@ -49,19 +53,27 @@ $(document).ready(function () {
 
     });
 
+    $('#headerMain').on("click", "#stampaPrenotazioni", function () {
+        window.print();
+    });
+
     $('#headerMain').on("click", "#serviziAreaPersonaleClinica", function () {
+        $('#stampaPrenotazioni').parent().remove();
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
     });
 
     $('#headerMain').on("click", "#prenotazioniAreaPersonaleClinica", function () {
+        $('#stampaPrenotazioni').parent().remove();
         inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
     });
 
     $('#headerMain').on("click", "#refertiAreaPersonaleClinica", function () {
+        $('#stampaPrenotazioni').parent().remove();
         inviaControllerTask('referti', 'visualizza', "#contenutoAreaPersonale");
     });
 
     $('#headerMain').on("click", "#clientiAreaPersonaleClinica", function () {
+        $('#stampaPrenotazioni').parent().remove();
         inviaControllerTask('clienti', 'visualizza', "#contenutoAreaPersonale");
     });
 

@@ -307,11 +307,16 @@ class FDatabase {
      */
     final public function cercaUser($username) 
     {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+                ." WHERE Username='" . $username."' LOCK IN SHARE MODE";
+        
         $query = "SELECT * FROM " . $this->_nomeTabella 
                 ." WHERE Username='" . $username."'"; 
         return $this->eseguiQuery($query);
         
     }
+    
+   
     
     
 }

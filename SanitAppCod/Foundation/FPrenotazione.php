@@ -53,7 +53,7 @@ class FPrenotazione extends FDatabase{
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "') "
-                . "AND (IDPrenotazione='" . $idPrenotazione . "')) ";
+                . "AND (IDPrenotazione='" . $idPrenotazione . "')) LOCK IN SHARE MODE";
         }
         else
         {
@@ -64,7 +64,7 @@ class FPrenotazione extends FDatabase{
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
-                . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "')) ";
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "')) LOCK IN SHARE MODE";
         
             //CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita
             // quando Eseguita=0 ovvero è false, rimpliazza lo zero con NO, altrimenti con SI
@@ -86,7 +86,7 @@ class FPrenotazione extends FDatabase{
                 . "FROM prenotazione, esame, utente, clinica "
                 . "WHERE ((prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND (prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
-                . "(prenotazione.CodFiscaleMedicoPrenotaEsame='" . $cf . "')) ";
+                . "(prenotazione.CodFiscaleMedicoPrenotaEsame='" . $cf . "'))  LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
        
     }
@@ -106,7 +106,7 @@ class FPrenotazione extends FDatabase{
                 . "FROM prenotazione, esame, utente "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
-                . "(prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "')) ";
+                . "(prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "')) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
     
@@ -115,7 +115,7 @@ class FPrenotazione extends FDatabase{
         $query =  "SELECT prenotazione.* "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
-                . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA)) ";
+                . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA)) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
@@ -131,7 +131,7 @@ class FPrenotazione extends FDatabase{
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame='" . $idEsame . "') AND "
                 . "(prenotazione.PartitaIVAClinica='" . $partitaIVA . "') AND "
-                . "(DATE(DataEOra)='" . $data . "'))";
+                . "(DATE(DataEOra)='" . $data . "')) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
@@ -155,7 +155,7 @@ class FPrenotazione extends FDatabase{
         
         $query = "SELECT * "
                 . "FROM prenotazione "
-                . "WHERE IdPrenotazione = '" . $id . "'";
+                . "WHERE IdPrenotazione = '" . $id . "' LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
         
         
@@ -170,8 +170,24 @@ class FPrenotazione extends FDatabase{
      */
     public function confermaPrenotazione($idPrenotazione) 
     {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE IDPrenotazione='" . $idPrenotazione . "' FOR UPDATE" ;
         $query = "UPDATE " . $this->_nomeTabella . " SET Confermata=TRUE WHERE IDPrenotazione='" . $idPrenotazione . "'";
-        return $this->eseguiQuery($query);
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        } 
     }
     
     /**
@@ -184,8 +200,24 @@ class FPrenotazione extends FDatabase{
      */
     public function eliminaPrenotazione($idPrenotazione) 
     {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE IDPrenotazione='" . $idPrenotazione . "' FOR UPDATE" ;
         $query = 'DELETE FROM ' . $this->_nomeTabella .  " WHERE IDPrenotazione='" . $idPrenotazione . "'";
-        return $this->eseguiQuery($query);
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        } 
     }
     
     
@@ -222,12 +254,12 @@ class FPrenotazione extends FDatabase{
                 . "WHERE (IDEsame='" . $idEsame . "' AND "
                 . "PartitaIVAClinica='" . $partitaIVA . "' AND "
                 . "CodFiscaleUtenteEffettuaEsame='" . $cfUtente . "' AND "
-                . "DATE(DataEOra)='" . $data . "');"// fine prima query.  //DATE(DataEOra) prendo solo la data di un datetime
+                . "DATE(DataEOra)='" . $data . "') LOCK IN SHARE MODE;"// fine prima query.  //DATE(DataEOra) prendo solo la data di un datetime
                 . "SELECT * "
                 . "FROM prenotazione "
                 . "WHERE (CodFiscaleUtenteEffettuaEsame='" . $cfUtente . "' AND "
                 . "DATE(DataEOra)='" . $data . "' AND "
-                . "TIME(DataEOra) BETWEEN  '". $ora . "' AND '" . $ora2 . "')"; // cerco tra inizio della prenotazione e la fine della prenotazione;
+                . "TIME(DataEOra) BETWEEN  '". $ora . "' AND '" . $ora2 . "') LOCK IN SHARE MODE"; // cerco tra inizio della prenotazione e la fine della prenotazione;
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;                
     }
@@ -244,8 +276,24 @@ class FPrenotazione extends FDatabase{
      */
     public function modificaPrenotazione($idPrenotazione, $dataEOra) 
     {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE IDPrenotazione='" . $idPrenotazione . "' FOR UPDATE" ;
         $query = "UPDATE " . $this->_nomeTabella . " SET DataEOra='" . $dataEOra . "' WHERE IDPrenotazione='" . $idPrenotazione . "'";
-        return $this->eseguiQuery($query);
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        } 
     }
     
     /**
@@ -260,8 +308,24 @@ class FPrenotazione extends FDatabase{
      */
     public function modificaPrenotazioneEseguita($idPrenotazione, $eseguita)
     {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE IDPrenotazione='" . $idPrenotazione . "' FOR UPDATE" ;
         $query = "UPDATE " . $this->_nomeTabella . " SET Eseguita='" . $eseguita . "' WHERE IDPrenotazione='" . $idPrenotazione . "'";
-        return $this->eseguiQuery($query);
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        } 
     }
     
     
@@ -278,7 +342,7 @@ class FPrenotazione extends FDatabase{
         $data = date('Y-m-d', strtotime($data));
         $query = "SELECT * "
                 . "FROM prenotazione "
-                . "WHERE (DATE(DataEOra)='" . $data . "')"; 
+                . "WHERE (DATE(DataEOra)='" . $data . "') LOCK IN SHARE MODE"; 
 //                . "WHERE (DATE(DataEOra)='2016-12-27')";
         return $this->eseguiQuery($query);
         
@@ -299,7 +363,7 @@ class FPrenotazione extends FDatabase{
                 . "FROM prenotazione "
                 . "WHERE (CodFiscaleUtenteEffettuaEsame='" . $cfUtente . "' AND "
                 . "Eseguita=FALSE AND "
-                . "DATE(DataEOra)<'" . $dataOdierna . "')";
+                . "DATE(DataEOra)<'" . $dataOdierna . "') LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         return  $risultato;
         
