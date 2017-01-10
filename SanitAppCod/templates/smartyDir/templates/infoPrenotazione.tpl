@@ -1,39 +1,29 @@
 <div id="infoPrenotazione">
-    <h4>
-        Informazioni Prenotazione: 
-    </h4>
+    <h3>
+        INFORMAZIONI PRENOTAZIONE 
+    </h3>
     <div>
         {if ($tipoUser==='clinica' || $tipoUser==='medico')}
             {if isset($nomeUtente)}
-
-                <span>
-                    Nome: {$nomeUtente}
-                </span>
+                <span class="grassetto">NOME:</span><span>  {$nomeUtente}</span>
                 <br>
             {/if}
             {if isset($cognomeUtente)}
-                <span>
-                    Cognome: {$cognomeUtente}
-                </span>
+                <span class="grassetto">COGNOME:</span><span>  {$cognomeUtente}</span>
                 <br>
             {/if}
         {/if}
 
-        <span>
-            Esame: {$nomeEsame}
-        </span>
+        <span class="grassetto">ESAME:</span><span>  {$nomeEsame}</span>
         <br>
-        <span>
-            Data e Ora: {$prenotazione->getDataEOra()}
-        </span>
+        <span class="grassetto">DATA E ORA:</span><span>  {$prenotazione->getDataEOra()}</span>
         <br>
-        <span>
-            Medico: {$medicoEsame}
-        </span>
+        <span class="grassetto">MEDICO:</span><span>  {$medicoEsame}</span>
         <br>
+            
         {if ($tipoUser==='utente')}
-            <div id="divConfermaPrenotazioneUtente">
-                Prenotazione: 
+            <div id="divConfermaPrenotazioneUtente" >
+                <span class="grassetto">PRENOTAZIONE:  </span> 
                 {if ($prenotazione->getConfermataPrenotazione()==TRUE)} 
 
                     Confermata 
@@ -44,14 +34,12 @@
                 {/if}
             </div>
 
-           
-            <span>
-                Prenotazione effettua da: {$nome} {$cognome}
-            </span>
+           <span class="grassetto">PRENOTAZIONE EFFETTUATA DA:</span><span>  {$nome} {$cognome}</span>
             <br>
+            
         {/if}
-         <span>
-                Esame eseguito: 
+            <span class="grassetto">ESAME ESEGUITO:  </span>
+            <span> 
                 {if ($prenotazione->getEseguitaPrenotazione()== TRUE)}
                     <i class="fa fa-check fa-lg verde" aria-hidden="true"></i>
                 {else} 
@@ -61,23 +49,22 @@
             <br>
         <div>
             {if isset($idReferto)}
-                Codice Referto : {$idReferto}
+                <span class="grassetto">CODICE REFERTO:  </span><span>{$idReferto}</span> 
                 <input type="button" id="scaricaRefertoButton" class="scaricaReferto" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
             {/if}
         </div> 
     </div>
     {if ($tipoUser==='utente' || $tipoUser==='medico')}
-        <h4>Informazioni Clinica che esegue la prenotazione</h4>
-        <span>
-            Clinica: {$eClinica->getNomeClinica()}
-        </span>
-
-        <div>
-            Indirizzo Clinica: {$eClinica->getViaClinica()} , {$eClinica->getLocalitaClinica()} ({$eClinica->getProvinciaClinica()})
-        </div>
-        <div> 
-            Telefono: {$eClinica->getTelefonoClinica()} , Email: {$eClinica->getEmail()}
-        </div>
+        <h3>INFORMAZIONI CLINICA CHE ESEGUE LA PRENOTAZIONE</h3>
+        <span class="grassetto">CLINICA:</span><span>  {$eClinica->getNomeClinica()}</span>
+        <br>
+        <span class="grassetto">INDIRIZZO CLINICA:</span><span>  {$eClinica->getViaClinica()} , {$eClinica->getLocalitaClinica()} ({$eClinica->getProvinciaClinica()}) </span>
+        <br>
+        <span class="grassetto">TELEFONO:</span><span>  {$eClinica->getTelefonoClinica()}</span>
+        <br>
+        <span class="grassetto">EMAIL:</span><span>  {$eClinica->getEmail()}</span>
+        <br>
+       
     {/if}        
 
     {if ($tipoUser==='clinica' && !isset($idReferto))}

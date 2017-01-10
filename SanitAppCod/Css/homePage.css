@@ -71,6 +71,9 @@ input:checked + .slider:before {
 /**
 Css per stampare le prenotazioni giornaliere
 */
+#stampaPrenotazioni{
+    float: right!important;
+}
 
 @media print {
   body * {
