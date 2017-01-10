@@ -108,7 +108,7 @@ class FUtente extends FUser{
     public function ricercaEmailUtente($email)
     {
         
-        $query = "SELECT Email FROM utente WHERE utente.Email=" . $email;
+        $query = "SELECT Email FROM utente WHERE utente.Email=" . $email . " LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         if ($risultato === FALSE)
         {
@@ -153,7 +153,7 @@ class FUtente extends FUser{
     {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE appuser.Username='" . $username . "' AND "
-                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);    
         return $risultato;
         
@@ -171,7 +171,7 @@ class FUtente extends FUser{
     {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
-                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
 //        echo "count: ". count($risultato);        
         return $risultato;
@@ -199,12 +199,30 @@ class FUtente extends FUser{
      */
     public function modificaIndirizzoCAP($codFiscale, $via, $numeroCivico,  $CAP) 
     {
+        
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+                ." WHERE CodFiscale='" . $codFiscale . "' FOR UPDATE" ;
         $via = $this->trimEscapeStringa($via);
         $CAP = $this->trimEscapeStringa($CAP);
         $query = "UPDATE " . $this->_nomeTabella . " SET Via='" . $via . "', "
                 . "NumCivico='" . $numeroCivico . "', CAP='" . $CAP . "' "
                 . "WHERE CodFiscale='" . $codFiscale . "'";
-        return $this->eseguiQuery($query);
+        
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        } 
     }
     
      /**
@@ -218,17 +236,32 @@ class FUtente extends FUser{
     public function modificaMedicoCurante($codFiscale, $codFiscaleMedico) 
     {
         $codFiscaleMedico = $this->trimEscapeStringa($codFiscaleMedico);
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+                ." WHERE CodFiscale='" . $codFiscale . "' FOR UPDATE" ;
         $query = "UPDATE " . $this->_nomeTabella . " SET CodFiscaleMedico='" . $codFiscaleMedico . " ' "
                 . "WHERE CodFiscale='" . $codFiscale . "'";
-        return $this->eseguiQuery($query);
-        
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        } 
     }
     
     public function getUtentiNonBloccati() 
     {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE appuser.Bloccato=FALSE AND "
-                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
     
@@ -241,6 +274,11 @@ class FUtente extends FUser{
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function modificaUtente($utente) {
+        
+        $queryLock1 = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE  (Username='" . $utente->getUsername() . "') OR (CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "') FOR UPDATE" ;
+        $queryLock2 = "SELECT * FROM appUser " . 
+                " WHERE  (Username='" . $utente->getUsername() . "') OR (Email='" . $utente->getEmail() .  "') FOR UPDATE" ;
         $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "', Nome='"
                 . $utente->getNomeUtente() . "', Cognome='" . $utente->getCognomeUtente() . "', Via='" . $utente->getViaUtente() . "', "
                 . "NumCivico='" . $utente->getNumCivicoUtente() . "', CAP='" . $utente->getCAPUtente() . "', Username='"
@@ -254,7 +292,8 @@ class FUtente extends FUser{
         try {
 //            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();
-
+            $this->eseguiQuery($queryLock1);
+            $this->eseguiQuery($queryLock2);
             // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($query1);
              

@@ -88,7 +88,7 @@ class FEsame extends FDatabase {
         
         $query =  "SELECT * "
                 . "FROM esame " 
-                . "WHERE IDEsame ='" . $id . "'";
+                . "WHERE IDEsame ='" . $id . "' LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
         
@@ -146,7 +146,7 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) LOCK IN SHARE MODE";
             } 
             else 
             {
@@ -159,7 +159,7 @@ class FEsame extends FDatabase {
                             . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE) "
                             . "FROM esame, clinica WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
                             . "AND (MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) LOCK IN SHARE MODE";
                     }
                 } 
                 else 
@@ -169,7 +169,7 @@ class FEsame extends FDatabase {
                         $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                                 . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE)"
                                 . "FROM esame, clinica WHERE MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE) "
-                                . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
+                                . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) LOCK IN SHARE MODE";
                     } 
                     else
                     {
@@ -184,7 +184,7 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) LOCK IN SHARE MODE";
                     }
                 }
             }
@@ -198,7 +198,7 @@ class FEsame extends FDatabase {
                     $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)"
                             . "FROM esame, clinica WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA)) ";                    
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA)) LOCK IN SHARE MODE";                    
                 } 
                 else 
                 {
@@ -213,7 +213,7 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";      
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) LOCK IN SHARE MODE";      
                 }
             } 
             else 
@@ -229,12 +229,12 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) LOCK IN SHARE MODE";
                 } 
                 else 
                 {
                     $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita "
-                            . " FROM esame, clinica WHERE (esame.PartitaIVAClinica = clinica.PartitaIVA) ";
+                            . " FROM esame, clinica WHERE (esame.PartitaIVAClinica = clinica.PartitaIVA) LOCK IN SHARE MODE";
                 }
             }
         }
@@ -253,7 +253,7 @@ class FEsame extends FDatabase {
     public function cercaEsamiByCategoria($nomeCategoria) {
         $query =  "SELECT * "
                 . "FROM esame " 
-                . "WHERE NomeCategoria ='" . $nomeCategoria . "' ";
+                . "WHERE NomeCategoria ='" . $nomeCategoria . "' LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
     
@@ -266,11 +266,28 @@ class FEsame extends FDatabase {
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function modificaEsame($esame) {
+        
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE (IDEsame='" . $esame->getIDEsame() . "') FOR UPDATE" ;
         $query = "UPDATE " . $this->_nomeTabella . " SET NomeEsame='" . $esame->getNomeEsame() .  "', Descrizione='"
                 . $esame->getDescrizioneEsame() . "', Prezzo=" . $esame->getPrezzoEsame() . ", Durata='" . $esame->getDurataEsame() . "', "
                 . "MedicoEsame='" . $esame->getMedicoEsame() . "', NomeCategoria='" . $esame->getNomeCategoriaEsame() . "' "
                 . "WHERE (IDEsame='" . $esame->getIDEsame() . "')";
-        return $this->eseguiQuery($query);
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        } 
             
           
     }
@@ -284,9 +301,26 @@ class FEsame extends FDatabase {
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function eliminaEsame($idEsame) {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE (IDEsame='" . $idEsame . "') FOR UPDATE" ;
+        
         $query = "UPDATE " . $this->_nomeTabella . " SET Eliminato=TRUE "
                 . "WHERE (IDEsame='" . $idEsame. "')";
-        return $this->eseguiQuery($query);
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        } 
     }
 }
 

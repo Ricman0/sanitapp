@@ -136,14 +136,14 @@ class FMedico extends FUser {
     {
         $query1=  "SELECT utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, utente.CodFiscale "
                 . "FROM utente, medico "
-                . "WHERE codFiscaleMedico=medico.codFiscale AND medico.Username='" . $usernameMedico . "'";
+                . "WHERE codFiscaleMedico=medico.codFiscale AND medico.Username='" . $usernameMedico . "' LOCK IN SHARE MODE";
         $query2 = "SELECT appuser.Email, utente.CodFiscale "
                 . "FROM utente, appuser "
-                . "WHERE utente.Username=appuser.Username";
+                . "WHERE utente.Username=appuser.Username LOCK IN SHARE MODE";
         $query =  "SELECT DISTINCT * "
                 . "FROM (" . $query1 .")t1 "
                 . "INNER JOIN (" . $query2 . ")t2 "
-                . "ON t1.CodFiscale=t2.CodFiscale";
+                . "ON t1.CodFiscale=t2.CodFiscale LOCK IN SHARE MODE";
 
         $risultato = $this->eseguiQuery($query);
         return $risultato;
@@ -161,7 +161,7 @@ class FMedico extends FUser {
     {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE appuser.Username='" . $username . "' AND "
-                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
 //        return $this->eseguiQuery($query);    
         $risultato = $this->eseguiQuery($query);
         return $risultato;
@@ -181,7 +181,7 @@ class FMedico extends FUser {
     {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
-                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
 
     }
@@ -197,7 +197,7 @@ class FMedico extends FUser {
     {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE " . $this->_nomeTabella. ".PEC='" . $PEC . "' AND "
-                . "appuser.Username=" . $this->_nomeTabella . ".Username";
+                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
     
@@ -214,12 +214,30 @@ class FMedico extends FUser {
      */
     public function modificaIndirizzoCAP($codFiscale, $via, $numeroCivico,  $CAP) 
     {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+                ." WHERE CodFiscale='" . $codFiscale . "' FOR UPDATE" ;
         $via = $this->trimEscapeStringa($via);
         $CAP = $this->trimEscapeStringa($CAP);
         $query = "UPDATE " . $this->_nomeTabella . " SET Via='" . $via . "', "
                 . "NumCivico='" . $numeroCivico . "', CAP='" . $CAP . "' "
                 . "WHERE CodFiscale='" . $codFiscale . "'";
-        return $this->eseguiQuery($query);
+        
+        try {
+//            // First of all, let's begin a transaction
+            $this->_connessione->begin_transaction();
+
+             // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($queryLock); 
+            $this->eseguiQuery($query);
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
     }
     
     /**
@@ -227,18 +245,35 @@ class FMedico extends FUser {
      * iscritto il medico e il numero d'iscrizione all'albo  nel DB
      * 
      * @access public
-     * @param string $codFiscale Il codice fiscale del medico 
+     * @param string $codFiscaleMedico Il codice fiscale del medico 
      * @param string $provincia La nuova provincia
      * @param int $numIscrizione  Il nuovo numero d'iscrizione 
      * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function modificaProvAlboENumIscrizione($codiceFiscaleMedico, $provincia, $numIscrizione){
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+                ." WHERE CodFiscale='" . $codFiscaleMedico . "' FOR UPDATE" ;
         $provincia = $this->trimEscapeStringa($provincia);
         $query = "UPDATE " . $this->_nomeTabella . " SET ProvinciaAlbo='" . $provincia . "', "
                 . "NumIscrizione=" . $numIscrizione . " "
                 . "WHERE CodFiscale='" . $codiceFiscaleMedico . "'";
-        return $this->eseguiQuery($query);
+        try {
+//            // First of all, let's begin a transaction
+            $this->_connessione->begin_transaction();
+
+             // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($queryLock); 
+            $this->eseguiQuery($query);
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
     }
     
     /**
@@ -250,6 +285,10 @@ class FMedico extends FUser {
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function modificaMedico($medico) {
+        $queryLock1 = "SELECT * FROM " . $this->_nomeTabella 
+                ." WHERE (Username='" . $medico->getUsername() . "') OR (CodFiscale='" . $medico->getCodiceFiscaleMedico() .  "') FOR UPDATE" ;
+        $queryLock2 = "SELECT * FROM appUser " 
+                ." WHERE (Username='" . $medico->getUsername() . "') OR (Email='" . $medico->getEmail() .  "') FOR UPDATE" ;
         $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $medico->getCodiceFiscaleMedico() .  "', Nome='"
                 . $medico->getNomeMedico() . "', Cognome='" . $medico->getCognomeMedico() . "', Via='" . $medico->getViaMedico() . "', "
                 . "NumCivico='" . $medico->getNumCivicoMedico() . "', CAP='" . $medico->getCAPMedico() . "', Username='"
@@ -265,6 +304,8 @@ class FMedico extends FUser {
             $this->_connessione->begin_transaction();
 
              // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($queryLock1); 
+            $this->eseguiQuery($queryLock2);
             $this->eseguiQuery($query2); 
             $this->eseguiQuery($query1);
             // If we arrive here, it means that no exception was thrown

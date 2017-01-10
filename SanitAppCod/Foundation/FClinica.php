@@ -122,10 +122,10 @@ class FClinica extends FUser{
     public function cercaPartitaIVAClinica($nomeClinica)
     {
         $nomeClinica = $this->trimEscapeStringa($nomeClinica);
-        $query = "SELECT PartitaIVA,"
+        $query = "SELECT PartitaIVA, "
                 . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE) "
                 . "FROM " . $this->_nomeTabella . " WHERE ((NomeClinica='" . $nomeClinica . "') "
-                . "AND (MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)))";
+                . "AND (MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE))) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         if(is_array($risultato))
         {
@@ -150,7 +150,7 @@ class FClinica extends FUser{
     {
         $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
                 . "FROM appuser," . $this->_nomeTabella . " WHERE (PartitaIVA ='" . $partitaIVA . "' AND "
-                . "appuser.Username=clinica.Username)";
+                . "appuser.Username=clinica.Username) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
 
     }
@@ -167,7 +167,7 @@ class FClinica extends FUser{
     {
         $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
                 . "FROM appuser," . $this->_nomeTabella . " WHERE (clinica.Username ='" . $username . "' AND "
-                . "appuser.Username=clinica.Username)";
+                . "appuser.Username=clinica.Username) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
     }
@@ -184,7 +184,7 @@ class FClinica extends FUser{
     {
         $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
                 . "FROM appuser," . $this->_nomeTabella . " WHERE (clinica.PEC ='" . $PEC . "' AND "
-                . "appuser.Username=clinica.Username)";
+                . "appuser.Username=clinica.Username) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query); 
     }
     
@@ -218,7 +218,7 @@ class FClinica extends FUser{
         {
             if(!empty($luogo))
             {
-                $query =  "SELECT NomeClinica, Localita, Provincia, "
+                $query =  "SELECT PartitaIVA, NomeClinica, Localita, Provincia, "
                         . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE), "
                         . "MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -229,21 +229,21 @@ class FClinica extends FUser{
                         . "AND (MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
-                        . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))";
+                        . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE))) LOCK IN SHARE MODE";
             }
             else
             {  
-                $query =  "SELECT NomeClinica, Localita, Provincia, "
+                $query =  "SELECT PartitaIVA, NomeClinica, Localita, Provincia, "
                         . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE) "
                         . "FROM clinica "
-                        . "WHERE MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE)";
+                        . "WHERE MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE) LOCK IN SHARE MODE";
             }
         }
         else
         {
             if(!empty($luogo))
             {
-                $query =  "SELECT NomeClinica, Localita, Provincia, "
+                $query =  "SELECT PartitaIVA, NomeClinica, Localita, Provincia, "
                         . "MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -252,11 +252,11 @@ class FClinica extends FUser{
                         . "WHERE (MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
-                        . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE))";
+                        . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE)) LOCK IN SHARE MODE";
             }
             else
             {
-                $query = "SELECT NomeClinica, Localita, Provincia, PartitaIVA FROM clinica";
+                $query = "SELECT PartitaIVA, NomeClinica, Localita, Provincia, PartitaIVA FROM clinica LOCK IN SHARE MODE";
             }
         }        
         $risultato = $this->eseguiQuery($query);
@@ -273,11 +273,28 @@ class FClinica extends FUser{
      */
     public function salvaWorkingPlan($workingPlan,$partitaIVAClinica) 
     {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+                . " WHERE PartitaIVA= '" . $partitaIVAClinica . "' FOR UPDATE" ;
         $query="UPDATE clinica "
                 . "SET WorkingPlan='" . $workingPlan . "' "
                 . "WHERE PartitaIVA= '" . $partitaIVAClinica . "'";
-        
-        return $this->eseguiQuery($query);
+        try {
+//            // First of all, let's begin a transaction
+           $this->_connessione->begin_transaction();
+            $this->eseguiQuery($queryLock);
+            // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query);
+             
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
         
     }
     
@@ -293,14 +310,14 @@ class FClinica extends FUser{
     {
         $query1=  "SELECT prenotazione.CodFiscaleUtenteEffettuaEsame AS CodFiscale "
                 . "FROM prenotazione, clinica "
-                . "WHERE clinica.PartitaIVA=prenotazione.PartitaIVAClinica AND clinica.Username='" . $usernameClinica . "'";
+                . "WHERE clinica.PartitaIVA=prenotazione.PartitaIVAClinica AND clinica.Username='" . $usernameClinica . "' LOCK IN SHARE MODE";
         $query2 = "SELECT appuser.Email, utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, utente.CodFiscale  "
                 . "FROM utente, appuser "
-                . "WHERE utente.Username=appuser.Username";
+                . "WHERE utente.Username=appuser.Username LOCK IN SHARE MODE";
         $query =  "SELECT DISTINCT * "
                 . "FROM (" . $query1 .")t1 "
                 . "INNER JOIN (" . $query2 . ")t2 "
-                . "ON t1.CodFiscale=t2.CodFiscale";
+                . "ON t1.CodFiscale=t2.CodFiscale LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);        
     }
     
@@ -328,7 +345,7 @@ class FClinica extends FUser{
                 . "prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale AND "
 //                . "DATE(DataEOra)='" . $dataOdierna . "'";
                 . "DataEOra>='" . $start . "' AND "
-                . "DataEOra<='" . $end . "'";
+                . "DataEOra<='" . $end . "' LOCK IN SHARE MODE";
         
         return $this->eseguiQuery($query);
     }
@@ -342,6 +359,11 @@ class FClinica extends FUser{
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function modificaClinica($clinica) {
+        $queryLock1 = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE (Username='" . $clinica->getUsername() . "') OR (PartitaIVA='" . $clinica->getPartitaIVAClinica() .  "') FOR UPDATE" ;
+        $queryLock2 = "SELECT * FROM appUser " . 
+                " WHERE  (Username='" . $clinica->getUsername() . "') OR (Email='" . $clinica->getEmail() .  "') FOR UPDATE" ;
+        
         $query1 = "UPDATE " . $this->_nomeTabella . " SET PartitaIVA='" . $clinica->getPartitaIVAClinica() . "', NomeClinica='" . $clinica->getNomeClinica() . "', Titolare='" . $clinica->getTitolareClinica() . "', "
                 . "', Via='" . $clinica->getViaClinica() . "', "
                 . "NumCivico='" . $clinica->getNumeroCivicoClinica() . "', CAP='" . $clinica->getCAPClinica() . "', "
@@ -353,14 +375,15 @@ class FClinica extends FUser{
                 . $clinica->getPassword() . "', Email='" . $clinica->getEmail() . "', Bloccato=" . $clinica->getBloccato() . ", "
                 . "Confermato=" .  $clinica->getConfermato() . ", CodiceConferma='" . $clinica->getCodiceConferma() . "' "
                 .  " WHERE (Username='" . $clinica->getUsername() . "') OR (Email='" . $clinica->getEmail() .  "')";
-        print_r($query1);
+        
         try {
 //            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();
-
+           $this->eseguiQuery($queryLock1);
+           $this->eseguiQuery($queryLock2);
             // A set of queries; if one fails, an exception should be thrown
+            
             $this->eseguiQuery($query1);
-             
             $this->eseguiQuery($query2);
              
 

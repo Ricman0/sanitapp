@@ -34,8 +34,42 @@ class FCategoria extends FDatabase{
      * @param ECategoria $categoria la Categoria di cui si vogliono ottenere i valori degli attributi 
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
-    private function getAttributi($categoria) 
+    public function getAttributi($categoria) 
     {
+        print_r($categoria);
+//        $valoriAttributi = '';
+//        $x = get_object_vars($categoria);
+//        print_r($x);
+//        foreach ($categoria as $key => $value) {
+//            if(empty($valoriAttributi))
+//            {
+//                $valoriAttributi = "'";
+//                if(is_string($value))
+//                {
+//                    $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($value) . "'";
+//                }
+//                else
+//                {
+//                    $valoriAttributi = $valoriAttributi . $this->trim($value) . "'";
+//                }
+//                 
+//            }
+//            else 
+//            {
+//                $valoriAttributi = ", '";
+//                if(is_string($value))
+//                {
+//                    $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($value) . "'";
+//                }
+//                else
+//                {
+//                    $valoriAttributi = $valoriAttributi . $this->trim($value) . "'";
+//                }
+//            }
+            
+//        }
+//        print_r($valoriAttributi);
+        
         $valoriAttributi = "'" . $this->trimEscapeStringa($categoria->getNome()) . "'";
         return $valoriAttributi;
     }
@@ -48,7 +82,7 @@ class FCategoria extends FDatabase{
      * @return array|boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      */
     public function cercaCategorie() {
-        $query = 'SELECT * FROM ' .  $this->_nomeTabella ;
+        $query = 'SELECT * FROM ' .  $this->_nomeTabella . " LOCK IN SHARE MODE" ;
         $result = $this->eseguiQuery($query);
         return $result;
     }
@@ -62,6 +96,7 @@ class FCategoria extends FDatabase{
      * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      */
     public function aggiungiCategoria($categoria) {
+        
         $valoriAttributi = $this->getAttributi($categoria);
         $query = "INSERT INTO " . $this->_nomeTabella . "(" . $this->_attributiTabella . ") VALUES( " .  $valoriAttributi . ")";
         return $this->eseguiQuery($query);       
@@ -72,11 +107,30 @@ class FCategoria extends FDatabase{
      * 
      * @access public
      * @param string $nomeCategoria il nome della Categoria che si vuole eliminare
-     * @throws XDBException Se la query non è stata eseguita con successo
+     * @throws XDBException Se la transazione non è stata eseguita con successo
      * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      */
     public function eliminaCategoria($nomeCategoria) {
+        
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+                ." WHERE Nome ='" . $nomeCategoria . "' FOR UPDATE" ;
         $query = "DELETE FROM " . $this->_nomeTabella . " WHERE Nome ='" . $nomeCategoria . "'" ;
-        return $this->eseguiQuery($query);
+     
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
+        
     }
 }

@@ -58,7 +58,7 @@ class FAmministratore extends FUser{
         //recupero i valori contenuti negli attributi
         $valoriAttributi = $this->getAttributi($amministratore);
         $valoriAttributiUser = parent::getAttributi($amministratore);
-    
+        
         $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'amministratore')";
         $query2 = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella . ") VALUES( " . $valoriAttributi . ")";
         try {
@@ -82,17 +82,17 @@ class FAmministratore extends FUser{
     public function cercaAmministratore($username){
         $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
                 . "FROM appuser," . $this->_nomeTabella . " WHERE (amministratore.Username ='" . $username . "' AND "
-                . "appuser.Username=amministratore.Username)";
+                . "appuser.Username=amministratore.Username) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
     
     public function cercaAppUserNonAmministratori() {
         $queryMultipla = "SELECT appuser.Username, appuser.Email, appuser.TipoUser, CASE WHEN appuser.Bloccato=0 THEN 'NO' ELSE 'SI' END AS Bloccato "
-                . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username);"// fine prima query.  //trovo le cliniche
+                . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username) LOCK IN SHARE MODE;"// fine prima query.  //trovo le cliniche
                 . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, CASE WHEN appuser.Bloccato=0 THEN 'NO' ELSE 'SI' END AS Bloccato  "
-                . "FROM appuser,medico WHERE (appuser.Username=medico.Username);" // fine seconda query.  //trovo i medici
+                . "FROM appuser,medico WHERE (appuser.Username=medico.Username) LOCK IN SHARE MODE;" // fine seconda query.  //trovo i medici
                 . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, CASE WHEN appuser.Bloccato=0 THEN 'NO' ELSE 'SI' END AS Bloccato  "
-                . "FROM appuser,utente WHERE (appuser.Username=utente.Username);"; // fine terza query.  //trovo gli utenti
+                . "FROM appuser,utente WHERE (appuser.Username=utente.Username) LOCK IN SHARE MODE;"; // fine terza query.  //trovo gli utenti
         
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;
@@ -101,13 +101,13 @@ class FAmministratore extends FUser{
     public function cercaAppUserBloccati() {
         $queryMultipla = "SELECT appuser.Username, appuser.Email, appuser.TipoUser, clinica.NomeClinica "
                 . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username AND "
-                . "appuser.Bloccato=TRUE);"// fine prima query.  //trovo le cliniche bloccate
+                . "appuser.Bloccato=TRUE) LOCK IN SHARE MODE;"// fine prima query.  //trovo le cliniche bloccate
                 . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, medico.Nome, medico.Cognome  "
                 . "FROM appuser,medico WHERE (appuser.Username=medico.Username AND "
-                . "appuser.Bloccato=TRUE);" // fine seconda query.  //trovo i medici bloccati
+                . "appuser.Bloccato=TRUE) LOCK IN SHARE MODE;" // fine seconda query.  //trovo i medici bloccati
                 . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, utente.Nome, utente.Cognome "
                 . "FROM appuser,utente WHERE (appuser.Username=utente.Username AND "
-                . "appuser.Bloccato=TRUE);"; // fine terza query.  //trovo gli utenti
+                . "appuser.Bloccato=TRUE) LOCK IN SHARE MODE;"; // fine terza query.  //trovo gli utenti
         
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;
@@ -116,10 +116,10 @@ class FAmministratore extends FUser{
     public function cercaAppUserDaValidare() {
         $queryMultipla = "SELECT appuser.Username, appuser.Email, appuser.TipoUser, clinica.NomeClinica "
                 . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username AND "
-                . "clinica.Validato=FALSE);"// fine prima query.  //trovo le cliniche da validare
+                . "clinica.Validato=FALSE) LOCK IN SHARE MODE;"// fine prima query.  //trovo le cliniche da validare
                 . "SELECT appuser.Username,appuser.Email, appuser.TipoUser, medico.Nome, medico.Cognome  "
                 . "FROM appuser,medico WHERE (appuser.Username=medico.Username AND "
-                . "medico.Validato=FALSE);"; // fine seconda query.  //trovo i medici da validare
+                . "medico.Validato=FALSE) LOCK IN SHARE MODE;"; // fine seconda query.  //trovo i medici da validare
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;
     }
@@ -127,13 +127,13 @@ class FAmministratore extends FUser{
     public function cercaAppUser($idUser) {
         $queryMultipla = "SELECT appuser.*, clinica.* "
                 . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username AND "
-                . "appuser.Username='" . $idUser . "');"// fine prima query.  //cerco lo user tra le cliniche
+                . "appuser.Username='" . $idUser . "') LOCK IN SHARE MODE;"// fine prima query.  //cerco lo user tra le cliniche
                 . "SELECT appuser.*, medico.* "
                 . "FROM appuser, medico WHERE (appuser.Username=medico.Username AND "
-                . "appuser.Username='" . $idUser . "');" // fine seconda query.  //cerco lo user tra i medici 
+                . "appuser.Username='" . $idUser . "') LOCK IN SHARE MODE;" // fine seconda query.  //cerco lo user tra i medici 
                 . "SELECT appuser.*, utente.* "
                 . "FROM appuser,utente WHERE (appuser.Username=utente.Username AND "
-                . "appuser.Username='" . $idUser . "');"; // fine terza query // cerco lo user tra gli utenti
+                . "appuser.Username='" . $idUser . "') LOCK IN SHARE MODE;"; // fine terza query // cerco lo user tra gli utenti
         $risultato = $this->eseguiQueryMultiple($queryMultipla);
         return $risultato;
     }
@@ -148,9 +148,29 @@ class FAmministratore extends FUser{
      * @return boolean TRUE se l'account è stato bloccato
      */
     public function bloccaUser($username) {
+        
+        $queryLock1 = "SELECT * FROM appUser " . 
+                " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
+        
         $query = "UPDATE appuser SET Bloccato=TRUE 
                 WHERE Username= '" . $username . "'" ;
-        return $this->eseguiQuery($query);
+        try {
+//            // First of all, let's begin a transaction
+           $this->_connessione->begin_transaction();
+            $this->eseguiQuery($queryLock1);
+            // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query);
+             
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
     }
     
     /**
@@ -163,9 +183,28 @@ class FAmministratore extends FUser{
      * @return boolean TRUE se l'account è stato sbloccato
      */
     public function sbloccaUser($username) {
+        $queryLock1 = "SELECT * FROM appUser " . 
+                " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
+        
         $query = "UPDATE appuser SET Bloccato=FALSE 
                 WHERE Username= '" . $username . "'" ;
-        return $this->eseguiQuery($query);
+        try {
+//            // First of all, let's begin a transaction
+           $this->_connessione->begin_transaction();
+            $this->eseguiQuery($queryLock1);
+            // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query);
+             
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
     }
     
     /**
@@ -179,9 +218,27 @@ class FAmministratore extends FUser{
      */
     final public function amministratoreConfermaUser($username) 
     {
+        $queryLock1 = "SELECT * FROM appUser " . 
+                " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
         $query = "UPDATE appuser SET Confermato=TRUE 
                 WHERE Username= '" . $username . "'" ;
-        return $this->eseguiQuery($query);          
+        try {
+//            // First of all, let's begin a transaction
+           $this->_connessione->begin_transaction();
+            $this->eseguiQuery($queryLock1);
+            // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query);
+             
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }          
     }
     
     /**
@@ -195,8 +252,26 @@ class FAmministratore extends FUser{
      */
     final public function validaUser($username) 
     {
+        $queryLock1 = "SELECT * FROM clinica, medico " . 
+                " WHERE medico.Username= '" . $username . "' OR clinica.Username= '" . $username . "'  FOR UPDATE" ;
         $query = "UPDATE clinica, medico SET medico.Validato=TRUE, clinica.Validato=TRUE WHERE medico.Username= '" . $username . "' OR clinica.Username= '" . $username . "'";
-        return $this->eseguiQuery($query);            
+        try {
+//            // First of all, let's begin a transaction
+           $this->_connessione->begin_transaction();
+            $this->eseguiQuery($queryLock1);
+            // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query);
+             
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }           
     }
     
     /**
@@ -209,8 +284,29 @@ class FAmministratore extends FUser{
      * @return boolean TRUE se l'account è stato eliminato
      */
     public function eliminaUser($username) {
+        
+        $queryLock1 = "SELECT * FROM appUser " . 
+                " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
         $query = "DELETE FROM appUser WHERE appUser.Username= '" . $username . "'";
-        return $this->eseguiQuery($query);      
+          
+        
+        try {
+//            // First of all, let's begin a transaction
+           $this->_connessione->begin_transaction();
+            $this->eseguiQuery($queryLock1);
+            // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query);
+             
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
     }
     
   

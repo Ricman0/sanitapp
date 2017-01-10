@@ -39,7 +39,7 @@ class FReferto extends FDatabase{
                 . "FROM referto, prenotazione, esame, utente "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
-                . "(referto.PartitaIVAClinica='" . $partitaIVAClinica . "')) ";
+                . "(referto.PartitaIVAClinica='" . $partitaIVAClinica . "')) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
 //        print_r($risultato); // per il debug, da eliminare
         return $risultato;
@@ -62,7 +62,7 @@ class FReferto extends FDatabase{
                 . "FROM referto, prenotazione, esame, clinica "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscale . "') AND "
-                . "(referto.PartitaIVAClinica=prenotazione.PartitaIVAClinica)) ";
+                . "(referto.PartitaIVAClinica=prenotazione.PartitaIVAClinica)) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         return $risultato; 
     }
@@ -81,7 +81,7 @@ class FReferto extends FDatabase{
                 . "FROM referto, prenotazione, esame, utente "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
-                . "(utente.CodFiscaleMedico='" . $cfMedico . "')) ";
+                . "(utente.CodFiscaleMedico='" . $cfMedico . "')) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         
         return $risultato;
@@ -150,7 +150,7 @@ class FReferto extends FDatabase{
      */
     public function cercaReferto($idPrenotazione) 
     {
-        $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE IDPrenotazione='" . $idPrenotazione . "'";
+        $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE IDPrenotazione='" . $idPrenotazione . "' LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
 }

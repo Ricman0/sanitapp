@@ -132,7 +132,7 @@ class FUser extends FDatabase {
         $query = "SELECT appuser.*, "
                 . "MATCH (Password) AGAINST ('$password ' IN BOOLEAN MODE) "
                 . "FROM appuser WHERE Username='" . $username . "' "
-                . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)"; 
+                . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) LOCK IN SHARE MODE"; 
         return $this->eseguiQuery($query);
     }
     
@@ -151,7 +151,7 @@ class FUser extends FDatabase {
         $codiceConferma = $this->trimEscapeStringa($codiceConferma);
         $query = "SELECT appuser.* "
                 . "FROM appuser WHERE Username='" . $username . "' "
-                . "AND CodiceConferma='" . $codiceConferma . "' "; 
+                . "AND CodiceConferma='" . $codiceConferma . "' LOCK IN SHARE MODE"; 
         return $this->eseguiQuery($query);
     }
     
@@ -171,7 +171,7 @@ class FUser extends FDatabase {
         $query = "SELECT Username, TipoUser, Confermato, "
                 . "MATCH (Password) AGAINST ('$password ' IN BOOLEAN MODE) "
                 . "FROM appuser WHERE Username='" . $username . "' "
-                . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)"; 
+                . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) LOCK IN SHARE MODE"; 
         $risultato = $this->eseguiQuery($query);
 
         if(is_array($risultato) && count($risultato)===1)
@@ -191,7 +191,7 @@ class FUser extends FDatabase {
     public function esisteUsernameDB($username)
     {
         $esiste=FALSE;
-        $query = "SELECT Username FROM appuser WHERE Username='" . $username . "'";
+        $query = "SELECT Username FROM appuser WHERE Username='" . $username . "' LOCK IN SHARE MODE";
         if(count($this->eseguiQuery($query))>0)
         {
             $esiste = TRUE;
@@ -210,7 +210,7 @@ class FUser extends FDatabase {
     public function ricercaEmail($email)
     {
         
-        $query = "SELECT Email FROM appuser WHERE Email='" . $email . "'";
+        $query = "SELECT Email FROM appuser WHERE Email='" . $email . "' LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         if ($risultato === FALSE)
         {
@@ -231,9 +231,26 @@ class FUser extends FDatabase {
      */
     public function modificaPassword($username,$password) 
     {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE Username='" . $username . "' FOR UPDATE" ;
         $query = "UPDATE " . $this->_nomeTabella . " SET Password='" . $password . "' "
                 . "WHERE Username='" . $username . "'";
-        return $this->eseguiQuery($query);
+        try {
+//            // First of all, let's begin a transaction
+            $this->_connessione->begin_transaction();
+
+             // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($queryLock); 
+            $this->eseguiQuery($query);
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
     }
     
     /**
@@ -246,7 +263,7 @@ class FUser extends FDatabase {
      */
     final public function cercaUserByEmail($email) 
     {
-        $query = "SELECT * FROM appuser WHERE Email='" . $email . "'";
+        $query = "SELECT * FROM appuser WHERE Email='" . $email . "' LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
    
@@ -262,9 +279,26 @@ class FUser extends FDatabase {
      */
     final public function confermaUser($username) 
     {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE Username='" . $username . "' FOR UPDATE" ;
         $query = "UPDATE appuser SET Confermato=TRUE 
                 WHERE Username= '" . $username . "'" ;
-        return $this->eseguiQuery($query);
+        try {
+//            // First of all, let's begin a transaction
+            $this->_connessione->begin_transaction();
+
+             // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($queryLock); 
+            $this->eseguiQuery($query);
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
                
     }
     
