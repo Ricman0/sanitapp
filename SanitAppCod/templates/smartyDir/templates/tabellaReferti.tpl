@@ -1,5 +1,5 @@
 {if isset($referti)}
-    <h3>Referti</h3>
+    <h3>REFERTI</h3>
     <h4>Clicca su una riga della tabella per visualizzare il referto corrispondente.</h4>
     <table id="tabellaReferti" class="tablesorter">
         <thead>

@@ -1,4 +1,5 @@
 <div id="infoUtente">
+    <h3>INFORMAZIONE UTENTE</h3>
     <span class="grassetto">NOME:</span><span>  {$utente->getNomeUtente()}</span>
     <br>
     <span class="grassetto">COGNOME:</span><span>  {$utente->getCognomeUtente()}</span>

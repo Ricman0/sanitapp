@@ -1,7 +1,7 @@
 $(document).ready(function () {
         
         $('#headerMain').on("click", ".loginButton", function () {
-        validazione("autenticazione",'#' + $(this).closest("form").prop("id"));
+            validazione("autenticazione",'#' + $(this).closest("form").prop("id"));
     });
         
         $('#headerMain').on("click", ".logOutButton", function () {

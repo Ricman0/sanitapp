@@ -12,9 +12,9 @@
         <tbody>
             <br>
 
-            <h4>Pazienti</h4>
+            <h3>PAZIENTI</h3>
             {if isset($tastoAggiungi)}
-                <h5>Per aggiungere un nuovo paziente clicca sull'icona seguente</h5>
+                <h4>Per aggiungere un nuovo paziente clicca sull'icona seguente</h4>
                 <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiPaziente" aria-hidden="true" ></i>
             {/if}
             <br>

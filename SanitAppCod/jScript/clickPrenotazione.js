@@ -129,11 +129,8 @@ $(document).ready(function (){
     
      $('#headerMain').on("click", "#confermaModificaPrenotazione", function(){
         var idPrenotazione = $('#idPrenotazione').text();
-        idPrenotazione = idPrenotazione.slice(17,30);// prendo solo il valore 
-        var orarioPrenotazione = $('#orarioPrenotazione').text();        
-        orarioPrenotazione = orarioPrenotazione.slice(7,12);
-        var dataPrenotazione = $('#dataPrenotazione').text();
-        dataPrenotazione = dataPrenotazione.slice(5,15);
+        var orarioPrenotazione = $('#orarioPrenotazione').text().trim();
+        var dataPrenotazione = $('#dataPrenotazione').text().trim();
         dati ={idPrenotazione : idPrenotazione, orario : orarioPrenotazione, data : dataPrenotazione};
         $.ajax({
             type: 'POST',
@@ -215,10 +212,8 @@ function confermaPrenotazione(controller, task, ajaxDiv)
         var codice = $('#confermaPrenotazione').attr('data-codice');
         var clinica = $('#confermaPrenotazione').attr('data-idClinica');
         var idEsame = $('#confermaPrenotazione').attr('data-idEsame');
-        var orarioPrenotazione = $('#orarioPrenotazione').text();
-        orarioPrenotazione = orarioPrenotazione.slice(7,12);
-        var dataPrenotazione = $('#dataPrenotazione').text();
-        dataPrenotazione = dataPrenotazione.slice(5,15);
+        var orarioPrenotazione = $('#orarioPrenotazione').text().trim();
+        var dataPrenotazione = $('#dataPrenotazione').text().trim();
         dati ={id : idEsame, orario : orarioPrenotazione, data : dataPrenotazione, clinica : clinica, codice: codice};
         $.ajax({
             type: 'POST',

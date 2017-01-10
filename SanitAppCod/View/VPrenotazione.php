@@ -136,7 +136,6 @@ class VPrenotazione extends View{
         $this->assegnaVariabiliTemplate('nome', $nome);
         $this->assegnaVariabiliTemplate('cognome', $cognome);
         $this->assegnaVariabiliTemplate('cancellaPrenota',$cancellaPrenota);
-        $this->visualizzaTemplate("infoPrenotazione");
-        
+        $this->visualizzaTemplate('infoPrenotazione');
     }
 }

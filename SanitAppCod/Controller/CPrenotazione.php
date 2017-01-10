@@ -130,7 +130,6 @@ class CPrenotazione {
                       $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
                       $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare XClinicaException('Clinica inesistente')                      
                     }
-                    
                     $cancellaPrenota = $ePrenotazione->controllaData();
                     switch ($tipoUser) {
                         case 'utente':
@@ -291,7 +290,7 @@ class CPrenotazione {
             
             case 'conferma':
                
-                if($vPrenotazione->recuperaValore('id')==='modifica') // recupero l'azione che ho dovuto inserire in id ppoichè ho una regola che mi si sovrappone
+                if($vPrenotazione->recuperaValore('id')==='modifica') // recupero l'azione che ho dovuto inserire in id poichè ho una regola che mi si sovrappone
                 {
                     echo "in modifica";
                     //siamo in POST prenotazione/conferma/modifica
@@ -359,6 +358,7 @@ class CPrenotazione {
                     $idEsame = $vPrenotazione->recuperaValore('id');
                     $partitaIVAClinica = $vPrenotazione->recuperaValore('clinica');
                     $data = $vPrenotazione->recuperaValore('data');
+                    
                     $ora = $vPrenotazione->recuperaValore('orario');
                     $dataEOra = $data . " " . $ora;
                     $ePrenotazione = new EPrenotazione(NULL, $idEsame, $partitaIVAClinica, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
@@ -418,8 +418,16 @@ class CPrenotazione {
                         $vJSON = USingleton::getInstance('VJSON');
                         if($risultato===TRUE)
                         {
-
-                            $vJSON->inviaDatiJSON('ok'); 
+                            if($ePrenotazione->getEseguitaPrenotazione()==TRUE)
+                            {
+                                $vJSON->inviaDatiJSON('ok'); 
+                            }
+                            else 
+                            {
+                                $vJSON->inviaDatiJSON('no');
+                                
+                            }
+                            
                         }
                         else
                         {
@@ -755,7 +763,7 @@ class CPrenotazione {
     {
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $ePrenotazione= new EPrenotazione($idPrenotazione);
-        if($ePrenotazione->controllaData()===TRUE)// confronta la data della prenotazione con quella odierna; TRUE se la data odierna è precedente a quella dela prenotazione
+        if($ePrenotazione->controllaData()===TRUE && $ePrenotazione->getEseguitaPrenotazione()===FALSE)// confronta la data della prenotazione con quella odierna; TRUE se la data odierna è precedente a quella dela prenotazione // controllo anche che non sia stata effettuata la prenptazione(anche se la data è futura non potrà essere eseguita)
         {
             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
             $eEsame = new EEsame($idEsame);

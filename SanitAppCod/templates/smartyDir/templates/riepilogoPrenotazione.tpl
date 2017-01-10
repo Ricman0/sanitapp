@@ -1,38 +1,36 @@
 {if !isset($feedbacks)}
-    <h3>Riepilogo Prenotazione</h3>
+    <h3>RIEPILOGO PRENOTAZIONE</h3>
     <div>
         {if isset($idPrenotazione)}
-            <span id="idPrenotazione">ID Prenotazione: {$idPrenotazione}</span>
+            <span class="grassetto">ID PRENOTAZIONE:</span><span>  {$idPrenotazione}</span>
             <br>
+            
         {/if}
-        <span>Nome Esame:{$esame->getNomeEsame()}</span>
-        <br>
-        <span id="dataPrenotazione">Data:{$data}</span>
-        <br>
-        <span id="orarioPrenotazione">Orario:{$orario}</span>
-        <br>
-        <span>Durata:{$esame->getDurataEsame()}</span>
-        <br>
-        <span>Prezzo:{$esame->getPrezzoEsame()}</span>
-        <br>
-        <span>Clinica:{$clinica->getNomeClinica()}</span>
-        <br>
-        <span>Indirizzo:{$clinica->getViaClinica()}</span>
-        <br>  
-        <span>Telefono:{$clinica->getTelefonoClinica()}</span>
-        <br>  
-
+        <span class="grassetto">NOME ESAME:</span><span>  {$esame->getNomeEsame()}</span>
+            <br>
+            <span class="grassetto">DATA:  </span><span id="dataPrenotazione"> {$data}</span>
+            <br>
+            <span class="grassetto">ORARIO:  </span><span id="orarioPrenotazione" > {$orario}</span>
+            <br>
+            <span class="grassetto">DURATA:</span><span>  {$esame->getDurataEsame()}</span>
+            <br>
+            <span class="grassetto">PREZZO:</span><span>  {$esame->getPrezzoEsame()}</span>
+            <br>
+            <span class="grassetto">CLINICA:</span><span>  {$clinica->getNomeClinica()}</span>
+            <br>
+            <span class="grassetto">INDIRIZZO:</span><span>  {$clinica->getViaClinica()}</span>
+            <br>
+            <span class="grassetto">TELEFONO:</span><span>  {$clinica->getTelefonoClinica()}</span>
+            <br>
     </div>
     <div>
-
-        <span>Utente:{$utente->getNomeUtente()}</span>
-        <span>{$utente->getCognomeUtente()}</span>
+        <span class="grassetto">UTENTE:</span><span>  {$utente->getNomeUtente()}  {$utente->getCognomeUtente()}</span>
         <br>
-        <span>Codice Fiscale:{$utente->getCodiceFiscaleUtente()}</span>
+        <span class="grassetto">CODICE FISCALE:</span><span>  {$utente->getCodiceFiscaleUtente()}</span>
         <br>
-        <span>Email:{$utente->getEmail()}</span>
+        <span class="grassetto">EMAIL:</span><span>  {$utente->getEmail()}</span>
         <br>
-        <span>Indirizzo:{$utente->getViaUtente()}</span>
+        <span class="grassetto">INDIRIZZO:</span><span>  {$utente->getViaUtente()}</span>
         <br>
     </div>
         {if ($modifica)===FALSE }

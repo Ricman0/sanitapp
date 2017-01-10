@@ -1,11 +1,11 @@
 {if isset($esami)}
     <input type="hidden" name="controller" id="controllerTabella" value={$controller} />
     {if ($controller)==="servizi"}
-        <h3>Servizi offerti</h3>
+        <h3>SERVIZI OFFERTI</h3>
         <h4>Per visualizzare informazioni su un servizio, clicca sulla riga relativa al servizio.</h4>
         <h4>Clicca sull'icona seguente per aggiungere un servizio.</h4>
     {else}
-        <h4>Esami cercati</h4>
+        <h3>ESAMI CERCATI</h3>
     {/if}
     <table id="tabellaEsami" class="tablesorter">
         <thead>
