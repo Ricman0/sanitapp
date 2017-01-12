@@ -24,7 +24,7 @@ class FReferto extends FDatabase{
         // imposto il nome della tabella
         $this->_nomeTabella = "referto";
         $this->_attributiTabella = "IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, FileName, " .
-                "Contenuto, MedicoReferto, DataReferto";
+                "Contenuto, MedicoReferto, DataReferto, CondivisoConMedico, CondivisoConUtente";
     }
     
     /**
@@ -62,7 +62,7 @@ class FReferto extends FDatabase{
                 . "FROM referto, prenotazione, esame, clinica "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscale . "') AND "
-                . "(referto.PartitaIVAClinica=prenotazione.PartitaIVAClinica)) LOCK IN SHARE MODE";
+                . "(referto.PartitaIVAClinica=clinica.PartitaIVA)) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         return $risultato; 
     }
@@ -83,7 +83,6 @@ class FReferto extends FDatabase{
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(utente.CodFiscaleMedico='" . $cfMedico . "')) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
-        
         return $risultato;
         
     }
@@ -104,8 +103,28 @@ class FReferto extends FDatabase{
                 . $referto->getFileNameReferto() . "', '"  
                 . $referto->getContenutoReferto() . "', '"  
                 . $this->trimEscapeStringa($referto->getMedicoReferto()) . "', '" 
-                . $referto->getDataReferto() . "'"; 
+                . $referto->getDataReferto() . "', ";
+                
                 // manca la partita IVA della clinica;
+        
+        if ($referto->getCondivisoConMedicoReferto()===TRUE)
+                {
+                    $valoriAttributi = $valoriAttributi . $referto->getCondivisoConMedicoReferto();
+                }
+                else
+                {
+                     $valoriAttributi = $valoriAttributi .  "FALSE";
+                }
+                if ($referto->getCondivisoConUtenteReferto()!== NULL)
+                {
+                    $valoriAttributi = $valoriAttributi . ", '" . $this->trimEscapeStringa($referto->getCondivisoConUtenteReferto()) . "' ";
+                }
+                else
+                {
+                     $valoriAttributi = $valoriAttributi .  ", NULL ";
+                }
+                
+       
         return $valoriAttributi;
     }
     
@@ -124,7 +143,7 @@ class FReferto extends FDatabase{
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
         $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
-        
+      
         // eseguo la query
         return $this->eseguiQuery($query);
     }
@@ -152,5 +171,40 @@ class FReferto extends FDatabase{
     {
         $query = "SELECT * FROM " . $this->_nomeTabella . " WHERE IDPrenotazione='" . $idPrenotazione . "' LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
+    }
+    
+    
+    /**
+     * Metodo che consente di condividere un referto passato come parametro con il proprio medico curante
+     * 
+     * @access public
+     * @param string $idReferto L'id del referto
+     * @param boolean $condividi TRUE se si vuole la condivisione del referto con il medico, FALSE altrimenti
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    public function condividiConMedico($idReferto, $condividi ) {
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+                . " WHERE IDReferto= '" . $idReferto . "' FOR UPDATE" ;
+        $query= "UPDATE " . $this->_nomeTabella 
+                . " SET CondivisoConMedico='" . $condividi . "' "
+                . "WHERE IDReferto= '" . $idReferto . "'";
+        try {
+//            // First of all, let's begin a transaction
+           $this->_connessione->begin_transaction();
+            $this->eseguiQuery($queryLock);
+            // A set of queries; if one fails, an exception should be thrown
+            $this->eseguiQuery($query);
+             
+
+            // If we arrive here, it means that no exception was thrown
+            // i.e. no query has failed, and we can commit the transaction
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // An exception has been thrown
+            // We must rollback the transaction
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        }
     }
 }

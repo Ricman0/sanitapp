@@ -49,6 +49,7 @@
 
 
     RewriteCond %{REQUEST_METHOD} POST 
+    RewriteRule ^(referto)/(condividi)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(autenticazione)$ index.php?controller=$1 [L]
     RewriteRule ^(servizi)/(modifica|elimina)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(categorie)/(aggiungi|elimina)$ index.php?controller=$1&task=$2 [L]

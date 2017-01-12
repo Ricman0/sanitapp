@@ -77,7 +77,60 @@ class CReferti {
                     $vReferti->visualizzaFeedback("Utente inesistente. Referto inserito ma non è stato possibile rinviare la mail di notifica. Contatti l'amministratore per risolvere il problema.");
                 }
                 break;
-
+            
+            case 'condividi':
+                $sessione = USingleton::getInstance('USession');
+                $username = $sessione->leggiVariabileSessione('usernameLogIn');
+                $condividiConMedico = $vReferti->recuperaValore('condividiConMedico');
+                $vJSON = USingleton::getInstance('VJSON');
+                $idPrenotazione = $vReferti->recuperaValore('id');
+                try {
+                    $eReferto = new EReferto($idPrenotazione);
+                    $eUtente = new EUtente(NULL, $username);
+                    if($condividiConMedico !== FALSE)
+                    {
+                        // utente vuole condividere il referto con il medico curante
+                        if($eUtente->getMedicoCurante() !== NULL && $condividiConMedico==='true')//  se l'utente ha impostato il medico curante
+                        {
+                            $condiviso = $eReferto->condividi(NULL, $eUtente->getMedicoCurante(), TRUE);
+                            if($condiviso === TRUE)
+                            {
+                                
+                                $vJSON->inviaDatiJSON('OK');
+                            }
+                            else
+                            {
+                               
+                                $vJSON->inviaDatiJSON('NO');
+                            }
+                        }
+                        else
+                        {
+                            // non è possibile condividere con il medico in quanto non è impostato alcun medico curante
+                            //  oppure non si vuole più condiviere il referto con il medico
+                            $condiviso = $eReferto->condividi(NULL, $eUtente->getMedicoCurante(), FALSE);
+                            if($condiviso === TRUE)
+                            {
+                                $vJSON->inviaDatiJSON('NO'); // non codiviso con medico
+                            }
+                        }
+                    }
+                    else // vuoi condividerla con un utente
+                    {
+                        
+                    }
+                } catch (XRefertoException $ex) {
+                    $vJSON->inviaDatiJSON('null');
+                }
+                catch (XUtenteException $ex) {
+                    $vJSON->inviaDatiJSON('null');
+                }
+                catch (XDBException $ex) {
+                    $vJSON->inviaDatiJSON('null');
+                }
+                
+                
+                break;
             default:
                 break;
         }

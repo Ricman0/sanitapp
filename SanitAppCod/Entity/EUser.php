@@ -502,29 +502,31 @@ class EUser {
     }
     
     /**
-     * Genera una password casuale in conformità dalle regole imposte  
+     * Genera una password casuale in conformità dalle regole imposte 
+     * 
+     * @access private 
      * @param int $length lunghezza della password
      * @return string la password generata automaticamente
      */
     private function generatePassword($length = 8) {
-    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    $charsUp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $num = '0123456789';
-    $count= mb_strlen($chars);
-    $countCharsUp = mb_strlen($charsUp);
-    $countNum = mb_strlen($num);
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $charsUp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $num = '0123456789';
+        $count= mb_strlen($chars);
+        $countCharsUp = mb_strlen($charsUp);
+        $countNum = mb_strlen($num);
 
-    for ($i = 0, $result = ''; $i < $length-2; $i++) {
-        $index = rand(0, $count - 1);
-        $result .= mb_substr($chars, $index, 1);
+        for ($i = 0, $result = ''; $i < $length-2; $i++) {
+            $index = rand(0, $count - 1);
+            $result .= mb_substr($chars, $index, 1);
+        }
+
+        $index = rand(0, $countCharsUp - 1);
+        $result .= mb_substr($charsUp, $index, 1);
+        $index = rand(0, $countNum - 1);
+        $result .= mb_substr($num, $index, 1);
+        return $result;
     }
-    
-    $index = rand(0, $countCharsUp - 1);
-    $result .= mb_substr($charsUp, $index, 1);
-    $index = rand(0, $countNum - 1);
-    $result .= mb_substr($num, $index, 1);
-    return $result;
-}
 
 
 

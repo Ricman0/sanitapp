@@ -357,10 +357,10 @@ class UMail {
         $this->_email->Subject = "REcupero Password Account SanitApp";
         
         $testo = "<h4>Ciao " . $dati['username'] . "!</h4>"
-                . " Questa è un'email di recupero password."
+                . " Questa è un'email di recupero password.<br>"
                 
-                . " La tua nuova password è: <br>"
-                . $dati['password']. "<br>"
+                . " La tua nuova password è: <br><br>"
+                . $dati['password']. "<br><br>"
                 . "Utilizzala per accedere alla tua area personale, "
                 . "subito dopo aver effettuato il primo accesso sostituiscila con una password da te creata.<br><br>"
                 . "Saluti,<br>"
