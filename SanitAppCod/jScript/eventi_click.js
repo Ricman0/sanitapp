@@ -231,9 +231,9 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
     });
 }
 
-function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
+function inviaDatiRegistrazione(id, controller, task, ajaxdiv)
 {
-    $( "#loading" ).show();
+    $( "#loadingModal" ).show();
    // per ciascun input text all'interno della form, esegui il trim del testo e poi assegnalo al testo dell'elemento di cui si è eseguito il trim
     $(id + " input[type='text']").each(function () {
         $(this).val($(this).val().trim());
@@ -246,7 +246,7 @@ function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
     alert(dati);
     $.ajax({
         type: "POST",
-        url: controller1 + "/" + task1,
+        url: controller + "/" + task,
         data: dati,
         dataType: "html",
         success: function (msg)
@@ -260,7 +260,7 @@ function inviaDatiRegistrazione(id, controller1, task1, ajaxdiv)
         },
         complete: function()
         {
-            $("#loading").hide();
+            $("#loadingModal").hide();
         }
     });
 }

@@ -115,6 +115,7 @@ class EUtente extends EUser {
             // caso in cui gli passo tutti i parametri
             // richiamo il costruttore padre
             parent::__construct($username, $password, $email);
+            parent::setTipoUser('utente');
             $this->_nome = $nome;
             $this->_cognome = $cognome;
             $this->_codFiscale = $cf;
@@ -399,7 +400,6 @@ class EUtente extends EUser {
      * @return string|Boolean Il codice di conferma se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
      */
     public function inserisciUtenteDB() {
-        
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);

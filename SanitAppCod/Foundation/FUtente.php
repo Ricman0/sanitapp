@@ -41,10 +41,8 @@ class FUtente extends FUser{
         //la query da eseguire è la seguente:
         // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
          
-        $query1 = "INSERT INTO appuser (Username, Password, Email, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'utente')";
-        
+        $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ")";
         $query2 = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
-        
         // eseguo le queries
         try {
             // inzia la transazione
@@ -59,6 +57,7 @@ class FUtente extends FUser{
         } catch (Exception $e) {
             // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
             $this->_connessione->rollback();
+            throw new XDBException("Inserimento fallito, contattare l'amministratore.");
         }
     }
 

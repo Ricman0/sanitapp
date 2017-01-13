@@ -86,7 +86,7 @@
             <div id="dialog" title="Attenzione" >
                 <p id='messaggioDialogBox' ></p>
             </div>
-                <div id="myModal" class='modal'>    
+                <div id="loadingModal" class='modal'>    
             <div id="loading" class="loading">
                 <!-- per l'animazione durante il caricamento di una pagina -->
             </div>

@@ -27,7 +27,7 @@ $(document).ready(function () {
 function inviaDatiGenerico(id, controller, ajaxdiv)
 {
     if(controller==='recuperaPassword'){
-        $( "#myModal" ).show();
+        $( "#loadingModal" ).show();
     }
     //recupera tutti i valori del form automaticamente
     var dati =  $(id).serialize();
@@ -53,7 +53,7 @@ function inviaDatiGenerico(id, controller, ajaxdiv)
            $(ajaxdiv).html(msg);
         },
         complete: function(){
-            $( "#myModal" ).hide();
+            $( "#loadingModal" ).hide();
         },
         error: function(xhr, status, error) 
         {

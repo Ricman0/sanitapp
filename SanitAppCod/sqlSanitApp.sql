@@ -19,7 +19,7 @@ USE sanitapp;
 
 CREATE TABLE appUser (
   Username varchar(15) NOT NULL,
-  Password varchar(10) NOT NULL,
+  Password varchar(60) NOT NULL,
   Email varchar(320) NOT NULL,
   PEC varchar(320) DEFAULT NULL,
   Bloccato boolean DEFAULT FALSE,

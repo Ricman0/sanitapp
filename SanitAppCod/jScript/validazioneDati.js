@@ -637,15 +637,12 @@ function validazioneUtente()
         },
         submitHandler: function ()
         {
-            $("#loading").show();
-            alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var ajaxDiv = "#main";
             if ($('#contenutoAreaPersonale').length)// se nel DOM esiste il div contenutoAreaPersonale
             {
                 ajaxDiv = '#contenutoAreaPersonale';
             }
-            alert(ajaxDiv);
             inviaDatiRegistrazione('#inserisciUtente', 'registrazione', 'utente', ajaxDiv);
         }
     });
@@ -857,7 +854,7 @@ function validazioneMedico()
         },
         submitHandler: function ()
         {
-            $("#loading").show();
+            $("#loadingModal").show();
             var ajaxDiv = "#main";
             if ($('#contenutoAreaPersonale').length)// se nel DOM esiste il div contenutoAreaPersonale
             {
@@ -1103,7 +1100,7 @@ function validazioneClinica()
         },
         submitHandler: function ()
         {
-            $("#loading").show();
+            $("#loadingModal").show();
             var ajaxDiv = "#main";
             if ($('#contenutoAreaPersonale').length)// se nel DOM esiste il div contenutoAreaPersonale
             {
@@ -1599,7 +1596,7 @@ function validazioneModificaUtente() {
         },
         submitHandler: function ()
         {
-            $("#loading").show();
+            $("#loadingModal").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Utente";
@@ -1820,7 +1817,7 @@ function validazioneModificaMedico() {
         },
         submitHandler: function ()
         {
-            $("#loading").show();
+            $("#loadingModal").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Medico";
@@ -2040,7 +2037,7 @@ function validazioneModificaClinica() {
         },
         submitHandler: function ()
         {
-            $("#loading").show();
+            $("#loadingModal").show();
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Clinica";

@@ -15,14 +15,14 @@ class EUser {
 
     /**
      * @var string $_email, variabile di tipo string, che contiente l'indirizzo 
-     *             di posta elettronica dell'user. é valido come username per 
+     *             di posta elettronica dell'user. Ã© valido come username per 
      *             l'accesso al sistema
      */
     private $_email;
 
     /**
      * @var string $_PEC, variabile di tipo string, che contiente l'indirizzo 
-     *             di posta elettronica certificata dell'user. é valido come username per 
+     *             di posta elettronica certificata dell'user. Ã© valido come username per 
      *             l'accesso al sistema
      */
     private $_PEC;
@@ -46,13 +46,13 @@ class EUser {
     private $_codiceConferma;
 
     /**
-     * @var boolean $_confermato permette di capire se l'account dell'user è 
+     * @var boolean $_confermato permette di capire se l'account dell'user Ã¨ 
      * stato confermato(TRUE) o meno         
      */
     private $_confermato;
     
     /**
-     * @var boolean $_bloccato permette di capire se l'account dell'user è 
+     * @var boolean $_bloccato permette di capire se l'account dell'user Ã¨ 
      * stato bloccato(TRUE) o meno         
      */
     private $_bloccato;
@@ -78,7 +78,7 @@ class EUser {
         {
             $this->_email = $email;
             $this->_username = $username;
-            $this->_password = md5($password.$username);
+            $this->_password = password_hash($password.$username, PASSWORD_BCRYPT);
             $this->_codiceConferma = md5($username.$email.date('mY'));
             $this->_confermato = FALSE;
             $this->_bloccato = FALSE;
@@ -278,9 +278,9 @@ class EUser {
     }
 
     /**
-     * Metodo che permette di capire se l'account è stato confermato o meno
+     * Metodo che permette di capire se l'account Ã¨ stato confermato o meno
      * 
-     * @return boolean TRUE se l'account è stato confermato, FALSE altrimenti
+     * @return boolean TRUE se l'account Ã¨ stato confermato, FALSE altrimenti
      */
     public function getConfermato() 
     {
@@ -288,9 +288,9 @@ class EUser {
     }
     
     /**
-     * Metodo che permette di capire se l'account è stato bloccato o meno
+     * Metodo che permette di capire se l'account Ã¨ stato bloccato o meno
      * 
-     * @return boolean TRUE se l'account è stato bloccato, FALSE altrimenti
+     * @return boolean TRUE se l'account Ã¨ stato bloccato, FALSE altrimenti
      */
     public function getBloccato() 
     {
@@ -396,10 +396,10 @@ class EUser {
      * Metodo che permette di inserire un oggetto di tipo EUser nel DB
      * 
      * @access public
-     * @return string|Boolean Il codice di conferma se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
+     * @return string|Boolean Il codice di conferma se l'utente Ã¨ stato inserito correttamente, altrimenti FALSE (l'utente  non Ã¨ stato inserito correttamente nel DB)
      */
     public function inserisciUserDB() {
-        //crea un oggetto fUser se non è esistente, si collega al DB e lo inserisce
+        //crea un oggetto fUser se non Ã¨ esistente, si collega al DB e lo inserisce
         $fUser = USingleton::getInstance('FUser');
 //        return $fUtente->inserisciUtente($eUtente);
         if ($fUser->inserisciUser($this) === TRUE) 
@@ -415,7 +415,7 @@ class EUser {
     
     
     /**
-     * Metodo che consente di cercare se un username è già esistente
+     * Metodo che consente di cercare se un username Ã¨ giÃ  esistente
      * 
      * @access public
      * @return boolean TRUE username esistente, FALSE altrimenti
@@ -461,7 +461,7 @@ class EUser {
      * 
      * @access public
      * @param string $idConferma Il codice di conferma per effettuare la conferma di un account
-     * @throws XDBException Se la query non è stata eseguita con successo
+     * @throws XDBException Se la query non Ã¨ stata eseguita con successo
      * @return boolean TRUE User confermato, FALSE altrimenti.
      */
     public function confermaUser($idConferma) 
@@ -502,7 +502,7 @@ class EUser {
     }
     
     /**
-     * Genera una password casuale in conformità dalle regole imposte  
+     * Genera una password casuale in conformitÃ  dalle regole imposte  
      * @param int $length lunghezza della password
      * @return string la password generata automaticamente
      */

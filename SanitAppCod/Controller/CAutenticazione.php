@@ -12,55 +12,44 @@
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CAutenticazione {
-    
+
     /**
      * Metodo che tenta di autenticare un user, in caso contrario cattura l'eccezione e la gestisce
      * 
      * @access public
      */
-    public function tryAutenticaUser() 
-    {
-        try
-        {
+    public function tryAutenticaUser() {
+        try {
             $this->autenticaUser();
-        }
-        catch (XUserException $e)
-        {
-            $errore = $e->getMessage(); 
-            $this->gestisciEccezioneAutenticaUser($errore);                   
-        }
-        catch (XDatiLogInException $e)
-        {
+        } catch (XUserException $e) {
+            $errore = $e->getMessage();
+            $this->gestisciEccezioneAutenticaUser($errore);
+        } catch (XDatiLogInException $e) {
             $errore = $e->getMessage(); // vorrei usare l'errore nel template per far visualizzare il messaggio di errore all'user
-            $this->gestisciEccezioneAutenticaUser($errore);              
+            $this->gestisciEccezioneAutenticaUser($errore);
         }
-        
     }
-    
+
     /**
      * Metodo che consente di gestire le eccezioni della funzione autenticaUser()
      * 
      * @access private
      * @param string $errore Il messaggio di errore
      */
-    private function gestisciEccezioneAutenticaUser($errore) 
-    {
+    private function gestisciEccezioneAutenticaUser($errore) {
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         $uCookie = USingleton::getInstance('UCookie');
         $uCookie->incrementaCookie('Tentativi');  //incremento il cookie Tentativi                    
-        if($uCookie->checkValiditaTentativi()) // massimo 3 tentativi
-        {
+        if ($uCookie->checkValiditaTentativi()) { // massimo 3 tentativi
             // pagina di log 
             $vAutenticazione->impostaLogIn($errore);
-        }
-        else
-        {
+        } else {
             // pagina recupero credenziali 
             $uCookie->eliminaCookie('Tentativi');
             $vAutenticazione->impostaPaginaRecuperoCredenziali();
-        }  
+        }
     }
-    
+
     /**
      * Metodo che permette di controllare se è stato effettuato il login
      * 
@@ -74,33 +63,25 @@ class CAutenticazione {
 //        $logIn = $session->checkVariabileSessione("loggedIn");       
 //        return $logIn;
 //    }
-    
+
     /**
      * Metodo che permette di controllare se un user è autenticato eimposta l'header
      * 
      * @access public
      */
-    public function controllaUserAutenticatoEImpostaHeader() 
-    {
+    public function controllaUserAutenticatoEImpostaHeader() {
         $username = NULL;
         $sessione = USingleton::getInstance('USession');
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
-        if($sessione->checkVariabileSessione("loggedIn") === TRUE) // se è già autenticato
-        {
+        if ($sessione->checkVariabileSessione("loggedIn") === TRUE) { // se è già autenticato
             //user autenticato            
             $username = $sessione->leggiVariabileSessione('usernameLogIn');
             $vAutenticazione->impostaHeader($username);
-        }
-        else
-        {
-            $vAutenticazione->impostaHeader();            
+        } else {
+            $vAutenticazione->impostaHeader();
         }
     }
-            
-            
-            
-            
-            
+
 //            $fDatabase = USingleton::getInstance('FDatabase');
 //            $username = $fDatabase->trimEscapeStringa($_POST['usernameLogIn']);
 //            $password = $fDatabase->trimEscapeStringa($_POST['passwordLogIn']);
@@ -145,39 +126,32 @@ class CAutenticazione {
 //            
 ////        }
 //        return $sessione;
-    
-    
-    
-    
-    
-    public function autenticaUser()
-    {
+
+
+
+
+
+    public function autenticaUser() {
         $sessione = USingleton::getInstance('USession');
         $uCookie = USingleton::getInstance('UCookie');
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         $this->controllaUserAutenticatoEImpostaHeader();
-        if(!empty($username=$vAutenticazione->recuperaValore('usernameLogIn')) && !empty($password=$vAutenticazione->recuperaValore('passwordLogIn'))) // se non è stato ancora autenticato ma ha inserito di dati di log in
-        {            
+        if (!empty($username = $vAutenticazione->recuperaValore('usernameLogIn')) && !empty($password = $vAutenticazione->recuperaValore('passwordLogIn'))) { // se non è stato ancora autenticato ma ha inserito di dati di log in
             $datiLogIn = array('username' => $username, 'password' => $password);
             $validazione = USingleton::getInstance('UValidazione');
-            if($validazione->validaDati($datiLogIn) === TRUE)
-            {            
+            if ($validazione->validaDati($datiLogIn) === TRUE) {
                 $eUser = new EUser($username, $password);
 //                if($eUser->getUsername()!==NULL && $eUser->getPassword()!==NULL)// caso in cui esiste l'user con quella password e quella username
 //                {
-                    $uCookie->eliminaCookie('Tentativi');
-                    if($eUser->getConfermato() == TRUE)// user confermato
-                    {
-                        $eUser->attivaSessioneUser($username, $eUser->getTipoUser() );
-                        $vAutenticazione->setTastiLaterali($eUser->getTipoUser() );
-                        $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
-                     
-                    }
-                    else //user non confermato ma esistente nel DB
-                    {
-                        // ritorna form per effettuare conferma
-                        $vAutenticazione->impostaPaginaConferma();
-                    }
+                $uCookie->eliminaCookie('Tentativi');
+                if ($eUser->getConfermato() == TRUE) {// user confermato
+                    $eUser->attivaSessioneUser($username, $eUser->getTipoUser());
+                    $vAutenticazione->setTastiLaterali($eUser->getTipoUser());
+                    $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
+                } else { //user non confermato ma esistente nel DB
+                    // ritorna form per effettuare conferma
+                    $vAutenticazione->impostaPaginaConferma();
+                }
 //                }
 //                else 
 //                {
@@ -196,23 +170,16 @@ class CAutenticazione {
 //                        $vAutenticazione->impostaPaginaRecuperoCredenziali();
 //                    }
 //                }
-            }
-            else // dati non validi
-            {
+            } else { // dati non validi
                 throw new DatiLogInException('Dati inseriti non validi');
 //                $vAutenticazione->impostaPaginaLogIn();
             }
-        }
-        else//campi/o vuoti/o 
-        {
+        } else {//campi/o vuoti/o 
             throw new DatiLogInException('Almeno un campo del log in vuoto');
 //            $vAutenticazione->impostaPaginaLogIn();
         }
     }
-        
-    
-        
-        
+
 //        $tastiLaterali = Array();
 //        if($username!==FALSE && $password!==FALSE)
 //        {
@@ -348,49 +315,47 @@ class CAutenticazione {
 //            }
 //        }
 //    }
-    
+
     /**
      * Metodo che consente il log out dell'utente e effettua una refresh della pagina
      * 
      * @access public
      */
-    public function logOut() 
-    {
+    public function logOut() {
         $sessione = USingleton::getInstance('USession');
         $sessione->terminaSessione();
-        $this->controllaUserAutenticatoEImpostaHeader() ;
+        $this->controllaUserAutenticatoEImpostaHeader();
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
 //        $vAutenticazione->logOut();
         $vAutenticazione->restituisciHomePage();
     }
-    
+
     public function nuovaPassword() {
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         $uMail = USingleton::getInstance('UMail');
         $dati['email'] = $vAutenticazione->recuperaValore('email');
-                $uValidazione = USingleton::getInstance('UValidazione');
-                if ($uValidazione->validaDati($dati)) {
-                    try {
-                        $eUser = new EUser(NULL, NULL, $dati['email']);
-                        if ($eUser->getEmail() !== NULL) { //l'utente esiste
-                            $eUser->modificaPassword();
-                            $dati['username'] = $eUser->getUsername();
-                            $dati['password'] = $eUser->getPassword();
-                            if($uMail->inviaMailRecuperaPassword($dati)){
-                            $vAutenticazione->visualizzaFeedback('Ti è stata inviata la nuova password sulla mail.', TRUE);
-                            } else{
-                                $vAutenticazione->visualizzaFeedback("Problema con l'invio della mail, contatta l'amministratore", TRUE);                                
-                            }
-                        }else{
-                            $vAutenticazione->visualizzaFeedback("Alla email fornita non corrisponde nessun utente.", TRUE);
-                        }
-                    } catch (XUserException $ex) {//l'utente non esiste                        
-                        $vAutenticazione->visualizzaFeedback("Alla email fornita non corrisponde nessun utente.", TRUE);
+        $uValidazione = USingleton::getInstance('UValidazione');
+        if ($uValidazione->validaDati($dati)) {
+            try {
+                $eUser = new EUser(NULL, NULL, $dati['email']);
+                if ($eUser->getEmail() !== NULL) { //l'utente esiste
+                    $eUser->modificaPassword();
+                    $dati['username'] = $eUser->getUsername();
+                    $dati['password'] = $eUser->getPassword();
+                    if ($uMail->inviaMailRecuperaPassword($dati)) {
+                        $vAutenticazione->visualizzaFeedback('Ti è stata inviata la nuova password sulla mail.', TRUE);
+                    } else {
+                        $vAutenticazione->visualizzaFeedback("Problema con l'invio della mail, contatta l'amministratore", TRUE);
                     }
-                }else{
-                    $vAutenticazione->visualizzaFeedback("Attenzione dati non validi.", TRUE);
+                } else {
+                    $vAutenticazione->visualizzaFeedback("Alla email fornita non corrisponde nessun utente.", TRUE);
                 }
+            } catch (XUserException $ex) {//l'utente non esiste                        
+                $vAutenticazione->visualizzaFeedback("Alla email fornita non corrisponde nessun utente.", TRUE);
+            }
+        } else {
+            $vAutenticazione->visualizzaFeedback("Attenzione dati non validi.", TRUE);
+        }
     }
-    
-    
+
 }
