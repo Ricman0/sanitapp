@@ -1320,7 +1320,7 @@ function validazioneEsame()
         {
             alert('I dati sono stati inseriti correttamente');
             // inviaDatiEsame si trova in clickGestisciServizi.js
-            inviaDatiEsame('#aggiungiEsame', 'servizi', 'aggiungi', '#main');
+            inviaDatiEsame('#aggiungiEsame', 'servizi', 'aggiungi', '#contenutoAreaPersonale');
         }
     });
 }

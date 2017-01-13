@@ -49,12 +49,15 @@ class CGestisciServizi {
                         $datiEsame['durata'], $datiEsame['numPrestazioniSimultanee'], 
                         ucfirst($datiEsame['descrizione']), $eClinica->getPartitaIVAClinica());
                         $eEsame->inserisciEsameDB();
-                        $messaggio = 'Servizio inserito con successo';
+                        $messaggio = 'Servizio inserito con successo.';
                     } 
                     catch (XDBException $ex) {
                         $messaggio = $ex->getMessage();                 
                     }
                     catch (XClinicaException $ex) {
+                        $messaggio = $ex->getMessage();                 
+                    }
+                    catch (XEsameException $ex) {
                         $messaggio = $ex->getMessage();                 
                     }
                     $vServizi->visualizzaFeedback($messaggio);

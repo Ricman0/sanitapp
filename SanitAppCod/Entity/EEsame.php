@@ -138,7 +138,8 @@ class EEsame
     {
         //crea un oggetto fEsame se non è esistente, si collega al DB e lo inserisce
         $fEsame = USingleton::getInstance('FEsame');
-        return $fEsame->inserisciEsame($this);        
+//        return $fEsame->inserisciEsame($this);   
+        return $fEsame->inserisci($this);   
     }
     
     /**
@@ -146,7 +147,7 @@ class EEsame
      * 
      * @return string l'id dell'esame
      */
-    public function getIDEsame()
+    public function getIDEsameEsame()
     {
         return $this->_idEsame;
     }
@@ -156,7 +157,7 @@ class EEsame
      * 
      * @return boolean TRUE l'esame è stato eliminato, FALSE altrimenti
      */
-    public function getEliminato() {
+    public function getEliminatoEsame() {
         return $this->_eliminato;
     }
     
@@ -166,7 +167,7 @@ class EEsame
      * @access public
      * @return string Il nome dell'esame
      */
-    public function getNomeEsame()
+    public function getNomeEsameEsame()
     {
         return $this->_nomeEsame;
     }
@@ -216,7 +217,7 @@ class EEsame
      * 
      * @return string Il medico dell'esame
      */
-    public function getMedicoEsame()
+    public function getMedicoEsameEsame()
     {
         return $this->_medicoEsame;
     }
@@ -227,7 +228,7 @@ class EEsame
      * 
      * @return int Numero prestazioni simultanee dell'esame
      */
-    public function getNumeroPrestazioniSimultaneeEsame()
+    public function getNumPrestazioniSimultaneeEsame()
     {
         return $this->_numeroPrestazioniSimultanee;
     }
@@ -372,6 +373,6 @@ class EEsame
     public function eliminaEsame() {
         $this->setEliminato(TRUE);
         $fEsame = USingleton::getInstance('FEsame');
-        return $fEsame->eliminaEsame($this->getIDEsame());
+        return $fEsame->eliminaEsame($this->getIDEsameEsame());
     }
 }

@@ -316,6 +316,118 @@ class FDatabase {
         
     }
     
+    
+    /**
+     * Metodo che permette di aggiungere un oggetto nel DB
+     * 
+     * @access public
+     * @param object $oggetto lL'oggetto che si vuole aggiungere 
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     */
+    public function inserisci($oggetto) {
+        
+//        $valoriAttributi = $this->getAttributi($oggetto);
+//        $nomeTabella =substr(strtolower(get_class($oggetto)), 1);// nome della classe dell'oggetto in minuscolo eliminando la e iniziale
+        $nomeClasse =substr((get_class($oggetto)), 1);
+//        $attributiTabella = get_object_vars($oggetto);
+//        $attributiTabella = json_encode($attributiTabella);
+//        print_r($attributiTabella);
+//        print_r($nomeTabella);
+        $attributiTabella = explode(',', $this->_attributiTabella);
+        print_r($attributiTabella);
+        $valoriAttributi = NULL;
+        foreach ($attributiTabella as $valore) {
+            $valore = trim($valore);
+            $funzione = 'get'.$valore.$nomeClasse ;
+            print_r($funzione );
+            $valoreAttributo = $oggetto->$funzione();
+            
+            switch (gettype($valoreAttributo)) {
+                case 'string':
+                case 'text':
+                    if (isset($valoriAttributi))
+                    {
+                        $valoriAttributi .= ", '" . $this->trimEscapeStringa($valoreAttributo) . "'";
+                    }
+                    else
+                    {
+                        $valoriAttributi = "'" . $this->trimEscapeStringa($valoreAttributo)  . "'";
+                    }
+                    break;
+                    
+                case 'NULL':
+                    if (isset($valoriAttributi))
+                    {
+                        $valoriAttributi .= ", NULL ";
+                    }
+                    else
+                    {
+                        $valoriAttributi = "NULL";
+                    }
+                    break;
+                
+                case 'mediumblob':
+                case 'time':
+                case 'date':
+                case 'float':
+                    if (isset($valoriAttributi))
+                    {
+                        $valoriAttributi .= ", '" . $valoreAttributo . "'";
+                    }
+                    else
+                    {
+                        $valoriAttributi = "'" . $valoreAttributo  . "'";
+                    }
+                    break;
+                
+                case 'boolean':
+                    if($valoreAttributo === TRUE)
+                    {
+                        if (isset($valoriAttributi))
+                        {
+                            $valoriAttributi .= ", " . $valoreAttributo . "";
+                        }
+                        else
+                        {
+                            $valoriAttributi = "'" . $valoreAttributo  . "'";
+                        }
+                    }
+                    else
+                    {
+                        if (isset($valoriAttributi))
+                        {
+                            $valoriAttributi .= ", 'FALSE'";
+                        }
+                        else
+                        {
+                            $valoriAttributi = "FALSE";
+                        }
+                    }
+                    
+                    break;
+
+                default:
+                    if (isset($valoriAttributi))
+                    {
+                        $valoriAttributi .= ", " . $valoreAttributo . "";
+                    }
+                    else
+                    {
+                        $valoriAttributi = "" . $valoreAttributo . "";
+                    }
+                    break;
+            }
+            
+            
+        }  
+        
+        print_r($valoriAttributi);
+        
+        $query = "INSERT INTO " . $this->_nomeTabella . "(" . $this->_attributiTabella . ") VALUES( " .  $valoriAttributi . ")";
+        return $this->eseguiQuery($query);       
+    }
+    
    
     
     

@@ -159,6 +159,7 @@ $(document).ready(function () {
 
 
     $('#headerMain').on("click", "#uploadReferto", function () {
+        $( "#loading" ).show();
         validazioneReferto(); // in validazioneDati.js
         if ($("#formUploadReferto").valid()) {
             uploadReferto();
@@ -660,6 +661,10 @@ function uploadReferto()
         success: function (datiRisposta)
         {
             $('#contenutoAreaPersonale').html(datiRisposta);
+        },
+        complete: function()
+        {
+            $("#loading").hide();
         }
 
     });

@@ -32,7 +32,7 @@ class ECategoria {
      * 
      * @return type string  nome della categoria
      */
-    public function getNome() {
+    public function getNomeCategoria() {
         return $this->_nome;
     }
     
@@ -45,7 +45,8 @@ class ECategoria {
      */
     public function aggiungiCategoria() {
         $fCategorie = USingleton::getInstance('FCategoria');
-        return $fCategorie->aggiungiCategoria($this); 
+//        return $fCategorie->aggiungiCategoria($this); 
+        return $fCategorie->inserisci($this);
     }
     
     /**
@@ -57,7 +58,7 @@ class ECategoria {
         if($this->checkIfCanDelete()===TRUE)
         {
             $fCategorie = USingleton::getInstance('FCategoria');
-            return $fCategorie->eliminaCategoria($this->getNome()); 
+            return $fCategorie->eliminaCategoria($this->getNomeCategoria()); 
         }
         else
         {
@@ -74,7 +75,7 @@ class ECategoria {
      */
     public function checkIfCanDelete() {
         $fEsami = USingleton::getInstance('FEsame');
-        $esami = $fEsami->cercaEsamiByCategoria($this->getNome());
+        $esami = $fEsami->cercaEsamiByCategoria($this->getNomeCategoria());
         if(count($esami)>0)
         {
             return FALSE;

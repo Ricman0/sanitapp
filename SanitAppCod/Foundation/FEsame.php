@@ -37,18 +37,18 @@ class FEsame extends FDatabase {
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
     private function getAttributi($esame) {
-        $valoriAttributi = "'" . $esame->getIDEsame() . "', '" 
-                . $this->trimEscapeStringa($esame->getNomeEsame()) . "', '" 
+        $valoriAttributi = "'" . $esame->getIDEsameEsame() . "', '" 
+                . $this->trimEscapeStringa($esame->getNomeEsameEsame()) . "', '" 
                 . $this->trimEscapeStringa($esame->getDescrizioneEsame()) . "', '" 
                 . $esame->getPrezzoEsame() . "', '" 
                 . $esame->getDurataEsame() . "', '" 
-                . $this->trimEscapeStringa($esame->getMedicoEsame()) . "', '" 
-                . $esame->getNumeroPrestazioniSimultaneeEsame() . "', '"  
+                . $this->trimEscapeStringa($esame->getMedicoEsameEsame()) . "', '" 
+                . $esame->getNumPrestazioniSimultaneeEsame() . "', '"  
                 . $this->trimEscapeStringa($esame->getNomeCategoriaEsame()) . "', '" 
                 . $esame->getPartitaIVAClinicaEsame() . "', ";
-        if ($esame->getEliminato()===TRUE)
+        if ($esame->getEliminatoEsame()===TRUE)
         {
-            $valoriAttributi = $valoriAttributi . $esame->getEliminato();
+            $valoriAttributi = $valoriAttributi . $esame->getEliminatoEsame();
         }
         else
         {
@@ -268,11 +268,11 @@ class FEsame extends FDatabase {
     public function modificaEsame($esame) {
         
         $queryLock = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE (IDEsame='" . $esame->getIDEsame() . "') FOR UPDATE" ;
-        $query = "UPDATE " . $this->_nomeTabella . " SET NomeEsame='" . $esame->getNomeEsame() .  "', Descrizione='"
+                " WHERE (IDEsame='" . $esame->getIDEsameEsame() . "') FOR UPDATE" ;
+        $query = "UPDATE " . $this->_nomeTabella . " SET NomeEsame='" . $esame->getNomeEsameEsame() .  "', Descrizione='"
                 . $esame->getDescrizioneEsame() . "', Prezzo=" . $esame->getPrezzoEsame() . ", Durata='" . $esame->getDurataEsame() . "', "
-                . "MedicoEsame='" . $esame->getMedicoEsame() . "', NomeCategoria='" . $esame->getNomeCategoriaEsame() . "' "
-                . "WHERE (IDEsame='" . $esame->getIDEsame() . "')";
+                . "MedicoEsame='" . $esame->getMedicoEsameEsame() . "', NomeCategoria='" . $esame->getNomeCategoriaEsame() . "' "
+                . "WHERE (IDEsame='" . $esame->getIDEsameEsame() . "')";
         try {
             // inzia la transazione
             $this->_connessione->begin_transaction();

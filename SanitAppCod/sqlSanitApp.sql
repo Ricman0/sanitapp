@@ -42,7 +42,7 @@ ALTER TABLE appUser ADD FULLTEXT INDEX fullTextPassword(Password);
 INSERT INTO appUser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES 
 ('appi', 'Appig4', 'info@appignano.it', 'info@appignano.pec', FALSE, TRUE, 'ciidisjwhf', 'clinica'),
 ('bise', 'Bisenti5', 'info@bisenti.it',  'info@bisenti.pec', FALSE,TRUE, 'cjdjdhdhrf', 'clinica'),
-('claudim', 'Clau89', 'claudimarco@homail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
+('claudim', 'Clau89', 'claudimarco@hotmail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
 ('ricman', 'Riccardo89', 'onizuka-89@hotmail.it', NULL,FALSE,TRUE, 'cjdjdehahah', 'utente'),
 ('ricla', 'Ricla89', 'mantini.riccardo@gmail.com', NULL,FALSE,TRUE, 'cjdjdehahag', 'amministratore'),
 ('annadima', 'Anna49', 'annadima@alice.it',NULL,FALSE,TRUE, 'annasjdjdhdhrf', 'utente');
@@ -280,6 +280,8 @@ CREATE TABLE referto (
   Contenuto mediumblob  NOT NULL,
   MedicoReferto varchar(40) NOT NULL,
   DataReferto date NOT NULL,
+  CondivisoConMedico boolean DEFAULT FALSE,
+  CondivisoConUtente text DEFAULT NULL,
   PRIMARY KEY (IDReferto),
   FOREIGN KEY (IDPrenotazione) REFERENCES prenotazione (IDPrenotazione) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame) ON UPDATE CASCADE,

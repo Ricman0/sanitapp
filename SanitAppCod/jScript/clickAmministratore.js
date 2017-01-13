@@ -235,7 +235,7 @@ $(document).ready(function(){
         $( '#modificaUser' + tipoUser).append("<label for='password" + tipoUser + "' class='elementiForm'>PASSWORD: </label>");
         $( '#modificaUser' + tipoUser).append("<input type='password' name='password" + tipoUser + "' class='elementiForm'  id='password" + tipoUser + "' /><br>");
         $( '#modificaUser' + tipoUser).append("<input type='submit' value='Conferma Modifica  ' id='submitModifica" + tipoUser + "'>  ");
-        $("#modificaPasswordUser").remove();
+        $('#modificaPasswordUser').remove();
     });
     
     
@@ -284,17 +284,38 @@ $(document).ready(function(){
 
 function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
 {
-    
-    
     $.ajax({
         type: 'POST',
         url: controller + '/' + task ,
         data: datiPOST,
         success: function (datiRisposta)
         {
-            alert(datiRisposta);
-            $(ajaxdiv).html(datiRisposta);
-            $("#loadingModal").hide();
+            if(controller==='referto' && task === 'condividi' && datiPOST.condividiConMedico!==null)
+            {
+                console.log(datiRisposta);
+                alert(datiRisposta);
+                $('#messaggioDialogBox').empty();
+                if(datiRisposta === "OK")
+                {
+                    $('#messaggioDialogBox').text('Referto condiviso con il proprio medico curante');
+                }
+                else if(datiRisposta ==='NO')
+                {
+                    $('#messaggioDialogBox').text('Referto NON condiviso con il proprio medico curante');
+                }
+                else
+                {
+                    $('#messaggioDialogBox').text('Errore');
+                }
+                    
+                dialogBox();
+            }
+            else
+            {
+                alert(datiRisposta);
+                $(ajaxdiv).html(datiRisposta);
+                $("#loadingModa").hide();
+            }
         },
         error: function ()
         {

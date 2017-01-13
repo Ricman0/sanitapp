@@ -48,7 +48,7 @@ class CPrenotazione {
                         $eEsame = new EEsame($id);
                         $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
                         $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                        $nomeEsame = ucwords($eEsame->getNomeEsame());
+                        $nomeEsame = ucwords($eEsame->getNomeEsameEsame());
                         $durataEsame = $eEsame->getDurataEsame();
                         $nomeClinica = ucwords($eClinica->getNomeClinica());
                         $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id, $durataEsame);
@@ -115,11 +115,11 @@ class CPrenotazione {
                     $ePrenotazione = new EPrenotazione($idPrenotazione);
                     $idEsame = $ePrenotazione->getIdEsamePrenotazione();
                     $eEsame = new EEsame($idEsame);
-                    $nomeEsame = $eEsame->getNomeEsame();
-                    $medicoEsame = $eEsame->getMedicoEsame();
+                    $nomeEsame = $eEsame->getNomeEsameEsame();
+                    $medicoEsame = $eEsame->getMedicoEsameEsame();
                     try{
                         $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(), $ePrenotazione->getPartitaIVAPrenotazione(),$idEsame);
-                        $idReferto = $eReferto->getIDReferto(); 
+                        $idReferto = $eReferto->getIDRefertoReferto(); 
                     } 
                     catch (XRefertoException $e)
                     {
@@ -484,7 +484,7 @@ class CPrenotazione {
                     $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
                     $eClinica = new EClinica(NULL, $ePrenotazione->getPartitaIVAPrenotazione());
                     $datiPerEmail = Array('emailDestinatario' => $eUtente->getEmail(), 'nome' => $eUtente->getNomeUtente(),
-                        'cognome' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsame(),
+                        'cognome' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsameEsame(),
                         'nomeClinica' => $eClinica->getNomeClinica(), 'dataEOra' => $ePrenotazione->getDataEOra());
                     $mail = USingleton::getInstance('UMail');
                     $mail->inviaEmailPrenotazioneCancellata($datiPerEmail);
@@ -536,8 +536,8 @@ class CPrenotazione {
                             $ePrenotazione = new EPrenotazione($idPrenotazione);
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
                             $eEsame = new EEsame($idEsame);
-                            $nomeEsame = $eEsame->getNomeEsame();
-                            $medicoEsame = $eEsame->getMedicoEsame();
+                            $nomeEsame = $eEsame->getNomeEsameEsame();
+                            $medicoEsame = $eEsame->getMedicoEsameEsame();
                             $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
                             $eClinica = new EClinica(NULL, $partitaIVA);
                             if($ePrenotazione->getTipoPrenotazione()==='U')
@@ -553,7 +553,7 @@ class CPrenotazione {
                                 $cognome = $eMedico->getCognomeMedico();
                             }
                             $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
-                            $idReferto = $eReferto->getIDReferto();
+                            $idReferto = $eReferto->getIDRefertoReferto();
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome);
                         }
                         break;
@@ -573,15 +573,15 @@ class CPrenotazione {
                             $ePrenotazione = new EPrenotazione($idPrenotazione); // potrebbe lanciare PrenotazioneException('Prenotazione non trovata');
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
                             $eEsame = new EEsame($idEsame); // potrebbe lanciare EsameException('Esame non esistente')
-                            $nomeEsame = $eEsame->getNomeEsame();
-                            $medicoEsame = $eEsame->getMedicoEsame();
+                            $nomeEsame = $eEsame->getNomeEsameEsame();
+                            $medicoEsame = $eEsame->getMedicoEsameEsame();
                             $partitaIVA = $ePrenotazione->getPartitaIVAPrenotazione();
                             $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare ClinicaException('Clinica inesistente')                      
                             $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione()); // potrebbe lanciare UtenteException('Utente non esistente')
                             $nome = $eUtente->getNomeUtente();
                             $cognome = $eUtente->getCognomeUtente();    
                             $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
-                            $idReferto = $eReferto->getIDReferto();
+                            $idReferto = $eReferto->getIDRefertoReferto();
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL) ;
                         }
                         break;
@@ -615,10 +615,10 @@ class CPrenotazione {
                             $cognomeUtente = $eUtente->getCognomeUtente();
                             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
                             $eEsame = new EEsame($idEsame);
-                            $nomeEsame = $eEsame->getNomeEsame();
-                            $medicoEsame = $eEsame->getMedicoEsame();
+                            $nomeEsame = $eEsame->getNomeEsameEsame();
+                            $medicoEsame = $eEsame->getMedicoEsameEsame();
                             $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(), $ePrenotazione->getPartitaIVAPrenotazione(),$idEsame);
-                            $idReferto = $eReferto->getIDReferto();
+                            $idReferto = $eReferto->getIDRefertoReferto();
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
                         }
                         break;                        
@@ -769,7 +769,7 @@ class CPrenotazione {
             $eEsame = new EEsame($idEsame);
             $partitaIVAClinica = $ePrenotazione->getPartitaIVAPrenotazione();
             $eClinica = new EClinica(NULL, $partitaIVAClinica);
-            $nomeEsame = $eEsame->getNomeEsame();
+            $nomeEsame = $eEsame->getNomeEsameEsame();
             $durataEsame = $eEsame->getDurataEsame();
             $nomeClinica = $eClinica->getNomeClinica();
             $codiceFiscale = $ePrenotazione->getUtenteEffettuaEsamePrenotazione();
@@ -842,7 +842,7 @@ class CPrenotazione {
                 switch ($key) {
                     case 'IDEsame':
                         $eEsame = new EEsame($value);
-                        $infoPrenotazione['nomeEsame'] = $eEsame->getNomeEsame();
+                        $infoPrenotazione['nomeEsame'] = $eEsame->getNomeEsameEsame();
                         break;
                     
                     case 'PartitaIVAClinica':

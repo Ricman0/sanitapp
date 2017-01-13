@@ -1,14 +1,8 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of EReferto
  * 
+ * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class EReferto {
@@ -60,6 +54,16 @@ class EReferto {
      * @var string $_partitaIVAClinica partita iva della clinica che emette il referto
      */
     private $_partitaIVAClinica;
+    
+    /**
+     * @var string $_condivisoConUtente Gli user con i quali il referto è stato condiviso 
+     */
+    private $_condivisoConUtente;
+    
+    /**
+     * @var boolean $_condivisoConMedico Indica se il referto è stato condiviso con il medico
+     */
+    private $_condivisoConMedico;
 
 
     /**
@@ -79,6 +83,8 @@ class EReferto {
             $this->_contenuto = $contenuto;
             $this->_fileName = $fileName;
             $this->_dataReferto = date('Y-m-d', time());
+            $this->_condivisoConMedico= 'FALSE';
+            $this->_condivisoConUtente = NULL;
         } else { //caso referto recuperato dal db
             $fReferto = USingleton::getInstance('FReferto');
             $risultato = $fReferto->cercaReferto($idPrenotazione);
@@ -91,6 +97,8 @@ class EReferto {
                 $this->_contenuto = $risultato[0]['Contenuto'];
                 $this->_fileName = $risultato[0]['FileName'];
                 $this->_dataReferto = $risultato[0]['DataReferto'];
+                $this->_condivisoConMedico = $risultato[0]['CondivisoConMedico'];
+                $this->_condivisoConUtente = $risultato[0]['CondivisoConUtente'];
             } else { //nessun risultato relativo a quella prenotazione
                 throw new XRefertoException('Referto inesistente');
             }
@@ -103,16 +111,35 @@ class EReferto {
      * 
      * @return string L'id del referto
      */
-    public function getIDReferto() {
+    public function getIDRefertoReferto() {
         return $this->_IDReferto;
     }
 
+    /**
+     * Metodo per conoscere gli user con i quali il referto è stato condiviso  in formato JSON
+     * 
+     * @return string Gli user con i quali il referto è stato condiviso 
+     */
+    public function getCondivisoConUtenteReferto() {
+        return $this->_condivisoConUtente;
+    }
+    
+    /**
+     * Metodo per conoscere se il referto è stato condiviso con il medico curante
+     * 
+     * @return boolean TRUE il referto è stato condiviso con il medico curante, FALSE altrimenti.
+     */
+    public function getCondivisoConMedicoReferto() {
+        return $this->_condivisoConMedico;
+    }
+    
+    
     /**
      * Metodo che restituisce l'identificativo della prenotazione
      * 
      * @return string L'id della prenotazione
      */
-    public function getIDPrenotazione() {
+    public function getIDPrenotazioneReferto() {
         return $this->_idPrenotazione;
     }
 
@@ -121,7 +148,7 @@ class EReferto {
      * 
      * @return string L'id dell'esame
      */
-    public function getIDEsame() {
+    public function getIDEsameReferto() {
         return $this->_idEsame;
     }
 
@@ -130,7 +157,7 @@ class EReferto {
      * 
      * @return string la partita iva della clinica
      */
-    public function getPartitaIvaClinica() {
+    public function getPartitaIVAClinicaReferto() {
         return $this->_partitaIVAClinica;
     }
 
@@ -139,7 +166,7 @@ class EReferto {
      * 
      * @return string Il medico che ha scritto il referto
      */
-    public function getMedicoReferto() {
+    public function getMedicoRefertoReferto() {
         return $this->_medicoReferto;
     }
     
@@ -166,10 +193,28 @@ class EReferto {
      * 
      * @return date la data del referto
      */
-    public function getDataReferto() {
+    public function getDataRefertoReferto() {
         return $this->_dataReferto;
     }
 
+    /**
+     * Metodo che imposta gli user con i quali il referto è stato condiviso 
+     * 
+     * @param string Gli user con i quali il referto è stato condiviso 
+     */
+    public function setCondivisoConUtenteReferto($condivisoConUtente) {
+        $this->_condivisoCon = $condivisoConUtente;
+    }
+    
+    /**
+     * Metodo che imposta se il referto è condiviso con il medico o meno.
+     * 
+     * @param boolean TRUE il referto è condiviso con il medico, FALSE altrimenti.
+     */
+    public function setCondivisoConMedicoReferto($condivisoConMedico) {
+        $this->_condivisoConMedico = $condivisoConMedico;
+    }
+    
     /**
      * NON IN USO Controlla se il referto esiste 
      * @throws XFileException Lancia l'eccezione se il file non esiste
@@ -193,7 +238,8 @@ class EReferto {
     public function inserisciReferto() {
 
         $fReferto = USingleton::getInstance('FReferto');
-        return $fReferto->inserisciReferto($this);
+//        return $fReferto->inserisciReferto($this);
+        return $fReferto->inserisci($this);
     }
 
     /**
@@ -204,5 +250,48 @@ class EReferto {
 
         return move_uploaded_file($tmpName, self::cartellaReferti . $this->_contenuto);
     }
-
+    
+    
+    /**
+     * Metodo che consente di condividere un referto passato come parametro con il proprio medico curante 
+     * se $medico è impostato oppure di condivedere con un altro utente se $utente è impostato
+     * 
+     * @access public
+     * @param type $utente
+     * @param type $medico
+     * @param boolean $valoreCondividi TRUE se vuole essere condiviso con il medico, FALSE altrimenti (MANCA LA PARTE PER L'UtENTE)
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     */
+    
+    public function condividi($utente = NULL, $medico=NULL, $valoreCondividi) {
+        if(isset($medico))
+        {
+            $this->setCondivisoConMedicoReferto($valoreCondividi);
+            $fReferto = USingleton::getInstance('FReferto');
+            return $fReferto->condividiConMedico($this->getIDRefertoReferto(), $this->getCondivisoConMedicoReferto() );
+        }
+        
+//        $condivisoConMedico = $this->getCondivisoConMedicoReferto();
+//        if(isset($condivisoCon))// se in precedenza è stato impostato user con cui condividere il referto
+//        {
+//            $condivisoCon = json_decode($condivisoCon);
+////            print_r($condivisoCon);
+//        }
+//        if(isset($medico))
+//        {
+//            // se già l'ha condiviso con il medico??????
+//            $condivisoCon['Medico'] = $medico;                        
+//        }
+//        else
+//        {
+//            
+//        }
+//        $condivisoCon = json_encode($condivisoCon);
+////        print_r($condivisoCon);
+//        $this->setCondivisoConReferto($condivisoCon);
+//        $fReferto = USingleton::getInstance('FReferto');
+//        return $fReferto->condividiCon($this->getIDRefertoReferto(), $condivisoCon );
+    }
+    
 }

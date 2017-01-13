@@ -6,7 +6,7 @@
             <br>
             
         {/if}
-        <span class="grassetto">NOME ESAME:</span><span>  {$esame->getNomeEsame()}</span>
+        <span class="grassetto">NOME ESAME:</span><span>  {$esame->getNomeEsameEsame()}</span>
             <br>
             <span class="grassetto">DATA:  </span><span id="dataPrenotazione"> {$data}</span>
             <br>
@@ -34,7 +34,7 @@
         <br>
     </div>
         {if ($modifica)===FALSE }
-            <input type="button" id="confermaPrenotazione" value="Conferma" data-codice="{$codice}" data-idClinica="{$clinica->getPartitaIVAClinica()}" data-idEsame="{$esame->getIDEsame()}"/>
+            <input type="button" id="confermaPrenotazione" value="Conferma" data-codice="{$codice}" data-idClinica="{$clinica->getPartitaIVAClinica()}" data-idEsame="{$esame->getIDEsameEsame()}"/>
         {else}
             <input type="button" id="confermaModificaPrenotazione" value="Conferma Modifica" />
         {/if}

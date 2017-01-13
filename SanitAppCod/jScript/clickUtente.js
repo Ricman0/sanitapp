@@ -39,6 +39,26 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#modificaPassword", function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
     });
+    
+    $('#headerMain').on("click", "#condividiRefertoButton", function () {
+        var idPrenotazione = $('#condividiRefertoButton').attr('data-idPrenotazione');
+        
+        $('#infoReferto').append(" <input type='button' id='condividiRefertoUtenteButton'  value='Condividi con Utente' data-idPrenotazione='" + idPrenotazione + "' />");
+        $('#condividiRefertoButton').remove();
+    });
+    
+    $('#headerMain').on("change", "#refertoCondivisoConMedico", function () {
+        var idPrenotazione = $('#scaricaRefertoButton2').attr('data-idPrenotazione');
+        var condividiConMedico = false;
+        if($(this).is(':checked'))
+        {
+            condividiConMedico = true;
+        }
+        var datiPOST = {id: idPrenotazione, condividiConMedico: condividiConMedico};
+        inviaControllerTaskPOST('referto', 'condividi', datiPOST, '#contenutoAreaPersonale');
+        
+    });
+    
 
 //    $('#headerMain').on("click", "#modificaIndirizzoUtenteFatto", function(){
 //        
@@ -79,33 +99,34 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
         data: dati,
         success: function (datiRisposta)
         {
+           
             $(ajaxdiv).html(datiRisposta);
             $('#messaggioDialogBox').empty();
-            if (task2 === 'credenziali')
+            switch (task2)
             {
-
-                $('#messaggioDialogBox').text('Credenziali modificate con successo!');
-
-            }
-            if (task2 === 'medico')
-            {
-                $('#messaggioDialogBox').text('Medico cambiato con successo!');
-
-
-            }
-            if (task2 === 'alboNum')
-            {
-                $('#messaggioDialogBox').text('Provincia Albo e Numero Iscrizione Albo modificati con successo!');
-
-
-            }
-            
-            if (task2 === 'informazioni')
-            {
-                $('#messaggioDialogBox').text('Informazioni personali modificate con successo!');
+                case 'credenziali':
+                    $('#messaggioDialogBox').text('Credenziali modificate con successo!');
+                    break;
+                    
+                case 'medico':
+                    $('#messaggioDialogBox').text('Medico cambiato con successo!');
+                    break;
+                
+                case 'alboNum':
+                    $('#messaggioDialogBox').text('Provincia Albo e Numero Iscrizione Albo modificati con successo!');
+                    break;
+                
+                case 'informazioni':
+                    $('#messaggioDialogBox').text('Informazioni personali modificate con successo!');
 //                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
 //                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
+                    break;
+                    
+                default:
+                    break;
+                
             }
+            
             dialogBox(); //in eventi_click.js
         }
     });
