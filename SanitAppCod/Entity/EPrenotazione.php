@@ -144,7 +144,7 @@ class EPrenotazione {
      * @access public
      * @return string L'id della prenotazione
      */
-    public function getIdPrenotazione() 
+    public function getIDPrenotazionePrenotazione() 
     {
         return $this->_idPrenotazione;
     }
@@ -155,7 +155,7 @@ class EPrenotazione {
      * @access public
      * @return string L'id dell'esame della prenotazione
      */
-    public function getIdEsamePrenotazione() 
+    public function getIDEsamePrenotazione() 
     {
         return $this->_idEsame;
     }
@@ -166,7 +166,7 @@ class EPrenotazione {
      * @access public
      * @return string La partita IVA della clinica in cui si effettua la prenotazione
      */
-    public function getPartitaIVAPrenotazione() 
+    public function getPartitaIVAClinicaPrenotazione()  
     {
         return $this->_partitaIVA;
     }
@@ -210,7 +210,7 @@ class EPrenotazione {
      * @access public
      * @return string $_codFisUtenteEffettuaEsame Il codice fiscale dell'utente che effettua l'esame
      */
-    public function getUtenteEffettuaEsamePrenotazione() 
+    public function getCodFiscaleUtenteEffettuaEsamePrenotazione()  
     {
         return $this->_codFisUtenteEffettuaEsame;
     }
@@ -221,7 +221,7 @@ class EPrenotazione {
      * @access public
      * @return string $_codFisUtentePrenotaEsame Il codice fiscale dell'utente che prenota l'esame
      */
-    public function getUtentePrenotaEsamePrenotazione() 
+    public function getCodFiscaleUtentePrenotaEsamePrenotazione() 
     {
         return $this->_codFisUtentePrenotaEsame;
     }
@@ -232,7 +232,7 @@ class EPrenotazione {
      * @access public
      * @return string $_codFisMedicoPrenotaEsame Il codice fiscale del medico che prenota l'esame
      */
-    public function getMedicoPrenotaEsamePrenotazione() 
+    public function getCodFiscaleMedicoPrenotaEsamePrenotazione() 
     {
         return $this->_codFisMedicoPrenotaEsame;
     }
@@ -244,7 +244,7 @@ class EPrenotazione {
      * @access public
      * @return string La data e l'orario della prenotazione 
      */
-    public function getDataEOra() 
+    public function getDataEOraPrenotazione() 
     {
         
         return $this->_dataEOra;
@@ -272,21 +272,21 @@ class EPrenotazione {
      */
     public function getValoriAttributi()
     {
-        $c = $this->getMedicoPrenotaEsamePrenotazione();
+        $c = $this->getCodFiscaleMedicoPrenotaEsamePrenotazione();
         echo "il codice medico $c";
-        $valoriAttributi = "'" . $this->getIdPrenotazione() . "', '" .  $this->getIdEsamePrenotazione() . "', '"
-                . $this->getPartitaIVAPrenotazione() . "', '" . $this->getTipoPrenotazione() . "', '"
+        $valoriAttributi = "'" . $this->getIDPrenotazionePrenotazione() . "', '" .  $this->getIDEsamePrenotazione() . "', '"
+                . $this->getPartitaIVAClinicaPrenotazione() . "', '" . $this->getTipoPrenotazione() . "', '"
                 . $this->getConfermataPrenotazione() . "', '" . $this->getEseguitaPrenotazione() . "', '"
-                . $this->getUtenteEffettuaEsamePrenotazione()  . "', ";
-        if ($this->getUtentePrenotaEsamePrenotazione()=== NULL)
+                . $this->getCodFiscaleUtenteEffettuaEsamePrenotazione()  . "', ";
+        if ($this->getCodFiscaleUtentePrenotaEsamePrenotazione()=== NULL)
         {
-            $valoriAttributi =$valoriAttributi .  "'" . $this->getMedicoPrenotaEsamePrenotazione() . "', NULL ,  '";
+            $valoriAttributi =$valoriAttributi .  "'" . $this->getCodFiscaleMedicoPrenotaEsamePrenotazione() . "', NULL ,  '";
         }
         else 
         {
-            $valoriAttributi = $valoriAttributi . "NULL , '". $this->getUtentePrenotaEsamePrenotazione() . "', '";
+            $valoriAttributi = $valoriAttributi . "NULL , '". $this->getCodFiscaleUtentePrenotaEsamePrenotazione() . "', '";
         }
-        $valoriAttributi =$valoriAttributi . $this->getDataEOra() . "'";
+        $valoriAttributi =$valoriAttributi . $this->getDataEOraPrenotazione() . "'";
         return $valoriAttributi;
     }
     /*
@@ -416,7 +416,8 @@ class EPrenotazione {
     public function aggiungiPrenotazioneDB() 
     {
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-        return $fPrenotazione->aggiungiPrenotazione($this);
+//        return $fPrenotazione->aggiungiPrenotazione($this);
+        return $fPrenotazione->inserisci($this);
     }
     
     /**
@@ -469,7 +470,7 @@ class EPrenotazione {
         if($this->_eseguita==FALSE) // se la prenotazione non è stata eseguita allora si può cancellare, altrimenti no.  
         {
             $fPrenotazione = USingleton::getInstance('FPrenotazione');
-            return $fPrenotazione->eliminaPrenotazione($this->getIdPrenotazione());
+            return $fPrenotazione->eliminaPrenotazione($this->getIDPrenotazionePrenotazione());
         }
         else
         {
@@ -490,7 +491,7 @@ class EPrenotazione {
         $dataEOra= $data . " " . $ora;
         $this->setDataEOra($dataEOra);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-        return $fPrenotazione->modificaPrenotazione($this->getIdPrenotazione(), $this->getDataEOra());
+        return $fPrenotazione->modificaPrenotazione($this->getIDPrenotazionePrenotazione(), $this->getDataEOraPrenotazione());
     }
     
     /**
@@ -557,6 +558,6 @@ class EPrenotazione {
         }
         $this->setEseguitaPrenotazione($eseguita);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-        return $fPrenotazione->modificaPrenotazioneEseguita($this->getIdPrenotazione(), $eseguita);
+        return $fPrenotazione->modificaPrenotazioneEseguita($this->getIDPrenotazionePrenotazione(), $eseguita);
     }
 }

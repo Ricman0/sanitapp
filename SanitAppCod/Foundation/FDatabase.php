@@ -342,7 +342,7 @@ class FDatabase {
             $funzione = 'get'.$valore.$nomeClasse ;
             print_r($funzione );
             $valoreAttributo = $oggetto->$funzione();
-            
+            print_r(gettype($valoreAttributo));
             switch (gettype($valoreAttributo)) {
                 case 'string':
                 case 'text':
@@ -370,7 +370,8 @@ class FDatabase {
                 case 'mediumblob':
                 case 'time':
                 case 'date':
-                case 'float':
+                case 'DateTime':
+                case 'double':
                     if (isset($valoriAttributi))
                     {
                         $valoriAttributi .= ", '" . $valoreAttributo . "'";

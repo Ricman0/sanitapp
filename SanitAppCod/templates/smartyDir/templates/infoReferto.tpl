@@ -31,7 +31,7 @@
             <br>
         {/if}
         
-        <span class="grassetto">DATA E ORA PRENOTAZIONE:</span><span>  {$prenotazione->getDataEOra()}</span>
+        <span class="grassetto">DATA E ORA PRENOTAZIONE:</span><span>  {$prenotazione->getDataEOraPrenotazione()}</span>
         <br>
         <span class="grassetto">DATA REFERTO:</span><span>  {$referto->getDataRefertoReferto()}</span>
         <br>
@@ -40,7 +40,7 @@
         <span class="grassetto">CONDIVISO CON MEDICO CURANTE:</span><input type="checkbox" id="refertoCondivisoConMedico" name="refertoCondivisoConMedico" {if $referto->getCondivisoConMedicoReferto()== TRUE} checked{/if} />
         <br>
          
-        <input type="button" id="scaricaRefertoButton2" class="scaricaReferto" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIdPrenotazione()}" />
+        <input type="button" id="scaricaRefertoButton2" class="scaricaReferto" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
         <!-- <input type="button" id="condividiRefertoButton"  value="Condividi Referto" data-idPrenotazione="{$referto->getIDPrenotazioneReferto()}" /> -->
     </div>
 </div>

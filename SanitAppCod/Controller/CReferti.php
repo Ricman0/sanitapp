@@ -193,9 +193,9 @@ class CReferti {
 //            try {
 //                $eReferto = new EReferto($idPrenotazioneReferto);
 //                $ePrenotazione = new EPrenotazione($idPrenotazioneReferto);
-//                $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
+//                $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
 //                $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
-//                $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
+//                $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione());
 //                $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, $tipoUser);
 //            } catch (XRefertoException $ex) {
 //                $vReferti->visualizzaFeedback("Referto inesistente. Non è stato possibile recuperare il referto");
@@ -221,8 +221,8 @@ class CReferti {
         $vReferti = USingleton::getInstance('VReferti');
         $ePrenotazione = new EPrenotazione($idPrenotazione);
         if ($ePrenotazione->getEseguitaPrenotazione()) {
-            $idEsame = $ePrenotazione->getIdEsamePrenotazione();
-            $partitaIva = $ePrenotazione->getPartitaIVAPrenotazione();
+            $idEsame = $ePrenotazione->getIDEsamePrenotazione();
+            $partitaIva = $ePrenotazione->getPartitaIVAClinicaPrenotazione();
             $eEsame = new EEsame($idEsame);
             $medicoEsame = $eEsame->getMedicoEsameEsame();
             $vReferti->restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame);
@@ -247,11 +247,11 @@ class CReferti {
             if ($eReferto->inserisciReferto()) {
                 $ePrenotazione = new EPrenotazione($datiReferto['idPrenotazione']);
                 $eEsame = new EEsame($datiReferto['idEsame']);
-                $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
+                $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione());
                 $datiNotifica['nomeUtente'] = $eUtente->getNomeUtente();
                 $datiNotifica['cognomeUtente'] = $eUtente->getCognomeUtente();
                 $datiNotifica['email'] = $eUtente->getEmail();
-                $dataEOra = $ePrenotazione->getDataEOra();
+                $dataEOra = $ePrenotazione->getDataEOraPrenotazione();
                 $data = strtotime(substr($dataEOra, 0, 10));
                 $datiNotifica['data'] = date('d-m-Y', $data);
                 $datiNotifica['ora'] = substr($dataEOra, 11,5);
@@ -306,9 +306,9 @@ class CReferti {
             try {
                 $eReferto = new EReferto($idPrenotazioneReferto);
                 $ePrenotazione = new EPrenotazione($idPrenotazioneReferto);
-                $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
+                $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
                 $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
-                $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
+                $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione());
                 $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, 'clinica');
             } 
             catch (XRefertoException $ex) {
@@ -366,9 +366,9 @@ class CReferti {
             try {
                 $eReferto = new EReferto($idPrenotazioneReferto);
                 $ePrenotazione = new EPrenotazione($idPrenotazioneReferto);
-                $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
+                $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
                 $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
-                $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
+                $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione());
                 $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, 'clinica');
             } 
             catch (XRefertoException $ex) {
@@ -427,9 +427,9 @@ class CReferti {
             try {
                 $eReferto = new EReferto($idPrenotazioneReferto);
                 $ePrenotazione = new EPrenotazione($idPrenotazioneReferto);
-                $eEsame = new EEsame($ePrenotazione->getIdEsamePrenotazione());
+                $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
                 $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
-                $eUtente = new EUtente($ePrenotazione->getUtenteEffettuaEsamePrenotazione());
+                $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione());
                 $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, 'clinica');
             } 
             catch (XRefertoException $ex) {
