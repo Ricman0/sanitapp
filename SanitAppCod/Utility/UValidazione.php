@@ -278,7 +278,7 @@ class UValidazione {
                     break;
                 
                 case 'prezzo':
-                    $pattern = '/^[0-9]+$/' ;
+                    $pattern = '/^[0-9\.\,]+$/' ;
                     $stringaErrore = "Il " . $chiave . " deve essere un numero";
                     break;
                 

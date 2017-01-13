@@ -6,11 +6,11 @@
             <input type="hidden" name="task" value="modifica" />
 
             <label for="nomeEsame" class="elementiForm">Nome</label>
-            <input type="text" name="nomeEsame" id="nomeEsame" class="elementiForm" value="{$esame->getNomeEsame()}" required disabled />
+            <input type="text" name="nomeEsame" id="nomeEsame" class="elementiForm" value="{$esame->getNomeEsameEsame()}" required disabled />
             <br>
 
             <label for="medicoEsame" class="elementiForm">Medico</label>
-            <input type="text" name="medicoEsame" id="medicoEsame" class="elementiForm" value="{$esame->getMedicoEsame()}" required disabled />
+            <input type="text" name="medicoEsame" id="medicoEsame" class="elementiForm" value="{$esame->getMedicoEsameEsame()}" required disabled />
             <br>
 
             <label for="categoriaEsame" class="elementiForm">Categoria</label>
@@ -35,7 +35,7 @@
             </div>
 
             <label for="numPrestazioniSimultanee" class="elementiForm">Numero Prestazioni Simultanee</label>
-            <input type="number" name="numPrestazioniSimultanee" id="numPrestazioniSimultanee" class="elementiForm" value="{$esame->getNumeroPrestazioniSimultaneeEsame()}" min="1" max="1000" disabled required>
+            <input type="number" name="numPrestazioniSimultanee" id="numPrestazioniSimultanee" class="elementiForm" value="{$esame->getNumPrestazioniSimultaneeEsame()}" min="1" max="1000" disabled required>
             <br>
 
             <label for="descrizioneEsame" class="elementiForm">Descrizione Esame</label>    
@@ -59,7 +59,7 @@
                 {$informazioniClinica}
             {/if}
             <h3>INFORMAZIONI ESAME</h3>
-            <span class="grassetto">NOME:</span><span>  {$esame->getNomeEsame()}</span>
+            <span class="grassetto">NOME:</span><span>  {$esame->getNomeEsameEsame()}</span>
             <br>
             <span class="grassetto">CATEGORIA:</span><span>  {$esame->getNomeCategoriaEsame()}</span>
             <br>
@@ -67,18 +67,18 @@
             <br>
             <span class="grassetto">DURATA:</span><span>  {$esame->getDurataEsame()}</span>
             <br>
-            <span class="grassetto">MEDICO RESPONSABILE:</span><span>  {$esame->getMedicoEsame()}</span>
+            <span class="grassetto">MEDICO RESPONSABILE:</span><span>  {$esame->getMedicoEsameEsame()}</span>
             <br>
             <!--
-            <span class="grassetto">NUMERO PRESTAZIONI SIMULTANEE:</span><span>  {$esame->getNumeroPrestazioniSimultaneeEsame()}</span>
+            <span class="grassetto">NUMERO PRESTAZIONI SIMULTANEE:</span><span>  {$esame->getNumPrestazioniSimultaneeEsame()}</span>
             <br>
             -->
             <span class="grassetto">DESCRIZIONE:</span><span>  {$esame->getDescrizioneEsame()}</span>
             <br>
             
-            <input type="button" id="modificaEsameButton" value="Modifica Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />
-         <!--   <input type="button" id="disattivaEsame" value="Disattiva Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />  -->
-            <input type="button" id="eliminaEsameButton" value="Elimina Esame  " data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />          
-            <input type="button" id="aggiungiPrenotazioneButton" value="Prenota"  data-idEsame="{$esame->getIDEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" {if isset($codiceFiscale)} data-codiceFiscale="{$codiceFiscale}"{/if} />
+            <input type="button" id="modificaEsameButton" value="Modifica Esame  " data-idEsame="{$esame->getIDEsameEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />
+         <!--   <input type="button" id="disattivaEsame" value="Disattiva Esame  " data-idEsame="{$esame->getIDEsameEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />  -->
+            <input type="button" id="eliminaEsameButton" value="Elimina Esame  " data-idEsame="{$esame->getIDEsameEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" />          
+            <input type="button" id="aggiungiPrenotazioneButton" value="Prenota"  data-idEsame="{$esame->getIDEsameEsame()}" data-idClinica="{$esame->getPartitaIVAClinicaEsame()}" {if isset($codiceFiscale)} data-codiceFiscale="{$codiceFiscale}"{/if} />
         </div>
 {/if}

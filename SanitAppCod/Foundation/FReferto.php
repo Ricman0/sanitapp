@@ -76,12 +76,12 @@ class FReferto extends FDatabase{
     public function cercaRefertiPazientiMedico($cfMedico) 
     {
         
-        $query =   "SELECT IDReferto, esame.IDEsame, prenotazione.IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, "
-                . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto, prenotazione.CodFiscaleUtenteEffettuaEsame "
-                . "FROM referto, prenotazione, esame, utente "
+        $query =   "SELECT IDReferto, esame.NomeEsame, clinica.NomeClinica, utente.Nome, utente.Cognome, prenotazione.CodFiscaleUtenteEffettuaEsame, "
+                . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto  "
+                . "FROM referto, prenotazione, esame, utente, clinica "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
-                . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
-                . "(utente.CodFiscaleMedico='" . $cfMedico . "')) LOCK IN SHARE MODE";
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND (prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
+                . "(utente.CodFiscaleMedico='" . $cfMedico . "') AND referto.CondivisoConMedico=TRUE) LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         return $risultato;
         

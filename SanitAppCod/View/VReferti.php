@@ -25,7 +25,6 @@ class VReferti extends View{
     {
         if(is_array($referti) && count($referti)>0)
         {
-            $this->assegnaVariabiliTemplate('referti', $referti);
             if($tipoUser==='clinica')
             {
                 $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);

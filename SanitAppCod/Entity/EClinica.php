@@ -825,7 +825,7 @@ class EClinica extends EUser {
         // ora che ho tutti gli orari della giornata, cerco gli orari delle prenotazione già effettuate
         $data = $vPrenotazione->recuperaValore('data');
         $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-        $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinicaData($eEsame->getIDEsame(), $this->_partitaIVA, $data);
+        $prenotazioni = $fPrenotazioni->cercaPrenotazioniEsameClinicaData($eEsame->getIDEsameEsame(), $this->_partitaIVA, $data);
         $orariPrenotati = Array();
         if (is_array($prenotazioni) || !is_bool($prenotazioni)) {
             foreach ($prenotazioni as $prenotazione) {

@@ -27,6 +27,7 @@ class FUser extends FDatabase {
     }
     
     
+    
     /** 
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
      * per l'inserimento di un user nel database

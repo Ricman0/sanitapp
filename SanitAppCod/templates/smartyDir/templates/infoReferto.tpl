@@ -21,7 +21,7 @@
         <br>
         <span class="grassetto">CODICE FISCALE:</span><span>  {$utente->getCodiceFiscaleUtente()}</span>
         <br>
-        <span class="grassetto">ESAME:</span><span>  {$esame->getNomeEsame()}</span>
+        <span class="grassetto">ESAME:</span><span>  {$esame->getNomeEsameEsame()}</span>
         <br>
         
         {if ($tipoUser!=='clinica')}

@@ -224,7 +224,7 @@ class CReferti {
             $idEsame = $ePrenotazione->getIdEsamePrenotazione();
             $partitaIva = $ePrenotazione->getPartitaIVAPrenotazione();
             $eEsame = new EEsame($idEsame);
-            $medicoEsame = $eEsame->getMedicoEsame();
+            $medicoEsame = $eEsame->getMedicoEsameEsame();
             $vReferti->restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame);
         } else {
             $vReferti->visualizzaFeedback('Impossibile aggiungere il referto, esame non eseguito');
@@ -255,7 +255,7 @@ class CReferti {
                 $data = strtotime(substr($dataEOra, 0, 10));
                 $datiNotifica['data'] = date('d-m-Y', $data);
                 $datiNotifica['ora'] = substr($dataEOra, 11,5);
-                $datiNotifica['nomeEsame'] = $eEsame->getNomeEsame();
+                $datiNotifica['nomeEsame'] = $eEsame->getNomeEsameEsame();
                 $mail = USingleton::getInstance('UMail');
                 $messaggio = 'Il referto è stato aggiunto correttamente. ';
                 if($mail->inviaNotificaReferto($datiNotifica)===TRUE)
