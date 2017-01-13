@@ -111,7 +111,7 @@ class EReferto {
      * 
      * @return string L'id del referto
      */
-    public function getIDReferto() {
+    public function getIDRefertoReferto() {
         return $this->_IDReferto;
     }
 
@@ -139,7 +139,7 @@ class EReferto {
      * 
      * @return string L'id della prenotazione
      */
-    public function getIDPrenotazione() {
+    public function getIDPrenotazioneReferto() {
         return $this->_idPrenotazione;
     }
 
@@ -148,7 +148,7 @@ class EReferto {
      * 
      * @return string L'id dell'esame
      */
-    public function getIDEsame() {
+    public function getIDEsameReferto() {
         return $this->_idEsame;
     }
 
@@ -157,7 +157,7 @@ class EReferto {
      * 
      * @return string la partita iva della clinica
      */
-    public function getPartitaIvaClinica() {
+    public function getPartitaIVAClinicaReferto() {
         return $this->_partitaIVAClinica;
     }
 
@@ -166,7 +166,7 @@ class EReferto {
      * 
      * @return string Il medico che ha scritto il referto
      */
-    public function getMedicoReferto() {
+    public function getMedicoRefertoReferto() {
         return $this->_medicoReferto;
     }
     
@@ -193,7 +193,7 @@ class EReferto {
      * 
      * @return date la data del referto
      */
-    public function getDataReferto() {
+    public function getDataRefertoReferto() {
         return $this->_dataReferto;
     }
 
@@ -238,7 +238,8 @@ class EReferto {
     public function inserisciReferto() {
 
         $fReferto = USingleton::getInstance('FReferto');
-        return $fReferto->inserisciReferto($this);
+//        return $fReferto->inserisciReferto($this);
+        return $fReferto->inserisci($this);
     }
 
     /**
@@ -268,7 +269,7 @@ class EReferto {
         {
             $this->setCondivisoConMedicoReferto($valoreCondividi);
             $fReferto = USingleton::getInstance('FReferto');
-            return $fReferto->condividiConMedico($this->getIDReferto(), $this->getCondivisoConMedicoReferto() );
+            return $fReferto->condividiConMedico($this->getIDRefertoReferto(), $this->getCondivisoConMedicoReferto() );
         }
         
 //        $condivisoConMedico = $this->getCondivisoConMedicoReferto();
@@ -290,7 +291,7 @@ class EReferto {
 ////        print_r($condivisoCon);
 //        $this->setCondivisoConReferto($condivisoCon);
 //        $fReferto = USingleton::getInstance('FReferto');
-//        return $fReferto->condividiCon($this->getIDReferto(), $condivisoCon );
+//        return $fReferto->condividiCon($this->getIDRefertoReferto(), $condivisoCon );
     }
     
 }

@@ -119,7 +119,7 @@ class CPrenotazione {
                     $medicoEsame = $eEsame->getMedicoEsameEsame();
                     try{
                         $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(), $ePrenotazione->getPartitaIVAPrenotazione(),$idEsame);
-                        $idReferto = $eReferto->getIDReferto(); 
+                        $idReferto = $eReferto->getIDRefertoReferto(); 
                     } 
                     catch (XRefertoException $e)
                     {
@@ -553,7 +553,7 @@ class CPrenotazione {
                                 $cognome = $eMedico->getCognomeMedico();
                             }
                             $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
-                            $idReferto = $eReferto->getIDReferto();
+                            $idReferto = $eReferto->getIDRefertoReferto();
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome);
                         }
                         break;
@@ -581,7 +581,7 @@ class CPrenotazione {
                             $nome = $eUtente->getNomeUtente();
                             $cognome = $eUtente->getCognomeUtente();    
                             $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(),$ePrenotazione->getPartitaIVAPrenotazione(), $ePrenotazione->getIdEsamePrenotazione());
-                            $idReferto = $eReferto->getIDReferto();
+                            $idReferto = $eReferto->getIDRefertoReferto();
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL) ;
                         }
                         break;
@@ -618,7 +618,7 @@ class CPrenotazione {
                             $nomeEsame = $eEsame->getNomeEsameEsame();
                             $medicoEsame = $eEsame->getMedicoEsameEsame();
                             $eReferto = new EReferto($ePrenotazione->getIdPrenotazione(), $ePrenotazione->getPartitaIVAPrenotazione(),$idEsame);
-                            $idReferto = $eReferto->getIDReferto();
+                            $idReferto = $eReferto->getIDRefertoReferto();
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
                         }
                         break;                        

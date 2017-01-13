@@ -345,6 +345,7 @@ class FDatabase {
             
             switch (gettype($valoreAttributo)) {
                 case 'string':
+                case 'text':
                     if (isset($valoriAttributi))
                     {
                         $valoriAttributi .= ", '" . $this->trimEscapeStringa($valoreAttributo) . "'";
@@ -354,8 +355,21 @@ class FDatabase {
                         $valoriAttributi = "'" . $this->trimEscapeStringa($valoreAttributo)  . "'";
                     }
                     break;
+                    
+                case 'NULL':
+                    if (isset($valoriAttributi))
+                    {
+                        $valoriAttributi .= ", NULL ";
+                    }
+                    else
+                    {
+                        $valoriAttributi = "NULL";
+                    }
+                    break;
                 
+                case 'mediumblob':
                 case 'time':
+                case 'date':
                 case 'float':
                     if (isset($valoriAttributi))
                     {

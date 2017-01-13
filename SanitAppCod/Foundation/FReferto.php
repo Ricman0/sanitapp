@@ -96,14 +96,14 @@ class FReferto extends FDatabase{
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
     private function getAttributi($referto) {        
-        $valoriAttributi = "'" . $referto->getIDReferto() . "', '" 
-                . $this->trimEscapeStringa($referto->getIDPrenotazione()) . "', '" 
-                . $this->trimEscapeStringa($referto->getIDEsame()) . "', '" 
-                . $this->trimEscapeStringa($referto->getPartitaIvaClinica()) . "', '"
+        $valoriAttributi = "'" . $referto->getIDRefertoReferto() . "', '" 
+                . $this->trimEscapeStringa($referto->getIDPrenotazioneReferto()) . "', '" 
+                . $this->trimEscapeStringa($referto->getIDEsameReferto()) . "', '" 
+                . $this->trimEscapeStringa($referto->getPartitaIVAClinicaReferto()) . "', '"
                 . $referto->getFileNameReferto() . "', '"  
                 . $referto->getContenutoReferto() . "', '"  
-                . $this->trimEscapeStringa($referto->getMedicoReferto()) . "', '" 
-                . $referto->getDataReferto() . "', ";
+                . $this->trimEscapeStringa($referto->getMedicoRefertoReferto()) . "', '" 
+                . $referto->getDataRefertoReferto() . "', ";
                 
                 // manca la partita IVA della clinica;
         
