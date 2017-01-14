@@ -125,8 +125,8 @@ class EUser {
             elseif($username !==NULL && $password!==NULL && $email===NULL)
             {
                 $fUser = USingleton::getInstance('FUser');
-                $attributiUser = $fUser->cercaUserByUsernamePassword($username,$password);
-                if(is_array($attributiUser) && count($attributiUser)==1)
+                $attributiUser = $fUser->cercaUserByUsername($username);
+                if(is_array($attributiUser) && count($attributiUser)==1 && password_verify($password.$username, $attributiUser[0]['Password']))
                 {
                     $this->_username = $attributiUser[0]['Username'];
                     $this->_password = $attributiUser[0]['Password'];
@@ -389,7 +389,7 @@ class EUser {
      */
     public function setTipoUser($tipo) 
     {
-        $this->_tipoUser = $tipo;
+        $this->_tipoUser = trim($tipo);
     }
 
     /**

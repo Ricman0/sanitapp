@@ -115,7 +115,7 @@ class EUtente extends EUser {
             // caso in cui gli passo tutti i parametri
             // richiamo il costruttore padre
             parent::__construct($username, $password, $email);
-            parent::setTipoUser('utente');
+            
             $this->_nome = $nome;
             $this->_cognome = $cognome;
             $this->_codFiscale = $cf;
@@ -128,6 +128,7 @@ class EUtente extends EUser {
             $this->_CAP = $cap;
             $this->_prenotazioni = new ArrayObject(); // da vedere:array di oggetti o bastava semplicemente Array()??
             $this->_medicoCurante = $medico;
+            parent::setTipoUser('utente');
         }
 
 

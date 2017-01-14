@@ -109,7 +109,7 @@ class UValidazione {
             switch ($chiave) 
             {
                 case "username":                
-                    $pattern = '/^[0-9a-zA-Z\_\-]{2,15}$/';
+                    $pattern = '/^[0-9a-zA-Z\_\-\.\$]{2,15}$/';
                     $stringaErrore = "Il" . $chiave . "deve essere una sequenza alfanumerica";
                     break;
                 

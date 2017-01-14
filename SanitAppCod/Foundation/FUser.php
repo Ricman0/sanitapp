@@ -40,9 +40,15 @@ class FUser extends FDatabase {
     {
         $valoriAttributi ="'" . $this->trimEscapeStringa($user->getUsername()) . "', '" 
                 . $this->trimEscapeStringa($user->getPassword()) . "', '"
-                . $this->trimEscapeStringa($user->getEmail()) . "', '" 
-                . $this->trimEscapeStringa($user->getPEC()) . "', " ;
-                
+                . $this->trimEscapeStringa($user->getEmail()) . "', " ;
+        if ($user->getPEC()!== NULL)
+                {
+                    $valoriAttributi = $valoriAttributi . "'" . $user->getPEC() . "', ";
+                }
+                else
+                {
+                     $valoriAttributi = $valoriAttributi .  "NULL, ";
+                }       
         if ($user->getBloccato()===TRUE)
         {
             $valoriAttributi = $valoriAttributi . $user->getBloccato() . ", ";
@@ -59,7 +65,7 @@ class FUser extends FDatabase {
         {
              $valoriAttributi = $valoriAttributi .  "FALSE, '";
         }
-        $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($user->getCodiceConferma()) . "',' "
+        $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($user->getCodiceConferma()) . "', '"
                 . $user->getTipoUser() . "'" ;
         return $valoriAttributi;
         
@@ -155,6 +161,24 @@ class FUser extends FDatabase {
                 . "AND CodiceConferma='" . $codiceConferma . "' LOCK IN SHARE MODE"; 
         return $this->eseguiQuery($query);
     }
+    
+     /**
+     * Metodo che consente di trovare un user usando lo username
+     * 
+     * @access public
+     * @param string $username L'username da cercare
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return Array Array il risultato della query 
+     */
+    public function cercaUserByUsername ($username)
+    {
+        $username = $this->trimEscapeStringa($username);
+        $query = "SELECT appuser.* "
+                . "FROM appuser WHERE Username='" . $username . "' "
+                . "LOCK IN SHARE MODE"; 
+        return $this->eseguiQuery($query);
+    }
+    
     
     
     /**
