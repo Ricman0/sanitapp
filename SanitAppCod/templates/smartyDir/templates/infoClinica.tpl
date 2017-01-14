@@ -1,7 +1,7 @@
 <div id="infoClinica">
     <h3>Informazioni Clinica</h3>
     <div>
-        <span class="grassetto">NOME:</span><span>  {$clinica->getNomeClinica()}</span>
+        <span class="grassetto">NOME:</span><span>  {$clinica->getNomeClinicaClinica()}</span>
         <br>
         <span class="grassetto">INDIRIZZO:</span><span>  {$clinica->getIndirizzoClinica()}</span>
         <br>

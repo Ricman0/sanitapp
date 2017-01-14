@@ -11,7 +11,7 @@
             <input type="text" name="cognome" value ="{$medico->getCognomeMedico()}" readonly />
             <br>
             <label for="codice">Codice Fiscale :</label>
-            <input type="text" name="codice" maxlength="16" value ="{$medico->getCodiceFiscaleMedico()}" readonly />
+            <input type="text" name="codice" maxlength="16" value ="{$medico->getCodFiscaleMedico()}" readonly />
             <br>
             <label for="email">Email :</label>
             <input type="text" name="email" value ="{$medico->getEmail()}" readonly />

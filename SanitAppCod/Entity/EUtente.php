@@ -243,7 +243,7 @@ class EUtente extends EUser {
      * @access public
      * @return string Il codice fiscale dell'utente
      */
-    public function getCodiceFiscaleUtente() {
+    public function getCodFiscaleUtente() {
         return $this->_codFiscale;
     }
 
@@ -278,12 +278,22 @@ class EUtente extends EUser {
     }
 
     /**
+     * Metodo per conoscere l'username dell'utente
+     * 
+     * @access public
+     * @return string L'username dell'utente
+     */
+    public function getUsernameUtente() {
+        return parent::getUsername();
+    }
+    
+    /**
      * Metodo per conoscere il codice fiscale del medico curante dell'utente
      * 
      * @access public
      * @return string Il codice fiscale del medico curante dell'utente
      */
-    public function getMedicoCurante() {
+    public function getCodFiscaleMedicoUtente() {
         return $this->_medicoCurante;
     }
 
@@ -509,7 +519,7 @@ class EUtente extends EUser {
     public function controllaSeBloccare($dataOdierna) 
     {
         $fPrenotazioni = USingleton::getInstance('FPrenotazione');
-        $prenotazioniNonEffettuate = $fPrenotazioni->cercaPrenotazioniNonEffettuate($this->getCodiceFiscaleUtente(), $dataOdierna);
+        $prenotazioniNonEffettuate = $fPrenotazioni->cercaPrenotazioniNonEffettuate($this->getCodFiscaleUtente(), $dataOdierna);
         if(count($prenotazioniNonEffettuate)>=3)
         {
             $this->setBloccato(TRUE);

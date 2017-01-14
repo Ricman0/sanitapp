@@ -31,7 +31,7 @@ class CImpostazioni {
                     switch ($tipoUser) {
                         case 'utente':
                             $eUtente = new EUtente(NULL, $username);
-                            $CFMedicoCurante = $eUtente->getMedicoCurante();
+                            $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
                             if (isset($CFMedicoCurante)) {
                                 $eMedico = new EMedico($CFMedicoCurante);
                             }
@@ -45,7 +45,7 @@ class CImpostazioni {
                             
                         case 'clinica': {
                                 $eClinica = new EClinica($username);
-                                $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getWorkingPlanClinica());
+                                $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getArrayWorkingPlanClinica());
                             }
                             break;
 
@@ -147,7 +147,7 @@ class CImpostazioni {
                     //modifiche effettuate
     //                                    $vJSON = USingleton::getInstance('VJSON');
     //                                    $vJSON->inviaDatiJSON(TRUE);
-                    $CFMedicoCurante = $eUtente->getMedicoCurante();
+                    $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
                     if (isset($CFMedicoCurante)) {
                         $eMedico = new EMedico($CFMedicoCurante);
                     }
@@ -191,7 +191,7 @@ class CImpostazioni {
             $eUtente = new EUtente(NULL, $username);
             if ($eUtente->modificaMedicoCurante($uValidazione->getDatiValidi()['codiceFiscale']) === TRUE) {
                 //modifiche effettuate
-                $CFMedicoCurante = $eUtente->getMedicoCurante();
+                $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
                 if (isset($CFMedicoCurante)) {
                     $eMedico = new EMedico($CFMedicoCurante);
                 }
@@ -262,7 +262,7 @@ class CImpostazioni {
                     if($tipoUser==='utente')
                     {
                         $eUtente = new EUtente(NULL, $username);
-                        $CFMedicoCurante = $eUtente->getMedicoCurante();
+                        $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
                         if (isset($CFMedicoCurante)) {
                             $eMedico = new EMedico($CFMedicoCurante);
                         }

@@ -90,9 +90,9 @@ class CReferti {
                     if($condividiConMedico !== FALSE)
                     {
                         // utente vuole condividere il referto con il medico curante
-                        if($eUtente->getMedicoCurante() !== NULL && $condividiConMedico==='true')//  se l'utente ha impostato il medico curante
+                        if($eUtente->getCodFiscaleMedicoUtente() !== NULL && $condividiConMedico==='true')//  se l'utente ha impostato il medico curante
                         {
-                            $condiviso = $eReferto->condividi(NULL, $eUtente->getMedicoCurante(), TRUE);
+                            $condiviso = $eReferto->condividi(NULL, $eUtente->getCodFiscaleMedicoUtente(), TRUE);
                             if($condiviso === TRUE)
                             {
                                 
@@ -108,7 +108,7 @@ class CReferti {
                         {
                             // non è possibile condividere con il medico in quanto non è impostato alcun medico curante
                             //  oppure non si vuole più condiviere il referto con il medico
-                            $condiviso = $eReferto->condividi(NULL, $eUtente->getMedicoCurante(), FALSE);
+                            $condiviso = $eReferto->condividi(NULL, $eUtente->getCodFiscaleMedicoUtente(), FALSE);
                             if($condiviso === TRUE)
                             {
                                 $vJSON->inviaDatiJSON('NO'); // non codiviso con medico

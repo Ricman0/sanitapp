@@ -50,7 +50,7 @@ class CPrenotazione {
                         $eClinica = new EClinica(NULL, $partitaIVAClinica);
                         $nomeEsame = ucwords($eEsame->getNomeEsameEsame());
                         $durataEsame = $eEsame->getDurataEsame();
-                        $nomeClinica = ucwords($eClinica->getNomeClinica());
+                        $nomeClinica = ucwords($eClinica->getNomeClinicaClinica());
                         $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id, $durataEsame);
                     }
                     break;
@@ -72,7 +72,7 @@ class CPrenotazione {
             $orariDisponibili = Array();
             $partitaIVAClinica = $vPrenotazione->recuperaValore('clinica');
             $eClinica = new EClinica(NULL, $partitaIVAClinica);
-            $workingPlan = $eClinica->getWorkingPlanClinica(); // ora è di tipo json
+            $workingPlan = $eClinica->getArrayWorkingPlanClinica(); // ora è di tipo json
 
 //            $workingPlan = json_decode($workingPlan);
 //                  print_r($workingPlan);
@@ -229,14 +229,14 @@ class CPrenotazione {
                         {
                             case 'clinica':
                                 $eClinica = new EClinica($username);
-                                $nomeClinica = $eClinica->getNomeClinica();
+                                $nomeClinica = $eClinica->getNomeClinicaClinica();
                                 // visualizzo una pagina per cercare il cliente o l'utente registrato del sistema per cui in seguito vorrò effettuare una prenotazione
                                 $vPrenotazioni->impostaPaginaCercaUtente($nomeClinica, 'clinica');
                                 break;
                             
                             case 'medico':
                                 $eMedico= new EMedico(NULL, $username);
-                                $vPrenotazioni->impostaPaginaCercaUtente($eMedico->getCodiceFiscaleMedico(), 'medico');
+                                $vPrenotazioni->impostaPaginaCercaUtente($eMedico->getCodFiscaleMedico(), 'medico');
                             
                             default:
                                 break;
@@ -337,13 +337,13 @@ class CPrenotazione {
                         case 'utente':
                             $eUtente = new EUtente(NULL, $username);
                             $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
-                            $codFiscalePrenotaEsame = $eUtente->getCodiceFiscaleUtente();
+                            $codFiscalePrenotaEsame = $eUtente->getCodFiscaleUtente();
                             break;
 
                         case 'medico':
                             echo "l'username $username";
                             $eMedico = new EMedico(NULL, $username);
-                            $codFiscalePrenotaEsame = $eMedico->getCodiceFiscaleMedico();
+                            $codFiscalePrenotaEsame = $eMedico->getCodFiscaleMedico();
                             $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
                             break;
 
@@ -485,7 +485,7 @@ class CPrenotazione {
                     $eClinica = new EClinica(NULL, $ePrenotazione->getPartitaIVAClinicaPrenotazione());
                     $datiPerEmail = Array('emailDestinatario' => $eUtente->getEmail(), 'nome' => $eUtente->getNomeUtente(),
                         'cognome' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsameEsame(),
-                        'nomeClinica' => $eClinica->getNomeClinica(), 'dataEOra' => $ePrenotazione->getDataEOraPrenotazione());
+                        'nomeClinica' => $eClinica->getNomeClinicaClinica(), 'dataEOra' => $ePrenotazione->getDataEOraPrenotazione());
                     $mail = USingleton::getInstance('UMail');
                     $mail->inviaEmailPrenotazioneCancellata($datiPerEmail);
                 }
@@ -720,7 +720,7 @@ class CPrenotazione {
         $durata = $vPrenotazione->recuperaValore('durata');// throws XRecuperaVAloreException Se il valore è inesistente
         if ($sessione->leggiVariabileSessione('tipoUser') === 'utente') {
             $eUtente = new EUtente(NULL, $username); //throws XUtenteException Se l'utente non esiste
-            $codice = $eUtente->getCodiceFiscaleUtente();
+            $codice = $eUtente->getCodFiscaleUtente();
         } else {  // tipoUser = clinica o medico
             $codice = $vPrenotazione->recuperaValore('codice'); // throws XRecuperaVAloreException Se il valore è inesistente
             $eUtente = new EUtente($codice);        //throws XUtenteException Se l'utente non esiste               
@@ -771,7 +771,7 @@ class CPrenotazione {
             $eClinica = new EClinica(NULL, $partitaIVAClinica);
             $nomeEsame = $eEsame->getNomeEsameEsame();
             $durataEsame = $eEsame->getDurataEsame();
-            $nomeClinica = $eClinica->getNomeClinica();
+            $nomeClinica = $eClinica->getNomeClinicaClinica();
             $codiceFiscale = $ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione();
             $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale);
         }
@@ -847,7 +847,7 @@ class CPrenotazione {
                     
                     case 'PartitaIVAClinica':
                         $eClinica = new EClinica(NULL, $value);
-                        $infoPrenotazione['nomeClinica'] = $eClinica->getNomeClinica();
+                        $infoPrenotazione['nomeClinica'] = $eClinica->getNomeClinicaClinica();
                         $infoPrenotazione['indirizzoClinica'] = $eClinica->getIndirizzoClinica();
                         break;
                     

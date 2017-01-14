@@ -56,7 +56,7 @@
     </div>
     {if ($tipoUser==='utente' || $tipoUser==='medico')}
         <h3>INFORMAZIONI CLINICA CHE ESEGUE LA PRENOTAZIONE</h3>
-        <span class="grassetto">CLINICA:</span><span>  {$eClinica->getNomeClinica()}</span>
+        <span class="grassetto">CLINICA:</span><span>  {$eClinica->getNomeClinicaClinica()}</span>
         <br>
         <span class="grassetto">INDIRIZZO CLINICA:</span><span>  {$eClinica->getViaClinica()} , {$eClinica->getLocalitaClinica()} ({$eClinica->getProvinciaClinica()}) </span>
         <br>

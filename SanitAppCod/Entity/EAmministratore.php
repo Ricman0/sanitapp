@@ -68,12 +68,17 @@ class EAmministratore extends EUser{
         
     }
     
-    public function getID() 
+    public function getIdAmministratoreAmministratore() 
     {
         return $this->_id;
     }
     
-    public function getTelefono() 
+    public function getUsernameAmministratore() 
+    {
+        return parent::getUsername();
+    }
+    
+    public function getTelefonoAmministratore() 
     {
         return $this->_telefono;
     }
@@ -85,7 +90,7 @@ class EAmministratore extends EUser{
      * @access public
      * @return string Il nome dell'amministratore
      */
-    public function getNomeUtente() {
+    public function getNomeAmministratore() {
         return ucwords($this->_nome);
     }
 
@@ -94,7 +99,7 @@ class EAmministratore extends EUser{
      * 
      * @return string Il cognome dell'amministratore
      */
-    public function getCognomeUtente() {
+    public function getCognomeAmministratore() {
         return ucwords($this->_cognome);
     }
     

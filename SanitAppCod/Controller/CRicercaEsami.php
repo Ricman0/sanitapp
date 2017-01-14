@@ -61,7 +61,7 @@ class CRicercaEsami {
                     if($tipoUser==='utente' && $username!=FALSE)
                     {
                         $eUtente = new EUtente(NULL, $username);
-                        $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica, $tipoUser, $eUtente->getCodiceFiscaleUtente());
+                        $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica, $tipoUser, $eUtente->getCodFiscaleUtente());
                     } 
                     else
                     {

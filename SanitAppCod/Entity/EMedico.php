@@ -168,7 +168,7 @@ class EMedico extends EUser {
      * 
      * @return string Il codice fiscale del medico
      */
-    public function getCodiceFiscaleMedico() {
+    public function getCodFiscaleMedico() {
         return $this->_codFiscale;
     }
 
@@ -199,6 +199,14 @@ class EMedico extends EUser {
         return $this->_CAP;
     }
 
+    /**
+     * Metodo per conoscere l'username del medico
+     * 
+     * @return string L'username del medico
+     */
+    public function getUsernameMedico() {
+        return parent::getUsername();
+    }
     
 
     /**
@@ -384,7 +392,7 @@ class EMedico extends EUser {
         $this->setNumCivicoMedico($datiIndirizzoValidi['NumCivico']);
         $this->setCAPMedico($datiIndirizzoValidi['CAP']);
         $fMedico = USingleton::getInstance('FMedico');
-        return $fMedico->modificaIndirizzoCAP($this->getCodiceFiscaleMedico(), $this->getViaMedico(), $this->getNumCivicoMedico(),  $this->getCAPMedico());
+        return $fMedico->modificaIndirizzoCAP($this->getCodFiscaleMedico(), $this->getViaMedico(), $this->getNumCivicoMedico(),  $this->getCAPMedico());
     }
 
     /**
@@ -402,7 +410,7 @@ class EMedico extends EUser {
         $this->setProvinciaAlboMedico($provincia);
         $this->setnumIscrizioneMedico($numIscrizione);
         $fMedico = USingleton::getInstance('FMedico');
-        return $fMedico->modificaProvAlboENumIscrizione($this->getCodiceFiscaleMedico(), $provincia, $numIscrizione); 
+        return $fMedico->modificaProvAlboENumIscrizione($this->getCodFiscaleMedico(), $provincia, $numIscrizione); 
     }
     
     /**

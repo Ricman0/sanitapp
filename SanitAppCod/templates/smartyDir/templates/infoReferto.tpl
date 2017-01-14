@@ -25,7 +25,7 @@
         <br>
         
         {if ($tipoUser!=='clinica')}
-            <span class="grassetto">CLINICA:</span><span>  {$clinica->getNomeClinica()}</span>
+            <span class="grassetto">CLINICA:</span><span>  {$clinica->getNomeClinicaClinica()}</span>
             <br>
             <span class="grassetto">PROVINCIA CLINIA:</span><span>  {$clinica->getProvinciaClinica()}</span>
             <br>
