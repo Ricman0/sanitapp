@@ -316,36 +316,16 @@ class FDatabase {
         
     }
     
-    
-    /**
-     * Metodo che permette di aggiungere un oggetto nel DB
-     * 
-     * @access public
-     * @param object $oggetto lL'oggetto che si vuole aggiungere 
-     * @throws XDBException Se la query non è stata eseguita con successo
-     * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
-     */
-    public function inserisci($oggetto) {
-        
-//        $valoriAttributi = $this->getAttributi($oggetto);
-//        $nomeTabella =substr(strtolower(get_class($oggetto)), 1);// nome della classe dell'oggetto in minuscolo eliminando la e iniziale
-        $nomeClasse =substr((get_class($oggetto)), 1);
-//        $attributiTabella = get_object_vars($oggetto);
-//        $attributiTabella = json_encode($attributiTabella);
-//        print_r($attributiTabella);
-//        print_r($nomeTabella);
+    public function getValoriAttributi($nomeClasse = '') 
+    {
         $attributiTabella = explode(',', $this->_attributiTabella);
-        print_r($attributiTabella);
         $valoriAttributi = NULL;
         foreach ($attributiTabella as $valore) {
             $valore = trim($valore);
             $funzione = 'get'.$valore.$nomeClasse ;
-            print_r($funzione );
             $valoreAttributo = $oggetto->$funzione();
-            
             switch (gettype($valoreAttributo)) {
                 case 'string':
-                case 'text':
                     if (isset($valoriAttributi))
                     {
                         $valoriAttributi .= ", '" . $this->trimEscapeStringa($valoreAttributo) . "'";
@@ -355,7 +335,7 @@ class FDatabase {
                         $valoriAttributi = "'" . $this->trimEscapeStringa($valoreAttributo)  . "'";
                     }
                     break;
-                    
+
                 case 'NULL':
                     if (isset($valoriAttributi))
                     {
@@ -366,11 +346,8 @@ class FDatabase {
                         $valoriAttributi = "NULL";
                     }
                     break;
-                
-                case 'mediumblob':
-                case 'time':
-                case 'date':
-                case 'float':
+
+                case 'double':
                     if (isset($valoriAttributi))
                     {
                         $valoriAttributi .= ", '" . $valoreAttributo . "'";
@@ -380,7 +357,7 @@ class FDatabase {
                         $valoriAttributi = "'" . $valoreAttributo  . "'";
                     }
                     break;
-                
+
                 case 'boolean':
                     if($valoreAttributo === TRUE)
                     {
@@ -404,7 +381,7 @@ class FDatabase {
                             $valoriAttributi = "FALSE";
                         }
                     }
-                    
+
                     break;
 
                 default:
@@ -417,15 +394,241 @@ class FDatabase {
                         $valoriAttributi = "" . $valoreAttributo . "";
                     }
                     break;
+                }
+        }
+        return $valoriAttributi;
+    }
+    
+    public function getNomeAttributi() {
+        return $this->_attributiTabella;
+    }
+    
+    
+    /**
+     * Metodo che permette di aggiungere un oggetto nel DB
+     * 
+     * @access public
+     * @param object $oggetto lL'oggetto che si vuole aggiungere 
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     */
+    public function inserisci($oggetto) {
+        
+//        $valoriAttributi = $this->getAttributi($oggetto);
+//        $nomeTabella =substr(strtolower(get_class($oggetto)), 1);// nome della classe dell'oggetto in minuscolo eliminando la e iniziale
+        $nomeClasse =substr((get_class($oggetto)), 1);
+        $nomeClassePadre = strtolower(get_parent_class($oggetto));
+        if(isset($nomeClassePadre))
+        {
+            $query1 = "INSERT INTO " . $nomeClassePadre . "(" . parent::$this->_attributiTabella . ") VALUES( " .  parent::$this->getValoriAttributi() . ")";
+            $query2 = "INSERT INTO " . $nomeClasse . "(" . $this->_attributiTabella . ") VALUES( " .  $this->getValoriAttributi() . ")";
+            try {
+                // inzia la transazione
+                $this->_connessione->begin_transaction();
+
+                // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+                $this->eseguiquery($query1);
+                $this->eseguiQuery($query2);
+
+                // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+                return $this->_connessione->commit();
+            } catch (Exception $e) {
+                // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+                $this->_connessione->rollback();
+                throw new XDBException("Inserimento fallito, contattare l'amministratore.");
             }
-            
-            
-        }  
+        }
+        else
+        {
+            $query = "INSERT INTO " . $nomeClasse . "(" . $this->_attributiTabella . ") VALUES( " .  $this->getValoriAttributi() . ")";
+            return $this->eseguiQuery($query); 
+        }
         
-        print_r($valoriAttributi);
-        
-        $query = "INSERT INTO " . $this->_nomeTabella . "(" . $this->_attributiTabella . ") VALUES( " .  $valoriAttributi . ")";
-        return $this->eseguiQuery($query);       
+//        if ($nomeClasse === 'Utente' || $nomeClasse === 'Medico' || $nomeClasse === 'Clinica' )
+//        {
+//            
+//            $attributiTabellaPadre = explode(',', parent::$this->_attributiTabella);
+//            print_r($attributiTabellaPadre);
+//            $valoriAttributiPadre = NULL;
+//            foreach ($attributiTabellaPadre as $valore) {
+//                $valore = trim($valore);
+//                $funzione = 'get'.$valore;
+//                $valoreAttributo = $oggetto->$funzione();
+//                switch (gettype($valoreAttributo)) {
+//                    case 'string':
+//                        if (isset($valoriAttributiPadre))
+//                        {
+//                            $valoriAttributiPadre .= ", '" . $this->trimEscapeStringa($valoreAttributo) . "'";
+//                        }
+//                        else
+//                        {
+//                            $valoriAttributiPadre = "'" . $this->trimEscapeStringa($valoreAttributo)  . "'";
+//                        }
+//                        break;
+//
+//                    case 'NULL':
+//                        if (isset($valoriAttributiPadre))
+//                        {
+//                            $valoriAttributiPadre .= ", NULL ";
+//                        }
+//                        else
+//                        {
+//                            $valoriAttributiPadre = "NULL";
+//                        }
+//                        break;
+//
+//                    case 'double':
+//                        if (isset($valoriAttributiPadre))
+//                        {
+//                            $valoriAttributiPadre .= ", '" . $valoreAttributo . "'";
+//                        }
+//                        else
+//                        {
+//                            $valoriAttributiPadre = "'" . $valoreAttributo  . "'";
+//                        }
+//                        break;
+//
+//                    case 'boolean':
+//                        if($valoreAttributo === TRUE)
+//                        {
+//                            if (isset($valoriAttributiPadre))
+//                            {
+//                                $valoriAttributiPadre .= ", " . $valoreAttributo . "";
+//                            }
+//                            else
+//                            {
+//                                $valoriAttributiPadre = "'" . $valoreAttributo  . "'";
+//                            }
+//                        }
+//                        else
+//                        {
+//                            if (isset($valoriAttributiPadre))
+//                            {
+//                                $valoriAttributiPadre .= ", 'FALSE'";
+//                            }
+//                            else
+//                            {
+//                                $valoriAttributiPadre = "FALSE";
+//                            }
+//                        }
+//
+//                        break;
+//
+//                    default:
+//                        if (isset($valoriAttributiPadre))
+//                        {
+//                            $valoriAttributiPadre .= ", " . $valoreAttributo . "";
+//                        }
+//                        else
+//                        {
+//                            $valoriAttributiPadre = "" . $valoreAttributo . "";
+//                        }
+//                        break;
+//                    }
+//                $query1 = "INSERT INTO " . $nomeClassePadre. "(" . parent::$this->_attributiTabella . ") VALUES( " .  $valoriAttributiPadre . ")";  
+//                }
+//            
+//        }  
+//        else
+//        {
+//    //        $attributiTabella = get_object_vars($oggetto);
+//    //        $attributiTabella = json_encode($attributiTabella);
+//    //        print_r($attributiTabella);
+//    //        print_r($nomeTabella);
+//            $attributiTabella = explode(',', $this->_attributiTabella);
+//            print_r($attributiTabella);
+//            $valoriAttributi = NULL;
+//            foreach ($attributiTabella as $valore) {
+//                $valore = trim($valore);
+//                $funzione = 'get'.$valore.$nomeClasse ;
+//                print_r($funzione );
+//                $valoreAttributo = $oggetto->$funzione();
+//                print_r(gettype($valoreAttributo));
+//                switch (gettype($valoreAttributo)) {
+//                    case 'string':
+//                    case 'text':
+//                        if (isset($valoriAttributi))
+//                        {
+//                            $valoriAttributi .= ", '" . $this->trimEscapeStringa($valoreAttributo) . "'";
+//                        }
+//                        else
+//                        {
+//                            $valoriAttributi = "'" . $this->trimEscapeStringa($valoreAttributo)  . "'";
+//                        }
+//                        break;
+//
+//                    case 'NULL':
+//                        if (isset($valoriAttributi))
+//                        {
+//                            $valoriAttributi .= ", NULL ";
+//                        }
+//                        else
+//                        {
+//                            $valoriAttributi = "NULL";
+//                        }
+//                        break;
+//
+//                    case 'mediumblob':
+//                    case 'time':
+//                    case 'date':
+//                    case 'DateTime':
+//                    case 'double':
+//                        if (isset($valoriAttributi))
+//                        {
+//                            $valoriAttributi .= ", '" . $valoreAttributo . "'";
+//                        }
+//                        else
+//                        {
+//                            $valoriAttributi = "'" . $valoreAttributo  . "'";
+//                        }
+//                        break;
+//
+//                    case 'boolean':
+//                        if($valoreAttributo === TRUE)
+//                        {
+//                            if (isset($valoriAttributi))
+//                            {
+//                                $valoriAttributi .= ", " . $valoreAttributo . "";
+//                            }
+//                            else
+//                            {
+//                                $valoriAttributi = "'" . $valoreAttributo  . "'";
+//                            }
+//                        }
+//                        else
+//                        {
+//                            if (isset($valoriAttributi))
+//                            {
+//                                $valoriAttributi .= ", 'FALSE'";
+//                            }
+//                            else
+//                            {
+//                                $valoriAttributi = "FALSE";
+//                            }
+//                        }
+//
+//                        break;
+//
+//                    default:
+//                        if (isset($valoriAttributi))
+//                        {
+//                            $valoriAttributi .= ", " . $valoreAttributo . "";
+//                        }
+//                        else
+//                        {
+//                            $valoriAttributi = "" . $valoreAttributo . "";
+//                        }
+//                        break;
+//                }
+//
+//
+//            }  
+//
+//            print_r($valoriAttributi);
+//
+//            $query = "INSERT INTO " . $this->_nomeTabella . "(" . $this->_attributiTabella . ") VALUES( " .  $valoriAttributi . ")";
+//            return $this->eseguiQuery($query);   
+//        }
     }
     
    

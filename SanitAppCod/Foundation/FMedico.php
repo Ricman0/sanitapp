@@ -99,7 +99,7 @@ class FMedico extends FUser {
      */
     public function getAttributi($medico) 
     {
-        $valoriAttributi ="'" . $this->trimEscapeStringa($medico->getCodiceFiscaleMedico()) . "', '"
+        $valoriAttributi ="'" . $this->trimEscapeStringa($medico->getCodFiscaleMedico()) . "', '"
                 .$this->trimEscapeStringa($medico->getNomeMedico()) . "', '" 
                 . $this->trimEscapeStringa($medico->getCognomeMedico()) . "', '"  
                 . $this->trimEscapeStringa($medico->getViaMedico()) . "', '"
@@ -286,14 +286,14 @@ class FMedico extends FUser {
      */
     public function modificaMedico($medico) {
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella 
-                ." WHERE (Username='" . $medico->getUsername() . "') OR (CodFiscale='" . $medico->getCodiceFiscaleMedico() .  "') FOR UPDATE" ;
+                ." WHERE (Username='" . $medico->getUsername() . "') OR (CodFiscale='" . $medico->getCodFiscaleMedico() .  "') FOR UPDATE" ;
         $queryLock2 = "SELECT * FROM appUser " 
                 ." WHERE (Username='" . $medico->getUsername() . "') OR (Email='" . $medico->getEmail() .  "') FOR UPDATE" ;
-        $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $medico->getCodiceFiscaleMedico() .  "', Nome='"
+        $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $medico->getCodFiscaleMedico() .  "', Nome='"
                 . $medico->getNomeMedico() . "', Cognome='" . $medico->getCognomeMedico() . "', Via='" . $medico->getViaMedico() . "', "
                 . "NumCivico='" . $medico->getNumCivicoMedico() . "', CAP='" . $medico->getCAPMedico() . "', Username='"
                 . $medico->getUsername() . "', ProvinciaAlbo='" . $medico->getProvinciaAlboMedico() . "', NumIscrizione='" 
-                . $medico->getNumIscrizioneMedico() . "', Validato=" . $medico->getValidatoMedico() . " WHERE (Username='" . $medico->getUsername() . "') OR (CodFiscale='" . $medico->getCodiceFiscaleMedico() .  "')";
+                . $medico->getNumIscrizioneMedico() . "', Validato=" . $medico->getValidatoMedico() . " WHERE (Username='" . $medico->getUsername() . "') OR (CodFiscale='" . $medico->getCodFiscaleMedico() .  "')";
 
         $query2 = "UPDATE appUser SET Username='" . $medico->getUsername() . "', Password='"
                 . $medico->getPassword() . "', Email='" . $medico->getEmail() . "', Bloccato=" . $medico->getBloccato() . ", "

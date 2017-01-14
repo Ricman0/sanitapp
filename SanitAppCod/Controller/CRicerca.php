@@ -33,7 +33,7 @@ class CRicerca {
                     //il codice fiscale  è valido
                     // ora controllo che l'utente sia presente nel sistema
                     $eUtente = new EUtente($dati['codiceFiscale']);
-                    if ($eUtente->getCodiceFiscaleUtente() !== NULL) {
+                    if ($eUtente->getCodFiscaleUtente() !== NULL) {
                         //in questo caso è stato creato un utente dal codice fiscale
                         // quindi il risultato sarà TRUE
                         $risultato = TRUE;

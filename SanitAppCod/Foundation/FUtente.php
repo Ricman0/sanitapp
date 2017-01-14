@@ -74,19 +74,19 @@ class FUtente extends FUser{
 //        $valoriAttributi = $$utente->getNomeUtente() . ", " . $utente->getCognomeUtente()
 //        . ", " . $utente->getViaUtente(). ", " 
 //        . $utente->getNumCivicoUtente() . ", " . $utente->getCAPUtente() . ", " 
-//        . $utente->getCodiceFiscaleUtente() . ", " 
+//        . $utente->getCodFiscaleUtente() . ", " 
 //        .   $utente->getEmailUtente() . ", "  . $utente->getUsernameUtente() 
 //        . ", " . $utente->getPasswordUtente() ;
-        $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getCodiceFiscaleUtente()) . "', '"
+        $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getCodFiscaleUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getNomeUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getCognomeUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getViaUtente()) . "', "
                 . $utente->getNumCivicoUtente() . ", '"
                 . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getUsername()) . "', ";
-        if(NULL !== $utente->getMedicoCurante())
+        if(NULL !== $utente->getCodFiscaleMedicoUtente())
         {
-            $valoriAttributi = $valoriAttributi . "'" . $utente->getMedicoCurante() . "'";
+            $valoriAttributi = $valoriAttributi . "'" . $utente->getCodFiscaleMedicoUtente() . "'";
         }
         else 
         {
@@ -275,7 +275,7 @@ class FUtente extends FUser{
     public function modificaUtente($utente) {
         
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE  (Username='" . $utente->getUsername() . "') OR (CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "') FOR UPDATE" ;
+                " WHERE  (Username='" . $utente->getUsername() . "') OR (CodFiscale='" . $utente->getCodFiscaleUtente() .  "') FOR UPDATE" ;
         $queryLock2 = "SELECT * FROM appUser " . 
                 " WHERE  (Username='" . $utente->getUsername() . "') OR (Email='" . $utente->getEmail() .  "') FOR UPDATE" ;
         $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "', Nome='"

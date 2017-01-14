@@ -281,7 +281,7 @@ class EClinica extends EUser {
      * 
      * @return Array Il working plan della clinica 
      */
-    public function getWorkingPlanClinica() {
+    public function getArrayWorkingPlanClinica() {
         $workingPlan = json_decode($this->_workingPlan);
         //$workingPlan è un oggetto 
         // ora lo rendo un array
@@ -289,12 +289,13 @@ class EClinica extends EUser {
         return $workingPlan;
     }
 
+    
     /**
      * Metodo per conoscere il working plan della clinica in formato JSON
      * 
      * @return string Il working plan della clinica 
      */
-    public function getJSONWorkingPlanClinica() {
+    public function getWorkingPlanClinica() {
         return $this->_workingPlan;
     }
 
@@ -330,7 +331,7 @@ class EClinica extends EUser {
      * 
      * @return string Il nome della clinica
      */
-    public function getNomeClinica() {
+    public function getNomeClinicaClinica() {
         return $this->_nomeClinica;
     }
 
@@ -366,7 +367,7 @@ class EClinica extends EUser {
      * 
      * @return int Il numero civico della clinica
      */
-    public function getNumeroCivicoClinica() {
+    public function getNumCivicoClinica() {
         return $this->_numeroCivico;
     }
 
@@ -413,6 +414,15 @@ class EClinica extends EUser {
      */
     public function getTelefonoClinica() {
         return $this->_telefono;
+    }
+    
+    /**
+     * Metodo che restituisce l'username della clinica
+     * 
+     * @return string L'username della clinica
+     */
+    public function getUsernameClinica() {
+        return parent::getUsername();
     }
 
     /**
@@ -778,7 +788,7 @@ class EClinica extends EUser {
      */
     public function getGiorniNonLavorativi() {
         $giorniNonLavorativi = Array();
-        foreach ($this->getWorkingPlanClinica()as $key => $value) {
+        foreach ($this->getArrayWorkingPlanClinica()as $key => $value) {
             if ($value === NULL) {
                 $giorniNonLavorativi[] = $key;
             }
@@ -987,7 +997,7 @@ class EClinica extends EUser {
     public function recuperaAppuntamentiEWorkingPlan($start, $end) 
     {
         $appuntamenti = $this->recuperaAppuntamenti($start, $end);
-        $workingPlan = $this->getWorkingPlanClinica();
+        $workingPlan = $this->getArrayWorkingPlanClinica();
         return Array('appuntamenti'=>$appuntamenti, 'workingPlan'=>$workingPlan);
     }
     

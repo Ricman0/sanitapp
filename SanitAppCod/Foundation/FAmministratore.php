@@ -37,11 +37,11 @@ class FAmministratore extends FUser{
      */
     public function getAttributi($amministratore) 
     {
-        $valoriAttributi = "'" . $amministratore->getID() . "', '" 
+        $valoriAttributi = "'" . $amministratore->getIdAmministratoreAmministratore() . "', '" 
                 . $this->trimEscapeStringa($amministratore->getUsername()) .  "', '"
-                . $this->trimEscapeStringa($amministratore->getNomeUtente()) . "', '"
-                . $this->trimEscapeStringa($amministratore->getCognomeUtente()) . "', '"
-                . $this->trimEscapeStringa($amministratore->getTelefono()) .  "'";
+                . $this->trimEscapeStringa($amministratore->getNomeAmministratore()) . "', '"
+                . $this->trimEscapeStringa($amministratore->getCognomeAmministratore()) . "', '"
+                . $this->trimEscapeStringa($amministratore->getTelefonoAmministratore()) .  "'";
         return $valoriAttributi;
     }
     

@@ -176,7 +176,7 @@ class CRegistrazione {
 
                 $username = $sessione->leggiVariabileSessione('usernameLogIn');
                 $eMedico = new EMedico(NULL, $username);
-                $eUtente->setMedicoCurante($eMedico->getCodiceFiscaleMedico());
+                $eUtente->setMedicoCurante($eMedico->getCodFiscaleMedico());
             }
             //eUtente richiama il metodo per creare FUtente poi Futente aggiunge l'utente nel DB
             return $eUtente->inserisciUtenteDB();

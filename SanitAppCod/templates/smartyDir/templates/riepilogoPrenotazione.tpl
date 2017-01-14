@@ -16,7 +16,7 @@
             <br>
             <span class="grassetto">PREZZO:</span><span>  {$esame->getPrezzoEsame()}</span>
             <br>
-            <span class="grassetto">CLINICA:</span><span>  {$clinica->getNomeClinica()}</span>
+            <span class="grassetto">CLINICA:</span><span>  {$clinica->getNomeClinicaClinica()}</span>
             <br>
             <span class="grassetto">INDIRIZZO:</span><span>  {$clinica->getViaClinica()}</span>
             <br>

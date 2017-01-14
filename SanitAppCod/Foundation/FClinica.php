@@ -40,10 +40,10 @@ class FClinica extends FUser{
     public function getAttributi($clinica) 
     {
         $valoriAttributi = "'" . $this->trimEscapeStringa($clinica->getPartitaIVAClinica()) . "', '" 
-                . $this->trimEscapeStringa($clinica->getNomeClinica()) . "', '" 
+                . $this->trimEscapeStringa($clinica->getNomeClinicaClinica()) . "', '" 
                 . $this->trimEscapeStringa($clinica->getTitolareClinica()) .  "', '" 
                 . $this->trimEscapeStringa($clinica->getViaClinica()). "', '" 
-                . $clinica->getNumeroCivicoClinica() . "', '" 
+                . $clinica->getNumCivicoClinica() . "', '" 
                 . $this->trimEscapeStringa($clinica->getCAPClinica()) . "', '" 
                 . $this->trimEscapeStringa($clinica->getLocalitaClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getProvinciaClinica()). "', '"
@@ -52,9 +52,9 @@ class FClinica extends FUser{
                 . $clinica->getTelefonoClinica() .  "', '" 
                 . $clinica->getCapitaleSocialeClinica() . "', ";
                
-                if ($clinica->getJSONWorkingPlanClinica()!== NULL)
+                if ($clinica->getWorkingPlanClinica()!== NULL)
                 {
-                    $valoriAttributi = $valoriAttributi . "'" . $clinica->getJSONWorkingPlanClinica() . "', ";
+                    $valoriAttributi = $valoriAttributi . "'" . $clinica->getWorkingPlanClinica() . "', ";
                 }
                 else
                 {
@@ -364,12 +364,12 @@ class FClinica extends FUser{
         $queryLock2 = "SELECT * FROM appUser " . 
                 " WHERE  (Username='" . $clinica->getUsername() . "') OR (Email='" . $clinica->getEmail() .  "') FOR UPDATE" ;
         
-        $query1 = "UPDATE " . $this->_nomeTabella . " SET PartitaIVA='" . $clinica->getPartitaIVAClinica() . "', NomeClinica='" . $clinica->getNomeClinica() . "', Titolare='" . $clinica->getTitolareClinica() . "', "
+        $query1 = "UPDATE " . $this->_nomeTabella . " SET PartitaIVA='" . $clinica->getPartitaIVAClinica() . "', NomeClinica='" . $clinica->getNomeClinicaClinica() . "', Titolare='" . $clinica->getTitolareClinica() . "', "
                 . "', Via='" . $clinica->getViaClinica() . "', "
-                . "NumCivico='" . $clinica->getNumeroCivicoClinica() . "', CAP='" . $clinica->getCAPClinica() . "', "
+                . "NumCivico='" . $clinica->getNumCivicoClinica() . "', CAP='" . $clinica->getCAPClinica() . "', "
                 . " Localita='" . $clinica->getLocalitaClinica() . "', Provincia='" . $clinica->getProvinciaClinica() . "', Regione='" . $clinica->getRegioneClinica() . "', Username='"
                 . $clinica->getUsername() . "', Telefono='" . $clinica->getTelefonoClinica() . "', CapitaleSociale='" 
-                . $clinica->getCapitaleSocialeClinica() . "', WorkingPlan='" . $clinica->getJSONWorkingPlanClinica() . "', Validato=" . $clinica->getValidatoClinica() . " WHERE (Username='" . $clinica->getUsername() . "') OR (PartitaIVA='" . $clinica->getPartitaIVAClinica() .  "')";
+                . $clinica->getCapitaleSocialeClinica() . "', WorkingPlan='" . $clinica->getWorkingPlanClinica() . "', Validato=" . $clinica->getValidatoClinica() . " WHERE (Username='" . $clinica->getUsername() . "') OR (PartitaIVA='" . $clinica->getPartitaIVAClinica() .  "')";
 
         $query2 = "UPDATE appUser SET Username='" . $clinica->getUsername() . "', Password='"
                 . $clinica->getPassword() . "', Email='" . $clinica->getEmail() . "', Bloccato=" . $clinica->getBloccato() . ", "

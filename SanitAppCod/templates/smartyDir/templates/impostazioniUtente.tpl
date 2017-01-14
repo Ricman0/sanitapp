@@ -52,12 +52,12 @@
                 <form id='formModificaMedico'>
                     <input id ='inverti' type="hidden" name="inverti" value="si" />
                     <label for="codiceFiscale">Codice Fiscale Medico :</label>
-                    <input type="text" name="codiceFiscale" maxlength="16" value ="{$utente->getMedicoCurante()}" />
+                    <input type="text" name="codiceFiscale" maxlength="16" value ="{$utente->getCodFiscaleMedicoUtente()}" />
                     <br>
                     <input type="submit" id="medicoUtenteModificato" value="OK" />
                 </form>
             {else}
-                {if NULL !== $utente->getMedicoCurante() && isset($medico)}
+                {if NULL !== $utente->getCodFiscaleMedicoUtente() && isset($medico)}
                     <label for="nomeMedico">Nome Medico :</label>
                     <input type="text" name="nomeMedico" value ="{$medico->getNomeMedico()}" readonly />
                     <br>
