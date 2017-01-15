@@ -45,7 +45,7 @@ class FDatabase {
      * @var string $_attributiTabella contiene la concatenazione degli attibuti
      *                                della tabella con cui si interagisce
      */
-    protected $_attributiTabella;
+    protected static $_attributiTabella;
     
     /**
      * Costruttore della classe FDatabase
@@ -316,14 +316,19 @@ class FDatabase {
         
     }
     
-    public function getValoriAttributi($nomeClasse = '') 
+    public static function getValoriAttributi( $oggetto, $nomeClasse = '') 
     {
-        $attributiTabella = explode(',', $this->_attributiTabella);
+        $nomeClassePadre = 'F' . $nomeClasse;
+//        $attributiTabella = explode(',', $this->_attributiTabella);
+        $attributiTabella = explode(',', $nomeClassePadre::getNomeAttributi());
+        echo 'attributi';
+        print_r($attributiTabella);
         $valoriAttributi = NULL;
         foreach ($attributiTabella as $valore) {
             $valore = trim($valore);
             $funzione = 'get'.$valore.$nomeClasse ;
-            $valoreAttributo = $oggetto->$funzione();
+            $valoreAttributo = parent::$funzione();
+//            $valoreAttributo = $oggetto->$funzione();
             switch (gettype($valoreAttributo)) {
                 case 'string':
                     if (isset($valoriAttributi))
@@ -399,8 +404,8 @@ class FDatabase {
         return $valoriAttributi;
     }
     
-    public function getNomeAttributi() {
-        return $this->_attributiTabella;
+    public static function getNomeAttributi() {
+        return self::$_attributiTabella;
     }
     
     
@@ -416,12 +421,25 @@ class FDatabase {
         
 //        $valoriAttributi = $this->getAttributi($oggetto);
 //        $nomeTabella =substr(strtolower(get_class($oggetto)), 1);// nome della classe dell'oggetto in minuscolo eliminando la e iniziale
-        $nomeClasse =substr((get_class($oggetto)), 1);
-        $nomeClassePadre = strtolower(get_parent_class($oggetto));
+        $nomeClasse = substr((get_class($oggetto)), 1);
+        $nomeClassePadre = get_parent_class($oggetto); 
         if(isset($nomeClassePadre))
         {
-            $query1 = "INSERT INTO " . $nomeClassePadre . "(" . parent::$this->_attributiTabella . ") VALUES( " .  parent::$this->getValoriAttributi() . ")";
-            $query2 = "INSERT INTO " . $nomeClasse . "(" . $this->_attributiTabella . ") VALUES( " .  $this->getValoriAttributi() . ")";
+//            $nomeClassePadre = strtolower($nomeClassePadre);
+//            $nomeClassePadre = 'F' . substr($nomeClassePadre,1);
+//            print_r($nomeClassePadre);
+//            $attributiPadre = $nomeClassePadre::getNomeAttributi();
+//            echo 'attributi padre';
+//            print_r($attributiPadre);
+//            echo ' niente';
+            $nomeClassePadre = 'F' . substr($nomeClassePadre,1);
+            $attributiPadre = $nomeClassePadre::getNomeAttributi();
+            $valoriAttributiPadre = $nomeClassePadre::getValoriAttributi($oggetto, 'User');
+            
+            $query1 = "INSERT INTO " . $nomeClassePadre . "(" . $attributiPadre . ") VALUES( " . $valoriAttributiPadre . ")";
+            $query2 = "INSERT INTO " . $nomeClasse . "(" . $this->_attributiTabella . ") VALUES( " .  $this->getValoriAttributi($this, 'Clinica') . ")";
+             print_r($query1);
+            print_r($query2);
             try {
                 // inzia la transazione
                 $this->_connessione->begin_transaction();
