@@ -237,7 +237,7 @@ class EUser {
      * 
      * @return string lo username dell'user
      */
-    public function getUsername() {
+    public function getUsernameUser() {
         return $this->_username;
     }
 
@@ -246,7 +246,7 @@ class EUser {
      * 
      * @return string La password dell'user
      */
-    public function getPassword() {
+    public function getPasswordUser() {
         return $this->_password;
     }
     
@@ -255,7 +255,7 @@ class EUser {
      * 
      * @return string L'email dell'user
      */
-    public function getEmail() {
+    public function getEmailUser() {
         return $this->_email;
     }
     
@@ -264,7 +264,7 @@ class EUser {
      * 
      * @return string La PEC dell'user
      */
-    public function getPEC() {
+    public function getPECUser() {
         return $this->_PEC;
     }
     
@@ -273,7 +273,7 @@ class EUser {
      * 
      * @return string Il codice dell'user 
      */
-    public function getCodiceConferma() {
+    public function getCodiceConfermaUser() {
         return $this->_codiceConferma;
     }
 
@@ -282,7 +282,7 @@ class EUser {
      * 
      * @return boolean TRUE se l'account Ã¨ stato confermato, FALSE altrimenti
      */
-    public function getConfermato() 
+    public function getConfermatoUser() 
     {
         return $this->_confermato;
     }
@@ -292,7 +292,7 @@ class EUser {
      * 
      * @return boolean TRUE se l'account Ã¨ stato bloccato, FALSE altrimenti
      */
-    public function getBloccato() 
+    public function getBloccatoUser() 
     {
         return $this->_bloccato;
     }
@@ -302,7 +302,7 @@ class EUser {
      * 
      * @return string il tipo di user
      */
-    public function getTipoUser() 
+    public function getTipoUserUser() 
     {
         return $this->_tipoUser;
     }
@@ -405,7 +405,7 @@ class EUser {
         if ($fUser->inserisciUser($this) === TRUE) 
         {
             //forse ne ho bisogno nella mail di conferma????
-            return $this->getCodiceConferma();
+            return $this->getCodiceConfermaUser();
         } 
         else 
         {
@@ -466,13 +466,13 @@ class EUser {
      */
     public function confermaUser($idConferma) 
     {
-        if($this->getConfermato()==TRUE)
+        if($this->getConfermatoUser()==TRUE)
         {
             return TRUE;
         }
         else
         {
-            $username = $this->getUsername();
+            $username = $this->getUsernameUser();
             $fUser = USingleton::getInstance('FUser');
             $user = $fUser->cercaUserByUsernameCodiceConferma ($username,$idConferma);
             if(is_array($user) && count($user)===1)
@@ -498,7 +498,7 @@ class EUser {
         }
         $this->setPassword($password);
         $fUser = USingleton::getInstance('FUser');
-        return $fUser->modificaPassword($this->getUsername(), $this->getPassword());
+        return $fUser->modificaPassword($this->getUsernameUser(), $this->getPasswordUser());
     }
     
     /**

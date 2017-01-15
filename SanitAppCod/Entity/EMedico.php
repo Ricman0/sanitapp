@@ -141,6 +141,7 @@ class EMedico extends EUser {
             $this->_provinciaAlbo = $provinciaAlbo;
             $this->_numIscrizione = $numIscrizione;
             $this->_validato = $validato;
+            parent::setTipoUser('medico');
         }
     }
 
@@ -205,7 +206,7 @@ class EMedico extends EUser {
      * @return string L'username del medico
      */
     public function getUsernameMedico() {
-        return parent::getUsername();
+        return parent::getUsernameUser();
     }
     
 
@@ -332,7 +333,7 @@ class EMedico extends EUser {
     public function cercaPazienti() 
     {
         $fMedico = USingleton::getInstance("FMedico");
-        $pazienti = $fMedico->cercaPazienti(parent::getUsername());
+        $pazienti = $fMedico->cercaPazienti(parent::getUsernameUser());
         return $pazienti;                     
         
     }
@@ -371,7 +372,7 @@ class EMedico extends EUser {
         //crea un oggetto fMedico se non è esistente, si collega al DB e lo inserisce
         $fMedico = USingleton::getInstance('FMedico');
         if ($fMedico->inserisciMedico($this) === TRUE) {
-            return parent::getCodiceConferma();
+            return parent::getCodiceConfermaUser();
         } 
         else
         {

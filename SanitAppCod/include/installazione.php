@@ -88,7 +88,7 @@ class config {
      *               port, SMTPAuth, username, password, from, fromname e come 
      *               valori i rispettivi valori
      */
-    public function getEmailConfig() 
+    public function getEmailUserConfig() 
     {
         return $this->emailConfig;
     }

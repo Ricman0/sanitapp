@@ -20,21 +20,21 @@ class CConferma {
         switch ($this->getUser())
                 {
                     case 'utente':
-                        $username = $this->getUsername();
+                        $username = $this->getUsernameUser();
                         $fUtente = USingleton::getInstance('FUtente');
-                        return $fUtente->confermaUser($this->getUsername());
+                        return $fUtente->confermaUser($this->getUsernameUser());
 //                        break;
                     
                     case 'medico':
-                        $username = $this->getUsername();
+                        $username = $this->getUsernameUser();
                         $fMedico = USingleton::getInstance('FMedico');
-                        return $fMedico->confermaUser($this->getUsername());
+                        return $fMedico->confermaUser($this->getUsernameUser());
 //                        break;
                     
                     case 'clinica':
-                        $username = $this->getUsername();
+                        $username = $this->getUsernameUser();
                         $fClinica = USingleton::getInstance('FClinica');
-                        return $fClinica->confermaUser($this->getUsername());
+                        return $fClinica->confermaUser($this->getUsernameUser());
 //                        break;
                     
                     default: 
@@ -65,7 +65,7 @@ class CConferma {
      * @access private
      * @return string l'username  
      */
-    private function getUsername()
+    private function getUsernameUser()
     {
         if(isset($_REQUEST['username']))
        {

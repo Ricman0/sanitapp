@@ -39,7 +39,7 @@ class UMail {
         
         $email = USingleton::getInstance('PHPMailer');
         $config = USingleton::getInstance('Config');
-        $emailConfig = $config->getEmailConfig();
+        $emailConfig = $config->getEmailUserConfig();
         // si specifica il metodo da usare. 
         // si dice alla classe di voler usare SMTP
         $email->isSMTP(); 

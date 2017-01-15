@@ -62,7 +62,7 @@
         <br>
         <span class="grassetto">TELEFONO:</span><span>  {$eClinica->getTelefonoClinica()}</span>
         <br>
-        <span class="grassetto">EMAIL:</span><span>  {$eClinica->getEmail()}</span>
+        <span class="grassetto">EMAIL:</span><span>  {$eClinica->getEmailUser()}</span>
         <br>
        
     {/if}        

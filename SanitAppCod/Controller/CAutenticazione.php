@@ -141,12 +141,12 @@ class CAutenticazione {
             $validazione = USingleton::getInstance('UValidazione');
             if ($validazione->validaDati($datiLogIn) === TRUE) {
                 $eUser = new EUser($username, $password);
-//                if($eUser->getUsername()!==NULL && $eUser->getPassword()!==NULL)// caso in cui esiste l'user con quella password e quella username
+//                if($eUser->getUsernameUser()!==NULL && $eUser->getPasswordUser()!==NULL)// caso in cui esiste l'user con quella password e quella username
 //                {
                 $uCookie->eliminaCookie('Tentativi');
-                if ($eUser->getConfermato() == TRUE) {// user confermato
-                    $eUser->attivaSessioneUser($username, $eUser->getTipoUser());
-                    $vAutenticazione->setTastiLaterali($eUser->getTipoUser());
+                if ($eUser->getConfermatoUser() == TRUE) {// user confermato
+                    $eUser->attivaSessioneUser($username, $eUser->getTipoUserUser());
+                    $vAutenticazione->setTastiLaterali($eUser->getTipoUserUser());
                     $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
                 } else { //user non confermato ma esistente nel DB
                     // ritorna form per effettuare conferma
@@ -338,10 +338,10 @@ class CAutenticazione {
         if ($uValidazione->validaDati($dati)) {
             try {
                 $eUser = new EUser(NULL, NULL, $dati['email']);
-                if ($eUser->getEmail() !== NULL) { //l'utente esiste
+                if ($eUser->getEmailUser() !== NULL) { //l'utente esiste
                     $eUser->modificaPassword();
-                    $dati['username'] = $eUser->getUsername();
-                    $dati['password'] = $eUser->getPassword();
+                    $dati['username'] = $eUser->getUsernameUser();
+                    $dati['password'] = $eUser->getPasswordUser();
                     if ($uMail->inviaMailRecuperaPassword($dati)) {
                         $vAutenticazione->visualizzaFeedback('Ti è stata inviata la nuova password sulla mail.', TRUE);
                     } else {

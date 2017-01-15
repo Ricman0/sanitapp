@@ -14,7 +14,7 @@
             <input type="text" name="codice" maxlength="16" value ="{$medico->getCodFiscaleMedico()}" readonly />
             <br>
             <label for="email">Email :</label>
-            <input type="text" name="email" value ="{$medico->getEmail()}" readonly />
+            <input type="text" name="email" value ="{$medico->getEmailUser()}" readonly />
             <br>
                 {if isset($modificaInformazioni)}
                     <form id="formModificaInformazioni">
@@ -186,7 +186,7 @@
             {if isset($modificaCredenziali)}
                 <form id="formModificaPassword" >                    
                     <label for="username">Username :</label>
-                    <input type="text" name="username" value ="{$medico->getUsername()}" readonly />
+                    <input type="text" name="username" value ="{$medico->getUsernameUser()}" readonly />
                     <label for="password">Password :</label>
                     <input type="password" name="password" id='nuovaPassword'/>
                     <label for="ripetiPassword">Ripeti Password :</label>
@@ -196,7 +196,7 @@
                 </form>
             {else}  
                 <label for="username">Username :</label>
-                <input type="text" name="username" value ="{$medico->getUsername()}" readonly />
+                <input type="text" name="username" value ="{$medico->getUsernameUser()}" readonly />
                 <br>
                 <input type="button" id="modificaPassword" value="Modifica Credenziali" />
             {/if}

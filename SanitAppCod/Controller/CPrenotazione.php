@@ -483,7 +483,7 @@ class CPrenotazione {
                     $eUtente = new EUtente($codiceFiscaleUtente);
                     $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
                     $eClinica = new EClinica(NULL, $ePrenotazione->getPartitaIVAClinicaPrenotazione());
-                    $datiPerEmail = Array('emailDestinatario' => $eUtente->getEmail(), 'nome' => $eUtente->getNomeUtente(),
+                    $datiPerEmail = Array('emailDestinatario' => $eUtente->getEmailUser(), 'nome' => $eUtente->getNomeUtente(),
                         'cognome' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsameEsame(),
                         'nomeClinica' => $eClinica->getNomeClinicaClinica(), 'dataEOra' => $ePrenotazione->getDataEOraPrenotazione());
                     $mail = USingleton::getInstance('UMail');
@@ -855,7 +855,7 @@ class CPrenotazione {
                         $eUtente = new EUtente($value);
                         $infoPrenotazione['nomeUtente'] = $eUtente->getNomeUtente();
                         $infoPrenotazione['cognomeUtente'] = $eUtente->getCognomeUtente();
-                        $infoPrenotazione['email'] = $eUtente->getEmail();
+                        $infoPrenotazione['email'] = $eUtente->getEmailUser();
                         break;
                     
                     case 'DataEOra':

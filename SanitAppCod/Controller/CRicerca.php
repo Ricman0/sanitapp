@@ -109,7 +109,7 @@ class CRicerca {
                 if ($uValidazione->validaDati($dati)) {
                     try {
                         $eUser = new EUser($dati['username']);
-                        if ($eUser->getUsername() !== NULL) {
+                        if ($eUser->getUsernameUser() !== NULL) {
                             $risultato = NULL;
                         }
                     } catch (XUserException $ex) {
@@ -127,7 +127,7 @@ class CRicerca {
                 if ($uValidazione->validaDati($dati)) {
                     try {
                         $eUser = new EUser(NULL, NULL, $dati['email']);
-                        if ($eUser->getEmail() !== NULL) {
+                        if ($eUser->getEmailUser() !== NULL) {
                             $risultato = NULL; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
                         }
                     } catch (XUserException $ex) {
@@ -142,7 +142,7 @@ class CRicerca {
                 $risultato = TRUE;
                 if ($uValidazione->validaDati($dati)) {
                     $eUser = new EUser(NULL, NULL, NULL, $dati['PEC']);
-                    if ($eUser->getPEC() !== NULL) {
+                    if ($eUser->getPECUser() !== NULL) {
                         $risultato = false; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
                     }
                 }

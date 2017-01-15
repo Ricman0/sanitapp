@@ -75,7 +75,7 @@ class EAmministratore extends EUser{
     
     public function getUsernameAmministratore() 
     {
-        return parent::getUsername();
+        return parent::getUsernameUser();
     }
     
     public function getTelefonoAmministratore() 

@@ -12,6 +12,6 @@
     <br>
     <span class="grassetto">CAP:</span><span>  {$utente->getCAPUtente()}</span>
     <br>
-    <span class="grassetto">EMAIL:</span><span>  {$utente->getEmail()}</span>
+    <span class="grassetto">EMAIL:</span><span>  {$utente->getEmailUser()}</span>
     <br>
 </div>

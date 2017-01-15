@@ -24,7 +24,7 @@ class FAmministratore extends FUser{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "amministratore";
-        $this->_attributiTabella = "IdAmministratore, Username, Nome, Cognome, Telefono"; 
+        self::$_attributiTabella = "IdAmministratore, Username, Nome, Cognome, Telefono"; 
     }
     
     /**
@@ -38,7 +38,7 @@ class FAmministratore extends FUser{
     public function getAttributi($amministratore) 
     {
         $valoriAttributi = "'" . $amministratore->getIdAmministratoreAmministratore() . "', '" 
-                . $this->trimEscapeStringa($amministratore->getUsername()) .  "', '"
+                . $this->trimEscapeStringa($amministratore->getUsernameUser()) .  "', '"
                 . $this->trimEscapeStringa($amministratore->getNomeAmministratore()) . "', '"
                 . $this->trimEscapeStringa($amministratore->getCognomeAmministratore()) . "', '"
                 . $this->trimEscapeStringa($amministratore->getTelefonoAmministratore()) .  "'";

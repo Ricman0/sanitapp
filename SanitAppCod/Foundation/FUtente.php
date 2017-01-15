@@ -18,7 +18,7 @@ class FUtente extends FUser{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
-        $this->_attributiTabella = "CodFiscale, Nome, Cognome,  Via, NumCivico, "
+        self::$_attributiTabella = "CodFiscale, Nome, Cognome,  Via, NumCivico, "
                 . "CAP, Username, CodFiscaleMedico";
     }
     
@@ -75,7 +75,7 @@ class FUtente extends FUser{
 //        . ", " . $utente->getViaUtente(). ", " 
 //        . $utente->getNumCivicoUtente() . ", " . $utente->getCAPUtente() . ", " 
 //        . $utente->getCodFiscaleUtente() . ", " 
-//        .   $utente->getEmailUtente() . ", "  . $utente->getUsernameUtente() 
+//        .   $utente->getEmailUserUtente() . ", "  . $utente->getUsernameUtente() 
 //        . ", " . $utente->getPasswordUtente() ;
         $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getCodFiscaleUtente()) . "', '"
                 . $this->trimEscapeStringa($utente->getNomeUtente()) . "', '"
@@ -83,7 +83,7 @@ class FUtente extends FUser{
                 . $this->trimEscapeStringa($utente->getViaUtente()) . "', "
                 . $utente->getNumCivicoUtente() . ", '"
                 . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getUsername()) . "', ";
+                . $this->trimEscapeStringa($utente->getUsernameUser()) . "', ";
         if(NULL !== $utente->getCodFiscaleMedicoUtente())
         {
             $valoriAttributi = $valoriAttributi . "'" . $utente->getCodFiscaleMedicoUtente() . "'";
@@ -275,18 +275,18 @@ class FUtente extends FUser{
     public function modificaUtente($utente) {
         
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE  (Username='" . $utente->getUsername() . "') OR (CodFiscale='" . $utente->getCodFiscaleUtente() .  "') FOR UPDATE" ;
+                " WHERE  (Username='" . $utente->getUsernameUser() . "') OR (CodFiscale='" . $utente->getCodFiscaleUtente() .  "') FOR UPDATE" ;
         $queryLock2 = "SELECT * FROM appUser " . 
-                " WHERE  (Username='" . $utente->getUsername() . "') OR (Email='" . $utente->getEmail() .  "') FOR UPDATE" ;
+                " WHERE  (Username='" . $utente->getUsernameUser() . "') OR (Email='" . $utente->getEmailUser() .  "') FOR UPDATE" ;
         $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "', Nome='"
                 . $utente->getNomeUtente() . "', Cognome='" . $utente->getCognomeUtente() . "', Via='" . $utente->getViaUtente() . "', "
                 . "NumCivico='" . $utente->getNumCivicoUtente() . "', CAP='" . $utente->getCAPUtente() . "', Username='"
-                . $utente->getUsername() . "' WHERE (Username='" . $utente->getUsername() . "') OR (CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "')";
+                . $utente->getUsernameUser() . "' WHERE (Username='" . $utente->getUsernameUser() . "') OR (CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "')";
 
-        $query2 = "UPDATE appUser SET Username='" . $utente->getUsername() . "', Password='"
-                . $utente->getPassword() . "', Email='" . $utente->getEmail() . "', Bloccato=" . $utente->getBloccato() . ", "
-                . "Confermato=" .  $utente->getConfermato() . ", CodiceConferma='" . $utente->getCodiceConferma() . "' "
-                .  " WHERE (Username='" . $utente->getUsername() . "') OR (Email='" . $utente->getEmail() .  "')";
+        $query2 = "UPDATE appUser SET Username='" . $utente->getUsernameUser() . "', Password='"
+                . $utente->getPasswordUser() . "', Email='" . $utente->getEmailUser() . "', Bloccato=" . $utente->getBloccatoUser() . ", "
+                . "Confermato=" .  $utente->getConfermatoUser() . ", CodiceConferma='" . $utente->getCodiceConfermaUser() . "' "
+                .  " WHERE (Username='" . $utente->getUsernameUser() . "') OR (Email='" . $utente->getEmailUser() .  "')";
        
         try {
 //            // First of all, let's begin a transaction

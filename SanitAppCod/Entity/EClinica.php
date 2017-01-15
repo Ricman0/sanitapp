@@ -118,6 +118,7 @@ class EClinica extends EUser {
 
         if ($partitaIVA !== NULL && $username !== NULL) {
             parent::__construct($username, $password, $email, $PEC);
+            parent::setTipoUser('clinica');
             $this->_partitaIVA = $partitaIVA;
             $this->_nomeClinica = $nomeClinica;
             $this->_titolareClinica = $titolareClinica;
@@ -163,6 +164,7 @@ class EClinica extends EUser {
                 parent::setPEC($attributiClinica[0]["PEC"]);
                 parent::setUsername($attributiClinica[0]["Username"]);
                 parent::setPassword($attributiClinica[0]["Password"]);
+                parent::setTipoUser($attributiClinica[0]['TipoUser']);
                 $this->_telefono = $attributiClinica[0]["Telefono"];
                 $this->_capitaleSociale = $attributiClinica[0]["CapitaleSociale"];
                 $this->_workingPlan = $attributiClinica[0]["WorkingPlan"];
@@ -170,11 +172,13 @@ class EClinica extends EUser {
                 parent::setConfermato($attributiClinica[0]["Confermato"]);
                 parent::setCodiceConfermaUser($attributiClinica[0]["CodiceConferma"]);
                 $this->setValidatoClinica($attributiClinica[0]["Validato"]);
+               
                 $this->_esami = Array();
             } else {
                 throw new XClinicaException('Clinica inesistente');
             }
         } else {
+            parent::__construct($username, $password, $email);
             $this->_partitaIVA = $partitaIVA;
             $this->_nomeClinica = $nomeClinica;
             $this->_titolareClinica = $titolareClinica;
@@ -184,14 +188,13 @@ class EClinica extends EUser {
             $this->_localita = $localita;
             $this->_provincia = $provincia;
             $this->_regione = $this->trovaRegione($provincia);
-            $this->_email = $email;
-            $this->_PEC = $PEC;
-            $this->_username = $username;
-            $this->_password = $password;
+            parent::setPEC($PEC);
             $this->_telefono = $telefono;
             $this->_capitaleSociale = $capitaleSociale;
             $this->_workingPlan = $workingPlan;
             $this->_validato = $validato;
+            parent::setTipoUser('clinica');
+            
             $this->_esami = Array();
         }
 
@@ -422,7 +425,7 @@ class EClinica extends EUser {
      * @return string L'username della clinica
      */
     public function getUsernameClinica() {
-        return parent::getUsername();
+        return parent::getUsernameUser();
     }
 
     /**
@@ -564,9 +567,10 @@ class EClinica extends EUser {
         //crea un oggetto fClinica se non è esistente, si collega al DB e lo inserisce
         $fClinica = USingleton::getInstance('FClinica');
 //        if ($fClinica->inserisciClinica($this) === TRUE) {
+       $this->getPasswordUser();
         if ($fClinica->inserisci($this) === TRUE) {
   
-            return parent::getCodiceConferma();
+            return parent::getCodiceConfermaUser();
 
         } else {
             return FALSE;
@@ -862,7 +866,7 @@ class EClinica extends EUser {
      */
     public function cercaClienti() {
         $fClinica = USingleton::getInstance('FClinica');
-        return $fClinica->cercaClienti(parent::getUsername());
+        return $fClinica->cercaClienti(parent::getUsernameUser());
     }
 
     /**

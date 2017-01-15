@@ -46,6 +46,7 @@ class FDatabase {
      *                                della tabella con cui si interagisce
      */
     protected static $_attributiTabella;
+//    protected $_attributiTabella;
     
     /**
      * Costruttore della classe FDatabase
@@ -316,19 +317,19 @@ class FDatabase {
         
     }
     
-    public static function getValoriAttributi( $oggetto, $nomeClasse = '') 
+//    public static function getValoriAttributi($oggetto, $attributiTabella, $nomeClasse = '') 
+    public function getValoriAttributi($oggetto, $attributiTabella, $nomeClasse = '') 
     {
-        $nomeClassePadre = 'F' . $nomeClasse;
+//        $nomeClasse = 'F' . $nomeClasse;
 //        $attributiTabella = explode(',', $this->_attributiTabella);
-        $attributiTabella = explode(',', $nomeClassePadre::getNomeAttributi());
-        echo 'attributi';
-        print_r($attributiTabella);
+//        $x ='F' . $nomeClasse;
+//        $attributiTabella = explode(',',$x::getNomeAttributi() );
+        $attributiTabella = explode(',', $attributiTabella);
         $valoriAttributi = NULL;
         foreach ($attributiTabella as $valore) {
             $valore = trim($valore);
-            $funzione = 'get'.$valore.$nomeClasse ;
-            $valoreAttributo = parent::$funzione();
-//            $valoreAttributo = $oggetto->$funzione();
+            $funzione = 'get'.$valore.$nomeClasse ;  
+            $valoreAttributo = $oggetto->$funzione();
             switch (gettype($valoreAttributo)) {
                 case 'string':
                     if (isset($valoriAttributi))
@@ -337,7 +338,7 @@ class FDatabase {
                     }
                     else
                     {
-                        $valoriAttributi = "'" . $this->trimEscapeStringa($valoreAttributo)  . "'";
+                        $valoriAttributi .= "'" . $this->trimEscapeStringa($valoreAttributo)  . "'";
                     }
                     break;
 
@@ -348,7 +349,7 @@ class FDatabase {
                     }
                     else
                     {
-                        $valoriAttributi = "NULL";
+                        $valoriAttributi .= "NULL";
                     }
                     break;
 
@@ -359,7 +360,7 @@ class FDatabase {
                     }
                     else
                     {
-                        $valoriAttributi = "'" . $valoreAttributo  . "'";
+                        $valoriAttributi .= "'" . $valoreAttributo  . "'";
                     }
                     break;
 
@@ -372,18 +373,18 @@ class FDatabase {
                         }
                         else
                         {
-                            $valoriAttributi = "'" . $valoreAttributo  . "'";
+                            $valoriAttributi .=  $valoreAttributo  ;
                         }
                     }
                     else
                     {
                         if (isset($valoriAttributi))
                         {
-                            $valoriAttributi .= ", 'FALSE'";
+                            $valoriAttributi .= ", FALSE";
                         }
                         else
                         {
-                            $valoriAttributi = "FALSE";
+                            $valoriAttributi .= "FALSE";
                         }
                     }
 
@@ -392,11 +393,11 @@ class FDatabase {
                 default:
                     if (isset($valoriAttributi))
                     {
-                        $valoriAttributi .= ", " . $valoreAttributo . "";
+                        $valoriAttributi .= ", " . $valoreAttributo ;
                     }
                     else
                     {
-                        $valoriAttributi = "" . $valoreAttributo . "";
+                        $valoriAttributi .=  $valoreAttributo;
                     }
                     break;
                 }
@@ -404,9 +405,12 @@ class FDatabase {
         return $valoriAttributi;
     }
     
-    public static function getNomeAttributi() {
-        return self::$_attributiTabella;
-    }
+//    public static function getNomeAttributi() {
+//        return self::$_attributiTabella;
+//    }
+//    public function getNomeAttributi() {
+//        return $this->_attributiTabella;
+//    }
     
     
     /**
@@ -421,8 +425,11 @@ class FDatabase {
         
 //        $valoriAttributi = $this->getAttributi($oggetto);
 //        $nomeTabella =substr(strtolower(get_class($oggetto)), 1);// nome della classe dell'oggetto in minuscolo eliminando la e iniziale
+        
+        
         $nomeClasse = substr((get_class($oggetto)), 1);
         $nomeClassePadre = get_parent_class($oggetto); 
+        
         if(isset($nomeClassePadre))
         {
 //            $nomeClassePadre = strtolower($nomeClassePadre);
@@ -432,13 +439,27 @@ class FDatabase {
 //            echo 'attributi padre';
 //            print_r($attributiPadre);
 //            echo ' niente';
-            $nomeClassePadre = 'F' . substr($nomeClassePadre,1);
-            $attributiPadre = $nomeClassePadre::getNomeAttributi();
-            $valoriAttributiPadre = $nomeClassePadre::getValoriAttributi($oggetto, 'User');
+            $nomeClassePadre =  substr($nomeClassePadre,1);
+            $attributiPadreFiglio = $this->getAttributiTabella();
+            $attributi = explode(';', $attributiPadreFiglio);
+            $attributiPadre = $attributi[0];
+            print_r($attributiPadre);
             
+            $attributiFiglio = $attributi[1];
+            
+            $valoriAttributiPadre = $this->getValoriAttributi($oggetto, $attributiPadre , $nomeClassePadre);
+            $nomeClassePadre = strtolower($nomeClassePadre);
+            if($nomeClassePadre ==='user')
+            {
+                $nomeClassePadre = 'appuser';
+            }
             $query1 = "INSERT INTO " . $nomeClassePadre . "(" . $attributiPadre . ") VALUES( " . $valoriAttributiPadre . ")";
-            $query2 = "INSERT INTO " . $nomeClasse . "(" . $this->_attributiTabella . ") VALUES( " .  $this->getValoriAttributi($this, 'Clinica') . ")";
-             print_r($query1);
+            print_r($query1);
+           
+            $valoriAttributi = $this->getValoriAttributi($oggetto, $attributiFiglio, $nomeClasse);
+            $nomeClasse  = strtolower($nomeClasse);
+            $query2 = "INSERT INTO " . $nomeClasse . "(" . $attributiFiglio . ") VALUES( " .  $valoriAttributi . ")";
+            
             print_r($query2);
             try {
                 // inzia la transazione
@@ -453,6 +474,7 @@ class FDatabase {
             } catch (Exception $e) {
                 // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
                 $this->_connessione->rollback();
+                print_r($e->getMessage());
                 throw new XDBException("Inserimento fallito, contattare l'amministratore.");
             }
         }

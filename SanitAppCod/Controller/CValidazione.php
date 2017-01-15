@@ -22,7 +22,7 @@ class CValidazione {
             case 'username':
                 print_r($_REQUEST);
                 // credo sia usernameUtente o username
-                $username = $vValidazione->getUsername();
+                $username = $vValidazione->getUsernameUser();
                 $eUser = new EUser($username);
                 $esisteUsername = $eUser->esisteUsername();
                 $vJson = USingleton::getInstance('VJSON');

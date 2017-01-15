@@ -24,7 +24,7 @@ class FClinica extends FUser{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "clinica";
-        $this->_attributiTabella = "PartitaIVA, NomeClinica, Titolare, Via, " 
+        $this->_attributiTabella = $this->_attributiTabella . "; PartitaIVA, NomeClinica, Titolare, Via, " 
                 . "NumCivico, CAP, Localita, Provincia, Regione, Username, Telefono, "
                 . "CapitaleSociale, WorkingPlan, Validato"; 
     }
@@ -48,7 +48,7 @@ class FClinica extends FUser{
                 . $this->trimEscapeStringa($clinica->getLocalitaClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getProvinciaClinica()). "', '"
                 . $this->trimEscapeStringa($clinica->getRegioneClinica()). "', '" 
-                . $this->trimEscapeStringa($clinica->getUsername()) .  "', '"
+                . $this->trimEscapeStringa($clinica->getUsernameUser()) .  "', '"
                 . $clinica->getTelefonoClinica() .  "', '" 
                 . $clinica->getCapitaleSocialeClinica() . "', ";
                
@@ -360,21 +360,21 @@ class FClinica extends FUser{
      */
     public function modificaClinica($clinica) {
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE (Username='" . $clinica->getUsername() . "') OR (PartitaIVA='" . $clinica->getPartitaIVAClinica() .  "') FOR UPDATE" ;
+                " WHERE (Username='" . $clinica->getUsernameUser() . "') OR (PartitaIVA='" . $clinica->getPartitaIVAClinica() .  "') FOR UPDATE" ;
         $queryLock2 = "SELECT * FROM appUser " . 
-                " WHERE  (Username='" . $clinica->getUsername() . "') OR (Email='" . $clinica->getEmail() .  "') FOR UPDATE" ;
+                " WHERE  (Username='" . $clinica->getUsernameUser() . "') OR (Email='" . $clinica->getEmailUser() .  "') FOR UPDATE" ;
         
         $query1 = "UPDATE " . $this->_nomeTabella . " SET PartitaIVA='" . $clinica->getPartitaIVAClinica() . "', NomeClinica='" . $clinica->getNomeClinicaClinica() . "', Titolare='" . $clinica->getTitolareClinica() . "', "
                 . "', Via='" . $clinica->getViaClinica() . "', "
                 . "NumCivico='" . $clinica->getNumCivicoClinica() . "', CAP='" . $clinica->getCAPClinica() . "', "
                 . " Localita='" . $clinica->getLocalitaClinica() . "', Provincia='" . $clinica->getProvinciaClinica() . "', Regione='" . $clinica->getRegioneClinica() . "', Username='"
-                . $clinica->getUsername() . "', Telefono='" . $clinica->getTelefonoClinica() . "', CapitaleSociale='" 
-                . $clinica->getCapitaleSocialeClinica() . "', WorkingPlan='" . $clinica->getWorkingPlanClinica() . "', Validato=" . $clinica->getValidatoClinica() . " WHERE (Username='" . $clinica->getUsername() . "') OR (PartitaIVA='" . $clinica->getPartitaIVAClinica() .  "')";
+                . $clinica->getUsernameUser() . "', Telefono='" . $clinica->getTelefonoClinica() . "', CapitaleSociale='" 
+                . $clinica->getCapitaleSocialeClinica() . "', WorkingPlan='" . $clinica->getWorkingPlanClinica() . "', Validato=" . $clinica->getValidatoClinica() . " WHERE (Username='" . $clinica->getUsernameUser() . "') OR (PartitaIVA='" . $clinica->getPartitaIVAClinica() .  "')";
 
-        $query2 = "UPDATE appUser SET Username='" . $clinica->getUsername() . "', Password='"
-                . $clinica->getPassword() . "', Email='" . $clinica->getEmail() . "', Bloccato=" . $clinica->getBloccato() . ", "
-                . "Confermato=" .  $clinica->getConfermato() . ", CodiceConferma='" . $clinica->getCodiceConferma() . "' "
-                .  " WHERE (Username='" . $clinica->getUsername() . "') OR (Email='" . $clinica->getEmail() .  "')";
+        $query2 = "UPDATE appUser SET Username='" . $clinica->getUsernameUser() . "', Password='"
+                . $clinica->getPasswordUser() . "', Email='" . $clinica->getEmailUser() . "', Bloccato=" . $clinica->getBloccatoUser() . ", "
+                . "Confermato=" .  $clinica->getConfermatoUser() . ", CodiceConferma='" . $clinica->getCodiceConfermaUser() . "' "
+                .  " WHERE (Username='" . $clinica->getUsernameUser() . "') OR (Email='" . $clinica->getEmailUser() .  "')";
         
         try {
 //            // First of all, let's begin a transaction

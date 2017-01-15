@@ -24,7 +24,7 @@ class FMedico extends FUser {
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "medico";
-        $this->_attributiTabella = "CodFiscale, Nome, Cognome, Via, NumCivico, "
+        self::$_attributiTabella = "CodFiscale, Nome, Cognome, Via, NumCivico, "
                 . "CAP, Username, ProvinciaAlbo, NumIscrizione, Validato";
     }
     
@@ -105,7 +105,7 @@ class FMedico extends FUser {
                 . $this->trimEscapeStringa($medico->getViaMedico()) . "', '"
                 . $medico->getNumCivicoMedico() . "', '" 
                 . $this->trimEscapeStringa($medico->getCAPMedico()) . "', '" 
-                . $this->trimEscapeStringa($medico->getUsername()) . "', '"             
+                . $this->trimEscapeStringa($medico->getUsernameUser()) . "', '"             
                 . $this->trimEscapeStringa($medico->getProvinciaAlboMedico()) . "', '" 
 //                . $this->trimEscapeStringa($medico->getNumIscrizioneMedico()) . "', "
                 . $medico->getNumIscrizioneMedico() . "', ";
@@ -286,19 +286,19 @@ class FMedico extends FUser {
      */
     public function modificaMedico($medico) {
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella 
-                ." WHERE (Username='" . $medico->getUsername() . "') OR (CodFiscale='" . $medico->getCodFiscaleMedico() .  "') FOR UPDATE" ;
+                ." WHERE (Username='" . $medico->getUsernameUser() . "') OR (CodFiscale='" . $medico->getCodFiscaleMedico() .  "') FOR UPDATE" ;
         $queryLock2 = "SELECT * FROM appUser " 
-                ." WHERE (Username='" . $medico->getUsername() . "') OR (Email='" . $medico->getEmail() .  "') FOR UPDATE" ;
+                ." WHERE (Username='" . $medico->getUsernameUser() . "') OR (Email='" . $medico->getEmailUser() .  "') FOR UPDATE" ;
         $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $medico->getCodFiscaleMedico() .  "', Nome='"
                 . $medico->getNomeMedico() . "', Cognome='" . $medico->getCognomeMedico() . "', Via='" . $medico->getViaMedico() . "', "
                 . "NumCivico='" . $medico->getNumCivicoMedico() . "', CAP='" . $medico->getCAPMedico() . "', Username='"
-                . $medico->getUsername() . "', ProvinciaAlbo='" . $medico->getProvinciaAlboMedico() . "', NumIscrizione='" 
-                . $medico->getNumIscrizioneMedico() . "', Validato=" . $medico->getValidatoMedico() . " WHERE (Username='" . $medico->getUsername() . "') OR (CodFiscale='" . $medico->getCodFiscaleMedico() .  "')";
+                . $medico->getUsernameUser() . "', ProvinciaAlbo='" . $medico->getProvinciaAlboMedico() . "', NumIscrizione='" 
+                . $medico->getNumIscrizioneMedico() . "', Validato=" . $medico->getValidatoMedico() . " WHERE (Username='" . $medico->getUsernameUser() . "') OR (CodFiscale='" . $medico->getCodFiscaleMedico() .  "')";
 
-        $query2 = "UPDATE appUser SET Username='" . $medico->getUsername() . "', Password='"
-                . $medico->getPassword() . "', Email='" . $medico->getEmail() . "', Bloccato=" . $medico->getBloccato() . ", "
-                . "Confermato=" .  $medico->getConfermato() . ", CodiceConferma='" . $medico->getCodiceConferma() . "' "
-                .  " WHERE (Username='" . $medico->getUsername() . "') OR (Email='" . $medico->getEmail() .  "')";
+        $query2 = "UPDATE appUser SET Username='" . $medico->getUsernameUser() . "', Password='"
+                . $medico->getPasswordUser() . "', Email='" . $medico->getEmailUser() . "', Bloccato=" . $medico->getBloccatoUser() . ", "
+                . "Confermato=" .  $medico->getConfermatoUser() . ", CodiceConferma='" . $medico->getCodiceConfermaUser() . "' "
+                .  " WHERE (Username='" . $medico->getUsernameUser() . "') OR (Email='" . $medico->getEmailUser() .  "')";
        try {
 //            // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();

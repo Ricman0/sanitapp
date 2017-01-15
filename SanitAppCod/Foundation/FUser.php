@@ -23,7 +23,7 @@ class FUser extends FDatabase {
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "appuser";
-        self::$_attributiTabella = "Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser";
+        $this->_attributiTabella = "Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser";
     }
     
     
@@ -38,35 +38,35 @@ class FUser extends FDatabase {
      */
     public function getAttributi($user) 
     {
-        $valoriAttributi ="'" . $this->trimEscapeStringa($user->getUsername()) . "', '" 
-                . $this->trimEscapeStringa($user->getPassword()) . "', '"
-                . $this->trimEscapeStringa($user->getEmail()) . "', " ;
-        if ($user->getPEC()!== NULL)
+        $valoriAttributi ="'" . $this->trimEscapeStringa($user->getUsernameUser()) . "', '" 
+                . $this->trimEscapeStringa($user->getPasswordUser()) . "', '"
+                . $this->trimEscapeStringa($user->getEmailUser()) . "', " ;
+        if ($user->getPECUser()!== NULL)
                 {
-                    $valoriAttributi = $valoriAttributi . "'" . $user->getPEC() . "', ";
+                    $valoriAttributi = $valoriAttributi . "'" . $user->getPECUser() . "', ";
                 }
                 else
                 {
                      $valoriAttributi = $valoriAttributi .  "NULL, ";
                 }       
-        if ($user->getBloccato()===TRUE)
+        if ($user->getBloccatoUser()===TRUE)
         {
-            $valoriAttributi = $valoriAttributi . $user->getBloccato() . ", ";
+            $valoriAttributi = $valoriAttributi . $user->getBloccatoUser() . ", ";
         }
         else
         {
              $valoriAttributi = $valoriAttributi .  "FALSE, ";
         }
-        if ($user->getConfermato()===TRUE)
+        if ($user->getConfermatoUser()===TRUE)
         {
-            $valoriAttributi = $valoriAttributi . $user->getConfermato() . ", '";
+            $valoriAttributi = $valoriAttributi . $user->getConfermatoUser() . ", '";
         }
         else
         {
              $valoriAttributi = $valoriAttributi .  "FALSE, '";
         }
-        $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($user->getCodiceConferma()) . "', '"
-                . $user->getTipoUser() . "'" ;
+        $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($user->getCodiceConfermaUser()) . "', '"
+                . $user->getTipoUserUser() . "'" ;
         return $valoriAttributi;
         
         

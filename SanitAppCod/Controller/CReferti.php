@@ -250,7 +250,7 @@ class CReferti {
                 $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione());
                 $datiNotifica['nomeUtente'] = $eUtente->getNomeUtente();
                 $datiNotifica['cognomeUtente'] = $eUtente->getCognomeUtente();
-                $datiNotifica['email'] = $eUtente->getEmail();
+                $datiNotifica['email'] = $eUtente->getEmailUser();
                 $dataEOra = $ePrenotazione->getDataEOraPrenotazione();
                 $data = strtotime(substr($dataEOra, 0, 10));
                 $datiNotifica['data'] = date('d-m-Y', $data);

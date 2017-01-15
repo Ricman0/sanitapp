@@ -7,7 +7,7 @@
         <br>
         <span class="grassetto">TELEFONO:</span><span>  {$clinica->getTelefonoClinica()}</span>
         <br>
-        <span class="grassetto">EMAIL:</span><span>  {$clinica->getEmail()}</span>
+        <span class="grassetto">EMAIL:</span><span>  {$clinica->getEmailUser()}</span>
         <br>
     </div>
 

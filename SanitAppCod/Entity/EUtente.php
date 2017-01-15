@@ -285,7 +285,7 @@ class EUtente extends EUser {
      * @return string L'username dell'utente
      */
     public function getUsernameUtente() {
-        return parent::getUsername();
+        return parent::getUsernameUser();
     }
     
     /**
@@ -415,7 +415,7 @@ class EUtente extends EUser {
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);
         if ($fUtente->inserisciUtente($this) === TRUE) {
-            return parent::getCodiceConferma();
+            return parent::getCodiceConfermaUser();
         } else {
             return FALSE;
         }

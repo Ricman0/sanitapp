@@ -28,7 +28,7 @@
         <br>
         <span class="grassetto">CODICE FISCALE:</span><span>  {$utente->getCodiceFiscaleUtente()}</span>
         <br>
-        <span class="grassetto">EMAIL:</span><span>  {$utente->getEmail()}</span>
+        <span class="grassetto">EMAIL:</span><span>  {$utente->getEmailUser()}</span>
         <br>
         <span class="grassetto">INDIRIZZO:</span><span>  {$utente->getViaUtente()}</span>
         <br>
