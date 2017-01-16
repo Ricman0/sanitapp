@@ -596,7 +596,7 @@ class EClinica extends EUser {
     public function cercaReferti() {
 
         $fReferto = USingleton::getInstance("FReferto");
-        return $fReferto->cercaRefertiClinica($this->_partitaIVA);
+        return $fReferto->cercaRefertiClinica($this->getPartitaIVAClinica());
     }
 
     /**

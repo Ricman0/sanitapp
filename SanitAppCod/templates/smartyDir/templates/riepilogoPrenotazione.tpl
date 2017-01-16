@@ -26,7 +26,7 @@
     <div>
         <span class="grassetto">UTENTE:</span><span>  {$utente->getNomeUtente()}  {$utente->getCognomeUtente()}</span>
         <br>
-        <span class="grassetto">CODICE FISCALE:</span><span>  {$utente->getCodiceFiscaleUtente()}</span>
+        <span class="grassetto">CODICE FISCALE:</span><span>  {$utente->getCodFiscaleUtente()}</span>
         <br>
         <span class="grassetto">EMAIL:</span><span>  {$utente->getEmailUser()}</span>
         <br>

@@ -18,7 +18,7 @@ class FUtente extends FUser{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
-        self::$_attributiTabella = "CodFiscale, Nome, Cognome,  Via, NumCivico, "
+        $this->_attributiTabella .= "; CodFiscale, Nome, Cognome,  Via, NumCivico, "
                 . "CAP, Username, CodFiscaleMedico";
     }
     
@@ -278,10 +278,10 @@ class FUtente extends FUser{
                 " WHERE  (Username='" . $utente->getUsernameUser() . "') OR (CodFiscale='" . $utente->getCodFiscaleUtente() .  "') FOR UPDATE" ;
         $queryLock2 = "SELECT * FROM appUser " . 
                 " WHERE  (Username='" . $utente->getUsernameUser() . "') OR (Email='" . $utente->getEmailUser() .  "') FOR UPDATE" ;
-        $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "', Nome='"
+        $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $utente->getCodFiscaleUtente() .  "', Nome='"
                 . $utente->getNomeUtente() . "', Cognome='" . $utente->getCognomeUtente() . "', Via='" . $utente->getViaUtente() . "', "
                 . "NumCivico='" . $utente->getNumCivicoUtente() . "', CAP='" . $utente->getCAPUtente() . "', Username='"
-                . $utente->getUsernameUser() . "' WHERE (Username='" . $utente->getUsernameUser() . "') OR (CodFiscale='" . $utente->getCodiceFiscaleUtente() .  "')";
+                . $utente->getUsernameUser() . "' WHERE (Username='" . $utente->getUsernameUser() . "') OR (CodFiscale='" . $utente->getCodFiscaleUtente() .  "')";
 
         $query2 = "UPDATE appUser SET Username='" . $utente->getUsernameUser() . "', Password='"
                 . $utente->getPasswordUser() . "', Email='" . $utente->getEmailUser() . "', Bloccato=" . $utente->getBloccatoUser() . ", "

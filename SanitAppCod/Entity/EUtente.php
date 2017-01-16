@@ -414,7 +414,8 @@ class EUtente extends EUser {
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);
-        if ($fUtente->inserisciUtente($this) === TRUE) {
+//        if ($fUtente->inserisciUtente($this) === TRUE) {
+        if ($fUtente->inserisci($this) === TRUE) {
             return parent::getCodiceConfermaUser();
         } else {
             return FALSE;

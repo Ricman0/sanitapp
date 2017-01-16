@@ -430,8 +430,9 @@ class FDatabase {
         $nomeClasse = substr((get_class($oggetto)), 1);
         $nomeClassePadre = get_parent_class($oggetto); 
         
-        if(isset($nomeClassePadre))
+        if(($nomeClassePadre==='EUser'))
         {
+            echo 'padre';
 //            $nomeClassePadre = strtolower($nomeClassePadre);
 //            $nomeClassePadre = 'F' . substr($nomeClassePadre,1);
 //            print_r($nomeClassePadre);
@@ -480,7 +481,8 @@ class FDatabase {
         }
         else
         {
-            $query = "INSERT INTO " . $nomeClasse . "(" . $this->_attributiTabella . ") VALUES( " .  $this->getValoriAttributi() . ")";
+            $attributiTabella =  $this->getAttributiTabella();
+            $query = "INSERT INTO " . $nomeClasse . "(" . $attributiTabella . ") VALUES( " .  $this->getValoriAttributi($oggetto, $attributiTabella, $nomeClasse ) . ")";
             return $this->eseguiQuery($query); 
         }
         

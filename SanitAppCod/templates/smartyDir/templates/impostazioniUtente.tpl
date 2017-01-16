@@ -11,7 +11,7 @@
                 <input type="text" name="cognome" value ="{$utente->getCognomeUtente()}" readonly />
                 <br>
                 <label for="codice">Codice Fiscale :</label>
-                <input type="text" name="codice" maxlength="16" value ="{$utente->getCodiceFiscaleUtente()}" readonly />
+                <input type="text" name="codice" maxlength="16" value ="{$utente->getCodFiscaleUtente()}" readonly />
                 <br>
                 <label for="email">Email :</label>
                 <input type="text" name="email" value ="{$utente->getEmailUser()}" readonly />

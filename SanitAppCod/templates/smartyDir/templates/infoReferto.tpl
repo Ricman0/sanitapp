@@ -19,7 +19,7 @@
         <br>
         <span class="grassetto">COGNOME:</span><span>  {$utente->getCognomeUtente()}</span>
         <br>
-        <span class="grassetto">CODICE FISCALE:</span><span>  {$utente->getCodiceFiscaleUtente()}</span>
+        <span class="grassetto">CODICE FISCALE:</span><span>  {$utente->getCodFiscaleUtente()}</span>
         <br>
         <span class="grassetto">ESAME:</span><span>  {$esame->getNomeEsameEsame()}</span>
         <br>
