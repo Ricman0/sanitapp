@@ -58,7 +58,8 @@ class ECategoria {
         if($this->checkIfCanDelete()===TRUE)
         {
             $fCategorie = USingleton::getInstance('FCategoria');
-            return $fCategorie->eliminaCategoria($this->getNomeCategoria()); 
+//            return $fCategorie->eliminaCategoria($this->getNomeCategoria()); 
+            return $fCategorie->elimina($this->getNomeCategoria()); 
         }
         else
         {

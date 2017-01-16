@@ -230,8 +230,10 @@ class EAmministratore extends EUser{
      */
     public function eliminaUser($idUser) {
 
-        $fAmministratore = USingleton::getInstance('FAmministratore');
-        return $fAmministratore->eliminaUser($idUser);
+//        $fAmministratore = USingleton::getInstance('FAmministratore');
+//        return $fAmministratore->eliminaUser($idUser);
+        $fUser = USingleton::getInstance('FUser');
+        return $fUser->elimina($idUser);
     }
     
     /**

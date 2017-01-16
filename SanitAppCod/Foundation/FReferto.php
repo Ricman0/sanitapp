@@ -23,6 +23,7 @@ class FReferto extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "referto";
+        $this->_idTabella = "IDReferto";
         $this->_attributiTabella = "IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, FileName, " .
                 "Contenuto, MedicoReferto, DataReferto, CondivisoConMedico, CondivisoConUtente";
     }
@@ -40,6 +41,7 @@ class FReferto extends FDatabase{
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(referto.PartitaIVAClinica='" . $partitaIVAClinica . "')) LOCK IN SHARE MODE";
+//        print_r($query);
         $risultato = $this->eseguiQuery($query);
 //        print_r($risultato); // per il debug, da eliminare
         return $risultato;

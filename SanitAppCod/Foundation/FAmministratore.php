@@ -24,6 +24,7 @@ class FAmministratore extends FUser{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "amministratore";
+        $this->_idTabella = "IdAmministratore";
         $this->_attributiTabella .= "; IdAmministratore, Username, Nome, Cognome, Telefono"; 
     }
     

@@ -24,6 +24,7 @@ class FMedico extends FUser {
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "medico";
+        $this->_idTabella = "CodFiscale";
         $this->_attributiTabella .= "; CodFiscale, Nome, Cognome, Via, NumCivico, "
                 . "CAP, Username, ProvinciaAlbo, NumIscrizione, Validato";
     }

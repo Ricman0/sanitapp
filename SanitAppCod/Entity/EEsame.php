@@ -373,6 +373,7 @@ class EEsame
     public function eliminaEsame() {
         $this->setEliminato(TRUE);
         $fEsame = USingleton::getInstance('FEsame');
-        return $fEsame->eliminaEsame($this->getIDEsameEsame());
+        return $fEsame->elimina($this->getIDEsameEsame());
+//        return $fEsame->eliminaEsame($this->getIDEsameEsame());
     }
 }

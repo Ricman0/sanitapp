@@ -49,6 +49,12 @@ class FDatabase {
 //    protected $_attributiTabella;
     
     /**
+     * @access protected
+     * @var string $_idTabella contiene la chiave primaria della tabella
+     */
+    protected $_idTabella;
+    
+    /**
      * Costruttore della classe FDatabase
      * 
      * @access public
@@ -73,6 +79,17 @@ class FDatabase {
     public function getNomeTabella() 
     {
         return $this->_nomeTabella;
+    }
+    
+    /**
+     * Metodo che permette di ottenere la chiave della tabella
+     * 
+     * @access public
+     * @return string La chiave della tabella
+     */
+    public function getIDTabella() 
+    {
+        return $this->_idTabella;
     }
     
     /**
@@ -675,5 +692,38 @@ class FDatabase {
     
    
     
+    public function elimina($id) {
+        
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+                " WHERE (" . $this->getIDTabella() . "='" . $id . "') FOR UPDATE " ;
+        if($this->_nomeTabella === 'esame')
+        {
+            $query = "UPDATE " . $this->_nomeTabella . " SET Eliminato=TRUE "
+                . "WHERE (" . $this->getIDTabella() . "='" . $id. "')";
+        }
+        else
+        {
+            $query = "DELETE FROM " . $this->_nomeTabella . " WHERE (" . $this->getIDTabella() . "='" . $id . "') ";
+        }
+
+//        //elimino referto??
+        
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException("Errore durante l'eliminazione" );
+        }
+        
+    }
     
 }

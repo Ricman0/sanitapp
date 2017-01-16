@@ -24,6 +24,7 @@ class FClinica extends FUser{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "clinica";
+        $this->_idTabella = "PartitaIVA";
         $this->_attributiTabella = $this->_attributiTabella . "; PartitaIVA, NomeClinica, Titolare, Via, " 
                 . "NumCivico, CAP, Localita, Provincia, Regione, Username, Telefono, "
                 . "CapitaleSociale, WorkingPlan, Validato"; 

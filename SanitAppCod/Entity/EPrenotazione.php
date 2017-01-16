@@ -470,7 +470,8 @@ class EPrenotazione {
         if($this->_eseguita==FALSE) // se la prenotazione non è stata eseguita allora si può cancellare, altrimenti no.  
         {
             $fPrenotazione = USingleton::getInstance('FPrenotazione');
-            return $fPrenotazione->eliminaPrenotazione($this->getIDPrenotazionePrenotazione());
+//            return $fPrenotazione->eliminaPrenotazione($this->getIDPrenotazionePrenotazione());
+            return $fPrenotazione->elimina($this->getIDPrenotazionePrenotazione());
         }
         else
         {

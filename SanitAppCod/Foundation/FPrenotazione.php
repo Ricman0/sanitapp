@@ -25,6 +25,7 @@ class FPrenotazione extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "prenotazione";
+        $this->_idTabella = "IDPrenotazione";
         // imposto gli attributiTabella
         $this->_attributiTabella = "IDPrenotazione, IDEsame, PartitaIVAclinica, " 
                 . "Tipo, Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, " 

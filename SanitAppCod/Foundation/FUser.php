@@ -23,6 +23,7 @@ class FUser extends FDatabase {
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "appuser";
+        $this->_idTabella = "Username";
         $this->_attributiTabella = "Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser";
     }
     
