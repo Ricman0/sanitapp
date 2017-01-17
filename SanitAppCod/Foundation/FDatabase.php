@@ -726,4 +726,52 @@ class FDatabase {
         
     }
     
+    /**
+     * 
+     * @param string $id 
+     * @param Array $daModificare array associativo  il cui indice è il campo da modificare, il valore è il valore modificato
+     * @return type
+     * @throws XDBException
+     */
+    public function update($id, $daModificare ) {
+     
+        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+            " WHERE (" . $this->_idTabella . "='" . $id . "') FOR UPDATE " ;
+        
+        $setQuery  = ' SET ';
+        
+        foreach ($daModificare as $attributo => $valore) {
+            if(gettype($valore)==='string')
+                {
+                    $valore = $this->trimEscapeStringa($valore);
+                }
+            if($setQuery === ' SET ')
+            {
+                $setQuery .= $attributo . "='" . $valore . "' ";
+            }
+            else
+            {
+                $setQuery .=  ", " . $attributo . "='" . $valore . "' ";
+            }                
+        }
+        
+        $query = "UPDATE " . $this->_nomeTabella . $setQuery . " WHERE (" . $this->_idTabella . "='" . $id . "')";
+        
+        try {
+            // inzia la transazione
+            $this->_connessione->begin_transaction();
+
+            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+            $this->eseguiquery($queryLock);
+            $this->eseguiQuery($query);
+
+            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+            return $this->_connessione->commit();
+        } catch (Exception $e) {
+            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+            $this->_connessione->rollback();
+            throw new XDBException('errore');
+        } 
+    }
+    
 }

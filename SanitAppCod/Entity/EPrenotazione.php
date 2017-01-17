@@ -429,7 +429,10 @@ class EPrenotazione {
     {
         $this->setConfermataPrenotazione(TRUE);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-        if ($fPrenotazione->confermaPrenotazione($this->_idPrenotazione) === TRUE) 
+//        if ($fPrenotazione->confermaPrenotazione($this->_idPrenotazione) === TRUE) 
+        $daModificare['Confermata'] = TRUE;
+        $confermato = $fPrenotazione->update($this->_idPrenotazione, $daModificare);
+        if ($confermato===TRUE)
         {
             return TRUE;
         } 
@@ -490,9 +493,10 @@ class EPrenotazione {
     public function modificaPrenotazione($data, $ora) 
     {
         $dataEOra= $data . " " . $ora;
+        $daModificare['DataEOra'] = $dataEOra;
         $this->setDataEOra($dataEOra);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-        return $fPrenotazione->modificaPrenotazione($this->getIDPrenotazionePrenotazione(), $this->getDataEOraPrenotazione());
+        return $fPrenotazione->update($this->getIDPrenotazionePrenotazione(), $daModificare);
     }
     
     /**
@@ -559,6 +563,8 @@ class EPrenotazione {
         }
         $this->setEseguitaPrenotazione($eseguita);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-        return $fPrenotazione->modificaPrenotazioneEseguita($this->getIDPrenotazionePrenotazione(), $eseguita);
+//        return $fPrenotazione->modificaPrenotazioneEseguita($this->getIDPrenotazionePrenotazione(), $eseguita);
+        $daModificare['Eseguita'] = $eseguita;
+        return $fPrenotazione->update($this->getIDPrenotazionePrenotazione(), $daModificare);
     }
 }

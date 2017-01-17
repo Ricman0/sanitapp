@@ -334,26 +334,32 @@ class EEsame
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function modificaEsame($datiEsame) {
+        $daModificare;
         foreach ($datiEsame as $key => $value) {
             switch ($key) {
                 case 'nome':
-                    
                     $this->setNomeEsame($value);
+                    $daModificare['NomeEsame'] = $value;
                     break;
                 case 'medicoResponsabile':
                     $this->setMedicoEsame($value);
+                    $daModificare['MedicoEsame'] = $value;
                     break;
                 case 'categoria':
                     $this->setNomeCategoriaEsame($value);
+                    $daModificare['NomeCategoria'] = $value;
                     break;
                 case 'prezzo':
                     $this->setPrezzoEsame($value);
+                    $daModificare['Prezzo'] = $value;
                     break;
                 case 'durataEsame':
                     $this->setDurataEsame($value);
+                    $daModificare['Durata'] = $value;
                     break;
                 case 'descrizione':
                     $this->setDescrizioneEsame($value);
+                    $daModificare['Descrizione'] = $value;
                     break;
                 
                 default:
@@ -361,7 +367,8 @@ class EEsame
             }
         }
         $fEsame = USingleton::getInstance('FEsame');
-        return $fEsame->modificaEsame($this);
+        return $fEsame->update($this->getIDEsameEsame(), $daModificare);
+//        return $fEsame->modificaEsame($this);
     }
     
     /**

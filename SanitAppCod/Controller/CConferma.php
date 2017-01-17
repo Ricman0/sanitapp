@@ -17,30 +17,36 @@ class CConferma {
      */
     public function confermaUser() 
     {
-        switch ($this->getUser())
-                {
-                    case 'utente':
-                        $username = $this->getUsernameUser();
-                        $fUtente = USingleton::getInstance('FUtente');
-                        return $fUtente->confermaUser($this->getUsernameUser());
+        $username = $this->getUsernameUser();
+        $fUser = USingleton::getInstance('FUser');
+        $daModificare['Confermato'] = TRUE;
+        return $fUser->update($this->getUsernameUser(), $daModificare);
+//        switch ($this->getUser())
+//                {
+//                    case 'utente':
+//                        $username = $this->getUsernameUser();
+//                        $fUtente = USingleton::getInstance('FUser');
+////                        return $fUtente->confermaUser($this->getUsernameUser());
+//                        $daModifica[''] = TRUE
+//                        return $fUtente->update($this->getUsernameUser(), );
+////                        break;
+//                    
+//                    case 'medico':
+//                        $username = $this->getUsernameUser();
+//                        $fMedico = USingleton::getInstance('FMedico');
+//                        return $fMedico->confermaUser($this->getUsernameUser());
+////                        break;
+//                    
+//                    case 'clinica':
+//                        $username = $this->getUsernameUser();
+//                        $fClinica = USingleton::getInstance('FClinica');
+//                        return $fClinica->confermaUser($this->getUsernameUser());
+////                        break;
+//                    
+//                    default: 
+//                        echo 'errore durante la conferma';
 //                        break;
-                    
-                    case 'medico':
-                        $username = $this->getUsernameUser();
-                        $fMedico = USingleton::getInstance('FMedico');
-                        return $fMedico->confermaUser($this->getUsernameUser());
-//                        break;
-                    
-                    case 'clinica':
-                        $username = $this->getUsernameUser();
-                        $fClinica = USingleton::getInstance('FClinica');
-                        return $fClinica->confermaUser($this->getUsernameUser());
-//                        break;
-                    
-                    default: 
-                        echo 'errore durante la conferma';
-                        break;
-                }
+//                }
                 
     }
     

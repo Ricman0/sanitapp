@@ -269,7 +269,9 @@ class EReferto {
         {
             $this->setCondivisoConMedicoReferto($valoreCondividi);
             $fReferto = USingleton::getInstance('FReferto');
-            return $fReferto->condividiConMedico($this->getIDRefertoReferto(), $this->getCondivisoConMedicoReferto() );
+            $daModificare['CondivisoConMedico'] = $this->getCondivisoConMedicoReferto();
+            return $fReferto->update($this->getIDRefertoReferto(), $daModificare );
+//            return $fReferto->condividiConMedico($this->getIDRefertoReferto(), $this->getCondivisoConMedicoReferto() );
         }
         
 //        $condivisoConMedico = $this->getCondivisoConMedicoReferto();

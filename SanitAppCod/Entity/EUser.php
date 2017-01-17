@@ -74,6 +74,7 @@ class EUser {
      */
     public function __construct($username, $password = NULL, $email = NULL, $PEC=NULL) 
     {
+        
         if($username !==NULL && $password !== NULL && $email!==NULL)
         {
             $this->_email = $email;
@@ -477,7 +478,9 @@ class EUser {
             $user = $fUser->cercaUserByUsernameCodiceConferma ($username,$idConferma);
             if(is_array($user) && count($user)===1)
             {
-                return $fUser->confermaUser($username);
+                $daModificare['Confermato'] = TRUE;
+                return $fUser->update($username, $daModificare);
+//                return $fUser->confermaUser($username);
             }              
         }
         
@@ -498,7 +501,9 @@ class EUser {
         }
         $this->setPassword($password);
         $fUser = USingleton::getInstance('FUser');
-        return $fUser->modificaPassword($this->getUsernameUser(), $this->getPasswordUser());
+//        return $fUser->modificaPassword($this->getUsernameUser(), $this->getPasswordUser());
+        $daModificare['Password']= $this->getPasswordUser();
+        return $fUser->modificaPassword($this->getUsernameUser(), $daModificare);
     }
     
     /**

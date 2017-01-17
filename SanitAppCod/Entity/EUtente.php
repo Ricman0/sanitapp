@@ -415,6 +415,7 @@ class EUtente extends EUser {
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);
 //        if ($fUtente->inserisciUtente($this) === TRUE) {
+        echo ' inserisci utente ';
         if ($fUtente->inserisci($this) === TRUE) {
             return parent::getCodiceConfermaUser();
         } else {
@@ -461,8 +462,13 @@ class EUtente extends EUser {
         $this->_via = $datiValidi['Via'];
         $this->_numeroCivico = $datiValidi['NumCivico'];
         $this->_CAP = $datiValidi['CAP'];
+        
         $fUtente = USingleton::getInstance('FUtente');
-        return $fUtente->modificaIndirizzoCAP($this->_codFiscale, $this->_via, $this->_numeroCivico,  $this->_CAP);
+        $daModificare['Via'] = $datiValidi['Via'];
+        $daModificare['NumCivico'] = $datiValidi['NumCivico'];
+        $daModificare['CAP'] = $datiValidi['CAP'];
+        return $fUtente->update($this->_codFiscale, $daModificare);
+//        return $fUtente->modificaIndirizzoCAP($this->_codFiscale, $this->_via, $this->_numeroCivico,  $this->_CAP);
     }
 
     
@@ -478,8 +484,10 @@ class EUtente extends EUser {
     public function modificaMedicoCurante($cf) 
     {
         $this->_medicoCurante = $cf;
+        $daModificare['CodFiscaleMedico'] = $cf;
         $fUtente = USingleton::getInstance('FUtente');
-        return $fUtente->modificaMedicoCurante($this->_codFiscale, $cf);
+        return $fUtente->update($this->_codFiscale, $daModificare);
+//        return $fUtente->modificaMedicoCurante($this->_codFiscale, $cf);
     }
     
     /**

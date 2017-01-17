@@ -393,7 +393,11 @@ class EMedico extends EUser {
         $this->setNumCivicoMedico($datiIndirizzoValidi['NumCivico']);
         $this->setCAPMedico($datiIndirizzoValidi['CAP']);
         $fMedico = USingleton::getInstance('FMedico');
-        return $fMedico->modificaIndirizzoCAP($this->getCodFiscaleMedico(), $this->getViaMedico(), $this->getNumCivicoMedico(),  $this->getCAPMedico());
+        $daModificare['Via']=$datiIndirizzoValidi['Via'];
+        $daModificare['NumCivico']=$datiIndirizzoValidi['NumCivico'];
+        $daModificare['CAP']=$datiIndirizzoValidi['CAP'];
+        return $fMedico->update($this->getCodFiscaleMedico(), $daModificare);
+//        return $fMedico->modificaIndirizzoCAP($this->getCodFiscaleMedico(), $this->getViaMedico(), $this->getNumCivicoMedico(),  $this->getCAPMedico());
     }
 
     /**
@@ -411,7 +415,10 @@ class EMedico extends EUser {
         $this->setProvinciaAlboMedico($provincia);
         $this->setnumIscrizioneMedico($numIscrizione);
         $fMedico = USingleton::getInstance('FMedico');
-        return $fMedico->modificaProvAlboENumIscrizione($this->getCodFiscaleMedico(), $provincia, $numIscrizione); 
+        $daModificare['ProvinciaAlbo'] = $provincia;
+        $daModificare['NumIscrizione'] = $numIscrizione;
+        return $fMedico->update($this->getCodFiscaleMedico(), $daModificare); 
+//        return $fMedico->modificaProvAlboENumIscrizione($this->getCodFiscaleMedico(), $provincia, $numIscrizione); 
     }
     
     /**

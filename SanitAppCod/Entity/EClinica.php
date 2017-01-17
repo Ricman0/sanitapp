@@ -586,7 +586,9 @@ class EClinica extends EUser {
      */
     public function salvaWorkingPlanClinica($workingPlan) {
         $fClinica = USingleton::getInstance('FClinica');
-        return $fClinica->salvaWorkingPlan($workingPlan, $this->getPartitaIVAClinica());
+        $daModificare['WorkingPlan'] = $workingPlan;
+        return $fClinica->update($this->getPartitaIVAClinica(), $daModificare);
+//        return $fClinica->salvaWorkingPlan($workingPlan, $this->getPartitaIVAClinica());
     }
 
     /**

@@ -179,8 +179,11 @@ class EAmministratore extends EUser{
      * @return boolean TRUE se è andato a buon fine il blocco dell'user, lancia un XDBException altrimenti
      */
     public function bloccaUser($idUser) {
-        $fAmministratore = USingleton::getInstance('FAmministratore');
-        return $fAmministratore->bloccaUser($idUser);
+//        $fAmministratore = USingleton::getInstance('FAmministratore');
+//        return $fAmministratore->bloccaUser($idUser);
+        $fUser = USingleton::getInstance('FUser');
+        $daModificare['Bloccato'] = TRUE; 
+        return $fUser->update($idUser, $daModificare);
     }
     
     /**
@@ -191,8 +194,11 @@ class EAmministratore extends EUser{
      * @return boolean TRUE se è andato a buon fine lo sblocco dell'user, lancia un XDBException altrimenti
      */
     public function sbloccaUser($idUser) {
-        $fAmministratore = USingleton::getInstance('FAmministratore');
-        return $fAmministratore->sbloccaUser($idUser);
+//        $fAmministratore = USingleton::getInstance('FAmministratore');
+//        return $fAmministratore->sbloccaUser($idUser);
+        $fUser = USingleton::getInstance('FUser');
+        $daModificare['Bloccato'] = FALSE; 
+        return $fUser->update($idUser, $daModificare);
     }
     
     /**
@@ -217,8 +223,11 @@ class EAmministratore extends EUser{
      * @return boolean TRUE se la conferma è andata a buon fine, lancia un XDBException altrimenti
      */
     public function confermaUser($idUser) {
-        $fAmministratore = USingleton::getInstance('FAmministratore');
-        return $fAmministratore->amministratoreConfermaUser($idUser);
+//        $fAmministratore = USingleton::getInstance('FAmministratore');
+//        return $fAmministratore->amministratoreConfermaUser($idUser);
+        $fUser = USingleton::getInstance('FUser');
+        $daModificare['Confermato'] = TRUE;
+        return $fUser->update($idUser, $daModificare);
     }
     
     /**
