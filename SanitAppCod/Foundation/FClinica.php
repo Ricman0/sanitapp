@@ -225,8 +225,8 @@ class FClinica extends FUser{
                         . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
-                        . "FROM clinica "
-                        . "WHERE (MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE) "
+                        . "FROM clinica,appuser "
+                        . "WHERE  appuser.Bloccato=FALSE AND appuser.Username=clinica.Username AND (MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE) "
                         . "AND (MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
@@ -236,8 +236,8 @@ class FClinica extends FUser{
             {  
                 $query =  "SELECT PartitaIVA, NomeClinica, Localita, Provincia, "
                         . "MATCH (NomeClinica) AGAINST ('$nome' IN BOOLEAN MODE) "
-                        . "FROM clinica "
-                        . "WHERE MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE) LOCK IN SHARE MODE";
+                        . "FROM clinica, appuser "
+                        . "WHERE appuser.Bloccato=FALSE AND appuser.Username=clinica.Username AND MATCH (NomeClinica) AGAINST('$nome' IN BOOLEAN MODE) LOCK IN SHARE MODE";
             }
         }
         else
@@ -249,15 +249,15 @@ class FClinica extends FUser{
                         . "MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE), "
                         . "MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE) "
-                        . "FROM clinica "
-                        . "WHERE (MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE) "
+                        . "FROM clinica,appuser "
+                        . "WHERE appuser.Bloccato=FALSE AND appuser.Username=clinica.Username AND (MATCH (Localita) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Provincia) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (Regione) AGAINST ('$luogo' IN BOOLEAN MODE) "
                         . "OR MATCH (CAP) AGAINST ('$luogo' IN BOOLEAN MODE)) LOCK IN SHARE MODE";
             }
             else
             {
-                $query = "SELECT PartitaIVA, NomeClinica, Localita, Provincia, PartitaIVA FROM clinica LOCK IN SHARE MODE";
+                $query = "SELECT PartitaIVA, NomeClinica, Localita, Provincia, PartitaIVA FROM clinica,appuser WHERE appuser.Bloccato=FALSE AND appuser.Username=clinica.Username LOCK IN SHARE MODE";
             }
         }        
         $risultato = $this->eseguiQuery($query);
