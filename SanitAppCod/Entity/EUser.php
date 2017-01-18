@@ -70,7 +70,8 @@ class EUser {
      * @param string $password La password dell'utente
      * @param string $cod Il codice per confermare l'account
      * @param string $PEC La pec dell'user
-     * @throws XUserException Quando lo user da creare non esiste
+     * @throws XUserException Quando lo user da istanziare non esiste
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function __construct($username, $password = NULL, $email = NULL, $PEC=NULL) 
     {

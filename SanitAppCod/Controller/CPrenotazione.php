@@ -93,7 +93,11 @@ class CPrenotazione {
     }
 
     
-
+    /**
+     * Metodo che consente di gestire le prenotazioni
+     * 
+     * @access public
+     */
     public function gestisciPrenotazioni() 
     {
         $sessione = USingleton::getInstance('USession');
@@ -101,16 +105,15 @@ class CPrenotazione {
         $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazioni->getTask();
-//        $codiceFiscaleUtente = "";
         switch ($task) {                
-            case 'visualizza':
+            case 'visualizza': 
             $idPrenotazione = $vPrenotazioni->recuperaValore('id');
-            if ($idPrenotazione === FALSE)
+            if ($idPrenotazione === FALSE)  // get prenotazioni/visualizza
             {
                 $this->tryVisualizzaPrenotazioni();
             }
             else
-            {
+            { // get prenotazioni/visualizza/id
                 try {
                     $ePrenotazione = new EPrenotazione($idPrenotazione);
                     $idEsame = $ePrenotazione->getIDEsamePrenotazione();
@@ -169,8 +172,6 @@ class CPrenotazione {
                                     $cognome = $eUtente->getCognomeUtente();
                                 }
                             }
-                             
-                            
                             $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome,$cancellaPrenota);
                             break;
 
@@ -642,17 +643,17 @@ class CPrenotazione {
         $tipoUser = $sessione->leggiVariabileSessione('tipoUser');        
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         try
-                {
-                    $this->visualizzaPrenotazioni();
-                }
-                catch(XUserException $e)
-                {
-                    $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, TRUE);
-                }
-                catch(XDBException $e)
-                {
-                    $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, $e->getMessage() );
-                } 
+        {
+            $this->visualizzaPrenotazioni();
+        }
+        catch(XUserException $e)
+        {
+            $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, TRUE);
+        }
+        catch(XDBException $e)
+        {
+            $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, $e->getMessage() );
+        } 
     }
     
     

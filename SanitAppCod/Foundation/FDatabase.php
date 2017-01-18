@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of FDatabase
  * 
@@ -435,8 +429,8 @@ class FDatabase {
      * 
      * @access public
      * @param object $oggetto lL'oggetto che si vuole aggiungere 
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function inserisci($oggetto) {
         
@@ -783,11 +777,6 @@ class FDatabase {
         } 
     }
     
-    public function load($param) {
-        
-    }
-    
-    
     public function cerca($daCercare=NULL) {
         
         $query = 'SELECT * FROM ' .  $this->_nomeTabella ;
@@ -806,7 +795,6 @@ class FDatabase {
             }
         }
         $query .= $where . " LOCK IN SHARE MODE" ;
-        print_r($query);
         $result = $this->eseguiQuery($query);
         return $result;
         

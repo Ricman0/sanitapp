@@ -1,14 +1,8 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of ECategoria
  *
+ * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class ECategoria {
@@ -16,21 +10,21 @@ class ECategoria {
     
     private $_nome;
     
-    /*
-     * Costruttore della classe Categoria
+    /**
+     * Costruttore della classe ECategoria
      * 
+     * @access public
      * @param string nome il nome della categoria
      */
     public function __construct($nome) {
-        
-        $this->_nome = $nome;
-        
+        $this->_nome = $nome;    
     }
     
-    /*
+    /**
      * Metodo che ritorna il nome della categoria
      * 
-     * @return type string  nome della categoria
+     * @access public
+     * @return string Il nome della categoria
      */
     public function getNomeCategoria() {
         return $this->_nome;
@@ -40,8 +34,8 @@ class ECategoria {
      * Metodo che consente di aggiungere una categoria.
      * 
      * @access public
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function aggiungiCategoria() {
         $fCategorie = USingleton::getInstance('FCategoria');
@@ -53,6 +47,8 @@ class ECategoria {
      * Metodo che consente una categoria se non ci sono esami che rientrano in quella categoria.
      * 
      * @access public
+     * @return mixed string nel caso non sia possibile eliminare la categoria, TRUE se la query è eseguito con successo, altrimenti lancia eccezione
+     * @throws XDBException  Se la query non viene eseguita con successo
      */
     public function eliminaCategoria() {
         if($this->checkIfCanDelete()===TRUE)
@@ -64,7 +60,7 @@ class ECategoria {
         else
         {
             $messaggio = 'Non è possibile eliminare la categoria poichè ci sono esami con quella categoria';
-            return $messaggio;
+            return $messaggo;
         }
         
     }
@@ -73,6 +69,9 @@ class ECategoria {
      * Metodo che consente di controllare se una categoria può essere cancellata.
      * 
      * @access public
+     * @return boolean FALSE se la categoria non può essere cancellata poichè 
+     *          esiste un esame appartenente a quella categoria, TRUE se può essere cancellata, altrimenti lancia un'eccezione
+     * @throws XDBException Se la query non è eseguita con successo
      */
     public function checkIfCanDelete() {
         $fEsami = USingleton::getInstance('FEsame');

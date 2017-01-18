@@ -13,6 +13,11 @@
  */
 class CGestisciCategorie {
     
+    /**
+     * Metodo che consente di gestire le richieste GET per la gestione delle categorie.
+     * 
+     * @access public
+     */
     public function gestisciCategorieGET(){
         
         $sessione = USingleton::getInstance('USession');
@@ -20,7 +25,7 @@ class CGestisciCategorie {
         $vUsers = USingleton::getInstance('VGestisciUser');
         $task = $vUsers->getTask();
         if($task ==='visualizza')
-        {
+        { //get categorie/visualizza      visualizza tutte le categorie dell'applicazione
             try {
                 $eAmministratore = new EAmministratore($username);
                 $categorieEsami = $eAmministratore->cercaCategorie();
@@ -51,7 +56,11 @@ class CGestisciCategorie {
         
     }
             
-            
+    /**
+     * Metodo che consente di gestire le richieste POST per la gestione delle categorie.
+     * 
+     * @access public
+     */        
     public function gestisciCategorie() {
         
         $sessione = USingleton::getInstance('USession');

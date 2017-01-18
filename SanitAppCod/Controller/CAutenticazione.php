@@ -28,6 +28,10 @@ class CAutenticazione {
             $errore = $e->getMessage(); // vorrei usare l'errore nel template per far visualizzare il messaggio di errore all'user
             $this->gestisciEccezioneAutenticaUser($errore);
         }
+         catch (XDBExceptionException $e) {
+            $errore = "C'è stato un errore durante l'autenticazione."; 
+            $this->gestisciEccezioneAutenticaUser($errore);
+        }
     }
 
     /**
@@ -50,22 +54,9 @@ class CAutenticazione {
         }
     }
 
-    /**
-     * Metodo che permette di controllare se è stato effettuato il login
-     * 
-     * @access public
-     * @param USession $session la sessione 
-     * @return boolean true se è stato effettuato il login,
-     *                 false altrimenti
-     */
-//    public function logIn($session) 
-//    {
-//        $logIn = $session->checkVariabileSessione("loggedIn");       
-//        return $logIn;
-//    }
 
     /**
-     * Metodo che permette di controllare se un user è autenticato eimposta l'header
+     * Metodo che permette di controllare se un user è autenticato e imposta l'header
      * 
      * @access public
      */
@@ -82,55 +73,14 @@ class CAutenticazione {
         }
     }
 
-//            $fDatabase = USingleton::getInstance('FDatabase');
-//            $username = $fDatabase->trimEscapeStringa($_POST['usernameLogIn']);
-//            $password = $fDatabase->trimEscapeStringa($_POST['passwordLogIn']);
-//            // vorrei eseguire query multiple
-//            $query =  "SELECT Username, Password, 'Utente', "
-//                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
-//                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
-//                    . "FROM utente WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-//                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)); "
-//                    . "SELECT Username, Password, 'Medico', "
-//                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
-//                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
-//                    . "FROM medico WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-//                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)); "
-//                    . "SELECT Username, Password, 'Clinica', "
-//                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
-//                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
-//                    . "FROM clinica WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-//                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE));";
-//            $risultato = $fDatabase->eseguiQueryMultiple($query);
-//            if ($risultato === FALSE)
-//            {
-//                echo "errore nell'effettuare il log in";
-//                // incremento il tentativo nel cookie?
-//            }
-//            else
-//            {
-//                $sessione->impostaVariabileSessione('usernameLogIn', $username);
-//                $sessione->impostaVariabileSessione('loggedIn', TRUE);
-//                $tipo = $risultato[2]; // ??? è giusto così?
-//                $sessione->impostaVariabileSessione('tipoUser', $tipo);
-//                echo "Benvenuto" + $username;
-//                print_r($_SESSION);
-//            }
-//        }
-//        else
-//        {
-//            // display the login form
-//            
-//            //imposto la variabile di sessione loggedIn a False
-//            $sessione->impostaVariabileSessione('loggedIn', FALSE);
-//            
-////        }
-//        return $sessione;
-
-
-
-
-
+    /**
+     * Metodo che consente di 
+     * 
+     * @access public
+     * @throws DatiLogInException Se i dati di log in non validi o uno dei due campi risulta vuoto
+     * @throws XUserException Quando lo user da istanziare non esiste
+     * @throws XDBException Se la query per cercare un user non è eseguita con successo
+     */
     public function autenticaUser() {
         $sessione = USingleton::getInstance('USession');
         $uCookie = USingleton::getInstance('UCookie');
@@ -143,6 +93,7 @@ class CAutenticazione {
                 $eUser = new EUser($username, $password);
 //                if($eUser->getUsernameUser()!==NULL && $eUser->getPasswordUser()!==NULL)// caso in cui esiste l'user con quella password e quella username
 //                {
+                
                 $uCookie->eliminaCookie('Tentativi');
                 if ($eUser->getConfermatoUser() == TRUE) {// user confermato
                     $eUser->attivaSessioneUser($username, $eUser->getTipoUserUser());
@@ -330,6 +281,11 @@ class CAutenticazione {
         $vAutenticazione->restituisciHomePage();
     }
 
+    /**
+     * Metodo che consente di generare una nuova password e invia una mail contenente la nuova password.
+     * 
+     * @access public
+     */
     public function nuovaPassword() {
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         $uMail = USingleton::getInstance('UMail');

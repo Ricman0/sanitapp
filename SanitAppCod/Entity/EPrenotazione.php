@@ -512,23 +512,29 @@ class EPrenotazione {
     public function controllaData()
     {
         $dataPrenotazione = $this->getData(); // recupero la stringa data in formato Y-m-d
+        $dataPrenotazione =  substr($dataPrenotazione, 6, 4). '-' . substr($dataPrenotazione, 3,2) . '-' . substr($dataPrenotazione, 0,2);
+       
+        $dataPrenotazione = strtotime($dataPrenotazione); // timestamp della data di prenotazione che era string
         
 //        $dataPrenotazione = strtotime($dataPrenotazione); // la converto in un timestamp
 //        // devo usare il timestamp altrimenti potrebbero esserci problemi nel caso di mesi/ anni diversi 
 //        // ad esempio data di prenotazione 16-03-2013 e la data odierna 11-04-2013
-        $dataOdierna = strtotime(date('Y-m-d')); // prendo la data odierna in questo modo posso effettuare il confronto
-       
-       // osservazione: dal momento che uso il formato Y-m-d non c'è bisogno di effettuare la conversione in timestamp
-        $data = date_parse_from_format("Y-m-d",  $dataPrenotazione);
-        $data = mktime ( 0, 0 , 0, $data['month'] , $data['day']-1, $data['year']); //ora, minuti, secondi, mesi, giorno, anno
         
-        if($dataOdierna < $data)
-        {
-           
+//        $dataOdierna = strtotime(date('Y-m-d')); // prendo la data odierna in questo modo posso effettuare il confronto
+       
+        
+        $dataOdierna = date('Y-m-d'); // data odierna
+        
+        $dataOdierna = date_parse_from_format("Y-m-d",  $dataOdierna); // rendo array la data odierna
+        // osservazione: dal momento che uso il formato Y-m-d non c'è bisogno di effettuare la conversione in timestamp
+        $ieri = mktime ( 0, 0 , 0, $dataOdierna['month'] , $dataOdierna['day']-1, $dataOdierna['year']); // sottraggo un giorno (quindi ) e ottengo ieri in timestamp
+        
+        if($ieri < $dataPrenotazione)
+        { // se la data di ieri è precedente a quella di prenotazione
             return TRUE;
         }
         else
-        {
+        { // codice da eseguire se la data di ieri è successiva alla data di prenotazione
             return FALSE;
         }
          
