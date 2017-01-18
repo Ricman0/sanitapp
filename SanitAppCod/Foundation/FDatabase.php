@@ -691,7 +691,14 @@ class FDatabase {
     }
     
    
-    
+    /**
+     * Elimina una riga dalla tabella
+     * 
+     * @access public
+     * @param string $id L'id che identifica la riga da eliminare
+     * @return boolean TRUEse la query è eseguito con successo, altrimenti lancia eccezione
+     * @throws XDBException  Se la query non viene eseguita con successo
+     */
     public function elimina($id) {
         
         $queryLock = "SELECT * FROM " . $this->_nomeTabella .
@@ -727,11 +734,13 @@ class FDatabase {
     }
     
     /**
+     * Metodo che consente di modificare un elemento di una tabella
      * 
-     * @param string $id 
-     * @param Array $daModificare array associativo  il cui indice è il campo da modificare, il valore è il valore modificato
-     * @return type
-     * @throws XDBException
+     * @access public
+     * @param string $id L'id dell'elemento da modificare 
+     * @param Array $daModificare array associativo il cui indice è il campo della tabella da modificare , il valore è il valore modificato
+     * @return boolean TRUE se la query viene eseguito con successo altrimenti lancia un'eccezione
+     * @throws XDBException Se la query non è eseguita con successo
      */
     public function update($id, $daModificare ) {
      
@@ -772,6 +781,69 @@ class FDatabase {
             $this->_connessione->rollback();
             throw new XDBException('errore');
         } 
+    }
+    
+    public function load($param) {
+        
+    }
+    
+    
+    public function cerca($daCercare=NULL) {
+        
+        $query = 'SELECT * FROM ' .  $this->_nomeTabella ;
+        $where = '';
+        if(isset($daCercare))
+        {
+            foreach ($daCercare as $key => $value) {
+                if($where === '')
+                {
+                    $where .= " WHERE " . $key . "='" . $value . "' "; 
+                }
+                else 
+                {
+                    $where .= "AND ". $key . "='" . $value . "' "; 
+                }
+            }
+        }
+        $query .= $where . " LOCK IN SHARE MODE" ;
+        print_r($query);
+        $result = $this->eseguiQuery($query);
+        return $result;
+        
+        // cercaCategorie() FCategoria
+        // cercaEsameById($id) FEsame
+        // cercaEsamiByCategoria($nomeCategoria)  FEsame
+        // cercaPrenotazioneById($id) FPrenotazione
+        // cercaReferto($idPrenotazione) freferto
+        // cercaUserByEmail($email)  FUser
+        // cercaUserByUsername ($username)   FUser
+        // cercaUserByUsernameCodiceConferma ($username,$codiceConferma) FUser
+        
+        
+//        //cercaMedico($username) Fmedico
+//   
+//        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+//                . "WHERE appuser.Username='" . $username . "' AND "
+//                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
+////        return $this->eseguiQuery($query);    
+//        $risultato = $this->eseguiQuery($query);
+//        return $risultato;
+//                
+//        // cercaMedicoByCF($cf) Fmedico
+//    
+//        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+//                . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
+//                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
+//        return $this->eseguiQuery($query);
+//        
+//         // cercaMedicoByPEC($PEC)  Fmedico
+//    
+//        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+//                . "WHERE " . $this->_nomeTabella. ".PEC='" . $PEC . "' AND "
+//                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
+//        return $this->eseguiQuery($query);
+//        
+
     }
     
 }

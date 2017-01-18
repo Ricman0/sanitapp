@@ -79,7 +79,9 @@ class EPrenotazione {
         if(isset($id))
         {
             $fPrenotazione = USingleton::getInstance('FPrenotazione');
-            $attributiPrenotazione = $fPrenotazione->cercaPrenotazioneById($id);
+//            $attributiPrenotazione = $fPrenotazione->cercaPrenotazioneById($id);
+            $daCercare['IdPrenotazione'] = $id;
+            $attributiPrenotazione = $fPrenotazione->cerca($daCercare);
             if(is_array($attributiPrenotazione) && count($attributiPrenotazione)==1)
             {
                 
@@ -449,7 +451,9 @@ class EPrenotazione {
     public function esisteReferto() {
         
         $fReferto = USingleton::getInstance('FReferto');
-        if($fReferto->cercaReferto($this->_idPrenotazione))
+//        if($fReferto->cercaReferto($this->_idPrenotazione))
+        $daCercare['IDPrenotazione'] = $this->getIDPrenotazionePrenotazione();
+        if($fReferto->cerca($daCercare))
         {
             return TRUE;
         }

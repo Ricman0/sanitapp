@@ -111,7 +111,9 @@ class EUser {
             elseif($username ==NULL && $password==NULL && $email!==NULL)
             {
                 $fUser = USingleton::getInstance('FUser');
-                $attributiUser = $fUser->cercaUserByEmail($email);
+                $daCercare['Email'] = $email;
+                $attributiUser = $fUser->cerca($daCercare);
+//                $attributiUser = $fUser->cercaUserByEmail($email);
                 if(is_array($attributiUser) && count($attributiUser)==1)
                 {
                     $this->_username = $attributiUser[0]['Username'];
@@ -126,7 +128,9 @@ class EUser {
             elseif($username !==NULL && $password!==NULL && $email===NULL)
             {
                 $fUser = USingleton::getInstance('FUser');
-                $attributiUser = $fUser->cercaUserByUsername($username);
+                $daCercare['Username'] = $username;
+                $attributiUser = $fUser->cerca($daCercare);
+//                $attributiUser = $fUser->cercaUserByUsername($username);
                 if(is_array($attributiUser) && count($attributiUser)==1 && password_verify($password.$username, $attributiUser[0]['Password']))
                 {
                     $this->_username = $attributiUser[0]['Username'];
@@ -475,7 +479,10 @@ class EUser {
         {
             $username = $this->getUsernameUser();
             $fUser = USingleton::getInstance('FUser');
-            $user = $fUser->cercaUserByUsernameCodiceConferma ($username,$idConferma);
+            $daCercare['Username'] = $username;
+            $daCercare['CodiceConferma'] = $idConferma;
+            $user = $fUser->cerca($daCercare);
+//            $user = $fUser->cercaUserByUsernameCodiceConferma ($username,$idConferma);
             if(is_array($user) && count($user)===1)
             {
                 $daModificare['Confermato'] = TRUE;

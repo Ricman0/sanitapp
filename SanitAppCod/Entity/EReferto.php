@@ -87,7 +87,9 @@ class EReferto {
             $this->_condivisoConUtente = NULL;
         } else { //caso referto recuperato dal db
             $fReferto = USingleton::getInstance('FReferto');
-            $risultato = $fReferto->cercaReferto($idPrenotazione);
+            $daCercare['IDPrenotazione'] = $idPrenotazione;
+            $risultato = $fReferto->cerca($daCercare);
+//            $risultato = $fReferto->cercaReferto($idPrenotazione);
             if (is_array($risultato) && count($risultato) === 1) {
                 $this->_IDReferto = $risultato[0]['IDReferto'];
                 $this->_idPrenotazione = $risultato[0]['IDPrenotazione'];

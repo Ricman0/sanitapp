@@ -253,7 +253,8 @@ class EAmministratore extends EUser{
      */
     public function cercaCategorie() {
         $fCategorie = USingleton::getInstance('FCategoria');
-        return $fCategorie->cercaCategorie(); 
+        return $fCategorie->cerca();
+//        return $fCategorie->cercaCategorie(); 
     }
     
     

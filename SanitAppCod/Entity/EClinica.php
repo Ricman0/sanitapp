@@ -1115,7 +1115,8 @@ class EClinica extends EUser {
      */
     public function getCategorieApplicazione() {
         $categorie = USingleton::getInstance('FCategoria');
-        return $listaCategorie = $categorie->cercaCategorie();
+        return $listaCategorie = $categorie->cerca();
+//        return $listaCategorie = $categorie->cercaCategorie();
     }
 }
 

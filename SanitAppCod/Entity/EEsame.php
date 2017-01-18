@@ -92,7 +92,9 @@ class EEsame
         if(isset($id))
         {
             $fEsame = USingleton::getInstance('FEsame');
-            $attributiEsame = $fEsame->cercaEsameById($id);
+//            $attributiEsame = $fEsame->cercaEsameById($id);
+            $daCercare['IDEsame'] = $id;
+            $attributiEsame = $fEsame->cerca($daCercare); // cerco l'esam by ID
             if(is_array($attributiEsame) && count($attributiEsame)==1)
             { 
                 $this->_idEsame = $id;

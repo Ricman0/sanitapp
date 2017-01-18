@@ -76,7 +76,9 @@ class ECategoria {
      */
     public function checkIfCanDelete() {
         $fEsami = USingleton::getInstance('FEsame');
-        $esami = $fEsami->cercaEsamiByCategoria($this->getNomeCategoria());
+//        $esami = $fEsami->cercaEsamiByCategoria($this->getNomeCategoria());
+        $daCercare['NomeCategoria'] = $this->getNomeCategoria(); 
+        $esami = $fEsami->cerca($daCercare);
         if(count($esami)>0)
         {
             return FALSE;
