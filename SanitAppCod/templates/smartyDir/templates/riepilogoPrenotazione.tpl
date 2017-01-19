@@ -36,7 +36,7 @@
         {if ($modifica)===FALSE }
             <input type="button" id="confermaPrenotazione" value="Conferma" data-codice="{$codice}" data-idClinica="{$clinica->getPartitaIVAClinica()}" data-idEsame="{$esame->getIDEsameEsame()}"/>
         {else}
-            <input type="button" id="confermaModificaPrenotazione" value="Conferma Modifica" />
+            <input type="button" id="confermaModificaPrenotazione" value="Conferma Modifica" data-idPrenotazione="{$idPrenotazione}" />
         {/if}
 {else}
     {$feedbacks}

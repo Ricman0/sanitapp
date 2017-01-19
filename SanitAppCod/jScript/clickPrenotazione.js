@@ -128,7 +128,9 @@ $(document).ready(function (){
     });
     
      $('#headerMain').on("click", "#confermaModificaPrenotazione", function(){
-        var idPrenotazione = $('#idPrenotazione').text();
+        var idPrenotazione = $('#confermaModificaPrenotazione').attr('data-idPrenotazione');
+        alert('a');
+        alert(idPrenotazione);
         var orarioPrenotazione = $('#orarioPrenotazione').text().trim();
         var dataPrenotazione = $('#dataPrenotazione').text().trim();
         dati ={idPrenotazione : idPrenotazione, orario : orarioPrenotazione, data : dataPrenotazione};

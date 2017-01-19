@@ -1,11 +1,12 @@
 <div id='divAggiungiPrenotazione'>
-    <p class="affiancato">Prenotazione presso la Clinica: {$nomeClinica}</p>
+    <span class="grassetto">Prenotazione presso la Clinica:</span><span> {$nomeClinica}</span>
     <input type="hidden" id="partitaIVAClinicaPrenotazioneEsame" name="partitaIVAClinicaPrenotazioneEsame" value="{$partitaIVA}" />
-    <p class="affiancato">Prenotazione per l'Esame: {$nomeEsame}</p>
+    <br><br>
+    <span class="grassetto">Prenotazione per l'Esame:</span><span> {$nomeEsame}</span>
     <input type="hidden" id="idEsame" name="idEsame" value="{$idEsame}" />
 </div>
 <br>
-<p> Scegli la data della tua prenotazione: </p>
+<h3 class="grassetto"> Scegli la data della tua prenotazione: </h3>
 
 
 <div id="dateEOrariDisponibili">

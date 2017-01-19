@@ -293,7 +293,6 @@ class CPrenotazione {
                
                 if($vPrenotazione->recuperaValore('id')==='modifica') // recupero l'azione che ho dovuto inserire in id poichè ho una regola che mi si sovrappone
                 {
-                    echo "in modifica";
                     //siamo in POST prenotazione/conferma/modifica
                     try{
                         $idPrenotazione = $vPrenotazione->recuperaValore('idPrenotazione');// throw errore se non c'è valore
@@ -330,7 +329,6 @@ class CPrenotazione {
                 }
                 else
                 {
-                    echo "in else";
                     $sessione = USingleton::getInstance('USession');
                     $tipo = $sessione->leggiVariabileSessione('tipoUser');
                     $username = $sessione->leggiVariabileSessione('usernameLogIn');
@@ -342,7 +340,6 @@ class CPrenotazione {
                             break;
 
                         case 'medico':
-                            echo "l'username $username";
                             $eMedico = new EMedico(NULL, $username);
                             $codFiscalePrenotaEsame = $eMedico->getCodFiscaleMedico();
                             $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
@@ -764,7 +761,7 @@ class CPrenotazione {
     {
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $ePrenotazione= new EPrenotazione($idPrenotazione);
-        if($ePrenotazione->controllaData()===TRUE && $ePrenotazione->getEseguitaPrenotazione()===FALSE)// confronta la data della prenotazione con quella odierna; TRUE se la data odierna è precedente a quella dela prenotazione // controllo anche che non sia stata effettuata la prenptazione(anche se la data è futura non potrà essere eseguita)
+        if($ePrenotazione->controllaData()==TRUE && $ePrenotazione->getEseguitaPrenotazione()==FALSE)// confronta la data della prenotazione con quella odierna; TRUE se la data odierna è precedente a quella dela prenotazione // controllo anche che non sia stata effettuata la prenptazione(anche se la data è futura non potrà essere eseguita)
         {
             $idEsame = $ePrenotazione->getIDEsamePrenotazione();
             $eEsame = new EEsame($idEsame);

@@ -248,9 +248,7 @@ class EPrenotazione {
      */
     public function getDataEOraPrenotazione() 
     {
-        
         return $this->_dataEOra;
-               
     }
     
     /**
@@ -497,8 +495,9 @@ class EPrenotazione {
     public function modificaPrenotazione($data, $ora) 
     {
         $dataEOra= $data . " " . $ora;
-        $daModificare['DataEOra'] = $dataEOra;
         $this->setDataEOra($dataEOra);
+        $daModificare['DataEOra'] = $this->getDataEOraPrenotazione();
+        
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
         return $fPrenotazione->update($this->getIDPrenotazionePrenotazione(), $daModificare);
     }
