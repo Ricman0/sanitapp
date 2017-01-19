@@ -59,6 +59,10 @@ $(document).ready(function () {
         
     });
     
+    $('#headerMain').on("click", "#aggiungiMedicoUtente", function () {
+        
+    });
+    
 
 //    $('#headerMain').on("click", "#modificaIndirizzoUtenteFatto", function(){
 //        

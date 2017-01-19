@@ -78,7 +78,7 @@
     </tbody>
 </table>
 {else}
-        <h4>Non sono presenti prenotazioni</h4>
+        <h3>Non sono presenti prenotazioni</h3>
         <p>Per aggiungere una prenotazione, clicca sul tasto aggiungi</p>
         <br>
             {if isset($tastoAggiungi)}

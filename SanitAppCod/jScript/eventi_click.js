@@ -45,6 +45,33 @@ $(document).ready(function () {
         alert (ajaxDiv); 
         inviaControllerTask('registrazione', 'utente', ajaxDiv);
     });
+    
+    $('#headerMain').on("click", "#submitCodiceConferma", function () {
+        var codiceConferma = $('#codiceConferma').val();
+        alert(codiceConferma);
+        var username = $('#submitCodiceConferma').attr('data-username');
+        alert(username);
+        var datiPOST = {username: username, id:codiceConferma};
+        $.ajax({
+            type:'POST',
+            url: 'registrazione/conferma',
+            data:datiPOST,
+            success: function (datiRisposta){
+                alert(datiRisposta);
+                $('#main').html(datiRisposta);
+//                $("#loadingModal").hide();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('a');
+                alert(xhr.status);
+                alert('b');
+                alert(thrownError);
+                alert("Sbagliato click ");
+            }
+            
+        })
+//        inviaControllerTaskPOST('registrazione', 'conferma', datiPOST, '#main');
+    });
 
     $('#headerMain').on("click", "#recuperaPassword", function () {
         inviaController('recuperaPassword', '#main');

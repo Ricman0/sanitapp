@@ -48,7 +48,8 @@
   RewriteRule ^(prenotazione)/(\w+)/(\w+)/(\w+)/([\d-]+)?$ index.php?controller=$1&clinica=$2&id=$3&giorno=$4&data=$5 [L]
 
 
-    RewriteCond %{REQUEST_METHOD} POST 
+    RewriteCond %{REQUEST_METHOD} POST
+    RewriteRule ^(registrazione)/(conferma)$ index.php?controller=$1&task=$2 [L] 
     RewriteRule ^(referto)/(condividi)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(autenticazione)$ index.php?controller=$1 [L]
     RewriteRule ^(servizi)/(modifica|elimina)$ index.php?controller=$1&task=$2 [L]

@@ -42,6 +42,27 @@ class CRegistrazione {
     }
 
     /**
+     * Metodo che consente di gestire le richieste HTTP POST del controller Registrazione
+     */
+    public function gestisciRegistrazionePOST(){
+        $vRegistrazione = USingleton::getInstance('VRegistrazione');
+        if($vRegistrazione->getTask()==='conferma')
+        {//POST registrazione/conferma
+            $username = $vRegistrazione->recuperaValore('username');
+            $idConferma = $vRegistrazione->recuperaValore('id');
+            if ($idConferma !== FALSE && $username !== FALSE) { 
+                $this->tryConfermaUser($username, $idConferma);
+            } else {
+                $messaggio = "Codice conferma o username non trovato. Non è possibile confermare questo account.";
+                $vRegistrazione->visualizzaFeedback($messaggio);
+            }
+        }
+        else
+        {
+            $this->inserisciRegistrazione();
+        }
+    }
+    /**
      * Metodo che permette l'inserimento di un utente, medico o clinica nel db
      * 
      * @access public
@@ -87,7 +108,8 @@ class CRegistrazione {
                     }
                 }
                 break;
-
+              
+                
             default:
                 break;
         }
@@ -162,19 +184,21 @@ class CRegistrazione {
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         //recupero i dati 
         $datiUtente = $vRegistrazione->recuperaDatiUtente();
+        echo ' dati recuperati ';
         //ho recuperato tutti i dati inseriti nella form di registrazione dell'utente
         //ora è necessario che vengano validati prima della creazione di un nuovo utente
         $uValidazione = USingleton::getInstance('UValidazione');
         $uValidazione->validaDati($datiUtente);
         // se i dati sono validi
         if ($uValidazione->getValidati() === TRUE) {
+            echo ' dati validati ';
             // crea utente 
             $eUtente = new EUtente($datiUtente['codiceFiscale'], $datiUtente['username'], $datiUtente['password'], $datiUtente['email'], ucwords($datiUtente['nome']), ucwords($datiUtente['cognome']), ucwords($datiUtente['indirizzo']), $datiUtente['numeroCivico'], $datiUtente['CAP']);
             $sessione = USingleton::getInstance('USession');
             $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
 
             if ($tipoUser === 'medico') {
-
+                
                 $username = $sessione->leggiVariabileSessione('usernameLogIn');
                 $eMedico = new EMedico(NULL, $username);
                 $eUtente->setMedicoCurante($eMedico->getCodFiscaleMedico());
@@ -276,15 +300,15 @@ class CRegistrazione {
             $eUser = new EUser($username);
             if ($eUser->confermaUser($idConferma) === TRUE) {
                 $messaggio = 'User Confermato';
-                $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
+                $vRegistrazione->visualizzaFeedback($messaggio);
             } else {
                 $messaggio = "C'è stato un errore, non è possibile confermare questo account.";
-                $vRegistrazione->visualizzaFeedback($messaggio);
+                $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
             }
         } catch (XUserException $ex) {
-            $vRegistrazione->visualizzaFeedback($ex->getMessage());
+            $vRegistrazione->visualizzaFeedback($ex->getMessage(), TRUE);
         } catch (XDBException $ex) {
-            $vRegistrazione->visualizzaFeedback($ex->getMessage());
+            $vRegistrazione->visualizzaFeedback($ex->getMessage(), TRUE);
         }
     }
 

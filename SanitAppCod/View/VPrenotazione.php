@@ -8,7 +8,7 @@
  */
 class VPrenotazione extends View{
     
-    /**
+    /** credo che possa essere eliminato
      * Metodo che consente di visualizzare se la prenotazione è stata o meno eliminata
      * 
      * @param boolean $eliminata TRUE la prenotazione è stata eliminata dal DB, FALSE altrimenti

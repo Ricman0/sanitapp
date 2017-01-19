@@ -314,7 +314,8 @@ function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
             {
                 alert(datiRisposta);
                 $(ajaxdiv).html(datiRisposta);
-                $("#loadingModa").hide();
+                $("#loadingModal").hide();
+                alert('ciao9898');
             }
         },
         error: function ()

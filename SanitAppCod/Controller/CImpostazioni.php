@@ -34,8 +34,12 @@ class CImpostazioni {
                             $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
                             if (isset($CFMedicoCurante)) {
                                 $eMedico = new EMedico($CFMedicoCurante);
+                                $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
                             }
-                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                            else
+                            {
+                                $vImpostazioni->visualizzaImpostazioniUtente($eUtente, NULL);
+                            }
                             break;
 
                         case 'medico':
@@ -150,8 +154,13 @@ class CImpostazioni {
                     $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
                     if (isset($CFMedicoCurante)) {
                         $eMedico = new EMedico($CFMedicoCurante);
+                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
                     }
-                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                    else
+                    {
+                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, NULL);
+                    }
+                    
                 } 
                 else {
                     $vJSON = USingleton::getInstance('VJSON');

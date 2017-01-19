@@ -75,6 +75,7 @@ class CHome {
 //                $cAutenticazione = USingleton::getInstance('CAutenticazione');
 //                $cAutenticazione->autenticaUser();
 //                break;
+            
             case 'categorie':
                 $cCategorie = USingleton::getInstance('CGestisciCategorie');
                 $cCategorie->gestisciCategorieGET();
@@ -268,7 +269,8 @@ class CHome {
             
             case 'registrazione':
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
-                $cRegistrazione->inserisciRegistrazione();
+                $cRegistrazione->gestisciRegistrazionePOST();
+//                $cRegistrazione->inserisciRegistrazione();
                 break;
             
             case 'ricerca':

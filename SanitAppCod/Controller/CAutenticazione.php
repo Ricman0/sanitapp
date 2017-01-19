@@ -101,7 +101,7 @@ class CAutenticazione {
                     $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
                 } else { //user non confermato ma esistente nel DB
                     // ritorna form per effettuare conferma
-                    $vAutenticazione->impostaPaginaConferma();
+                    $vAutenticazione->impostaPaginaConferma($username);
                 }
 //                }
 //                else 

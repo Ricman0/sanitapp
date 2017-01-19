@@ -210,7 +210,7 @@ class CGestisciUser {
                                 
                                 $eUtente->modificaUtente($datiDaValidare);
                                 
-                                $vUsers->visualizzaFeedback("Modifica all'utente effetuata");
+                                $vUsers->visualizzaFeedback("Modifica all'utente effettuata");
                             } 
                             catch (XUtenteException $ex) 
                             {
@@ -219,7 +219,7 @@ class CGestisciUser {
                                     
                                     $eUtente = new EUtente( $datiDaValidare['codiceFiscale']);
                                     $eUtente->modificaUtente($datiDaValidare);
-                                    $vUsers->visualizzaFeedback("Modifica all'utente effetuata");
+                                    $vUsers->visualizzaFeedback("Modifica all'utente effettuata");
                                 }catch (XUtenteException $ex) 
                                 {
                                     $messaggio[0] = "C'è stato un errore, non è stato possibile modificare l'utente.";
@@ -243,7 +243,7 @@ class CGestisciUser {
                                 
                                 $eMedico->modificaMedico($datiDaValidare);
                                 
-                                $vUsers->visualizzaFeedback("Modifica al medico effetuata");
+                                $vUsers->visualizzaFeedback("Modifica al medico effettuata");
                             } 
                             catch (XDBException $ex)
                             {
@@ -258,7 +258,7 @@ class CGestisciUser {
                                 try{
                                     $eMedico = new EMedico( $datiDaValidare['codiceFiscale']);
                                     $eMedico->modificaMedico($datiDaValidare);
-                                    $vUsers->visualizzaFeedback("Modifica al medico effetuata");
+                                    $vUsers->visualizzaFeedback("Modifica al medico effettuata");
                                 }catch (XMedicoException $ex) 
                                 {
                                     $messaggio[0] = "C'è stato un errore, non è stato possibile modificare il medico.";
@@ -284,7 +284,7 @@ class CGestisciUser {
                                 
                                 $eClinica->modificaClinica($datiDaValidare);
                                 
-                                $vUsers->visualizzaFeedback("Modifica alla clinica effetuata");
+                                $vUsers->visualizzaFeedback("Modifica alla clinica effettuata");
                             } 
                             catch (XClinicaException $ex) 
                             {
@@ -292,7 +292,7 @@ class CGestisciUser {
                                 try{
                                     $eClinica = new EClinica(NULL, $datiDaValidare['partitaIva']);
                                     $eClinica->modificaClinica($datiDaValidare);
-                                    $vUsers->visualizzaFeedback("Modifica alla clinica effetuata");
+                                    $vUsers->visualizzaFeedback("Modifica alla clinica effettuata");
                                 }catch (XClinicaException $ex) 
                                 {
                                     $messaggio[0] = "C'è stato un errore, non è stato possibile modificare la clinica.";

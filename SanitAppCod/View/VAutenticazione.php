@@ -99,10 +99,10 @@ class VAutenticazione extends View {
      * 
      * @access public
      */
-    public function impostaPaginaConferma() 
+    public function impostaPaginaConferma($username) 
     {
-        
         $variabiliHeader = $this->impostaHeader();
+        $this->assegnaVariabiliTemplate('username', $username);
         $paginaConferma = $this->prelevaTemplate('paginaConferma');
         $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
         $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);

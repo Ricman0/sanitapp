@@ -1434,7 +1434,7 @@ function inviaDatiCategoria()
 
 
 function validazioneModificaUtente() {
-    alert('cioa');
+    
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("password", function (valore) {
@@ -1601,11 +1601,8 @@ function validazioneModificaUtente() {
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Utente";
             $("#modificaUserUtente input[type='checkbox']").each(function (index) {
-                alert('ciao');
-                console.log($(this));
                 if ($(this).val() !== true)
                 {
-                    alert('v');
                     var valore = $(this).attr("name");
                     datiPOST = datiPOST + "&" + valore + "=" + $(this).val();
                 }
