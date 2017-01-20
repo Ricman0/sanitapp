@@ -3,33 +3,36 @@
 /**
  * Description of CHome
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CHome {
     
     /**
-     * Metodo che permette di impostare la pagina dell'applicazione web
+     * Metodo che permette di impostare la pagina dell'applicazione web in base alla richiesta HTTP arrivata
      * 
      * @access public
      */
     public function impostaPagina() 
     {
         $vHome = USingleton::getInstance('VHome');   
-        
-            switch ($vHome->getRequestMethod())  
-            {
-                case 'GET':
-                    $this->smistaControllerGET($vHome->getController());
-                    break;
-                case 'POST':
-                    $this->smistaControllerPOST($vHome->getController());
-                    break;
-                default:
-                    break;
-            } 
-        }
+        switch ($vHome->getRequestMethod())  
+        {
+            case 'GET': // richieste GET
+                $this->smistaControllerGET($vHome->getController());
+                break;
+            case 'POST':// richieste POST
+                $this->smistaControllerPOST($vHome->getController());
+                break;
+            default:
+                break;
+        } 
+    }
     
-
+    /**
+     * 
+     * @param type $argv
+     */
     public function smistaJob($argv) {
             $argument1 = $argv[1];
 //            $argument2 = $argv[2];
@@ -61,11 +64,11 @@ class CHome {
     
     
     /**
-     * Metodo che consente di scegliere il caso giusto in base al controller se 
-     * il  metodo di richiesta è GET
+     * Metodo che consente di gestire la richiesta di tipo GET in base al controller.
+     * Per cui in base al valore assunto dal controller, verrà eseguita un'azione.
      * 
      * @access private
-     * @param string $controller 
+     * @param string $controller Il valore del controller 
      */
     private function smistaControllerGET($controller) 
     {
@@ -101,7 +104,7 @@ class CHome {
                 $vHome->restituisciHomePage();
                 break;
             
-            case 'impostazioni':
+            case 'impostazioni': // GET impostazioni
                 $cImpostazioni = USingleton::getInstance('CImpostazioni');
                 $cImpostazioni->gestisciImpostazioni();
                 break;
@@ -212,10 +215,11 @@ class CHome {
     }
     
     /**
-     * Metodo che consente gestire le richieste HTTP con metodo POST 
+     * Metodo che consente di gestire la richiesta POST in base al controller.
+     * Per cui in base al valore assunto dal controller, verrà eseguita un'azione.
      * 
      * @access private
-     * @param string $controller Il valore del controller
+     * @param string $controller Il valore del controller 
      */
     private function smistaControllerPOST($controller)
     {
@@ -247,7 +251,7 @@ class CHome {
                 $cRicercaEsami->impostaPaginaRisultatoEsami();
                 break;
             
-            case 'impostazioni':
+            case 'impostazioni': //POST impostazioni
                 $cImpostazioni = USingleton::getInstance('CImpostazioni');
                 $cImpostazioni->gestisciImpostazioniPOST();
                 break;

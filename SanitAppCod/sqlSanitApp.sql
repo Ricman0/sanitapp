@@ -194,7 +194,7 @@ CREATE TABLE medico (
 --
 
 INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username, ProvinciaAlbo, NumIscrizione, Validato) VALUES
-('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Acquaventina', 30, '65017', 'claudim','PESCARA', 5464, TRUE);
+('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Via Acquaventina', 30, '65017', 'claudim','PESCARA', 546474, TRUE);
 
 -- --------------------------------------------------------
 

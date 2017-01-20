@@ -1,18 +1,18 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CImpostazioni
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CImpostazioni {
 
+    /**
+     * Metodo che consente di gestire le azioni del controller 'impostazioni' per le richieste GET HTTP.
+     * 
+     * @access public
+     */
     public function gestisciImpostazioni() {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
@@ -27,36 +27,8 @@ class CImpostazioni {
                 $vJSON->inviaDatiJSON($eClinica->getGiorniNonLavorativi());
                 break;
 
-            case 'visualizza': {
-                    switch ($tipoUser) {
-                        case 'utente':
-                            $eUtente = new EUtente(NULL, $username);
-                            $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
-                            if (isset($CFMedicoCurante)) {
-                                $eMedico = new EMedico($CFMedicoCurante);
-                                $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
-                            }
-                            else
-                            {
-                                $vImpostazioni->visualizzaImpostazioniUtente($eUtente, NULL);
-                            }
-                            break;
-
-                        case 'medico':
-                            $eMedico = new EMedico(NULL, $username);
-                            $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
-                            break;
-                            
-                        case 'clinica': {
-                                $eClinica = new EClinica($username);
-                                $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getArrayWorkingPlanClinica());
-                            }
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
+            case 'visualizza': // GET impostazioni/visualizza
+                $this->visualizzaImpostazioni($tipoUser, $username);
                 break;
 
             case 'modifica': {
@@ -85,6 +57,11 @@ class CImpostazioni {
         }
     }
 
+    /**
+     * Metodo che consente di gestire le azioni del controller 'impostazioni' per le richieste POST HTTP.
+     * 
+     * @access public
+     */
     public function gestisciImpostazioniPOST() {
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $sessione = USingleton::getInstance('USession');
@@ -126,7 +103,7 @@ class CImpostazioni {
                         break;
 
                     case 'credenziali':
-                        $this->modificaCredenziali($vImpostazioni, $username);
+                        $this->modificaCredenziali($username);
                         break;
 
                     default:
@@ -138,7 +115,8 @@ class CImpostazioni {
         }
     }
 
-    public function modificaInformazioni($vImpostazioni, $username) {
+    public function modificaInformazioni($username) {
+        $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $session = USingleton::getInstance('USession');
         $tipoUser = $session->leggiVariabileSessione('tipoUser');
         $dati = $vImpostazioni->recuperaInformazioni();
@@ -222,10 +200,9 @@ class CImpostazioni {
     public function modificaAlboNum() {
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $session = USingleton::getInstance('USession');
-        $tipoUser = $session->leggiVariabileSessione('tipoUser');
         $username = $session->leggiVariabileSessione('usernameLogIn');
         $provincia = $vImpostazioni->recuperaValore('provinciaAlbo');
-        $numIscrizione= $vImpostazioni->recuperaValore('numeroIscrizione');
+        $numIscrizione = $vImpostazioni->recuperaValore('numeroIscrizione');
         $dati = Array('provinciaAlbo'=>$provincia, 'numeroIscrizione'=>$numIscrizione);
         $uValidazione = USingleton::getInstance('UValidazione');
         if ($uValidazione->validaDati($dati)) {// se i dati sono validi
@@ -257,40 +234,65 @@ class CImpostazioni {
         }
     }
     
-    public function modificaCredenziali($vImpostazioni, $username) {
+    /**
+     * Metodo che consente di modificare le credenziali di un user gestendo le eventuali eccezioni.
+     * 
+     * @access public
+     * @param string $username L'username dello user di cui si vogliono modificare le credenziali
+     */
+    public function modificaCredenziali($username) {
+        $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $session = USingleton::getInstance('USession');
         $tipoUser = $session->leggiVariabileSessione('tipoUser');
         $dati = $vImpostazioni->recuperaCredenziali();
         $arrayDati['password'] = $dati;
         $uValidazione = USingleton::getInstance('UValidazione');
         if ($uValidazione->validaDati($arrayDati)) {// se i dati sono validi
-            
-                $eUser = new EUser($username);
-                if ($eUser->modificaPassword($uValidazione->getDatiValidi()['password']) === TRUE) {
-                    //modifiche effettuate
-                    if($tipoUser==='utente')
+            try {
+                    $eUser = new EUser($username);
+                    if ($eUser->modificaPassword($eUser->getUsernameUser(), $uValidazione->getDatiValidi()['password']) === TRUE) {
+                    if($eUser->modificaPassword( $arrayDati['password']))
                     {
-                        $eUtente = new EUtente(NULL, $username);
-                        $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
-                        if (isset($CFMedicoCurante)) {
-                            $eMedico = new EMedico($CFMedicoCurante);
+                        //modifiche effettuate
+                        if($tipoUser==='utente')
+                        {
+                            $eUtente = new EUtente(NULL, $username);
+                            $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
+                            if (isset($CFMedicoCurante)) {
+                                $eMedico = new EMedico($CFMedicoCurante);
+                            }
+                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+            //                                $vJSON = USingleton::getInstance('VJSON');
+            //                              $vJSON->inviaDatiJSON(TRUE);
                         }
-                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
-        //                                $vJSON = USingleton::getInstance('VJSON');
-        //                              $vJSON->inviaDatiJSON(TRUE);
+                        else
+                        {
+                            $eMedico = new EMedico(NULL, $username);
+                            $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+
+                        }
+                    } 
+                    else {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
                     }
-                    else
-                    {
-                        $eMedico = new EMedico(NULL, $username);
-                        $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
-                        
-                    }
-                } 
-                else {
-                    $vJSON = USingleton::getInstance('VJSON');
-                    $vJSON->inviaDatiJSON(FALSE);
                 }
-                
+            } catch (XUserException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
+            catch (XUtenteException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
+            catch (XMedicoException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
+            catch (XDBException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
         } 
         else {
             // non tutti i dati sono validi 
@@ -299,4 +301,42 @@ class CImpostazioni {
         }
     }
 
+    /**
+     * Metodo che consente di visualizzare le impostazioni di un user dell'applicazione.
+     * 
+     * @access public
+     * @param string $tipoUser Il tipo di user di cui si vogliono visualizzare le impostazioni
+     * @param string $username L'username dell'user dell'applicazione che vuole visualizzare le sue impostazioni
+     */
+    public function visualizzaImpostazioni($tipoUser, $username) {
+        $vImpostazioni = USingleton::getInstance('VImpostazioni');
+        switch ($tipoUser) {
+            case 'utente':
+                $eUtente = new EUtente(NULL, $username);
+                $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
+                if (isset($CFMedicoCurante)) {
+                    $eMedico = new EMedico($CFMedicoCurante);
+                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                }
+                else
+                {
+                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente, NULL);
+                }
+                break;
+
+            case 'medico':
+                $eMedico = new EMedico(NULL, $username);
+                $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+                break;
+
+            case 'clinica': {
+                    $eClinica = new EClinica($username);
+                    $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getArrayWorkingPlanClinica());
+                }
+                break;
+
+            default:
+                break;
+            } 
+    }
 }

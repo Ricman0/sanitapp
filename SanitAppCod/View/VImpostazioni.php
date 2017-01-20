@@ -46,8 +46,9 @@ class VImpostazioni extends View{
     
     /**
      * Metodo che consente di visualizzare le impostazioni della clinica
+     *
+     * @access public 
      * @param array $workingPlan array contenente il workingPlan settimanale della clinica
-     * @access public
      */
     public function visualizzaImpostazioniClinica($workingPlan)
     {  
@@ -58,18 +59,18 @@ class VImpostazioni extends View{
     }
     
     /**
-     * Metodo che consente di modificare le informazioni dell'utente
+     * Metodo che consente di ottenere la pagina per modificare le informazioni dell'user.
      * 
      * @access public
      * @param EUtente|EMedico $user Una entità user 
-     * @return type Description
+     * @param string $modificaInformazioni  la variabile smarty da modificare
+     * @param string $tipoUser Il tipo di user dell'applicazione
      */
     public function modificaImpostazioni($user, $modificaInformazioni, $tipoUser)
     {  
         switch ($modificaInformazioni) 
         {
             case 'informazioni':
-                echo "modifica informazioni";
                 $this->assegnaVariabiliTemplate('informazioniGenerali', TRUE);
                 $this->assegnaVariabiliTemplate('modificaInformazioni', TRUE );
                 break;

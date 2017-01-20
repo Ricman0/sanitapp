@@ -78,60 +78,57 @@ $(document).ready(function () {
 
 });
 
+/**
+ * Funzione che permette di inviare i dati per modificare le impostazioni di un user dell'applicazione.
+ * 
+ * @public
+ * @param {string} controller Il controller dell'url
+ * @param {string} task Il task dell'url
+ * @param {strin} task2 Il secondo task dell'url
+ * @param {string} ajaxdiv L'id del div in cui inserire la risposta AJAX
+ * @return {HTML+JS|JSON+JS}
+ */
 function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
 {
-//    var dati="";
-//    switch(task2)
-//    {
-//        case 'informazioni':
-//            dati = $(".daModificare > input[type='text']").serialize();
-//            alert(dati);
-//            break;
-//            
-//        case 'medico':
-//            break;  
-//        
-//        case 'credenziali':
-//            break;
-//            
-//    }
     var dati = $("div.daModificare > form").serialize();
-//    alert(dati);
     $.ajax({
         type: 'POST',
         url: controller + '/' + task + '/' + task2,
         data: dati,
         success: function (datiRisposta)
         {
-           
-            $(ajaxdiv).html(datiRisposta);
-            $('#messaggioDialogBox').empty();
-            switch (task2)
-            {
-                case 'credenziali':
-                    $('#messaggioDialogBox').text('Credenziali modificate con successo!');
-                    break;
-                    
-                case 'medico':
-                    $('#messaggioDialogBox').text('Medico cambiato con successo!');
-                    break;
-                
-                case 'alboNum':
-                    $('#messaggioDialogBox').text('Provincia Albo e Numero Iscrizione Albo modificati con successo!');
-                    break;
-                
-                case 'informazioni':
-                    $('#messaggioDialogBox').text('Informazioni personali modificate con successo!');
-//                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
-//                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
-                    break;
-                    
-                default:
-                    break;
-                
-            }
-            
-            dialogBox(); //in eventi_click.js
+            try {
+                $.parseJSON(datiRisposta);
+                $('#messaggioDialogBox').text('Errore!');
+            } catch(error) {// non è json
+                $(ajaxdiv).html(datiRisposta);
+                $('#messaggioDialogBox').empty();
+                switch (task2)
+                {
+                    case 'credenziali':
+                        $('#messaggioDialogBox').text('Credenziali modificate con successo!');
+                        break;
+
+                    case 'medico':
+                        $('#messaggioDialogBox').text('Medico cambiato con successo!');
+                        break;
+
+                    case 'alboNum':
+                        $('#messaggioDialogBox').text('Provincia Albo e Numero Iscrizione Albo modificati con successo!');
+                        break;
+
+                    case 'informazioni':
+                        $('#messaggioDialogBox').text('Informazioni personali modificate con successo!');
+    //                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
+    //                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
+                        break;
+
+                    default:
+                        break;
+
+                }
+                dialogBox(); //in eventi_click.js
+            } 
         }
     });
 }

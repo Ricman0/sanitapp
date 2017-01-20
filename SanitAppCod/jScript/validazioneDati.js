@@ -74,6 +74,12 @@ function validazione(task1, controller1, task2)
     }
 }
 
+/**
+ * Funzione che consente di validare le credenziali e effettua la chiamata AJAX per salvare le nuove credenziali.
+ * Tale chiamata verrà effettuata solo se la validazione lato client risulta valida.
+ * 
+ * @return {undefined} 
+ */
 function validazioneCredenziali()
 {
     //
@@ -113,7 +119,6 @@ function validazioneCredenziali()
                 },
         submitHandler: function ()
         {
-
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#contenutoAreaPersonale");
         }
     });

@@ -503,15 +503,17 @@ class EUser {
      */
     public function modificaPassword($password = NULL) 
     {
+        $username = $this->getUsernameUser();
         if ($password===NULL)
         {
             $password = $this->generatePassword();
         }
+        $password = password_hash($password.$username, PASSWORD_BCRYPT);
         $this->setPassword($password);
         $fUser = USingleton::getInstance('FUser');
 //        return $fUser->modificaPassword($this->getUsernameUser(), $this->getPasswordUser());
         $daModificare['Password']= $this->getPasswordUser();
-        return $fUser->modificaPassword($this->getUsernameUser(), $daModificare);
+        return $fUser->update($this->getUsernameUser(), $daModificare);
     }
     
     /**
