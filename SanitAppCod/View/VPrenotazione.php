@@ -72,10 +72,10 @@ class VPrenotazione extends View{
     
     
     /**
-     * Metodo che consente di restituire tutte le prenotazioni associate ad un utente
+     * Metodo che consente di restituire tutte le prenotazioni associate ad un user.
      * 
      * @access public
-     * @param Array $risultato Il risultato della ricerca delle prenotazioni di un utente
+     * @param array $risultato Il risultato della ricerca delle prenotazioni
      */
     public function restituisciPaginaRisultatoPrenotazioni($tipoUser, $risultato=NULL) 
     {
@@ -91,9 +91,15 @@ class VPrenotazione extends View{
     }
     
     /**
-     * Metodo che consente di resituire la form per aggiungere una nuova prenotazione
+     * Metodo che consente di resituire la pagina per aggiungere una nuova prenotazione.
      * 
      * @access public
+     * @param string $nomeEsame Il nome dell'esame che si vuole prenotare
+     * @param string $nomeClinica Il nome della clinica presso cui si vuole prenotare
+     * @param string $partitaIVAClinica La partita IVA della clinica presso cui si vuole prenotare
+     * @param string $idEsame L'id dell'esame che si vuole prenotare
+     * @param type $durataEsame La durata dell'esame
+     * @param string $codiceFiscale Il codice fiscale dell'utente che deve effettuare la visita
      */
     public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale=NULL)
     {
@@ -123,6 +129,22 @@ class VPrenotazione extends View{
         $this->visualizzaTemplate('cercaUtente');
     }
     
+    /**
+     * Metodo che consente di visualizzare tutte le informazioni di una prenotazione
+     * 
+     * @access public
+     * @param EPrenotazione $prenotazione La prenotazione di cui si vogliono visualizzare le informazioni
+     * @param string $nomeUtente Il nome dell'utente che effettuerà la visita
+     * @param string $cognomeUtente Il cognome dell'utente che effettuerà la visita
+     * @param string $nomeEsame Il nome dell'esame prenotato
+     * @param string $medicoEsame Il nome del medico che effettua la visita presso la clinica
+     * @param string $tipoUser Il tipo di user
+     * @param EClinica $eClinica La clinica presso cui si effettua la prenotazione
+     * @param string $idReferto L'id del referto relativo alla prenotazione
+     * @param string $nome Il nome di chi ha prenotato la visita
+     * @param string $cognome Il cognome di chi ha prenotato la visita
+     * @param boolean $cancellaPrenota TRUE se è possibile modificare o cambiare la prenotazione, FALSE altrimenti
+     */
     public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto=NULL, $nome, $cognome, $cancellaPrenota) 
     {
         $this->assegnaVariabiliTemplate('prenotazione', $prenotazione);        

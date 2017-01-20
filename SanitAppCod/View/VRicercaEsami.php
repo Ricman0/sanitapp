@@ -44,10 +44,14 @@ class VRicercaEsami extends View{
     }
     
     /**
-     * Metodo che consente di visualizzare le informazioni di un esame 
+     * Metodo che consente di visualizzare le informazioni di un esame.
      * 
-     * @param EEsame $esame 
-     * @param boolean $servizi TRUE se siamo nella pagina personale della clinica, FALSE altrimenti
+     * @access public
+     * @param EEsame $esame L'esame di cui si vogliono visualizzare le informazioni
+     * @param boolean $servizi TRUE se si vuole visualizzare le informazioni di un servizio, FALSE per le informazioni di un esame
+     * @param EClinica $clinica La clinica presso cui si effettua la prenotazione
+     * @param string $tipoUser Il tipo di user che vuole visualizzare le informazioni dell'esame
+     * @param string $codiceFiscaleUtentePrenotaEsame Codice fiscale dell'utente che effettuerà la visita della prenotazione
      */
     public function visualizzaInfoEsameOspite($esame, $servizi, $clinica, $tipoUser, $codiceFiscaleUtentePrenotaEsame=NULL) 
     {

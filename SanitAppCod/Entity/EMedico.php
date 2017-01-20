@@ -324,11 +324,11 @@ class EMedico extends EUser {
     
     
     /**
-     * Permette di trovare tutti i pazienti del medico
+     * Metodo che permette di trovare tutti i pazienti del medico.
      * 
      * @access public
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return array|string Tutti i pazienti del medico se ci sono, altrimenti un messaggio 
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaPazienti() 
     {
@@ -351,10 +351,11 @@ class EMedico extends EUser {
     }
     
     /**
-     * Metodo che consente di cercare tutte le prenotazioni che il medico ha effettuato
+     * Metodo che consente di cercare tutte le prenotazioni che il medico ha prenotato per i suoi pazienti.
      * 
      * @access public
-     * @return Array Un array contenente tutte le prenotazioni del medico
+     * @return array Un array contenente tutte le prenotazioni prenotate dal medico
+     * @throws XDBException Se la query per la ricerca delle prenotazioni prenotate dal medico non è stata eseguita con successo
      */
     public function cercaPrenotazioni() 
     {

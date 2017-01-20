@@ -31,7 +31,7 @@ class CImpostazioni {
                 $this->visualizzaImpostazioni($tipoUser, $username);
                 break;
 
-            case 'modifica': {
+            case 'modifica': { // GET impostazioni/modifica
                     switch ($tipoUser) {
                         case 'utente':
                             $eUtente = new EUtente(NULL, $username);
@@ -87,15 +87,16 @@ class CImpostazioni {
                 }
                 break;
 
-            case 'modifica': // caso per modificare le impostazioni di un utente
+            case 'modifica': // POST impostazioni/modifica
+// caso per modificare le impostazioni di un utente
                 $task2 = $vImpostazioni->getTask2();
                 switch ($task2) {
                     case 'informazioni':
-                        $this->modificaInformazioni($vImpostazioni, $username);
+                        $this->modificaInformazioni($username);
                         break;
 
                     case 'medico':
-                        $this->modificaMedicoCurante($vImpostazioni, $username);
+                        $this->modificaMedicoCurante($username);
                         break;
                     
                     case 'alboNum':
@@ -114,7 +115,13 @@ class CImpostazioni {
                 break;
         }
     }
-
+    
+    /**
+     * Metodo che consente di modificare le informazioni di un user.
+     * 
+     * @access public
+     * @param string $username L'username dello user di cui si vogliono modificare le informazioni
+     */
     public function modificaInformazioni($username) {
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $session = USingleton::getInstance('USession');
@@ -122,46 +129,60 @@ class CImpostazioni {
         $dati = $vImpostazioni->recuperaInformazioni();
         $uValidazione = USingleton::getInstance('UValidazione');
         if ($uValidazione->validaDati($dati)) {// se i dati sono validi
-            if($tipoUser==='utente') 
-            {//tipoUser=utente
-                $eUtente = new EUtente(NULL, $username);
-                if ($eUtente->modificaIndirizzoCAP($uValidazione->getDatiValidi()) === TRUE) {
-                    //modifiche effettuate
-    //                                    $vJSON = USingleton::getInstance('VJSON');
-    //                                    $vJSON->inviaDatiJSON(TRUE);
-                    $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
-                    if (isset($CFMedicoCurante)) {
-                        $eMedico = new EMedico($CFMedicoCurante);
-                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+            try {
+                if($tipoUser==='utente') 
+                {//tipoUser=utente
+                    $eUtente = new EUtente(NULL, $username);
+                    if ($eUtente->modificaIndirizzoCAP($uValidazione->getDatiValidi()) === TRUE) {
+                        //modifiche effettuate
+        //                                    $vJSON = USingleton::getInstance('VJSON');
+        //                                    $vJSON->inviaDatiJSON(TRUE);
+                        $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
+                        if (isset($CFMedicoCurante)) {
+                            $eMedico = new EMedico($CFMedicoCurante);
+                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                        }
+                        else
+                        {
+                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente, NULL);
+                        }
+
+                    } 
+                    else {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
                     }
-                    else
-                    {
-                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, NULL);
-                    }
-                    
-                } 
-                else {
-                    $vJSON = USingleton::getInstance('VJSON');
-                    $vJSON->inviaDatiJSON(FALSE);
-                }
-            }
-            else
-            {
-                //tipouser medico
-                $eMedico = new EMedico(NULL, $username);
-                $modificato = $eMedico->modificaIndirizzoCAP($uValidazione->getDatiValidi());
-                if($modificato === TRUE)
-                {
-                    $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
                 }
                 else
                 {
-//                    $vImpostazioni->visualizzaFeedback("C'è stato un errore non è stato possibile modificare le informazioni");
-                    $vJSON = USingleton::getInstance('VJSON');
-                    $vJSON->inviaDatiJSON(FALSE);
-                    
+                    //tipouser medico
+                    $eMedico = new EMedico(NULL, $username);
+                    $modificato = $eMedico->modificaIndirizzoCAP($uValidazione->getDatiValidi());
+                    if($modificato === TRUE)
+                    {
+                        $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+                    }
+                    else
+                    {
+        //                    $vImpostazioni->visualizzaFeedback("C'è stato un errore non è stato possibile modificare le informazioni");
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
+
+                    }
                 }
+            } 
+            catch (XUtenteException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
             }
+            catch (XMedicoException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
+            catch (XDBException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }    
         } else {
             // non tutti i dati sono validi 
             $vJSON = USingleton::getInstance('VJSON');
@@ -169,8 +190,8 @@ class CImpostazioni {
         }
     }
 
-    public function modificaMedicoCurante($vImpostazioni, $username) {
-
+    public function modificaMedicoCurante( $username) {
+        $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $dati = $vImpostazioni->recuperaCFMedico();
         $arrayDati['codiceFiscale'] = $dati;
         $uValidazione = USingleton::getInstance('UValidazione');

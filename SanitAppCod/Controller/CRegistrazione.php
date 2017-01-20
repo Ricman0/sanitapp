@@ -43,11 +43,13 @@ class CRegistrazione {
 
     /**
      * Metodo che consente di gestire le richieste HTTP POST del controller Registrazione
+     * 
+     * @access public
      */
     public function gestisciRegistrazionePOST(){
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         if($vRegistrazione->getTask()==='conferma')
-        {//POST registrazione/conferma
+        { //POST registrazione/conferma
             $username = $vRegistrazione->recuperaValore('username');
             $idConferma = $vRegistrazione->recuperaValore('id');
             if ($idConferma !== FALSE && $username !== FALSE) { 
@@ -72,27 +74,38 @@ class CRegistrazione {
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         switch ($vRegistrazione->getTask()) {
             case 'clinica': {
-                    $codiceODatiValidi = $this->recuperaDatiECreaClinica();
-                    if (is_string($codiceODatiValidi) === TRUE) {//se contiene il codice di conferma
-                        $this->inviaMailRegistrazioneClinica($codiceODatiValidi);
-                    } else {
-                        // dati corretti ma errore nel database
-                        return $vRegistrazione->restituisciFormClinica($codiceODatiValidi);
+                    try{
+                        $codiceODatiValidi = $this->recuperaDatiECreaClinica();
+                        if (is_string($codiceODatiValidi) === TRUE) {//se contiene il codice di conferma
+                            $this->inviaMailRegistrazioneClinica($codiceODatiValidi);
+                        } else {
+                            // dati corretti ma errore nel database
+                            return $vRegistrazione->restituisciFormClinica($codiceODatiValidi);
+                        }
+                    } catch (XDBException $exc) {
+                        $vRegistrazione->visualizzaFeedback($exc->getMessage(), TRUE);
                     }
                 }
                 break;
 
             case 'medico': {
+                try{
                     $codiceODatiValidi = $this->recuperaDatiECreaMedico();
-                        if (is_string($codiceODatiValidi) === TRUE) {//se contiene il codice di conferma
-                            $this->inviaMailRegistrazioneMedico($codiceODatiValidi);
-                        } else {
-                            // dati corretti ma errore nel database
-                            return $vRegistrazione->restituisciFormMedico($codiceODatiValidi);
-                        }
+                    if (is_string($codiceODatiValidi) === TRUE) {//se contiene il codice di conferma
+                        $this->inviaMailRegistrazioneMedico($codiceODatiValidi);
+                    } else {
+                        // dati corretti ma errore nel database
+                        return $vRegistrazione->restituisciFormMedico($codiceODatiValidi);
                     }
-
-                    break;
+                } 
+                catch (XDBException $exc) {
+                        $vRegistrazione->visualizzaFeedback($exc->getMessage(), TRUE);
+                    }
+                catch (XMedicoException $exc) {
+                        $vRegistrazione->visualizzaFeedback($exc->getMessage(), TRUE);
+                    }
+                }
+                break;
                 
             case 'utente': {
                     try {
@@ -121,6 +134,7 @@ class CRegistrazione {
      * 
      * @access private
      * @return mixed Se i dati sono validi il codice di conferma la clinica è stata inserita nel DB, FALSE altrimenti. Se i dati non sono validi, i dati validi
+     * @throws XDBException
      */
     private function recuperaDatiECreaClinica() {
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
@@ -179,26 +193,24 @@ class CRegistrazione {
      * 
      * @access private
      * @return mixed Se i dati sono validi il codice di conferma l'utente è stato inserito nel DB. Se i dati non sono validi, i dati validi
+     * @throws XDBException 
+     * @throws XMedicoException
      */
     private function recuperaDatiECreaUtente() {
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         //recupero i dati 
         $datiUtente = $vRegistrazione->recuperaDatiUtente();
-        echo ' dati recuperati ';
         //ho recuperato tutti i dati inseriti nella form di registrazione dell'utente
         //ora è necessario che vengano validati prima della creazione di un nuovo utente
         $uValidazione = USingleton::getInstance('UValidazione');
         $uValidazione->validaDati($datiUtente);
         // se i dati sono validi
         if ($uValidazione->getValidati() === TRUE) {
-            echo ' dati validati ';
             // crea utente 
             $eUtente = new EUtente($datiUtente['codiceFiscale'], $datiUtente['username'], $datiUtente['password'], $datiUtente['email'], ucwords($datiUtente['nome']), ucwords($datiUtente['cognome']), ucwords($datiUtente['indirizzo']), $datiUtente['numeroCivico'], $datiUtente['CAP']);
             $sessione = USingleton::getInstance('USession');
             $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
-
             if ($tipoUser === 'medico') {
-                
                 $username = $sessione->leggiVariabileSessione('usernameLogIn');
                 $eMedico = new EMedico(NULL, $username);
                 $eUtente->setMedicoCurante($eMedico->getCodFiscaleMedico());

@@ -130,8 +130,8 @@ class FMedico extends FUser {
      * 
      * @access public
      * @param string $usernameMedico L'username del medico
+     * @return array I pazienti del medico se la query è eseguita con successo, altrimenti lancia un'eccezione
      * @throws XDBException Se la query non è stata eseguita con successo
-     * @return type Description
      */
     public function cercaPazienti($usernameMedico) 
     {
@@ -146,8 +146,7 @@ class FMedico extends FUser {
                 . "INNER JOIN (" . $query2 . ")t2 "
                 . "ON t1.CodFiscale=t2.CodFiscale LOCK IN SHARE MODE";
 
-        $risultato = $this->eseguiQuery($query);
-        return $risultato;
+        return $this->eseguiQuery($query);
     }
     
     

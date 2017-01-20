@@ -366,6 +366,11 @@ function validazioneCodiceFiscale()
             {
                 $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codiceFiscale); //aggiungo il codice fiscale al button nex in prenotazione/esame/idEsame
                 $("p").show();
+                $('h3').show();
+                $('span').show();
+                $('#codiceFiscaleRicercaUtente').prop('readonly', true);
+                $('#submitRicercaUtente').hide();
+                
                 var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
                 var giorniNonLavorativi = getGiorniNonLavorativiClinica(partitaIVAClinica);
                 $("#calendarioPrenotazioneEsame").datepicker({

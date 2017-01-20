@@ -20,7 +20,11 @@ class CRicercaEsami {
     }
     
     
-    
+    /**
+     * Metodo che consente di ottenere tutti gli esami secondo i parametri di ricerca 
+     * 
+     * @access public  
+     */
     public function impostaPaginaRisultatoEsami() 
     {
         $vEsami = USingleton::getInstance('VRicercaEsami');
@@ -45,33 +49,52 @@ class CRicercaEsami {
         }       
     }
     
+    /**
+     * Metodo che consente di gestire le richieste GET per il controller 'esami'
+     * 
+     * @access public
+     */
     public function gestisciEsami() {
         $vEsami = USingleton::getInstance('VRicercaEsami');
         switch($vEsami->getTask())
         { 
             case 'visualizza':
                 $id = $vEsami->recuperaValore('id');
-                if(isset($id))
+                if(isset($id)) //GET esami/visualizza/id
                 {
-                    $sessione = USingleton::getInstance('USession');
-                    $username = $sessione->leggiVariabileSessione('usernameLogIn');
-                    $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
-                    $eEsame = new EEsame($id);
-                    $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
-                    if($tipoUser==='utente' && $username!=FALSE)
-                    {
-                        $eUtente = new EUtente(NULL, $username);
-                        $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica, $tipoUser, $eUtente->getCodFiscaleUtente());
-                    } 
-                    else
-                    {
-                        $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica, $tipoUser);
+                    try {
+                        $sessione = USingleton::getInstance('USession');
+                        $username = $sessione->leggiVariabileSessione('usernameLogIn');
+                        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
+                        $eEsame = new EEsame($id);
+                        $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
+                        if($tipoUser==='utente' && $username!=FALSE)
+                        {
+                            $eUtente = new EUtente(NULL, $username);
+                            $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica, $tipoUser, $eUtente->getCodFiscaleUtente());
+                        } 
+                        else
+                        {
+                            $vEsami->visualizzaInfoEsameOspite($eEsame, FALSE, $eClinica, $tipoUser);
+                        }
                         
+                    } catch (XEsameException $ex) {
+                        $vEsami->visualizzaFeedback("Si è verificato un errore. Non è stato possibile visualizzare l'esame."); 
                     }
+                    catch (XClinicaException $ex) {
+                        $vEsami->visualizzaFeedback("Si è verificato un errore. Non è stato possibile visualizzare l'esame.");
+                    }
+                    catch (XUtenteException $ex) {
+                        $vEsami->visualizzaFeedback("Si è verificato un errore. Non è stato possibile visualizzare l'esame.");
+                    }
+                }
+                else
+                {
+                    $vEsami->visualizzaFeedback("Si è verificato un errore. Non è stato possibile visualizzare l'esame.");
                 }
             break;
             
-            default : // cado nella ricerca degli esami
+            default : // cado nella ricerca degli esami // GET esami
                 $this->impostaPaginaRisultatoEsami();
                 break;
         }

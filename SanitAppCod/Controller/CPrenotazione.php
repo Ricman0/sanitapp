@@ -8,7 +8,9 @@
 class CPrenotazione {
 
     /**
-     * Metodo che consente di gestire una prenotazione
+     * Metodo che consente di gestire le richieste GET per il controller 'prenotazione'.
+     * 
+     * @access public
      */
     public function gestisciPrenotazione() {
         $orari = Array();
@@ -45,13 +47,20 @@ class CPrenotazione {
                     $id = $vPrenotazione->recuperaValore('id'); 
                     if(isset($id))// GET prenotazione/esame/idEsame
                     {
-                        $eEsame = new EEsame($id);
-                        $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
-                        $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                        $nomeEsame = ucwords($eEsame->getNomeEsameEsame());
-                        $durataEsame = $eEsame->getDurataEsame();
-                        $nomeClinica = ucwords($eClinica->getNomeClinicaClinica());
-                        $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id, $durataEsame);
+                        try {
+                            $eEsame = new EEsame($id);
+                            $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
+                            $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                            $nomeEsame = ucwords($eEsame->getNomeEsameEsame());
+                            $durataEsame = $eEsame->getDurataEsame();
+                            $nomeClinica = ucwords($eClinica->getNomeClinicaClinica());
+                            $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id, $durataEsame);
+                        } catch (XEsameException $ex) {
+                            $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
+                        }
+                        catch (XClinicaException $ex) {
+                            $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
+                        }
                     }
                     break;
                 
@@ -63,7 +72,7 @@ class CPrenotazione {
                 
 
                 default:
-                    echo "erroe";
+                    echo "errore";
                     break;
             }
         } 
@@ -94,7 +103,7 @@ class CPrenotazione {
 
     
     /**
-     * Metodo che consente di gestire le prenotazioni
+     * Metodo che consente di gestire le richieste GET per il controller 'prenotazioni'.
      * 
      * @access public
      */
@@ -108,7 +117,7 @@ class CPrenotazione {
         switch ($task) {                
             case 'visualizza': 
             $idPrenotazione = $vPrenotazioni->recuperaValore('id');
-            if ($idPrenotazione === FALSE)  // get prenotazioni/visualizza
+            if ($idPrenotazione === FALSE)  // GET prenotazioni/visualizza
             {
                 $this->tryVisualizzaPrenotazioni();
             }
@@ -665,7 +674,7 @@ class CPrenotazione {
     
     
     /**
-     * Metodo che consente di visualizzare tutte le prenotazioni di una clinica o di un utente o di un medico
+     * Metodo che consente di visualizzare tutte le prenotazioni di una clinica o di un utente o di un medico.
      * 
      * @access private
      * @throws XClinicaException Se la clinica non esiste

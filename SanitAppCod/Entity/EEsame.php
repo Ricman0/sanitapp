@@ -207,7 +207,7 @@ class EEsame
     /**
      * Metodo che restituisce il tempo (in minuti)impiegato per effettuare l'esame
      * 
-     * @return int La durata dell'esame
+     * @return string La durata dell'esame
      */
     public function getDurataEsame()
     {

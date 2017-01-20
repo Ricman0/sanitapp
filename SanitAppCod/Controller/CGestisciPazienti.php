@@ -14,7 +14,7 @@
 class CGestisciPazienti {
 
     /**
-     * Metodo che consente la visualizzazione di un paziente passato come parametro o tutti i pazienti
+     * Metodo che consente di gestire le richieste GET per il controller pazienti.
      * 
      * @access public
      */
@@ -23,7 +23,7 @@ class CGestisciPazienti {
         $vPazienti = USingleton::getInstance('VGestisciPazienti');
         $task = $vPazienti->getTask();
         switch ($task) {
-            case 'visualizza':
+            case 'visualizza':// GET pazienti/visualizza
                 $this->visualizza();
                 break;
             case 'aggiungi': // GET pazienti/aggiungi
@@ -35,23 +35,34 @@ class CGestisciPazienti {
         }
     }
 
+    /**
+     * Metodo che consente la visualizzazione di un paziente passato come parametro o tutti i pazienti.
+     * 
+     * @access private
+     */
     private function visualizza() 
     {
         $vPazienti = USingleton::getInstance('VGestisciPazienti');
         $cf = $vPazienti->recuperaValore('id');
-        if ($cf === FALSE) {
+        if ($cf === FALSE) { // GET pazienti/visualizza
             // vogliamo visualizzare tutti i pazienti del medico
             $this->tryVisualizzaPazienti();
         } 
-        else {
+        else { // GET pazienti/visualizza/id
             // si cerca un solo paziente
-            $eUtente = new EUtente($cf);
-            $vPazienti->visualizzaInfoUtente($eUtente);
+            try {
+                $eUtente = new EUtente($cf);
+                $vPazienti->visualizzaInfoUtente($eUtente);
+            } catch (XUtenteException $ex) {
+                $messaggio = $ex->getMessage();
+                $vPazienti->visualizzaFeedback($messaggio . " Non è stato possibile recuperare le informazioni del paziente.");
+            }
+            
         }
     }
     
     /**
-     * Metodo che consente di visualizzare tutti i pazienti di un medico gestendo eventuali errori 
+     * Metodo che consente di visualizzare tutti i pazienti di un medico gestendo le eventuali eccezioni. 
      * 
      * @access private
      */

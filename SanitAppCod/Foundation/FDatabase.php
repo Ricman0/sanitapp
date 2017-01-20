@@ -171,8 +171,8 @@ class FDatabase {
      * @final
      * @access public
      * @param string $query La query da eseguire
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return array|boolean Il risultato della query.
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     final public function eseguiQuery($query) 
     {

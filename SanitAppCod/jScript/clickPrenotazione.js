@@ -328,6 +328,8 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
             {
                 $("#nextPrenotazioneEsame").hide();
                 $("p").hide();
+                $('h3').hide();
+                $('span').hide();
                 $("#divAggiungiPrenotazione").prepend("<form id='ricercaUtente'></form>");//aggiungo la form 
                 $("<label for='codiceFiscaleRicercaUtente' class='elementiForm'>Codice Fiscale</label>").appendTo('#ricercaUtente');
                 $('#ricercaUtente').append("<input type='text' name='codiceFiscaleRicercaUtente' id='codiceFiscaleRicercaUtente' class='elementiForm' placeholder='DMRCLD89S42G438S' required />");

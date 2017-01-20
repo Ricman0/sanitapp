@@ -94,7 +94,7 @@ class CHome {
                 $cCliniche->gestisciCliniche();
                 break;
             
-            case 'esami':
+            case 'esami': // GET esami
                 $cEsami = USingleton::getInstance('CRicercaEsami');
                 $cEsami->gestisciEsami();
                 break;
@@ -124,12 +124,12 @@ class CHome {
                 $cMySanitApp->impostaPaginaPersonale();
                 break;
             
-            case 'pazienti':
+            case 'pazienti': //GET pazienti
                 $cPazienti = USingleton::getInstance('CGestisciPazienti');
                 $cPazienti->gestisciPazienti();
                 break;
             
-            case 'prenotazione':
+            case 'prenotazione': // GET prenotazione
 //                echo " prenotazione ";
                 $sessione = USingleton::getInstance('USession');
                 if($sessione->checkVariabileSessione('loggedIn'))
@@ -146,7 +146,7 @@ class CHome {
                 }
                 break;
                 
-            case 'prenotazioni':
+            case 'prenotazioni': // GET prenotazioni
                 $cPrenotazioni = USingleton::getInstance('CPrenotazione');
                 $cPrenotazioni->gestisciPrenotazioni();
                 break;
@@ -176,7 +176,7 @@ class CHome {
                 $cRicercaCliniche->impostaPaginaRicercaCliniche();
                 break;
             
-            case 'ricercaEsami':
+            case 'ricercaEsami': // GET ricercaEsami
                 $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
                 $cRicercaEsami->impostaPaginaRicercaEsami();
                 break;
@@ -271,7 +271,7 @@ class CHome {
                 $cReferto->gestisciRefertiPOST();
                 break;
             
-            case 'registrazione':
+            case 'registrazione': // POST registrazione
                 $cRegistrazione= USingleton::getInstance('CRegistrazione');
                 $cRegistrazione->gestisciRegistrazionePOST();
 //                $cRegistrazione->inserisciRegistrazione();

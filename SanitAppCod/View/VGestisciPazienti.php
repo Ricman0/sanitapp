@@ -14,10 +14,10 @@
 class VGestisciPazienti extends View{
     
     /**
-     * Metodo che permette di visualizzare tutti i pazienti di un medico
+     * Metodo che permette di visualizzare tutti i pazienti di un medico.
      * 
      * @access public
-     * @param Array $risultato Un array di utenti pazienti di un medico
+     * @param array $risultato Un array di utenti pazienti di un medico
      */
     public function visualizzaPazienti($risultato) 
     {
@@ -44,7 +44,7 @@ class VGestisciPazienti extends View{
     }
     
     /**
-     * Metodo che consente di visualizzare la form per aggiungere un nuovo paziente
+     * Metodo che consente di visualizzare la form per aggiungere un nuovo paziente.
      * 
      * @access public
      */

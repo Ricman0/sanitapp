@@ -80,6 +80,7 @@ class FPrenotazione extends FDatabase{
      * Permette di ottenere tutte le prenotazioni che un medico ha effettuato
      * @param string $cf il codice fiscale del medico di cui vogliamo conoscere le prenotazioni
      * @return array|boolean
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaPrenotazioniMedico($cf) {
         $query =   "SELECT IDPrenotazione, prenotazione.IDEsame, clinica.NomeClinica, esame.NomeEsame, utente.Nome, utente.Cognome, "
