@@ -22,9 +22,15 @@ class CImpostazioni {
         switch ($task) {
             case 'giorniNonLavorativi':
                 $partitaIVAClinica = $vImpostazioni->recuperaValore('clinica');
-                $eClinica = new EClinica(NULL, $partitaIVAClinica);
-                $vJSON = USingleton::getInstance('VJSON');
-                $vJSON->inviaDatiJSON($eClinica->getGiorniNonLavorativi());
+                try {
+                    $eClinica = new EClinica(NULL, $partitaIVAClinica);
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON($eClinica->getGiorniNonLavorativi());
+                } catch (XClinicaException $ex) {
+                    print_r($ex->getMessage());
+                    // vedere cosa far ritornare
+                }
+                
                 break;
 
             case 'visualizza': // GET impostazioni/visualizza

@@ -65,13 +65,17 @@ class EReferto {
      */
     private $_condivisoConMedico;
 
-
     /**
-     * Costruttore di EReferto
+     * Costruttore di EReferto.
      * 
-     * @param string $medico
-     * @param blob $contenuto
-     * @throws XRefertoException 
+     * @access public
+     * @param string $idPrenotazione L'id della prenotazione a cui si riferisce il referto
+     * @param string $partitaIvaClinica La partita IVA della clinica che inserirsce il referto
+     * @param string $idEsame l'id dell'esame a cui si riferisce il referto
+     * @param string $medico Il nominativo del medico che ha scritto il referto
+     * @param blob|string $contenuto Il contenuto del referto
+     * @param string $fileName Il path del file
+     * @throws XRefertoException Se il referto è inesistente
      */
     public function __construct($idPrenotazione, $partitaIvaClinica = NULL, $idEsame = NULL, $medico = NULL, $contenuto = NULL, $fileName= NULL) {
         if ($medico !== NULL) { //caso nuovo referto
@@ -109,8 +113,9 @@ class EReferto {
 
     //metodi get
     /**
-     * Metodo che restituisce l'identificativo del referto
+     * Metodo che restituisce l'identificativo del referto.
      * 
+     * @access public 
      * @return string L'id del referto
      */
     public function getIDRefertoReferto() {
@@ -118,8 +123,9 @@ class EReferto {
     }
 
     /**
-     * Metodo per conoscere gli user con i quali il referto è stato condiviso  in formato JSON
+     * Metodo per conoscere gli user con i quali il referto è stato condiviso in formato JSON.
      * 
+     * @access public
      * @return string Gli user con i quali il referto è stato condiviso 
      */
     public function getCondivisoConUtenteReferto() {
@@ -127,8 +133,9 @@ class EReferto {
     }
     
     /**
-     * Metodo per conoscere se il referto è stato condiviso con il medico curante
+     * Metodo per conoscere se il referto è stato condiviso con il medico curante.
      * 
+     * @access public
      * @return boolean TRUE il referto è stato condiviso con il medico curante, FALSE altrimenti.
      */
     public function getCondivisoConMedicoReferto() {
@@ -137,8 +144,9 @@ class EReferto {
     
     
     /**
-     * Metodo che restituisce l'identificativo della prenotazione
+     * Metodo che restituisce l'identificativo della prenotazione.
      * 
+     * @access public
      * @return string L'id della prenotazione
      */
     public function getIDPrenotazioneReferto() {
@@ -146,8 +154,9 @@ class EReferto {
     }
 
     /**
-     * Metodo che restituisce l'identificativo dell'esame
+     * Metodo che restituisce l'identificativo dell'esame.
      * 
+     * @access public
      * @return string L'id dell'esame
      */
     public function getIDEsameReferto() {
@@ -155,8 +164,9 @@ class EReferto {
     }
 
     /**
-     * Metodo che restituisce la partita iva della clinica
+     * Metodo che restituisce la partita iva della clinica.
      * 
+     * @access public
      * @return string la partita iva della clinica
      */
     public function getPartitaIVAClinicaReferto() {
@@ -164,8 +174,9 @@ class EReferto {
     }
 
     /**
-     * Metodo che restituisce il nome del medico che ha scritto il referto
+     * Metodo che restituisce il nome del medico che ha scritto il referto.
      * 
+     * @access public
      * @return string Il medico che ha scritto il referto
      */
     public function getMedicoRefertoReferto() {
@@ -173,8 +184,9 @@ class EReferto {
     }
     
     /**
-     * Metodo che restituisce il path del referto
+     * Metodo che restituisce il path del referto.
      * 
+     * @access public
      * @return string Il path del referto
      */
     public function getFileNameReferto() {
@@ -184,7 +196,8 @@ class EReferto {
     /**
      * Metodo che restituisce il referto
      * 
-     * @return referto
+     * @access public
+     * @return blob
      */
     public function getContenutoReferto() {
         return $this->_contenuto;
@@ -193,15 +206,17 @@ class EReferto {
     /**
      * Metodo che restituisce la data del referto
      * 
-     * @return date la data del referto
+     * @access public
+     * @return date|string la data del referto 
      */
     public function getDataRefertoReferto() {
         return $this->_dataReferto;
     }
 
     /**
-     * Metodo che imposta gli user con i quali il referto è stato condiviso 
+     * Metodo che imposta gli user con i quali il referto è stato condiviso. 
      * 
+     * @access public
      * @param string Gli user con i quali il referto è stato condiviso 
      */
     public function setCondivisoConUtenteReferto($condivisoConUtente) {
@@ -211,6 +226,7 @@ class EReferto {
     /**
      * Metodo che imposta se il referto è condiviso con il medico o meno.
      * 
+     * @access public
      * @param boolean TRUE il referto è condiviso con il medico, FALSE altrimenti.
      */
     public function setCondivisoConMedicoReferto($condivisoConMedico) {
@@ -233,9 +249,11 @@ class EReferto {
     }
 
     /**
-     * Memorizza le proprietà del file referto
-     * @throws XDBException Se l'inserimento non è avvenuto con successo
+     * Memorizza le proprietà del file referto.
+     * 
+     * @access public
      * @return bool TRUE se l'iserimento è avvenuto con successo
+     * @throws XDBException Se l'inserimento non è avvenuto con successo
      */
     public function inserisciReferto() {
 
@@ -245,7 +263,9 @@ class EReferto {
     }
 
     /**
-     * Sposta il file del referto dalla cartella temporanea nella cartella dei referti
+     * Sposta il file del referto dalla cartella temporanea nella cartella dei referti.
+     * 
+     * @access public
      * @param string $tmpName il nome temporane del file
      */
     public function spostaReferto($tmpName) {
@@ -256,7 +276,7 @@ class EReferto {
     
     /**
      * Metodo che consente di condividere un referto passato come parametro con il proprio medico curante 
-     * se $medico è impostato oppure di condivedere con un altro utente se $utente è impostato
+     * se $medico è impostato oppure di condivedere con un altro utente se $utente è impostato.
      * 
      * @access public
      * @param type $utente

@@ -13,6 +13,11 @@
  */
 class CReferti {
 
+    /**
+     * Metodo che consente di gestire le richieste GET per il controller 'referti'.
+     * 
+     * @access public
+     */
     public function gestisciReferti() {
 
         $sessione = USingleton::getInstance('USession');
@@ -31,7 +36,7 @@ class CReferti {
                 $vReferti->downloadReferto($eReferto->getFileNameReferto(), $eReferto->getContenutoReferto());
                 break;
 
-            case 'visualizza':
+            case 'visualizza': // GET referti/visualizza
                 $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
                     switch ($tipoUser) {
                         case 'clinica':
@@ -213,7 +218,9 @@ class CReferti {
 
 
     /**
-     * Richiama la pagina di upload del referto
+     * Richiama la pagina di upload del referto.
+     * 
+     * @access public
      * @param VReferti $vReferti oggetto view 
      * @param string $idPrenotazione id della prenotazione a cui associare il referto
      */
@@ -331,7 +338,7 @@ class CReferti {
     
     
     /**
-     * Metodo che consente ad un medico di visualizzare tutti i referti dei propri pazienti
+     * Metodo che consente ad un medico di visualizzare tutti i referti dei propri pazienti.
      * 
      * @access public
      * @param string $username L'username dell'utente di cui si vogliono visualizzare i referti
@@ -390,12 +397,12 @@ class CReferti {
     }
 
     /**
-     * Metodo che consente ad una clinica di visualizzare tutti i referti dei propri clienti
+     * Metodo che consente ad una clinica di visualizzare tutti i referti dei propri clienti gestendo le eventuali eccezioni.
      * 
-     * @access public
+     * @access private
      * @param string $username L'username della clinica di cui si vogliono visualizzare i referti
      */
-    public function tryVisualizzaRefertiClinica($username) {
+    private function tryVisualizzaRefertiClinica($username) {
         $vReferti = USingleton::getInstance('VReferti');
         try {
                 $eClinica = new EClinica($username);
@@ -412,19 +419,20 @@ class CReferti {
                 $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
             }
             catch (XDBException $ex) {
+                print_r($ex->getMessage());
                 $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
             }
     }
     
-    
-    private function visualizzaRefertiClinica($username) {
+    /**
+     * Metodo che consente di visualizzare tutte le informazioni di un referto.
+     * 
+     * @access private
+     * @param string $idPrenotazioneReferto L'id del referto di cui si vogliono visualizzare tutte le informazioni
+     */
+    private function tryVisualizzaRefertoClinica($idPrenotazioneReferto) {
         $vReferti = USingleton::getInstance('VReferti');
-        $idPrenotazioneReferto = $vReferti->recuperaValore('id');
-        if ($idPrenotazioneReferto === FALSE) {    //visualizzo tutti i referti
-            $this->tryVisualizzaRefertiClinica($username); 
-        } 
-        else {    //visualizzo le info di un solo referto
-            try {
+        try {
                 $eReferto = new EReferto($idPrenotazioneReferto);
                 $ePrenotazione = new EPrenotazione($idPrenotazioneReferto);
                 $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
@@ -447,6 +455,24 @@ class CReferti {
             catch (XUtenteException $ex) {
                 $vReferti->visualizzaFeedback("Utente inesistente. Non è stato possibile recuperare le informazioni del referto");
             }
+    }
+    
+    /**
+     * Metodo che consente gi gestire le richieste GET del controller 'referti'  e task 'visualizza'.
+     * Permette di visualizzare tutti i referti o un solo referto a seconda del valore dell'id della richiesta GET
+     * 
+     * @access private
+     * @param string $username L'username della clinica di cui si vogliono visualizzare i referti
+     */
+    private function visualizzaRefertiClinica($username) {
+        $vReferti = USingleton::getInstance('VReferti');
+        $idPrenotazioneReferto = $vReferti->recuperaValore('id');
+        if ($idPrenotazioneReferto === FALSE) {    //visualizzo tutti i referti
+            $this->tryVisualizzaRefertiClinica($username); 
+        } 
+        else { 
+            //visualizzo le info di un solo referto
+            $this->tryVisualizzaRefertoClinica($idPrenotazioneReferto);
         }
     }
 }

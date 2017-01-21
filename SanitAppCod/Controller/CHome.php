@@ -156,7 +156,7 @@ class CHome {
                 $vAutenticazione->visualizzaTemplate('recuperoCredenziali');
                 break;
             
-            case 'referti':
+            case 'referti': // GET referti
                 $cReferti = USingleton::getInstance('CReferti');
                 $cReferti->gestisciReferti();
                 break;
@@ -256,7 +256,7 @@ class CHome {
                 $cImpostazioni->gestisciImpostazioniPOST();
                 break;
             
-            case 'prenotazione':
+            case 'prenotazione': // POST prenotazione
                 $cPrenotazione = USingleton::getInstance('CPrenotazione');
                 $cPrenotazione->gestisciPrenotazionePOST();
                 break;
@@ -277,7 +277,7 @@ class CHome {
 //                $cRegistrazione->inserisciRegistrazione();
                 break;
             
-            case 'ricerca':
+            case 'ricerca': //POST ricerca
                 $cRicerca = USingleton::getInstance('CRicerca');
                 $cRicerca->gestisciRicerca();
                 break;

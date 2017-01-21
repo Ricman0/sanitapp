@@ -362,7 +362,8 @@ function validazioneCodiceFiscale()
 
                     }
                 });
-            } else
+            } 
+            else
             {
                 $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codiceFiscale); //aggiungo il codice fiscale al button nex in prenotazione/esame/idEsame
                 $("p").show();
@@ -384,14 +385,10 @@ function validazioneCodiceFiscale()
                     onSelect: function (dateText, inst) {
                         var data = dateText; //the first parameter of this function
                         $('#nextPrenotazioneEsame').attr('data-data', data);
-                        alert(data);
-
                         var dataObject = $(this).datepicker('getDate'); //the getDate method
-                        alert(dataObject);
-
                         var nomeGiorno = $.datepicker.formatDate('DD', dataObject);
                         nomeGiorno = nomeGiorno.replace('ì', 'i');
-                        alert(nomeGiorno);
+                        
 //                    var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
 //                    alert("PartitaIVA: " + partitaIVAClinica);
                         var idEsame = $("#idEsame").val();

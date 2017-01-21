@@ -68,11 +68,24 @@ class EPrenotazione {
     private $_dataEOra;
     
     /**
-     * Costruttore della classe EPrenotazione
+     * 
      * 
      * @access public  
      * @param type $name Description
      * @throws XPrenotazioneException Se la prenotazione con l'id passato come parametro non è stata trovata
+     */
+    /**
+     * Costruttore della classe EPrenotazione
+     * 
+     * @access public
+     * @param string $id L'id della prenotazione
+     * @param string $idEsame L'id dell'esame
+     * @param string $partitaIVAClinica La partita IVA della clinica dove si effettua la prenotazione
+     * @param string $tipo Il tipo di prenotazione 'U' per utente, 'M'per medico
+     * @param string $codFiscaleUtenteEffettuaEsame Il codice fiscale dell'utente che deve effettuare la prenotazione
+     * @param string $codFiscalePrenotaEsame Il codice fiscale del medico o utente che ha prenotato la prenotazione
+     * @param string $dataEOra La data e l'ora della prenotazione in formato YYYY-MM-DD hh:mm
+     * @throws XPrenotazioneException Se la prenotazione è inesistente
      */
     public function __construct($id=NULL,$idEsame="",$partitaIVAClinica="", $tipo="", $codFiscaleUtenteEffettuaEsame=NULL,$codFiscalePrenotaEsame=NULL, $dataEOra="" ) 
     {
@@ -141,7 +154,7 @@ class EPrenotazione {
      */
     
     /**
-     * Metodo che permette di conoscere l'identificativo della prenotazione
+     * Metodo che permette di conoscere l'identificativo della prenotazione.
      * 
      * @access public
      * @return string L'id della prenotazione
@@ -152,7 +165,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di conoscere l'identificativo dell'esame della prenotazione
+     * Metodo che permette di conoscere l'identificativo dell'esame della prenotazione.
      * 
      * @access public
      * @return string L'id dell'esame della prenotazione
@@ -163,7 +176,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di conoscere la partita IVA della clinica in cui si effettua la prenotazione
+     * Metodo che permette di conoscere la partita IVA della clinica in cui si effettua la prenotazione.
      * 
      * @access public
      * @return string La partita IVA della clinica in cui si effettua la prenotazione
@@ -174,7 +187,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di conoscere il tipo di utente che effettua la prenotazione
+     * Metodo che permette di conoscere il tipo di utente che effettua la prenotazione.
      * 
      * @access public
      * @return string Il tipo di utente che effettua la prenotazione
@@ -185,7 +198,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di conoscere se la prenotazione è stata confermata
+     * Metodo che permette di conoscere se la prenotazione è stata confermata.
      * 
      * @access public
      * @return boolean TRUE è stata confermata, FALSE altrimenti
@@ -196,7 +209,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di conoscere se la prenotazione è stata eseguita
+     * Metodo che permette di conoscere se la prenotazione è stata eseguita.
      * 
      * @access public
      * @return boolean $eseguita TRUE se è stata eseguita, FALSE altrimenti
@@ -218,7 +231,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di conoscere il codice fiscale dell'utente che prenota l'esame
+     * Metodo che permette di conoscere il codice fiscale dell'utente che prenota l'esame.
      * 
      * @access public
      * @return string $_codFisUtentePrenotaEsame Il codice fiscale dell'utente che prenota l'esame
@@ -229,7 +242,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di conoscere il codice fiscale del medico che prenota l'esame
+     * Metodo che permette di conoscere il codice fiscale del medico che prenota l'esame.
      * 
      * @access public
      * @return string $_codFisMedicoPrenotaEsame Il codice fiscale del medico che prenota l'esame
@@ -241,7 +254,7 @@ class EPrenotazione {
     
     
     /**
-     * Metodo che permette di conoscere la data e l'ora della prenotazione nel formato dd-mm-yyyy hh:mm
+     * Metodo che permette di conoscere la data e l'ora della prenotazione nel formato dd-mm-yyyy hh:mm.
      * 
      * @access public
      * @return string La data e l'orario della prenotazione 
@@ -252,7 +265,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di conoscere la data  della prenotazione nel formato yyyy-mm-dd
+     * Metodo che permette di conoscere la data  della prenotazione nel formato yyyy-mm-dd.
      * 
      * @access public
      * @return string La data della prenotazione 
@@ -260,12 +273,10 @@ class EPrenotazione {
     public function getData() 
     {
         return substr($this->_dataEOra, 0, 10);
-    }
-    
-   
-    
+    }    
+       
     /**
-     * Metodo che consente di ottenere in forma di stringa tutti i valori degli attributi
+     * Metodo che consente di ottenere in forma di stringa tutti i valori degli attributi.
      * 
      * @access public
      * @return string $valoriAttributi Una stringa contennete tutti i valori degli attributi
@@ -273,7 +284,6 @@ class EPrenotazione {
     public function getValoriAttributi()
     {
         $c = $this->getCodFiscaleMedicoPrenotaEsamePrenotazione();
-        echo "il codice medico $c";
         $valoriAttributi = "'" . $this->getIDPrenotazionePrenotazione() . "', '" .  $this->getIDEsamePrenotazione() . "', '"
                 . $this->getPartitaIVAClinicaPrenotazione() . "', '" . $this->getTipoPrenotazione() . "', '"
                 . $this->getConfermataPrenotazione() . "', '" . $this->getEseguitaPrenotazione() . "', '"
@@ -294,7 +304,7 @@ class EPrenotazione {
      */
     
     /**
-     * Metodo che consente di impostare l'identificativo della prenotazione
+     * Metodo che consente di impostare l'identificativo della prenotazione.
      * 
      * @access public
      * @param string $idPrenotazione L'id da impostare
@@ -305,7 +315,7 @@ class EPrenotazione {
     }
    
     /**
-     * Metodo che consente di impostare l'identificativo dell'esame della prenotazione
+     * Metodo che consente di impostare l'identificativo dell'esame della prenotazione.
      * 
      * @access public
      * @param string $id L'id dell'esame da impostare
@@ -316,7 +326,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che consente di impostare la partita IVA della clinica in cui si effettua la prenotazione
+     * Metodo che consente di impostare la partita IVA della clinica in cui si effettua la prenotazione.
      * 
      * @access public
      * @param string $partitaIVA La partita IVA della clinica in cui si effettua la prenotazione
@@ -327,7 +337,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di impostare il tipo di utente che effettua la prenotazione
+     * Metodo che permette di impostare il tipo di utente che effettua la prenotazione.
      * 
      * @access public
      * @param string $tipo Il tipo di utente che effettua la prenotazione
@@ -338,7 +348,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di impostare la conferma della prenotazione
+     * Metodo che permette di impostare la conferma della prenotazione.
      * 
      * @access public
      * @param boolean $confermata TRUE se è stata confermata, FALSE altrimenti
@@ -349,7 +359,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di impostare ad eseguita la prenotazione
+     * Metodo che permette di impostare ad eseguita la prenotazione.
      * 
      * @access public
      * @param boolean $eseguita TRUE se è stata eseguita, FALSE altrimenti
@@ -360,7 +370,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di impostare il codice fiscale dell'utente che effettua l'esame
+     * Metodo che permette di impostare il codice fiscale dell'utente che effettua l'esame.
      * 
      * @access public
      * @param string $codFis Il codice fiscale dell'utente che effettua l'esameboolean $eseguita TRUE se è stata eseguita, FALSE altrimenti
@@ -371,7 +381,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di impostare il codice fiscale dell'utente che prenota l'esame
+     * Metodo che permette di impostare il codice fiscale dell'utente che prenota l'esame.
      * 
      * @access public
      * @param string $codFis Il codice fiscale dell'utente che prenota l'esame
@@ -382,7 +392,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di impostare il codice fiscale del medico che prenota l'esame
+     * Metodo che permette di impostare il codice fiscale del medico che prenota l'esame.
      * 
      * @access public
      * @param string $codFis Il codice fiscale del medico che prenota l'esame
@@ -393,14 +403,13 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di impostare la data e l'ora della prenotazione
+     * Metodo che permette di impostare la data e l'ora della prenotazione.
      * 
      * @access public
      * @param string La data e l'orario della prenotazione in formato dd-mm-yyyy hh:ii
      */
     public function setDataEOra($dataEOra) 
     {
-        echo ($dataEOra);
         $giorno = substr($dataEOra, 0, 2);
         $anno = substr($dataEOra, 6, 4);
         $dataEOra = $anno . substr(str_replace($anno, $giorno, $dataEOra), 2);      
@@ -410,8 +419,10 @@ class EPrenotazione {
     
     
     /**
-     * Aggiunge la prenotazione
-     * @return bool TRUE se la prenotazione è stata aggiunta con successo, FALSE altrimenti
+     * Aggiunge la prenotazione nel DB.
+     * 
+     * @access public
+     * @return boolean TRUE se la prenotazione è stata aggiunta con successo, FALSE altrimenti
      */
     public function aggiungiPrenotazioneDB() 
     {
@@ -421,8 +432,9 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che consente di confermare la prenotazione
+     * Metodo che consente di confermare la prenotazione.
      * 
+     * @access public
      * @return boolean TRUE se la conferma è andata a buon fine, FALSE altrimenti
      */
     public function confermaPrenotazione() 
@@ -443,7 +455,9 @@ class EPrenotazione {
     }
     
     /**
-     * Permette di capise se alla prenotazione è già associato il referto
+     * Permette di capise se alla prenotazione è già associato il referto.
+     * 
+     * @access public
      * @return boolean true se alla prenotazione è già associato il referto, false altrimenti
      */
     public function esisteReferto() {
@@ -463,7 +477,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che consente di eliminare la prenotazione
+     * Metodo che consente di eliminare la prenotazione.
      * 
      * @access public
      * @throws XPrenotazioneException Se la prenotazione è già eseguita
@@ -485,12 +499,13 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che consente di modificare la data e l'orario della prenotazione nel DB
+     * Metodo che consente di modificare la data e l'orario della prenotazione nel DB.
      * 
+     * @access public
      * @param string $data La data nel formato dd-mm-yyyy
      * @param string $ora L'orario della prenotazione in formato hh:mm
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la query è stata eseguita con successo
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaPrenotazione($data, $ora) 
     {
@@ -503,7 +518,7 @@ class EPrenotazione {
     }
     
     /**
-     * Confronta la data della prenotazione con quella odierna
+     * Confronta la data della prenotazione con quella odierna.
      * 
      * @access public
      * @return boolean TRUE se la data di ieri è precedente alla data di prenotazione esame
@@ -542,7 +557,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che consente di modificare lo stato di esecuzione di una prenotazione nel DB
+     * Metodo che consente di modificare lo stato di esecuzione di una prenotazione nel DB.
      * 
      * @access public
      * @param boolean $eseguita Indica se la prenotazione è stata modificata

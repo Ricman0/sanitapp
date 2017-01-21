@@ -130,11 +130,11 @@ class EEsame
     }
     
     /**
-     * Metodo che permette di inserire un oggetto di tipo EEsame nel DB
+     * Metodo che permette di inserire un oggetto di tipo EEsame nel DB.
      * 
      * @access public
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return Boolean TRUE se l'esame è stato inserito correttamente
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function inserisciEsameDB() 
     {
@@ -145,8 +145,9 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce l'id dell'esame
+     * Metodo che restituisce l'id dell'esame.
      * 
+     * @access public
      * @return string l'id dell'esame
      */
     public function getIDEsameEsame()
@@ -155,8 +156,9 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce se l'esame è stato eliminato oppure no
+     * Metodo che restituisce se l'esame è stato eliminato oppure no.
      * 
+     * @access public
      * @return boolean TRUE l'esame è stato eliminato, FALSE altrimenti
      */
     public function getEliminatoEsame() {
@@ -164,7 +166,7 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce il nome dell'esame
+     * Metodo che restituisce il nome dell'esame.
      * 
      * @access public
      * @return string Il nome dell'esame
@@ -175,8 +177,9 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce la partita IVA della clinica
+     * Metodo che restituisce la partita IVA della clinica.
      * 
+     * @access public
      * @return string La partita IVA della clinica 
      */
     public function getPartitaIVAClinicaEsame()
@@ -185,8 +188,9 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce la descrizione dell'esame
+     * Metodo che restituisce la descrizione dell'esame.
      * 
+     * @access public
      * @return string La descrizione dell'esame
      */
     public function getDescrizioneEsame()
@@ -195,8 +199,9 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce il prezzo in euro dell'esame
+     * Metodo che restituisce il prezzo in euro dell'esame.
      * 
+     * @access public
      * @return float Il prezzo dell'esame
      */
     public function getPrezzoEsame()
@@ -205,8 +210,9 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce il tempo (in minuti)impiegato per effettuare l'esame
+     * Metodo che restituisce il tempo (in minuti)impiegato per effettuare l'esame.
      * 
+     * @access public
      * @return string La durata dell'esame
      */
     public function getDurataEsame()
@@ -215,8 +221,9 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce il nominativo del medico che effetua l'esame
+     * Metodo che restituisce il nominativo del medico che effetua l'esame.
      * 
+     * @access public
      * @return string Il medico dell'esame
      */
     public function getMedicoEsameEsame()
@@ -226,8 +233,9 @@ class EEsame
     
     /**
      * Metodo che restituisce il numero di prestazioni che possono avvenire
-     * simultaneamente
+     * simultaneamente.
      * 
+     * @access public
      * @return int Numero prestazioni simultanee dell'esame
      */
     public function getNumPrestazioniSimultaneeEsame()
@@ -236,8 +244,9 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce il nome della categoria a cui appartiene l'esame
+     * Metodo che restituisce il nome della categoria a cui appartiene l'esame.
      * 
+     * @access public
      * @return string Categoria dell'esame
      */
     public function getNomeCategoriaEsame()
@@ -246,8 +255,9 @@ class EEsame
     }
     
     /**
-     * Metodo che permette la modifica del nome dell'esame
+     * Metodo che permette la modifica del nome dell'esame.
      * 
+     * @access public
      * @param string $nome Nome dell'esame
      */
     public function setNomeEsame( $nome)
@@ -256,8 +266,9 @@ class EEsame
     }
     
     /**
-     * Metodo che permette la modifica della descrizione dell'esame
+     * Metodo che permette la modifica della descrizione dell'esame.
      * 
+     * @access public
      * @param string $descrizione La descrizione dell'esame
      */
     public function setDescrizioneEsame( $descrizione)
@@ -266,8 +277,9 @@ class EEsame
     }
     
     /**
-     * Metodo che permette la modifica della descrizione dell'esame
+     * Metodo che permette la modifica della descrizione dell'esame.
      * 
+     * @access public
      * @param boolean $eliminato TRUE se l'esame deve essere, FALSE altrimenti. 
      */
     public function setEliminato($eliminato)
@@ -276,8 +288,9 @@ class EEsame
     }
     
     /**
-     * Metodo che permette di modificare il prezzo in euro dell'esame
+     * Metodo che permette di modificare il prezzo in euro dell'esame.
      * 
+     * @access public
      * @param  float $prezzo Il prezzo dell'esame
      */
     public function setPrezzoEsame($prezzo)
@@ -287,8 +300,9 @@ class EEsame
     
     /**
      * Metodo che permette di modificare il tempo (in minuti)impiegato 
-     * per effettuare l'esame
+     * per effettuare l'esame.
      * 
+     * @access public
      * @return int $durata La durata dell'esame
      */
     public function setDurataEsame($durata)
@@ -297,8 +311,9 @@ class EEsame
     }
     
     /**
-     * Metodo che permette di modificare il nominativo del medico che effetua l'esame
+     * Metodo che permette di modificare il nominativo del medico che effetua l'esame.
      * 
+     * @access public
      * @param string $medicoEsame Il medico dell'esame
      */
     public function setMedicoEsame($medicoEsame)
@@ -308,8 +323,9 @@ class EEsame
     
     /**
      * Metodo che permette di modificare il numero di prestazioni che possono 
-     * avvenire simultaneamente
+     * avvenire simultaneamente.
      * 
+     * @access public
      * @param  int $num Numero prestazioni simultanee dell'esame
      */
     public function setNumeroPrestazioniSimultaneeEsame($num)
@@ -318,8 +334,9 @@ class EEsame
     }
     
     /**
-     * Metodo che permette di modificare il nome della categoria a cui appartiene l'esame
+     * Metodo che permette di modificare il nome della categoria a cui appartiene l'esame.
      * 
+     * @access public
      * @param string $nomeCategoria
      */
     public function setNomeCategoriaEsame($nomeCategoria)
@@ -328,12 +345,12 @@ class EEsame
     }
     
     /**
-     * Metodo che consente di modificare i dati dell'esame
+     * Metodo che consente di modificare i dati dell'esame.
      * 
      * @access public
      * @param Array $datiEsame I dati dell'esame da modificare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaEsame($datiEsame) {
         $daModificare;
@@ -374,10 +391,11 @@ class EEsame
     }
     
     /**
-     * Metodo che consente di eliminare l'esame (In realtà dal db non viene eliminato, viene solo settato come eliminato)
+     * Metodo che consente di eliminare l'esame (In realtà dal db non viene eliminato, viene solo settato come eliminato).
      * 
      * @access public
-     * 
+     * @return boolean TRUE se la query è eseguito con successo, altrimenti lancia eccezione
+     * @throws XDBException  Se la query non viene eseguita con successo
      */
     public function eliminaEsame() {
         $this->setEliminato(TRUE);

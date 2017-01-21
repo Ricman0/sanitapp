@@ -145,7 +145,7 @@ class View extends Smarty {
     }
 
     /**
-     *  Metodo che permette di conoscere il valore di task dell'URL
+     *  Metodo che permette di conoscere il valore di task dell'URL.
      * 
      * @access public
      * @final
@@ -184,7 +184,7 @@ class View extends Smarty {
   
 
     /**
-     * Metodo che permette di recuperare dall'array REQUEST il valore dell'elemento a cui corrisponde l'indice passato come parametro
+     * Metodo che permette di recuperare dall'array REQUEST il valore dell'elemento a cui corrisponde l'indice passato come parametro.
      * 
      * @access public
      * @param string $indice Il nome dell'indice il cui valore deve essere recuperato dall'array REQUEST
@@ -236,7 +236,9 @@ class View extends Smarty {
     
     
     /**
-     * Visualizza una pagina con un messaggio
+     * Visualizza una pagina di errore con un messaggio di errore.
+     * 
+     * @access public
      * @param string|array $messaggio Il messaggio o i messaggi da mandare in output
      */    
     public function visualizzaFeedback($messaggio, $homePage=NULL) {

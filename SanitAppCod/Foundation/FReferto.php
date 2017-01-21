@@ -29,7 +29,9 @@ class FReferto extends FDatabase{
     }
     
     /**
-     * Permette di trovare tutti i referti dei clienti di una data clinica
+     * Permette di trovare tutti i referti dei clienti di una data clinica.
+     * 
+     * @access public
      * @param string $partitaIVAClinica la partita iva della clinica
      */
     public function cercaRefertiClinica($partitaIVAClinica) 
@@ -51,11 +53,11 @@ class FReferto extends FDatabase{
     
     /**
      * Metodo che consente di cercare tutti i referti di un utente il cui 
-     * codice fiscale è passato come parametro
+     * codice fiscale è passato come parametro.
      * 
      * @access public
      * @param string $codiceFiscale Il codice fiscale dell'utente di cui cercare i referti
-     * @return Array I referti dell'utente
+     * @return array I referti dell'utente
      */
     public function cercaRefertiUtente($codiceFiscale)
     {

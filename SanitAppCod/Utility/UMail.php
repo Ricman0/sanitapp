@@ -145,11 +145,12 @@ class UMail {
     }
     
     /**
+     * Metodo che consente di inviare una mail per informare l'utente che la prenotazione è stata cancellata.
      * 
      * @access public
-     * @param type $datiPerMail
-     * @return type
-     * @throws XMailException Se l'email non  è inviata
+     * @param array $datiPerMail I dati della prenotazione e dell'utente per poter inviare la mail
+     * @return boolean TRUE se l'email è stata inviata, altrimenti lancia un'eccezione
+     * @throws XMailException Se l'email non è inviata
      */    
     public function inviaEmailPrenotazioneCancellata($datiPerMail){
         $this->_email->addAddress($datiPerMail['emailDestinatario']);
@@ -161,7 +162,7 @@ class UMail {
         $inviata = $this->_email->send();
         if ($inviata === TRUE)
         {
-            echo "inviata"; return $inviata;
+            return $inviata;
         }
         else
         {

@@ -339,9 +339,11 @@ class EMedico extends EUser {
     }
     
    /**
-     * Permette di trovare tutti i referti dei pazienti del medico
+     * Permette di trovare tutti i referti dei pazienti del medico.
+     * 
+     * @access public
+     * @return array Tutti i referti dei oazienti del medico se ci sono
      * @throws XDBException Se la query per recuperare i referti non è stata eseguita con successo
-     * @return array|boolean Tutti i referti dei oazienti del medico se ci sono
      */
     public function cercaReferti() {
         

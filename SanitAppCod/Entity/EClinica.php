@@ -96,6 +96,7 @@ class EClinica extends EUser {
     /**
      * Costruttore della classe EClinica
      * 
+     * @access public
      * @param string $nome Il nome del medico
      * @param string $cognome Il cognome del medico
      * @param string $cf Il codice fiscale del medico
@@ -280,9 +281,10 @@ class EClinica extends EUser {
 
     // metodi get
     /**
-     * Metodo per conoscere il working plan della clinica 
+     * Metodo per conoscere il working plan della clinica in un array. 
      * 
-     * @return Array Il working plan della clinica 
+     * @access public
+     * @return array Il working plan della clinica 
      */
     public function getArrayWorkingPlanClinica() {
         $workingPlan = json_decode($this->_workingPlan);
@@ -294,8 +296,9 @@ class EClinica extends EUser {
 
     
     /**
-     * Metodo per conoscere il working plan della clinica in formato JSON
+     * Metodo per conoscere il working plan della clinica in formato JSON.
      * 
+     * @access public
      * @return string Il working plan della clinica 
      */
     public function getWorkingPlanClinica() {
@@ -303,17 +306,19 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo per conoscere gli esami/servizi che la clinica fornisce
+     * Metodo per conoscere gli esami/servizi che la clinica fornisce.
      * 
-     * @return Array Gli esami/servizi che la clinica fornisce
+     * @access public
+     * @return array Gli esami/servizi che la clinica fornisce
      */
     public function getEsamiClinica() {
         return $this->_esami;
     }
     
     /**
-     * Metodo per conoscere se la clinica è stata validata
+     * Metodo per conoscere se la clinica è stata validata.
      * 
+     * @access public
      * @return boolean TRUE se la clinica è stata validata, FALSE altrimenti
      */
     public function getValidatoClinica() {
@@ -321,8 +326,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce la partita IVA della clinica
+     * Metodo che restituisce la partita IVA della clinica.
      * 
+     * @access public
      * @return string La partita IVA della clinica
      */
     public function getPartitaIVAClinica() {
@@ -330,8 +336,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce il nome della clinica
+     * Metodo che restituisce il nome della clinica.
      * 
+     * @access public
      * @return string Il nome della clinica
      */
     public function getNomeClinicaClinica() {
@@ -339,7 +346,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * metodo che ritorna la stringa indirizzo
+     * Metodo che ritorna l'intero indirizzo della clinica (via, numero civico, località e provincia).
+     * 
+     * @access public
      * @return string l'indirizzo della clinica
      */
     public function getIndirizzoClinica() {
@@ -348,8 +357,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce il titolare della clinica
+     * Metodo che restituisce il titolare della clinica.
      * 
+     * @access public
      * @return string Il titolare della clinica
      */
     public function getTitolareClinica() {
@@ -357,8 +367,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce l'indirizzo in cui è collocata la clinica
+     * Metodo che restituisce l'indirizzo in cui è collocata la clinica.
      * 
+     * @access public
      * @return string Il nome della via
      */
     public function getViaClinica() {
@@ -366,8 +377,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce il numero civico in cui è collocata la clinica
+     * Metodo che restituisce il numero civico in cui è collocata la clinica.
      * 
+     * @access public
      * @return int Il numero civico della clinica
      */
     public function getNumCivicoClinica() {
@@ -375,8 +387,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce il CAP della città o paese in cui è collocata la clinica
+     * Metodo che restituisce il CAP della città o paese in cui è collocata la clinica.
      * 
+     * @access public
      * @return string Il CAP della città o paese della clinica
      */
     public function getCAPClinica() {
@@ -384,8 +397,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce la città o paese in cui è collocata la clinica
+     * Metodo che restituisce la città o paese in cui è collocata la clinica.
      * 
+     * @access public
      * @return string La città o paese della clinica
      */
     public function getLocalitaClinica() {
@@ -393,8 +407,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce la provincia della città o paese in cui è collocata la clinica
+     * Metodo che restituisce la provincia della città o paese in cui è collocata la clinica.
      * 
+     * @access public
      * @return string La provincia della città o paese della clinica
      */
     public function getProvinciaClinica() {
@@ -402,8 +417,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce la regione della città o paese in cui è collocata la clinica
+     * Metodo che restituisce la regione della città o paese in cui è collocata la clinica.
      * 
+     * @access public
      * @return string La regione della città o paese della clinica
      */
     public function getRegioneClinica() {
@@ -411,8 +427,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce il numero di telefono dalla clinica
+     * Metodo che restituisce il numero di telefono dalla clinica.
      * 
+     * @access public
      * @return string Il numero di telefono della clinica
      */
     public function getTelefonoClinica() {
@@ -420,8 +437,9 @@ class EClinica extends EUser {
     }
     
     /**
-     * Metodo che restituisce l'username della clinica
+     * Metodo che restituisce l'username della clinica.
      * 
+     * @access public
      * @return string L'username della clinica
      */
     public function getUsernameClinica() {
@@ -429,8 +447,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che restituisce il capitale sociale della clinica
+     * Metodo che restituisce il capitale sociale della clinica.
      * 
+     * @access public
      * @return string Capitale sociale della clinica
      */
     public function getCapitaleSocialeClinica() {
@@ -440,8 +459,9 @@ class EClinica extends EUser {
     //metodi set
 
     /**
-     * Metodo che imposta il titolare della clinica
+     * Metodo che imposta il titolare della clinica.
      * 
+     * @access public
      * @param string Titolare della clinica
      */
     public function setTitolareClinica($titolare) {
@@ -449,8 +469,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che imposta il working plan della clinica
+     * Metodo che imposta il working plan della clinica.
      * 
+     * @access public
      * @param string Working plan della clinica
      */
     public function setWorkingPlanClinica($workingPlan) {
@@ -458,8 +479,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che imposta la via della clinica
+     * Metodo che imposta la via della clinica.
      * 
+     * @access public
      * @param string Via della clinica
      */
     public function setViaClinica($via) {
@@ -467,8 +489,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare la validità della clinica
+     * Metodo che permette di modificare la validità della clinica.
      * 
+     * @access public
      * @param boolean $validato TRUE se la clinica è stata validata, FALSE altrimenti
      */
     public function setValidatoClinica($validato) {
@@ -476,8 +499,9 @@ class EClinica extends EUser {
     }
     
     /**
-     * Metodo che imposta il numero civico della clinica
+     * Metodo che imposta il numero civico della clinica.
      * 
+     * @access public
      * @param int Numero civico della clinica
      */
     public function setNumeroCivicoClinica($numCivico) {
@@ -485,8 +509,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che imposta il CAP della clinica
+     * Metodo che imposta il CAP della clinica.
      * 
+     * @access public
      * @param string CAP della clinica
      */
     public function setCAPClinica($cap) {
@@ -494,8 +519,9 @@ class EClinica extends EUser {
     }
     
     /**
-     * Metodo che imposta il nome della clinica
+     * Metodo che imposta il nome della clinica.
      * 
+     * @access public
      * @param string nome della clinica
      */
     public function setNomeClinica($nome) {
@@ -504,8 +530,9 @@ class EClinica extends EUser {
     
 
     /**
-     * Metodo che imposta la città o paese della clinica
+     * Metodo che imposta la città o paese della clinica.
      * 
+     * @access public
      * @param string  Località della clinica
      */
     public function setLocalitaClinica($localita) {
@@ -513,8 +540,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che imposta la provincia della città o paese della clinica
+     * Metodo che imposta la provincia della città o paese della clinica.
      * 
+     * @access public
      * @param string Provincia della clinica
      */
     public function setProvinciaClinica($provincia) {
@@ -522,8 +550,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che imposta la regione della città o paese della clinica
+     * Metodo che imposta la regione della città o paese della clinica.
      * 
+     * @access public
      * @param string Regione della clinica
      */
     public function setRegioneClinica($regione) {
@@ -531,8 +560,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che imposta il capitale sociale della clinica
+     * Metodo che imposta il capitale sociale della clinica.
      * 
+     * @access public
      * @param string Capitale sociale della clinica
      */
     public function setCapitaleSocialeClinica($cp) {
@@ -540,8 +570,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che imposta il telefono della clinica
+     * Metodo che imposta il telefono della clinica.
      * 
+     * @access public
      * @param string Telefono della clinica
      */
     public function setTelefonoClinica($tel) {
@@ -549,8 +580,9 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare gli esami/servizi che la clinica offre
+     * Metodo che permette di modificare gli esami/servizi che la clinica offre.
      * 
+     * @access public
      * @param Array $esami Esami/servizi della clinica
      */
     public function setEsamiClinica($esami) {
@@ -558,10 +590,11 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che permette di inserire un oggetto di tipo EClinica nel DB
+     * Metodo che permette di inserire un oggetto di tipo EClinica nel DB.
      * 
      * @access public
-     * @return string|Boolean Il codice di conferma se la clinica è stata inserita correttamente, altrimenti FALSE (la clinica non è stata inserita correttamente nel DB)
+     * @return string|boolean Il codice di conferma se la clinica è stata inserita correttamente, altrimenti FALSE (la clinica non è stata inserita correttamente nel DB)
+     * @throws XDBException  Se la query non viene eseguita con successo
      */
     public function inserisciClinicaDB() {
         //crea un oggetto fClinica se non è esistente, si collega al DB e lo inserisce
@@ -578,11 +611,12 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che consente di salvare nel db il working plan relativo ad una clinica
+     * Metodo che consente di salvare nel DB il working plan relativo ad una clinica.
      * 
      * @access public
      * @param string $workingPlan Il working plan da salvare
-     * @return boolean TRUE se il salvataggio è stato effettuato. FALSE altrimenti
+     * @return boolean TRUE se il salvataggio è stato effettuato, altrimenti lancia eccezione
+     * @throws XDBException  Se la query non viene eseguita con successo
      */
     public function salvaWorkingPlanClinica($workingPlan) {
         $fClinica = USingleton::getInstance('FClinica');
@@ -592,8 +626,11 @@ class EClinica extends EUser {
     }
 
     /**
-     * Permette di trovare tutti i referti dei clienti della clinica
-     * @return array|boolean Tutti i referti della clinica se ci sono
+     * Permette di trovare tutti i referti dei clienti della clinica.
+     * 
+     * @access public
+     * @return array Tutti i referti della clinica se ci sono
+     * @throws XDBException  Se la query non viene eseguita con successo
      */
     public function cercaReferti() {
 
@@ -602,11 +639,11 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che trova la regione in base alla provincia inserita dall'utente
+     * Metodo che trova la regione in base alla provincia inserita dall'utente.
      * 
      * @access private
      * @param string $provincia La provincia di cui trovare la regione
-     * @return string il nome della regione cui corrisponde la provincia
+     * @return string Il nome della regione cui corrisponde la provincia
      */
     private function trovaRegione($provincia) {
         switch ($provincia) {
@@ -765,10 +802,11 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che consente di cercare tutte le prenotazioni della clinica
+     * Metodo che consente di cercare tutte le prenotazioni della clinica.
      * 
      * @access public
-     * @return Array Tutte le prenotazioni di una clinica
+     * @return array Tutte le prenotazioni di una clinica
+     * @throws XDBException Se la query non viene eseguita con successo
      */
     public function cercaPrenotazioni() {
         $fPrenotazioni = USingleton::getInstance('FPrenotazione');
@@ -776,11 +814,11 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che consente di cercare tutti gli esami/servizi della clinica
+     * Metodo che consente di cercare tutti gli esami/servizi della clinica.
      * 
      * @access public
-     * @throws XDBException Se la query non è stata eseguita con successo
-     * @return Array Tutti gli esami/servizi che offre la clinica
+     * @return array Tutti gli esami/servizi che offre la clinica
+     * @throws XDBException  Se la query non viene eseguita con successo
      */
     public function cercaEsami() {
         $fEsami = USingleton::getInstance('FEsame');
@@ -789,9 +827,10 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che consente di ottenere i giorni non lavorativi della clinica
+     * Metodo che consente di ottenere i giorni non lavorativi della clinica.
      * 
      * @access public
+     * @return array I giorni non lavorativi della clinica
      */
     public function getGiorniNonLavorativi() {
         $giorniNonLavorativi = Array();
@@ -804,14 +843,15 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che calcola gli orari disponibili per una prenotazione
+     * Metodo che calcola gli orari disponibili per una prenotazione.
      * 
      * @access public
      * @param EEsame $eEsame 
-     * @param type $eClinica
-     * @return type Description
+     * @param array $workingPlanGiorno Il working plan di una giornata
+     * @return array Orari disponibili
      */
-    public function calcoloOrariDisponibili($eEsame, $workingPlanGiorno, $vPrenotazione) {
+    public function calcoloOrariDisponibili($eEsame, $workingPlanGiorno) {
+        $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $durata = $eEsame->getDurataEsame();
         $ora = substr($durata, 0, 2);
         $minuti = substr($durata, 3, 2);
@@ -872,7 +912,7 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che consente di recuparare gli appuntamenti della clinica in questo caso giornalieri
+     * Metodo che consente di recuparare gli appuntamenti della clinica in questo caso giornalieri.
      * 
      * @access public
      * @param string $start Stringa contenente data e ora in formato YYYY-MM-DD hh:mm da cui bisogna inziare il recupero
@@ -994,12 +1034,12 @@ class EClinica extends EUser {
 
     
     /**
-     * Metodo che consente di recuperare appuntamenti e working plan della clinica
+     * Metodo che consente di recuperare appuntamenti e working plan della clinica.
      * 
      * @access public
      * @param string $start Stringa contenente data e ora in formato YYYY-MM-DD hh:mm da cui bisogna inziare il recupero
      * @param string $end Stringa contenente data e ora in formato YYYY-MM-DD hh:mm fino cui bisogna effettuare il recupero
-     * @return Array Contiene un array di appuntamenti e un array workingPlan
+     * @return array Contiene un array di appuntamenti e un array workingPlan
      */
     public function recuperaAppuntamentiEWorkingPlan($start, $end) 
     {
@@ -1010,10 +1050,10 @@ class EClinica extends EUser {
     
     
     /**
-     * Metodo che consente di modificare i dati della clinica
+     * Metodo che consente di modificare i dati della clinica.
      * 
      * @access public
-     * @param Array $datiDaModificare I dati della clinica da modificare
+     * @param array $datiDaModificare I dati della clinica da modificare
      * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
@@ -1110,8 +1150,8 @@ class EClinica extends EUser {
      * Metodo che consente di ottenere una lista delle categorie che sono presenti nell'applicazione.
      * 
      * @access public
-     * * @throws XDBException Se la query non è stata eseguita con successo
-     * @return array Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     * @return array Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function getCategorieApplicazione() {
         $categorie = USingleton::getInstance('FCategoria');

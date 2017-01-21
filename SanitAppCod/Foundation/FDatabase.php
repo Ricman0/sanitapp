@@ -690,7 +690,7 @@ class FDatabase {
      * 
      * @access public
      * @param string $id L'id che identifica la riga da eliminare
-     * @return boolean TRUEse la query è eseguito con successo, altrimenti lancia eccezione
+     * @return boolean TRUE se la query è eseguito con successo, altrimenti lancia eccezione
      * @throws XDBException  Se la query non viene eseguita con successo
      */
     public function elimina($id) {

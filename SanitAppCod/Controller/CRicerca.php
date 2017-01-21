@@ -1,20 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CRicerca
  *
+ * @category Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CRicerca {
 
     /**
-     * Metodo che consente di cercare se un un codice fiscale di un utente esiste o meno
+     * Metodo che consente di gestire le richieste POST per il controller 'ricerca'.
      * 
      * @access public
      */
@@ -24,7 +19,7 @@ class CRicerca {
         $task = $vRicerca->getTask();
         $dati = Array();
         switch ($task) {
-            case 'utente':
+            case 'utente': //POST ricerca/utente
                 $dati['codiceFiscale'] = $vRicerca->recuperaValore('codiceFiscaleRicercaUtente');
                 $uValidazione = USingleton::getInstance('UValidazione');
                 //imposto il risutlato della ricerca a NULL così che vada bene per il remote di JQUERY VALIDATION
@@ -32,12 +27,16 @@ class CRicerca {
                 if ($uValidazione->validaDati($dati)) {
                     //il codice fiscale  è valido
                     // ora controllo che l'utente sia presente nel sistema
-                    $eUtente = new EUtente($dati['codiceFiscale']);
-                    if ($eUtente->getCodFiscaleUtente() !== NULL) {
-                        //in questo caso è stato creato un utente dal codice fiscale
-                        // quindi il risultato sarà TRUE
-                        $risultato = TRUE;
+                    try {
+                        $eUtente = new EUtente($dati['codiceFiscale']);
+                        if ($eUtente->getCodFiscaleUtente() !== NULL) {
+                            //in questo caso è stato creato un utente dal codice fiscale
+                            // quindi il risultato sarà TRUE
+                            $risultato = TRUE;
+                        }
+                    } catch (Exception $ex) {//$risultato=NULL;
                     }
+                    
                 }
 
                 break;
@@ -141,10 +140,15 @@ class CRicerca {
                 $uValidazione = USingleton::getInstance('UValidazione');
                 $risultato = TRUE;
                 if ($uValidazione->validaDati($dati)) {
-                    $eUser = new EUser(NULL, NULL, NULL, $dati['PEC']);
-                    if ($eUser->getPECUser() !== NULL) {
-                        $risultato = false; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
+                    try {
+                        $eUser = new EUser(NULL, NULL, NULL, $dati['PEC']);
+                        if ($eUser->getPECUser() !== NULL) {
+                            $risultato = false; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
+                        }
+                    } catch (XUserException $ex) {
+                        
                     }
+                    
                 }
 
                 break;

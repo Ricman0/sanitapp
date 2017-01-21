@@ -58,12 +58,12 @@ class USession {
     
     /**
      * Metodo che consente di ottenere il valore della variabile di sessione 
-     * passata come parametro se presente
+     * passata come parametro se presente.
      * 
      * @access public
      * @param string $chiave Variabile di sessione di cui si vuole conoscere il valore
-     * @return mixed Se la variabile è stata definita precedentemente, ritorna il
-     *               valore della variabile di sessione, false altrimenti.
+     * @return string|boolean Se la variabile è stata definita precedentemente, ritorna il
+     *               valore della variabile di sessione, FALSE altrimenti.
      */
     public function leggiVariabileSessione($chiave) 
     {

@@ -10,7 +10,7 @@
 class VJSON {
     
     /**
-     * Metodo che consente di inviare dati in formato JSON
+     * Metodo che consente di inviare dati in formato JSON.
      * 
      * @access public
      * @param mixed $dati Dati da condificare in JSON e poi visualizzarli
@@ -22,7 +22,7 @@ class VJSON {
     }
     
     /**
-     * Metodo che consente di prelevare dati in formato JSON e decodificarli in un oggetto PHP
+     * Metodo che consente di prelevare dati in formato JSON e decodificarli in un oggetto PHP.
      * 
      * @access public
      * @param string $dati Dati JSON da decondificare 

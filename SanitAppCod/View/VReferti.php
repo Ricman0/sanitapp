@@ -15,10 +15,10 @@ class VReferti extends View{
 
 
     /**
-     * Metodo che consente di visualizzare tutti i referti di uno user
+     * Metodo che consente di visualizzare tutti i referti di uno user.
      * 
      * @access public
-     * @param Array $referti I referti da visualizzare
+     * @param array $referti I referti da visualizzare
      * @param string $tipoUser Il tipo di user
      */
     public function restituisciPaginaRisultatoReferti($referti, $tipoUser) 
@@ -40,8 +40,9 @@ class VReferti extends View{
     }
     
     /**
-     * Restituisce la form di aggiunta del referto
+     * Restituisce la form di aggiunta del referto.
      * 
+     * @access public
      * @param string $idPrenotazione Id della prenotazione
      * @param string $idEsame Id dell'esame
      * @param string $partitaIva Partita iva della clinica
