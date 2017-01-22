@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of EUtente
  *
+ * @category Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class EUtente extends EUser {
@@ -59,16 +54,19 @@ class EUtente extends EUser {
     private $_medicoCurante;
 
     /**
-     * Costruttore della classe EUtente
+     * Costruttore della classe EUtente.
      * 
      * @access public
+     * @param string $cf Il codice fiscale dell'utente
+     * @param string $username L'username dell'utente
+     * @param string $password La password dell'utente
+     * @param string $email L'email dell'utente
      * @param string $nome Il nome dell'utente
      * @param string $cognome Il cognome dell'utente
-     * @param string $cf Il codice fiscale dell'utente
      * @param string $via La via in cui risiede l'utente
-     * @param int $numeroCivico Ilnumero civico dell'utente
+     * @param int $numeroCivico Il numero civico dell'utente
      * @param string $cap Il cap del paese in cui risiede l'utente
-     * @param type $medico Description
+     * @param string $medico Il codice fiscale del medico curente dell'utente
      * @throws XUtenteException Se l'utente non esiste
      */
     public function __construct($cf = NULL, $username = NULL, $password = "", $email = "", $nome = "", $cognome = "", $via = "", $numeroCivico = "", $cap = "", $medico = NULL) {
@@ -220,7 +218,7 @@ class EUtente extends EUser {
 
     //metodi get
     /**
-     * Metodo per conoscere il nome dell'utente
+     * Metodo per conoscere il nome dell'utente.
      * 
      * @access public
      * @return string Il nome dell'utente
@@ -230,8 +228,9 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo per conoscere il cognome dell'utente
+     * Metodo per conoscere il cognome dell'utente.
      * 
+     * @access public
      * @return string Il cognome dell'utente
      */
     public function getCognomeUtente() {
@@ -239,7 +238,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo per conoscere il codice fiscale dell'utente
+     * Metodo per conoscere il codice fiscale dell'utente.
      * 
      * @access public
      * @return string Il codice fiscale dell'utente
@@ -249,7 +248,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo per conoscere la via in cui risiede l'utente
+     * Metodo per conoscere la via in cui risiede l'utente.
      * 
      * @access public
      * @return string Il nome della via in cui risiede l'utente
@@ -269,7 +268,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo per conoscere il cap del paese in cui risiede l'utente
+     * Metodo per conoscere il cap del paese in cui risiede l'utente.
      * 
      * @access public
      * @return string Il cap del paese in cui risiede l'utente
@@ -279,7 +278,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo per conoscere l'username dell'utente
+     * Metodo per conoscere l'username dell'utente.
      * 
      * @access public
      * @return string L'username dell'utente
@@ -289,7 +288,7 @@ class EUtente extends EUser {
     }
     
     /**
-     * Metodo per conoscere il codice fiscale del medico curante dell'utente
+     * Metodo per conoscere il codice fiscale del medico curante dell'utente.
      * 
      * @access public
      * @return string Il codice fiscale del medico curante dell'utente
@@ -299,10 +298,10 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo per conoscere le prenotazioni dell'utente
+     * Metodo per conoscere le prenotazioni dell'utente.
      * 
      * @access public
-     * @return Array(EPrenotazione) Le prenotazioni dell'utente
+     * @return array Le prenotazioni dell'utente
      */
     public function getPrenotazioniUtente() {
         return $this->_prenotazioni;
@@ -311,7 +310,7 @@ class EUtente extends EUser {
     //metodi set
 
     /**
-     * Metodo che permette di modificare il nome dell'utente
+     * Metodo che permette di modificare il nome dell'utente.
      * 
      * @access public
      * @param string $nome Il nome dell'utente
@@ -321,7 +320,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare il cognome dell'utente
+     * Metodo che permette di modificare il cognome dell'utente.
      * 
      * @access public
      * @param string $cognome Il cognome dell'utente
@@ -331,7 +330,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare il codice fiscale dell'utente
+     * Metodo che permette di modificare il codice fiscale dell'utente.
      * 
      * @access public
      * @param string $codFiscale Il codice fiscale dell'utente
@@ -343,7 +342,7 @@ class EUtente extends EUser {
     
 
     /**
-     * Metodo che permette di modificare l'email dell'utente
+     * Metodo che permette di modificare l'email dell'utente.
      * 
      * @access public
      * @param string $email L'email dell'utente
@@ -353,7 +352,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare la via dell'utente
+     * Metodo che permette di modificare la via dell'utente.
      * 
      * @access public
      * @param string $via La nuova via dell'utente
@@ -363,7 +362,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare il numero civico dell'utente
+     * Metodo che permette di modificare il numero civico dell'utente.
      * 
      * @access public
      * @param int $numCiv Il nuovo numero civico dell'utente
@@ -373,7 +372,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare il CAP dell'utente
+     * Metodo che permette di modificare il CAP dell'utente.
      * 
      * @access public
      * @param string $cap Il nuovo CAP dell'utente
@@ -383,7 +382,7 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare il codice fiscale del medico curante dell'utente
+     * Metodo che permette di modificare il codice fiscale del medico curante dell'utente.
      * 
      * @access public
      * @param string $medico Il codice fiscale del medico curante dell'utente
@@ -392,43 +391,34 @@ class EUtente extends EUser {
         $this->_medicoCurante = $medico;
     }
 
-    /**
-     * Metodo che permette di aggiungere una prenotazione nell'array di 
-     * prenotazioni dell'utente
-     * 
-     * @access public
-     * @param Entity.EPrenotazione $prenotazione Una nuova prenotazione effettuata a 
-     *                      nome dell'utente.
-     */
-    public function aggiungiPrenotazioneUtente($prenotazione) {
-        $this->_prenotazioni->append($prenotazione); // non so se sia giusto o se debba usare offsetSet() 
-    }
 
     /**
-     * Metodo che permette di inserire un oggetto di tipo EUtente nel DB
+     * Metodo che permette di inserire un oggetto di tipo EUtente nel DB.
      * 
      * @access public
-     * @return string|Boolean Il codice di conferma se l'utente è stato inserito correttamente, altrimenti FALSE (l'utente  non è stato inserito correttamente nel DB)
+     * @return string|boolean Il codice di conferma se l'utente è stato inserito correttamente, altrimenti lancia un'eccezione(l'utente  non è stato inserito correttamente nel DB)
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function inserisciUtenteDB() {
         //crea un oggetto fUtente se non è esistente, si collega al DB e lo inserisce
         $fUtente = USingleton::getInstance('FUtente');
 //        return $fUtente->inserisciUtente($eUtente);
 //        if ($fUtente->inserisciUtente($this) === TRUE) {
-        echo ' inserisci utente ';
-        if ($fUtente->inserisci($this) === TRUE) {
-            return parent::getCodiceConfermaUser();
-        } else {
-            return FALSE;
-        }
+//        if ($fUtente->inserisci($this) === TRUE) {
+//            return parent::getCodiceConfermaUser();
+//        } else {
+//            return FALSE;
+//        }
+        $fUtente->inserisci($this);
+        return parent::getCodiceConfermaUser();  
     }
 
     /**
-     * Metodo che consente di cercare tutte le prenotazioni dell'utente
+     * Metodo che consente di cercare tutte le prenotazioni dell'utente.
      * 
      * @access public
+     * @return array Un array contenente tutte le prenotazione di un utente, altrimenti lancia un'eccezione
      * @throws XDBException Se la query non è stata eseguita con successo
-     * @return Array Un array contenente tutte le prenotazione di un utente
      */
     public function cercaPrenotazioni() {
         $fPrenotazioni = USingleton::getInstance('FPrenotazione');
@@ -437,11 +427,11 @@ class EUtente extends EUser {
     }
 
     /**
-     * Metodo che consente di cercare tutti i referti di un utente
+     * Metodo che consente di cercare tutti i referti di un utente.
      * 
      * @access public
+     * @return array Un array contenente tutti i referti di un utente,  altrimenti lancia un'eccezione
      * @throws XDBException Se la query non è stata eseguita con successo
-     * @return Array Un array contenente tutti i referti di un utente
      */
     public function cercaReferti() 
     {
@@ -451,11 +441,12 @@ class EUtente extends EUser {
 
     
     /**
-     * Metodo che permette di modificare l'indirizzo, numero civico e CAP (la modifica avviene anche nel DB)
+     * Metodo che permette di modificare l'indirizzo, numero civico e CAP (la modifica avviene anche nel DB).
      * 
      * @access public
-     * @param Array $datiValidi Array contenente i valori di indirizzo, numero civico e CAP
-     * @return boolean TRUE modifica effettuata, FALSE altrimenti
+     * @param array $datiValidi Array contenente i valori di indirizzo, numero civico e CAP
+     * @return boolean TRUE modifica effettuata, altrimenti lancia un'eccezione
+     * @throws XDBException Se la query non è eseguita con successo
      */
     public function modificaIndirizzoCAP($datiValidi) 
     {
@@ -475,11 +466,12 @@ class EUtente extends EUser {
     
     /**
      * 
-     * Metodo che permette di modificare il medico curante (la modifica avviene anche nel DB)
+     * Metodo che permette di modificare il medico curante (la modifica avviene anche nel DB).
      * 
      * @access public
      * @param string $cf Codice fiscale del nuovo medico
-     * @return boolean TRUE modifica effettuata, FALSE altrimenti
+     * @return boolean TRUE modifica effettuata, altrimenti lancia un'ecezione
+     * @throws XDBException Se la query non è eseguita con successo
      */
     public function modificaMedicoCurante($cf) 
     {
@@ -501,9 +493,9 @@ class EUtente extends EUser {
      * @param string $data La data della prenotazione(dd-mm-yyyy)
      * @param string $ora L'orario della prenotazione (mm:ss)
      * @param string $durata La durata della prenotazione(hh:mm:ss)
-     * @param boolean $modifica true se si vuole effettuare la modifica di un esame, false altrimenti.
+     * @param boolean $modifica true se si vuole effettuare la modifica di un esame, false altrimenti
+     * @return boolean TRUE se l'utente può effettuare la prenotazione, altrimenti FALSE
      * @throws XDBException Se c'è un errore durante l'esecuzione della query
-     * @return boolean TRUE se l'utente può effettuare la prenotazione, FALSE altrimenti
      */
     public function checkIfCan($idEsame, $partitaIVA, $data, $ora, $durata, $modifica) 
     {
@@ -521,10 +513,11 @@ class EUtente extends EUser {
     }
     
     /**
-     * Metodo che controlla se un utente deve essere bloccato
+     * Metodo che controlla se un utente deve essere bloccato.
      * 
      * @access public
-     * date ("Y/m/d")"
+     * @param string $dataOdierna La data in formato "Y-m-d"
+     * @throws XDBException Se la query non è eseguita con successo
      */
     public function controllaSeBloccare($dataOdierna) 
     {
@@ -537,12 +530,12 @@ class EUtente extends EUser {
     }
     
     /**
-     * Metodo che consente di modificare i dati dell'utente
+     * Metodo che consente di modificare i dati dell'utente.
      * 
      * @access public
-     * @param Array $datiDaModificare I dati dell'utente da modificare
-     * @throws XDBException Se la query non è stata eseguita con successo
+     * @param array $datiDaModificare I dati dell'utente da modificare
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaUtente($datiDaModificare) {
         foreach ($datiDaModificare as $key => $value) {

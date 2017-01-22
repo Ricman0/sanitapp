@@ -419,7 +419,6 @@ class CReferti {
                 $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
             }
             catch (XDBException $ex) {
-                print_r($ex->getMessage());
                 $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
             }
     }

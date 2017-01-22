@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * descrizione di Eclinica
+ * Descrizione di EClinica
  * 
+ * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class EClinica extends EUser {
@@ -94,25 +89,26 @@ class EClinica extends EUser {
     // costruttore
 
     /**
-     * Costruttore della classe EClinica
+     * Costruttore della classe EClinica.
      * 
-     * @access public
-     * @param string $nome Il nome del medico
-     * @param string $cognome Il cognome del medico
-     * @param string $cf Il codice fiscale del medico
-     * @param string $via La via in cui risiede il medico
-     * @param string $cap Il cap del paese in cui risiede il medico
-     * @param string $localita Città o paese in cui risiede la clinica
-     * @param string $provincia Provincia della città o paese in cui risiede la clinica
-     * @param string $regione Regione della città o paese in cui risiede la clinica
-     * @param string $email L'email del medico
-     * @param string $password La password del medico
-     * @param string $PEC La PEC del medico
-     * @param string $provinciaAlbo La provincia dell'albo in cui il medico è iscritto
-     * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
-     * @param int o string? $cod Il codice per confermare l'account
-     * @param array $esami Array di esami/servizi che la clinica fornisce
-     * @param boolean $validato TRUE se il medico è validato, FALSE altrimenti
+     * @access public 
+     * @param string $username L'username della clinica
+     * @param string $partitaIVA La partita IVA della clinica
+     * @param string $nomeClinica Il nome della clinica
+     * @param string $password La password della clinica
+     * @param string $email L'email della clinica
+     * @param string $titolareClinica Il nome e cognome del titolare della clinica
+     * @param string $via La via in cui si trova la clinica 
+     * @param int $numeroCivico Il numero civico in cui si trova la clinica
+     * @param string $cap Il CAP della clinica
+     * @param string $localita Il paese in cui si trova la lcinica
+     * @param string $provincia La provincia della clinica
+     * @param string $PEC La PEC della clinica
+     * @param string $telefono Il telefono della clinica
+     * @param int $capitaleSociale Il capitale sociale della clinica
+     * @param string $workingPlan Il working plan della clinica
+     * @param array $esami Gli esami della clinica
+     * @param boolean $validato TRUE se la clinica è stata validata, FALSE altrimenti
      * @throws XClinicaException Se la clinica  è inesistente
      */
     public function __construct($username = NULL, $partitaIVA = NULL, $nomeClinica = NULL, $password = NULL, $email = NULL, $titolareClinica = NULL, $via = NULL, $numeroCivico = NULL, $cap = NULL, $localita = NULL, $provincia = NULL, $PEC = NULL, $telefono = NULL, $capitaleSociale = NULL, $workingPlan = NULL, $esami = NULL, $validato=FALSE) {

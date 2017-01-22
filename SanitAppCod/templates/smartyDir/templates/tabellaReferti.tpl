@@ -3,8 +3,8 @@
 <table id="tabellaReferti" class="tablesorter">
     <thead>
         <th>ID Referto</th>
+        <th>ID Prenotazione</th>
         {if ($tipoUser==='clinica')}
-            <th>ID Prenotazione</th>
             <th>ID Esame</th>
             <th>Esame</th>
             <th>Nome </th>
@@ -17,7 +17,6 @@
             <th>Codice Fiscale</th>
             <th>Clinica</th>
         {else}
-            <th>ID Prenotazione</th>
             <th>Esame</th>
             <th>Clinica</th>
         {/if}
@@ -34,8 +33,8 @@
         {foreach from=$dati item=curr_row}
             <tr id="{$curr_row['IDPrenotazione']}" class="rigaReferto">
                 <td>{$curr_row['IDReferto']}</td>
+                <td>{$curr_row['IDPrenotazione']}</td>
                 {if ($tipoUser==='clinica')}
-                    <td>{$curr_row['IDPrenotazione']}</td>
                     <td>{$curr_row['IDEsame']}</td>
                     <td>{$curr_row['NomeEsame']}</td>
                     <td>{$curr_row['Nome']}</td>
@@ -48,7 +47,6 @@
                     <td>{$curr_row['CodFiscaleUtenteEffettuaEsame']}</td>
                     <td>{$curr_row['NomeClinica']}</td>
                 {else}
-                    <td>{$curr_row['IDPrenotazione']}</td>
                     <td>{$curr_row['NomeEsame']}</td>
                     <td>{$curr_row['NomeClinica']}</td>
                 {/if}

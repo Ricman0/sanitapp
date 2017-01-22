@@ -3,7 +3,6 @@
 /**
  * Description of View
  * 
- *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini
  */

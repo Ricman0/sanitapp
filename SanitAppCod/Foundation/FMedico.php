@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of FMedico
  *
+ * @category Foundation
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class FMedico extends FUser {
@@ -31,8 +26,9 @@ class FMedico extends FUser {
     
     /**
      * Metodo per inserire nella tabella Medico una nuova riga ovvero
-     * un nuovo medico
+     * un nuovo medico.
      * 
+     * @access public
      * @param EMedico $medico L'oggetto di tipo EMedico che si vuole salvare nella
      *                       tabella Medico
      */
@@ -92,7 +88,7 @@ class FMedico extends FUser {
     
     /** 
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
-     * per l'inserimento di un medico nel database
+     * per l'inserimento di un medico nel database.
      * 
      * @access public
      * @param EMedico $medico Il medico di cui si vogliono ottenere i valori degli attributi 
@@ -126,7 +122,7 @@ class FMedico extends FUser {
     
     
     /**
-     * Metodo che permette di conoscere quali sono i pazienti di un medico
+     * Metodo che permette di conoscere quali sono i pazienti di un medico.
      * 
      * @access public
      * @param string $usernameMedico L'username del medico
@@ -151,11 +147,12 @@ class FMedico extends FUser {
     
     
     /**
-     * Metodo che consente di trovare un medico passando come parametro lo username
+     * Metodo che consente di trovare un medico passando come parametro lo username.
      * 
      * @access public
      * @param string $username Username del medico da cercare
-     * @return array|boolean Un array contenente gli attributi del medico cercato
+     * @return array Un array contenente gli attributi del medico cercato, altrimenti lancia un'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo 
      */
     public function cercaMedico($username)
     {
@@ -171,11 +168,12 @@ class FMedico extends FUser {
     
     /**
      * Metodo che consente di cercare un medico passando alla funzione solo il 
-     * codice fiscale
+     * codice fiscale.
      * 
      * @access public
      * @param string $cf Il codice fiscale del medico da cercare
-     * @return array|boolean Array contenente gli attributi del medico cercato
+     * @return array Array contenente gli attributi del medico cercato, altrimenti lancia un'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo 
      */
     public function cercaMedicoByCF($cf) 
     {
@@ -187,11 +185,12 @@ class FMedico extends FUser {
     }
     
     /**
-     * Metodo che consente di cercare un medico passando alla funzione solo la PEC 
+     * Metodo che consente di cercare un medico passando alla funzione solo la PEC. 
      * 
      * @access public
      * @param string $PEC La PEC del medico da cercare
-     * @return array|boolean Array contenente gli attributi del medico cercato
+     * @return array Array contenente gli attributi del medico cercato
+     * @throws XDBException Se la query non è stata eseguita con successo 
      */
     public function cercaMedicoByPEC($PEC) 
     {
@@ -202,15 +201,15 @@ class FMedico extends FUser {
     }
     
     /**
-     * Metodo che permette di modificare via, numero civico e CAP di un medico nel DB
+     * Metodo che permette di modificare via, numero civico e CAP di un medico nel DB.
      * 
      * @access public
      * @param string $codFiscale Il codice fiscale dell'utente il cui indirizzo deve essere modificato
      * @param string $via la nuova via
      * @param int $numeroCivico  il numero civico da modificare
      * @param string $CAP Il CAP modificare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaIndirizzoCAP($codFiscale, $via, $numeroCivico,  $CAP) 
     {
@@ -242,18 +241,18 @@ class FMedico extends FUser {
     
     /**
      * Metodo che permette di modificare la provincia dell'albo in cui è 
-     * iscritto il medico e il numero d'iscrizione all'albo  nel DB
+     * iscritto il medico e il numero d'iscrizione all'albo  nel DB.
      * 
      * @access public
-     * @param string $codFiscaleMedico Il codice fiscale del medico 
+     * @param string $codiceFiscaleMedico Il codice fiscale del medico 
      * @param string $provincia La nuova provincia
      * @param int $numIscrizione  Il nuovo numero d'iscrizione 
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaProvAlboENumIscrizione($codiceFiscaleMedico, $provincia, $numIscrizione){
         $queryLock = "SELECT * FROM " . $this->_nomeTabella 
-                ." WHERE CodFiscale='" . $codFiscaleMedico . "' FOR UPDATE" ;
+                ." WHERE CodFiscale='" . $codiceFiscaleMedico . "' FOR UPDATE" ;
         $provincia = $this->trimEscapeStringa($provincia);
         $query = "UPDATE " . $this->_nomeTabella . " SET ProvinciaAlbo='" . $provincia . "', "
                 . "NumIscrizione=" . $numIscrizione . " "
@@ -277,12 +276,12 @@ class FMedico extends FUser {
     }
     
     /**
-     * Metodo che consente di modificare gli attributi del medico
+     * Metodo che consente di modificare gli attributi del medico.
      * 
      * @access public
      * @param EMedico $medico Il medico da modificare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaMedico($medico) {
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella 

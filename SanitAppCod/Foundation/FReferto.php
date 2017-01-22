@@ -72,15 +72,17 @@ class FReferto extends FDatabase{
     }
     
     /**
-     * Permette di trovare tutti referti relativi ai pazienti di un dato medico
+     * Permette di trovare tutti referti relativi ai pazienti di un dato medico.
+     * 
+     * @access public
      * @param string $cfMedico codice fiscale del medico 
+     * @return array I referti dei pazienti del medico
      * @throws XDBException Se la query non è stata eseguita con successo
-     * @return Array I referti dei pazienti del medico
      */
     public function cercaRefertiPazientiMedico($cfMedico) 
     {
         
-        $query =   "SELECT IDReferto, esame.NomeEsame, clinica.NomeClinica, utente.Nome, utente.Cognome, prenotazione.CodFiscaleUtenteEffettuaEsame, "
+        $query =   "SELECT IDReferto, referto.IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, utente.Nome, utente.Cognome, prenotazione.CodFiscaleUtenteEffettuaEsame, "
                 . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto  "
                 . "FROM referto, prenotazione, esame, utente, clinica "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "

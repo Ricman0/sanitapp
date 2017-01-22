@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of VReferti
  *
+ * @package View
  * @author Claudia Di Marco & Riccardo Mantini 
  */
 class VReferti extends View{
@@ -59,7 +54,9 @@ class VReferti extends View{
     }
     
     /**
-     * Fornisce le informazioni relative al referto
+     * Meotodo che consente di visualizzare le informazioni relative al referto.
+     * 
+     * @access public
      * @param EReferto $referto L'entità referto
      * @param EPrenotazione $prenotazione L'entità prenotazione
      * @param EEsame $esame L'entità esame
@@ -78,9 +75,12 @@ class VReferti extends View{
         $this->visualizzaTemplate('infoReferto');
         
     }
+    
     /**
-     * Ritorna i dati relativi al referto
-     * @return Array i dati necessari per la creazione del referto
+     * Recupera i dati relativi al referto.
+     * 
+     * @access public
+     * @return array I dati necessari per la creazione del referto
      */
     public function recuperaDatiReferto() {
         
@@ -89,14 +89,14 @@ class VReferti extends View{
         $datiReferto['partitaIVA'] = $this->recuperaValore('partitaIva');
         $datiReferto['medicoEsame'] = $this->recuperaValore('medicoEsame');
         return $datiReferto;
-
     }
     
     /**
-     * Forza il download del file referto
+     * Metodo che consente di forzare il download del file referto.
      * 
+     * @access public
      * @param string $fileName Il nome del file da scaricare
-     * @param type $file Il file da scaricare
+     * @param blob $file Il file da scaricare
      */
     public function downloadReferto($fileName, $file) {
 

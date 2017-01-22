@@ -234,8 +234,8 @@ class FPrenotazione extends FDatabase{
      * @param string $data La data della prenotazione(dd-mm-yyyy)
      * @param string $ora L'orario della prenotazione (mm:ss)
      * @param string $durata La durata della prenotazione(hh:mm:ss)
+     * @return array Il risultato della query multipla. Ogni elemento dell'array è una prenotazione
      * @throws XDBException Se c'è un errore durante l'esecuzione della query
-     * @return Array Il risultato della query multipla. Ogni elemento dell'array è una prenotazione
      */
     public function cercaTraPrenotazioni($cfUtente, $idEsame, $partitaIVA, $data, $ora, $durata)
     {
@@ -353,11 +353,12 @@ class FPrenotazione extends FDatabase{
     
     /**
      * Metodo che consente di cercare tutte le prenotazioni che un utente 
-     * non ha effettuato fino ad una data passata come parametro
+     * non ha effettuato fino ad una data passata come parametro.
      * 
      * @access public
-     * @param type $cfUtente
-     * @param type $dataOdierna 
+     * @param string $cfUtente Il codice fiscale dell'utente
+     * @param string $dataOdierna  La data odiernam in formato Y-m-d
+     * @throws XDBException Se la query non è eseguita con successo
      */
     public function cercaPrenotazioniNonEffettuate($cfUtente, $dataOdierna)
     {

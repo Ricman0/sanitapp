@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of EMedico
  *
+ * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class EMedico extends EUser {
@@ -44,7 +39,6 @@ class EMedico extends EUser {
      */
     private $_CAP;
 
-
     /**
      * @var boolean $_validato Indica se il medico è stato validato dall' amministratore
      */
@@ -63,19 +57,21 @@ class EMedico extends EUser {
     
 
     /**
-     * Costruttore della classe EMedico
+     * Costruttore della classe EMedico.
+     * 
+     * @access public
      * @param string $cf Il codice fiscale del medico
-     * @param string $username Username dell'utente medico
+     * @param string $username Username del medico
      * @param string $nome Il nome del medico
      * @param string $cognome Il cognome del medico
      * @param string $via La via in cui risiede il medico
+     * @param int $numeroCivico Il numero civico in cui risiede il medico
      * @param string $cap Il cap del paese in cui risiede il medico
      * @param string $email L'email del medico
      * @param string $password La password del medico
      * @param string $PEC La PEC del medico
      * @param string $provinciaAlbo La provincia dell'albo in cui il medico è iscritto
-     * @param string o int? $numIscrizione Il numero di iscrizione nell'albo del medico
-     * @param int o string? $cod Il codice per confermare l'account
+     * @param string $numIscrizione Il numero di iscrizione nell'albo del medico
      * @param boolean $validato TRUE se il medico è validato, FALSE altrimenti
      * @throws XMedicoException Se il medico relativo al codice fiscale immesso non esiste
      */               
@@ -147,8 +143,9 @@ class EMedico extends EUser {
 
     //metodi get
     /**
-     * Metodo per conoscere il nome del medico
+     * Metodo per conoscere il nome del medico.
      * 
+     * @access public
      * @return string Il nome del medico
      */
     public function getNomeMedico() {
@@ -156,8 +153,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo per conoscere il cognome del medico
+     * Metodo per conoscere il cognome del medico.
      * 
+     * @access public
      * @return string Il cognome del medico
      */
     public function getCognomeMedico() {
@@ -165,8 +163,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo per conoscere il codice fiscale del medico
+     * Metodo per conoscere il codice fiscale del medico.
      * 
+     * @access public
      * @return string Il codice fiscale del medico
      */
     public function getCodFiscaleMedico() {
@@ -174,8 +173,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo per conoscere la via in cui risiede il medico
+     * Metodo per conoscere la via in cui risiede il medico-
      * 
+     * @access public
      * @return string Il nome della via in cui risiede il medico
      */
     public function getViaMedico() {
@@ -183,8 +183,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo per conoscere il numero civico della via in cui risiede il medico
+     * Metodo per conoscere il numero civico della via in cui risiede il medico.
      * 
+     * @access public
      * @return int Il numero civico della via in cui risiede il  medico
      */
     public function getNumCivicoMedico() {
@@ -192,8 +193,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo per conoscere il cap del paese in cui risiede il medico
+     * Metodo per conoscere il cap del paese in cui risiede il medico.
      * 
+     * @access public
      * @return int Il cap del paese in cui risiede il medico
      */
     public function getCAPMedico() {
@@ -201,8 +203,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo per conoscere l'username del medico
+     * Metodo per conoscere l'username del medico.
      * 
+     * @access public
      * @return string L'username del medico
      */
     public function getUsernameMedico() {
@@ -211,8 +214,9 @@ class EMedico extends EUser {
     
 
     /**
-     * Metodo per conoscere se il medico è stato validato 
+     * Metodo per conoscere se il medico è stato validato. 
      * 
+     * @access public
      * @return boolean True se il medico è stato validato, False altrimenti
      */
     public function getValidatoMedico() {
@@ -220,8 +224,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo per conoscere il numero d'iscrizione del medico all'albo
+     * Metodo per conoscere il numero d'iscrizione del medico all'albo.
      * 
+     * @access public
      * @return string Il numero d'iscrizione del medico all'albo
      */
     public function getNumIscrizioneMedico() {
@@ -229,8 +234,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo per conoscere la provincia dell'albo a cui è iscritto il medico
+     * Metodo per conoscere la provincia dell'albo a cui è iscritto il medico.
      * 
+     * @access public
      * @return string La provincia dell'albo a cui è iscritto il medico
      */
     public function getProvinciaAlboMedico() {
@@ -240,8 +246,9 @@ class EMedico extends EUser {
     //metodi set
 
     /**
-     * Metodo che permette di modificare il nome del medico
+     * Metodo che permette di modificare il nome del medico.
      * 
+     * @access public
      * @param string $nome Il nome del medico
      */
     public function setNomeMedico($nome) {
@@ -249,8 +256,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare il cognome del medico
+     * Metodo che permette di modificare il cognome del medico.
      * 
+     * @access public
      * @param string $cognome Il cognome del medico
      */
     public function setCognomeMedico($cognome) {
@@ -258,8 +266,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare il codice fiscale del medico
+     * Metodo che permette di modificare il codice fiscale del medico.
      * 
+     * @access public
      * @param string $codFiscale Il codice fiscale del medico
      */
     public function setCodiceFiscaleMedico($codFiscale) {
@@ -267,8 +276,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare la via del medico
+     * Metodo che permette di modificare la via del medico.
      * 
+     * @access public
      * @param string $via La nuova via del medico
      */
     public function setViaMedico($via) {
@@ -276,8 +286,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare il numero civico del medico
+     * Metodo che permette di modificare il numero civico del medico.
      * 
+     * @access public
      * @param int $numCiv Il nuovo numero civico del medico
      */
     public function setNumCivicoMedico($numCiv) {
@@ -285,8 +296,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare il CAP del medico
+     * Metodo che permette di modificare il CAP del medico.
      * 
+     * @access public
      * @param int $cap Il nuovo CAP del medico
      */
     public function setCAPMedico($cap) {
@@ -295,17 +307,19 @@ class EMedico extends EUser {
 
 
     /**
-     * Metodo che permette di modificare la validità del medico 
+     * Metodo che permette di modificare la validità del medico. 
      * 
-     * @param boolean $validato True se il medico è stato validato, False altrimenti
+     * @access public
+     * @param boolean $validato TRUE se il medico è stato validato, FALSE altrimenti
      */
     public function setValidatoMedico($validato) {
         $this->_validato = $validato;
     }
 
     /**
-     * Metodo che permette di modificare il numero d'iscrizione del medico all'albo
+     * Metodo che permette di modificare il numero d'iscrizione del medico all'albo.
      * 
+     * @access public
      * @param string $numIscrizione Il numero d'iscrizione del medico all'albo
      */
     public function setNumIscrizioneMedico($numIscrizione) {
@@ -314,8 +328,9 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare la provincia dell'albo a cui è iscritto il medico
+     * Metodo che permette di modificare la provincia dell'albo a cui è iscritto il medico.
      * 
+     * @access public
      * @param string $provinciaAlbo La provincia dell'albo a cui è iscritto il medico
      */
     public function setProvinciaAlboMedico($provinciaAlbo) {
@@ -327,7 +342,7 @@ class EMedico extends EUser {
      * Metodo che permette di trovare tutti i pazienti del medico.
      * 
      * @access public
-     * @return array|string Tutti i pazienti del medico se ci sono, altrimenti un messaggio 
+     * @return array Tutti i pazienti del medico se ci sono, altrimenti lancia un'eccezione.
      * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaPazienti() 
@@ -366,10 +381,11 @@ class EMedico extends EUser {
     }
 
     /**
-     * Metodo che permette di inserire un oggetto di tipo EMedico nel DB
+     * Metodo che permette di inserire un oggetto di tipo EMedico nel DB.
      * 
      * @access public
-     * @return string|Boolean Il codice di conferma se il medico è stato inserito correttamente, altrimenti FALSE (il medico non è stato inserito correttamente nel DB)
+     * @return string Il codice di conferma se il medico è stato inserito correttamente, altrimenti FALSE (il medico non è stato inserito correttamente nel DB) Lancia un'eccezione.
+     * @throws XDBException Se la query non viene eseguita con successo.
      */
     public function inserisciMedicoDB() {
         //crea un oggetto fMedico se non è esistente, si collega al DB e lo inserisce
@@ -384,11 +400,12 @@ class EMedico extends EUser {
     }
     
     /**
-     * Metodo che permette di modificare l'indirizzo, numero civico e CAP (la modifica avviene anche nel DB)
+     * Metodo che permette di modificare l'indirizzo, numero civico e CAP (la modifica avviene anche nel DB).
      * 
      * @access public
-     * @param Array $datiIndirizzoValidi Array contenente i valori di indirizzo, numero civico e CAP validi
-     * @return boolean TRUE modifica effettuata, FALSE altrimenti
+     * @param array $datiIndirizzoValidi Array contenente i valori di indirizzo, numero civico e CAP validi
+     * @return boolean TRUE modifica effettuata, altrimenti lancia un'eccezione
+     * @throws XDBException Se la query non viene eseguita con successo
      */
     public function modificaIndirizzoCAP($datiIndirizzoValidi) 
     {
@@ -405,13 +422,13 @@ class EMedico extends EUser {
 
     /**
      * Metodo che permette di modificare la provincia dell'albo in cui è 
-     * iscritto il medico e il numero d'iscrizione all'albo nel DB 
+     * iscritto il medico e il numero d'iscrizione all'albo nel DB. 
      * 
      * @access public
      * @param string $provincia La nuova provincia
      * @param int $numIscrizione  Il nuovo numero d'iscrizione 
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaProvAlboENumIscrizione($provincia, $numIscrizione) 
     {
@@ -425,16 +442,14 @@ class EMedico extends EUser {
     }
     
     /**
-     * Metodo che consente di modificare i dati del medico
+     * Metodo che consente di modificare i dati del medico.
      * 
      * @access public
-     * @param Array $datiDaModificare I dati del medico da modificare
-     * @throws XDBException Se la query non è stata eseguita con successo
+     * @param array $datiDaModificare I dati del medico da modificare
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaMedico($datiDaModificare) {
-        echo 'da modfica';
-        print_r($datiDaModificare);
         foreach ($datiDaModificare as $key => $value) {
             switch ($key) {
                 case 'username':

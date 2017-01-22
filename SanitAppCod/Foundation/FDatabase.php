@@ -443,7 +443,6 @@ class FDatabase {
         
         if(($nomeClassePadre==='EUser'))
         {
-            echo 'padre';
 //            $nomeClassePadre = strtolower($nomeClassePadre);
 //            $nomeClassePadre = 'F' . substr($nomeClassePadre,1);
 //            print_r($nomeClassePadre);
@@ -455,7 +454,6 @@ class FDatabase {
             $attributiPadreFiglio = $this->getAttributiTabella();
             $attributi = explode(';', $attributiPadreFiglio);
             $attributiPadre = $attributi[0];
-            print_r($attributiPadre);
             
             $attributiFiglio = $attributi[1];
             
@@ -466,13 +464,12 @@ class FDatabase {
                 $nomeClassePadre = 'appuser';
             }
             $query1 = "INSERT INTO " . $nomeClassePadre . "(" . $attributiPadre . ") VALUES( " . $valoriAttributiPadre . ")";
-            print_r($query1);
+            
            
             $valoriAttributi = $this->getValoriAttributi($oggetto, $attributiFiglio, $nomeClasse);
             $nomeClasse  = strtolower($nomeClasse);
             $query2 = "INSERT INTO " . $nomeClasse . "(" . $attributiFiglio . ") VALUES( " .  $valoriAttributi . ")";
             
-            print_r($query2);
             try {
                 // inzia la transazione
                 $this->_connessione->begin_transaction();
