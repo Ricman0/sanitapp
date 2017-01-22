@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of EPrenotazione
  *
+ * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class EPrenotazione {
@@ -422,7 +417,8 @@ class EPrenotazione {
      * Aggiunge la prenotazione nel DB.
      * 
      * @access public
-     * @return boolean TRUE se la prenotazione è stata aggiunta con successo, FALSE altrimenti
+     * @return boolean TRUE se la prenotazione è stata aggiunta con successo
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function aggiungiPrenotazioneDB() 
     {
@@ -435,7 +431,8 @@ class EPrenotazione {
      * Metodo che consente di confermare la prenotazione.
      * 
      * @access public
-     * @return boolean TRUE se la conferma è andata a buon fine, FALSE altrimenti
+     * @return boolean TRUE se la conferma è andata a buon fine
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function confermaPrenotazione() 
     {
@@ -444,35 +441,39 @@ class EPrenotazione {
 //        if ($fPrenotazione->confermaPrenotazione($this->_idPrenotazione) === TRUE) 
         $daModificare['Confermata'] = TRUE;
         $confermato = $fPrenotazione->update($this->_idPrenotazione, $daModificare);
-        if ($confermato===TRUE)
-        {
-            return TRUE;
-        } 
-        else 
-        {
-            return FALSE;
-        }
+        return TRUE;
+//        if ($confermato===TRUE)
+//        {
+//            return TRUE;
+//        } 
+//        else 
+//        {
+//            return FALSE;
+//        }
     }
     
     /**
      * Permette di capise se alla prenotazione è già associato il referto.
      * 
      * @access public
-     * @return boolean true se alla prenotazione è già associato il referto, false altrimenti
+     * @return boolean true se alla prenotazione è già associato il referto
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function esisteReferto() {
         
         $fReferto = USingleton::getInstance('FReferto');
 //        if($fReferto->cercaReferto($this->_idPrenotazione))
         $daCercare['IDPrenotazione'] = $this->getIDPrenotazionePrenotazione();
-        if($fReferto->cerca($daCercare))
-        {
-            return TRUE;
-        }
-        else
-        {
-            return FAlSE;
-        }
+        $fReferto->cerca($daCercare);
+        return TRUE;
+//        if($fReferto->cerca($daCercare))
+//        {
+//            return TRUE;
+//        }
+//        else
+//        {
+//            return FAlSE;
+//        }
         
     }
     
@@ -480,9 +481,9 @@ class EPrenotazione {
      * Metodo che consente di eliminare la prenotazione.
      * 
      * @access public
+     * @return boolean TRUE eliminazione avvenuta con successo, FALSE altrimenti
      * @throws XPrenotazioneException Se la prenotazione è già eseguita
      * @throws XDBException Se la query per eliminare la prenotazione specificata non è stata eseguita con successo
-     * @return boolean TRUE eliminazione avvenuta con successo, FALSE altrimenti
      */
     public function eliminaPrenotazione() 
     {
@@ -561,8 +562,8 @@ class EPrenotazione {
      * 
      * @access public
      * @param boolean $eseguita Indica se la prenotazione è stata modificata
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la query è stata eseguita con successo
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaEseguitaPrenotazione($eseguita)
     {

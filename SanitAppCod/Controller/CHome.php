@@ -84,7 +84,7 @@ class CHome {
                 $cCategorie->gestisciCategorieGET();
                 break;
             
-            case 'clienti':
+            case 'clienti': // GET clienti
                 $cClienti = USingleton::getInstance('CGestisciClienti');
                 $cClienti->gestisciClienti();
                 break;
@@ -181,7 +181,7 @@ class CHome {
                 $cRicercaEsami->impostaPaginaRicercaEsami();
                 break;
             
-            case 'servizi':
+            case 'servizi': // GET servizi
                 $cServizi = USingleton::getInstance('CGestisciServizi');
                 $cServizi->gestisciServizi();
                 break;

@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of FCategoria
  *
+ * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class FCategoria extends FDatabase{
@@ -29,7 +24,7 @@ class FCategoria extends FDatabase{
     
      /**
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
-     * per l'inserimento di una categoria nel database
+     * per l'inserimento di una categoria nel database.
      * 
      * @access private
      * @param ECategoria $categoria la Categoria di cui si vogliono ottenere i valori degli attributi 
@@ -76,25 +71,24 @@ class FCategoria extends FDatabase{
     }
     
     /**
-     * Metodo che permette di ottenere tutte le categorie
+     * Metodo che permette di ottenere tutte le categorie.
      * 
      * @access public
+     * @return array Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      * @throws XDBException Se la query non è stata eseguita con successo
-     * @return array|boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      */
     public function cercaCategorie() {
         $query = 'SELECT * FROM ' .  $this->_nomeTabella . " LOCK IN SHARE MODE" ;
-        $result = $this->eseguiQuery($query);
-        return $result;
+        return $this->eseguiQuery($query);
     }
     
     /**
-     * Metodo che permette di aggiungere una categoria
+     * Metodo che permette di aggiungere una categoria.
      * 
      * @access public
      * @param ECategoria $categoria la Categoria che si vuole aggiungere 
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function aggiungiCategoria($categoria) {
         
@@ -104,12 +98,12 @@ class FCategoria extends FDatabase{
     }
     
     /**
-     * Metodo che permette di aggiungere una categoria
+     * Metodo che permette di aggiungere una categoria.
      * 
      * @access public
      * @param string $nomeCategoria il nome della Categoria che si vuole eliminare
-     * @throws XDBException Se la transazione non è stata eseguita con successo
      * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function eliminaCategoria($nomeCategoria) {
         

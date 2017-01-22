@@ -458,7 +458,7 @@ class CReferti {
     
     /**
      * Metodo che consente gi gestire le richieste GET del controller 'referti'  e task 'visualizza'.
-     * Permette di visualizzare tutti i referti o un solo referto a seconda del valore dell'id della richiesta GET
+     * Permette di visualizzare tutti i referti o un solo referto a seconda del valore dell'id della richiesta GET.
      * 
      * @access private
      * @param string $username L'username della clinica di cui si vogliono visualizzare i referti

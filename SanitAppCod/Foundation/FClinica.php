@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of FClinica
  *
+ * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class FClinica extends FUser{
@@ -32,7 +27,7 @@ class FClinica extends FUser{
     
     /**
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
-     * per l'inserimento di una clinica nel database
+     * per l'inserimento di una clinica nel database.
      * 
      * @access public
      * @param EClinica $clinica la Clinica di cui si vogliono ottenere i valori degli attributi 
@@ -75,10 +70,12 @@ class FClinica extends FUser{
     
     /**
      * Metodo per inserire nella tabella Clinica una nuova riga ovvero
-     * una nuova clinica
+     * una nuova clinica.
      * 
+     * @access public
      * @param EClinica $clinica L'oggetto di tipo EClinica che si vuole salvare nella
      *                       tabella Clinica
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function inserisciClinica($clinica)
     {         
@@ -114,11 +111,12 @@ class FClinica extends FUser{
     
     /**
      * Metodo che consente di cercare la partita IVA della clinica il cui nome
-     * è passato come paramentro 
+     * è passato come parametro.
      * 
      * @access public
      * @param string $nomeClinica Il nome della clinica
      * @return string|boolean Il codice fiscale della clinica, FALSE altrimenti.
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaPartitaIVAClinica($nomeClinica)
     {
@@ -141,11 +139,12 @@ class FClinica extends FUser{
     
     /**
      * Metodo che consente di trovare la clinica la cui partita IVA è passata come
-     * parametro
+     * parametro.
      * 
      * @access public
      * @param string $partitaIVA La partitaIVA della clinica
-     * @return Array|boolean Array contenente solo la clinica cercata, FALSE altrimenti
+     * @return array Array contenente solo la clinica cercata, FALSE altrimenti
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaClinicaByPartitaIVA($partitaIVA) 
     {
@@ -158,11 +157,12 @@ class FClinica extends FUser{
     
     /**
      * Metodo che consente di trovare la clinica il cui username è passato come
-     * parametro
+     * parametro.
      * 
      * @access public
      * @param string $username L'username della clinica
-     * @return Array|boolean Array contenente solo la clinica cercata, FALSE altrimenti
+     * @return array Array contenente solo la clinica cercata, altrimenti lancia un'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaClinicaByUsername($username) 
     {
@@ -175,11 +175,12 @@ class FClinica extends FUser{
     
     /**
      * Metodo che consente di trovare la clinica la cui PEC è passata come
-     * parametro
+     * parametro.
      * 
      * @access public
      * @param string $PEC La PEC della clinica
-     * @return Array|boolean Array contenente solo la clinica cercata, FALSE altrimenti
+     * @return array Array contenente solo la clinica cercata
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaClinicaByPEC($PEC) 
     {
@@ -190,11 +191,13 @@ class FClinica extends FUser{
     }
     
     /**
-     * Metodo che permette di effettuare la ricerca di cliniche 
+     * Metodo che permette di effettuare la ricerca di cliniche. 
      * 
-     * @param string $luogo Il luogo in cui si trova la clinica
+     * @access public
      * @param string $nome Il nome della clinica che si vuole cercare
-     * @return array|boolean Se la query è stata eseguita con successo, in caso contrario resituirà FALSE.
+     * @param string $luogo Il luogo in cui si trova la clinica
+     * @return array Se la query è stata eseguita con successo
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaClinica($nome, $luogo)
     {
@@ -265,12 +268,13 @@ class FClinica extends FUser{
     }
     
     /**
-     * Metodo che consente il salvataggio del working plan
+     * Metodo che consente il salvataggio del working plan.
      * 
      * @access public
      * @param string $workingPlan il working plan della clinica
      * @param string $partitaIVAClinica La partita IVA della Clinica
-     * @return type Description
+     * @return boolean TRUE se la query è eseguta con successo
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function salvaWorkingPlan($workingPlan,$partitaIVAClinica) 
     {
@@ -301,11 +305,12 @@ class FClinica extends FUser{
     
     
     /**
-     * Metodo che permette di conoscere quali sono i clienti di una clinica
+     * Metodo che permette di conoscere quali sono i clienti di una clinica.
      * 
      * @access public
      * @param string $usernameClinica L'username della clinica 
-     * @return type Description
+     * @return array I clienti dela clinica
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaClienti($usernameClinica) 
     {
@@ -323,7 +328,7 @@ class FClinica extends FUser{
     }
     
     /**
-     * Metodo che consente di cercare gli appuntamenti giornalieri di una clinica passata come paramentro
+     * Metodo che consente di cercare gli appuntamenti giornalieri di una clinica passata come paramentro.
      * 
      * @access public
      * @param string $partitaIVAClinica La partita IVA della clinica di cui si vogliono cercare gli appuntamenti
@@ -352,12 +357,12 @@ class FClinica extends FUser{
     }
     
     /**
-     * Metodo che consente di modificare gli attributi della clinica
+     * Metodo che consente di modificare gli attributi della clinica.
      * 
      * @access public
      * @param EClinica $clinica La clinica da modificare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaClinica($clinica) {
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella .

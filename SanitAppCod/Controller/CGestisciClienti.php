@@ -1,20 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CClienti
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CGestisciClienti {
     
     /**
-     * Metodo che consente di gestire le richieste avente come controller Clienti
+     * Metodo che consente di gestire le richieste GET avente come controller 'clienti'.
      * 
      * @access public
      */
@@ -67,10 +62,10 @@ class CGestisciClienti {
     
     /**
      * Metodo che consenti di cercare e visualizzare tutti i clienti di una clinica, il cui username è passato come 
-     * parametro, gestendo errori ed eccezioni
+     * parametro, gestendo errori ed eccezioni.
      * 
      * @access public
-     * @param type $username L'username della clinica di cui si vogliono cercare i clienti
+     * @param string $username L'username della clinica di cui si vogliono cercare i clienti
      */
     public function tryVisualizzaClientiClinica($username) {
         $vClienti = USingleton::getInstance('VGestisciClienti');

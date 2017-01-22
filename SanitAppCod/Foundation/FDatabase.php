@@ -774,6 +774,14 @@ class FDatabase {
         } 
     }
     
+    /**
+     * Metodo che consente di effettuare una ricerca nel DB.
+     * 
+     * @access public
+     * @param array $daCercare Array contenente il nome degli attributi da cambiare e il loro valore
+     * @return array Array contenente gli elementi cercati
+     * @throws XDBException Se la query non è stata eseguita con successo
+     */
     public function cerca($daCercare=NULL) {
         
         $query = 'SELECT * FROM ' .  $this->_nomeTabella ;

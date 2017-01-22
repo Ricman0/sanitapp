@@ -33,14 +33,22 @@ class CGestisciAgenda {
                 $end = $vAgenda->recuperaValore('end');
 //                $validazione = USingleton::getInstance('UValidazione');
 //                if($validazione->validaDataOraString($start)===TRUE && $validazione->validaDataOraString($end)===TRUE )
-                {
+//                {
+                try {
                     $sessione = USingleton::getInstance('USession');
                     $username = $sessione->leggiVariabileSessione('usernameLogIn');
                     $eClinica = new EClinica($username); //@throws XClinicaException Se la clinica  è inesistente
                     $risultato = $eClinica->recuperaAppuntamentiEWorkingPlan($start, $end);
                     $vJSON = USingleton::getInstance('VJSON');
                     $vJSON->inviaDatiJSON($risultato);
+                } catch (XDBException $ex) {
+                    
                 }
+                catch (XClinicaException $ex) {
+                    
+                }
+                    
+//                }
 //                else
 //                {
 //                    $messaggio = "";

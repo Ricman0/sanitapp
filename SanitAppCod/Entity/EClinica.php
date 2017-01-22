@@ -897,10 +897,11 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che permette di trovare tutti i clienti di una clinica
+     * Metodo che permette di trovare tutti i clienti di una clinica.
      * 
      * @access public
-     * @return array|boolean Tutti i clienti della clinica se ci sono
+     * @return array Tutti i clienti della clinica se ci sono
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaClienti() {
         $fClinica = USingleton::getInstance('FClinica');
@@ -913,6 +914,7 @@ class EClinica extends EUser {
      * @access public
      * @param string $start Stringa contenente data e ora in formato YYYY-MM-DD hh:mm da cui bisogna inziare il recupero
      * @param string $end Stringa contenente data e ora in formato YYYY-MM-DD hh:mm fino cui bisogna effettuare il recupero
+     * @return array Gli appuntamenti 
      * @throws XDBException Se la query non è stata eseguita con successo
      * @throws XClinicaException Se la query ritorna un array
      */
@@ -1036,6 +1038,8 @@ class EClinica extends EUser {
      * @param string $start Stringa contenente data e ora in formato YYYY-MM-DD hh:mm da cui bisogna inziare il recupero
      * @param string $end Stringa contenente data e ora in formato YYYY-MM-DD hh:mm fino cui bisogna effettuare il recupero
      * @return array Contiene un array di appuntamenti e un array workingPlan
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @throws XClinicaException Se la query ritorna un array
      */
     public function recuperaAppuntamentiEWorkingPlan($start, $end) 
     {

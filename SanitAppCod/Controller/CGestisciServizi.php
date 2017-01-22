@@ -1,19 +1,18 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CGestioneServizi
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CGestisciServizi {
     
-    
+    /**
+     * Metodo che consente di gestire le richieste GET per il controller 'servizi'.
+     * 
+     * @access public
+     */
     public function gestisciServizi() 
     {
         $vServizi = USingleton::getInstance('VGestisciServizi');
@@ -130,9 +129,9 @@ class CGestisciServizi {
     }
     
     /**
-     * Metodo che consente di gestire l'azione richiesta dalla clinica
+     * Metodo che consente di gestire l'azione richiesta dalla clinica per il controller 'servizi'.
      * 
-     * 
+     * @access private
      */
     private function gestisciAzione($azione)
     {
