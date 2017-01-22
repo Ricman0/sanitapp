@@ -37,10 +37,14 @@
         <br>
         <span class="grassetto">MEDICO:</span><span>  {$referto->getMedicoRefertoReferto()}</span>
         <br>
-        <span class="grassetto">CONDIVISO CON MEDICO CURANTE:</span><input type="checkbox" id="refertoCondivisoConMedico" name="refertoCondivisoConMedico" {if $referto->getCondivisoConMedicoReferto()== TRUE} checked{/if} />
-        <br>
-         
+        {if ($tipoUser==='utente')}
+            <span class="grassetto">CONDIVISO CON MEDICO CURANTE:</span><input type="checkbox" id="refertoCondivisoConMedico" name="refertoCondivisoConMedico" {if $referto->getCondivisoConMedicoReferto()== TRUE} checked{/if} />
+            <br>
+        {/if}
         <input type="button" id="scaricaRefertoButton2" class="scaricaReferto" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
         <!-- <input type="button" id="condividiRefertoButton"  value="Condividi Referto" data-idPrenotazione="{$referto->getIDPrenotazioneReferto()}" /> -->
+        {if ($tipoUser==='clinica')}
+            <input type="button" id="eliminaRefertoButton"  value="Elimina Referto" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
+        {/if}
     </div>
 </div>

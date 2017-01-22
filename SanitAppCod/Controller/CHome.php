@@ -282,7 +282,7 @@ class CHome {
                 $cRicerca->gestisciRicerca();
                 break;
             
-            case 'servizi':
+            case 'servizi': //POST servizi
                 $cServizi = USingleton::getInstance('CGestisciServizi');
                 $cServizi->gestisciServiziPost();
                 break;

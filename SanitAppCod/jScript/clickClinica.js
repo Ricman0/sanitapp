@@ -157,6 +157,11 @@ $(document).ready(function () {
         aggiuntaReferto(id);
     });
 
+    $('#headerMain').on('click', '#eliminaRefertoButton', function(){
+        var idPrenotazione = $('#eliminaRefertoButton').attr('data-idPrenotazione');
+        var datiPOST = {id: idPrenotazione};
+        inviaControllerTaskPOST('referto', 'elimina', datiPOST, '#contenutoAreaPersonale');
+    });
 
     $('#headerMain').on("click", "#uploadReferto", function () {
         $( "#loading" ).show();

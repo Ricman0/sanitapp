@@ -22,8 +22,9 @@ class CGestisciServizi {
     }
     
     /**
+     * Metodo che consente di gestire le richieste POST per il controller 'servizi'.
      * 
-     * @throws XDBException Se la query non è stata eseguita con successo
+     * @access public
      */
     public function gestisciServiziPost() 
     {
@@ -51,7 +52,8 @@ class CGestisciServizi {
                         $messaggio = 'Servizio inserito con successo.';
                     } 
                     catch (XDBException $ex) {
-                        $messaggio = $ex->getMessage();                 
+//                        $messaggio = $ex->getMessage();   
+                        $messaggio = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
                     }
                     catch (XClinicaException $ex) {
                         $messaggio = $ex->getMessage();                 

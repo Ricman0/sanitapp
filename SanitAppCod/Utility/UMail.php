@@ -20,10 +20,8 @@ require $dir . '/libs/PHPMailer/PHPMailerAutoload.php';
 class UMail {
     
     /**
-     * La mail da inviare
-     * 
      * @access private
-     * @var type Description
+     * @var  string La mail da inviare
      */
     private $_email;
     
@@ -71,6 +69,7 @@ class UMail {
      * @param string $subject Oggetto della email
      * @param string $body Corpo della email
      * @param array $allegati Gli allegati della email
+     * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
     public function inviaEmail($destinatario, $subject, $body, $allegati = NULL) 
     {
@@ -90,16 +89,8 @@ class UMail {
             //qui dovrai ciclare gli allegati se sono più di uno con il solito foreach 
              
         } 
-        if (!$this->_email->send())
-        {}
-        if(!$mail->send()) 
-        {
-            echo "Il messaggio non è stato spedito poichè c'è stato un errore: " . $this->errore();
-        } 
-        else 
-        {
-            echo "Il messaggio è stato inviato correttamente";
-        }
+        return $this->_email->send();
+        
         
         
     }
@@ -295,7 +286,7 @@ class UMail {
      * Metodo che consente di inviare una mail di memo per la prenotazione ad un utente
      * 
      * @access public
-     * @param Array $infoPrenotazione Contiene tutte le informazioni per inviare la mail di memo prenotazione(emailUtente,nomeUtente,cognomeUtente, nomeEsame, nomeClinica, indirizzoClinica, data e ora prenotazione)
+     * @param array $infoPrenotazione Contiene tutte le informazioni per inviare la mail di memo prenotazione(emailUtente,nomeUtente,cognomeUtente, nomeEsame, nomeClinica, indirizzoClinica, data e ora prenotazione)
      * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
     public function inviaMailMemoPrenotazione($infoPrenotazione) 
@@ -323,7 +314,7 @@ class UMail {
      * Metodo che consente di inviare una mail come notifica di inserimento di un referto.
      * 
      * @access public
-     * @param Array $datiNotifica Contiene tutte le informazioni per inviare la mail di motifica referto(emailUtente,nomeUtente,cognomeUtente, nomeEsame, nomeClinica, indirizzoClinica, data e ora della prenotazione)
+     * @param array $datiNotifica Contiene tutte le informazioni per inviare la mail di motifica referto(emailUtente,nomeUtente,cognomeUtente, nomeEsame, nomeClinica, indirizzoClinica, data e ora della prenotazione)
      * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
     public function inviaNotificaReferto($datiNotifica)
@@ -333,7 +324,7 @@ class UMail {
         // imposto l'oggetto dell'email
         $this->_email->Subject = 'Notifica referto ';// = $subject;
         $testo = 'Gentile ' . $datiNotifica['nomeUtente'] . ' ' . $datiNotifica['cognomeUtente'] . ",<br>"
-                . "la informaimo che è stato inserito un suo referto per l'esame " . $datiNotifica['nomeEsame'] . " eseguito il giorno " . $datiNotifica['data'] . ' alle ore ' 
+                . "la informiamo che è stato inserito un suo referto per l'esame " . $datiNotifica['nomeEsame'] . " eseguito il giorno " . $datiNotifica['data'] . ' alle ore ' 
                 . $datiNotifica['ora'] . ".<br><br>"
                 . "Saluti,<br>SanitApp";
         $this->_email->Body = $testo;
@@ -343,7 +334,7 @@ class UMail {
     
     /**
      * Metodo che permette l'invio di una mail all'utente contenente
-     * la nuova password
+     * la nuova password.
      * 
      * @access public
      * @param array $dati I dati necessari: email, password, username

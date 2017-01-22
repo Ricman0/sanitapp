@@ -62,6 +62,20 @@ class CReferti {
         $vReferti = USingleton::getInstance('VReferti');
         $task = $vReferti->getTask();
         switch ($task) {
+            case 'elimina':
+                try {
+                    $idPrenotazione = $vReferti->recuperaValore('id');
+                    $eReferto = new EReferto($idPrenotazione);
+                    $eReferto->eliminaReferto();
+                    $vReferti->visualizzaFeedback('Referto eliminato con successo.');
+                } catch (XRefertoException $ex) {
+                    $vReferti->visualizzaFeedback('Referto Inesistente. Non è stato possibile eliminare il referto.');
+                }
+                catch (XDBException $ex) {
+                    $vReferti->visualizzaFeedback("C'è stato un errore. Non è stato possibile eliminare il referto.");
+                }
+                break;
+            
             case 'upload':
                 try {
                     $this->uploadReferto();

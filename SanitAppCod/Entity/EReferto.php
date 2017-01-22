@@ -249,7 +249,7 @@ class EReferto {
     }
 
     /**
-     * Memorizza le proprietà del file referto.
+     * Inserisce il nuovo referto nel DB.
      * 
      * @access public
      * @return bool TRUE se l'iserimento è avvenuto con successo
@@ -260,6 +260,19 @@ class EReferto {
         $fReferto = USingleton::getInstance('FReferto');
 //        return $fReferto->inserisciReferto($this);
         return $fReferto->inserisci($this);
+    }
+    
+    /**
+     * Metodo che consente di eliminare il referto dal DB.
+     * 
+     * @access public
+     * @return bool TRUE se l'iserimento è avvenuto con successo
+     * @throws XDBException Se l'inserimento non è avvenuto con successo
+     */
+    public function eliminaReferto() {
+
+        $fReferto = USingleton::getInstance('FReferto');
+        return $fReferto->elimina($this->getIDRefertoReferto());
     }
 
     /**
