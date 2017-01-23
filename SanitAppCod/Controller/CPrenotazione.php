@@ -55,7 +55,7 @@ class CPrenotazione {
                             $nomeEsame = ucwords($eEsame->getNomeEsameEsame());
                             $durataEsame = $eEsame->getDurataEsame();
                             $nomeClinica = ucwords($eClinica->getNomeClinicaClinica());
-                            $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id, $durataEsame);
+                            $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $id, $durataEsame, NULL, $tipoUser);
                         } catch (XEsameException $ex) {
                             $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
                         }

@@ -1,5 +1,7 @@
 <div id='divAggiungiPrenotazione'>
+    {if $tipoUser!== 'clinica'}
     <span class="grassetto">Prenotazione presso la Clinica:</span><span> {$nomeClinica}</span>
+    {/if}
     <input type="hidden" id="partitaIVAClinicaPrenotazioneEsame" name="partitaIVAClinicaPrenotazioneEsame" value="{$partitaIVA}" />
     <br><br>
     <span class="grassetto">Prenotazione per l'Esame:</span><span> {$nomeEsame}</span>

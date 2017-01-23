@@ -101,7 +101,7 @@ class VPrenotazione extends View{
      * @param type $durataEsame La durata dell'esame
      * @param string $codiceFiscale Il codice fiscale dell'utente che deve effettuare la visita
      */
-    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale=NULL)
+    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale=NULL, $tipoUser)
     {
         $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
         $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
@@ -111,6 +111,10 @@ class VPrenotazione extends View{
         if(isset($codiceFiscale))
         {
            $this->assegnaVariabiliTemplate('codiceFiscale', $codiceFiscale); 
+        }
+        if(isset($tipoUser))
+        {
+           $this->assegnaVariabiliTemplate('tipoUser', $tipoUser); 
         }
         $this->visualizzaTemplate('prenotazioneEsame');
     }

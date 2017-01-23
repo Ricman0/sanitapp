@@ -430,3 +430,7 @@ hr{
 .ui-dialog-titlebar-close {
     visibility: hidden;
 }
+
+.fc-time-grid-container{
+    height: auto !important;
+}
