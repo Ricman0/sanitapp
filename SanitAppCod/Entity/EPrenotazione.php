@@ -567,6 +567,7 @@ class EPrenotazione {
      */
     public function modificaEseguitaPrenotazione($eseguita)
     {
+        $prenotazioneEseguita = $this->getEseguitaPrenotazione();
         $dataPrenotazione = $this->getData(); // recupero la stringa data in formato Y-m-d
         
 //        // devo usare il timestamp altrimenti potrebbero esserci problemi nel caso di mesi/ anni diversi 
@@ -574,22 +575,31 @@ class EPrenotazione {
         $dataOdierna = strtotime(date('Y-m-d')); // prendo la data odierna in questo modo posso effettuare il confronto
        
        // osservazione: dal momento che uso il formato Y-m-d non c'è bisogno di effettuare la conversione in timestamp
-        $data = date_parse_from_format("Y-m-d",  $dataPrenotazione);
-        $data = mktime ( 0, 0 , 0, $data['month'] , $data['day']-1, $data['year']); //ora, minuti, secondi, mesi, giorno, anno
-        
-        if($dataOdierna >= $data && $eseguita==='true')
+//        $data = date_parse_from_format("Y-m-d",  $dataPrenotazione);
+//        $data = mktime ( 0, 0 , 0, $data['month'] , $data['day']-1, $data['year']); //ora, minuti, secondi, mesi, giorno, anno
+        $data = strtotime($dataPrenotazione);
+        if( $eseguita==='true') // se la dataOdierna è succesiva o uguale a $data 
         {
-            $eseguita = TRUE;
-            
+            if($dataOdierna >= $data)
+            {
+                $this->setEseguitaPrenotazione(TRUE);
+                $prenotazioneEseguita = TRUE; 
+            }
+              
         }
         else
         {
-            $eseguita = FALSE; 
+            if($dataOdierna >= $data)
+            {
+                $this->setEseguitaPrenotazione(FALSE);
+                $prenotazioneEseguita = FALSE;  
+            }
+             
         }
-        $this->setEseguitaPrenotazione($eseguita);
+        $this->setEseguitaPrenotazione($prenotazioneEseguita);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
 //        return $fPrenotazione->modificaPrenotazioneEseguita($this->getIDPrenotazionePrenotazione(), $eseguita);
-        $daModificare['Eseguita'] = $eseguita;
+        $daModificare['Eseguita'] = $prenotazioneEseguita;
         return $fPrenotazione->update($this->getIDPrenotazionePrenotazione(), $daModificare);
     }
 }

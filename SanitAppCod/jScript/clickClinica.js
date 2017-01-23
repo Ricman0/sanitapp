@@ -1162,7 +1162,7 @@ function agendaEventClick(event, jsEvent, view)
             }
             else
             {
-                descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-check fa-lg verde' aria-hidden='true'></i></p>" ;   
+                descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-check fa-lg verde modificaNonEseguito' aria-hidden='true'></i></p>" ;   
             }
             $("#infoEvento").append(descrizioneAppuntamento);
             title = 'Appuntamento';
@@ -1179,6 +1179,46 @@ function agendaEventClick(event, jsEvent, view)
               $("#infoEvento").html('');
             }
         }
+    });
+    
+    $('.modificaNonEseguito').on('click', function () {
+        // apro un'altra finestra
+        $('#contenutoAreaPersonale').append("<div id='altroContenutoEventoNonEseguito' title='Dettaglio evento'><div id='nonEseguito'></div>");
+        $('#nonEseguito').append('<p>Per modificare la prenotazione in prenotazione non eseguita, clicca su Non Eseguita</p>');
+        $("#altroContenutoEventoNonEseguito").dialog({ 
+            modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+            title: 'Modifica Prenotazione' ,
+            buttons: {   
+                'Non Eseguita': function() {
+                  
+                  $.ajax({
+                      type:'POST',
+                      url: 'prenotazione/modifica/' + event.id,
+                      data:{eseguita: false},
+                      success: function (datiRisposta)
+                      {
+                        var obj = JSON.parse(datiRisposta);
+                        if(obj==="no")
+                        {
+                            alert('Prenotazione non eseguita');
+                            $('i.modificaNonEseguito').replaceWith("<i class='fa fa-times fa-lg rosso modificaEseguito' aria-hidden='true'></i>");
+                        }
+                        else
+                        {
+                           alert('Prenotazione non eseguita errore'); 
+                        }
+                        $("#altroContenutoEventoNonEseguito").dialog('close');
+                        $("#eseguito").html('');
+                      }
+                  });
+                  
+                },
+                'Annulla': function() {
+                    $("#altroContenutoEventoNonEseguito").dialog('close');
+                }
+            }
+        });
+        
     });
     
     $('.modificaEseguito').on('click', function () {
@@ -1201,7 +1241,7 @@ function agendaEventClick(event, jsEvent, view)
                         if(obj==="ok")
                         {
                             alert('Prenotazione eseguita');
-                            $('i.modificaEseguito').replaceWith("<i class='fa fa-check fa-lg verde' aria-hidden='true'></i>");
+                            $('i.modificaEseguito').replaceWith("<i class='fa fa-check fa-lg verde modificaNonEseguito' aria-hidden='true'></i>");
                         }
                         else
                         {
