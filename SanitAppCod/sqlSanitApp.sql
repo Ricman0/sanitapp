@@ -263,6 +263,7 @@ Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsam
 CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
 (1, 1, '12345', 'M', 1, 1, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
 (2, 1, '12345', 'M', 1, 1, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
+(4, 2, '12345', 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-01-23 12:00:00'),
 (3, 2, '12346', 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00');
 
 -- --------------------------------------------------------
