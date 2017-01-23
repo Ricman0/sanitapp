@@ -15,7 +15,7 @@ class VAutenticazione extends View {
     private $_tastiLaterali;
 
     /**
-     * Metodo per impostare i tasti laterali a seconda del tipo di user
+     * Metodo per impostare i tasti laterali a seconda del tipo di user.
      * 
      * @access public
      * @param string $tipoUser tipo dello user
@@ -58,7 +58,7 @@ class VAutenticazione extends View {
     }
     
     /**
-     * Metodo che consente di impostare l'header di una qualsiasi pagina
+     * Metodo che consente di impostare l'header di una qualsiasi pagina.
      * 
      * @access public
      */
@@ -79,7 +79,7 @@ class VAutenticazione extends View {
     }
     
     /**
-     * Metodo che consente di impostare la pagina per recuperare le credenziali
+     * Metodo che consente di impostare la pagina per recuperare le credenziali.
      * 
      * @access public
      */
@@ -95,9 +95,10 @@ class VAutenticazione extends View {
     }
     
     /**
-     * Metodo che consente di imposate la pagina di conferma
+     * Metodo che consente di imposate la pagina di conferma.
      * 
      * @access public
+     * @param string $username Lo username dell'user
      */
     public function impostaPaginaConferma($username) 
     {
@@ -111,7 +112,7 @@ class VAutenticazione extends View {
     }
     
     /**
-     * Metodo che permette di impostare il giusto header se l'utente è autenticato
+     * Metodo che permette di impostare il giusto header se l'utente è autenticato.
      * 
      * @access public
      * @param string $username L'username dell'user loggato
@@ -145,7 +146,7 @@ class VAutenticazione extends View {
     }
 
     /**
-     * Metodo che consente di impostare la pagina di Log In
+     * Metodo che consente di impostare la pagina di Log In.
      * 
      * @access public
      * @param string $errore Stringa che contenente l'errore dell'eccezione
@@ -239,6 +240,24 @@ class VAutenticazione extends View {
 
     
     
+    /**
+     * Metodo che contente di impostare header per utenti non refistrati e il main con i messaggi passati come parametri.
+     * 
+     * @access public
+     * @param string|array $messaggio Il messaggio o i messaggi da visualizzare nel main
+     */
+    public function impostaHeaderMain($messaggio) 
+    {
+        $variabiliHeader = $this->impostaHeader();
+        
+        $this->assegnaVariabiliTemplate('messaggio', $messaggio);  
+        $this->assegnaVariabiliTemplate('homePage', TRUE);
+        $feedbacks = $this->prelevaTemplate('feedbacks');
+        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
+        $this->assegnaVariabiliTemplate('main', $feedbacks);
+        $this->visualizzaTemplate('headerMain');
+    }
     
     
     

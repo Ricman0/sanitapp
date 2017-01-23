@@ -230,7 +230,7 @@ class CHome {
                 $cAgenda->gestisciAgenda();                
                 break;
             
-            case 'autenticazione':
+            case 'autenticazione': //POST  autenticazione
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->tryAutenticaUser();
                 break;

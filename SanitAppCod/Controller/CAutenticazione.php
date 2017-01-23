@@ -1,20 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CAutenticazione
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CAutenticazione {
 
     /**
-     * Metodo che tenta di autenticare un user, in caso contrario cattura l'eccezione e la gestisce
+     * Metodo che tenta di autenticare un user, in caso contrario cattura l'eccezione e la gestisce.
      * 
      * @access public
      */
@@ -56,7 +51,7 @@ class CAutenticazione {
 
 
     /**
-     * Metodo che permette di controllare se un user è autenticato e imposta l'header
+     * Metodo che permette di controllare se un user è autenticato e imposta l'header.
      * 
      * @access public
      */
@@ -74,7 +69,7 @@ class CAutenticazione {
     }
 
     /**
-     * Metodo che consente di 
+     * Metodo che tenta di autenticare un user, in caso contrario lancia eccezione non gestita.
      * 
      * @access public
      * @throws DatiLogInException Se i dati di log in non validi o uno dei due campi risulta vuoto
@@ -95,12 +90,20 @@ class CAutenticazione {
 //                {
                 
                 $uCookie->eliminaCookie('Tentativi');
-                if ($eUser->getConfermatoUser() == TRUE) {// user confermato
+                if ($eUser->getConfermatoUser() == TRUE && $eUser->getBloccatoUser() == FALSE) {// user confermato
                     $eUser->attivaSessioneUser($username, $eUser->getTipoUserUser());
                     $vAutenticazione->setTastiLaterali($eUser->getTipoUserUser());
                     $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
-                } else { //user non confermato ma esistente nel DB
+                } //user non confermato o bloccato ma esistente nel DB
+                elseif($eUser->getBloccatoUser() == TRUE) {  //user bloccato
+                    
+                    $messaggio[0] = 'User Bloccato.';
+                    $messaggio[1] = "Per risolver il problema, contatti l'amministretore.";
+                    $vAutenticazione->impostaHeaderMain($messaggio);
+                }
+                else { // user non confermato e non bloccato
                     // ritorna form per effettuare conferma
+                    
                     $vAutenticazione->impostaPaginaConferma($username);
                 }
 //                }
