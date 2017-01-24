@@ -36,7 +36,7 @@ $(document).ready(function () {
         inviaControllerTask('registrazione', 'medico', ajaxDiv);
     });
     
-    $('#headerMain').on("click", "#registrazioneUtente", function () {
+    $('#headerMain').on("click", ".registrazioneUtente", function () {
         var  ajaxDiv = '#main';
         if( $("#contenutoAreaPersonale").length  ) 
         {

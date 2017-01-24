@@ -22,5 +22,7 @@
     </div>
     <div>Non sei ancora registrato?</div>
     <div>Registrati subito cliccando su Registrati</div>
-    <button type="submit" id="submitRegistratiLogIn" class="normalSize">Registrati</button>
+    <button type="submit" id="submitRegistratiLogIn" class="normalSize registrazioneUtente">Registrati</button>
 </div>
+    
+<br>

@@ -20,3 +20,6 @@ and open the template in the editor.
     padding-top: 8px;
 }
 
+.copyright{
+    display: inline-block !important;
+}
