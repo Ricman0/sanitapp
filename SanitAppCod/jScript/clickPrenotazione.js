@@ -70,8 +70,7 @@ $(document).ready(function (){
                         // e memorizzalo nella variabile idEsame
                         var idEsame = $("#idEsame").val();
                         // cerca le date diposnibili per quella data e quel nome giorno per quell'esame in quella clinica
-                        orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
-                        $('#nextPrenotazioneEsame').show();
+                        orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);                        
 
                         }
                     });
@@ -91,7 +90,7 @@ $(document).ready(function (){
         $(this).addClass('orarioSelezionato');
         var orarioSelezionato = $(".orarioSelezionato").text();
         $('#nextPrenotazioneEsame').attr('data-orario', orarioSelezionato);
-        
+        $('#nextPrenotazioneEsame').show();
     });
     
     $('#headerMain').on("click", "#nextPrenotazioneEsame", function(){
@@ -271,7 +270,7 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
         {
             alert(datiHTMLRisposta);
             $(ajaxDiv).html(datiHTMLRisposta);            
-            if(typeof(codiceFiscale)!='undefined') // se codiceFiscale è definito vuol dire che siamo una clinica o un utente
+            if(typeof(codiceFiscale)!=='undefined') // se codiceFiscale è definito vuol dire che siamo una clinica o un utente
             {     
                 // aggiungo il codiceFiscale dell'utente di cui voglio effettuare la prenotazione nell'attributo data-codiceFiscale del tasto nextPrenotazioneEsame 
                 $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codiceFiscale);
@@ -298,6 +297,7 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
                     * La funzione ha come parametri la data (come testo) selezionata  e l'istanza del datepicker
                     */
                     onSelect: function(dateText, inst) { 
+                    $('#nextPrenotazioneEsame').hide();
                     var data = dateText; //the first parameter of this function
                     //aggiungo la data selezionata nell'attributo data-data del tasto nextPrenotazioneEsame in questo modo ho la data della prenotazione
                     $('#nextPrenotazioneEsame').attr('data-data', data);
@@ -319,7 +319,7 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
                     var idEsame = $("#idEsame").val();
                     // cerca le date diposnibili per quella data e quel nome giorno per quell'esame in quella clinica
                     orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
-                    $('#nextPrenotazioneEsame').show();
+                    
                     
                     }
                 });
