@@ -45,7 +45,8 @@ INSERT INTO appUser (Username, Password, Email, PEC, Bloccato, Confermato, Codic
 ('claudim', '$2y$10$tXDgXrJ8bw5zL0miqTle0.ji25mTIG.OvQ7NlnNLRzId4g8mrL2PC', 'claudimarco@hotmail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
 ('ricman', '$2y$10$XPh.cbdQCFT.xNzZVYdUee/ofH1K8wDQkEj1VtCrQgY2sW8C0YHOW', 'onizuka-89@hotmail.it', NULL,FALSE,TRUE, 'cjdjdehahah', 'utente'),
 ('ricla', '$2y$10$PVNVAf5wFfLJSHB/PBv2COam15ec7HJ4OlSeMVTzvo6WxboR/SID6', 'mantini.riccardo@gmail.com', NULL,FALSE,TRUE, 'cjdjdehahag', 'amministratore'),
-('annadima', '$2y$10$q40th0aKO8zCM5yENXm2q.HNvhIAMf/9hLQUNRljgtGZp9ESUsI3m', 'annadima@alice.it',NULL,FALSE,TRUE, 'annasjdjdhdhrf', 'utente');
+('annadima', '$2y$10$q40th0aKO8zCM5yENXm2q.HNvhIAMf/9hLQUNRljgtGZp9ESUsI3m', 'annadima@alice.it',NULL,FALSE,TRUE, 'annasjdjdhdhrf', 'utente'),
+('annadimatteo', '$2y$10$q40th0aKO8zCM5yENXm2q.HNvhIAMf/9hLQUNRljgtGZp9ESUsI3m', 'annadima@aliceyjyjyjjg.it',NULL,FALSE,TRUE, 'annasjdjdhdhsjjsjjsrf', 'medico');
 
 -- --------------------------------------------------------
 
@@ -194,7 +195,8 @@ CREATE TABLE medico (
 --
 
 INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username, ProvinciaAlbo, NumIscrizione, Validato) VALUES
-('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Via Acquaventina', 30, '65017', 'claudim','PESCARA', 546474, TRUE);
+('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Via Acquaventina', 30, '65017', 'claudim','PESCARA', 546474, TRUE),
+('DMTNNA89S42G438S', 'Anna', 'Di Matteo', 'Via Acquaventina', 30, '65017', 'annadimatteo','PESCARA', 546064, TRUE);
 
 -- --------------------------------------------------------
 
