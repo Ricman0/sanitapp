@@ -408,15 +408,15 @@ class CPrenotazione {
                     $datiPerEmail = Array('emailDestinatario' => $eUtente->getEmailUser(), 'nome' => $eUtente->getNomeUtente(),
                         'cognome' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsameEsame(),
                         'nomeClinica' => $eClinica->getNomeClinicaClinica(), 'dataEOra' => $ePrenotazione->getDataEOraPrenotazione());
-                    $mail = USingleton::getInstance('UMail');
+                    $mail = USingleton::getInstance('UMail'); 
                     if($mail->inviaEmailPrenotazioneCancellata($datiPerEmail))
                     {
-                        $messaggio[1]= "L'utente è stato avvisato con un'email dell'avvenuta eliminazione della prenotazione";
+                        $messaggio[1]= "L'utente è stato avvisato con un'email dell'avvenuta eliminazione della prenotazione";                      
                     }
                     else 
                     {
                         $messaggio[1]="Ci spiace, non è stato possibile inviare un'email all'utente";
-                        $messaggio[2]="Contatti l'utente per avvertirlo dell'avvenuta eliminazione della prenotazione";
+                        $messaggio[2]="Contatti l'utente per avvertirlo dell'avvenuta eliminazione della prenotazione";               
                     }
                 }
 //                $vPrenotazione->prenotazioneEliminata(TRUE, TRUE);

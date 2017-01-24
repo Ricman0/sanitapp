@@ -20,7 +20,7 @@
             <li class="nav" id="registrazione">
                 <a class="nav" ><i class="fa fa-user-plus fa-lg" id="icona-registrazione" aria-hidden="true"></i> Registrazione</a>
                <div class="dropdown-content">
-                    <a id="registrazioneUtente" ><i class="fa fa-user fa-lg" id="icona-esami" aria-hidden="true"></i> Utente</a>
+                    <a id="registrazioneUtente" ><i class="fa fa-user fa-lg registrazioneUtente" id="icona-esami" aria-hidden="true"></i> Utente</a>
                     <a id="registrazioneMedico" ><i class="fa fa-user-md fa-lg" id="icona-esami" aria-hidden="true"></i> Medico</a>
                     <a id="registrazioneClinica" ><i class="fa fa-hospital-o fa-lg" id="icona-esami" aria-hidden="true"></i> Clinica</a>
                 </div>
