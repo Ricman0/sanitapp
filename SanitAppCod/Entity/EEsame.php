@@ -80,8 +80,8 @@ class EEsame
      * @param string $nomeEsame Il nome dell'esame
      * @param string $medico Il nome e cognome del medico che effettua l'esame
      * @param string $nomeCategoria La categoria a cui appartiene l'esame
-     * @param type $prezzo Il prezzo dell'esame
-     * @param type $durata La durata dell'esame
+     * @param float $prezzo Il prezzo dell'esame
+     * @param string $durata La durata dell'esame 
      * @param int $numPrestazioniSimultanee Il numero di prestazioni simultanee dell'esame
      * @param string $descrizione Breve descrizione dell'esame
      * @throws XEsameException Se l'esame non esiste

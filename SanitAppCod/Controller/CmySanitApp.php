@@ -10,7 +10,9 @@
 class CmySanitApp {
     
     /**
-     * Metodo che consente di impostare la pagina personale di qualsiasi user
+     * Metodo che consente di impostare la pagina personale di qualsiasi user.
+     * 
+     * @access public
      */
     public function impostaPaginaPersonale() 
     {

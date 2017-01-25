@@ -1,13 +1,17 @@
 <div class="sideNavBar affiancato verticalmenteAllineato" id="divSideNavBar">
     <ul  id="sideNavBarList">
         {foreach from=$tastiLaterali key=id item=tasto}
-            <li><a id="{$id}" >{$tasto}</a>
-                {if $tasto=="Impostazioni"}
-                    <div class="dropside-content">
-                        <a id="modificaCredenzialiUtente" > Modifica Credenziali</a>
-                        <a id="modificaMedicoCurante" > Modifica Medico Curante</a>
-                        <a id="modificaDatiUtente" > Modifica dati personali</a>
-                    </div>
+            
+                {if $tasto=="Impostazioni" && count($tastiLaterali)==6}
+                    <li class="nav" id='impostazioniClinica'>
+                        <a id="{$id}" class="nav" >{$tasto}</a>
+                      <!--  <button onclick="myFunction()" class="dropbtn">Dropdown</button> -->
+                        <div class="dropdown-content">
+                          <a id='impostazioniGeneraliClinica' >Impostazioni Generali </a>
+                          <a id='impostazioniWorkingPlan'>Working Plan</a>
+                        </div>  
+                {else}
+                    <li><a id="{$id}" >{$tasto}</a>
                 {/if}
             </li>
         {/foreach}         

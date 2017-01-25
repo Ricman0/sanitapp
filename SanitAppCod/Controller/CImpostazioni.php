@@ -123,11 +123,21 @@ class CImpostazioni {
                 if($task2 === 'medico')
                 {
                     try {
-                        $codiceMedico = $vImpostazioni->recuperaValore('codice');
-                        $eUtente = new EUtente(NULL, $username);
-                        $eUtente->aggiungiMedicoCurante($codiceMedico);
-                        $eMedico = new EMedico($codiceMedico);
-                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                        $codiceMedico['codiceFiscale'] = $vImpostazioni->recuperaValore('codice');
+                        $uValidazione = USingleton::getInstance('UValidazione');
+                        $uValidazione->validaDati($codiceMedico);
+                        if($uValidazione->getValidati()===TRUE)
+                        {
+                            $eUtente = new EUtente(NULL, $username);
+                            $eUtente->aggiungiMedicoCurante($codiceMedico);
+                            $eMedico = new EMedico($codiceMedico);
+                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                        }
+                        else
+                        {
+                            $vJSON = USingleton::getInstance('VJSON');
+                            $vJSON->inviaDatiJSON(FALSE);
+                        }
                         
                     } 
                     catch (XUtenteException $ex) {

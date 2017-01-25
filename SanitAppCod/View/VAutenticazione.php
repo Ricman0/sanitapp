@@ -198,7 +198,7 @@ class VAutenticazione extends View {
     }
 
     /**
-     * Metodo che contente di impostare header e pagina personale
+     * Metodo che contente di impostare header e  la pagina personale dell'user.
      * 
      * @access public
      * @param string $username L'username dell'user

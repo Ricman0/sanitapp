@@ -36,7 +36,7 @@ class UValidazione {
     private $_validati;
     
     /**
-     * Costruttore della classe UValidazione
+     * Costruttore della classe UValidazione.
      * 
      * @access public
      */
@@ -48,10 +48,10 @@ class UValidazione {
     }
     
     /**
-     * Metodo che consente di conoscere i dati  validati
+     * Metodo che consente di conoscere i dati  validati.
      * 
      * @access public
-     * @return Array I dati validi
+     * @return array I dati validi
      */
     public function getDatiValidi() 
     {
@@ -59,7 +59,7 @@ class UValidazione {
     }
     
     /**
-     * Metodo che consente di conoscere se i dati sono validati
+     * Metodo che consente di conoscere se i dati sono validati.
      * 
      * @access public
      * @return boolean TRUE dati validi, FALSE almeno un dato non era valido
@@ -70,11 +70,11 @@ class UValidazione {
     }
     
     /**
-     * Metodo che consente di conoscere gli errori che si sono verificati 
-     * durante la validazione dei dati
+     * Metodo che consente di conoscere i dati che si sono rilevati errati
+     * durante la validazione dei dati.
      * 
      * @access public
-     * @return Array I dati sbagliati
+     * @return array I dati sbagliati
      */
     public function getDatiErrati() 
     {
@@ -82,7 +82,7 @@ class UValidazione {
     }
    
     /**
-     * Metodo che consente di impostare  validati a true
+     * Metodo che consente di impostare  $_validati a true.
      * 
      * @access private
      * @param boolean TRUE dati validi, FALSE almeno un dato non era valido
@@ -93,10 +93,10 @@ class UValidazione {
     }
     
     /**
-     * Metodo che permette la validazione di tutti i dati 
+     * Metodo che permette la validazione di tutti i dati .
      * 
      * @access public
-     * @param Array $dati Dati  da validare
+     * @param array $dati Dati  da validare
      * @return boolean TRUE se tutti i dati sono stati validati, FALSE altrimenti.
      */
     public function validaDati($dati) 
@@ -232,7 +232,7 @@ class UValidazione {
     
     
     /**
-     * Metodo che consente di validare una stringa contenente data in formato YYYY-MM-DD e ora hh:mm
+     * Metodo che consente di validare una stringa contenente data in formato YYYY-MM-DD e ora hh:mm.
      * 
      * @access public
      * @param string $dataOra Data e ora da validare
@@ -253,10 +253,10 @@ class UValidazione {
  
     
     /**
-     * Metodo che permette la validazione di tutti i dati dell'esame
+     * Metodo che permette la validazione di tutti i dati dell'esame.
      * 
      * @access public
-     * @param Array $datiEsame Dati dell'esame da validare
+     * @param array $datiEsame Dati dell'esame da validare
      * @return boolean TRUE se tutti i dati sono stati validati, FALSE altrimenti.
      */
     public function validaDatiEsame($datiEsame) 
@@ -305,7 +305,7 @@ class UValidazione {
     
     
    /**
-     * Metodo che permette di effettuare la validazione di un dato 
+     * Metodo che permette di effettuare la validazione di un dato .
      * 
      * @access private
      * @param string $pattern Description
@@ -338,9 +338,11 @@ class UValidazione {
     
     
     /**
-     * Valida i dati del referto come la dimensione massima, il formato del file e controlla l'esistenza del file
+     * Valida i dati del referto come la dimensione massima, il formato del file e controlla l'esistenza del file.
+     * 
+     * @access public
      * @param array $datiDaValidare un array contenente i dati relativi al referto da validare
-     * @return type
+     * @return boolean TRUE validati, FALSE altrimenti
      */
     public function validaDatiReferto($datiDaValidare) {
         
@@ -368,7 +370,7 @@ class UValidazione {
     }
     
     /**
-     * Metodo che consente di validare il nome di una categoria
+     * Metodo che consente di validare il nome di una categoria.
      * 
      * @access public
      * @param string $nomeCategoria Il nome della categoria
