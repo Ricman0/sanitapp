@@ -603,4 +603,32 @@ class EUtente extends EUser {
         $fUtente = USingleton::getInstance('FUtente');
         return $fUtente->modificaUtente($this);
     }
+    
+    /**
+     * Metodo che consente di cercare tutti i medici dell'applicazione.
+     * 
+     * @access public
+     * @return array I medici dell'applicazione
+     * @throws XDBException In caso di insuccesso della query
+     */
+    public function cercaMedici() {
+        $fMedici = USingleton::getInstance('FMedico');
+        $medici = $fMedici->cerca();
+         return $medici;
+    }
+    
+    /**
+     * Metodo che aggiunge il medico curante dell'utente anche nel DB.
+     * 
+     * @access public
+     * @param string $codiceMedico Il codice fiscale del medico curante dell'utente
+     * @return boolean TRUE se la query viene eseguito con successo altrimenti lancia un'eccezione
+     * @throws XDBException Se la query non è eseguita con successo
+     */
+    public function aggiungiMedicoCurante($codiceMedico) {
+        $this->setMedicoCurante($codiceMedico);
+        $daModificare['CodFiscaleMedico'] = $codiceMedico;
+        $fUtente = USingleton::getInstance('FUtente');
+        return $fUtente->update($this->getCodFiscaleUtente(), $daModificare );
+    }
 }

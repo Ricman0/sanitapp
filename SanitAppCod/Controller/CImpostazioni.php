@@ -60,6 +60,31 @@ class CImpostazioni {
                     }
                 }
                 break;
+            case 'aggiungi':
+                $task2 = $vImpostazioni->getTask2();
+                if($task2 === 'medico')
+                {
+                    try {
+                        $eUtente = new EUtente(NULL, $username);
+                        $medici = $eUtente->cercaMedici();
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON($medici);
+                    } catch (XUtenteException $ex) {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
+                    }
+                    catch (XDBException $ex) {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
+                    }
+                    
+                }
+                else
+                {
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON(FALSE);
+                }
+                break;
         }
     }
 
@@ -87,6 +112,47 @@ class CImpostazioni {
                 }
                 break;
 
+            case 'aggiungi': // POST impostazioni/aggiungi
+                $task2 = $vImpostazioni->getTask2();
+                if($task2 === 'medico')
+                {
+                    try {
+                        $codiceMedico['codiceFiscale'] = $vImpostazioni->recuperaValore('codice');
+                        $uValidazione = USingleton::getInstance('UValidazione');
+                        $uValidazione->validaDati($codiceMedico);
+                        if($uValidazione->getValidati()===TRUE)
+                        {
+                            $eUtente = new EUtente(NULL, $username);
+                            $eUtente->aggiungiMedicoCurante($codiceMedico);
+                            $eMedico = new EMedico($codiceMedico);
+                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                        }
+                        else
+                        {
+                            $vJSON = USingleton::getInstance('VJSON');
+                            $vJSON->inviaDatiJSON(FALSE);
+                        }
+                        
+                    } 
+                    catch (XUtenteException $ex) {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
+                    }
+                    catch (XMedicoException $ex) {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
+                    }
+                    catch (XDBException $ex) {
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
+                    }
+                }
+                else {
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON(FALSE);
+                }
+                break;
+            
             case 'modifica': // POST impostazioni/modifica
 // caso per modificare le impostazioni di un utente
                 $task2 = $vImpostazioni->getTask2();

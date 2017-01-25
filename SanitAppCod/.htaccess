@@ -11,6 +11,7 @@
 
   RewriteCond %{REQUEST_METHOD} GET 
   RewriteRule ^(categorie)$ index.php?controller=$1 [L]
+  RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
   RewriteRule ^(categorie)/(visualizza)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(users)/(visualizza|bloccati|daValidare)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(users|usersBloccati|usersDaValidare)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
@@ -37,7 +38,7 @@
   RewriteRule ^(validazione)/(codiceFiscale)/(\w+)$ index.php?controller=$1&task=$2&parametro=$3
   RewriteRule ^(\w+)$ index.php?controller=$1
   RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(prenotazioni|referti|impostazioni)/(visualizza)?$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(prenotazioni|referti|impostazioni|workingPlan)/(visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(impostazioni)/(modifica)/(informazioni|medico|alboNum|credenziali)?$ index.php?controller=$1&task=$2&task2=$3 [L]
   RewriteRule ^(prenotazioni|pazienti|referti|clienti)/(aggiungi|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]  
@@ -49,6 +50,7 @@
 
 
     RewriteCond %{REQUEST_METHOD} POST
+    RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(referto)/(elimina)$ index.php?controller=$1&task=$2 [L] 
     RewriteRule ^(registrazione)/(conferma)$ index.php?controller=$1&task=$2 [L] 
     RewriteRule ^(referto)/(condividi)$ index.php?controller=$1&task=$2 [L]
