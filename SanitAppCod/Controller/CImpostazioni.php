@@ -45,7 +45,8 @@ class CImpostazioni {
                 break;
 
             case 'modifica': { // GET impostazioni/modifica
-                    switch ($tipoUser) {
+                    try {
+                        switch ($tipoUser) {
                         case 'utente':
                             $eUtente = new EUtente(NULL, $username);
                             $modificaImpostazioni = $vImpostazioni->getTask2();
@@ -59,12 +60,18 @@ class CImpostazioni {
                             break;
 
                         case 'clinica':
-                            $vImpostazioni->visualizzaImpostazioniClinica();
+                            $eClinica = new EClinica($username);
+                            $vImpostazioni->visualizzaImpostazioniClinica($eClinica,NULL,TRUE);
                             break;
 
                         default:
                             break;
+                        }
+                        
+                    } catch (Exception $ex) {
+                        
                     }
+                    
                 }
                 break;
             case 'aggiungi':
@@ -359,11 +366,17 @@ class CImpostazioni {
             //                                $vJSON = USingleton::getInstance('VJSON');
             //                              $vJSON->inviaDatiJSON(TRUE);
                         }
-                        else
+                        elseif($tipoUser==='medico')
                         {
                             $eMedico = new EMedico(NULL, $username);
                             $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
 
+                        }
+                        else
+                        {
+                            $eClinica = new EClinica($username);
+                            print_r($eClinica);
+                            $vImpostazioni->visualizzaImpostazioniClinica($eClinica);
                         }
                     } 
                     else {
@@ -380,6 +393,10 @@ class CImpostazioni {
                 $vJSON->inviaDatiJSON(FALSE);
             }
             catch (XMedicoException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
+            catch (XClinicaException $ex) {
                 $vJSON = USingleton::getInstance('VJSON');
                 $vJSON->inviaDatiJSON(FALSE);
             }
@@ -426,7 +443,7 @@ class CImpostazioni {
             case 'clinica': 
                 try {
                     $eClinica = new EClinica($username);
-                    $vImpostazioni->visualizzaImpostazioniClinica($eClinica);
+                    $vImpostazioni->visualizzaImpostazioniClinica($eClinica, TRUE, TRUE);
                 } 
                 catch (XClinicaException $ex) {
                     $messaggio = $ex->getMessage();

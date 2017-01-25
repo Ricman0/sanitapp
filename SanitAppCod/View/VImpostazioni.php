@@ -50,10 +50,14 @@ class VImpostazioni extends View{
      * @access public 
      * @param EClinica $clinica La clinica di cui si vogliono visualizzare le impostazioni
      */
-    public function visualizzaImpostazioniClinica($clinica) {
+    public function visualizzaImpostazioniClinica($clinica, $informazioniGenerali=NULL, $credenziali=NULL ) {
         $this->assegnaVariabiliTemplate('clinica', $clinica);
-        $this->assegnaVariabiliTemplate('informazioniGenerali', TRUE);
-        $this->assegnaVariabiliTemplate('credenziali', TRUE);
+        $this->assegnaVariabiliTemplate('informazioniGenerali', $informazioniGenerali);
+        $this->assegnaVariabiliTemplate('credenziali', $credenziali);
+        if(!isset($informazioniGenerali))
+        {
+            $this->assegnaVariabiliTemplate('modificaCredenziali', TRUE);
+        }
         $this->visualizzaTemplate('impostazioniClinica'); 
     }
     
@@ -216,7 +220,7 @@ class VImpostazioni extends View{
             }
            
         } 
-        $workingPlan["tempoLimite"] = $_POST["tempoLimite"];
+//        $workingPlan["tempoLimite"] = $_POST["tempoLimite"];
         return json_encode($workingPlan);        
     }
     
