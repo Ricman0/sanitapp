@@ -151,7 +151,7 @@ class UMail {
                 . " per il " . $datiPerMail['dataEOra'] . " presso la clinica " . $datiPerMail['nomeClinica'] . " è stata cancellata"; 
         $this->_email->Body = $body;
         $inviata = $this->_email->send();
-        if ($inviata)
+        if ($inviata === TRUE)
         {
             return $inviata;
         }

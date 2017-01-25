@@ -172,7 +172,7 @@ class EClinica extends EUser {
                
                 $this->_esami = Array();
             } else {
-                throw new XClinicaException('Clinica inesistente');
+                throw new XClinicaException('Clinica inesistente. ');
             }
         } else {
             parent::__construct($username, $password, $email);

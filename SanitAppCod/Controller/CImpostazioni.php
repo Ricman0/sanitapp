@@ -33,7 +33,14 @@ class CImpostazioni {
                 
                 break;
 
-            case 'visualizza': // GET impostazioni/visualizza
+//            case 'visualizza': // GET impostazioni/visualizza
+//                $this->visualizzaImpostazioni($tipoUser, $username);
+//                break;
+            case 'workingPlan':
+                $this->visualizzaWorkingPlan($username);
+                break;
+            
+            case 'generali':
                 $this->visualizzaImpostazioni($tipoUser, $username);
                 break;
 
@@ -416,14 +423,45 @@ class CImpostazioni {
                 $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
                 break;
 
-            case 'clinica': {
+            case 'clinica': 
+                try {
                     $eClinica = new EClinica($username);
-                    $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getArrayWorkingPlanClinica());
+                    $vImpostazioni->visualizzaImpostazioniClinica($eClinica);
+                } 
+                catch (XClinicaException $ex) {
+                    $messaggio = $ex->getMessage();
+                    $vImpostazioni->visualizzaFeedback($messaggio);
+                }
+                catch (XDBException $ex) {
+                    $vImpostazioni->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperare il working plan della clinica. ");
                 }
                 break;
 
             default:
                 break;
             } 
+    }
+    
+    /**
+     * Metodo che consente di visualizzare il working plan di una clinica dell'applicazione.
+     * 
+     * @access public
+     * @param string $username L'username dell'user dell'applicazione che vuole visualizzare il suo working plan
+     */
+    public function visualizzaWorkingPlan($username) {
+        $vImpostazioni = USingleton::getInstance('VImpostazioni');
+        try {
+            $eClinica = new EClinica($username);
+            $vImpostazioni->visualizzaWorkingPlanClinica($eClinica->getArrayWorkingPlanClinica());
+        } 
+        catch (XClinicaException $ex) {
+            $messaggio = $ex->getMessage();
+            $vImpostazioni->visualizzaFeedback($messaggio);
+        }
+        catch (XDBException $ex) {
+            $vImpostazioni->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperare il working plan della clinica. ");
+        }
+            
+                
     }
 }

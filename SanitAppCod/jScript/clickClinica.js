@@ -96,10 +96,13 @@ $(document).ready(function () {
     });
 
     $('#headerMain').on("click", "#impostazioniAreaPersonaleClinica", function () {
-        inviaControllerTask('impostazioni', 'visualizza', "#contenutoAreaPersonale");
-
+        inviaControllerTask('impostazioni', 'generali', "#contenutoAreaPersonale");
     });
 
+     $('#headerMain').on("click", "#workingPlanAreaPersonaleClinica", function () {
+        inviaControllerTask('impostazioni', 'workingPlan', "#contenutoAreaPersonale");
+    });
+    
 //    $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {
 //        inviaImpostazioniClinica('#workingPlan','#giornoPausa','#inizioPausa','#finePausa','impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
 //    });

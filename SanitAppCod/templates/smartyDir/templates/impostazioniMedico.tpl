@@ -4,45 +4,45 @@
             INFORMAZIONI GENERALI
         </h4>
         {if isset($medico)}
-            <label for="nome">Nome :</label>
-            <input type="text" name="nome" value ="{$medico->getNomeMedico()}" readonly />
+            <label for="nome" class="elementiForm">Nome :</label>
+            <input type="text" name="nome" class="elementiForm" value ="{$medico->getNomeMedico()}" readonly />
             <br>
-            <label for="cognome">Cognome :</label>
-            <input type="text" name="cognome" value ="{$medico->getCognomeMedico()}" readonly />
+            <label for="cognome" class="elementiForm">Cognome :</label>
+            <input type="text" name="cognome" class="elementiForm" value ="{$medico->getCognomeMedico()}" readonly />
             <br>
-            <label for="codice">Codice Fiscale :</label>
-            <input type="text" name="codice" maxlength="16" value ="{$medico->getCodFiscaleMedico()}" readonly />
+            <label for="codice" class="elementiForm">Codice Fiscale :</label>
+            <input type="text" name="codice" class="elementiForm" maxlength="16" value ="{$medico->getCodFiscaleMedico()}" readonly />
             <br>
-            <label for="email">Email :</label>
-            <input type="text" name="email" value ="{$medico->getEmailUser()}" readonly />
+            <label for="email" class="elementiForm">Email :</label>
+            <input type="text" name="email" class="elementiForm" value ="{$medico->getEmailUser()}" readonly />
             <br>
                 {if isset($modificaInformazioni)}
                     <form id="formModificaInformazioni">
-                        <label for="Via">Indirizzo :</label>
-                        <input type="text" name="Via" value ="{$medico->getViaMedico()}" />
+                        <label for="Via" class="elementiForm">Indirizzo :</label>
+                        <input type="text" name="Via" class="elementiForm" value ="{$medico->getViaMedico()}" />
                         <label>, </label>
-                        <input type="text" name="NumCivico" value="{$medico->getNumCivicoMedico()}" />
+                        <input type="text" name="NumCivico" class="elementiForm" value="{$medico->getNumCivicoMedico()}" />
                         <br>
-                        <label for="CAP">CAP :</label>
-                        <input type="text" name="CAP" maxlength="5" value="{$medico->getCAPMedico()}" />
+                        <label for="CAP" class="elementiForm">CAP :</label>
+                        <input type="text" name="CAP" class="elementiForm" maxlength="5" value="{$medico->getCAPMedico()}" />
                         <br>
                         <input type="submit" id="modificaIndirizzoMedicoFatto" value="OK" />
                     </form>
                 {else}
-                    <label for="Via">Indirizzo :</label>
-                    <input type="text" name="Via" value="{$medico->getViaMedico()}" readonly />
+                    <label for="Via" class="elementiForm">Indirizzo :</label>
+                    <input type="text" name="Via" class="elementiForm" value="{$medico->getViaMedico()}" readonly />
                     <label>, </label>
-                    <input type="text" name="NumCivico" value="{$medico->getNumCivicoMedico()}" readonly />
+                    <input type="text" name="NumCivico" class="elementiForm" value="{$medico->getNumCivicoMedico()}" readonly />
                     <br>
-                    <label for="CAP">CAP :</label>
-                    <input type="text" name="CAP" maxlength="5" value="{$medico->getCAPMedico()}" readonly />
+                    <label for="CAP" class="elementiForm">CAP :</label>
+                    <input type="text" name="CAP" class="elementiForm" maxlength="5" value="{$medico->getCAPMedico()}" readonly />
                     <br>
                     <input type="button" id="modificaIndirizzoMedico" value="Modifica Indirizzo" />  
                     <br>
                 {/if}
                 {if isset($modifica)}
                     <form id="formModificaAlboNum">
-                        <label for="ProvinciaAlbo">Provincia Albo :</label>
+                        <label for="ProvinciaAlbo" class="elementiForm">Provincia Albo :</label>
                        <!-- <select type="text" name="provinciaAlbo" class="elementiForm" id="provinciaAlbo" value="{$medico->getProvinciaAlboMedico()}" required > -->
                             <select name="provinciaAlbo" class="elementiForm" >
                             <!--<option disabled selected value=""> -- select an option -- </option> -->
@@ -158,17 +158,17 @@
                             <option {if ($medico->getProvinciaAlboMedico()=='VITERBO')} selected="selected" {/if} >VITERBO</option>
                         </select>
                         <br>
-                        <label for="numeroIscrizione">Numero Iscrizione :</label>
-                        <input type="text" name="numeroIscrizione" maxlength="6" value="{$medico->getNumIscrizioneMedico() }" />
+                        <label for="numeroIscrizione" class="elementiForm">Numero Iscrizione :</label>
+                        <input type="text" name="numeroIscrizione" class="elementiForm" maxlength="6" value="{$medico->getNumIscrizioneMedico() }" />
                         <br>
                         <input type="submit" id="modificaMedicoFatto" value="OK" />  
                     </form>
                 {else}
-                    <label for="ProvinciaAlbo">Provincia Albo :</label>
-                    <input type="text" name="ProvinciaAlbo" value="{$medico->getProvinciaAlboMedico()}" readonly />
+                    <label for="ProvinciaAlbo" class="elementiForm">Provincia Albo :</label>
+                    <input type="text" name="ProvinciaAlbo" class="elementiForm" value="{$medico->getProvinciaAlboMedico()}" readonly />
                     <br>
-                    <label for="numeroIscrizione">Numero Iscrizione :</label>
-                    <input type="text" name="numeroIscrizione" maxlength="6" value="{$medico->getNumIscrizioneMedico() }" readonly />
+                    <label for="numeroIscrizione" class="elementiForm">Numero Iscrizione :</label>
+                    <input type="text" name="numeroIscrizione" class="elementiForm" maxlength="6" value="{$medico->getNumIscrizioneMedico() }" readonly />
                     <br>
                     <input type="button" id="modificaMedico" value="Modifica" />  
                 {/if}
@@ -185,18 +185,18 @@
         {if isset($medico)}                    
             {if isset($modificaCredenziali)}
                 <form id="formModificaPassword" >                    
-                    <label for="username">Username :</label>
-                    <input type="text" name="username" value ="{$medico->getUsernameUser()}" readonly />
-                    <label for="password">Password :</label>
-                    <input type="password" name="password" id='nuovaPassword'/>
-                    <label for="ripetiPassword">Ripeti Password :</label>
-                    <input type="password" name="ripetiPassword" />
+                    <label for="username" class="elementiForm">Username :</label>
+                    <input type="text" name="username" class="elementiForm" value ="{$medico->getUsernameUser()}" readonly />
+                    <label for="password" class="elementiForm">Password :</label>
+                    <input type="password" name="password" class="elementiForm" id='nuovaPassword'/>
+                    <label for="ripetiPassword" class="elementiForm">Ripeti Password :</label>
+                    <input type="password" name="ripetiPassword" class="elementiForm" />
                     <br>
                     <input type="submit" id="inviaNuovaPassword" value="Invia Nuova Password" />
                 </form>
             {else}  
-                <label for="username">Username :</label>
-                <input type="text" name="username" value ="{$medico->getUsernameUser()}" readonly />
+                <label for="username" class="elementiForm">Username :</label>
+                <input type="text" name="username" class="elementiForm" value ="{$medico->getUsernameUser()}" readonly />
                 <br>
                 <input type="button" id="modificaPassword" value="Modifica Credenziali" />
             {/if}

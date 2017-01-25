@@ -45,12 +45,25 @@ class VImpostazioni extends View{
     }
     
     /**
-     * Metodo che consente di visualizzare le impostazioni della clinica
+     * Metodo che consente di visualizzare le impostazioni della clinica.
+     *
+     * @access public 
+     * @param EClinica $clinica La clinica di cui si vogliono visualizzare le impostazioni
+     */
+    public function visualizzaImpostazioniClinica($clinica) {
+        $this->assegnaVariabiliTemplate('clinica', $clinica);
+        $this->assegnaVariabiliTemplate('informazioniGenerali', TRUE);
+        $this->assegnaVariabiliTemplate('credenziali', TRUE);
+        $this->visualizzaTemplate('impostazioniClinica'); 
+    }
+    
+    /**
+     * Metodo che consente di visualizzare il working plan della clinica.
      *
      * @access public 
      * @param array $workingPlan array contenente il workingPlan settimanale della clinica
      */
-    public function visualizzaImpostazioniClinica($workingPlan)
+    public function visualizzaWorkingPlanClinica($workingPlan)
     {  
        $giorni = Array("Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica");
        $this->assegnaVariabiliTemplate('workingPlan', $workingPlan);
