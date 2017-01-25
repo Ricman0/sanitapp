@@ -77,18 +77,12 @@ class CImpostazioni {
             case 'clinica':
 
                 $task2 = $vImpostazioni->getTask2();
-                echo ($task2);
                 if ($task2 === "workingPlan") {
-//                
                     $workingPlanText = $vImpostazioni->recuperaWorkingPlan();
-                    print_r($workingPlanText);
-
                     $eClinica = new EClinica($username);
                     $salvato = $eClinica->salvaWorkingPlanClinica($workingPlanText);
-                    if ($salvato === "TRUE") {
-                        echo "set salvato ";
-                        //$vImpostazioni->setSalvato(TRUE);
-                        $vImpostazioni->visualizzaImpostazioniClinica();
+                    if ($salvato) {
+                        $vImpostazioni->visualizzaFeedback('Working Plan salvato con successo');
                     }
                 }
                 break;

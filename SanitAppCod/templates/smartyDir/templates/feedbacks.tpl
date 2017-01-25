@@ -1,3 +1,4 @@
+<br><br>
 <div>
     {if (is_array($messaggio))}
         {foreach from=$messaggio item=curr_mess}

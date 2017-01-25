@@ -5,11 +5,11 @@
             <div class="row-fluid">
                 <div class="col-md-7 working-plan-wrapper">
                     <h4>Working Plan</h4>
-                    <span class="help-block">
+                    <p class="help-block">
                         Spunta i giorni lavorativi della tua attività.
                         Aggiungi gli orari di inizio e fine giornata.
-                    </span>
-
+                    </p>
+                    <br>
                     <table class="working-plan table table-striped">
                         <thead>
                             <tr>
@@ -39,16 +39,18 @@
                         </tbody>
                     </table>
 
-                    <br>
+              <!--      <br>
 
                     <h4>Tempo Limite Prenotazione</h4>
-                    <span class="help-block">
+                    <p class="help-block">
                         Definisci il tempo limite entro cui i clienti possono prenotare o modificare gli appuntamenti.
-                    </span>
+                    </p>
+                    <br>
                     <div class="form-group">
                         <label for="tempoLimite">Tempo Limite</label>
                         <input type="text" id="tempoLimite" name="tempoLimite" class="time" {if isset($workingPlan.tempoLimite)}value="{$workingPlan.tempoLimite}"{/if}/>
                     </div>
+              -->
                 </div>
             </div>
         </fieldset>

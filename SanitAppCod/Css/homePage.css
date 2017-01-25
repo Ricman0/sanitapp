@@ -405,6 +405,10 @@ hr{
     
 }
 
+.cliccabile{
+    cursor: pointer;
+}
+
 .rosso{
     color: red;
 }

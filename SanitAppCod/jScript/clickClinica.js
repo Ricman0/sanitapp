@@ -35,6 +35,7 @@ $(document).ready(function () {
                         center: 'title',
                         right: 'month,basicWeek,agendaDay'
                     },
+            eventDurationEditable:false,
             allDaySlot:false,
             slotDuration:'00:15:00',
             slotLabelFormat: 'HH:mm',
@@ -46,8 +47,7 @@ $(document).ready(function () {
             maxTime: "24:00:00",
             'viewRender': agendaViewDisplay,
             'dayClick': agendaDayClick,
-            'eventClick': agendaEventClick,
-            
+            'eventClick': agendaEventClick            
         });
 
 
@@ -163,8 +163,7 @@ $(document).ready(function () {
         inviaControllerTaskPOST('referto', 'elimina', datiPOST, '#contenutoAreaPersonale');
     });
 
-    $('#headerMain').on("click", "#uploadReferto", function () {
-        $( "#loading" ).show();
+    $('#headerMain').on("click", "#uploadReferto", function () {        
         validazioneReferto(); // in validazioneDati.js
         if ($("#formUploadReferto").valid()) {
             uploadReferto();
@@ -215,7 +214,7 @@ $(document).ready(function () {
             else
             {
                 
-                if(nomeLabel =='categoria')
+                if(nomeLabel ==='categoria')
                 {
                     $( '#modificaEsameForm').append("<select name='categoria' id='modificaCategoriaEsame' class='elementiForm' required >"
                             + "<option selected value='" + $(this).text().trim() + "'> " + $(this).text().trim() + " </option>"
@@ -638,8 +637,7 @@ function aggiuntaReferto(id)
 
 function uploadReferto()
 {
-    alert('uff');
-
+    $( "#loadingModal" ).show();
 //formData ci permette di costruire un set di coppie chiave/valore che rappresentano i campi della form con i relativi valori
     var dati = new FormData($("#formUploadReferto")[0]); //al posto di serialize il quale non può accedere ad input type="file"
     $.ajax({
@@ -669,7 +667,7 @@ function uploadReferto()
         },
         complete: function()
         {
-            $("#loading").hide();
+            $("#loadingModal").hide();
         }
 
     });
@@ -851,7 +849,7 @@ function agendaViewDisplay(view, element)
                             {
                                 // Aggiungo un periodoNonDisponibile per ogni pausa
                                 var breakStart, breakEnd;
-                                if(typeof(workingDay.BreakStart)!='undefined' && typeof(workingDay.BreakEnd)!='undefined' )
+                                if(typeof(workingDay.BreakStart)!=='undefined' && typeof(workingDay.BreakEnd)!=='undefined' )
                                 {
                                     breakStart = currDateStartString + ' ' + workingDay.BreakStart;
                                     breakEnd = currDateStartString + ' ' + workingDay.BreakEnd;
@@ -974,7 +972,7 @@ function agendaViewDisplay(view, element)
                             {
                                 // aggiungo una pausa  se presente
                                 var breakStart, breakEnd;
-                                if(typeof(workingDay.BreakStart)!='undefined' && typeof(workingDay.BreakEnd)!='undefined' )
+                                if(typeof(workingDay.BreakStart)!=='undefined' && typeof(workingDay.BreakEnd)!=='undefined' )
                                 {
                                     breakStart = currDateStartString + ' ' + workingDay.BreakStart;
                                     breakEnd = currDateStartString + ' ' + workingDay.BreakEnd;
@@ -1085,7 +1083,7 @@ function agendaViewDisplay(view, element)
                         
                         // aggiungo una pausa se presente
                         var breakStart, breakEnd;
-                        if(typeof(workingPlan[nomeGiorno].BreakStart)!= "undefined" && typeof(workingPlan[nomeGiorno].BreakEnd)!= "undefined" )
+                        if(typeof(workingPlan[nomeGiorno].BreakStart)!== "undefined" && typeof(workingPlan[nomeGiorno].BreakEnd)!== "undefined" )
                         {
                             breakStart = agendaView.start.format('YYYY-MM-DD') + ' ' + workingPlan[nomeGiorno].BreakStart;
                             breakEnd = agendaView.start.format('YYYY-MM-DD') + ' ' + workingPlan[nomeGiorno].BreakEnd;
@@ -1156,7 +1154,7 @@ function agendaEventClick(event, jsEvent, view)
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>ID Prenotazione: " + event.id + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Start: " + event.start.format('HH:mm')  + "</p><p>End: " + event.end.format('HH:mm') + "</p>" ;
-            if(event.eseguito==false)
+            if(event.eseguito===false)
             {
                descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-times fa-lg rosso modificaEseguito' aria-hidden='true'></i></p>";
             }

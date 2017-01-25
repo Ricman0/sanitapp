@@ -26,7 +26,7 @@
             <br>
             {if isset($dati)}
                 {foreach from=$dati item=curr_row}
-                    <tr id="{$curr_row['IDEsame']}" class="rigaEsame">
+                    <tr id="{$curr_row['IDEsame']}" class="rigaEsame cliccabile">
                         <td>{$curr_row['NomeEsame']}</td>
                         <td>{$curr_row['Descrizione']}</td>
                         <td>{$curr_row['Prezzo']}</td>

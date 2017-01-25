@@ -10,7 +10,7 @@
         <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiCategoria" aria-hidden="true" ></i>
         <br>
         {foreach from=$dati item=curr_row}
-            <tr id="{$curr_row['Nome']}" class="rigaCategoria">
+            <tr id="{$curr_row['Nome']}" class="rigaCategoria cliccabile">
                 <td>{$curr_row['Nome']}</td>
             </tr>
         {/foreach}

@@ -27,7 +27,7 @@
             <br>
         {/if}
         {foreach from=$dati item=curr_row}
-            <tr id="{$curr_row['Username']}" class="rigaUser">
+            <tr id="{$curr_row['Username']}" class="rigaUser cliccabile">
                 {if ($bloccati===TRUE  || $daValidare===TRUE) }
                     {if ($curr_row['TipoUser']==='utente' || $curr_row['TipoUser']==='medico')}
                         <td>{$curr_row['Nome']} {$curr_row['Cognome']}</td>

@@ -11,7 +11,7 @@
     </thead>
     <tbody>        
         {foreach from=$dati item=curr_row}
-            <tr id="{$curr_row['CodFiscale']}" class="rigaCliente">
+            <tr id="{$curr_row['CodFiscale']}" class="rigaCliente cliccabile">
                 <td>{$curr_row['CodFiscale']}</td>
                 <td>{$curr_row['Nome']}</td>
                 <td>{$curr_row['Cognome']}</td>

@@ -36,7 +36,7 @@
         
         {if ($tipoUser==='Utente')}
             {foreach from=$dati item=curr_row}
-                <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione">
+                <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione cliccabile">
                     <td>{$curr_row['IDPrenotazione']}</td>
                     <td>{$curr_row['NomeEsame']}</td>
                     <td>{$curr_row['NomeClinica']}</td>                     
@@ -48,7 +48,7 @@
         {else}
             {if ($tipoUser==='Medico')}
                 {foreach from=$dati item=curr_row}
-                    <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione">
+                    <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione cliccabile">
                         <td>{$curr_row['IDPrenotazione']}</td>
                         <td>{$curr_row['IDEsame']}</td>
                         <td>{$curr_row['NomeEsame']}</td>
@@ -60,7 +60,7 @@
                 {/foreach}
             {else}
                 {foreach from=$dati item=curr_row}
-                    <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione">
+                    <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione cliccabile">
                         <td>{$curr_row['IDPrenotazione']}</td>
                         <td>{$curr_row['IDEsame']}</td>
                         <td>{$curr_row['NomeEsame']}</td>

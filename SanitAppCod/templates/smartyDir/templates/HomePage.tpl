@@ -81,15 +81,15 @@
                 <div id="main">
                     {$mainRicerca}
                 </div> 
-                
+
             </div>
             <div id="dialog" title="Attenzione" >
                 <p id='messaggioDialogBox' ></p>
             </div>
-                <div id="loadingModal" class='modal'>    
-            <div id="loading" class="loading">
-                <!-- per l'animazione durante il caricamento di una pagina -->
-            </div>
+            <div id="loadingModal" class='modal'>    
+                <div id="loading" class="loading">
+                    <!-- per l'animazione durante il caricamento di una pagina -->
+                </div>
             </div>
             <!--Footer della pagina-->
             <div id="footer">

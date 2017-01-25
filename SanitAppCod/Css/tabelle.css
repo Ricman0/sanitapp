@@ -31,8 +31,6 @@ th, td {
     margin-left: 5%;
 }
 
-
-
 /* ajax error row */
 .tablesorter .tablesorter-errorRow td {
     text-align: center;
@@ -44,7 +42,4 @@ th, td {
 }
 .tablesorter-blue thead th:last-of-type{
     border-radius: 0 4px 0 0;
-}
-tr{
-    cursor: pointer;
 }
