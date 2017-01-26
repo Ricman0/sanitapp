@@ -1,9 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 
 $(document).ready(function () {
     
@@ -99,8 +93,12 @@ $(document).ready(function () {
         inviaControllerTask('impostazioni', 'generali', "#contenutoAreaPersonale");
     });
 
-     $('#headerMain').on("click", "#workingPlanAreaPersonaleClinica", function () {
+    $('#headerMain').on("click", "#workingPlanAreaPersonaleClinica", function () {
         inviaControllerTask('impostazioni', 'workingPlan', "#contenutoAreaPersonale");
+    });
+    
+    $('#headerMain').on("click", "#modificaInformazioniClinica", function () {
+        clickModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGenerali");
     });
     
 //    $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {

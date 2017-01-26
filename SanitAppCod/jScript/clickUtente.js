@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 $(document).ready(function () {
     $('#headerMain').on("click", "#prenotazioniAreaPersonaleUtente", function () {
@@ -131,6 +126,8 @@ $(document).ready(function () {
 function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
 {
     var dati = $("div.daModificare > form").serialize();
+    alert('ecco i dati');
+   alert(dati);
     $.ajax({
         type: 'POST',
         url: controller + '/' + task + '/' + task2,
@@ -158,7 +155,7 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
                         break;
 
                     case 'informazioni':
-                        $('#messaggioDialogBox').text('Informazioni personali modificate con successo!');
+                        $('#messaggioDialogBox').text('Informazioni modificate con successo!');
     //                    $('#modificaIndirizzoUtenteFatto').remove();// elimino il tasto OK
     //                    $(".daModificare").append("<input type='button' id='modificaIndirizzoUtente' value='Modifica Indirizzo' />");//inserisco il tasto della modifica
                         break;

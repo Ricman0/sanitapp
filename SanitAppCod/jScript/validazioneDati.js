@@ -126,57 +126,164 @@ function validazioneCredenziali()
 
 function validazioneInformazioni()
 {
-    $('#formModificaInformazioni').validate({
-        rules:
-                {
-                    Via:
-                            {
-                                required: true,
-                                maxlength: 30
-                            },
-                    NumCivico:
-                            {
-                                number: true,
-                                min: 0
-                            },
-                    CAP:
-                            {
-                                required: true,
-                                minlength: 5,
-                                maxlength: 5
-                            }
-                },
-        messages:
-                {
-                    Via:
-                            {
-                                required: "Inserire indirizzo",
-                                maxlength: "La lunghezza massima è 30"
-                            },
-                    NumCivico:
-                            {
-                                number: "Il numero civico è un numero",
-                                min: "Inserire un numero maggiore o uguale a zero"
-                            },
-                    CAP:
-                            {
-                                required: "Inserire il CAP",
-                                minlength: "Il CAP è un numero lungo 5",
-                                maxlength: "Il CAP è un numero lungo 5"
-                            }
-                },
-        errorPlacement: function (error, element) {
-            $(element).attr('title', error.text());
-        },
-        unhighlight: function (element) {
-            $(element).removeAttr('title').removeClass('error');
-        },
-        submitHandler: function ()
-        {
-            inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#contenutoAreaPersonale");
+    if ($('#formModificaInformazioni').length) // esiste formModificaInformazioni
+    {
+        $('#formModificaInformazioni').validate({
+            rules:
+                    {
+                        Via:
+                                {
+                                    required: true,
+                                    maxlength: 30
+                                },
+                        NumCivico:
+                                {
+                                    number: true,
+                                    min: 0
+                                },
+                        CAP:
+                                {
+                                    required: true,
+                                    minlength: 5,
+                                    maxlength: 5
+                                }
+                    },
+            messages:
+                    {
+                        Via:
+                                {
+                                    required: "Inserire indirizzo",
+                                    maxlength: "La lunghezza massima è 30"
+                                },
+                        NumCivico:
+                                {
+                                    number: "Il numero civico è un numero",
+                                    min: "Inserire un numero maggiore o uguale a zero"
+                                },
+                        CAP:
+                                {
+                                    required: "Inserire il CAP",
+                                    minlength: "Il CAP è un numero lungo 5",
+                                    maxlength: "Il CAP è un numero lungo 5"
+                                }
+                    },
+            errorPlacement: function (error, element) {
+                $(element).attr('title', error.text());
+            },
+            unhighlight: function (element) {
+                $(element).removeAttr('title').removeClass('error');
+            },
+            submitHandler: function ()
+            {
+                inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#contenutoAreaPersonale");
 
-        }
-    });
+            }
+        });
+    }
+    else
+    {
+        $('#formModificaInformazioniClinica').validate({
+            rules:
+                    {
+                        titolare:
+                                {
+                                    required: true,
+                                    maxlength: 50
+                                },
+                        Via:
+                                {
+                                    required: true,
+                                    maxlength: 30
+                                },
+                        NumCivico:
+                                {
+                                    number: true,
+                                    min: 0
+                                },
+                        CAP:
+                                {
+                                    required: true,
+                                    minlength: 5,
+                                    maxlength: 5
+                                },
+                        localitàClinica:
+                                {
+                                    required: true,
+                                    maxlength: 40
+                                },
+                        provinciaClinica:
+                                {
+                                    required: true,
+                                    maxlength: 22
+                                },
+                        telefono:
+                                {
+                                    required: true,
+                                    maxlength: 10
+                                },
+                        capitaleSociale:
+                            {
+                                required: true,
+                                maxlength: 11
+                            }
+                    },
+            messages:
+                    {
+                        titolare:
+                                {
+                                    required: "Inserire il nome e cognome del titolare",
+                                    maxlength: "La sequenza di caratteri deve essere massimo 50"
+                                },
+                        Via:
+                                {
+                                    required: "Inserire indirizzo",
+                                    maxlength: "La lunghezza massima è 30"
+                                },
+                        NumCivico:
+                                {
+                                    number: "Il numero civico è un numero",
+                                    min: "Inserire un numero maggiore o uguale a zero"
+                                },
+                        CAP:
+                                {
+                                    required: "Inserire il CAP",
+                                    minlength: "Il CAP è un numero lungo 5",
+                                    maxlength: "Il CAP è un numero lungo 5"
+                                },
+                        localitàClinica:
+                                {
+                                    required: "Inserire la località della clinica",
+                                    maxlength: "La sequenza massima di caratteri è 40"
+                                },
+                        provinciaClinica:
+                                {
+                                    required: "Inserire la provincia della clinica",
+                                    maxlength: "La sequenza massima di caratteri è 22"
+                                },
+                        telefonoClinica:
+                                {
+                                    required: "Inserire il telefono",
+                                    maxlength: "La sequenza massima di numeri è 10"
+                                },
+                        capitaleSociale:
+                                {
+                                    required: "Inserire il capitale sociale della clinica",
+                                    maxlength: "La sequenza massima di numeri è 11"
+                                }
+                    },
+            errorPlacement: function (error, element) {
+                $(element).attr('title', error.text());
+            },
+            unhighlight: function (element) {
+                $(element).removeAttr('title').removeClass('error');
+            },
+            submitHandler: function ()
+            {
+                inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#contenutoAreaPersonale");
+
+            }
+        });
+    }
 }
 
 function validazioneAlboNum()

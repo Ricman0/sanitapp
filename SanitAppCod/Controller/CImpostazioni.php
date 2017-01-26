@@ -60,8 +60,18 @@ class CImpostazioni {
                             break;
 
                         case 'clinica':
+                            $task2 = $vImpostazioni->getTask2();
                             $eClinica = new EClinica($username);
-                            $vImpostazioni->visualizzaImpostazioniClinica($eClinica,NULL,TRUE);
+                            if($task2==='informazioni')
+                            {
+                                $vImpostazioni->visualizzaImpostazioniClinica($eClinica,TRUE);
+                            }
+                            else 
+                            {
+                                $vImpostazioni->visualizzaImpostazioniClinica($eClinica,NULL,TRUE);
+                            }
+
+                            
                             break;
 
                         default:
@@ -233,7 +243,7 @@ class CImpostazioni {
                         $vJSON->inviaDatiJSON(FALSE);
                     }
                 }
-                else
+                elseif($tipoUser==='medico')
                 {
                     //tipouser medico
                     $eMedico = new EMedico(NULL, $username);
@@ -241,6 +251,22 @@ class CImpostazioni {
                     if($modificato === TRUE)
                     {
                         $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+                    }
+                    else
+                    {
+        //                    $vImpostazioni->visualizzaFeedback("C'è stato un errore non è stato possibile modificare le informazioni");
+                        $vJSON = USingleton::getInstance('VJSON');
+                        $vJSON->inviaDatiJSON(FALSE);
+
+                    }
+                }
+                else
+                {
+                    $eClinica = new EClinica($username);
+                    $modificato = $eClinica->modificaClinica($uValidazione->getDatiValidi());
+                    if($modificato === TRUE)
+                    {
+                        $vImpostazioni->visualizzaImpostazioniClinica($eClinica, TRUE, TRUE);
                     }
                     else
                     {
@@ -259,7 +285,12 @@ class CImpostazioni {
                 $vJSON = USingleton::getInstance('VJSON');
                 $vJSON->inviaDatiJSON(FALSE);
             }
+            catch (XClinicaException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
             catch (XDBException $ex) {
+                echo 'eorrrr';
                 $vJSON = USingleton::getInstance('VJSON');
                 $vJSON->inviaDatiJSON(FALSE);
             }    
@@ -375,8 +406,7 @@ class CImpostazioni {
                         else
                         {
                             $eClinica = new EClinica($username);
-                            print_r($eClinica);
-                            $vImpostazioni->visualizzaImpostazioniClinica($eClinica);
+                            $vImpostazioni->visualizzaImpostazioniClinica($eClinica, TRUE, TRUE);
                         }
                     } 
                     else {

@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of VImpostazioni
  *
@@ -57,6 +51,10 @@ class VImpostazioni extends View{
         if(!isset($informazioniGenerali))
         {
             $this->assegnaVariabiliTemplate('modificaCredenziali', TRUE);
+        }
+        if(!isset($credenziali))
+        {
+            $this->assegnaVariabiliTemplate('modificaInformazioni', TRUE);
         }
         $this->visualizzaTemplate('impostazioniClinica'); 
     }
@@ -236,6 +234,14 @@ class VImpostazioni extends View{
         $dati['Via'] = $this->recuperaValore('Via');
         $dati['NumCivico'] = $this->recuperaValore('NumCivico');
         $dati['CAP'] = $this->recuperaValore('CAP');
+        if($this->recuperaValore('capitaleSociale')!==FALSE) // recupera le informazioni ulteriori per la clinica
+        {
+            $dati['capitaleSociale'] = $this->recuperaValore('capitaleSociale');
+            $dati['telefono'] = $this->recuperaValore('telefono');
+            $dati['localitàClinica'] = $this->recuperaValore('localitàClinica');
+            $dati['provinciaClinica'] = $this->recuperaValore('provinciaClinica');
+            $dati['titolare'] = $this->recuperaValore('titolare');
+        }
         return $dati;
     }
     

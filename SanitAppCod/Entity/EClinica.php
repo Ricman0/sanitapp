@@ -1058,6 +1058,8 @@ class EClinica extends EUser {
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
     public function modificaClinica($datiDaModificare) {
+        
+        print_r($datiDaModificare);
         foreach ($datiDaModificare as $key => $value) {
             switch ($key) {
                 case 'username':
@@ -1075,7 +1077,6 @@ class EClinica extends EUser {
                     {
                         $this->setConfermato('FALSE');
                     }
-                    
                     break;
                 case 'validato':
                     if($value === 'true')
@@ -1108,21 +1109,24 @@ class EClinica extends EUser {
                     $this->setNomeClinica($value);
                     break;
                 case 'titolareClinica':
+                case 'titolare':
                     $this->setTitolareClinica($value);
                     break;
                 case 'via':
-                    $this->setViaUtente($value);
+                    $this->setViaClinica($value);
                     break;
                 case 'numeroCivico':
-                    $this->setNumCivicoUtente($value);
+                    $this->setNumeroCivicoClinica($value);
                     break;
                 case 'CAP':
-                    $this->setCAPUtente($value);
+                    $this->setCAPClinica($value);
                     break;
                 case 'località':
+                case 'localitàClinica':
                     $this->setLocalitaClinica($value);
                     break;
                 case 'provincia':
+                case 'provinciaClinica':
                     $this->setProvinciaClinica($value);
                     $this->trovaRegione($value);
                     break;

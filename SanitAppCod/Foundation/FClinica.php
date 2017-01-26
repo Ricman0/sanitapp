@@ -86,7 +86,7 @@ class FClinica extends FUser{
   
         $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'clinica')";
         $query2 = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella . ") VALUES( " . $valoriAttributi . ")";
-        print_r($query2);
+        
         try {
             // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
@@ -371,7 +371,7 @@ class FClinica extends FUser{
                 " WHERE  (Username='" . $clinica->getUsernameUser() . "') OR (Email='" . $clinica->getEmailUser() .  "') FOR UPDATE" ;
         
         $query1 = "UPDATE " . $this->_nomeTabella . " SET PartitaIVA='" . $clinica->getPartitaIVAClinica() . "', NomeClinica='" . $clinica->getNomeClinicaClinica() . "', Titolare='" . $clinica->getTitolareClinica() . "', "
-                . "', Via='" . $clinica->getViaClinica() . "', "
+                . "Via='" . $clinica->getViaClinica() . "', "
                 . "NumCivico='" . $clinica->getNumCivicoClinica() . "', CAP='" . $clinica->getCAPClinica() . "', "
                 . " Localita='" . $clinica->getLocalitaClinica() . "', Provincia='" . $clinica->getProvinciaClinica() . "', Regione='" . $clinica->getRegioneClinica() . "', Username='"
                 . $clinica->getUsernameUser() . "', Telefono='" . $clinica->getTelefonoClinica() . "', CapitaleSociale='" 
@@ -397,7 +397,6 @@ class FClinica extends FUser{
             // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            echo ('errore');
             // An exception has been thrown
             // We must rollback the transaction
             $this->_connessione->rollback();
