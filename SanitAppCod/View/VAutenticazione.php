@@ -44,6 +44,7 @@ class VAutenticazione extends View {
                 $this->_tastiLaterali['refertiAreaPersonaleClinica'] = "Referti";
                 $this->_tastiLaterali['clientiAreaPersonaleClinica'] = "Clienti";
                 $this->_tastiLaterali['impostazioniAreaPersonaleClinica'] = "Impostazioni";
+                $this->_tastiLaterali['workingPlanAreaPersonaleClinica'] = "Working Plan";
                 break;
             
             case 'amministratore':

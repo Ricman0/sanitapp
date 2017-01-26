@@ -25,4 +25,4 @@
     <button type="submit" id="submitRegistratiLogIn" class="normalSize registrazioneUtente">Registrati</button>
 </div>
     
-<br>
+<br>

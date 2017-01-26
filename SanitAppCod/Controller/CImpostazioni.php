@@ -33,12 +33,20 @@ class CImpostazioni {
                 
                 break;
 
-            case 'visualizza': // GET impostazioni/visualizza
+//            case 'visualizza': // GET impostazioni/visualizza
+//                $this->visualizzaImpostazioni($tipoUser, $username);
+//                break;
+            case 'workingPlan':
+                $this->visualizzaWorkingPlan($username);
+                break;
+            
+            case 'generali':
                 $this->visualizzaImpostazioni($tipoUser, $username);
                 break;
 
             case 'modifica': { // GET impostazioni/modifica
-                    switch ($tipoUser) {
+                    try {
+                        switch ($tipoUser) {
                         case 'utente':
                             $eUtente = new EUtente(NULL, $username);
                             $modificaImpostazioni = $vImpostazioni->getTask2();
@@ -52,12 +60,18 @@ class CImpostazioni {
                             break;
 
                         case 'clinica':
-                            $vImpostazioni->visualizzaImpostazioniClinica();
+                            $eClinica = new EClinica($username);
+                            $vImpostazioni->visualizzaImpostazioniClinica($eClinica,NULL,TRUE);
                             break;
 
                         default:
                             break;
+                        }
+                        
+                    } catch (Exception $ex) {
+                        
                     }
+                    
                 }
                 break;
             case 'aggiungi':
@@ -352,11 +366,17 @@ class CImpostazioni {
             //                                $vJSON = USingleton::getInstance('VJSON');
             //                              $vJSON->inviaDatiJSON(TRUE);
                         }
-                        else
+                        elseif($tipoUser==='medico')
                         {
                             $eMedico = new EMedico(NULL, $username);
                             $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
 
+                        }
+                        else
+                        {
+                            $eClinica = new EClinica($username);
+                            print_r($eClinica);
+                            $vImpostazioni->visualizzaImpostazioniClinica($eClinica);
                         }
                     } 
                     else {
@@ -373,6 +393,10 @@ class CImpostazioni {
                 $vJSON->inviaDatiJSON(FALSE);
             }
             catch (XMedicoException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
+            catch (XClinicaException $ex) {
                 $vJSON = USingleton::getInstance('VJSON');
                 $vJSON->inviaDatiJSON(FALSE);
             }
@@ -416,14 +440,45 @@ class CImpostazioni {
                 $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
                 break;
 
-            case 'clinica': {
+            case 'clinica': 
+                try {
                     $eClinica = new EClinica($username);
-                    $vImpostazioni->visualizzaImpostazioniClinica($eClinica->getArrayWorkingPlanClinica());
+                    $vImpostazioni->visualizzaImpostazioniClinica($eClinica, TRUE, TRUE);
+                } 
+                catch (XClinicaException $ex) {
+                    $messaggio = $ex->getMessage();
+                    $vImpostazioni->visualizzaFeedback($messaggio);
+                }
+                catch (XDBException $ex) {
+                    $vImpostazioni->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperare il working plan della clinica. ");
                 }
                 break;
 
             default:
                 break;
             } 
+    }
+    
+    /**
+     * Metodo che consente di visualizzare il working plan di una clinica dell'applicazione.
+     * 
+     * @access public
+     * @param string $username L'username dell'user dell'applicazione che vuole visualizzare il suo working plan
+     */
+    public function visualizzaWorkingPlan($username) {
+        $vImpostazioni = USingleton::getInstance('VImpostazioni');
+        try {
+            $eClinica = new EClinica($username);
+            $vImpostazioni->visualizzaWorkingPlanClinica($eClinica->getArrayWorkingPlanClinica());
+        } 
+        catch (XClinicaException $ex) {
+            $messaggio = $ex->getMessage();
+            $vImpostazioni->visualizzaFeedback($messaggio);
+        }
+        catch (XDBException $ex) {
+            $vImpostazioni->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperare il working plan della clinica. ");
+        }
+            
+                
     }
 }

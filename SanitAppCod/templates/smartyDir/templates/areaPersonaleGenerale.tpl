@@ -1,19 +1,7 @@
 <div class="sideNavBar affiancato verticalmenteAllineato" id="divSideNavBar">
     <ul  id="sideNavBarList">
         {foreach from=$tastiLaterali key=id item=tasto}
-            
-                {if $tasto=="Impostazioni" && count($tastiLaterali)==6}
-                    <li class="nav" id='impostazioniClinica'>
-                        <a id="{$id}" class="nav" >{$tasto}</a>
-                      <!--  <button onclick="myFunction()" class="dropbtn">Dropdown</button> -->
-                        <div class="dropdown-content">
-                          <a id='impostazioniGeneraliClinica' >Impostazioni Generali </a>
-                          <a id='impostazioniWorkingPlan'>Working Plan</a>
-                        </div>  
-                {else}
-                    <li><a id="{$id}" >{$tasto}</a>
-                {/if}
-            </li>
+            <li><a id="{$id}" >{$tasto}</a></li>
         {/foreach}         
     </ul>   
 </div>    
@@ -27,9 +15,7 @@
             <h1>Ciao UTENTE </h1>
             <p>Benvenuto nella tua area personale, da qui potrai gestire le tue prenotazioni 
                 e consultare i referti o,<br> se vuoi, condividerli con il tuo medico curante</p>
-            
-        {elseif count($tastiLaterali)==6}
-            <br>
+        {elseif count($tastiLaterali)==7}
             <h1>Ciao CLINICA </h1>
             <p>Benvenuto nella tua area personale, da qui potrai gestire i servizi, le prenotazioni, 
                 i pazienti, i referti e le tue impostazioni.</p>
