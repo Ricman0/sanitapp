@@ -20,14 +20,14 @@ class VReferti extends View{
     {
         if(is_array($referti) && count($referti)>0)
         {
-            if($tipoUser==='clinica')
-            {
-                $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
-            }
-            else
-            {
-                $this->assegnaVariabiliTemplate('tastoAggiungi', FALSE);
-            }
+//            if($tipoUser==='clinica')
+//            {
+//                $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
+//            }
+//            else
+//            {
+//                $this->assegnaVariabiliTemplate('tastoAggiungi', FALSE);
+//            }
             $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
             $this->assegnaVariabiliTemplate('dati', $referti);
         }

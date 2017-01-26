@@ -149,7 +149,7 @@
                         </select>
                         <br>
                         <label for="telefono" class="elementiForm">Telefono :</label>
-                        <input type="text" name="telefono" class="elementiForm" value="{$clinica->getTelefonoClinica()}" />
+                        <input type="text" name="telefono" class="elementiForm" maxlength="10" value="{$clinica->getTelefonoClinica()}" />
                         <br>
                         <label for="capitaleSociale" class="elementiForm">Capitale Sociale :</label>
                         <input type="text" name="capitaleSociale" class="elementiForm" value="{$clinica->getCapitaleSocialeClinica()}" />
@@ -175,7 +175,7 @@
                     <input type="text" name="provinciaClinica" class="elementiForm" value="{$clinica->getProvinciaClinica()}" readonly />
                     <br>
                     <label for="telefono" class="elementiForm">Telefono :</label>
-                    <input type="text" name="telefono" class="elementiForm" value="{$clinica->getTelefonoClinica()}" readonly />
+                    <input type="text" name="telefono" class="elementiForm" maxlength="10" value="{$clinica->getTelefonoClinica()}" readonly />
                     <br>
                     <label for="capitaleSociale" class="elementiForm">Capitale Sociale :</label>
                     <input type="text" name="capitaleSociale" class="elementiForm" value="{$clinica->getCapitaleSocialeClinica()}" readonly />

@@ -117,6 +117,12 @@ function validazioneCredenziali()
                                 equalTo: "Le password non corrispondono"
                             }
                 },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
         submitHandler: function ()
         {
             inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#contenutoAreaPersonale");
