@@ -13,6 +13,26 @@ $(document).ready(function () {
 //        History.pushState(null, 'home', 'index.php');
     });
 
+    $("#wrapper").on("click", "#info", function(){
+        var ajaxDiv = '#main';
+        if ($('#contenutoAreaPersonale').length) {
+            ajaxDiv ='#contenutoAreaPersonale';
+          }
+        inviaController('info', ajaxDiv);
+    });
+    
+    $("#wrapper").on("click", "#contatti", function(){
+        var ajaxDiv = '#main';
+        if ($('#contenutoAreaPersonale').length) {
+            ajaxDiv ='#contenutoAreaPersonale';
+          }
+        inviaController('contatti', ajaxDiv);
+    });
+    
+    $("#headerMain").on("click", "#contatti", function(){
+        inviaController('contatti', '#wrapper');
+    });
+    
     $('#headerMain').on("click", ".mySanitApp", function () {
         
         inviaController('mySanitApp', '#main');

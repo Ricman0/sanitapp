@@ -11,8 +11,7 @@
         <!--       <link rel="stylesheet" type="text/css" href="./Css/inserisciUtente.css">
                 <link rel="stylesheet" type="text/css" href="./Css/inserisciMedico.css">-->
         <link rel="stylesheet" type="text/css" href="./Css/navigationBar.css">
-        <link rel="stylesheet" type="text/css" href="./Css/mainRicerca.css">  
-        <link rel="stylesheet" type="text/css" href="./Css/footer.css">
+        <link rel="stylesheet" type="text/css" href="./Css/mainRicerca.css">
         <link rel="stylesheet" type="text/css" href="./Css/cartinaItalia.css"/>
         <link rel="stylesheet" type="text/css" href="./Css/areaPersonale.css"/>
         <link rel="stylesheet" type="text/css" href="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.css"/>
@@ -93,7 +92,10 @@
             </div>
             <!--Footer della pagina-->
             <div id="footer">
-                <span class="copyright">©2017 Copyright - SanitApp</span>
+                <div class="centrato">
+                    <a id="info" >Informazioni Validazione </a>  |  <a id="contatti" > Contatti</a>
+                </div>
+                <div class="copyright centrato">©2017 Copyright - SanitApp</div>
             </div>
         </div>
     </body>
