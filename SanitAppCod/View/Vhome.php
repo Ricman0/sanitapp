@@ -67,5 +67,5 @@ class VHome extends View {
         // visualizzo il template
         $this->visualizzaTemplate("HomePage");  
     }
-
+    
 }

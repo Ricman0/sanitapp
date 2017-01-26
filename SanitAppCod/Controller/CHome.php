@@ -94,6 +94,11 @@ class CHome {
                 $cCliniche->gestisciCliniche();
                 break;
             
+            case 'contatti':
+                $cContatti = USingleton::getInstance('CContatti');
+                $cContatti->visualizzaContatti();
+                break;
+            
             case 'esami': // GET esami
                 $cEsami = USingleton::getInstance('CRicercaEsami');
                 $cEsami->gestisciEsami();
@@ -107,6 +112,11 @@ class CHome {
             case 'impostazioni': // GET impostazioni
                 $cImpostazioni = USingleton::getInstance('CImpostazioni');
                 $cImpostazioni->gestisciImpostazioni();
+                break;
+            
+            case 'info': // GET impostazioni
+                $cInfo = USingleton::getInstance('CInformazioni');
+                $cInfo->visualizzaInfo();
                 break;
             
             case 'logOut':  

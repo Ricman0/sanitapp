@@ -33,7 +33,7 @@ class EAmministratore extends EUser{
     private $_cognome;
     
     
-    public function __construct($username, $password=NULL, $email=NULL, $PEC=NULL, $telefono=NULL, $nome=NULL, $cognome= NULL){
+    public function __construct($username=NULL, $password=NULL, $email=NULL, $PEC=NULL, $telefono=NULL, $nome=NULL, $cognome= NULL){
         if($password!==NULL && $email!==NULL && $PEC!==NULL)
         {
             parent::__construct($username, $password, $email);

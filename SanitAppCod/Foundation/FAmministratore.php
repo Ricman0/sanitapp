@@ -80,10 +80,16 @@ class FAmministratore extends FUser{
         }
     }
     
-    public function cercaAmministratore($username){
+    public function cercaAmministratore($username=NULL){
+        if(isset($username)){
         $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
                 . "FROM appuser," . $this->_nomeTabella . " WHERE (amministratore.Username ='" . $username . "' AND "
                 . "appuser.Username=amministratore.Username) LOCK IN SHARE MODE";
+        }else{
+             $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
+                . "FROM appuser," . $this->_nomeTabella . " WHERE (appuser.Username=amministratore.Username) "
+                     . "LOCK IN SHARE MODE";
+        }
         return $this->eseguiQuery($query);
     }
     
