@@ -147,7 +147,7 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username  LOCK IN SHARE MODE";
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND esame.Eliminato=FALSE AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username  LOCK IN SHARE MODE";
             } 
             else 
             {
@@ -160,7 +160,7 @@ class FEsame extends FDatabase {
                             . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE) "
                             . "FROM esame, clinica, appuser WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
                             . "AND (MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username LOCK IN SHARE MODE";
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND esame.Eliminato=FALSE AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username LOCK IN SHARE MODE";
                     }
                 } 
                 else 
@@ -170,7 +170,7 @@ class FEsame extends FDatabase {
                         $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                                 . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE)"
                                 . "FROM esame, clinica, appuser WHERE MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE) "
-                                . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username LOCK IN SHARE MODE";
+                                . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND esame.Eliminato=FALSE AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username LOCK IN SHARE MODE";
                     } 
                     else
                     {
@@ -185,7 +185,7 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND (appuser.Bloccato=FALSE AND appuser.Username=clinica.Username) LOCK IN SHARE MODE";
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND esame.Eliminato=FALSE AND (appuser.Bloccato=FALSE AND appuser.Username=clinica.Username) LOCK IN SHARE MODE";
                     }
                 }
             }
@@ -199,7 +199,7 @@ class FEsame extends FDatabase {
                     $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)"
                             . "FROM esame, clinica, appuser WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username) LOCK IN SHARE MODE";                    
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND esame.Eliminato=FALSE AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username) LOCK IN SHARE MODE";                    
                 } 
                 else 
                 {
@@ -214,7 +214,7 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE)))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND (appuser.Bloccato=FALSE AND appuser.Username=clinica.Username) LOCK IN SHARE MODE";      
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND esame.Eliminato=FALSE AND (appuser.Bloccato=FALSE AND appuser.Username=clinica.Username) LOCK IN SHARE MODE";      
                 }
             } 
             else 
@@ -230,12 +230,12 @@ class FEsame extends FDatabase {
                             . "OR (MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE)) "
                             . "OR (MATCH (clinica.CAP) AGAINST ('$luogo' IN BOOLEAN MODE))) "
-                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND (appuser.Bloccato=FALSE AND appuser.Username=clinica.Username) LOCK IN SHARE MODE";
+                            . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND esame.Eliminato=FALSE AND (appuser.Bloccato=FALSE AND appuser.Username=clinica.Username) LOCK IN SHARE MODE";
                 } 
                 else 
                 {
                     $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita "
-                            . " FROM esame, clinica, appuser WHERE (appuser.Bloccato=FALSE AND appuser.Username=clinica.Username AND esame.PartitaIVAClinica = clinica.PartitaIVA ) LOCK IN SHARE MODE";
+                            . " FROM esame, clinica, appuser WHERE (appuser.Bloccato=FALSE AND appuser.Username=clinica.Username AND esame.Eliminato=FALSE AND esame.PartitaIVAClinica = clinica.PartitaIVA ) LOCK IN SHARE MODE";
                 }
             }
         }
