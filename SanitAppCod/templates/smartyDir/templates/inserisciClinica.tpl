@@ -26,7 +26,7 @@
 
     <br>
     <label for="telefonoClinica" class="elementiForm">Telefono</label>
-    <input type="tel" name="telefonoClinica" class="elementiForm" id="telefonoClinica" placeholder="085821345" value="{if isset($datiValidi.telefono)}{$datiValidi.telefono}{/if}" required />
+    <input type="tel" name="telefonoClinica" class="elementiForm" id="telefonoClinica" maxlength="10" placeholder="085821345" value="{if isset($datiValidi.telefono)}{$datiValidi.telefono}{/if}" required />
 
     <br>
     <label for="capitaleSociale" class="elementiForm">Capitale Sociale</label>

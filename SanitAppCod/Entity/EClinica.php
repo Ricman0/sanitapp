@@ -1059,7 +1059,6 @@ class EClinica extends EUser {
      */
     public function modificaClinica($datiDaModificare) {
         
-        print_r($datiDaModificare);
         foreach ($datiDaModificare as $key => $value) {
             switch ($key) {
                 case 'username':
@@ -1113,9 +1112,11 @@ class EClinica extends EUser {
                     $this->setTitolareClinica($value);
                     break;
                 case 'via':
+                case 'Via':
                     $this->setViaClinica($value);
                     break;
                 case 'numeroCivico':
+                case 'NumCivico':
                     $this->setNumeroCivicoClinica($value);
                     break;
                 case 'CAP':
@@ -1135,6 +1136,9 @@ class EClinica extends EUser {
                     break;
                 case 'telefono':
                     $this->setTelefonoClinica($value);
+                    break;
+                case 'capitaleSociale':
+                    $this->setCapitaleSocialeClinica($value);
                     break;
                 case 'passwordClinica':
                     if(!empty($value))

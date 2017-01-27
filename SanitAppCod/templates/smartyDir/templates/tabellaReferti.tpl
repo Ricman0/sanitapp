@@ -25,11 +25,6 @@
     </thead>
     <tbody>
         <br>
-        {if ($tastoAggiungi===TRUE)}
-            <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiReferto" aria-hidden="true" ></i>           
-        {/if}
-        <br>
-
         {foreach from=$dati item=curr_row}
             <tr id="{$curr_row['IDPrenotazione']}" class="rigaReferto cliccabile">
                 <td>{$curr_row['IDReferto']}</td>

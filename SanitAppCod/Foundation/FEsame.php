@@ -134,7 +134,7 @@ class FEsame extends FDatabase {
         {
             if (!empty($luogo) && !empty($nomeClinica)) 
             {
-                $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
+                $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                             . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE), "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE), "
                             . "MATCH (clinica.Localita) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -155,7 +155,7 @@ class FEsame extends FDatabase {
                 {
                     if (empty($luogo)) 
                     {
-                        $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
+                        $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE), "
                             . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE) "
                             . "FROM esame, clinica, appuser WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
@@ -167,14 +167,14 @@ class FEsame extends FDatabase {
                 {
                     if (empty($luogo)) 
                     {
-                        $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
+                        $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                                 . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE)"
                                 . "FROM esame, clinica, appuser WHERE MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE) "
                                 . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username LOCK IN SHARE MODE";
                     } 
                     else
                     {
-                        $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
+                        $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                             . "MATCH (NomeEsame) AGAINST ('$nomeEsame' IN BOOLEAN MODE), "                        
                             . "MATCH (clinica.Localita) AGAINST ('$luogo' IN BOOLEAN MODE), "
                             . "MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -196,14 +196,14 @@ class FEsame extends FDatabase {
             {
                 if (empty($luogo))   
                 {
-                    $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
+                    $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)"
                             . "FROM esame, clinica, appuser WHERE ((MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE)) "
                             . "AND (esame.PartitaIVAClinica = clinica.PartitaIVA) AND appuser.Bloccato=FALSE AND appuser.Username=clinica.Username) LOCK IN SHARE MODE";                    
                 } 
                 else 
                 {
-                      $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
+                      $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                             . "MATCH (NomeClinica) AGAINST ('$nomeClinica' IN BOOLEAN MODE), "
                             . "MATCH (clinica.Localita) AGAINST ('$luogo' IN BOOLEAN MODE), "
                             . "MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -221,7 +221,7 @@ class FEsame extends FDatabase {
             {
                 if (!empty($luogo)) 
                 {
-                    $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
+                    $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita, "
                             . "MATCH (clinica.Localita) AGAINST ('$luogo' IN BOOLEAN MODE), "
                             . "MATCH (clinica.Provincia) AGAINST ('$luogo' IN BOOLEAN MODE), "
                             . "MATCH (clinica.Regione) AGAINST ('$luogo' IN BOOLEAN MODE), "
@@ -234,7 +234,7 @@ class FEsame extends FDatabase {
                 } 
                 else 
                 {
-                    $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita "
+                    $query = "SELECT IDEsame, NomeEsame, Descrizione, Prezzo, TIME_FORMAT(Durata, '%H:%i') AS Durata, MedicoEsame, NomeCategoria, NomeClinica, clinica.Localita "
                             . " FROM esame, clinica, appuser WHERE (appuser.Bloccato=FALSE AND appuser.Username=clinica.Username AND esame.PartitaIVAClinica = clinica.PartitaIVA ) LOCK IN SHARE MODE";
                 }
             }
