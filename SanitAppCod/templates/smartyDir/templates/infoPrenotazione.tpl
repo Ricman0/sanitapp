@@ -1,4 +1,6 @@
 <div id="infoPrenotazione">
+    <br>
+    <br>
     <h3>
         INFORMAZIONI PRENOTAZIONE 
     </h3>
@@ -67,7 +69,7 @@
        
     {/if}        
 
-    {if ($tipoUser==='clinica' && !isset($idReferto) && $cancellaPrenota===FALSE)}
+    {if ($tipoUser==='clinica' && !isset($idReferto) && $cancellaPrenota===FALSE && ($prenotazione->getEseguitaPrenotazione()))}
         <input type="button" id="aggiungiRefertoButton" value="Aggiungi Referto" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
     {/if}
     <br>      

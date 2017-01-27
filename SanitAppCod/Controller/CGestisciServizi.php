@@ -138,6 +138,7 @@ class CGestisciServizi {
     private function gestisciAzione($azione)
     {
         $sessione = USingleton::getInstance('USession');
+        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $nomeClinica = $sessione->leggiVariabileSessione('nomeClinica');
         $vServizi = USingleton::getInstance('VGestisciServizi');
@@ -192,7 +193,7 @@ class CGestisciServizi {
                 else
                 {
                     $eEsame = new EEsame($idEsame);
-                    $vServizi->visualizzaInfoEsame($eEsame, TRUE);
+                    $vServizi->visualizzaInfoEsame($eEsame, TRUE, $tipoUser);
                 }
                 break;
        

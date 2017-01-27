@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
         $('#stampaPrenotazioni').parent().remove();
         $('#contenutoAreaPersonale').empty(); // elimino tutti gli elementi interni al div contenutoAreaPersonale
-        $('#divSideNavBar').prepend("<div><input type='button' id='stampaPrenotazioni' value='Stampa Prenotazioni'  /><br><br></div>");
+//        $('#divSideNavBar').prepend("<div><input type='button' id='stampaPrenotazioni' value='Stampa Prenotazioni'  /><br><br></div>");
         $('#contenutoAreaPersonale').append("<h1>Appuntamenti</h1>");
         
         
@@ -87,6 +87,10 @@ $(document).ready(function () {
 
     $('#headerMain').on("click", "#annullaAggiungiEsame", function () {
         inviaControllerTask('servizi', 'visualizza', "#contenutoAreaPersonale");
+    });
+    
+    $('#headerMain').on("click", "#annullaAggiungiReferto", function () {
+        inviaControllerTask('prenotazioni', 'visualizza', "#contenutoAreaPersonale");
     });
 
     $('#headerMain').on("click", "#impostazioniAreaPersonaleClinica", function () {

@@ -43,8 +43,12 @@ class VGestisciServizi extends View{
      * @param EEsame $esame L'esame di cui si vogliono visualizzare le informazioni
      * @param boolean $servizi TRUE se si vogliono visualizzare le informazioni di un servizio, altrimenti le informazioni di un esame.
      */
-    public function visualizzaInfoEsame($esame, $servizi) 
+    public function visualizzaInfoEsame($esame, $servizi, $tipoUser = NULL) 
     {
+        if (isset($tipoUser))
+        {
+            $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);
+        }
         $this->assegnaVariabiliTemplate('esame', $esame);
         $this->assegnaVariabiliTemplate('tipoUser', 'clinica');
         $this->assegnaVariabiliTemplate('servizi', $servizi);
