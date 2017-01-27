@@ -152,6 +152,7 @@ $(document).ready(function (){
     });
     
     $('#headerMain').on("click", "#cancellaPrenotazione", function(){
+        $('#loadingModal').show();
         taskPrenotazione('prenotazione', 'elimina', "#contenutoAreaPersonale");
     });
     
@@ -194,6 +195,9 @@ function taskPrenotazione(controller, task, ajaxDiv)
                 alert(error);
                 alert(status);
                 alert(" errore nella eliminazione della prenotazione ");
+            },
+            complete: function(){
+                $('#loadingModal').hide();
             }
     })
 }

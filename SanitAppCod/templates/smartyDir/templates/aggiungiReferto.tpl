@@ -1,5 +1,8 @@
 <form name="aggiungiReferto" enctype="multipart/form-data" id="formUploadReferto"> 
+    <br>
     <h3>Aggiunta Referto</h3>
+    <br>
+    <h5>Seleziona un file pdf da associare all'esame</h5>
    <!-- <input type="hidden" name="controller" value="referto" />
     <input type="hidden" name="task" value="upload" />-->
     <input type="hidden" name="idPrenotazione" value="{$idPrenotazione}"/>
@@ -8,7 +11,6 @@
     <input type="hidden" name="medicoEsame" value="{$medicoEsame}"/>    
     <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
     <br>
-    <label for="referto" class="elementiForm">Referto</label>
     <input type="file" name="referto" id="refertoPath" accept=".pdf" class="elementiForm custom-file-input required" required/>
     <br>
     

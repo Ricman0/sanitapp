@@ -496,6 +496,7 @@ function validazioneCodiceFiscale()
                         return [disabilitaGiorniNonLavorativi(date, giorniNonLavorativi)];
                     },
                     onSelect: function (dateText, inst) {
+                         $("#nextPrenotazioneEsame").hide();
                         var data = dateText; //the first parameter of this function
                         $('#nextPrenotazioneEsame').attr('data-data', data);
                         var dataObject = $(this).datepicker('getDate'); //the getDate method
@@ -507,7 +508,7 @@ function validazioneCodiceFiscale()
                         var idEsame = $("#idEsame").val();
                         orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
                     }});
-                $("#nextPrenotazioneEsame").show();
+//                $("#nextPrenotazioneEsame").show();
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
