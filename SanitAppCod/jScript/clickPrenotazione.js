@@ -1,8 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 $(document).ready(function (){
     $('#headerMain').on("click", "#aggiungiPrenotazioneButton", function(){
         var id = $("#aggiungiPrenotazioneButton").attr("data-idEsame");
@@ -493,6 +489,7 @@ function orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
 //        contentType: "application/json; charset=utf-8",
         success:function(datiRisposta)
         {
+            
             // elimino tutti i nodi figli nel div orariDisponibili
             $("#orariDisponibili").empty();
             
@@ -545,6 +542,9 @@ function orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
             alert(xhr.responseText);
             alert(error);
             alert(" errore nel ricevere gli orari disponibili ");
+            $('#contenutoAreaPersonale').empty();
+            $('#contenutoAreaPersonale').append("<h4>C'è stato un errore. Se il problema si ripresenta, contatti l'aministratore.</h4><h4>Clicca su ok per tornare alla pagina personale.</h4>\n\
+                <input type='button' class='mySanitApp' id='tornaAreaPersonaleButton'  value='OK' />");
         }
     });
 }
