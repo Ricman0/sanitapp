@@ -737,6 +737,8 @@ class CPrenotazione {
     {
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $ePrenotazione= new EPrenotazione($idPrenotazione);
+        $sessione = USingleton::getInstance('USession');
+        $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
         if($ePrenotazione->controllaData()==TRUE && $ePrenotazione->getEseguitaPrenotazione()==FALSE)// confronta la data della prenotazione con quella odierna; TRUE se la data odierna è precedente a quella dela prenotazione // controllo anche che non sia stata effettuata la prenptazione(anche se la data è futura non potrà essere eseguita)
         {
             $idEsame = $ePrenotazione->getIDEsamePrenotazione();
@@ -747,7 +749,7 @@ class CPrenotazione {
             $durataEsame = $eEsame->getDurataEsame();
             $nomeClinica = $eClinica->getNomeClinicaClinica();
             $codiceFiscale = $ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione();
-            $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale);
+            $vPrenotazione->restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale, $tipoUser);
         }
         else {
             $messaggio = 'Non è possibile modificare la data della prenotazione a partire dal giorno precedente la data di prenotazione';
