@@ -852,7 +852,6 @@ class EClinica extends EUser {
         $ora = substr($durata, 0, 2);
         $minuti = substr($durata, 3, 2);
         // la stringa durata deve essere convertita in un intervallo
-        echo 'ciao';
         $durata = new DateInterval('PT' . "$ora" . 'H' . "$minuti" . 'M'); //PT sta per period time
         //all'interno di workingPlan ad ogni giorno è associato un oggetto con attributi Start, End, Pausa
         $oraInizio = $workingPlanGiorno->Start;

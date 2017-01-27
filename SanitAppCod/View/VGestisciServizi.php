@@ -46,6 +46,7 @@ class VGestisciServizi extends View{
     public function visualizzaInfoEsame($esame, $servizi) 
     {
         $this->assegnaVariabiliTemplate('esame', $esame);
+        $this->assegnaVariabiliTemplate('tipoUser', 'clinica');
         $this->assegnaVariabiliTemplate('servizi', $servizi);
         $this->visualizzaTemplate("infoEsame");
         

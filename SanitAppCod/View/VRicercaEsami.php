@@ -66,7 +66,8 @@ class VRicercaEsami extends View{
         $this->assegnaVariabiliTemplate('esame', $esame);
         $this->assegnaVariabiliTemplate('tipo', $servizi);
         $this->assegnaVariabiliTemplate('codiceFiscale', $codiceFiscaleUtentePrenotaEsame);      
-        $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);      
+        $this->assegnaVariabiliTemplate('tipoUser', $tipoUser); 
+        $this->assegnaVariabiliTemplate('servizi', $servizi);
        
         $this->visualizzaTemplate('infoEsame');
         

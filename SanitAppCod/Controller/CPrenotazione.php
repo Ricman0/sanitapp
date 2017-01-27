@@ -463,10 +463,10 @@ class CPrenotazione {
             $vJSON = USingleton::getInstance('VJSON');
             $vJSON->inviaDatiJSON($orariDisponibili);
         } catch (XClinicaException $ex) {
-            // cosa faccio tornare?
+            $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore si ripresenta, contatti l'amministratore.");
         }
         catch (XEsameException $ex) {
-            // cosa faccio tornare?
+            $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore si ripresenta, contatti l'amministratore.");
         }
         
     }
