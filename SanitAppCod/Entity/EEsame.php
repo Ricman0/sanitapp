@@ -102,7 +102,7 @@ class EEsame
                 $this->_medicoEsame = $attributiEsame[0]["MedicoEsame"];
                 $this->_nomeCategoria = $attributiEsame[0]["NomeCategoria"];  
                 $this->_prezzo = $attributiEsame[0]["Prezzo"];
-                $this->_durata = $attributiEsame[0]["Durata"];
+                $this->_durata = substr($attributiEsame[0]["Durata"],0,5);
                 $this->_numeroPrestazioniSimultanee = $attributiEsame[0]["NumPrestazioniSimultanee"];
                 $this->_descrizione = $attributiEsame[0]["Descrizione"];
                 $this->_partitaIVAClinica= $attributiEsame[0]["PartitaIVAClinica"];

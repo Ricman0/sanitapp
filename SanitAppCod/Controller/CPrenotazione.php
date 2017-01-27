@@ -445,7 +445,7 @@ class CPrenotazione {
         $partitaIVAClinica = $vPrenotazione->recuperaValore('clinica');
         try {
             $eClinica = new EClinica(NULL, $partitaIVAClinica);
-            $workingPlan = $eClinica->getArrayWorkingPlanClinica(); // ora è di tipo json
+            $workingPlan = $eClinica->getArrayWorkingPlanClinica(); 
 
     //            $workingPlan = json_decode($workingPlan);
     //                  print_r($workingPlan);
@@ -696,7 +696,6 @@ class CPrenotazione {
         $modifica = $vPrenotazione->recuperaValore('modifica');
         
         if ($eUtente->checkIfCan($idEsame, $partitaIVAClinica, $data, $orario, $durata, $modifica) === TRUE) { //@throws XDBException Se c'è un errore durante l'esecuzione della query
-            echo ($modifica);
             if ($modifica==='true' || $modifica==='1')
             { 
                 $idPrenotazione = $vPrenotazione->recuperaValore('idPrenotazione');  
@@ -710,7 +709,17 @@ class CPrenotazione {
             
         } 
         else {
-            $feedback = "Non puoi effettuare questa prenotazione.\n Hai già una prenotazione per questa esame o hai una prenotazione durante l'orario di questo esame";
+            if($sessione->leggiVariabileSessione('tipoUser') === 'utente')
+            {
+                $feedback[0] = "Non puoi effettuare questa prenotazione.";
+                $feedback[1] = "Hai già una prenotazione per questo esame o hai una prenotazione durante l'orario di questo esame.";
+            }
+            else
+            {
+                $feedback[0] = "Non puoi effettuare questa prenotazione.";
+                $feedback[1]= "L'utente ha già una prenotazione per questo esame o ha una prenotazione durante l'orario di questo esame.";
+            }
+            
             $vPrenotazione->restituisciPaginaRiepilogoPrenotazione($feedback);
         }
     }

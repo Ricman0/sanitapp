@@ -852,10 +852,13 @@ class EClinica extends EUser {
         $ora = substr($durata, 0, 2);
         $minuti = substr($durata, 3, 2);
         // la stringa durata deve essere convertita in un intervallo
+        echo 'ciao';
         $durata = new DateInterval('PT' . "$ora" . 'H' . "$minuti" . 'M'); //PT sta per period time
         //all'interno di workingPlan ad ogni giorno è associato un oggetto con attributi Start, End, Pausa
         $oraInizio = $workingPlanGiorno->Start;
         $oraFine = $workingPlanGiorno->End;
+        $oraInizioPausa = new DateTime($workingPlanGiorno->BreakStart); 
+        $oraFinePausa = new DateTime($workingPlanGiorno->BreakEnd);
 //               $pause = $workingPlanGiorno->Pause;
 //               $pause = json_decode($pause);
         $orariPrenotazioni = Array();
@@ -866,9 +869,15 @@ class EClinica extends EUser {
         $oraFine = new DateTime($oraFine);
         $oraInizioEsame = $oraInizio;
         while ($oraInizioEsame <= $oraFine) {
-            //aggiungo l'orario disponibile successivo
-            $orariPrenotazioni[] = $oraInizioEsame->format("H:i");
-            //aggiungo un intervallo pari alla durata dell'esame all'orario disponibile precedente
+            $oraFineEsame = clone $oraInizioEsame; // clono l'oggetto (quindi non ho un passaggio per riferimento)
+            $oraFineEsame = $oraFineEsame->add($durata); // l'orario in cui termirebbe l'esame
+            if($oraFineEsame <= $oraInizioPausa || $oraInizioEsame >= $oraFinePausa) // se l'orario non ricade all'interno dell'intervallo di pausa della clinica
+            {    //aggiungo l'orario disponibile successivo
+                
+                $orariPrenotazioni[] = $oraInizioEsame->format("H:i");
+                 
+            }
+            //aggiungo un intervallo pari alla durata dell'esame all'orario disponibile precedente 
             $oraInizioEsame = $oraInizioEsame->add($durata);
         };
         if ($oraInizioEsame > $oraFine) {
