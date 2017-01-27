@@ -100,8 +100,9 @@ class VPrenotazione extends View{
      * @param string $idEsame L'id dell'esame che si vuole prenotare
      * @param type $durataEsame La durata dell'esame
      * @param string $codiceFiscale Il codice fiscale dell'utente che deve effettuare la visita
+     * @param string $tipoUser Il tipo di user che vuole modificare la prenotazione
      */
-    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale=NULL, $tipoUser)
+    public function restituisciPaginaAggiungiPrenotazione($nomeEsame, $nomeClinica, $partitaIVAClinica, $idEsame, $durataEsame, $codiceFiscale=NULL, $tipoUser=NULL)
     {
         $this->assegnaVariabiliTemplate('nomeClinica', $nomeClinica);
         $this->assegnaVariabiliTemplate('nomeEsame', $nomeEsame);
