@@ -30,9 +30,9 @@
                                         </div>
                                         <input type="hidden" id="{$giorno}Pausa" name="{$giorno}Pausa" value="" />
                                     </td>
-                                    <td><input type="text" id="{$giorno}Start" name="{$giorno}Start" class="time timeStart" {if isset($workingPlan.$giorno->Start)}value="{$workingPlan.$giorno->Start}"{/if}/></td>
+                                    <td><input type="text" id="{$giorno}Start" name="{$giorno}Start" class="time timeStart breakStart" {if isset($workingPlan.$giorno->Start)}value="{$workingPlan.$giorno->Start}"{/if}/></td>
                                     <td><input type="text" id="{$giorno}End"  name="{$giorno}End" class="time timeEnd" {if isset($workingPlan.$giorno->End)}value="{$workingPlan.$giorno->End}"{/if} /></td>
-                                    <td><input type="text" id="{$giorno}BreakStart" name="{$giorno}BreakStart" class="time timeStart" {if isset($workingPlan.$giorno->BreakStart)}value="{$workingPlan.$giorno->BreakStart}"{/if}/></td>
+                                    <td><input type="text" id="{$giorno}BreakStart" name="{$giorno}BreakStart" class="time timeStart breakStart" {if isset($workingPlan.$giorno->BreakStart)}value="{$workingPlan.$giorno->BreakStart}"{/if}/></td>
                                     <td><input type="text" id="{$giorno}BreakEnd"  name="{$giorno}BreakEnd" class="time timeEnd" {if isset($workingPlan.$giorno->BreakEnd)}value="{$workingPlan.$giorno->BreakEnd}"{/if}/></td>
                                 </tr>
                             {/foreach}   
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </fieldset>
-        <input type="button" id="salvaImpostazioniClinica" value="Salva" />
+        <input type="submit" id="salvaImpostazioniClinica" value="Salva" />
         <br>
     </form>
 </div>
