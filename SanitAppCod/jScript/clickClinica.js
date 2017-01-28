@@ -232,7 +232,7 @@ $(document).ready(function () {
                 else if(nomeLabel === 'durata')
                 {
                     var valore = $(this).text().trim().substring(0, 5); 
-                    $( '#modificaEsameForm').append("<input type='text'  class='elementiForm time hasDatepicker' name='durataEsame' id='modificaDurataEsame' aria-required='true'  value='" + valore + "' required /><br>");
+                    $( '#modificaEsameForm').append("<input type='text'  class='elementiForm' name='durataEsame' id='modificaDurataEsame' aria-required='true'  value='" + valore + "' required /><br>");
 //                    $('.time').timepicker({
 //                        stepMinute: 5
 //                    });
@@ -270,9 +270,9 @@ $(document).ready(function () {
             url: 'categorie',
             success: function (datiRisposta)
             {
-                console.log(datiRisposta);
+//                console.log(datiRisposta);
                 var categorie = JSON.parse(datiRisposta);
-                console.log(categorie);
+//                console.log(categorie);
                 $.each(categorie, function(index, categoria) {
                     $.each(categoria, function(indice, valore){
                         var opzioneSelezionata = $('#modificaCategoriaEsame option:selected').text();
@@ -783,6 +783,7 @@ function agendaDayClick(date, allDay, jsEvent, view)
  */
 function agendaViewDisplay(view, element)
 {
+    $('#loadingModal').show();
     var agendaView = $('#agenda').fullCalendar('getView'); //memorizzo il View Object in agendaView
     // mi salvo date e orari per passarli durante la chiamata così all'interno di questo range posso trovare gli appuntamenti
     var startDataOra = agendaView.start.format('YYYY-MM-DD') + " " + agendaView.calendar.options.minTime; // data e ora di inizio della view
@@ -801,7 +802,7 @@ function agendaViewDisplay(view, element)
             datiRisposta = JSON.parse(datiRisposta);
             // aggiungo appuntamenti all'agenda
             var appuntamentiAgenda = [];// array in cui inserirò tutti gli appuntamenti che voglio visualizzare in agenda
-            console.log(datiRisposta);
+//            console.log(datiRisposta);
             // ciclo su datiRisposta.appuntamenti(1°paramentro); 2°parametro la funzione che sarà eseguita su ogni oggetto. 
             // La funzione di callback avrà indice e valore associato all'indice che chiamo apputnamento.
             $.each(datiRisposta.appuntamenti, function (indice, appuntamento) {
@@ -1122,6 +1123,9 @@ function agendaViewDisplay(view, element)
 
                     break;
             }
+        },
+        complete: function(){
+             $('#loadingModal').hide();
         }
 
 
@@ -1159,7 +1163,7 @@ function agendaEventClick(event, jsEvent, view)
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>ID Prenotazione: " + event.id + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Start: " + event.start.format('HH:mm')  + "</p><p>End: " + event.end.format('HH:mm') + "</p>" ;
-            if(event.eseguito===false)
+            if(event.eseguito==false)//lasciare due uguali(==)non tre(===)
             {
                descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-times fa-lg rosso modificaEseguito' aria-hidden='true'></i></p>";
             }
@@ -1185,6 +1189,7 @@ function agendaEventClick(event, jsEvent, view)
     });
     
     $('.modificaNonEseguito').on('click', function () {
+        console.log(this);
         // apro un'altra finestra
         $('#contenutoAreaPersonale').append("<div id='altroContenutoEventoNonEseguito' title='Dettaglio evento'><div id='nonEseguito'></div>");
         $('#nonEseguito').append('<p>Per modificare la prenotazione in prenotazione non eseguita, clicca su Non Eseguita</p>');
