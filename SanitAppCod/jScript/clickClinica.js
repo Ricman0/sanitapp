@@ -108,10 +108,91 @@ $(document).ready(function () {
 //    $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {
 //        inviaImpostazioniClinica('#workingPlan','#giornoPausa','#inizioPausa','#finePausa','impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
 //    });
-    $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {
-        inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
-    });
+//    
+//    
+//    spostato in validazione.js
+//    $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {
+//        inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
+//    });
 
+    $('#headerMain').on("change", "#workingPlan input[type='checkbox']", function () {
+        if($(this).is(':checked'))
+        {// se checkato
+            var valoreID = $(this).attr('id');
+             // aggiungo il required all'ora inizio relativo al giorno checked
+            $('#' + valoreID + 'Start').rules("add", {
+                    required: true,
+                    messages: {
+                      required: "Inserire Ora Inizio"
+                    }
+                });
+                // aggiungo il required all'ora fine relativo al giorno checked
+            $('#' + valoreID + 'End').rules("add", {
+                    required: true,
+                    messages: {
+                      required: "Inserire Ora Fine"
+                    }
+                });
+//            $("#EndDate").rules('add', { greaterThan: "#StartDate" });
+        }
+        else
+        {
+            var valoreID = $(this).attr('id');
+            $('#' + valoreID + 'Start' ).rules( 'remove' );
+            $('#' + valoreID + 'Start' ).val('');
+            $('#' + valoreID + 'End' ).rules( 'remove' );
+            $('#' + valoreID + 'End' ).val('');
+            $('#' + valoreID + 'BreakStart' ).rules( 'remove' );
+            $('#' + valoreID + 'BreakStart' ).val('');
+            $('#' + valoreID + 'BreakEnd' ).rules( 'remove' );
+            $('#' + valoreID + 'BreakEnd' ).val('');
+        }
+//        $(this).val($(this).prop('checked')); // assegno al valore del checkbox il valore della proprietà checked
+
+    });
+    
+    // se modifico un inizio pausa
+    $('#headerMain').on("change", "#workingPlan .breakStart", function () {
+        
+            var valoreID = $(this).attr('id');
+            if( $(this).val() !=='')
+            {
+                 // aggiungo il required al fine pausa relativo al iniziopausa modificato
+                $('#' + valoreID + 'BreakEnd').rules("add", {
+                    required: true,
+                    messages: {
+                      required: "Inserire Fine Pausa"
+                    }
+                });
+            }
+            else
+            {
+                $('#' + valoreID + 'BreakEnd' ).rules( 'remove' );
+                $('#' + valoreID + 'BreakEnd' ).val('');
+            }
+    });
+    
+    // se modifico un fine pausa
+    $('#headerMain').on("change", "#workingPlan .breakEnd", function () {
+        
+            var valoreID = $(this).attr('id');
+            if( $(this).val() !=='')
+            {
+                 // aggiungo il required al fine pausa relativo al iniziopausa modificato
+                $('#' + valoreID + 'BreakStart').rules("add", {
+                    required: true,
+                    messages: {
+                      required: "Inserire Inizio Pausa"
+                    }
+                });
+            }
+            else
+            {
+                $('#' + valoreID + 'BreakStart' ).rules( 'remove' );
+                $('#' + valoreID + 'BreakStart' ).val('');
+            }
+    });
+    
 //    $('#headerMain').on("click", "#aggiungiPausaButton", function () {
 //        formPausa();
 //    });

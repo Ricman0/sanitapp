@@ -65,7 +65,12 @@ function validazione(task1, controller1, task2)
                 default:
                     break;
             }
-
+        
+        case 'workingPlan':
+            alert('valido');
+            validaWorkingPlan();
+        break;
+            
 
 
 
@@ -73,6 +78,177 @@ function validazione(task1, controller1, task2)
             break;
     }
 }
+
+/**
+ * Funzione che consente di validare il working plan della clinica
+ * @return {undefined}
+ */
+function validaWorkingPlan()
+{  
+    //jQuery.validator.addMethod(nomeMetodo, funzione, messaggio);
+    //funzione ritorna true se un elemento è valido. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
+    //funzione(valore, elemento, parametri) // valore (di tipo string) =valore corrente del ; elemento = elemento da validare; parametri
+//    value/valore
+//    Type: String
+//    the current value of the validated element
+//    element
+//    Type: Element
+//    the element to be validated
+//    params
+//    Type: Object
+//    parameters specified for the method, e.g. for min: 5, the parameter is 5, for range: [1, 5] it's [1, 5]
+    jQuery.validator.addMethod("greaterThan", 
+        function(valore, elemento, params) {
+            if(valore ==='' && $(params).val() ==='')
+            {
+                $(this).removeAttr('title').removeClass('error');
+                return true;
+            }
+            if($(params).val() !=='')
+            {
+                valore = '2017-01-27 ' + valore;
+                var valore2 = '2017-01-27 ' + $(params).val();
+                if (!/Invalid|NaN/.test(new Date(valore))) {
+                    if(new Date(valore) > new Date(valore2))
+                    {
+                        $(this).removeAttr('title').removeClass('error');
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                if(isNaN(valore) || Number(valore))
+                {
+                    return false;
+                }
+                else
+                {
+                    $(this).removeAttr('title').removeClass('error');
+                    return true;
+                }
+            }
+            
+        },'Deve essere maggiore di {0}.');
+//    jQuery.validator.addMethod("time", function (valore) {
+//        //espressione regolare per la durata
+//        var regex = /([0-2][0-3]):([0-5]\d)/;
+//        return valore.match(regex);
+//    }, "L'orario è nel formato hh:mm");
+
+    $('#workingPlan').validate({
+        rules:
+                {
+                    LunediEnd:
+                            {
+                                greaterThan: '#LunediStart',
+                                greaterThan: '#LunediBreakEnd'
+                            },
+                    MartediEnd:
+                            {
+                                greaterThan: '#MartediStart',
+                                greaterThan: '#MartediBreakEnd'
+                            },
+                    MercolediEnd:
+                            {
+                                greaterThan: '#MercolediStart',
+                                greaterThan: '#MercolediBreakEnd'
+                            },
+                    GiovediEnd:
+                            {
+                                greaterThan: '#GiovediStart',
+                                greaterThan: '#GiovediBreakEnd'
+                            },
+                    VenerdiEnd:
+                            {
+                                greaterThan: '#VenerdiStart',
+                                greaterThan: '#VenerdiBreakEnd'
+                            },
+                    SabatoEnd:
+                            {
+                                greaterThan: '#SabatoStart',
+                                greaterThan: '#SabatoBreakEnd'
+                            },
+                    DomenicaEnd:
+                            {
+                                greaterThan: '#DomenicaStart',
+                                greaterThan: '#DomenicaBreakEnd'
+                            },
+                    LunediBreakStart:
+                            {
+                                greaterThan: '#LunediStart'
+                            },
+                    MartediBreakStart:
+                            {
+                                greaterThan: '#MartediStart'
+                            },
+                    MercolediBreakStart:
+                            {
+                                greaterThan: '#MercolediStart'
+                            },
+                    GiovediBreakStart:
+                            {
+                                greaterThan: '#GiovediStart'
+                            },
+                    VenerdiBreakStart:
+                            {
+                                greaterThan: '#VenerdiStart'
+                            },
+                    SabatoBreakStart:
+                            {
+                                greaterThan: '#SabatoStart'
+                            },
+                    DomenicaBreakStart:
+                            {
+                                greaterThan: '#DomenicaBreakStart'
+                            },
+                    LunediBreakEnd:
+                            {
+                                greaterThan: '#LunediBreakStart'
+                            },
+                    MartediBreakEnd:
+                            {
+                                greaterThan: '#MartediBreakStart'
+                            },
+                    MercolediBreakEnd:
+                            {
+                                greaterThan: '#MercolediBreakStart'
+                            },
+                    GiovediBreakEnd:
+                            {
+                                greaterThan: '#GiovediBreakStart'
+                            },
+                    VenerdiBreakEnd:
+                            {
+                                greaterThan: '#VenerdiBreakStart'
+                            },
+                    SabatoBreakEnd:
+                            {
+                                greaterThan: '#SabatoBreakStart'
+                            },
+                    DomenicaBreakEnd:
+                            {
+                                greaterThan: '#DomenicaBreakStart'
+                            }
+                },
+        
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
+        submitHandler: function ()
+        {
+            inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
+        }
+    });
+}
+
 
 /**
  * Funzione che consente di validare le credenziali e effettua la chiamata AJAX per salvare le nuove credenziali.
