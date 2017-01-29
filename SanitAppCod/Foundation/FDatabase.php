@@ -343,6 +343,7 @@ class FDatabase {
             $valoreAttributo = $oggetto->$funzione();
             switch (gettype($valoreAttributo)) {
                 case 'string':
+                case 'blob':
                     if (isset($valoriAttributi))
                     {
                         $valoriAttributi .= ", '" . $this->trimEscapeStringa($valoreAttributo) . "'";
@@ -413,6 +414,8 @@ class FDatabase {
                     break;
                 }
         }
+        echo 'gli attributi';
+        print_r($valoriAttributi);
         return $valoriAttributi;
     }
     

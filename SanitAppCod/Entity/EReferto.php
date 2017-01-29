@@ -258,8 +258,9 @@ class EReferto {
     public function inserisciReferto() {
 
         $fReferto = USingleton::getInstance('FReferto');
-//        return $fReferto->inserisciReferto($this);
-        return $fReferto->inserisci($this);
+        return $fReferto->inserisciReferto($this);
+       
+//        return $fReferto->inserisci($this);
     }
     
     /**

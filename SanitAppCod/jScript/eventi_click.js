@@ -114,7 +114,8 @@ $(document).ready(function () {
         download(id);
     });
 
-    $(function() {
+    //$( document ).ready() = $()
+    $(function() { 
             $(document).tooltip({
                 items: 'input.error',
                 tooltipClass: 'error',

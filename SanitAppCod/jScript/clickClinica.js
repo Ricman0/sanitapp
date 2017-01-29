@@ -115,7 +115,20 @@ $(document).ready(function () {
 //        inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
 //    });
 
+
     $('#headerMain').on("change", "#workingPlan input[type='checkbox']", function () {
+        $(document).tooltip({
+                items: 'input.error',
+                tooltipClass: 'error',
+                position: {
+                    my: "center bottom",
+                    at: "right top"
+                  }
+
+//                content: function(){
+//                    return $(this).next('label.error').text();
+//                }
+            });
         if($(this).is(':checked'))
         {// se checkato
             var valoreID = $(this).attr('id');
@@ -124,16 +137,47 @@ $(document).ready(function () {
                     required: true,
                     messages: {
                       required: "Inserire Ora Inizio"
-                    }
+                    },
+                    highlight: function (element, errorClass) {
+//                        $(element).addClass(errorClass);   
+//                        $(element.form).find("label[for=" + element.id + "]")
+//                            .addClass(errorClass);
+                        $(element).fadeOut(function() {
+                            $(element).fadeIn();
+                          });
+
+                    },
+                    unhighlight: function (element) {
+                        $(element).removeAttr('title').removeClass('error');
+                    },
+//                    errorPlacement: function (error, element) {
+//                        
+//                        alert('errorPlacement');
+//                        console.log(error);
+////                        $(element).attr('title', error.text());
+//                        $(element).attr('title', error.text());
+//                    },
                 });
                 // aggiungo il required all'ora fine relativo al giorno checked
             $('#' + valoreID + 'End').rules("add", {
                     required: true,
+                    greaterThan: '#' + valoreID + "Start",
                     messages: {
                       required: "Inserire Ora Fine"
+                    },
+                    highlight: function (element, errorClass) {
+//                        $(element).addClass(errorClass);   
+//                        $(element.form).find("label[for=" + element.id + "]")
+//                            .addClass(errorClass);
+                        $(element).fadeOut(function() {
+                            $(element).fadeIn();
+                          });
+
+                    },
+                    unhighlight: function (element) {
+                        $(element).removeAttr('title').removeClass('error');
                     }
                 });
-//            $("#EndDate").rules('add', { greaterThan: "#StartDate" });
         }
         else
         {
@@ -147,26 +191,64 @@ $(document).ready(function () {
             $('#' + valoreID + 'BreakEnd' ).rules( 'remove' );
             $('#' + valoreID + 'BreakEnd' ).val('');
         }
-//        $(this).val($(this).prop('checked')); // assegno al valore del checkbox il valore della proprietà checked
+//        
 
     });
     
     // se modifico un inizio pausa
     $('#headerMain').on("change", "#workingPlan .breakStart", function () {
-        
-            var valoreID = $(this).attr('id');
-            if( $(this).val() !=='')
+        var valoreID = $(this).attr('id');
+        valoreID = valoreID.replace("BreakStart", "");
+            if($(this).val() !=='')
             {
-                 // aggiungo il required al fine pausa relativo al iniziopausa modificato
+                $('#' + valoreID + 'BreakEnd' ).rules( 'remove' );
+                $('#' + valoreID + 'BreakStart' ).rules( 'remove' );
+//                 // aggiungo il required al fine pausa relativo al inizio pausa modificato
                 $('#' + valoreID + 'BreakEnd').rules("add", {
                     required: true,
+                    greaterThan: '#' + valoreID + "BreakStart",
+                    lessThan: '#'+ valoreID + "End",
                     messages: {
                       required: "Inserire Fine Pausa"
+                    },
+                    highlight: function (element, errorClass) {
+//                        $(element).addClass(errorClass);   
+//                        $(element.form).find("label[for=" + element.id + "]")
+//                            .addClass(errorClass);
+                        $(element).fadeOut(function() {
+                            $(element).fadeIn();
+                          });
+
+                    },
+                    unhighlight: function (element) {
+                        $(element).removeAttr('title').removeClass('error');
                     }
                 });
+                $(this).rules("add", {
+                    required:true,
+                    greaterThan: '#' + valoreID + "Start",
+                    lessThan: '#'+ valoreID + "BreakEnd",
+                    messages: {
+                      required: "Inserire Inizio Pausa"
+                    },
+                    highlight: function (element, errorClass) {
+//                        $(element).addClass(errorClass);   
+//                        $(element.form).find("label[for=" + element.id + "]")
+//                            .addClass(errorClass);
+                        $(element).fadeOut(function() {
+                            $(element).fadeIn();
+                          });
+
+                    },
+                    unhighlight: function (element) {
+                        $(element).removeAttr('title').removeClass('error');
+                    }
+                });
+                $('#' + valoreID ).prop('checked', true);
             }
             else
             {
+                $(this).rules( 'remove' );
                 $('#' + valoreID + 'BreakEnd' ).rules( 'remove' );
                 $('#' + valoreID + 'BreakEnd' ).val('');
             }
@@ -176,13 +258,26 @@ $(document).ready(function () {
     $('#headerMain').on("change", "#workingPlan .breakEnd", function () {
         
             var valoreID = $(this).attr('id');
+            valoreID = valoreID.replace("BreakStart", "");
             if( $(this).val() !=='')
             {
+              $('#' + valoreID + 'BreakEnd' ).rules( 'remove' );
+                $('#' + valoreID + 'BreakStart' ).rules( 'remove' );
                  // aggiungo il required al fine pausa relativo al iniziopausa modificato
                 $('#' + valoreID + 'BreakStart').rules("add", {
                     required: true,
+                    greaterThan: '#' + valoreID + "Start",
+                    lessThan: '#'+ valoreID + "BreakEnd",
                     messages: {
                       required: "Inserire Inizio Pausa"
+                    }
+                });
+                $(this).rules("add", {
+                    required: true,
+                    greaterThan: '#' + valoreID + "BreakStart",
+                    lessThan: '#'+ valoreID + "End",
+                    messages: {
+                      required: "Inserire Fine Pausa"
                     }
                 });
             }
@@ -192,6 +287,7 @@ $(document).ready(function () {
                 $('#' + valoreID + 'BreakStart' ).val('');
             }
     });
+    
     
 //    $('#headerMain').on("click", "#aggiungiPausaButton", function () {
 //        formPausa();
@@ -882,7 +978,7 @@ function agendaViewDisplay(view, element)
             datiRisposta = JSON.parse(datiRisposta);
             // aggiungo appuntamenti all'agenda
             var appuntamentiAgenda = [];// array in cui inserirò tutti gli appuntamenti che voglio visualizzare in agenda
-            console.log(datiRisposta);
+//            console.log(datiRisposta);
             // ciclo su datiRisposta.appuntamenti(1°paramentro); 2°parametro la funzione che sarà eseguita su ogni oggetto. 
             // La funzione di callback avrà indice e valore associato all'indice che chiamo apputnamento.
             $.each(datiRisposta.appuntamenti, function (indice, appuntamento) {
@@ -1203,6 +1299,12 @@ function agendaViewDisplay(view, element)
 
                     break;
             }
+        },
+        error: function(xhr, status, error) 
+        {
+            $('#contenutoAreaPersonale').empty();
+            $('#contenutoAreaPersonale').append("<h4>C'è stato un errore. Se il problema si ripresenta, contatti l'aministratore.</h4><h4>Clicca su ok per tornare alla pagina personale.</h4>\n\
+                <input type='button' class='mySanitApp' id='tornaAreaPersonaleButton'  value='OK' />");
         }
 
 

@@ -104,7 +104,7 @@ class VReferti extends View{
         header("Expires: 0");
         header("Cache-Control: public");
         header("Content-type:application/pdf");
-        header('Content-Length:'.filesize($fileName));
+//        header('Content-Length:'.filesize($fileName));
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="'.$fileName.'"');
         header("Content-Transfer-Encoding: binary");

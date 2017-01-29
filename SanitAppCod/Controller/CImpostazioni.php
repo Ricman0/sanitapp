@@ -128,11 +128,22 @@ class CImpostazioni {
                 $task2 = $vImpostazioni->getTask2();
                 if ($task2 === "workingPlan") {
                     $workingPlanText = $vImpostazioni->recuperaWorkingPlan();
-                    $eClinica = new EClinica($username);
-                    $salvato = $eClinica->salvaWorkingPlanClinica($workingPlanText);
-                    if ($salvato) {
-                        $vImpostazioni->visualizzaFeedback('Working Plan salvato con successo');
+                    $workingPlanArray = json_decode($workingPlanText);
+                    $uValidazione = USingleton::getInstance('UValidazione');
+                    $uValidazione->validaWorkingPlan($workingPlanArray);
+                    if($uValidazione->getValidati() )
+                    {
+                        $eClinica = new EClinica($username);
+                        $salvato = $eClinica->salvaWorkingPlanClinica($workingPlanText);
+                        if ($salvato) {
+                            $vImpostazioni->visualizzaFeedback('Working Plan salvato con successo');
+                        }
                     }
+                    else
+                    {
+                        $vImpostazioni->visualizzaFeedback("C'è stato un errore. Working Plan non salvato.");
+                    }
+                    
                 }
                 break;
 
