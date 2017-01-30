@@ -11,10 +11,10 @@
         </thead>
         <tbody>
             <br>
-
             <h3>PAZIENTI</h3>
+            <h4>Clicca su una riga della tabella per visualizzare il paziente corrispondente.</h4>
             {if isset($tastoAggiungi)}
-                <h4>Per aggiungere un nuovo paziente clicca sull'icona seguente</h4>
+                <h4>Per aggiungere un nuovo paziente clicca sull'icona seguente.</h4>
                 <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiPaziente" aria-hidden="true" ></i>
             {/if}
             <br>

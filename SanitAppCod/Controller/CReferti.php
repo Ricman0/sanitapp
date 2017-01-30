@@ -331,7 +331,7 @@ class CReferti {
                 $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
                 $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
                 $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione());
-                $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, 'clinica');
+                $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, 'utente');
             } 
             catch (XRefertoException $ex) {
                 $vReferti->visualizzaFeedback("Referto inesistente. Non è stato possibile recuperare il referto");
