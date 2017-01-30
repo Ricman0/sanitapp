@@ -14,7 +14,7 @@
             <br>
             <label for="passwordLogIn2">Password</label>
             <br>
-            <input type="password" id="passwordLogIn2" placeholder="Enter Password" name="passwordLogIn" class='elementiForm' required />
+            <input type="password" id="passwordLogIn2" maxlength="10" placeholder="Enter Password" name="passwordLogIn" class='elementiForm' required />
             <br>
             <button type="submit" id="submitLogIn2" class="loginButton normalSize">Login</button>
 
@@ -25,4 +25,4 @@
     <button type="submit" id="submitRegistratiLogIn" class="normalSize registrazioneUtente">Registrati</button>
 </div>
     
-<br>
+<br>

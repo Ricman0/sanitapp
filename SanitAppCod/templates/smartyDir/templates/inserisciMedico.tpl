@@ -170,11 +170,11 @@
     </div>
     <div class="password"> 
         <label for="passwordMedico" class="elementiForm">Password</label>
-        <input type="password" name="passwordMedico" class="elementiForm" id="passwordMedico" required >
+        <input type="password" name="passwordMedico" maxlength="10" class="elementiForm" id="passwordMedico" required >
 
         <br>
         <label for="ripetiPasswordMedico" class="elementiForm">Ripeti Password</label>
-        <input type="password" name="ripetiPasswordMedico" class="elementiForm" id="ripetiPasswordMedico" required >
+        <input type="password" name="ripetiPasswordMedico" maxlength="10" class="elementiForm" id="ripetiPasswordMedico" required >
 
         <br>
     </div>

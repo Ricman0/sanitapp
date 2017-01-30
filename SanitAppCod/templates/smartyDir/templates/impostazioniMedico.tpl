@@ -188,9 +188,9 @@
                     <label for="username" class="elementiForm">Username :</label>
                     <input type="text" name="username" class="elementiForm" value ="{$medico->getUsernameUser()}" readonly />
                     <label for="password" class="elementiForm">Password :</label>
-                    <input type="password" name="password" class="elementiForm" id='nuovaPassword'/>
+                    <input type="password" name="password" maxlength="10" class="elementiForm" id='nuovaPassword'/>
                     <label for="ripetiPassword" class="elementiForm">Ripeti Password :</label>
-                    <input type="password" name="ripetiPassword" class="elementiForm" />
+                    <input type="password" name="ripetiPassword" maxlength="10" class="elementiForm" />
                     <br>
                     <input type="submit" id="inviaNuovaPassword" value="Invia Nuova Password" />
                 </form>

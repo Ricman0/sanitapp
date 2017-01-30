@@ -1027,7 +1027,7 @@ function agendaViewDisplay(view, element)
                             {
                                 // Aggiungo un periodoNonDisponibile per ogni pausa
                                 var breakStart, breakEnd;
-                                if(typeof(workingDay.BreakStart)!=='undefined' && typeof(workingDay.BreakEnd)!=='undefined' )
+                                if(typeof(workingDay.BreakStart)!='undefined' && typeof(workingDay.BreakEnd)!='undefined' )
                                 {
                                     breakStart = currDateStartString + ' ' + workingDay.BreakStart;
                                     breakEnd = currDateStartString + ' ' + workingDay.BreakEnd;
@@ -1150,7 +1150,7 @@ function agendaViewDisplay(view, element)
                             {
                                 // aggiungo una pausa  se presente
                                 var breakStart, breakEnd;
-                                if(typeof(workingDay.BreakStart)!=='undefined' && typeof(workingDay.BreakEnd)!=='undefined' )
+                                if(typeof(workingDay.BreakStart)!='undefined' && typeof(workingDay.BreakEnd)!='undefined' )
                                 {
                                     breakStart = currDateStartString + ' ' + workingDay.BreakStart;
                                     breakEnd = currDateStartString + ' ' + workingDay.BreakEnd;
@@ -1261,7 +1261,7 @@ function agendaViewDisplay(view, element)
                         
                         // aggiungo una pausa se presente
                         var breakStart, breakEnd;
-                        if(typeof(workingPlan[nomeGiorno].BreakStart)!== "undefined" && typeof(workingPlan[nomeGiorno].BreakEnd)!== "undefined" )
+                        if(typeof(workingPlan[nomeGiorno].BreakStart)!= "undefined" && typeof(workingPlan[nomeGiorno].BreakEnd)!= "undefined" )
                         {
                             breakStart = agendaView.start.format('YYYY-MM-DD') + ' ' + workingPlan[nomeGiorno].BreakStart;
                             breakEnd = agendaView.start.format('YYYY-MM-DD') + ' ' + workingPlan[nomeGiorno].BreakEnd;
@@ -1343,11 +1343,11 @@ function agendaEventClick(event, jsEvent, view)
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Start: " + event.start.format('HH:mm')  + "</p><p>End: " + event.end.format('HH:mm') + "</p>" ;
             if(event.eseguito==false)//lasciare due uguali(==)non tre(===)
             {
-               descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-times fa-lg rosso modificaEseguito' aria-hidden='true'></i></p>";
+               descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-times fa-lg rosso modificaEseguito cliccabile' aria-hidden='true'></i></p>";
             }
             else
             {
-                descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-check fa-lg verde modificaNonEseguito' aria-hidden='true'></i></p>" ;   
+                descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-check fa-lg verde modificaNonEseguito cliccabile' aria-hidden='true'></i></p>" ;   
             }
             $("#infoEvento").append(descrizioneAppuntamento);
             title = 'Appuntamento';
@@ -1387,12 +1387,14 @@ function agendaEventClick(event, jsEvent, view)
                         if(obj==="no")
                         {
                             alert('Prenotazione non eseguita');
-                            $('i.modificaNonEseguito').replaceWith("<i class='fa fa-times fa-lg rosso modificaEseguito' aria-hidden='true'></i>");
+                            $('i.modificaNonEseguito').replaceWith("<i class='fa fa-times fa-lg rosso modificaEseguito cliccabile' aria-hidden='true'></i>");
+                            event.eseguito = 0;
                         }
                         else
                         {
                            alert('Prenotazione non eseguita errore'); 
                         }
+                        $("#altroContenutoEventoNonEseguito").remove();
                         $("#altroContenutoEventoNonEseguito").dialog('close');
                         $("#eseguito").html('');
                       }
@@ -1427,12 +1429,14 @@ function agendaEventClick(event, jsEvent, view)
                         if(obj==="ok")
                         {
                             alert('Prenotazione eseguita');
-                            $('i.modificaEseguito').replaceWith("<i class='fa fa-check fa-lg verde modificaNonEseguito' aria-hidden='true'></i>");
+                            $('i.modificaEseguito').replaceWith("<i class='fa fa-check fa-lg verde modificaNonEseguito cliccabile' aria-hidden='true'></i>");
+                            event.eseguito = 1;
                         }
                         else
                         {
                            alert('Prenotazione eseguita errore'); 
                         }
+                        $('#altroContenutoEvento').remove();
                         $("#altroContenutoEvento").dialog('close');
                         $("#eseguito").html('');
                       }

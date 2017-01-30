@@ -41,7 +41,8 @@ class CGestisciAgenda {
                     $risultato = $eClinica->recuperaAppuntamentiEWorkingPlan($start, $end);
                     $vJSON = USingleton::getInstance('VJSON');
                     $vJSON->inviaDatiJSON($risultato);
-                } catch (XDBException $ex) {
+                } 
+                catch (XDBException $ex) {
                    $vAgenda->visualizzaFeedback("C'è stato un errore. Se il problema si ripresenta, contatti l'aministratore.");
                 }
                 catch (XClinicaException $ex) {

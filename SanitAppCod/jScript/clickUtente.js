@@ -134,10 +134,13 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
         data: dati,
         success: function (datiRisposta)
         {
+            alert(datiRisposta);
             try {
                 $.parseJSON(datiRisposta);
                 $('#messaggioDialogBox').text('Errore!');
-            } catch(error) {// non è json
+                                dialogBox(); //in eventi_click.js
+            } 
+            catch(error) {// non è json
                 $(ajaxdiv).html(datiRisposta);
                 $('#messaggioDialogBox').empty();
                 switch (task2)
@@ -147,7 +150,7 @@ function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
                         break;
 
                     case 'medico':
-                        $('#messaggioDialogBox').text('Medico cambiato con successo!');
+                        $('#messaggioDialogBox').text('Medico modificato con successo!');
                         break;
 
                     case 'alboNum':

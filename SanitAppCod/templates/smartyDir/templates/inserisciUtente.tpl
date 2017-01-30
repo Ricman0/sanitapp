@@ -46,11 +46,11 @@
     <div class="password">            
 
         <label for="passwordUtente" class="elementiForm">Password</label>
-        <input type="password" name="passwordUtente" class="elementiForm" id="passwordUtente"  required />
+        <input type="password" name="passwordUtente" maxlength="10" class="elementiForm" id="passwordUtente"  required />
         <br>
         
         <label for="ripetiPasswordUtente" class="elementiForm">Ripeti Password</label>
-        <input type="password" name="ripetiPasswordUtente" class="elementiForm" id="ripetiPasswordUtente" required />
+        <input type="password" name="ripetiPasswordUtente" maxlength="10" class="elementiForm" id="ripetiPasswordUtente" required />
         <br>
         
     </div>

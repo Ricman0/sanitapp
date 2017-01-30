@@ -72,11 +72,11 @@
         <br>
 
         <label for="password" class="elementiForm">Password</label>
-        <input type="password" name="password" id="password" class="elementiForm" required/>
+        <input type="password" name="password" maxlength="10" id="password" class="elementiForm" required/>
         <br>
 
         <label for="confermaPassword" class="elementiForm">Conferma password</label>
-        <input type="password" name="confermaPassword" id="confermaPassword" class="elementiForm" required/>
+        <input type="password" name="confermaPassword" maxlength="10" id="confermaPassword" class="elementiForm" required/>
         <br>
 
     </div>

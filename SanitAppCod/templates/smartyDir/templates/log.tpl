@@ -12,7 +12,7 @@
             <input type="text" id="usernameLogIn" placeholder="Enter Username" name="usernameLogIn" required >
 
             <label for="passwordLogIn">Password</label>
-            <input type="password" id="passwordLogIn" placeholder="Enter Password" name="passwordLogIn" required>
+            <input type="password" id="passwordLogIn" maxlength="10" placeholder="Enter Password" name="passwordLogIn" required>
 
             <button type="submit" id="submitLogIn" class="loginButton sottile">Login</button>
             <input type="checkbox" checked="checked"> Remember me &nbsp

@@ -287,11 +287,11 @@
             </div>
             <div class="password">            
                 <label for="passwordClinica" class="elementiForm">Password</label>
-                <input type="password" name="passwordClinica" class="elementiForm" id="passwordClinica" placeholder="R5t6sg6I" required />
+                <input type="password" name="passwordClinica" maxlength="10" class="elementiForm" id="passwordClinica" placeholder="R5t6sg6I" required />
 
                 <br>
                 <label for="ripetiPasswordClinica" class="elementiForm">Ripeti Password</label>
-                <input type="password" name="ripetiPasswordClinica" class="elementiForm" id="ripetiPasswordClinica" placeholder="R5t6sg6I" required />
+                <input type="password" name="ripetiPasswordClinica" maxlength="10" class="elementiForm" id="ripetiPasswordClinica" placeholder="R5t6sg6I" required />
 
                 <br>
             </div>
