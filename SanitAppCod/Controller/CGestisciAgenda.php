@@ -15,7 +15,7 @@
 class CGestisciAgenda {
     
     /**
-     * Metodo che consente di gestire il controller agenda
+     * Metodo che consente di gestire le richieste POST per il controller 'agenda'.
      * 
      * @access public
      */
@@ -43,10 +43,10 @@ class CGestisciAgenda {
                     $vJSON->inviaDatiJSON($risultato);
                 } 
                 catch (XDBException $ex) {
-                    
+                   $vAgenda->visualizzaFeedback("C'è stato un errore. Se il problema si ripresenta, contatti l'aministratore.");
                 }
                 catch (XClinicaException $ex) {
-                    
+                    $vAgenda->visualizzaFeedback("C'è stato un errore. Se il problema si ripresenta, contatti l'aministratore.");
                 }
                     
 //                }
@@ -65,7 +65,7 @@ class CGestisciAgenda {
     }
     
     /**
-     * Metodo che consente di visualizzare l'agenda della clinica gestendo eventuali errori/eccezioni
+     * Metodo che consente di visualizzare l'agenda della clinica gestendo eventuali errori/eccezioni.
      * 
      * @access private
      */
@@ -91,7 +91,7 @@ class CGestisciAgenda {
     }
     
     /**
-     * Metodo che consente di visualizza l'agenda della clinica
+     * Metodo che consente di visualizza l'agenda della clinica.
      * 
      * @access private
      * @throws XClinicaException Se la clinica  è inesistente

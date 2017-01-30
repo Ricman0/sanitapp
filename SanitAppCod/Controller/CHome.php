@@ -235,7 +235,7 @@ class CHome {
     {
         switch ($controller) 
         {
-            case 'agenda':
+            case 'agenda': // POST agenda
                 $cAgenda = USingleton::getInstance('CGestisciAgenda');
                 $cAgenda->gestisciAgenda();                
                 break;
