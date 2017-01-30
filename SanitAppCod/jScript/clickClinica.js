@@ -13,15 +13,10 @@ $(document).ready(function () {
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
         $('#stampaPrenotazioni').parent().remove();
         $('#contenutoAreaPersonale').empty(); // elimino tutti gli elementi interni al div contenutoAreaPersonale
-//        $('#divSideNavBar').prepend("<div><input type='button' id='stampaPrenotazioni' value='Stampa Prenotazioni'  /><br><br></div>");
         $('#contenutoAreaPersonale').append("<h1>Appuntamenti</h1>");
-        
-        
         $('#contenutoAreaPersonale').append("<div id='agenda'></div>");// aggiungo il div agenda per inserire fullcalendar
         $('#contenutoAreaPersonale').append("<div id='contenutoEvento' title='Dettaglio evento'><div id='infoEvento'></div>");
                
-    
-        
         $('#agenda').fullCalendar({
             header:
                     {

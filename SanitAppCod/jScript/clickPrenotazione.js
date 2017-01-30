@@ -455,7 +455,16 @@ function getGiorniNonLavorativiClinica(partitaIVAClinica)
         success:function(datiRisposta)
         {        
 //            alert(datiRisposta);
-            giorniNonLavorativi = JSON.parse(datiRisposta);
+            try{
+                giorniNonLavorativi = JSON.parse(datiRisposta);
+                return giorniNonLavorativi;
+            }
+            catch (error)
+            {
+                $('#contenutoAreaPersonale').empty();
+                $('#contenutoAreaPersonale').append("<h4>C'è stato un errore. Se il problema si ripresenta, contatti l'aministratore.</h4><h4>Clicca su ok per tornare alla pagina personale.</h4>\n\
+                    <input type='button' class='mySanitApp' id='tornaAreaPersonaleButton'  value='OK' />");
+            }
 //            alert('ciao');
 //            alert(giorniNonLavorativi.toString());
 //console.log(giorniNonLavorativi);
@@ -465,9 +474,10 @@ function getGiorniNonLavorativiClinica(partitaIVAClinica)
             alert(xhr.responseText);
             alert(error);
             alert(" errore nel ricevere i giorni non lavorativi della clinica ");
+            
         }
     });
-    return giorniNonLavorativi;
+    
 }
 
 /**

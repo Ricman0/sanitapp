@@ -205,10 +205,26 @@ class VImpostazioni extends View{
         {
             if (isset($_POST[$giorno]))
             {
-                $inizioFine = Array ('Start' => $_POST[$giorno . 'Start'] , 'End' => $_POST[$giorno . 'End'],
-                                    'BreakStart' => $_POST[$giorno.'BreakStart'], 'BreakEnd' => $_POST[$giorno.'BreakEnd']);
-//                if
-//                $inizioFine['Pause'] = $_POST[$giorno . 'Pausa'];
+                $inizioFine['Start'] = $this->recuperaValore($giorno . 'Start');
+                $inizioFine['End'] = $this->recuperaValore($giorno . 'End');
+                $inizioFine['BreakStart'] = $this->recuperaValore($giorno . 'BreakStart');
+                $inizioFine['BreakEnd'] = $this->recuperaValore($giorno . 'BreakEnd');
+                foreach ($inizioFine as $key => $value) {
+                    if($value == FALSE)
+                    {
+                        unset($inizioFine[$key]); // eliminino dall'array l'elemento che ha valore FALSE
+                    } 
+                    
+                }
+//                if(isset($_POST[$giorno.'BreakStart']))
+//                {
+//                    $inizioFine = Array ('Start' => $_POST[$giorno . 'Start'] , 'End' => $_POST[$giorno . 'End'],
+//                                    'BreakStart' => $_POST[$giorno.'BreakStart'], 'BreakEnd' => $_POST[$giorno.'BreakEnd']);
+//                }
+//                else 
+//                {
+//                    $inizioFine = Array ('Start' => $_POST[$giorno . 'Start'] , 'End' => $_POST[$giorno . 'End']);
+//                }
                 $workingPlan ["$giorno"]= $inizioFine; 
             }
             else

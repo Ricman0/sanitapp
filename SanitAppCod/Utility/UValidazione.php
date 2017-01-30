@@ -248,6 +248,12 @@ class UValidazione {
         
     }
     
+    /**
+     * Metodo che consente di validare il working plan della clinica.
+     * 
+     * @param array $workingPlanArray Il working Plan della clinica
+     * @return boolean TRUE se validato, FALSE altrimenti
+     */
     public function validaWorkingPlan($workingPlanArray) {
         print_r($workingPlanArray);
         $this->setValidati(TRUE);
@@ -255,7 +261,6 @@ class UValidazione {
         $stringaErrore =  "Deve essere un tempo valido ";
         
         foreach ($workingPlanArray as $workingPlanGiorno) {
-            print_r($workingPlanGiorno);
             $start = '';
             $end = '';
             $breakStart = '';
@@ -394,6 +399,7 @@ class UValidazione {
         else
         {
 //            echo ($chiave);
+            
 //            echo ($stringaErrore);
             $this->_datiErrati[$chiave] = $stringaErrore;
 //            echo ($this->datiErrati[$chiave]);

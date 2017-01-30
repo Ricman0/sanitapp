@@ -27,10 +27,11 @@ class CImpostazioni {
                     $vJSON = USingleton::getInstance('VJSON');
                     $vJSON->inviaDatiJSON($eClinica->getGiorniNonLavorativi());
                 } catch (XClinicaException $ex) {
-                    print_r($ex->getMessage());
-                    // vedere cosa far ritornare
+                    $vImpostazioni->visualizzaFeedback("C'è stato un errore. ");                    
                 }
-                
+                catch (XDBException $ex) {
+                    $vImpostazioni->visualizzaFeedback("C'è stato un errore. ");                    
+                }
                 break;
 
 //            case 'visualizza': // GET impostazioni/visualizza
@@ -133,10 +134,17 @@ class CImpostazioni {
                     $uValidazione->validaWorkingPlan($workingPlanArray);
                     if($uValidazione->getValidati() )
                     {
-                        $eClinica = new EClinica($username);
-                        $salvato = $eClinica->salvaWorkingPlanClinica($workingPlanText);
-                        if ($salvato) {
-                            $vImpostazioni->visualizzaFeedback('Working Plan salvato con successo');
+                        try {
+                            $eClinica = new EClinica($username);
+                            $salvato = $eClinica->salvaWorkingPlanClinica($workingPlanText);
+                            if ($salvato) {
+                                $vImpostazioni->visualizzaFeedback('Working Plan salvato con successo');
+                            }
+                        } catch (XClinicaException $ex) {
+                            $vImpostazioni->visualizzaFeedback("Clinica Inesistente. Working Plan non salvato.");
+                        }
+                        catch (XDBException $ex) {
+                            $vImpostazioni->visualizzaFeedback("C'è stato un errore. Working Plan non salvato.");
                         }
                     }
                     else
@@ -312,26 +320,48 @@ class CImpostazioni {
         }
     }
 
-    public function modificaMedicoCurante( $username) {
+    /**
+     * Metodo che consente ad un utente di modificare il proprio medico curante.
+     * 
+     * @access public
+     * @param string $username L'username dell'utente
+     */
+    public function modificaMedicoCurante($username) {
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $dati = $vImpostazioni->recuperaCFMedico();
         $arrayDati['codiceFiscale'] = $dati;
         $uValidazione = USingleton::getInstance('UValidazione');
         if ($uValidazione->validaDati($arrayDati)) {// se i dati sono validi
-            $eUtente = new EUtente(NULL, $username);
-            if ($eUtente->modificaMedicoCurante($uValidazione->getDatiValidi()['codiceFiscale']) === TRUE) {
-                //modifiche effettuate
-                $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
-                if (isset($CFMedicoCurante)) {
-                    $eMedico = new EMedico($CFMedicoCurante);
+            try {
+                $eUtente = new EUtente(NULL, $username);
+                if ($eUtente->modificaMedicoCurante($uValidazione->getDatiValidi()['codiceFiscale']) === TRUE) {
+                    //modifiche effettuate
+                    $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
+                    if (isset($CFMedicoCurante)) {
+                        $eMedico = new EMedico($CFMedicoCurante);
+                    }
+                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+        //                                $vJSON = USingleton::getInstance('VJSON');
+        //                                $vJSON->inviaDatiJSON(TRUE);
+                } 
+                else {
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON(FALSE);
                 }
-                $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
-//                                $vJSON = USingleton::getInstance('VJSON');
-//                                $vJSON->inviaDatiJSON(TRUE);
-            } else {
+            } 
+            catch (XUtenteException $ex) {
                 $vJSON = USingleton::getInstance('VJSON');
                 $vJSON->inviaDatiJSON(FALSE);
             }
+            catch (XMedicoException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
+            catch (XDBException $ex) {
+                $vJSON = USingleton::getInstance('VJSON');
+                $vJSON->inviaDatiJSON(FALSE);
+            }
+
         } else {
             // non tutti i dati sono validi 
             $vJSON = USingleton::getInstance('VJSON');
@@ -339,7 +369,11 @@ class CImpostazioni {
         }
     }
 
-    
+    /**
+     * Metodo che consente di modificare la provincia dell'albo a cui un medico è iscritto e il numero di iscrizione.
+     * 
+     * @access public
+     */
     public function modificaAlboNum() {
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
         $session = USingleton::getInstance('USession');
@@ -464,21 +498,43 @@ class CImpostazioni {
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
         switch ($tipoUser) {
             case 'utente':
-                $eUtente = new EUtente(NULL, $username);
-                $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
-                if (isset($CFMedicoCurante)) {
-                    $eMedico = new EMedico($CFMedicoCurante);
-                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                try {
+                    $eUtente = new EUtente(NULL, $username);
+                    $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
+                    if (isset($CFMedicoCurante)) {
+                        $eMedico = new EMedico($CFMedicoCurante);
+                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                    }
+                    else
+                    {
+                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, NULL);
+                    }
+                } 
+                catch (XUtenteException $ex) {
+                    $messaggio = $ex->getMessage();
+                    $vImpostazioni->visualizzaFeedback($messaggio);
                 }
-                else
-                {
-                    $vImpostazioni->visualizzaImpostazioniUtente($eUtente, NULL);
+                catch (XMedicoException $ex) {
+                    $messaggio = $ex->getMessage();
+                    $vImpostazioni->visualizzaFeedback($messaggio);
+                }
+                catch (XDBException $ex) {
+                    $vImpostazioni->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperare il working plan della clinica. ");
                 }
                 break;
 
             case 'medico':
-                $eMedico = new EMedico(NULL, $username);
-                $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+                try {
+                    $eMedico = new EMedico(NULL, $username);
+                    $vImpostazioni->visualizzaImpostazioniMedico($eMedico);
+                } 
+                catch (XMedicoException $ex) {
+                    $messaggio = $ex->getMessage();
+                    $vImpostazioni->visualizzaFeedback($messaggio);
+                }
+                catch (XDBException $ex) {
+                    $vImpostazioni->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperare il working plan della clinica. ");
+                }
                 break;
 
             case 'clinica': 
