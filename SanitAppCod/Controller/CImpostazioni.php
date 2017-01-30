@@ -33,9 +33,10 @@ class CImpostazioni {
                 
                 break;
 
-//            case 'visualizza': // GET impostazioni/visualizza
-//                $this->visualizzaImpostazioni($tipoUser, $username);
-//                break;
+            case 'visualizza': // GET impostazioni/visualizza
+                $this->visualizzaImpostazioni($tipoUser, $username);
+                break;
+            
             case 'workingPlan':
                 $this->visualizzaWorkingPlan($username);
                 break;

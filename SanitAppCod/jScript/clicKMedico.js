@@ -13,9 +13,10 @@ $(document).ready(function(){
         clickModificaImpostazioni('impostazioni', 'modifica', 'alboNum', "#informazioniGenerali");
     });
 
-    $('#headerMain').on("click", "#modificaPassword", function () {
-        clickModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
-    });
+// già in click utente 
+//    $('#headerMain').on("click", "#modificaPassword", function () {
+//        clickModificaImpostazioni('impostazioni', 'modifica', 'credenziali', "#credenziali");
+//    });
     
     
     $('#headerMain').on("click", "#pazientiAreaPersonaleMedico", function(){

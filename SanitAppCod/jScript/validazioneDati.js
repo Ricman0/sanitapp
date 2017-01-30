@@ -273,11 +273,13 @@ function validazioneCredenziali()
                     password:
                             {
                                 required: true,
-                                password: true
+                                password: true,
+                                maxlength: 10
                             },
                     ripetiPassword:
                             {
                                 required: true,
+                                maxlength: 10,
                                 equalTo: "#nuovaPassword"
                             }
                 },
@@ -285,11 +287,13 @@ function validazioneCredenziali()
                 {
                     password:
                             {
-                                required: "Inserire password"
+                                required: "Inserire password",
+                                maxlength: "Massimo 10 caratteri"
                             },
                     ripetiPassword:
                             {
                                 required: "Inserire nuovamente la password",
+                                maxlength: "Massimo 10 caratteri",
                                 equalTo: "Le password non corrispondono"
                             }
                 },
@@ -718,6 +722,7 @@ function validazioneLogIn(form)
                     passwordLogIn:
                             {
                                 required: true,
+                                maxlength: 10,
                                 password: true
                             }
                 },
@@ -729,7 +734,8 @@ function validazioneLogIn(form)
                             },
                     passwordLogIn:
                             {
-                                required: "Inserire password"
+                                required: "Inserire password",
+                                maxlength: "Massimo 10 caratteri"
                             }
                 },
         errorPlacement: function (error, element) {
@@ -860,11 +866,13 @@ function validazioneUtente()
                     passwordUtente:
                             {
                                 required: true,
+                                maxlength: 10,
                                 password: true
                             },
                     ripetiPasswordUtente:
                             {
                                 required: true,
+                                maxlength: 10,
                                 equalTo: "#passwordUtente"
                             }
                 },
@@ -918,11 +926,13 @@ function validazioneUtente()
                             },
                     passwordUtente:
                             {
-                                required: "Inserire password"
+                                required: "Inserire password",
+                                maxlength: "Massimo 10 caratteri"
                             },
                     ripetiPasswordUtente:
                             {
                                 required: "Inserire nuovamente la password",
+                                maxlength: "Massimo 10 caratteri",
                                 equalTo: "La password deve essere sempre la stessa"
                             }
                 },
@@ -1040,11 +1050,13 @@ function validazioneMedico()
                             },
                     passwordMedico:
                             {
-                                required: true
+                                required: true,
+                                maxlength: 10
                             },
                     ripetiPasswordMedico:
                             {
                                 required: true,
+                                maxlength: 10,
                                 equalTo: "#passwordMedico"
                             },
                     PEC:
@@ -1118,11 +1130,13 @@ function validazioneMedico()
                             },
                     passwordMedico:
                             {
-                                required: "Inserire password"
+                                required: "Inserire password",
+                                maxlength: "Massimo 10 caratteri"
                             },
                     ripetiPasswordMedico:
                             {
                                 required: "Inserire nuovamente la password",
+                                maxlength: "Massimo 10 caratteri",
                                 equalTo: "La password deve essere sempre la stessa"
                             },
                     PEC:
@@ -1285,11 +1299,13 @@ function validazioneClinica()
                     passwordClinica:
                             {
                                 required: true,
+                                maxlength: 10,
                                 password: true
                             },
                     ripetiPasswordClinica:
                             {
                                 required: true,
+                            maxlength: 10,
                                 equalTo: "#passwordClinica"
                             },
                     telefonoClinica:
@@ -1371,11 +1387,13 @@ function validazioneClinica()
                             },
                     passwordClinica:
                             {
-                                required: "Inserire password"
+                                required: "Inserire password",
+                                maxlength: "Massimo 10 caratteri"
                             },
                     ripetiPasswordClinica:
                             {
                                 required: "Ripetere password",
+                                maxlength: "Massimo 10 caratteri",
                                 equalTo: "La password ripetuta deve essere identica alla password appena inserita"
                             },
                     telefonoClinica:
@@ -1826,7 +1844,8 @@ function validazioneModificaUtente() {
                             },
                     passwordUtente:
                             {
-                                password: true
+                                password: true,
+                                maxlength: 10
                             }
 
                 },
@@ -1882,6 +1901,10 @@ function validazioneModificaUtente() {
                                 required: "Inserire il CAP",
                                 minlength: "Il CAP è un numero lungo 5",
                                 maxlength: "Il CAP è un numero lungo 5"
+                            },
+                    passwordUtente:
+                            {
+                                maxlength: "Massimo 10 caratteri"
                             }
 
                 },
@@ -2029,7 +2052,9 @@ function validazioneModificaMedico() {
                             },
                     passwordMedico:
                             {
-                                password: true
+                                password: true,
+                                maxlength: 10
+                            
                             }
                 },
         messages:
@@ -2100,6 +2125,10 @@ function validazioneModificaMedico() {
                             {
                                 required: "Inserire il numero di iscrizione",
                                 rangelength: "Deve avere 6 numeri"
+                            },
+                    passwordMedico:
+                            {
+                                maxlength: "Massimo 10 caratteri"
                             }
 
                 },
@@ -2244,9 +2273,9 @@ function validazioneModificaClinica() {
                             },
                     passwordClinica:
                             {
-                                password: true
+                                password: true,
+                                maxlength: 10
                             }
-
                 },
         messages:
                 {
@@ -2320,6 +2349,10 @@ function validazioneModificaClinica() {
                             {
                                 required: "Inserire il telefono",
                                 maxlength: "La sequenza massima di numeri è 10"
+                            },
+                    passwordClinica:
+                            {
+                                maxlength: "Massimo 10 caratteri"
                             }
 
                 },

@@ -290,11 +290,8 @@ function inviaDatiRegistrazione(id, controller, task, ajaxdiv)
    // per ciascun input text all'interno della form, esegui il trim del testo e poi assegnalo al testo dell'elemento di cui si è eseguito il trim
     $(id + " input[type='text']").each(function () {
         $(this).val($(this).val().trim());
-
     });
-
     alert($(id + " input[type='password']").val());
-    //recupera tutti i valori del form automaticamente
     var dati = $(id).serialize();
     alert(dati);
     $.ajax({

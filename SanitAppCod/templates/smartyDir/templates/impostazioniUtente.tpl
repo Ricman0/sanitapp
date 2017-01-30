@@ -83,9 +83,10 @@
                         <label for="username" class="elementiForm">Username :</label>
                         <input type="text" name="username" class="elementiForm" value ="{$utente->getUsernameUser()}"readonly />
                         <label for="password" class="elementiForm">Password :</label>
-                        <input type="password" name="password" class="elementiForm" id='nuovaPassword'/>
+                        <input type="password" name="password" maxlength="10" class="elementiForm" id='nuovaPassword'/>
+                        <br>
                         <label for="ripetiPassword" class="elementiForm">Ripeti Password :</label>
-                        <input type="password" name="ripetiPassword" />
+                        <input type="password" maxlength="10" name="ripetiPassword" />
                         <br>
                         <input type="submit" id="inviaNuovaPasswordUtente" value="Invia Nuova Password" />
                     </form>

@@ -200,9 +200,9 @@
                     <label for="username">Username :</label>
                     <input type="text" name="username" value ="{$clinica->getUsernameUser()}" readonly />
                     <label for="password">Password :</label>
-                    <input type="password" name="password" id='nuovaPassword'/>
+                    <input type="password" maxlength="10" name="password" id='nuovaPassword'/>
                     <label for="ripetiPassword">Ripeti Password :</label>
-                    <input type="password" name="ripetiPassword" />
+                    <input type="password" maxlength="10" name="ripetiPassword" />
                     <br>
                     <input type="submit" id="inviaNuovaPassword" value="Invia Nuova Password" />
                 </form>
