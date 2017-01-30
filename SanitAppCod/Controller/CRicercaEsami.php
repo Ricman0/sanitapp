@@ -3,13 +3,14 @@
 /**
  * Description of CRicercaEsami
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CRicercaEsami {
     
     /**
      * Metodo che permette di impostare la pagina per poter effettuare la 
-     * ricerca di uno o più esami presenti nell'applicazione
+     * ricerca di uno o più esami presenti nell'applicazione.
      * 
      * @access public
      */
@@ -21,7 +22,7 @@ class CRicercaEsami {
     
     
     /**
-     * Metodo che consente di ottenere tutti gli esami secondo i parametri di ricerca 
+     * Metodo che consente di ottenere tutti gli esami secondo i parametri di ricerca. 
      * 
      * @access public  
      */
@@ -50,7 +51,7 @@ class CRicercaEsami {
     }
     
     /**
-     * Metodo che consente di gestire le richieste GET per il controller 'esami'
+     * Metodo che consente di gestire le richieste GET per il controller 'esami'.
      * 
      * @access public
      */

@@ -33,6 +33,7 @@
         <span class="grassetto">INDIRIZZO:</span><span>  {$utente->getViaUtente()}</span>
         <br>
     </div>
+        <input type='button' class='mySanitApp' id='tornaAreaPersonaleButton'  value='Annulla' />
         {if ($modifica)===FALSE }
             <input type="button" id="confermaPrenotazione" value="Conferma" data-codice="{$codice}" data-idClinica="{$clinica->getPartitaIVAClinica()}" data-idEsame="{$esame->getIDEsameEsame()}"/>
         {else}

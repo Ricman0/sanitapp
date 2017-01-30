@@ -6,6 +6,7 @@
         <h4>Clicca sull'icona seguente per aggiungere un servizio.</h4>
     {else}
         <h3>ESAMI</h3>
+        <h4>Per visualizzare informazioni su un esame, clicca sulla riga relativa all'esame.</h4>
     {/if}
     <table id="tabellaEsami" class="tablesorter">
         <thead>
@@ -19,8 +20,8 @@
             <th>Località</th>
         </thead>
         <tbody>
-            <br>
             {if isset($tastoAggiungi)}
+                <br>
                 <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungi{$controller}" aria-hidden="true" ></i>
             {/if}
             <br>

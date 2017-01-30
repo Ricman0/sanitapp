@@ -87,6 +87,12 @@ $(document).ready(function (){
         var orarioSelezionato = $(".orarioSelezionato").text();
         $('#nextPrenotazioneEsame').attr('data-orario', orarioSelezionato);
         $('#nextPrenotazioneEsame').show();
+        if(!$('#tornaAreaPersonaleButton').length ) // se non c'è il tasto annulla
+        {
+            // aggiungo il tasto annulla nel caso in cui l'user ci ripensasse
+            $('#nextPrenotazioneEsame').before("<input type='button' class='mySanitApp' id='tornaAreaPersonaleButton'  value='Annulla' />    ");
+        }
+        
     });
     
     $('#headerMain').on("click", "#nextPrenotazioneEsame", function(){
@@ -419,6 +425,7 @@ function disabilitaGiorniNonLavorativi(date, giorniNonLavorativi)
     }
 //    var giorniNonLavorativi1 = [1,2];
     $.each(giorniNonLavorativi, function( index, value ) {
+        
         if(giornoData===value)
         {
             disabilitato = false; // imposto a false la variabile disabilitato in questo modo la funzione tornerà false e disabiliterà il giorno sul datepicker
@@ -456,8 +463,10 @@ function getGiorniNonLavorativiClinica(partitaIVAClinica)
         {        
 //            alert(datiRisposta);
             try{
+                
                 giorniNonLavorativi = JSON.parse(datiRisposta);
-                return giorniNonLavorativi;
+                
+                
             }
             catch (error)
             {
@@ -477,6 +486,7 @@ function getGiorniNonLavorativiClinica(partitaIVAClinica)
             
         }
     });
+    return giorniNonLavorativi;
     
 }
 

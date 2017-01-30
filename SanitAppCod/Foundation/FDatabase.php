@@ -414,8 +414,6 @@ class FDatabase {
                     break;
                 }
         }
-        echo 'gli attributi';
-        print_r($valoriAttributi);
         return $valoriAttributi;
     }
     
@@ -486,7 +484,7 @@ class FDatabase {
             } catch (Exception $e) {
                 // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
                 $this->_connessione->rollback();
-                print_r($e->getMessage());
+//                print_r($e->getMessage());
                 throw new XDBException("Inserimento fallito, contattare l'amministratore.");
             }
         }

@@ -1,25 +1,31 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/*
- * 
+/**
+ * Description of VEsami
+ *
+ * @package View
+ * @author Claudia Di Marco & Riccardo Mantini
  */
 class VEsami extends View{
     
+    /**
+     * Metodo che consente di restituire e visualizzare la form per effettuare la ricerca degli esami.
+     * 
+     * @access public
+     */
     public function restituisciFormRicercaEsami() 
     {
-        return $this->visualizzaTemplate('ricercaEsami');
+        $this->visualizzaTemplate('ricercaEsami');
     }
     
+    /**
+     * Metodo che consente di visualizzare attraverso una tabella gli esami risultato della ricerca.
+     * 
+     * @access public
+     * @param array $dati Gli esami da visualizzare
+     */
     public function restituisciPaginaRisultatoEsami($dati) 
     {
-        
-        return $this->visualizzaTemplate('tabellaEsami');
+        $this->visualizzaTemplate('tabellaEsami');
     }
 }

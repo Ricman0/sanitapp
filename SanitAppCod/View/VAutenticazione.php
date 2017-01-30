@@ -163,7 +163,7 @@ class VAutenticazione extends View {
     }
     
     /**
-     * Metodo che consente di impostare la pagina di Log In
+     * Metodo che consente di impostare la pagina di Log In.
      * 
      * @access public
      * @param string $errore Stringa che contenente l'errore dell'eccezione
@@ -184,7 +184,7 @@ class VAutenticazione extends View {
     
 
     /**
-     * Metodo che effettua il refresh della pagina e restituisce la home page
+     * Metodo che effettua il refresh della pagina e restituisce la home page.
      * 
      * @access public
      */
@@ -220,6 +220,7 @@ class VAutenticazione extends View {
 
         $this->visualizzaTemplate('headerMain');
     }
+    
     
     public function logIn($errore) 
     {
@@ -259,8 +260,5 @@ class VAutenticazione extends View {
         $this->assegnaVariabiliTemplate('main', $feedbacks);
         $this->visualizzaTemplate('headerMain');
     }
-    
-    
-    
-    
+   
 }
