@@ -956,7 +956,7 @@ function agendaDayClick(date, allDay, jsEvent, view)
 function agendaViewDisplay(view, element)
 {
     $('#loadingModal').show();
-    var agendaView = $('#agenda').fullCalendar('getView'); //memorizzo il View Object in agendaView
+    var agendaView = $('#agenda').fullCalendar('getView'); //memorizzo il View Object in agendaView //View object is An object that is passed to every callback, containing info about the current view.
     // mi salvo date e orari per passarli durante la chiamata così all'interno di questo range posso trovare gli appuntamenti
     var startDataOra = agendaView.start.format('YYYY-MM-DD') + " " + agendaView.calendar.options.minTime; // data e ora di inizio della view
     var endDataOra = agendaView.end.format('YYYY-MM-DD') + " 00:00:00";// ultima data e ora della view
@@ -968,6 +968,7 @@ function agendaViewDisplay(view, element)
 //            url: 'agenda/visualizza',
         url: 'agenda',
         data: {start: startDataOra, end: endDataOra},
+//        dataType : 'json',
         success: function (datiRisposta)
         {
             //rendo oggetto JS i dati JSON ricevuti
@@ -996,7 +997,7 @@ function agendaViewDisplay(view, element)
             });
             $('#agenda').fullCalendar('removeEvents'); //rimuove tutti gli eventi dall'agenda se il 2°paramentro (ovvero id appuntamento) è omesso
             $('#agenda').fullCalendar('addEventSource', appuntamentiAgenda);// Aggiunge dinamicamente gli event source
-            // .fullCalendar( 'addEventSource', source ) // source può essere Array/URL/Function. Gli eeventi sono immediatamente presi dal source e inseriti nel calendario/agenda
+            // .fullCalendar( 'addEventSource', source ) // source può essere Array/URL/Function. Gli eventi sono immediatamente presi dal source e inseriti nel calendario/agenda
 
 
             switch (agendaView.name) // recupero il nome della View
@@ -1120,9 +1121,9 @@ function agendaViewDisplay(view, element)
                     break;
                 
                 case 'month':// visualizzazione mensile
-                    var currDateStart = agendaView.start;
+                    var currDateStart = agendaView.start; // start è una proprietà del View Object
                     var currDateStartString = currDateStart.format('YYYY-MM-DD'); // recupero la stringa della data da cui inizia il calendario 
-                    var currDateEnd = agendaView.end;
+                    var currDateEnd = agendaView.end; // l'ultimo giorno visibile della view ed è una proprietà del View Object
                     var currDateEndString = currDateEnd.format('YYYY-MM-DD');
                     var currDateTempEnd = moment(currDateStartString); // creo un moment dalla stringa //data di fine temporaneo
                     currDateTempEnd = currDateTempEnd.add(1, 'days'); // aggiungo un giorno
@@ -1132,6 +1133,7 @@ function agendaViewDisplay(view, element)
                     
                     while ( currDateStartMonth < currDateEndMonth) // non metto <= perchè all'interno c'è il foreach di 7 giorni quindi arriva fino all'ultimo giorno
                     {
+                        alert(currDateStartString);
                         $.each(datiRisposta.workingPlan, function (index, workingDay) {
                             
                             if (workingDay === null) {
@@ -1190,8 +1192,9 @@ function agendaViewDisplay(view, element)
                             currDateTempEndString = currDateTempEnd.format('YYYY-MM-DD');
                             
                         });         
-                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
+//                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
                             currDateStartString = currDateStart.format('YYYY-MM-DD');
+                            alert(currDateStartString);
                             currDateStartMonth = Date.parse(currDateStartString);
                             
                     }
