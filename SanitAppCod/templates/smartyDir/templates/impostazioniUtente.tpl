@@ -11,7 +11,7 @@
                 <input type="text" name="cognome" class="elementiForm" value ="{$utente->getCognomeUtente()}" readonly />
                 <br>
                 <label for="codice" class="elementiForm">Codice Fiscale :</label>
-                <input type="text" name="codice" class="elementiForm" maxlength="16" value ="{$utente->getCodFiscaleUtente()}" readonly />
+                <input type="text" name="codice" class="elementiForm upperCase" maxlength="16" value ="{$utente->getCodFiscaleUtente()}" readonly />
                 <br>
                 <label for="email" class="elementiForm">Email :</label>
                 <input type="text" name="email" class="elementiForm" value ="{$utente->getEmailUser()}" readonly />
@@ -52,7 +52,7 @@
                 <form id='formModificaMedico'>
                     <input id ='inverti' type="hidden" name="inverti" value="si"  />
                     <label for="codiceFiscale" class="elementiForm">Codice Fiscale Medico :</label>
-                    <input type="text" name="codiceFiscale" class="elementiForm" maxlength="16" value ="{$utente->getCodFiscaleMedicoUtente()}" />
+                    <input type="text" name="codiceFiscale" class="elementiForm upperCase" maxlength="16" value ="{$utente->getCodFiscaleMedicoUtente()}" />
                     <br>
                     <input type="submit" id="medicoUtenteModificato" value="OK" />
                 </form>

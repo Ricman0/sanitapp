@@ -11,7 +11,7 @@
             <input type="text" name="cognome" class="elementiForm" value ="{$medico->getCognomeMedico()}" readonly />
             <br>
             <label for="codice" class="elementiForm">Codice Fiscale :</label>
-            <input type="text" name="codice" class="elementiForm" maxlength="16" value ="{$medico->getCodFiscaleMedico()}" readonly />
+            <input type="text" name="codice" class="elementiForm upperCase" maxlength="16" value ="{$medico->getCodFiscaleMedico()}" readonly />
             <br>
             <label for="email" class="elementiForm">Email :</label>
             <input type="text" name="email" class="elementiForm" value ="{$medico->getEmailUser()}" readonly />

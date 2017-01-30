@@ -13,7 +13,7 @@
     <br>
     
     <label for="codiceFiscale" class="elementiForm">Codice Fiscale</label>
-    <input type="text" name="codiceFiscale" id="codiceFiscaleUtente" maxlength="16" class="elementiForm" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required />
+    <input type="text" name="codiceFiscale" id="codiceFiscaleUtente" maxlength="16" class="elementiForm upperCase" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required />
     <br>
     
 

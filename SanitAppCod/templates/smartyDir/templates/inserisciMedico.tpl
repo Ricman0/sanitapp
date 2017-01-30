@@ -14,7 +14,7 @@
 
     <br>
     <label for="codiceFiscaleMedico" class="elementiForm">Codice Fiscale</label>
-    <input type="text" name="codiceFiscale" class="elementiForm" id="codiceFiscaleMedico" maxlength="16" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required/>
+    <input type="text" name="codiceFiscale" class="elementiForm upperCase" id="codiceFiscaleMedico" maxlength="16" placeholder="MRARSS67S42G438S" value="{if isset($datiValidi.codiceFiscale)}{$datiValidi.codiceFiscale}{/if}" required/>
 
     <br>
 
