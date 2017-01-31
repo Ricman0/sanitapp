@@ -1,8 +1,8 @@
     {if isset($informazioniGenerali)}
         <div id="informazioniGeneraliUtente">
-            <h4>
+            <h3>
                 INFORMAZIONI GENERALI
-            </h4>
+            </h3>
             {if isset($utente)}
                 <label for="nome" class="elementiForm">Nome :</label>
                 <input type="text" name="nome" class="elementiForm" value ="{$utente->getNomeUtente()}" readonly />
@@ -45,9 +45,9 @@
 
     {if isset($medicoCurante)}
         <div id="medicoCurante">
-            <h4>
+            <h3>
                 MEDICO CURANTE
-            </h4>
+            </h3>
             {if isset($modificaMedicoCurante)}
                 <form id='formModificaMedico'>
                     <input id ='inverti' type="hidden" name="inverti" value="si"  />
@@ -74,9 +74,9 @@
 
     {if isset($credenziali)}
         <div id="credenziali">
-            <h4>
+            <h3>
                 CREDENZIALI
-            </h4>
+            </h3>
             {if isset($utente)}                    
                 {if isset($modificaCredenziali)}
                     <form id="formModificaPassword" >                    

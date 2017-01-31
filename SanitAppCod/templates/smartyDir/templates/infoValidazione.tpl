@@ -1,5 +1,5 @@
 <div id="infoValidazione">
-    <h3>Informazioni Validazione</h3>
+    <h3>INFORMAZIONI VALIDAZIONE</h3>
     <hr>
     <br>
     <h4> La validazione del medico o della clinica avviene fornendo all'amministratore la <br>

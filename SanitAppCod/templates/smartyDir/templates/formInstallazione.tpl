@@ -5,7 +5,7 @@
 {/if} 
 <form id="formInstallazione">
     <div id="databaseEmailConfig" class="affiancato verticalmenteAllineato">
-        <h3>Configurazione</h3>
+        <h3>CONFIGURAZIONE</h3>
         <br>
         Database
         <br>
@@ -26,7 +26,7 @@
         <input type="password" name="confermaPasswordDb" id="confermapasswordDb" class="elementiForm" required/>
         <br>
         <br>
-        Server SMTP
+        SERVER SMTP
         <br>
         <br>
         <label for="smtp" class="elementiForm">Server SMTP</label>
@@ -43,7 +43,7 @@
         <div id="adminConfig" class="affiancato verticalmenteAllineato">
 
 
-        <h3>Amministratore</h3>
+        <h3>AMMINISTRATORE</h3>
         <br>
         <br>  <br>  
 

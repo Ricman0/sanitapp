@@ -25,8 +25,7 @@ class CRicercaCliniche {
     
 
     /**
-     * Metodo che consente di gestire il controller 'cliniche'  in base al task.
-     * Se l'url non possiede un task 
+     * Metodo che consente di gestire le richieste GET per il controller 'cliniche'.
      * 
      * @access public
      */

@@ -1,6 +1,6 @@
 <form name="aggiungiReferto" enctype="multipart/form-data" id="formUploadReferto"> 
     <br>
-    <h3>Aggiunta Referto</h3>
+    <h3>AGGIUNTA REFERTO</h3>
     <br>
     <h5>Seleziona un file pdf da associare all'esame</h5>
    <!-- <input type="hidden" name="controller" value="referto" />

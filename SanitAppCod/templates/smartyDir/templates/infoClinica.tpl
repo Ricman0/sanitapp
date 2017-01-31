@@ -1,5 +1,5 @@
 <div id="infoClinica">
-    <h3>Informazioni Clinica</h3>
+    <h3>INFORMAZIONI CLINICA</h3>
     <br>
     <div>
         <span class="grassetto">NOME:</span><span>  {$clinica->getNomeClinicaClinica()}</span>

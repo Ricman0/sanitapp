@@ -1,4 +1,4 @@
-<h4>Inserisci i dati</h4>
+<h3>INSERISCI I DATI PER REGISTRARTI IN SANITAPP</h3>
 <form class="formInserisci" name="inserisciClinica" method="post" id="inserisciClinica">
 
     <input type="hidden" name="controller" value="registrazione" />

@@ -4,7 +4,7 @@
         <fieldset class="noBordo">
             <div class="row-fluid">
                 <div class="col-md-7 working-plan-wrapper">
-                    <h4>Working Plan</h4>
+                    <h3>WORKING PLAN</h3>
                     <p class="help-block">
                         Spunta i giorni lavorativi della tua attività.
                         Aggiungi gli orari di inizio e fine giornata.
