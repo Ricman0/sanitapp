@@ -292,20 +292,18 @@ function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
         {
             if(controller==='referto' && task === 'condividi' && datiPOST.condividiConMedico!==null)
             {
-                console.log(datiRisposta);
-                alert(datiRisposta);
                 $('#messaggioDialogBox').empty();
-                if(datiRisposta === "OK")
+                if(datiRisposta == "\"OK\"")
                 {
                     $('#messaggioDialogBox').text('Referto condiviso con il proprio medico curante');
                 }
-                else if(datiRisposta ==='NO')
+                else if(datiRisposta == "\"NO\"")
                 {
                     $('#messaggioDialogBox').text('Referto NON condiviso con il proprio medico curante');
                 }
                 else
                 {
-                    $('#messaggioDialogBox').text('Errore');
+                    $('#messaggioDialogBox').text('Errore!!');
                 }
                     
                 dialogBox();

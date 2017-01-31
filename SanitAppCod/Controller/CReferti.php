@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CReferti
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini 
  */
 class CReferti {
@@ -57,6 +52,11 @@ class CReferti {
         }
     }
 
+    /**
+     * Metodo che consente di gestire le richieste POST per il controller 'referto'.
+     * 
+     * @access public
+     */
     public function gestisciRefertiPOST() {
 
         $vReferti = USingleton::getInstance('VReferti');

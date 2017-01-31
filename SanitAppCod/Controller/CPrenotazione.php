@@ -94,7 +94,7 @@ class CPrenotazione {
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazioni->getTask();
         switch ($task) {                
-            case 'visualizza': 
+            case 'visualizza':  // GET prenotazioni/visualizza
             $idPrenotazione = $vPrenotazioni->recuperaValore('id');
             if ($idPrenotazione === FALSE)  // GET prenotazioni/visualizza
             {
@@ -167,7 +167,7 @@ class CPrenotazione {
                                 $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione()); // potrebbe lanciare UtenteException('Utente non esistente')
                                 $nome = $eUtente->getNomeUtente();
                                 $cognome = $eUtente->getCognomeUtente(); 
-                                $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL,$cancellaPrenota) ;
+                                $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL,FALSE) ;
                             break;
 
                         case 'clinica': 
@@ -600,7 +600,7 @@ class CPrenotazione {
     }
     
     /**
-     * Metodo che consente di visualizzare le prenotazioni. Nel caso ci fossero errori o eccezioni, le gestisce
+     * Metodo che consente di visualizzare le prenotazioni. Nel caso ci fossero errori o eccezioni, le gestisce.
      * 
      * @access public
      */
@@ -803,7 +803,7 @@ class CPrenotazione {
     /**
      * Metodo che cerca tutte le prenotazioni da effettuare in una determinata
      * data passata come parametro. Per ogni prenotazione trovata invia una mail
-     * per ricordare all'utente la prenotazione.  Non c'è il passaggio attarverso l'entità
+     * per ricordare all'utente la prenotazione.  Non c'è il passaggio attraverso l'entità.
      * 
      * @access public
      * @param date $data La data in formato d-m-Y

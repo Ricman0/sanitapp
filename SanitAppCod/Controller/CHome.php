@@ -9,7 +9,7 @@
 class CHome {
     
     /**
-     * Metodo che permette di impostare la pagina dell'applicazione web in base alla richiesta HTTP arrivata
+     * Metodo che permette di impostare la pagina dell'applicazione web in base alla richiesta HTTP arrivata.
      * 
      * @access public
      */
@@ -276,7 +276,7 @@ class CHome {
                 $cAutenticazione->nuovaPassword();
                 break;
                 
-            case 'referto':
+            case 'referto': // POST referto
                 $cReferto = USingleton::getInstance('CReferti');
                 $cReferto->gestisciRefertiPOST();
                 break;
