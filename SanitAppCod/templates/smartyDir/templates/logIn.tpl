@@ -1,6 +1,6 @@
 <div id="logInFormDiv2" class="verticalmenteAllineato">
     {if isset($errore)}
-        <div id="erroreLogIn">{$errore}</div>  
+        <div id="erroreLogIn"><h4>{$errore}</h4></div>  
     {/if}
     <div id="logInDiv" class="bordo centrato">
    <i class="fa fa-user fa-4x sanitAppColor" id="icona-logInForm" aria-hidden="true"></i>

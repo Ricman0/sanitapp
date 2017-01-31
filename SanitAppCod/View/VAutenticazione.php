@@ -222,7 +222,7 @@ class VAutenticazione extends View {
     }
     
     
-    public function logIn($errore) 
+    public function logIn($errore=NULL) 
     {
         $this->assegnaVariabiliTemplate('errore', $errore);
         $this->visualizzaTemplate('logIn');
