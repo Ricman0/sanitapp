@@ -40,6 +40,9 @@
                     <input type="button" id="modificaIndirizzoMedico" value="Modifica Indirizzo" />  
                     <br>
                 {/if}
+                <h4>
+                    Informazioni Professionali
+                </h4>
                 {if isset($modifica)}
                     <form id="formModificaAlboNum">
                         <label for="ProvinciaAlbo" class="elementiForm">Provincia Albo :</label>
@@ -189,6 +192,7 @@
                     <input type="text" name="username" class="elementiForm" value ="{$medico->getUsernameUser()}" readonly />
                     <label for="password" class="elementiForm">Password :</label>
                     <input type="password" name="password" maxlength="10" class="elementiForm" id='nuovaPassword'/>
+                    <br>
                     <label for="ripetiPassword" class="elementiForm">Ripeti Password :</label>
                     <input type="password" name="ripetiPassword" maxlength="10" class="elementiForm" />
                     <br>

@@ -68,4 +68,14 @@ class VHome extends View {
         $this->visualizzaTemplate("HomePage");  
     }
     
+    /**
+     * Manda un messaggio all'utente che tenta di accedere ad un'area per la quale non dispone dei permessi
+     */
+    public function senzaPermessi() {
+        
+        $messaggio = "Non disponi dei permessi per accedere all'area richiesta.";
+        $this->visualizzaFeedback($messaggio, TRUE);
+        
+    }
+    
 }
