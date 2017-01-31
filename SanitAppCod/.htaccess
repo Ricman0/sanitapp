@@ -13,7 +13,7 @@
   RewriteRule ^(categorie)$ index.php?controller=$1 [L]
   RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
   RewriteRule ^(categorie)/(visualizza)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(users)/(visualizza|bloccati|daValidare)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(users)/(visualizza|bloccati|daValidare|medico)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(users|usersBloccati|usersDaValidare)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(clienti)/(visualizza)/([[:alnum:]]{16})$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(registrazione)/(conferma)/([[:alnum:]]+)/([[:alnum:]]{32})$ index.php?controller=$1&task=$2&username=$3&id=$4 [L]
@@ -35,7 +35,6 @@
   RewriteRule ^(cliniche)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all [L]
   RewriteRule ^(cliniche)$ index.php?controller=$1&parametro1=all&parametro2=all [L]
   RewriteRule ^(registrazione)/(clinica|medico|utente)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(validazione)/(codiceFiscale)/(\w+)$ index.php?controller=$1&task=$2&parametro=$3
   RewriteRule ^(\w+)$ index.php?controller=$1
   RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(impostazioni)/(generali|workingPlan)?$ index.php?controller=$1&task=$2 [L]
@@ -66,7 +65,6 @@
     RewriteRule ^(referto)/(upload)$ index.php?controller=referto&task=upload [L]
     RewriteRule ^(prenotazione)/(conferma)/(modifica)$ index.php?controller=$1&task=$2&id=$3 [L]
     RewriteRule ^(impostazioni)/(modifica)/(informazioni|medico|alboNum|credenziali)$ index.php?controller=$1&task=$2&task2=$3 [L]
-    RewriteRule ^(validazione)/(usernameUtente)$ index.php?controller=$1&task=$2
     RewriteRule ^(impostazioni)/(clinica)/(workingPlan|credenziali|informazioni)$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(\w+)/(\w+)/(\w+)?$ index.php
     RewriteRule ^(\w+)/(\w+)?$ index.php

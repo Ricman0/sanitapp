@@ -78,7 +78,6 @@ class CReferti {
             
             case 'upload':
                 try {
-                     echo 'il file';
                     $this->uploadReferto();
                 } catch (XDatiRefertoException $ex) {
                     $vReferti->visualizzaFeedback('Problema upload. ');

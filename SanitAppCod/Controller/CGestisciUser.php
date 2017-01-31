@@ -1,18 +1,18 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CGestisciUser
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CGestisciUser {
     
+    /**
+     * Metodo che consente di gestire le richieste GET per il controller 'users'. 
+     * 
+     * @access public
+     */
     public function gestisciUsers()
     {
         $sessione = USingleton::getInstance('USession');
@@ -25,22 +25,38 @@ class CGestisciUser {
                 $idUser = $vUsers->recuperaValore('id');
                 if ($idUser === FALSE) // GET users/visualizza
                 {
-                    $eAmministratore = new EAmministratore($username);
-                    $risultato = $eAmministratore->cercaAppUserNonAmministratori();
-                    $vUsers->visualizzaUserNonAmministratori($risultato);
+                    try {
+                        $eAmministratore = new EAmministratore($username);
+                        $risultato = $eAmministratore->cercaAppUserNonAmministratori();
+                        $vUsers->visualizzaUserNonAmministratori($risultato);
+                    } catch (XAmministratoreException $ex) {
+                        $vUsers->visualizzaFeedback('Amministratore inesistente.');
+                    }
+                    catch (XDBException $ex) {
+                        $vUsers->visualizzaFeedback("C'è stato un errore");
+                    }
+                    
                 }
                 else //GET users/visualizza/id
                 {
-                    $eAmministratore = new EAmministratore($username);
-                    $userCercato = $eAmministratore->cercaAppUser($idUser);
-                    if (is_array($userCercato) && count($userCercato)===1)
-                    {
-                       $vUsers->visualizzaInfoUser($userCercato[0]); 
+                    try {
+                        $eAmministratore = new EAmministratore($username);
+                        $userCercato = $eAmministratore->cercaAppUser($idUser);
+                        if (is_array($userCercato) && count($userCercato)===1)
+                        {
+                           $vUsers->visualizzaInfoUser($userCercato[0]); 
+                        }
+                        else
+                        {
+                            $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile recuperare i dati dello user.'); 
+                        }
+                    } catch (XAmministratoreException$ex) {
+                         $vUsers->visualizzaFeedback('Amministratore inesistente. Non è stato possibile recuperare i dati dello user.'); 
                     }
-                    else
-                    {
+                    catch (XDBException$ex) {
                         $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile recuperare i dati dello user.'); 
                     }
+                    
                     
                     
                 }
@@ -48,20 +64,57 @@ class CGestisciUser {
                 break;
             
             case 'bloccati':
-                $eAmministratore = new EAmministratore($username);
-                $usersBloccati= $eAmministratore->cercaAppUserBloccati();
-                $vUsers->visualizzaUserBloccati($usersBloccati);
+                try {
+                    $eAmministratore = new EAmministratore($username);
+                    $usersBloccati= $eAmministratore->cercaAppUserBloccati();
+                    $vUsers->visualizzaUserBloccati($usersBloccati);
+                } catch (XAmministratoreException $ex) {
+                    $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile recuperare gli user bloccati.'); 
+                }
+                catch (XDBException $ex) {
+                    $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile recuperare gli user bloccati.'); 
+                }
+                
                 break;
   
             case 'daValidare':
-                $eAmministratore = new EAmministratore($username);
-                $usersDaValidare= $eAmministratore->cercaAppUserDaValidare();
-                $vUsers->visualizzaUserDaValidare($usersDaValidare);
+                try {
+                    $eAmministratore = new EAmministratore($username);
+                    $usersDaValidare= $eAmministratore->cercaAppUserDaValidare();
+                    $vUsers->visualizzaUserDaValidare($usersDaValidare);   
+                }
+                catch (XAmministratoreException $ex) {
+                    $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile recuperare gli user da validare.'); 
+                }
+                catch (XDBException $ex) {
+                    $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile recuperare gli user da validare.'); 
+                }
+                break;
+            
+            case 'medico': // cerca tutti i medici dell'applicazione
+                try {
+                    $eUtente = new EUtente(NULL, $username);
+                    $medici = $eUtente->cercaMedici();
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON($medici); 
+                } catch (XUtenteException $ex) {
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON(FALSE);
+                }
+                 catch (XDBException $ex) {
+                    $vJSON = USingleton::getInstance('VJSON');
+                    $vJSON->inviaDatiJSON(FALSE);
+                }
                 break;
         }
         
     }
     
+    /**
+     * Metodo che consente di gestire le richieste POST per il controller 'users'.
+     * 
+     * @access public
+     */
     public function gestisciUsersPOST(){
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
@@ -318,6 +371,7 @@ class CGestisciUser {
                 break;
         }
     }
+    
     
     public function gestisciUsersBloccati(){
         $sessione = USingleton::getInstance('USession');

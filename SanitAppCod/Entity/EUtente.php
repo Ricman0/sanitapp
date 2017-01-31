@@ -614,7 +614,7 @@ class EUtente extends EUser {
     public function cercaMedici() {
         $fMedici = USingleton::getInstance('FMedico');
         $medici = $fMedici->cerca();
-         return $medici;
+        return $medici;
     }
     
     /**

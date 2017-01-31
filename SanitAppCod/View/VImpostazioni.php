@@ -22,7 +22,7 @@ class VImpostazioni extends View{
     }
     
     /**
-     * Metodo che consente di visualizzare le impostazioni dell'utente
+     * Metodo che consente di visualizzare le impostazioni dell'utente.
      * 
      * @access public
      * @param EUtente $utente Una entità utente

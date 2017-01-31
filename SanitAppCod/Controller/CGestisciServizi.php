@@ -196,14 +196,6 @@ class CGestisciServizi {
                     $vServizi->visualizzaInfoEsame($eEsame, TRUE, $tipoUser);
                 }
                 break;
-       
-            
-            
-            case 'disabilita':
-                break;
-            
-            case 'cancella':
-                break;
             
             default:
                 // caso in cui si vogliono solo visualizzare i servizi
