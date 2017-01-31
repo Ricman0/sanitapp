@@ -338,7 +338,7 @@ button:disabled, input[type = 'submit' ]:disabled, input[type='button']:disabled
     
 }
 
-.faAzzurro{
+.sanitAppColor{
     color:rgb(11, 190, 210);
 }
 
@@ -362,6 +362,30 @@ hr{
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0));
 
 }
+
+hr.icon:after{
+    content:" ";
+    display: inline-block;
+    position: relative;
+    top: -2.1em;
+    font-size: 1.5em;
+    padding: 19px 1.75em;
+    background: #fff url(../Immagini/logoSanitApp.png) no-repeat scroll center;
+    background-size: 50px 60px;
+    height: 50px;
+    
+/*    content:" ";
+    display: inline-block;
+    position: relative;
+    top: -0.5em;
+    font-size: 1.7em;
+    padding: 19px 1.75em;
+    background: #fff url(../Immagini/logoSanitApp.png) no-repeat scroll center;
+    background-size: 90px 40px;
+    height: 2px;*/
+
+}
+
 .centrato{
     margin: auto;
     float: none;

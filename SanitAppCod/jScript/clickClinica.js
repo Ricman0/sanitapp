@@ -517,8 +517,8 @@ function inviaImpostazioniClinica(id, controller1, task1, task2, ajaxdiv)
 //        '</select></form></td>' +
 //        '<td class="pausaInizio"><form><input autocomplete="off" id="' + idOraInizio + '" class="time"></form></td>'+
 //        '<td class="pausaFine"><form><input autocomplete="off" id="' + idOraFine + '" class="time"></form></td>'+
-//        '<td><div id="azioniPausa"><a id="accettaPausa"><i class="fa fa-check fa-lg faAzzurro"  aria-hidden="true"></i></a> &nbsp'+
-//        '<a id="scartaPausa"><i class="fa fa-ban fa-lg faAzzurro" aria-hidden="true"></i></a></div></td></tr>';
+//        '<td><div id="azioniPausa"><a id="accettaPausa"><i class="fa fa-check fa-lg sanitAppColor"  aria-hidden="true"></i></a> &nbsp'+
+//        '<a id="scartaPausa"><i class="fa fa-ban fa-lg sanitAppColor" aria-hidden="true"></i></a></div></td></tr>';
 //        
 ////        $(tr).appendTo('#tabellaPause');
 //        $('#tabellaPause').prepend(tr);
@@ -707,7 +707,7 @@ function inviaImpostazioniClinica(id, controller1, task1, task2, ajaxdiv)
 //                    break;       
 //            }
 //            // fine aggiunto successivamente
-//            $("#azioniPausa").html('<a id="eliminaPausa"><i class="fa fa-close fa-lg faAzzurro"  aria-hidden="true"></i></a>');
+//            $("#azioniPausa").html('<a id="eliminaPausa"><i class="fa fa-close fa-lg sanitAppColor"  aria-hidden="true"></i></a>');
 //        
 //        }   
 //    }

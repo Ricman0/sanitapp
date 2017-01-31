@@ -1,5 +1,6 @@
 <div id="divRecuperoPassword">
-    <br>
+    <h3>Recupero Password</h3>
+    <hr>
     <br>
     <h4>Inserisci l'indirizzo email con il quale ti sei registrato. Ti verrà inviata la nuova password.</h4>
     <br>
