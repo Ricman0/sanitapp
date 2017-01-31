@@ -121,7 +121,7 @@ class VPrenotazione extends View{
     }
     
     /**
-     * Metodo che contente di ottenere una campo di ricerca per gli utenti di Sanitapp
+     * Metodo che contente di ottenere una campo di ricerca per gli utenti di Sanitapp.
      * 
      * @access public
      * @param string $nomeClinica Il nome della clinica
