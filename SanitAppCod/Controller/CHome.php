@@ -196,7 +196,7 @@ class CHome {
                 $cServizi->gestisciServizi();
                 break;
             
-            case 'users':
+            case 'users': //GET users
                 $cUsers = USingleton::getInstance('CGestisciUser');
                 $cUsers->gestisciUsers();
                 break;

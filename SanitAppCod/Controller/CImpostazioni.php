@@ -205,7 +205,7 @@ class CImpostazioni {
                         $this->modificaInformazioni($username);
                         break;
 
-                    case 'medico':
+                    case 'medico':// POST impostazioni/modifica/medico
                         $this->modificaMedicoCurante($username);
                         break;
                     

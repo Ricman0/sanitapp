@@ -56,9 +56,9 @@ function validazione(task1, controller1, task2)
                 case 'credenziali':
                     validazioneCredenziali();
                     break;
-                case 'medico':
-                    validazioneCodiceFiscaleMedicoCurante();
-                    break;
+//                case 'medico':
+//                    validazioneCodiceFiscaleMedicoCurante();
+//                    break;
                 case 'alboNum':
                     validazioneAlboNum();
                     break;
@@ -67,7 +67,6 @@ function validazione(task1, controller1, task2)
             }
         
         case 'workingPlan':
-            alert('valido');
             validaWorkingPlan();
         break;
             
@@ -572,62 +571,62 @@ function validazioneAlboNum()
 
 }
 
-function validazioneCodiceFiscaleMedicoCurante()
-{
-    jQuery.validator.addMethod("codiceFiscale", function (valore) {
-        //espressione regolare per codice fiscale
-        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
-        return valore.match(regex);
-    }, "Il codice fiscale deve essere del tipo DMRCLD89S42G438S");
-
-    $("#formModificaMedico").validate({
-        /*
-         * Il plugin di default invia una richiesta ajax  per la regola remote
-         * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
-         * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
-         * in questo modo l'input che richiama la regola remote sarà validata con una sola chiamata ajax
-         * una volta che abbiamo terminato di digitare l'input.
-         */
-        onkeyup: false,
-        rules:
-                {
-                    codiceFiscale:
-                            {
-                                required: true,
-                                codiceFiscale: true,
-                                maxlength: 16,
-                                minlength: 16,
-                                remote:
-                                        {
-                                            type: "POST",
-                                            url: "ricerca/codice/medico",
-                                            data: {inverti: $('#inverti').val()}
-                                        }
-                            }
-                },
-        messages:
-                {
-                    codiceFiscale:
-                            {
-                                required: "Inserire il proprio codice fiscale",
-                                maxlength: "Il codice fiscale è lungo 16 caratteri",
-                                minlength: "Il codice fiscale è lungo 16 caratteri",
-                                remote: "Medico non esistente in Sanitapp"
-                            }
-                },
-        errorPlacement: function (error, element) {
-            $(element).attr('title', error.text());
-        },
-        unhighlight: function (element) {
-            $(element).removeAttr('title').removeClass('error');
-        },
-        submitHandler: function ()
-        {
-            inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#contenutoAreaPersonale");
-
-        }
-    });
-}
+//function validazioneCodiceFiscaleMedicoCurante()
+//{
+//    jQuery.validator.addMethod("codiceFiscale", function (valore) {
+//        //espressione regolare per codice fiscale
+//        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+//        return valore.match(regex);
+//    }, "Il codice fiscale deve essere del tipo DMRCLD89S42G438S");
+//
+//    $("#formModificaMedico").validate({
+//        /*
+//         * Il plugin di default invia una richiesta ajax  per la regola remote
+//         * ogni volta che rilasciamo un tasto (key up) causando molte richieste ajax.
+//         * Per cui per disattivare questà funzionalità imposto onkeyup:false. 
+//         * in questo modo l'input che richiama la regola remote sarà validata con una sola chiamata ajax
+//         * una volta che abbiamo terminato di digitare l'input.
+//         */
+//        onkeyup: false,
+//        rules:
+//                {
+//                    codiceFiscale:
+//                            {
+//                                required: true,
+//                                codiceFiscale: true,
+//                                maxlength: 16,
+//                                minlength: 16,
+//                                remote:
+//                                        {
+//                                            type: "POST",
+//                                            url: "ricerca/codice/medico",
+//                                            data: {inverti: $('#inverti').val()}
+//                                        }
+//                            }
+//                },
+//        messages:
+//                {
+//                    codiceFiscale:
+//                            {
+//                                required: "Inserire il proprio codice fiscale",
+//                                maxlength: "Il codice fiscale è lungo 16 caratteri",
+//                                minlength: "Il codice fiscale è lungo 16 caratteri",
+//                                remote: "Medico non esistente in Sanitapp"
+//                            }
+//                },
+//        errorPlacement: function (error, element) {
+//            $(element).attr('title', error.text());
+//        },
+//        unhighlight: function (element) {
+//            $(element).removeAttr('title').removeClass('error');
+//        },
+//        submitHandler: function ()
+//        {
+//            inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#contenutoAreaPersonale");
+//
+//        }
+//    });
+//}
 
 function validazioneCodiceFiscale()
 {

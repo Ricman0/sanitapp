@@ -61,8 +61,11 @@ class EAmministratore extends EUser{
                 $this->_id = $attributiAmministratore[0]['IdAmministratore']; // nel db è autoincrement
                 $this->_telefono = $attributiAmministratore[0]['Telefono'];
                 $this->_nome = $attributiAmministratore[0]['Nome'];
-                $this->_cognome = $attributiAmministratore[0]['Cognome'];
-                
+                $this->_cognome = $attributiAmministratore[0]['Cognome'];   
+            }
+            else
+            {
+                throw new XAmministratoreException('Amministratore inesistente.');
             }
         }
         

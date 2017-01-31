@@ -27,14 +27,115 @@ $(document).ready(function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGeneraliUtente");
     });
 
+    // per ottenere la pagina per modificare il medico curante dell'utente
     $('#headerMain').on("click", "#modificaMedicoUtente", function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'medico', "#medicoCurante");
     });
+    
+    // per aggiungere una select con tutti i medici curanti iscritti nell'applicazione 
+    $('#headerMain').on("click", "#formModificaMedico > input[name='codiceFiscale']", function () {
+        $.ajax({
+            type: 'GET',
+            url:  'users/medico',
+            success: function(datiRisposta){
+                var codiceFiscale = $("#formModificaMedico > input[name='codiceFiscale']").val();
+                var medici =  JSON.parse(datiRisposta); // devo controllare che non sia FALS datiRisposta
+                var htmlSelect = "<label class='elementiForm' for='medicoCurante'>Codice Fiscale Medico: </label><select id='medicoCuranteSelect' class='elementiForm'>";
+                var nome = new Array();
+                var cognome = new Array();
+                var indiceNome;
+                var nomeString = "{\"";
+                var cognomeString = "{\"";
+                $.each(medici, function(indice, medico) {
+                    $.each(medico, function(indice, valore){
+                        switch(indice){
+                            case 'CodFiscale':
+                                if(codiceFiscale === valore)
+                                {
+                                    alert('selezionato');
+                                    htmlSelect += "<option value='" + valore + "' selected>" + valore + "</option>";
+                                }
+                                else
+                                {
+                                    htmlSelect += "<option value='" + valore + "'>" + valore + "</option>";
+                                }
+                                indiceNome = valore;
+                                break;
+                            case 'Nome':
+                                nome[indiceNome] = valore;
+                                nomeString  +=  indiceNome + "\":\"" + valore +"\", \"";
+
+                                break;
+                            case 'Cognome':
+                                cognome[indiceNome]= valore;
+                                cognomeString  +=  indiceNome + "\":\"" + valore +"\", \"";
+                                break;
+                            default:
+
+                                break;  
+                            } 
+                    });
+                });
+                nomeString = nomeString.substring(0, nomeString.length-3) + "}"; // elimino l'ultima virgola, lo spazio, l'apicetto e aggiungo }
+                cognomeString = cognomeString.substring(0, cognomeString.length-3) + "}";       
+                htmlSelect = htmlSelect + "</select><br><input id='medicoUtenteModificato' value='OK' type='button'>";
+                $('#formModificaMedico').replaceWith(htmlSelect); 
+                // aggiungo label ed input per visualizzare il nome e il cognome del medico curante scelto.
+                $('#medicoUtenteModificato').before("<label id='labelNomeMedico' for='nomeMedico' class='elementiForm'>Nome Medico :</label><input id='inputNomeMedico' type='text' name='nomeMedico' class='elementiForm' readonly /><br>");
+                $('#medicoUtenteModificato').before("<label id='labelCognomeMedico' for='cognomeMedico' class='elementiForm'>Cognome Medico :</label><input id='inputCognomeMedico'  type='text' name='cognomeMedico' class='elementiForm' readonly  /><br>");  
+                // span nascosti dove inserisco i nomi e i cognomi dei medici dell'applicazione
+                $('#medicoUtenteModificato').before("<span id='nomeMedicoCurante'>" + nomeString + "</span>");
+                $('#medicoUtenteModificato').before("<span id='cognomeMedicoCurante'>" + cognomeString + "</span>");
+                $('#nomeMedicoCurante').hide();
+                $('#cognomeMedicoCurante').hide();
+                //recupero il nome e cognome relatico al codice fiscale selezionato e li imposto come valori per gli input.
+                var nomeMedicoSelezionato = nome[codiceFiscale];//recupero il nome relativo al codice fiscale del medico selezionato
+                var cognomeMedicoSelezionato = cognome[codiceFiscale];//recupero il cognome relativo al codice fiscale del medico selezionato
+                $("input[name='nomeMedico']").val(nomeMedicoSelezionato); // imposto il nome del medico selezionato
+                $("input[name='cognomeMedico']").val(cognomeMedicoSelezionato);// imposto il cognome del medico selezionato
+            },
+            error:function(){}
+            
+        });
+    });
+    
+    
+    // per la modifica del medico curante in utente
+    $('#headerMain').on("click", "#medicoUtenteModificato", function () {
+//        inviaDatiModificaImpostazioni('impostazioni', 'modifica', 'medico', "#contenutoAreaPersonale");
+        var codiceFiscaleMedico = $("#medicoCuranteSelect option:selected").val();
+        var dati = {codiceFiscale: codiceFiscaleMedico};
+        $.ajax({
+        type: 'POST',
+        url: 'impostazioni/modifica/medico',
+        data: dati,
+        success: function (datiRisposta)
+        {
+            alert(datiRisposta);
+            try {
+                $.parseJSON(datiRisposta);
+                $('#messaggioDialogBox').empty();
+                $('#messaggioDialogBox').text('Errore. Medico NON modificato!');
+                dialogBox(); //in eventi_click.js
+            } 
+            catch(error) {// non è json
+                $('#contenutoAreaPersonale').html(datiRisposta);
+                $('#messaggioDialogBox').empty();
+                $('#messaggioDialogBox').text('Medico modificato con successo!');
+                dialogBox(); //in eventi_click.js
+            } 
+        }
+    });
+        
+    });
+    
     
     // per aggiungere un medico in impostazioni utente
     $('#headerMain').on("click", "#aggiungiMedicoUtente", function () {
         clickModificaImpostazioni('impostazioni', 'aggiungi', 'medico', "#medicoCurante");
     });
+    
+    
     
     // quando cambia il codice fiscale del medico, cambiano anche i valori di nome e cognome del medico
     $('#headerMain').on("change", "#medicoCuranteSelect", function () {
@@ -49,6 +150,7 @@ $(document).ready(function () {
         $("input[name='cognomeMedico']").val(cognomeMedico);// imposto il cognome relativo al codice fiscale selezionato
         
     });
+    
     
     $('#headerMain').on("click", "#salvaMedicoCurante", function () {
         var codice = $("#medicoCuranteSelect option:selected").val();
