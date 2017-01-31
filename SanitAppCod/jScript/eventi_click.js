@@ -89,14 +89,20 @@ $(document).ready(function () {
                 alert("Sbagliato click ");
             }
             
-        })
+        });
 //        inviaControllerTaskPOST('registrazione', 'conferma', datiPOST, '#main');
     });
 
     $('#headerMain').on("click", "#recuperaPassword", function () {
         inviaController('recuperaPassword', '#main');
-    });
+    });    
 
+    $('#headerMain').on("click", "#esamiClinicaButton", function () {
+        var nomeClinica = $("#esamiClinicaButton").attr('data-nomeClinica');
+        alert(nomeClinica);
+        inviaController('esami/all/'+nomeClinica, '#main');
+    });
+    
     $('#headerMain').on("click", ".rigaClinica", function () {
         var id = $(this).attr('id'); // id della riga che coincide con l'id dell'esame
 //        var nomeClinica = $('.rigaNomeClinica').html();
@@ -135,8 +141,8 @@ $(document).ready(function () {
 
 function inviaController(controller, ajaxdiv)
 {
-    data={url:controller};
-    history.pushState(data, controller, controller);
+//    data={url:controller};
+//    history.pushState(data, controller, controller);
     $.ajax({
         type: 'GET',
         url: controller,

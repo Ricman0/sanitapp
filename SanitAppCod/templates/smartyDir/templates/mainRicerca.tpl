@@ -23,7 +23,7 @@
         </div> 
     </div>
 
-    <map id="ItalyMap"> 
+    <map id="ItalyMap" name="ItalyMap"> 
         <area shape="poly" data-id="1" alt="Valle d'Aosta" title="Valle de Aosta"   coords="47,56,48,76,14,86,1,65" /> 
         <area shape="poly" data-id="2" alt="Piemonte" title="Piemonte"   coords="66,34,73,46,74,67,79,84,70,94,85,106,95,122,78,133,58,128,49,153,32,154,7,136,11,119,-2,103,7,96,19,96,21,83,48,75,48,57,60,42" /> 
         <area shape="poly" data-id="3" alt="Liguria" title="Liguria"   coords="131,156,105,134,108,131,90,126,69,137,74,133,65,131,56,141,49,157,47,154,40,154,31,165,35,169,48,170,75,141,89,137,95,139" /> 

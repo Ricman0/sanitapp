@@ -1,4 +1,5 @@
 <h3 class="grigio" >Ricerca clinica</h3>
+<hr>
 <br>
 <form class="form" id="formRicercaCliniche" method="GET">
     <div class="elementiForm" id="elementiFormRicercaCliniche">

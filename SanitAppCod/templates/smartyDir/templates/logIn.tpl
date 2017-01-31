@@ -3,7 +3,7 @@
         <div id="erroreLogIn">{$errore}</div>  
     {/if}
     <div id="logInDiv" class="bordo centrato">
-   <i class="fa fa-user fa-4x faAzzurro" id="icona-logInForm" aria-hidden="true"></i>
+   <i class="fa fa-user fa-4x sanitAppColor" id="icona-logInForm" aria-hidden="true"></i>
         <form  id="logInForm2">
             
             <input type="hidden" name="controller" value="autenticazione"/>

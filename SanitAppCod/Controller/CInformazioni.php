@@ -15,10 +15,8 @@ class CInformazioni {
 
     //put your code here
     public function visualizzaInfo() {
-        $sessione = USingleton::getInstance('USession');
-        $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vInfo = USingleton::getInstance('VInformazioni');
-        $vInfo->visualizzaInfo($username);
+        $vInfo->visualizzaInfo();
     }
 
 }

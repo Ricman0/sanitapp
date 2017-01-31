@@ -6,6 +6,7 @@
         <h4>Clicca sull'icona seguente per aggiungere un servizio.</h4>
     {else}
         <h3>ESAMI</h3>
+        <hr>
         <h4>Per visualizzare informazioni su un esame, clicca sulla riga relativa all'esame.</h4>
     {/if}
     <table id="tabellaEsami" class="tablesorter">
