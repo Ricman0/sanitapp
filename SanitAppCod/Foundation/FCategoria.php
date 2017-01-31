@@ -30,9 +30,9 @@ class FCategoria extends FDatabase{
      * @param ECategoria $categoria la Categoria di cui si vogliono ottenere i valori degli attributi 
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
-    public function getAttributi($categoria) 
-    {
-        print_r($categoria);
+//    public function getAttributi($categoria) 
+//    {
+//        print_r($categoria);
 //        $valoriAttributi = '';
 //        $x = get_object_vars($categoria);
 //        print_r($x);
@@ -66,9 +66,9 @@ class FCategoria extends FDatabase{
 //        }
 //        print_r($valoriAttributi);
         
-        $valoriAttributi = "'" . $this->trimEscapeStringa($categoria->getNome()) . "'";
-        return $valoriAttributi;
-    }
+//        $valoriAttributi = "'" . $this->trimEscapeStringa($categoria->getNome()) . "'";
+//        return $valoriAttributi;
+//    }
     
     /**
      * Metodo che permette di ottenere tutte le categorie.
@@ -77,10 +77,10 @@ class FCategoria extends FDatabase{
      * @return array Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      * @throws XDBException Se la query non è stata eseguita con successo
      */
-    public function cercaCategorie() {
-        $query = 'SELECT * FROM ' .  $this->_nomeTabella . " LOCK IN SHARE MODE" ;
-        return $this->eseguiQuery($query);
-    }
+//    public function cercaCategorie() {
+//        $query = 'SELECT * FROM ' .  $this->_nomeTabella . " LOCK IN SHARE MODE" ;
+//        return $this->eseguiQuery($query);
+//    }
     
     /**
      * Metodo che permette di aggiungere una categoria.
@@ -90,12 +90,12 @@ class FCategoria extends FDatabase{
      * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      * @throws XDBException Se la query non è stata eseguita con successo
      */
-    public function aggiungiCategoria($categoria) {
-        
-        $valoriAttributi = $this->getAttributi($categoria);
-        $query = "INSERT INTO " . $this->_nomeTabella . "(" . $this->_attributiTabella . ") VALUES( " .  $valoriAttributi . ")";
-        return $this->eseguiQuery($query);       
-    }
+//    public function aggiungiCategoria($categoria) {
+//        
+//        $valoriAttributi = $this->getAttributi($categoria);
+//        $query = "INSERT INTO " . $this->_nomeTabella . "(" . $this->_attributiTabella . ") VALUES( " .  $valoriAttributi . ")";
+//        return $this->eseguiQuery($query);       
+//    }
     
     /**
      * Metodo che permette di aggiungere una categoria.
@@ -105,27 +105,27 @@ class FCategoria extends FDatabase{
      * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      * @throws XDBException Se la query non è stata eseguita con successo
      */
-    public function eliminaCategoria($nomeCategoria) {
+//    public function eliminaCategoria($nomeCategoria) {
+//        
+//        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+//                ." WHERE Nome ='" . $nomeCategoria . "' FOR UPDATE" ;
+//        $query = "DELETE FROM " . $this->_nomeTabella . " WHERE Nome ='" . $nomeCategoria . "'" ;
+//     
+//        try {
+//            // inzia la transazione
+//            $this->_connessione->begin_transaction();
+//
+//            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+//            $this->eseguiquery($queryLock);
+//            $this->eseguiQuery($query);
+//
+//            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+//            return $this->_connessione->commit();
+//        } catch (Exception $e) {
+//            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+//            $this->_connessione->rollback();
+//            throw new XDBException('errore');
+//        }
         
-        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
-                ." WHERE Nome ='" . $nomeCategoria . "' FOR UPDATE" ;
-        $query = "DELETE FROM " . $this->_nomeTabella . " WHERE Nome ='" . $nomeCategoria . "'" ;
-     
-        try {
-            // inzia la transazione
-            $this->_connessione->begin_transaction();
-
-            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
-            $this->eseguiquery($queryLock);
-            $this->eseguiQuery($query);
-
-            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
-            return $this->_connessione->commit();
-        } catch (Exception $e) {
-            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
-            $this->_connessione->rollback();
-            throw new XDBException('errore');
-        }
-        
-    }
+//    }
 }

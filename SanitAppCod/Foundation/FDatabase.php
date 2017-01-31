@@ -218,8 +218,8 @@ class FDatabase {
      * @final
      * @access public
      * @param string $query Le query da eseguire
-     * @throws XDBException
      * @return array|boolean Il risultato della query, FALSE nel caso in cui la query non abbia prodotto risultato
+     * @throws XDBException
      */
     final public function eseguiQueryMultiple($query)
     {
@@ -238,9 +238,9 @@ class FDatabase {
                  */
                 $queryResult = $this->_connessione->store_result();
                 
-                if ($queryResult === FALSE)
+                if ($queryResult === FALSE) //o c'è stato un errore o la query non ritorna un risultato
                 {
-                    //o c'è stato un errore o la query non ritorna un risultato
+                    
                     if(empty($this->_connessione->error))
                     {
                         $this->_result = FALSE;

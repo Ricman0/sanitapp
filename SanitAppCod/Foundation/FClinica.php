@@ -88,26 +88,14 @@ class FClinica extends FUser{
         $query2 = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella . ") VALUES( " . $valoriAttributi . ")";
         
         try {
-            // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
-
-            // A set of queries; if one fails, an exception should be thrown
              $this->eseguiquery($query1);
              $this->eseguiQuery($query2);
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
         }
     }
-
-
-// da modificare in base ai casi d'uso :(
-
     
     /**
      * Metodo che consente di cercare la partita IVA della clinica il cui nome
@@ -284,19 +272,11 @@ class FClinica extends FUser{
                 . "SET WorkingPlan='" . $workingPlan . "' "
                 . "WHERE PartitaIVA= '" . $partitaIVAClinica . "'";
         try {
-//            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();
             $this->eseguiQuery($queryLock);
-            // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($query);
-             
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }
@@ -383,22 +363,13 @@ class FClinica extends FUser{
                 .  " WHERE (Username='" . $clinica->getUsernameUser() . "') OR (Email='" . $clinica->getEmailUser() .  "')";
         
         try {
-//            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();
            $this->eseguiQuery($queryLock1);
            $this->eseguiQuery($queryLock2);
-            // A set of queries; if one fails, an exception should be thrown
-            
             $this->eseguiQuery($query1);
             $this->eseguiQuery($query2);
-             
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }

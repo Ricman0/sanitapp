@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of FAmministratore
  *
+ * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class FAmministratore extends FUser{
@@ -30,7 +25,7 @@ class FAmministratore extends FUser{
     
     /**
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
-     * per l'inserimento di un amministratore nel database
+     * per l'inserimento di un amministratore nel database.
      * 
      * @access public
      * @param EAmministratore $amministratore l'amministratore di cui si vogliono ottenere i valori degli attributi 
@@ -48,10 +43,9 @@ class FAmministratore extends FUser{
     
     /**
      * Metodo per inserire nella tabella amministratore una nuova riga ovvero
-     * un nuovo amministratore
+     * un nuovo amministratore.
      * 
-     * @param EAmministratore $amministratore L'oggetto di tipo EAmministratore che si vuole salvare nella
-     *                       tabella amministratore
+     * @param EAmministratore $amministratore L'amministratore che si vuole salvare nel DB
      */
     public function inserisciAmministratore($amministratore)
     {         
@@ -63,23 +57,24 @@ class FAmministratore extends FUser{
         $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'amministratore')";
         $query2 = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella . ") VALUES( " . $valoriAttributi . ")";
         try {
-            // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
-
-            // A set of queries; if one fails, an exception should be thrown
              $this->eseguiQuery($query1);
              $this->eseguiQuery($query2);
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
+            
         }
     }
     
+    /**
+     * Metodo che consente di cercare l'amministratore o gli amministratori dell'applicazione.
+     * 
+     * @access public
+     * @param string $username Lo username dell'amministratore da cercare
+     * @return array L'amministratore o gli amministratori dell'applicazione
+     * @throws XDBException Se la query non è stata eseguita con successo
+     */
     public function cercaAmministratore($username=NULL){
         if(isset($username)){
         $query = "SELECT appuser.*, " .  $this->_nomeTabella . ".* "
@@ -93,6 +88,14 @@ class FAmministratore extends FUser{
         return $this->eseguiQuery($query);
     }
     
+    /**
+     * Metodo che consente di trovare Username,Email,TipoUser, Bloccato di tutti 
+     * gli user di tipo non amministratore dell'applicazione.
+     * 
+     * @access public
+     * @return array|boolean Il risultato della query, FALSE nel caso in cui la query non abbia prodotto risultato.
+     * @throws XDBException Nel caso in cui una query non abbia successo
+     */
     public function cercaAppUserNonAmministratori() {
         $queryMultipla = "SELECT appuser.Username, appuser.Email, appuser.TipoUser, CASE WHEN appuser.Bloccato=0 THEN 'NO' ELSE 'SI' END AS Bloccato "
                 . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username) LOCK IN SHARE MODE;"// fine prima query.  //trovo le cliniche
@@ -105,6 +108,13 @@ class FAmministratore extends FUser{
         return $risultato;
     }
     
+    /**
+     * Metodo che consente di cercare gli user bloccati (solo Username,Email,TipoUser,NomeClinica) dell'applicazione.
+     * 
+     * @access public
+     * @return array|boolean Il risultato della query, FALSE nel caso in cui la query non abbia prodotto risultato.
+     * @throws XDBException Nel caso in cui una query non abbia successo
+     */
     public function cercaAppUserBloccati() {
         $queryMultipla = "SELECT appuser.Username, appuser.Email, appuser.TipoUser, clinica.NomeClinica "
                 . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username AND "
@@ -120,6 +130,13 @@ class FAmministratore extends FUser{
         return $risultato;
     }
     
+    /**
+     * Metodo che consente di cercare gli user dell'applicazione (solo Username,Email,TipoUser,NomeClinica) che devono essere validati dall'amministratore.
+     * 
+     * @access public
+     * @return array|boolean Il risultato della query, FALSE nel caso in cui la query non abbia prodotto risultato.
+     * @throws XDBException Nel caso in cui una query non abbia successo
+     */
     public function cercaAppUserDaValidare() {
         $queryMultipla = "SELECT appuser.Username, appuser.Email, appuser.TipoUser, clinica.NomeClinica "
                 . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username AND "
@@ -131,6 +148,14 @@ class FAmministratore extends FUser{
         return $risultato;
     }
     
+    /**
+     * Metodo che consente di cercare un user tra gli user dell'applicazione.
+     * 
+     * @access public
+     * @param string $idUser L'username dell'user da cercare
+     * @return array|boolean Il risultato della query, FALSE nel caso in cui la query non abbia prodotto risultato.
+     * @throws XDBException Nel caso in cui una query non abbia successo
+     */
     public function cercaAppUser($idUser) {
         $queryMultipla = "SELECT appuser.*, clinica.* "
                 . "FROM appuser, clinica WHERE (appuser.Username=clinica.Username AND "
@@ -146,13 +171,12 @@ class FAmministratore extends FUser{
     }
     
     /**
-     * Metodo che consente di bloccare un account a cui corrisponde l'username passato come parametro
+     * Metodo che consente di bloccare un account a cui corrisponde l'username passato come parametro.
      * 
-     * @final
      * @access public
      * @param string $username L'username dell'account da bloccare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se l'account è stato bloccato
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function bloccaUser($username) {
         
@@ -181,47 +205,37 @@ class FAmministratore extends FUser{
     }
     
     /**
-     * Metodo che consente di sbloccare un account a cui corrisponde l'username passato come parametro
+     * Metodo che consente di sbloccare un account a cui corrisponde l'username passato come parametro.
      * 
-     * @final
      * @access public
      * @param string $username L'username dell'account da sbloccare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se l'account è stato sbloccato
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function sbloccaUser($username) {
         $queryLock1 = "SELECT * FROM appUser " . 
                 " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
-        
         $query = "UPDATE appuser SET Bloccato=FALSE 
                 WHERE Username= '" . $username . "'" ;
         try {
-//            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();
             $this->eseguiQuery($queryLock1);
-            // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($query);
-             
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }
     }
     
     /**
-     * Metodo che consente di confermare un account a cui corrisponde l'username passato come parametro
+     * Metodo che consente di confermare un account a cui corrisponde l'username passato come parametro.
      * 
      * @final
      * @access public
      * @param string $username L'username dell'account da confermare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se l'account è stato confermato
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     final public function amministratoreConfermaUser($username) 
     {
@@ -230,32 +244,24 @@ class FAmministratore extends FUser{
         $query = "UPDATE appuser SET Confermato=TRUE 
                 WHERE Username= '" . $username . "'" ;
         try {
-//            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();
             $this->eseguiQuery($queryLock1);
-            // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($query);
-             
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }          
     }
     
     /**
-     * Metodo che consente di validare un account a cui corrisponde l'username passato come parametro
+     * Metodo che consente di validare un account a cui corrisponde l'username passato come parametro.
      * 
      * @final
      * @access public
      * @param string $username L'username dell'account da validare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se l'account è stato validato
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     final public function validaUser($username) 
     {
@@ -263,59 +269,41 @@ class FAmministratore extends FUser{
                 " WHERE medico.Username= '" . $username . "' OR clinica.Username= '" . $username . "'  FOR UPDATE" ;
         $query = "UPDATE clinica, medico SET medico.Validato=TRUE, clinica.Validato=TRUE WHERE medico.Username= '" . $username . "' OR clinica.Username= '" . $username . "'";
         try {
-//            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();
             $this->eseguiQuery($queryLock1);
-            // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($query);
-             
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }           
     }
     
     /**
-     * Metodo che consente di eliminare un account a cui corrisponde l'username passato come parametro
+     * Metodo che consente di eliminare un account a cui corrisponde l'username passato come parametro.
      * 
      * @final
      * @access public
      * @param string $username L'username dell'account da eliminare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se l'account è stato eliminato
+     * 
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function eliminaUser($username) {
         
         $queryLock1 = "SELECT * FROM appUser " . 
                 " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
         $query = "DELETE FROM appUser WHERE appUser.Username= '" . $username . "'";
-          
-        
         try {
-//            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();
             $this->eseguiQuery($queryLock1);
-            // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($query);
-             
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }
-    }
-    
+    }  
   
 }   
 
