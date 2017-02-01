@@ -8,7 +8,6 @@ $(document).ready(function () {
     $('#headerMain').on("click", ".ricercaEsamiCerca", function () {
         
 //        var id = $(this).attr('id');// id= ricercaEsamiCerca 
-//        alert (id);
 //        //this si riferisce al button ricercaEsamiCerca. Io cerco il div più vicino che abbia come id contenutoAreaPersonale 
 //        // e poi prendo id che ovviamente è contenutoAreaPersonale.
 //        var ajaxDiv = "#" + $(this).closest('div').prop('id');
@@ -17,7 +16,6 @@ $(document).ready(function () {
         if ($('#contenutoAreaPersonale').length) {
             ajaxDiv ='#contenutoAreaPersonale';
           }
-        alert (ajaxDiv);
 //        if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
 //        {
 //           ajaxDiv = '#main';
@@ -95,7 +93,6 @@ function inviaDatiForm(ajaxDiv)
         dataType: "html",
         success: function (msg)
         {
-            alert("Dati ricerca esame inviati per effettuare la registrazione");
             $(ajaxDiv).html(msg);
             $("#tabellaEsami").tablesorter({
                 theme: 'blue',

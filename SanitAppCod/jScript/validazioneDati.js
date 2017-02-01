@@ -735,19 +735,11 @@ function validazioneCodiceFiscale()
                         $('#nextPrenotazioneEsame').attr('data-data', data);
                         var dataObject = $(this).datepicker('getDate'); //the getDate method
                         var nomeGiorno = $.datepicker.formatDate('DD', dataObject);
-                        nomeGiorno = nomeGiorno.replace('ì', 'i');
-                        
-//                    var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
-//                    alert("PartitaIVA: " + partitaIVAClinica);
+                        nomeGiorno = nomeGiorno.replace('ì', 'i');                        
                         var idEsame = $("#idEsame").val();
                         orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
                     }});
-//                $("#nextPrenotazioneEsame").show();
             }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
         }
     });
 }
@@ -803,7 +795,6 @@ function validazioneLogIn(form)
 //        },
         submitHandler: function ()
         {
-            alert('I dati log in sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             inviaDatiGenerico(form, 'autenticazione', '#headerMain');
 
@@ -1225,7 +1216,6 @@ function validazioneMedico()
             {
                 ajaxDiv = '#contenutoAreaPersonale';
             }
-            alert('I dati sono stati inseriti correttamente');
             inviaDatiRegistrazione('#inserisciMedico', 'registrazione', 'medico', ajaxDiv);
         }
     });
@@ -1475,7 +1465,6 @@ function validazioneClinica()
             {
                 ajaxDiv = '#contenutoAreaPersonale';
             }
-            alert('I dati sono stati inseriti correttamente');
             inviaDatiRegistrazione('#inserisciClinica', 'registrazione', 'clinica', ajaxDiv);
         }
     });
@@ -1577,7 +1566,6 @@ function validazioneImpostazioniClinica()
         },
         submitHandler: function ()
         {
-            alert('Impostazioni inserite correttamente');
             // inviaDatiEsame si trova in clickGestisciServizi.js
             inviaImpostazioniClinica('#aggiungiEsame', 'servizi', 'aggiungi', '#main');
         }
@@ -1687,7 +1675,6 @@ function validazioneEsame()
         },
         submitHandler: function ()
         {
-            alert('I dati sono stati inseriti correttamente');
             // inviaDatiEsame si trova in clickGestisciServizi.js
             inviaDatiEsame('#aggiungiEsame', 'servizi', 'aggiungi', '#contenutoAreaPersonale');
         }
@@ -1695,8 +1682,6 @@ function validazioneEsame()
 }
 
 function validazioneReferto() {
-
-    alert('ciao d');
 
     $("#formUploadReferto").validate({
         rules: {
@@ -1719,7 +1704,6 @@ function validazioneReferto() {
         }
         ,
         submitHandler: function () {
-            alert('ciao');
             uploadReferto(); //si trova in click clinica
         }
 
@@ -1752,7 +1736,6 @@ function validazioneCategoria() {
         },
         submitHandler: function ()
         {
-            alert('I dati sono stati inseriti correttamente');
             // inviaDatiEsame si trova in clickGestisciServizi.js
             var nomeCategoria = $("#nomeCategoria").val();
             var datiPOST = {nomeCategoria: nomeCategoria};
@@ -1784,13 +1767,10 @@ function inviaDatiCategoria()
         //descrizione testuale dell’errore rilevato
         success: function (msg)
         {
-            alert("Username e password inviati per effettuare il log in");
             $(ajaxdiv).html(msg);
         },
         error: function (xhr, status, error)
         {
-            alert(xhr.responseText);
-            alert(error);
             alert("Chiamata fallita, si prega di riprovare...");
         }
 
@@ -1971,7 +1951,6 @@ function validazioneModificaUtente() {
         submitHandler: function ()
         {
             $("#loadingModal").show();
-            alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Utente";
             $("#modificaUserUtente input[type='checkbox']").each(function (index) {
@@ -1993,8 +1972,6 @@ function validazioneModificaUtente() {
 }
 
 function validazioneModificaMedico() {
-
-    alert('ci');
     //aggiungo un metodo di validazione per poter validare correttamente la password
     // il nome della classe, la funzione per validare e il messaggio in caso di errore
     jQuery.validator.addMethod("password", function (valore) {
@@ -2195,7 +2172,6 @@ function validazioneModificaMedico() {
         submitHandler: function ()
         {
             $("#loadingModal").show();
-            alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Medico";
             $("#modificaUserMedico input[type='checkbox']").each(function (index) {
@@ -2419,7 +2395,6 @@ function validazioneModificaClinica() {
         submitHandler: function ()
         {
             $("#loadingModal").show();
-            alert('I dati sono stati inseriti correttamente');
             // inviaDatiRegistrazione si trova in clickRegistrazione.js
             var datiPOST = $('form').serialize() + "&tipoUser=Clinica";
             $("#modificaUserClinica input[type='checkbox']").each(function (index) {
@@ -2555,10 +2530,7 @@ function validazioneModificaEsame() {
         },
         submitHandler: function ()
         {
-            alert('I dati sono stati inseriti correttamente');
-
             var datiPOST = $('form').serialize() + "&idClinica=" + idClinica + "&idEsame=" + idEsame;
-            alert(datiPOST);
             inviaControllerTaskPOST('servizi', 'modifica', datiPOST, '#contenutoAreaPersonale');
         }
     });

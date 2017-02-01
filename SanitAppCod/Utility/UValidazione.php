@@ -255,7 +255,6 @@ class UValidazione {
      * @return boolean TRUE se validato, FALSE altrimenti
      */
     public function validaWorkingPlan($workingPlanArray) {
-        print_r($workingPlanArray);
         $this->setValidati(TRUE);
         $pattern = '/^[0-2]{1}[0-9]{1}:([0-5]{1}[0-9]{1})$/';
         $stringaErrore =  "Deve essere un tempo valido ";

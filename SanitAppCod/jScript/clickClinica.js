@@ -3,7 +3,6 @@ $(document).ready(function () {
     
     $('#headerMain').on("click", ".rigaCliente" , function(){
         var id = $(this).attr('id');
-        alert(id);
         clickRiga('clienti', 'visualizza', id, "#contenutoAreaPersonale");
     });
 
@@ -310,7 +309,6 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
         var controller = $("#controllerTabella").attr('value');
-        alert(controller);
         if (controller === "servizi")
         {
             clickRiga(controller, 'visualizza', id, contenitore);
@@ -324,8 +322,6 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
 //        var controller = $("#controllerTabella").attr('value');
-//        alert(controller);
-
         clickRiga('referti', 'visualizza', id, contenitore);
 
     });
@@ -371,7 +367,6 @@ $(document).ready(function () {
             if(index%2===0)
             { 
                 nomeLabel = $( this ).text().trim();
-                alert(nomeLabel);
                 var lunghezzaLabel = nomeLabel.length;
                 nomeLabel = nomeLabel.substring(0, lunghezzaLabel-1); // elimino i ':' finali
                 nomeLabel = nomeLabel.toLowerCase(); // tutto minuscolo
@@ -474,9 +469,6 @@ function inviaImpostazioniClinica(id, controller1, task1, task2, ajaxdiv)
     //recupera tutti i valori del form automaticamente
     //var dati = $(id).serialize() + '&' + $(id2).serialize() + '&' + $(id3).serialize() + '&' + $(id4).serialize();
     var dati = $('form').serialize();
-    alert(dati);
-
-
     $.ajax({
         type: "POST",
         url: controller1 + "/" + task1 + "/" + task2,
@@ -484,7 +476,6 @@ function inviaImpostazioniClinica(id, controller1, task1, task2, ajaxdiv)
         dataType: "html",
         success: function (msg)
         {
-            alert("Chiamata eseguita");
             $(ajaxdiv).html(msg);
         },
         error: function ()
@@ -769,9 +760,6 @@ function inviaDatiEsame(id, controller1, task1, ajaxdiv)
 
     //recupera tutti i valori del form automaticamente
     var dati = $(id).serialize();
-    alert(dati);
-
-
     $.ajax({
         type: "POST",
         url: controller1 + "/" + task1,
@@ -779,7 +767,6 @@ function inviaDatiEsame(id, controller1, task1, ajaxdiv)
         dataType: "html",
         success: function (msg)
         {
-            alert("Chiamata eseguita");
             $(ajaxdiv).html(msg);
         },
         error: function ()
@@ -797,16 +784,11 @@ function aggiuntaReferto(id)
         url: "referti/aggiungi/" + id,
         success: function (datiHTMLRisposta)
         {
-            alert(datiHTMLRisposta);
             $("#contenutoAreaPersonale").html(datiHTMLRisposta);
         },
         error: function ()
         {
             alert("Sbagliato click aggiuntaReferto ");
-        },
-        complete: function () {
-            alert('in click riga');
-//            validazioneReferto();
         }
     });
 
@@ -854,9 +836,7 @@ function inviaCodiceFiscale(controller1, task1, ajaxdiv)
 {
 
     var codiceFiscale = $("form input[type='text']").val();
-    alert(codiceFiscale);
     var nomeClinica = $("form input[type='submit']").attr('data-nomeClinica');
-    alert(nomeClinica);
     $.ajax({
         type: "GET",
         url: controller1 + "/" + task1 + "/" + codiceFiscale,
@@ -869,7 +849,6 @@ function inviaCodiceFiscale(controller1, task1, ajaxdiv)
             try
             {
                 var dati = JSON.parse(datiRiposta);
-                alert(dati.risultato);
                 $.ajax({
                     type: 'GET',
                     url: 'esami/all/' + nomeClinica,
@@ -908,7 +887,6 @@ function inviaCodiceFiscale(controller1, task1, ajaxdiv)
                 });
             } catch (errore)
             {
-                alert("Non è registrato alcun utente con quel codice fiscale");
                 $.ajax({
                     type: 'GET',
                     url: 'prenotazioni/aggiungi',
@@ -1133,7 +1111,6 @@ function agendaViewDisplay(view, element)
                     
                     while ( currDateStartMonth < currDateEndMonth) // non metto <= perchè all'interno c'è il foreach di 7 giorni quindi arriva fino all'ultimo giorno
                     {
-                        alert(currDateStartString);
                         $.each(datiRisposta.workingPlan, function (index, workingDay) {
                             
                             if (workingDay === null) {
@@ -1194,7 +1171,6 @@ function agendaViewDisplay(view, element)
                         });         
 //                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
                             currDateStartString = currDateStart.format('YYYY-MM-DD');
-                            alert(currDateStartString);
                             currDateStartMonth = Date.parse(currDateStartString);
                             
                     }
@@ -1370,7 +1346,6 @@ function agendaEventClick(event, jsEvent, view)
     });
     
     $('.modificaNonEseguito').on('click', function () {
-        console.log(this);
         // apro un'altra finestra
         $('#contenutoAreaPersonale').append("<div id='altroContenutoEventoNonEseguito' title='Dettaglio evento'><div id='nonEseguito'></div>");
         $('#nonEseguito').append('<p>Per modificare la prenotazione in prenotazione non eseguita, clicca su Non Eseguita</p>');
@@ -1389,7 +1364,6 @@ function agendaEventClick(event, jsEvent, view)
                         var obj = JSON.parse(datiRisposta);
                         if(obj==="no")
                         {
-                            alert('Prenotazione non eseguita');
                             $('i.modificaNonEseguito').replaceWith("<i class='fa fa-times fa-lg rosso modificaEseguito cliccabile' aria-hidden='true'></i>");
                             event.eseguito = 0;
                         }
@@ -1431,7 +1405,6 @@ function agendaEventClick(event, jsEvent, view)
                         var obj = JSON.parse(datiRisposta);
                         if(obj==="ok")
                         {
-                            alert('Prenotazione eseguita');
                             $('i.modificaEseguito').replaceWith("<i class='fa fa-check fa-lg verde modificaNonEseguito cliccabile' aria-hidden='true'></i>");
                             event.eseguito = 1;
                         }

@@ -123,12 +123,10 @@ class FUser extends FDatabase {
         // eseguo la query
         if ($this->eseguiQuery($query)===TRUE)
         {
-            echo " FUser inseritooo ";
             return TRUE;
         }
         else 
         {
-            echo " FUser non inseritooo ";
             return FALSE;
         }
     }

@@ -48,25 +48,25 @@ class VPrenotazione extends View{
         $this->visualizzaTemplate('riepilogoPrenotazione');
     }
     
-    public function inviaDate($date) 
-    {   
-        echo $this->json_encode($date);  
-    }
-    
-
-    public function getAzione() 
-    {
-        echo "ss";
-        if (isset($_REQUEST['azione'])) 
-        {
-            echo "2";
-            return $_REQUEST['azione'];
-        }
-        else 
-        {
-            return FALSE;
-        }
-    }
+//    public function inviaDate($date) 
+//    {   
+//        echo $this->json_encode($date);  
+//    }
+//    
+//
+//    public function getAzione() 
+//    {
+//        echo "ss";
+//        if (isset($_REQUEST['azione'])) 
+//        {
+//            echo "2";
+//            return $_REQUEST['azione'];
+//        }
+//        else 
+//        {
+//            return FALSE;
+//        }
+//    }
 
     
     

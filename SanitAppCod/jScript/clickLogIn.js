@@ -12,7 +12,6 @@ $(document).ready(function () {
             url: 'logOut',
             success: function (datiRisposta)
             {
-                alert(datiRisposta);
                 $("#wrapper").html(datiRisposta);
             },
             error: function ()
@@ -57,8 +56,6 @@ function inviaDatiGenerico(id, controller, ajaxdiv)
         },
         error: function(xhr, status, error) 
         {
-            alert(xhr.responseText);
-            alert(error);
             alert("Chiamata fallita, si prega di riprovare...");
         }
         

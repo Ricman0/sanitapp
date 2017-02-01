@@ -310,7 +310,6 @@ class CImpostazioni {
                 $vJSON->inviaDatiJSON(FALSE);
             }
             catch (XDBException $ex) {
-                echo 'eorrrr';
                 $vJSON = USingleton::getInstance('VJSON');
                 $vJSON->inviaDatiJSON(FALSE);
             }    

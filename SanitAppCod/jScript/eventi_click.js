@@ -62,30 +62,22 @@ $(document).ready(function () {
         {
             ajaxDiv = '#contenutoAreaPersonale';
         }
-        alert (ajaxDiv); 
         inviaControllerTask('registrazione', 'utente', ajaxDiv);
     });
     
     $('#headerMain').on("click", "#submitCodiceConferma", function () {
         var codiceConferma = $('#codiceConferma').val();
-        alert(codiceConferma);
         var username = $('#submitCodiceConferma').attr('data-username');
-        alert(username);
         var datiPOST = {username: username, id:codiceConferma};
         $.ajax({
             type:'POST',
             url: 'registrazione/conferma',
             data:datiPOST,
             success: function (datiRisposta){
-                alert(datiRisposta);
                 $('#main').html(datiRisposta);
 //                $("#loadingModal").hide();
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert('a');
-                alert(xhr.status);
-                alert('b');
-                alert(thrownError);
                 alert("Sbagliato click ");
             }
             
@@ -99,20 +91,14 @@ $(document).ready(function () {
 
     $('#headerMain').on("click", "#esamiClinicaButton", function () {
         var nomeClinica = $("#esamiClinicaButton").attr('data-nomeClinica');
-        alert(nomeClinica);
         inviaController('esami/all/'+nomeClinica, '#main');
     });
     
     $('#headerMain').on("click", ".rigaClinica", function () {
         var id = $(this).attr('id'); // id della riga che coincide con l'id dell'esame
-//        var nomeClinica = $('.rigaNomeClinica').html();
-//        alert(nomeClinica);
         var contenitore = "#" + $(this).closest("div").prop("id"); //ritorna l'elemento contenitore sul quale inserire la risposta ajax
-//        var controller = $("#controllerTabella").attr("value");
-//        if(controller == "esami")
-//        {
+
         clickRiga('cliniche', 'visualizza', id, contenitore);
-//        }
     });
 
     $('#headerMain').on("click", ".scaricaReferto", function () {
@@ -148,7 +134,6 @@ function inviaController(controller, ajaxdiv)
         url: controller,
         success: function (datiRisposta)
         {
-            alert(datiRisposta);
             $(ajaxdiv).html(datiRisposta);
             $('.tablesorter').tablesorter({
                 theme: 'blue',
@@ -199,9 +184,6 @@ function clickRiga(controller, task, id, ajaxdiv)
         // imposto azione per il caso di successo
         success: function (datiRisposta)
         {
-
-            alert(datiRisposta);
-            alert(codiceFiscale);
             $(ajaxdiv).html(datiRisposta);
             $('#aggiungiPrenotazioneButton').attr('data-codiceFiscale', codiceFiscale);
         }
@@ -236,7 +218,6 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
         // imposto azione per il caso di successo
         success: function (datiRisposta)
         {
-            alert(datiRisposta);
             $(ajaxdiv).html(datiRisposta);
             if(controller1==='servizi' && task1==='aggiungi')
             {
@@ -283,7 +264,6 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
         },
         complete: function ()
         {
-            alert('invia controller e task');
             //la funzione validazione si trova in validazioneDati.js
             validazione(task1, controller1);
             
@@ -298,9 +278,7 @@ function inviaDatiRegistrazione(id, controller, task, ajaxdiv)
     $(id + " input[type='text']").each(function () {
         $(this).val($(this).val().trim());
     });
-    alert($(id + " input[type='password']").val());
     var dati = $(id).serialize();
-    alert(dati);
     $.ajax({
         type: "POST",
         url: controller + "/" + task,
@@ -308,7 +286,6 @@ function inviaDatiRegistrazione(id, controller, task, ajaxdiv)
         dataType: "html",
         success: function (msg)
         {
-            alert("Chiamata eseguita");
             $(ajaxdiv).html(msg);
         },
         error: function ()
@@ -327,7 +304,7 @@ function download(id) {
     $.ajax({
         type: "GET",
         url: "referti/download/" + id,
-        success: function (dati) {alert(dati);
+        success: function (dati) {
             document.location = "referti/download/" + id;
             
         }
@@ -366,15 +343,12 @@ function dialogBox() {
 window.onpopstate = function(event) {
 	// We use false as the second argument below 
 	// - state will already be on the stack when going Back/Forwards
-        alert('onpopstate');
         //in dati memorizzo in stringa lo stato dell'evento (1° parametro pushstate)
         var dati = JSON.stringify(event.state);
         //rendo oggetto la stringa dati
         var object= JSON.parse(dati);
         // essendo un oggetto, object.url accede alla proprietà url dove ho memorizzato l'url prima di effettuare
         //pushstate, in maniera da avere indipendeza da dove è collocata la cartella
-        console.log(event.target);
-        console.log(window.location);
 //	createView(event.state, false);
         // ricarica la pagina giusta
         try {

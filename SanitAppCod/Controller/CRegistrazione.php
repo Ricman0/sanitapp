@@ -144,14 +144,11 @@ class CRegistrazione {
         //ora è necessario che vengano validati prima della creazione di una nuova clinica
         $uValidazione = USingleton::getInstance('UValidazione');
         $uValidazione->validaDati($datiClinica);
-        echo 'prina if';
         // se i dati sono validi
         if ($uValidazione->getValidati() === TRUE) {
             // crea la clinica
-            print_r('validati');
             $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], ucwords($datiClinica['nomeClinica']), $datiClinica['password'], $datiClinica['email'], ucwords($datiClinica['titolare']), ucwords($datiClinica['via']), $datiClinica['numeroCivico'], $datiClinica['cap'], ucwords($datiClinica['localitàClinica']), $datiClinica['provinciaClinica'], $datiClinica['PEC'], $datiClinica['telefono'], $datiClinica['capitaleSociale']);
             //eClinica richiama il metodo per creare FClinica poi FClinica aggiunge l'utente nel DB
-            echo 'cdf';
             return $eClinica->inserisciClinicaDB(); // "ritorno" il codice di conferma
         } else {
             // non tutti i dati sono validi per cui restituisco la form per inserire la clinica con i dati validi inseriti
