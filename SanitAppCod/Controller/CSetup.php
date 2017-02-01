@@ -122,7 +122,6 @@ class CSetup {
         } catch (Exception $e) {
             // An exception has been thrown
             // We must rollback the transaction
-            alert($e->getMessage());
             $conn->rollback();
             die("Errore mysql: " . $conn->error);
         }
@@ -136,8 +135,8 @@ class CSetup {
 
         $conn = @new mysqli($this->_datiSetup['host'], $this->_datiSetup['userDb'], $this->_datiSetup['passwordDb']);
         if ($conn->connect_error) {
-            print_r($conn->connect_errno);
-            print_r($conn->connect_error);
+//            print_r($conn->connect_errno);
+//            print_r($conn->connect_error);
             switch ($conn->connect_errno) {
                 case '2002':
                     $this->_datiSetupErrati['host'] = "Connessione al database fallita: host sconosciuto";

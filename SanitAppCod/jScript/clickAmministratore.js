@@ -310,10 +310,8 @@ function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
             }
             else
             {
-                alert(datiRisposta);
                 $(ajaxdiv).html(datiRisposta);
                 $("#loadingModal").hide();
-                alert('ciao9898');
             }
         },
         error: function ()

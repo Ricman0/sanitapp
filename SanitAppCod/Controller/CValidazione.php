@@ -20,7 +20,6 @@ class CValidazione {
         $task = $vValidazione->getTask();
         switch ($task) {
             case 'username':
-                print_r($_REQUEST);
                 // credo sia usernameUtente o username
                 $username = $vValidazione->getUsernameUser();
                 $eUser = new EUser($username);
@@ -42,7 +41,6 @@ class CValidazione {
     {
         $vValidazione= USingleton::getInstance('VValidazione');
         $task = $vValidazione->getTask();
-        echo ("$task");
     }
     
     /**

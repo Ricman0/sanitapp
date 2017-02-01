@@ -139,7 +139,6 @@ class UCookie {
             $valoreCookie = $valoreCookie + 1; // incrementa il valore del cookie Tentativi
             setcookie($nomeCookie, $valoreCookie, time() + 15 * 60); // imposta il nuovo valore del cookie Tentativi
         }
-        print_r($_COOKIE);
     }
 
     /**

@@ -19,7 +19,6 @@ $(document).ready(function () {
 
     $('#headerMain').on("click", "#confermaPrenotazioneUtente", function () {
         var id = $('#confermaPrenotazioneUtente').attr('data-idprenotazione');
-        alert(id);
         confermaPrenotazioneUtente('prenotazione', 'conferma', id, "#contenutoAreaPersonale");
     });
 
@@ -52,7 +51,6 @@ $(document).ready(function () {
                             case 'CodFiscale':
                                 if(codiceFiscale === valore)
                                 {
-                                    alert('selezionato');
                                     htmlSelect += "<option value='" + valore + "' selected>" + valore + "</option>";
                                 }
                                 else
@@ -111,7 +109,6 @@ $(document).ready(function () {
         data: dati,
         success: function (datiRisposta)
         {
-            alert(datiRisposta);
             try {
                 $.parseJSON(datiRisposta);
                 $('#messaggioDialogBox').empty();
@@ -228,15 +225,12 @@ $(document).ready(function () {
 function inviaDatiModificaImpostazioni(controller, task, task2, ajaxdiv)
 {
     var dati = $("div.daModificare > form").serialize();
-    alert('ecco i dati');
-   alert(dati);
     $.ajax({
         type: 'POST',
         url: controller + '/' + task + '/' + task2,
         data: dati,
         success: function (datiRisposta)
         {
-            alert(datiRisposta);
             try {
                 $.parseJSON(datiRisposta);
                 $('#messaggioDialogBox').text('Errore!');
@@ -282,7 +276,6 @@ function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
         url: controller + '/' + task + '/' + task2,
         success: function (datiRisposta)
         {
-            alert(datiRisposta);
             if(controller ==='impostazioni' && task ==='aggiungi' && task2==='medico')
             {
                 //dopo aver ottenuto tutti i medici curanti dell'applicazione, inserisco una select e le label per sapere codice fiscale e nome e cognome del medico 
@@ -359,10 +352,7 @@ function confermaPrenotazioneUtente(controller, task, id, ajaxDiv)
 //        dataType:JSON,
         success: function (datiRisposta)
         {
-            alert("success");
-            alert(datiRisposta);
             datiRisposta = JSON.parse(datiRisposta);
-            alert(datiRisposta);
             if (datiRisposta === true)
             {
                 $('#divConfermaPrenotazioneUtente').empty();// svuoto il div 
@@ -371,12 +361,6 @@ function confermaPrenotazioneUtente(controller, task, id, ajaxDiv)
             }
 //            $(ajaxDiv).html(datiRisposta);
 
-        },
-        error: function (xhr, ajaxOptions, thrownError)
-        {
-            alert(xhr);
-            alert(xhr.status);
-            alert(thrownError);
         }
     });
 }

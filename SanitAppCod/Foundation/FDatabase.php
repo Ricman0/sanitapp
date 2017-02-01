@@ -291,22 +291,22 @@ class FDatabase {
      * @access public
      * @param Array|boolean $risultato Il risultato di una query
      */
-    final public function stampaRisultatoQuery($risultato) 
-    {
-        if(empty($risultato))
-        {
-           echo " array vuoto" ;
-        }
-        if(is_array($risultato) === TRUE)
-        {
-        
-        }
-        else
-        {
-            echo($risultato);
-            
-        } 
-    }
+//    final public function stampaRisultatoQuery($risultato) 
+//    {
+//        if(empty($risultato))
+//        {
+//           echo " array vuoto" ;
+//        }
+//        if(is_array($risultato) === TRUE)
+//        {
+//        
+//        }
+//        else
+//        {
+//            echo($risultato);
+//            
+//        } 
+//    }
     
     /**
      * Metodo che permette di trovare l'utente (utente, medico, clinica) che ha

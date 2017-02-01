@@ -204,7 +204,6 @@ class CGestisciServizi {
                 $esami = USingleton::getInstance('FEsame');
                 //cerco tutti gli esami della clinica di cui passo il nome
                 $risultato = $esami->cercaEsame("",$nomeClinica,"");
-                print_r($risultato);
                 $vServizi->visualizzaEsami($risultato);
                 
                 break;

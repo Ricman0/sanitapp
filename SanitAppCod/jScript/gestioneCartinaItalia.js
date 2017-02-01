@@ -17,7 +17,6 @@ $(function () {
         var r = $(this);
         var id = r.attr("data-id");
         var title = r.attr("title");
-        alert("clicked id:" + id + " " + title);
         inviaRegione(title);
     });
 });

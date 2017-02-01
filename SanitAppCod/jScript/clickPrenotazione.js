@@ -4,7 +4,6 @@ $(document).ready(function (){
         var id = $("#aggiungiPrenotazioneButton").attr("data-idEsame");
         var codiceFiscale = $("#aggiungiPrenotazioneButton").attr("data-codiceFiscale");
         var ajaxDiv = "#" + $(this).closest('div[id=contenutoAreaPersonale]').prop('id');
-        alert(ajaxDiv);
         if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
         {
            ajaxDiv = '#main';
@@ -19,7 +18,6 @@ $(document).ready(function (){
             url : "prenotazione/modifica/" + idPrenotazione ,
             success: function(datiHTMLRisposta)
             {
-                alert(datiHTMLRisposta);
                 $('#contenutoAreaPersonale').html(datiHTMLRisposta);   
                 $('#nextPrenotazioneEsame').attr('data-idPrenotazione', idPrenotazione);
                 $("#nextPrenotazioneEsame").prop('value', 'Modifica'); //cambio il testo del bottone versione > 1.6 
@@ -49,19 +47,12 @@ $(document).ready(function (){
                         var data = dateText; //the first parameter of this function
                         //aggiungo la data selezionata nell'attributo data-data del tasto nextPrenotazioneEsame in questo modo ho la data della prenotazione
                         $('#nextPrenotazioneEsame').attr('data-data', data);
-    //                    alert(data);//da eliminare
-
                         // richiamo il metodo getDate() della dataSelezionata del datapicker                     
                         var dataObject = $(this).datepicker( 'getDate' ); //the getDate method
-    //                    alert(dataObject);// da eliminare
-
                         //Formatta la data dataObject in un valore stringa in base al formato specificato come primo parametro. 
                         // in questo caso giorno
                         var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
                         nomeGiorno = nomeGiorno.replace('ì', 'i');
-    //                    alert(nomeGiorno);// da eliminare
-
-    //                    alert("PartitaIVA: " + partitaIVAClinica);// da eliminare
                         // prendi il valore dell'input nascosto (in prenotazioneEsame.tpl) idEsame 
                         // e memorizzalo nella variabile idEsame
                         var idEsame = $("#idEsame").val();
@@ -102,7 +93,6 @@ $(document).ready(function (){
         var cfPrenotazione = $('#nextPrenotazioneEsame').attr('data-codiceFiscale');
         var durataEsame = $('#nextPrenotazioneEsame').attr('data-durata');
         var ajaxDiv = "#" + $(this).closest('div[id=contenutoAreaPersonale]').prop('id');
-        alert(ajaxDiv);
         if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
         {
            ajaxDiv = '#main';
@@ -114,13 +104,11 @@ $(document).ready(function (){
             modifica = true;
             idPrenotazione = $('#nextPrenotazioneEsame').attr('data-idPrenotazione');
         }
-        alert(modifica);
         inviaControllerTaskDati('prenotazione', 'riepilogo',  idEsame , dataPrenotazione, orarioPrenotazione, cfPrenotazione, durataEsame, modifica, ajaxDiv, idPrenotazione);
     });
     
     $('#headerMain').on("click", "#confermaPrenotazione", function(){
         var ajaxDiv = "#" + $(this).closest('div[id=contenutoAreaPersonale]').prop('id');
-        alert(ajaxDiv);
         if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
         {
            ajaxDiv = '#main';
@@ -130,8 +118,6 @@ $(document).ready(function (){
     
      $('#headerMain').on("click", "#confermaModificaPrenotazione", function(){
         var idPrenotazione = $('#confermaModificaPrenotazione').attr('data-idPrenotazione');
-        alert('a');
-        alert(idPrenotazione);
         var orarioPrenotazione = $('#orarioPrenotazione').text().trim();
         var dataPrenotazione = $('#dataPrenotazione').text().trim();
         dati ={idPrenotazione : idPrenotazione, orario : orarioPrenotazione, data : dataPrenotazione};
@@ -141,13 +127,10 @@ $(document).ready(function (){
             data:dati,
             success:function(datiRisposta)
             {
-                alert(datiRisposta);
                 $('#contenutoAreaPersonale').html(datiRisposta);
             },
             error: function(xhr, status, error) 
             {
-                alert(xhr.responseText);
-                alert(error);
                 alert(" errore nella conferma prenotazione ");
             }
         });
@@ -188,14 +171,10 @@ function taskPrenotazione(controller, task, ajaxDiv)
         success:function(datiRisposta)
             {
                 // comportamento da modificare
-                alert(datiRisposta);
                 $(ajaxDiv).html(datiRisposta);
             },
             error: function(xhr, status, error) 
             {
-                alert(xhr.responseText);
-                alert(error);
-                alert(status);
                 alert(" errore nella eliminazione della prenotazione ");
             },
             complete: function(){
@@ -228,13 +207,10 @@ function confermaPrenotazione(controller, task, ajaxDiv)
             data:dati,
             success:function(datiRisposta)
             {
-                alert(datiRisposta);
                 $(ajaxDiv).html(datiRisposta);
             },
             error: function(xhr, status, error) 
             {
-                alert(xhr.responseText);
-                alert(error);
                 alert(" errore nella conferma prenotazione ");
             }
         });
@@ -255,13 +231,10 @@ function inviaControllerTaskDati(controller, task,  idEsame , dataPrenotazione, 
         data:dati,   
         success: function (datiRisposta)
         {
-            alert(datiRisposta);
             $(ajaxDiv).html(datiRisposta);
         },
         error: function(xhr, status, error) 
         {
-            alert(xhr.responseText);
-            alert(error);
             alert(" errore nel riepilogo ");
         }
     });
@@ -274,7 +247,6 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
         url : controller + "/" + task + "/" + id ,
         success: function(datiHTMLRisposta)
         {
-            alert(datiHTMLRisposta);
             $(ajaxDiv).html(datiHTMLRisposta);            
             if(typeof(codiceFiscale)!=='undefined') // se codiceFiscale è definito vuol dire che siamo una clinica o un utente
             {     
@@ -307,19 +279,12 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
                     var data = dateText; //the first parameter of this function
                     //aggiungo la data selezionata nell'attributo data-data del tasto nextPrenotazioneEsame in questo modo ho la data della prenotazione
                     $('#nextPrenotazioneEsame').attr('data-data', data);
-//                    alert(data);//da eliminare
-                    
                     // richiamo il metodo getDate() della dataSelezionata del datapicker                     
                     var dataObject = $(this).datepicker( 'getDate' ); //the getDate method
-//                    alert(dataObject);// da eliminare
-                    
                     //Formatta la data dataObject in un valore stringa in base al formato specificato come primo parametro. 
                     // in questo caso giorno
                     var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
                     nomeGiorno = nomeGiorno.replace('ì','i');
-//                    alert(nomeGiorno);// da eliminare
-                    
-//                    alert("PartitaIVA: " + partitaIVAClinica);// da eliminare
                     // prendi il valore dell'input nascosto (in prenotazioneEsame.tpl) idEsame 
                     // e memorizzalo nella variabile idEsame
                     var idEsame = $("#idEsame").val();
@@ -474,14 +439,9 @@ function getGiorniNonLavorativiClinica(partitaIVAClinica)
                 $('#contenutoAreaPersonale').append("<h4>C'è stato un errore. Se il problema si ripresenta, contatti l'aministratore.</h4><h4>Clicca su ok per tornare alla pagina personale.</h4>\n\
                     <input type='button' class='mySanitApp' id='tornaAreaPersonaleButton'  value='OK' />");
             }
-//            alert('ciao');
-//            alert(giorniNonLavorativi.toString());
-//console.log(giorniNonLavorativi);
         },
         error: function(xhr, status, error) 
         {
-            alert(xhr.responseText);
-            alert(error);
             alert(" errore nel ricevere i giorni non lavorativi della clinica ");
             
         }
@@ -508,12 +468,9 @@ function orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
         dataType: "json",
 //        contentType: "application/json; charset=utf-8",
         success:function(datiRisposta)
-        {
-            
+        {            
             // elimino tutti i nodi figli nel div orariDisponibili
             $("#orariDisponibili").empty();
-            
-            alert(datiRisposta);
             // converto i dati risposta json in un oggetto javascript
 //            var orariDisponibili = $.parseJSON(datiRisposta);
             var i=1;
@@ -559,8 +516,6 @@ function orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
         },
         error: function(xhr, status, error) 
         {
-            alert(xhr.responseText);
-            alert(error);
             alert(" errore nel ricevere gli orari disponibili ");
             $('#contenutoAreaPersonale').empty();
             $('#contenutoAreaPersonale').append("<h4>C'è stato un errore. Se il problema si ripresenta, contatti l'aministratore.</h4><h4>Clicca su ok per tornare alla pagina personale.</h4>\n\
