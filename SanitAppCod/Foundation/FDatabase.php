@@ -65,7 +65,7 @@ class FDatabase {
     }
     
     /**
-     * Metodo che permette di ottente il nome della tabella
+     * Metodo che permette di ottenere il nome della tabella.
      * 
      * @access public
      * @return string Il nome della tabella
@@ -76,7 +76,7 @@ class FDatabase {
     }
     
     /**
-     * Metodo che permette di ottenere la chiave della tabella
+     * Metodo che permette di ottenere la chiave della tabella.
      * 
      * @access public
      * @return string La chiave della tabella
@@ -87,7 +87,7 @@ class FDatabase {
     }
     
     /**
-     * Metodo che permette di ottente gli attributi della tabella
+     * Metodo che permette di ottenere gli attributi della tabella.
      * 
      * @access public
      * @return string Gli attributi della tabella
@@ -99,7 +99,7 @@ class FDatabase {
     
     
     /**
-     *Metodo per connettersi ad un database server
+     * Metodo per consente di connettersi ad un database server.
      * 
      * @final
      * @access public
@@ -147,26 +147,23 @@ class FDatabase {
     }
 
     /**
-     * Metodo che permette di cancellare i separatori inizialie finali (trim)
-     * e di effettuare l'escape dei caratteri speciali di una stringa
+     * Metodo che permette di cancellare i separatori iniziali e finali (trim)
+     * e di effettuare l'escape dei caratteri speciali di una stringa.
      * 
      * @final
      * @access public
      * @param string $stringa La stringa di cui si vuole effettuare l'escape e il trim
-     * @return string La stringa di cui si è fatto l'escape
+     * @return string La stringa di cui si è fatto l'escape e il trim
      */
     final public function trimEscapeStringa($stringa) 
     {
         //trim per cancellare i separatori iniziali e finali
-//        $stringa = trim($stringa);
-//        $stringa = $this->_connessione->real_escape_string($stringa);
-//        return $stringa;
         return $this->_connessione->real_escape_string(trim($stringa));
     }
  
     
     /**
-     * Metodo che consente di eseguire una query 
+     * Metodo che consente di eseguire una query. 
      * 
      * @final
      * @access public
@@ -213,13 +210,13 @@ class FDatabase {
     }
 
     /**
-     * Metodo che consente di eseguire più query contemporaneamente
+     * Metodo che consente di eseguire più query contemporaneamente.
      * 
      * @final
      * @access public
      * @param string $query Le query da eseguire
      * @return array|boolean Il risultato della query, FALSE nel caso in cui la query non abbia prodotto risultato
-     * @throws XDBException
+     * @throws XDBException 
      */
     final public function eseguiQueryMultiple($query)
     {
@@ -271,51 +268,26 @@ class FDatabase {
     
     
     /**
-     * Metodo per chiudere la connessione con il database
+     * Metodo per chiudere la connessione con il database.
      * 
      * @final
      * @access public
-     * @return type Description
      */
     final public function terminaConnessioneDB()
     {
-        //clean up, chiusura della connessione
+        //clean up, chiusura della connessione 
         $this->_connessione->close();
     }
     
-    
     /**
-     * Metodo che permette di stampare un array ( risultato di una query)
-     * 
-     * @final
-     * @access public
-     * @param Array|boolean $risultato Il risultato di una query
-     */
-    final public function stampaRisultatoQuery($risultato) 
-    {
-        if(empty($risultato))
-        {
-           echo " array vuoto" ;
-        }
-        if(is_array($risultato) === TRUE)
-        {
-        
-        }
-        else
-        {
-            echo($risultato);
-            
-        } 
-    }
-    
-    /**
-     * Metodo che permette di trovare l'utente (utente, medico, clinica) che ha
-     * un determinato username
+     * Metodo che permette di trovare l'user (utente, medico, clinica, amministratore) che ha
+     * un determinato username.
      * 
      * @final
      * @access public
      * @param string $username Username dell'utente da cercare
-     * @return Array|boolean  Il risultato della query
+     * @return array  Array contenente l'user cercato
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     final public function cercaUser($username) 
     {
@@ -328,7 +300,16 @@ class FDatabase {
         
     }
     
-//    public static function getValoriAttributi($oggetto, $attributiTabella, $nomeClasse = '') 
+    /**
+     * Metodo che consente di ottenere in un'unica stringa tutti i valori degli attributi necessari
+     * per l'inserimento di un elemento nel database.
+     * 
+     * @access public
+     * @param object $oggetto L'oggetto che si vuole aggiungere
+     * @param string $attributiTabella Il nome degli attributi della tabella, in cui si vuole inserire l'elemento, separati da virgole
+     * @param string $nomeClasse Il nome della classe a cui corrisponde la tabella (Senza F o E)
+     * @return string La stringa contenente tutti i valori degli attributi
+     */
     public function getValoriAttributi($oggetto, $attributiTabella, $nomeClasse = '') 
     {
 //        $nomeClasse = 'F' . $nomeClasse;
@@ -416,48 +397,26 @@ class FDatabase {
         }
         return $valoriAttributi;
     }
-    
-//    public static function getNomeAttributi() {
-//        return self::$_attributiTabella;
-//    }
-//    public function getNomeAttributi() {
-//        return $this->_attributiTabella;
-//    }
-    
-    
+
     /**
-     * Metodo che permette di aggiungere un oggetto nel DB
+     * Metodo che permette di aggiungere un oggetto nel DB.
      * 
      * @access public
-     * @param object $oggetto lL'oggetto che si vuole aggiungere 
+     * @param object $oggetto L'oggetto che si vuole aggiungere 
      * @return boolean Se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
      * @throws XDBException Se la query non è stata eseguita con successo
      */
-    public function inserisci($oggetto) {
-        
-//        $valoriAttributi = $this->getAttributi($oggetto);
-//        $nomeTabella =substr(strtolower(get_class($oggetto)), 1);// nome della classe dell'oggetto in minuscolo eliminando la e iniziale
-        
-        
+    public function inserisci($oggetto) 
+    {
         $nomeClasse = substr((get_class($oggetto)), 1);
         $nomeClassePadre = get_parent_class($oggetto); 
-        
         if(($nomeClassePadre==='EUser'))
         {
-//            $nomeClassePadre = strtolower($nomeClassePadre);
-//            $nomeClassePadre = 'F' . substr($nomeClassePadre,1);
-//            print_r($nomeClassePadre);
-//            $attributiPadre = $nomeClassePadre::getNomeAttributi();
-//            echo 'attributi padre';
-//            print_r($attributiPadre);
-//            echo ' niente';
             $nomeClassePadre =  substr($nomeClassePadre,1);
             $attributiPadreFiglio = $this->getAttributiTabella();
             $attributi = explode(';', $attributiPadreFiglio);
             $attributiPadre = $attributi[0];
-            
             $attributiFiglio = $attributi[1];
-            
             $valoriAttributiPadre = $this->getValoriAttributi($oggetto, $attributiPadre , $nomeClassePadre);
             $nomeClassePadre = strtolower($nomeClassePadre);
             if($nomeClassePadre ==='user')
@@ -465,12 +424,9 @@ class FDatabase {
                 $nomeClassePadre = 'appuser';
             }
             $query1 = "INSERT INTO " . $nomeClassePadre . "(" . $attributiPadre . ") VALUES( " . $valoriAttributiPadre . ")";
-            
-           
             $valoriAttributi = $this->getValoriAttributi($oggetto, $attributiFiglio, $nomeClasse);
             $nomeClasse  = strtolower($nomeClasse);
             $query2 = "INSERT INTO " . $nomeClasse . "(" . $attributiFiglio . ") VALUES( " .  $valoriAttributi . ")";
-            
             try {
                 // inzia la transazione
                 $this->_connessione->begin_transaction();
@@ -494,197 +450,10 @@ class FDatabase {
             $query = "INSERT INTO " . $nomeClasse . "(" . $attributiTabella . ") VALUES( " .  $this->getValoriAttributi($oggetto, $attributiTabella, $nomeClasse ) . ")";
             return $this->eseguiQuery($query); 
         }
-        
-//        if ($nomeClasse === 'Utente' || $nomeClasse === 'Medico' || $nomeClasse === 'Clinica' )
-//        {
-//            
-//            $attributiTabellaPadre = explode(',', parent::$this->_attributiTabella);
-//            print_r($attributiTabellaPadre);
-//            $valoriAttributiPadre = NULL;
-//            foreach ($attributiTabellaPadre as $valore) {
-//                $valore = trim($valore);
-//                $funzione = 'get'.$valore;
-//                $valoreAttributo = $oggetto->$funzione();
-//                switch (gettype($valoreAttributo)) {
-//                    case 'string':
-//                        if (isset($valoriAttributiPadre))
-//                        {
-//                            $valoriAttributiPadre .= ", '" . $this->trimEscapeStringa($valoreAttributo) . "'";
-//                        }
-//                        else
-//                        {
-//                            $valoriAttributiPadre = "'" . $this->trimEscapeStringa($valoreAttributo)  . "'";
-//                        }
-//                        break;
-//
-//                    case 'NULL':
-//                        if (isset($valoriAttributiPadre))
-//                        {
-//                            $valoriAttributiPadre .= ", NULL ";
-//                        }
-//                        else
-//                        {
-//                            $valoriAttributiPadre = "NULL";
-//                        }
-//                        break;
-//
-//                    case 'double':
-//                        if (isset($valoriAttributiPadre))
-//                        {
-//                            $valoriAttributiPadre .= ", '" . $valoreAttributo . "'";
-//                        }
-//                        else
-//                        {
-//                            $valoriAttributiPadre = "'" . $valoreAttributo  . "'";
-//                        }
-//                        break;
-//
-//                    case 'boolean':
-//                        if($valoreAttributo === TRUE)
-//                        {
-//                            if (isset($valoriAttributiPadre))
-//                            {
-//                                $valoriAttributiPadre .= ", " . $valoreAttributo . "";
-//                            }
-//                            else
-//                            {
-//                                $valoriAttributiPadre = "'" . $valoreAttributo  . "'";
-//                            }
-//                        }
-//                        else
-//                        {
-//                            if (isset($valoriAttributiPadre))
-//                            {
-//                                $valoriAttributiPadre .= ", 'FALSE'";
-//                            }
-//                            else
-//                            {
-//                                $valoriAttributiPadre = "FALSE";
-//                            }
-//                        }
-//
-//                        break;
-//
-//                    default:
-//                        if (isset($valoriAttributiPadre))
-//                        {
-//                            $valoriAttributiPadre .= ", " . $valoreAttributo . "";
-//                        }
-//                        else
-//                        {
-//                            $valoriAttributiPadre = "" . $valoreAttributo . "";
-//                        }
-//                        break;
-//                    }
-//                $query1 = "INSERT INTO " . $nomeClassePadre. "(" . parent::$this->_attributiTabella . ") VALUES( " .  $valoriAttributiPadre . ")";  
-//                }
-//            
-//        }  
-//        else
-//        {
-//    //        $attributiTabella = get_object_vars($oggetto);
-//    //        $attributiTabella = json_encode($attributiTabella);
-//    //        print_r($attributiTabella);
-//    //        print_r($nomeTabella);
-//            $attributiTabella = explode(',', $this->_attributiTabella);
-//            print_r($attributiTabella);
-//            $valoriAttributi = NULL;
-//            foreach ($attributiTabella as $valore) {
-//                $valore = trim($valore);
-//                $funzione = 'get'.$valore.$nomeClasse ;
-//                print_r($funzione );
-//                $valoreAttributo = $oggetto->$funzione();
-//                print_r(gettype($valoreAttributo));
-//                switch (gettype($valoreAttributo)) {
-//                    case 'string':
-//                    case 'text':
-//                        if (isset($valoriAttributi))
-//                        {
-//                            $valoriAttributi .= ", '" . $this->trimEscapeStringa($valoreAttributo) . "'";
-//                        }
-//                        else
-//                        {
-//                            $valoriAttributi = "'" . $this->trimEscapeStringa($valoreAttributo)  . "'";
-//                        }
-//                        break;
-//
-//                    case 'NULL':
-//                        if (isset($valoriAttributi))
-//                        {
-//                            $valoriAttributi .= ", NULL ";
-//                        }
-//                        else
-//                        {
-//                            $valoriAttributi = "NULL";
-//                        }
-//                        break;
-//
-//                    case 'mediumblob':
-//                    case 'time':
-//                    case 'date':
-//                    case 'DateTime':
-//                    case 'double':
-//                        if (isset($valoriAttributi))
-//                        {
-//                            $valoriAttributi .= ", '" . $valoreAttributo . "'";
-//                        }
-//                        else
-//                        {
-//                            $valoriAttributi = "'" . $valoreAttributo  . "'";
-//                        }
-//                        break;
-//
-//                    case 'boolean':
-//                        if($valoreAttributo === TRUE)
-//                        {
-//                            if (isset($valoriAttributi))
-//                            {
-//                                $valoriAttributi .= ", " . $valoreAttributo . "";
-//                            }
-//                            else
-//                            {
-//                                $valoriAttributi = "'" . $valoreAttributo  . "'";
-//                            }
-//                        }
-//                        else
-//                        {
-//                            if (isset($valoriAttributi))
-//                            {
-//                                $valoriAttributi .= ", 'FALSE'";
-//                            }
-//                            else
-//                            {
-//                                $valoriAttributi = "FALSE";
-//                            }
-//                        }
-//
-//                        break;
-//
-//                    default:
-//                        if (isset($valoriAttributi))
-//                        {
-//                            $valoriAttributi .= ", " . $valoreAttributo . "";
-//                        }
-//                        else
-//                        {
-//                            $valoriAttributi = "" . $valoreAttributo . "";
-//                        }
-//                        break;
-//                }
-//
-//
-//            }  
-//
-//            print_r($valoriAttributi);
-//
-//            $query = "INSERT INTO " . $this->_nomeTabella . "(" . $this->_attributiTabella . ") VALUES( " .  $valoriAttributi . ")";
-//            return $this->eseguiQuery($query);   
-//        }
     }
-    
-   
+
     /**
-     * Elimina una riga dalla tabella
+     * Elimina una riga della tabella dal DB.
      * 
      * @access public
      * @param string $id L'id che identifica la riga da eliminare
@@ -726,7 +495,7 @@ class FDatabase {
     }
     
     /**
-     * Metodo che consente di modificare un elemento di una tabella
+     * Metodo che consente di modificare un elemento di una tabella nel DB.
      * 
      * @access public
      * @param string $id L'id dell'elemento da modificare 
@@ -813,29 +582,6 @@ class FDatabase {
         // cercaUserByUsername ($username)   FUser
         // cercaUserByUsernameCodiceConferma ($username,$codiceConferma) FUser
         
-        
-//        //cercaMedico($username) Fmedico
-//   
-//        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
-//                . "WHERE appuser.Username='" . $username . "' AND "
-//                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
-////        return $this->eseguiQuery($query);    
-//        $risultato = $this->eseguiQuery($query);
-//        return $risultato;
-//                
-//        // cercaMedicoByCF($cf) Fmedico
-//    
-//        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
-//                . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
-//                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
-//        return $this->eseguiQuery($query);
-//        
-//         // cercaMedicoByPEC($PEC)  Fmedico
-//    
-//        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
-//                . "WHERE " . $this->_nomeTabella. ".PEC='" . $PEC . "' AND "
-//                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
-//        return $this->eseguiQuery($query);
 //        
 
     }

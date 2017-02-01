@@ -24,7 +24,7 @@ class FAmministratore extends FUser{
     }
     
     /**
-     * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
+     * Metodo che consente di ottenere in una stringa tutti i valori degli attributi necessari
      * per l'inserimento di un amministratore nel database.
      * 
      * @access public
