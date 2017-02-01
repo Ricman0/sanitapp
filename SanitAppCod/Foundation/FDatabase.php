@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of FDatabase
+ *  La classe  FDatabase si occupa dell'interazione con il database.
  * 
  * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini

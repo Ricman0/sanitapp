@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of FAmministratore
+ * La classe FAmministratore si occupa della gestione della tabella 'amministratore'.
  *
  * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini

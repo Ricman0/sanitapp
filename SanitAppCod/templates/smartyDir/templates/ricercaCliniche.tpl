@@ -13,9 +13,6 @@
                    placeholder="Roma" id="luogoClinicaFormRicercaCliniche"/>
             <br>
             <input type="button" class="form" value="Cerca" id="bottoneRicercaCliniche">
-            <!--
-            <input type="submit" class="form" id="ricercaClinicheCerca" value="Cerca">
-            -->
         </div>
     </div>
 </form>

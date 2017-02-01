@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of FClinica
+ * La classe FClinica si occupa della gestione della tabella 'clinica'. 
  *
  * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini

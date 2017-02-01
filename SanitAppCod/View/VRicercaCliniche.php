@@ -1,8 +1,7 @@
 <?php
 
-
 /**
- * Description of VRicercaCliniche
+ * La classe VRicercaCliniche  permette la visualizzazione della giusta pagina per il controller CRicercaCliniche.
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini
@@ -11,11 +10,11 @@ class VRicercaCliniche extends View{
     
     /**
      * Metodo che consente di poter restituire la form per la ricerca delle
-     * cliniche
+     * cliniche.
      * 
      * @access public
      */
-    public function restituisciFormRicercaCliniche() 
+    public function restituisciFormRicercaCliniche()                            //controllato
     {
         $this->visualizzaTemplate('ricercaCliniche');
     }

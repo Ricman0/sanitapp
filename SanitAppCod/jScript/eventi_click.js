@@ -38,6 +38,7 @@ $(document).ready(function () {
         inviaController('mySanitApp', '#main');
     });
     
+    // click per avere la form dela registrazione clinica
     $('#headerMain').on("click", "#registrazioneClinica", function () {
         var  ajaxDiv = '#main';
         if( $("#contenutoAreaPersonale").length  ) 

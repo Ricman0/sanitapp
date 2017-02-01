@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Description of CRicerca
- *
+ * La classe CRicerca si occupa di gestire il controller 'ricerca'.
+ * 
  * @category Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
@@ -41,7 +41,7 @@ class CRicerca {
 
                 break;
 
-            case 'codice':
+            case 'codice': //POST ricerca/codice                                //utilizzato
                 switch ($vRicerca->recuperaValore('tipoUser')) {
                     case 'utente':
                         $dati['codiceFiscale'] = $vRicerca->recuperaValore('codiceFiscale');

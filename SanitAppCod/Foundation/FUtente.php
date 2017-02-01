@@ -1,8 +1,9 @@
 <?php
 
 /**
- * Description of FUtente
+ * La classe FUtente si occupa della gestione della tabella 'utente'.
  *
+ * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class FUtente extends FUser{
@@ -32,35 +33,35 @@ class FUtente extends FUser{
      *                       tabella Utente
      * @return Boolean TRUE se l'utente è stato inserito correttamente nel DB, FALSE altrimenti.
      */
-    public function inserisciUtente($utente)
-    {         
-        //recupero i valori contenuti negli attributi
-        // aggiungo NULL per il codice fiscale del medico
-        $valoriAttributi = $this->getAttributi($utente);
-        $valoriAttributiUser = parent::getAttributi($utente);
-        
-        //la query da eseguire è la seguente:
-        // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-         
-        $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ")";
-        $query2 = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
-        // eseguo le queries
-        try {
-            // inzia la transazione
-            $this->_connessione->begin_transaction();
-
-            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
-            $this->eseguiquery($query1);
-            $this->eseguiQuery($query2);
-
-            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
-            return $this->_connessione->commit();
-        } catch (Exception $e) {
-            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
-            $this->_connessione->rollback();
-            throw new XDBException("Inserimento fallito, contattare l'amministratore.");
-        }
-    }
+//    public function inserisciUtente($utente)
+//    {         
+//        //recupero i valori contenuti negli attributi
+//        // aggiungo NULL per il codice fiscale del medico
+//        $valoriAttributi = $this->getAttributi($utente);
+//        $valoriAttributiUser = parent::getAttributi($utente);
+//        
+//        //la query da eseguire è la seguente:
+//        // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
+//         
+//        $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ")";
+//        $query2 = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
+//        // eseguo le queries
+//        try {
+//            // inzia la transazione
+//            $this->_connessione->begin_transaction();
+//
+//            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+//            $this->eseguiquery($query1);
+//            $this->eseguiQuery($query2);
+//
+//            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+//            return $this->_connessione->commit();
+//        } catch (Exception $e) {
+//            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+//            $this->_connessione->rollback();
+//            throw new XDBException("Inserimento fallito, contattare l'amministratore.");
+//        }
+//    }
 
     /**
      * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
@@ -98,16 +99,16 @@ class FUtente extends FUser{
     
     /**
      * Metodo che permette di controllare se un'email passata per parametro sia
-     * già esistente nella tabella utente
+     * già esistente nella tabella utente.
      * 
      * @access public
      * @param string $email L'email da controllare
      * @return boolean TRUE se esiste già un'email uguale a quella passata nel 
      * parametro, FALSE altrimenti.
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function ricercaEmailUtente($email)
     {
-        
         $query = "SELECT Email FROM utente WHERE utente.Email=" . $email . " LOCK IN SHARE MODE";
         $risultato = $this->eseguiQuery($query);
         if ($risultato === FALSE)
@@ -126,36 +127,36 @@ class FUtente extends FUser{
      * @param string $cf Codice fiscale dell'utente da eliminare
      * @return boolean True se l'utente è stato eliminato, False altrimenti
      */
-    public function eliminaUtente($cf)
-    {
-        $query = "DELETE FROM Utente WHERE CodFiscale = ".$cf;
-        $eliminato = $this->_connessione->query($query);
-        if($eliminato === TRUE)
-        {
-            echo "Utente eliminato correttamente dal database";
-        }
-        else 
-        {
-            echo "Si è verificato un errore durante l'eliminazione" .$this->_connessione->error;
-        }
-        return $eliminato;
-    }
+//    public function eliminaUtente($cf)
+//    {
+//        $query = "DELETE FROM Utente WHERE CodFiscale = ".$cf;
+//        $eliminato = $this->_connessione->query($query);
+//        if($eliminato === TRUE)
+//        {
+//            echo "Utente eliminato correttamente dal database";
+//        }
+//        else 
+//        {
+//            echo "Si è verificato un errore durante l'eliminazione" .$this->_connessione->error;
+//        }
+//        return $eliminato;
+//    }
     
     /**
      * Metodo che consente di trovare un utente passando come parametro lo username
-     * dell'utente
+     * dell'utente.
      * 
      * @access public
      * @param string $username Username dell'utente da cercare
-     * @return array|boolean Un array contenente l'utente cercato
+     * @return array L'utente cercato
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaUtente($username)
     {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE appuser.Username='" . $username . "' AND "
                 . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
-        $risultato = $this->eseguiQuery($query);    
-        return $risultato;
+        return $this->eseguiQuery($query);    
         
     }
     
@@ -167,24 +168,17 @@ class FUtente extends FUser{
      * @param string $cf Il codice fiscale dell'utente da cercare
      * @return array|boolean Array contenente l'utente cercato
      */
-    public function cercaUtenteByCF($cf) 
-    {
-        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
-                . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
-                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
-        $risultato = $this->eseguiQuery($query);
-//        echo "count: ". count($risultato);        
-        return $risultato;
-    }
+//    public function cercaUtenteByCF($cf) 
+//    {
+//        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+//                . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
+//                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
+//        $risultato = $this->eseguiQuery($query);
+////        echo "count: ". count($risultato);        
+//        return $risultato;
+//    }
     
-    /**
-     * Metodo che permette di modificare un attributo di una tupla utente
-     * 
-     * @param string $attributo Il nome della colonna nella tabella utente 
-     *               di cui si vuole modificare il valore del contenuto
-     * @param string $valore Il valore con il quale modificare il vecchio valore
-     */
-    //???
+    
     
     /**
      * Metodo che permette di modificare via, numero civico e CAP di un utente nel DB
@@ -197,33 +191,33 @@ class FUtente extends FUser{
      * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
-    public function modificaIndirizzoCAP($codFiscale, $via, $numeroCivico,  $CAP) 
-    {
-        
-        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
-                ." WHERE CodFiscale='" . $codFiscale . "' FOR UPDATE" ;
-        $via = $this->trimEscapeStringa($via);
-        $CAP = $this->trimEscapeStringa($CAP);
-        $query = "UPDATE " . $this->_nomeTabella . " SET Via='" . $via . "', "
-                . "NumCivico='" . $numeroCivico . "', CAP='" . $CAP . "' "
-                . "WHERE CodFiscale='" . $codFiscale . "'";
-        
-        try {
-            // inzia la transazione
-            $this->_connessione->begin_transaction();
-
-            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
-            $this->eseguiquery($queryLock);
-            $this->eseguiQuery($query);
-
-            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
-            return $this->_connessione->commit();
-        } catch (Exception $e) {
-            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
-            $this->_connessione->rollback();
-            throw new XDBException('errore');
-        } 
-    }
+//    public function modificaIndirizzoCAP($codFiscale, $via, $numeroCivico,  $CAP) 
+//    {
+//        
+//        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+//                ." WHERE CodFiscale='" . $codFiscale . "' FOR UPDATE" ;
+//        $via = $this->trimEscapeStringa($via);
+//        $CAP = $this->trimEscapeStringa($CAP);
+//        $query = "UPDATE " . $this->_nomeTabella . " SET Via='" . $via . "', "
+//                . "NumCivico='" . $numeroCivico . "', CAP='" . $CAP . "' "
+//                . "WHERE CodFiscale='" . $codFiscale . "'";
+//        
+//        try {
+//            // inzia la transazione
+//            $this->_connessione->begin_transaction();
+//
+//            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+//            $this->eseguiquery($queryLock);
+//            $this->eseguiQuery($query);
+//
+//            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+//            return $this->_connessione->commit();
+//        } catch (Exception $e) {
+//            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+//            $this->_connessione->rollback();
+//            throw new XDBException('errore');
+//        } 
+//    }
     
      /**
      * Metodo che permette di modificare il medico curante di un utente nel DB
@@ -233,30 +227,37 @@ class FUtente extends FUser{
      * @param string $codFiscaleMedico Il codice fiscale del nuovo medico
      * @return boolean TRUE se la modifica è andata a buon fine, FALSE altrimenti
      */
-    public function modificaMedicoCurante($codFiscale, $codFiscaleMedico) 
-    {
-        $codFiscaleMedico = $this->trimEscapeStringa($codFiscaleMedico);
-        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
-                ." WHERE CodFiscale='" . $codFiscale . "' FOR UPDATE" ;
-        $query = "UPDATE " . $this->_nomeTabella . " SET CodFiscaleMedico='" . $codFiscaleMedico . " ' "
-                . "WHERE CodFiscale='" . $codFiscale . "'";
-        try {
-            // inzia la transazione
-            $this->_connessione->begin_transaction();
-
-            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
-            $this->eseguiquery($queryLock);
-            $this->eseguiQuery($query);
-
-            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
-            return $this->_connessione->commit();
-        } catch (Exception $e) {
-            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
-            $this->_connessione->rollback();
-            throw new XDBException('errore');
-        } 
-    }
+//    public function modificaMedicoCurante($codFiscale, $codFiscaleMedico) 
+//    {
+//        $codFiscaleMedico = $this->trimEscapeStringa($codFiscaleMedico);
+//        $queryLock = "SELECT * FROM " . $this->_nomeTabella 
+//                ." WHERE CodFiscale='" . $codFiscale . "' FOR UPDATE" ;
+//        $query = "UPDATE " . $this->_nomeTabella . " SET CodFiscaleMedico='" . $codFiscaleMedico . " ' "
+//                . "WHERE CodFiscale='" . $codFiscale . "'";
+//        try {
+//            // inzia la transazione
+//            $this->_connessione->begin_transaction();
+//
+//            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+//            $this->eseguiquery($queryLock);
+//            $this->eseguiQuery($query);
+//
+//            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+//            return $this->_connessione->commit();
+//        } catch (Exception $e) {
+//            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+//            $this->_connessione->rollback();
+//            throw new XDBException('errore');
+//        } 
+//    }
     
+    /**
+     * Metodo che consente di cercare tutti gli user non bloccati.
+     * 
+     * @access public
+     * @return array Array contenente gli elementi cercati
+     * @throws XDBException Se la query non è stata eseguita con successo
+     */
     public function getUtentiNonBloccati() 
     {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
@@ -266,12 +267,12 @@ class FUtente extends FUser{
     }
     
     /**
-     * Metodo che consente di modificare gli attributi dell'utente
+     * Metodo che consente di modificare gli attributi dell'utente.
      * 
      * @access public
      * @param EUtente $utente L'utente da modificare
-     * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function modificaUtente($utente) {
         
@@ -290,22 +291,13 @@ class FUtente extends FUser{
                 .  " WHERE (Username='" . $utente->getUsernameUser() . "') OR (Email='" . $utente->getEmailUser() .  "')";
        
         try {
-//            // First of all, let's begin a transaction
            $this->_connessione->begin_transaction();
             $this->eseguiQuery($queryLock1);
             $this->eseguiQuery($queryLock2);
-            // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($query1);
-             
             $this->eseguiQuery($query2);
-             
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }

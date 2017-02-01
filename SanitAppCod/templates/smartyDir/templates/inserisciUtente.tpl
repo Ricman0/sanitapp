@@ -1,6 +1,6 @@
 <h3>INSERISCI I DATI PER REGISTRARTI IN SANITAPP</h3>
 <hr>
-<form name="inserisciUtente" method="post" id="inserisciUtente" > 
+<form name="inserisciUtente" method="POST" id="inserisciUtente" > 
 
     <label for="nome" class="elementiForm">Nome</label>
     <input type="text" name="nome" id="nomeUtente" class="elementiForm" placeholder="Mario" value="{if isset($datiValidi.nome)}{$datiValidi.nome}{/if}" required />

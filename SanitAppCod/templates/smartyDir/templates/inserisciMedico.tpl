@@ -1,9 +1,9 @@
 <h3>INSERISCI I DATI PER REGISTRARTI IN SANITAPP</h3>
 <hr>
-<form name="inserisciMedico" method="post" id="inserisciMedico">
+<form name="inserisciMedico" method="POST" id="inserisciMedico">
 
-    <input type="hidden" name="controller" value="registrazione"/>
-    <input type="hidden" name="task" value="medico"/>
+ <!--   <input type="hidden" name="controller" value="registrazione"/>
+    <input type="hidden" name="task" value="medico"/> -->
 
     <label for="nomeMedico" class="elementiForm">Nome</label>
     <input type="text" name="nomeMedico" class="elementiForm" id="nomeMedico" placeholder="Mario" value="{if isset($datiValidi.nome)}{$datiValidi.nome}{/if}" required/>
@@ -33,7 +33,7 @@
 
     <br>
     <label for="numeroIscrizione" class="elementiForm">Numero Iscrizione</label>
-    <input type="text" name="numeroIscrizione" class="elementiForm" id="numeroIscrizione" placeholder="03693" value="{if isset($datiValidi.numeroIscrizione)}{$datiValidi.numeroIscrizione}{/if}" required/>
+    <input type="text" name="numeroIscrizione" class="elementiForm" id="numeroIscrizione" placeholder="036938" maxlength="6" value="{if isset($datiValidi.numeroIscrizione)}{$datiValidi.numeroIscrizione}{/if}" required/>
 
     <br>
 
