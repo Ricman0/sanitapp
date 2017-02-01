@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of FUser
+ * La classe FUser si occupa della gestione della tabella 'appUser'.
  *
+ * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class FUser extends FDatabase {
@@ -26,12 +21,10 @@ class FUser extends FDatabase {
         $this->_idTabella = "Username";
         $this->_attributiTabella = "Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser";
     }
-    
-    
-    
+  
     /** 
-     * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
-     * per l'inserimento di un user nel database
+     * Metodo che consente di ottenere in una stringa tutti i valori degli attibuti necessari
+     * per l'inserimento di un user nel database.
      * 
      * @access public
      * @param FUser $user L'user di cui si vogliono ottenere i valori degli attributi 
@@ -74,63 +67,14 @@ class FUser extends FDatabase {
     }
     
     /**
-     * Metodo che consente di inserire un qualsiasi tipo di user dell'applicazione nel db 
+     * Metodo che consente di cercare uno user in base alla passaword e allo username.
      * 
-     * @final
      * @access public
-     * @param string $query1 La prima query da eseguire
-     * @param string $query2 La seconda query da eseguire
+     * @param string $username L'username dell'user
+     * @param string $password La password dell'user
+     * @return array Se la query è stata eseguita con successo
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
-    final public function eseguiTransactionInserisciUser($query1, $query2)
-    {
-        try {
-            // First of all, let's begin a transaction
-            $this->_connessione->begin_transaction();
-
-            // A set of queries; if one fails, an exception should be thrown
-             $this->eseguiquery($query1);
-             $this->eseguiQuery($query2);
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
-            $this->_connessione->commit();
-        } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
-            $this->_connessione->rollback();
-        }
-
-    }
-    
-    
-    
-    
-    /**
-     * Metodo per inserire nella tabella User una nuova riga ovvero
-     * un nuovo user
-     * 
-     * @param EUser $user L'oggetto di tipo EUser che si vuole salvare nella
-     *                       tabella User
-     */
-    public function inserisciUser($user)
-    {       
-        //recupero i valori contenuti negli attributi
-        $valoriAttributi = $this->getAttributi($user);
-        
-        //la query da eseguire è la seguente:
-        // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella .") VALUES( " . $valoriAttributi . ")";
-        // eseguo la query
-        if ($this->eseguiQuery($query)===TRUE)
-        {
-            return TRUE;
-        }
-        else 
-        {
-            return FALSE;
-        }
-    }
-    
     public function cercaUserByUsernamePassword($username,$password)
     {
         $username = $this->trimEscapeStringa($username);
@@ -143,50 +87,51 @@ class FUser extends FDatabase {
     }
     
     /**
-     * Metodo che consente di trovare un user usando congiuntamente l'username e il codice di conferma dell'account
+     * Metodo che consente di trovare un user usando congiuntamente l'username e il codice di conferma dell'account.
      * 
      * @access public
      * @param string $username L'username da cercare
      * @param string $codiceConferma Il codice conferma da cercare
      * @throws XDBException Se la query non è stata eseguita con successo
-     * @return Array Array il risultato della query 
+     * @return array Array il risultato della query 
      */
-    public function cercaUserByUsernameCodiceConferma ($username,$codiceConferma)
-    {
-        $username = $this->trimEscapeStringa($username);
-        $codiceConferma = $this->trimEscapeStringa($codiceConferma);
-        $query = "SELECT appuser.* "
-                . "FROM appuser WHERE Username='" . $username . "' "
-                . "AND CodiceConferma='" . $codiceConferma . "' LOCK IN SHARE MODE"; 
-        return $this->eseguiQuery($query);
-    }
+//    public function cercaUserByUsernameCodiceConferma ($username,$codiceConferma)
+//    {
+//        $username = $this->trimEscapeStringa($username);
+//        $codiceConferma = $this->trimEscapeStringa($codiceConferma);
+//        $query = "SELECT appuser.* "
+//                . "FROM appuser WHERE Username='" . $username . "' "
+//                . "AND CodiceConferma='" . $codiceConferma . "' LOCK IN SHARE MODE"; 
+//        return $this->eseguiQuery($query);
+//    }
     
      /**
-     * Metodo che consente di trovare un user usando lo username
+     * Metodo che consente di trovare un user usando lo username.
      * 
      * @access public
      * @param string $username L'username da cercare
      * @throws XDBException Se la query non è stata eseguita con successo
-     * @return Array Array il risultato della query 
+     * @return array Array il risultato della query 
      */
-    public function cercaUserByUsername ($username)
-    {
-        $username = $this->trimEscapeStringa($username);
-        $query = "SELECT appuser.* "
-                . "FROM appuser WHERE Username='" . $username . "' "
-                . "LOCK IN SHARE MODE"; 
-        return $this->eseguiQuery($query);
-    }
+//    public function cercaUserByUsername ($username)
+//    {
+//        $username = $this->trimEscapeStringa($username);
+//        $query = "SELECT appuser.* "
+//                . "FROM appuser WHERE Username='" . $username . "' "
+//                . "LOCK IN SHARE MODE"; 
+//        return $this->eseguiQuery($query);
+//    }
     
     
     
     /**
-     * Metodo che consente di verificare se l'user (identificato tramite la coppia username e password) esiste nel DB
+     * Metodo che consente di verificare se l'user (identificato tramite la coppia username e password) esiste nel DB.
      * 
      * @access public
      * @param string $username L'username dell'user
      * @param string $password La password dell'user
-     * @return Array|boolean Array contenente un solo elemento(l'user cercato), FALSE altrimenti
+     * @return array|boolean Array contenente un solo elemento(l'user cercato), FALSE altrimenti
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function esisteUserDB($username, $password) 
     {
@@ -206,11 +151,12 @@ class FUser extends FDatabase {
     }
     
     /**
-     * Metodo che consente di controllare se esiste un username
+     * Metodo che consente di controllare se esiste un username.
      * 
      * @access public
      * @param string $username L'username da cercare
      * @return boolean TRUE se esiste l'username, FALSE altrimenti
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function esisteUsernameDB($username)
     {
@@ -222,14 +168,16 @@ class FUser extends FDatabase {
         }
         return $esiste;
     }
+    
     /**
      * Metodo che permette di controllare se un'email passata per parametro sia
-     * già esistente nella tabella user
+     * già esistente nella tabella user.
      * 
      * @access public
      * @param string $email L'email da controllare
      * @return boolean TRUE se esiste già un'email uguale a quella passata nel 
      * parametro, FALSE altrimenti.
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function ricercaEmail($email)
     {
@@ -247,35 +195,28 @@ class FUser extends FDatabase {
     }
     
     /**
-     * Metodo che consente di impostare una nuova password
+     * Metodo che consente di impostare una nuova password.
      * 
      * @param string $username L'username la cui password deve essere modificata
      * @param string $password La nuova password
      * @return type Description
      */
-    public function modificaPassword($username,$password) 
-    {
-        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE Username='" . $username . "' FOR UPDATE" ;
-        $query = "UPDATE " . $this->_nomeTabella . " SET Password='" . $password . "' "
-                . "WHERE Username='" . $username . "'";
-        try {
-//            // First of all, let's begin a transaction
-            $this->_connessione->begin_transaction();
-
-             // A set of queries; if one fails, an exception should be thrown
-            $this->eseguiQuery($queryLock); 
-            $this->eseguiQuery($query);
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
-            return $this->_connessione->commit();
-        } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
-            $this->_connessione->rollback();
-            throw new XDBException('errore');
-        }
-    }
+//    public function modificaPassword($username,$password) 
+//    {
+//        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+//                " WHERE Username='" . $username . "' FOR UPDATE" ;
+//        $query = "UPDATE " . $this->_nomeTabella . " SET Password='" . $password . "' "
+//                . "WHERE Username='" . $username . "'";
+//        try {
+//            $this->_connessione->begin_transaction();
+//            $this->eseguiQuery($queryLock); 
+//            $this->eseguiQuery($query);
+//            return $this->_connessione->commit();
+//        } catch (Exception $e) {
+//            $this->_connessione->rollback();
+//            throw new XDBException('errore');
+//        }
+//    }
     
     /**
      * Metodo che consente di cercare un user attraverso l'email
@@ -285,11 +226,11 @@ class FUser extends FDatabase {
      * @param string $email L'email dell'user da cercare
      * @return Array Lo user trovato
      */
-    final public function cercaUserByEmail($email) 
-    {
-        $query = "SELECT * FROM appuser WHERE Email='" . $email . "' LOCK IN SHARE MODE";
-        return $this->eseguiQuery($query);
-    }
+//    final public function cercaUserByEmail($email) 
+//    {
+//        $query = "SELECT * FROM appuser WHERE Email='" . $email . "' LOCK IN SHARE MODE";
+//        return $this->eseguiQuery($query);
+//    }
    
     
     /**
@@ -301,29 +242,22 @@ class FUser extends FDatabase {
      * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se l'account è stato confermato
      */
-    final public function confermaUser($username) 
-    {
-        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE Username='" . $username . "' FOR UPDATE" ;
-        $query = "UPDATE appuser SET Confermato=TRUE 
-                WHERE Username= '" . $username . "'" ;
-        try {
-//            // First of all, let's begin a transaction
-            $this->_connessione->begin_transaction();
-
-             // A set of queries; if one fails, an exception should be thrown
-            $this->eseguiQuery($queryLock); 
-            $this->eseguiQuery($query);
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
-            return $this->_connessione->commit();
-        } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
-            $this->_connessione->rollback();
-            throw new XDBException('errore');
-        }
-               
-    }
+//    final public function confermaUser($username) 
+//    {
+//        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+//                " WHERE Username='" . $username . "' FOR UPDATE" ;
+//        $query = "UPDATE appuser SET Confermato=TRUE 
+//                WHERE Username= '" . $username . "'" ;
+//        try {
+//            $this->_connessione->begin_transaction();
+//            $this->eseguiQuery($queryLock); 
+//            $this->eseguiQuery($query);
+//            return $this->_connessione->commit();
+//        } catch (Exception $e) {
+//            $this->_connessione->rollback();
+//            throw new XDBException('errore');
+//        }
+//               
+//    }
     
 }

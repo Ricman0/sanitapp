@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of CRegistrazione
+ * La classe CRegistrazione si occupa di gestire il controller 'registrazione'.
  * 
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
@@ -9,11 +9,11 @@
 class CRegistrazione {
 
     /**
-     * Metodo che permette di impostare la pagina di registrazione
+     * Metodo che permette di impostare la pagina di registrazione.
      * 
      * @access public
      */
-    public function impostaPaginaRegistrazione() {
+    public function impostaPaginaRegistrazione() {                              //controllato
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         switch ($vRegistrazione->getTask()) { // imposta la pagina in base al task contenuto nell'url
             case 'conferma':

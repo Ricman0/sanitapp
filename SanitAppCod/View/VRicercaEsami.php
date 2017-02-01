@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of VRicercaEsami
+ * La classe VRicercaEsami  permette la visualizzazione della giusta pagina per il controller CRicercaEsami. 
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini
@@ -10,11 +10,11 @@ class VRicercaEsami extends View{
     
     /**
      * Metodo che consente di poter restituire la form per la ricerca degli
-     * esami
+     * esami.
      * 
      * @access public
      */
-    public function restituisciFormRicercaEsami() 
+    public function restituisciFormRicercaEsami()                               //controllato
     {
         $this->visualizzaTemplate('ricercaEsami');
     }

@@ -646,7 +646,7 @@ class EClinica extends EUser {
             case 'CHIETI':
             case 'PESCARA':
             case "L'AQUILA":
-            case 'TEREMO':
+            case 'TERAMO':
                 $regione = 'ABRUZZO';
                 break;
             case 'MATERA':
@@ -872,9 +872,7 @@ class EClinica extends EUser {
             $oraFineEsame = $oraFineEsame->add($durata); // l'orario in cui termirebbe l'esame
             if($oraFineEsame <= $oraInizioPausa || $oraInizioEsame >= $oraFinePausa) // se l'orario non ricade all'interno dell'intervallo di pausa della clinica
             {    //aggiungo l'orario disponibile successivo
-                
                 $orariPrenotazioni[] = $oraInizioEsame->format("H:i");
-                 
             }
             //aggiungo un intervallo pari alla durata dell'esame all'orario disponibile precedente 
             $oraInizioEsame = $oraInizioEsame->add($durata);

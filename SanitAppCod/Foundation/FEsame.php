@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of FEsame
+ * La classe FEsame si occupa della gestione della tabella 'esame'.  
  *
+ * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class FEsame extends FDatabase {
@@ -30,79 +25,44 @@ class FEsame extends FDatabase {
     }
 
     /**
-     * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
-     * per l'inserimento di una esame nel database
+     * Metodo che consente di ottenere in una stringa tutti i valori degli attibuti necessari
+     * per l'inserimento di una esame nel database.
      * 
      * @access private
      * @param EEsame $esame l'esame di cui si vogliono ottenere i valori degli attributi 
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
-    private function getAttributi($esame) {
-        $valoriAttributi = "'" . $esame->getIDEsameEsame() . "', '" 
-                . $this->trimEscapeStringa($esame->getNomeEsameEsame()) . "', '" 
-                . $this->trimEscapeStringa($esame->getDescrizioneEsame()) . "', '" 
-                . $esame->getPrezzoEsame() . "', '" 
-                . $esame->getDurataEsame() . "', '" 
-                . $this->trimEscapeStringa($esame->getMedicoEsameEsame()) . "', '" 
-                . $esame->getNumPrestazioniSimultaneeEsame() . "', '"  
-                . $this->trimEscapeStringa($esame->getNomeCategoriaEsame()) . "', '" 
-                . $esame->getPartitaIVAClinicaEsame() . "', ";
-        if ($esame->getEliminatoEsame()===TRUE)
-        {
-            $valoriAttributi = $valoriAttributi . $esame->getEliminatoEsame();
-        }
-        else
-        {
-             $valoriAttributi = $valoriAttributi .  "FALSE";
-        }
-                
-        return $valoriAttributi;
-    }
+//    private function getAttributi($esame) {
+//        $valoriAttributi = "'" . $esame->getIDEsameEsame() . "', '" 
+//                . $this->trimEscapeStringa($esame->getNomeEsameEsame()) . "', '" 
+//                . $this->trimEscapeStringa($esame->getDescrizioneEsame()) . "', '" 
+//                . $esame->getPrezzoEsame() . "', '" 
+//                . $esame->getDurataEsame() . "', '" 
+//                . $this->trimEscapeStringa($esame->getMedicoEsameEsame()) . "', '" 
+//                . $esame->getNumPrestazioniSimultaneeEsame() . "', '"  
+//                . $this->trimEscapeStringa($esame->getNomeCategoriaEsame()) . "', '" 
+//                . $esame->getPartitaIVAClinicaEsame() . "', ";
+//        if ($esame->getEliminatoEsame()===TRUE)
+//        {
+//            $valoriAttributi = $valoriAttributi . $esame->getEliminatoEsame();
+//        }
+//        else
+//        {
+//             $valoriAttributi = $valoriAttributi .  "FALSE";
+//        }
+//                
+//        return $valoriAttributi;
+//    }
 
     /**
-     * Metodo per inserire nella tabella Esame una nuova riga ovvero
-     * una nuovo esame
-     * 
-     * @param EEsame $esame L'oggetto di tipo EEsame che si vuole salvare nella
-     *                       tabella Esame
-     * @throws XDBException Se la query non è stata eseguita con successo
-     * @return boolean TRUE se è stato inserito con successo l'esame
-     */
-    public function inserisciEsame($esame) {
-        //recupero i valori contenuti negli attributi
-        $valoriAttributi = $this->getAttributi($esame);
-
-        //la query da eseguire è la seguente:
-        // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
-        // eseguo la query
-        return $this->eseguiQuery($query);
-    }
-    
-    
-    /**
-     * 
-     * @param string $id L'id dell'esame da cercare
-     * @return array|boolean un esame false se non ci sono esami
-     */
-    public function cercaEsameById($id) {
-        
-        $query =  "SELECT * "
-                . "FROM esame " 
-                . "WHERE IDEsame ='" . $id . "' LOCK IN SHARE MODE";
-        $risultato = $this->eseguiQuery($query);
-        return $risultato;
-        
-    }
-
-    /**
-     * Metodo che permette di effettuare la ricerca di esami 
+     * Metodo che permette di effettuare la ricerca di esami in base al nome dell'esame, 
+     * al nome della clinica o al luogo.
      * 
      * @param string $nomeEsame Il nome dell'esame di cui si vuole fare la ricerca
      * @param string $nomeClinica Il nome della clinica in cui si vuole fare ricerca
      * @param string $luogo Il luogo in cui si trova la clinica
+     * @return array Se la query è stata eseguita con successo.
      * @throws XDBException Se la query non è stata eseguita con successo
-     * @return array|boolean Se la query è stata eseguita con successo, ..., in caso contrario resituirà false.
      */
     public function cercaEsame($nomeEsame="all", $nomeClinica="all", $luogo="all") 
     {
@@ -251,12 +211,12 @@ class FEsame extends FDatabase {
      * @throws XDBException Se la query non è stata eseguita con successo
      * @return Array Esami che hanno la categoria passata come parametro
      */
-    public function cercaEsamiByCategoria($nomeCategoria) {
-        $query =  "SELECT * "
-                . "FROM esame " 
-                . "WHERE NomeCategoria ='" . $nomeCategoria . "' LOCK IN SHARE MODE";
-        return $this->eseguiQuery($query);
-    }
+//    public function cercaEsamiByCategoria($nomeCategoria) {
+//        $query =  "SELECT * "
+//                . "FROM esame " 
+//                . "WHERE NomeCategoria ='" . $nomeCategoria . "' LOCK IN SHARE MODE";
+//        return $this->eseguiQuery($query);
+//    }
     
     /**
      * Metodo che consente di modificare gli attributi dell'esame
@@ -266,32 +226,32 @@ class FEsame extends FDatabase {
      * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
-    public function modificaEsame($esame) {
-        
-        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE (IDEsame='" . $esame->getIDEsameEsame() . "') FOR UPDATE" ;
-        $query = "UPDATE " . $this->_nomeTabella . " SET NomeEsame='" . $esame->getNomeEsameEsame() .  "', Descrizione='"
-                . $esame->getDescrizioneEsame() . "', Prezzo=" . $esame->getPrezzoEsame() . ", Durata='" . $esame->getDurataEsame() . "', "
-                . "MedicoEsame='" . $esame->getMedicoEsameEsame() . "', NomeCategoria='" . $esame->getNomeCategoriaEsame() . "' "
-                . "WHERE (IDEsame='" . $esame->getIDEsameEsame() . "')";
-        try {
-            // inzia la transazione
-            $this->_connessione->begin_transaction();
-
-            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
-            $this->eseguiquery($queryLock);
-            $this->eseguiQuery($query);
-
-            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
-            return $this->_connessione->commit();
-        } catch (Exception $e) {
-            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
-            $this->_connessione->rollback();
-            throw new XDBException('errore');
-        } 
-            
-          
-    }
+//    public function modificaEsame($esame) {
+//        
+//        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+//                " WHERE (IDEsame='" . $esame->getIDEsameEsame() . "') FOR UPDATE" ;
+//        $query = "UPDATE " . $this->_nomeTabella . " SET NomeEsame='" . $esame->getNomeEsameEsame() .  "', Descrizione='"
+//                . $esame->getDescrizioneEsame() . "', Prezzo=" . $esame->getPrezzoEsame() . ", Durata='" . $esame->getDurataEsame() . "', "
+//                . "MedicoEsame='" . $esame->getMedicoEsameEsame() . "', NomeCategoria='" . $esame->getNomeCategoriaEsame() . "' "
+//                . "WHERE (IDEsame='" . $esame->getIDEsameEsame() . "')";
+//        try {
+//            // inzia la transazione
+//            $this->_connessione->begin_transaction();
+//
+//            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+//            $this->eseguiquery($queryLock);
+//            $this->eseguiQuery($query);
+//
+//            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+//            return $this->_connessione->commit();
+//        } catch (Exception $e) {
+//            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+//            $this->_connessione->rollback();
+//            throw new XDBException('errore');
+//        } 
+//            
+//          
+//    }
     
     /**
      * Metodo che consente di eliminare l'esame settando come eliminato l'esame
@@ -301,27 +261,64 @@ class FEsame extends FDatabase {
      * @throws XDBException Se la query non è stata eseguita con successo
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      */
-    public function eliminaEsame($idEsame) {
-        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE (IDEsame='" . $idEsame . "') FOR UPDATE" ;
-        
-        $query = "UPDATE " . $this->_nomeTabella . " SET Eliminato=TRUE "
-                . "WHERE (IDEsame='" . $idEsame. "')";
-        try {
-            // inzia la transazione
-            $this->_connessione->begin_transaction();
-
-            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
-            $this->eseguiquery($queryLock);
-            $this->eseguiQuery($query);
-
-            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
-            return $this->_connessione->commit();
-        } catch (Exception $e) {
-            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
-            $this->_connessione->rollback();
-            throw new XDBException('errore');
-        } 
-    }
+//    public function eliminaEsame($idEsame) {
+//        $queryLock = "SELECT * FROM " . $this->_nomeTabella .
+//                " WHERE (IDEsame='" . $idEsame . "') FOR UPDATE" ;
+//        
+//        $query = "UPDATE " . $this->_nomeTabella . " SET Eliminato=TRUE "
+//                . "WHERE (IDEsame='" . $idEsame. "')";
+//        try {
+//            // inzia la transazione
+//            $this->_connessione->begin_transaction();
+//
+//            // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
+//            $this->eseguiquery($queryLock);
+//            $this->eseguiQuery($query);
+//
+//            // se non ci sono state eccezioni, nessuna query della transazione è fallita per cui possiamo fare il commit
+//            return $this->_connessione->commit();
+//        } catch (Exception $e) {
+//            // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
+//            $this->_connessione->rollback();
+//            throw new XDBException('errore');
+//        } 
+//    }
+    
+    
+    /**
+     * Metodo per inserire nella tabella Esame una nuova riga ovvero
+     * una nuovo esame.
+     * 
+     * @param EEsame $esame L'oggetto di tipo EEsame che si vuole salvare nella
+     *                       tabella Esame
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * @return boolean TRUE se è stato inserito con successo l'esame
+     */
+//    public function inserisciEsame($esame) {
+//        //recupero i valori contenuti negli attributi
+//        $valoriAttributi = $this->getAttributi($esame);
+//
+//        //la query da eseguire è la seguente:
+//        // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
+//        $query = "INSERT INTO ". $this->_nomeTabella ." ( ". $this->_attributiTabella .") VALUES( ". $valoriAttributi . ")";
+//        // eseguo la query
+//        return $this->eseguiQuery($query);
+//    }
+    
+    
+    /**
+     * 
+     * @param string $id L'id dell'esame da cercare
+     * @return array|boolean un esame false se non ci sono esami
+     */
+//    public function cercaEsameById($id) {
+//        
+//        $query =  "SELECT * "
+//                . "FROM esame " 
+//                . "WHERE IDEsame ='" . $id . "' LOCK IN SHARE MODE";
+//        $risultato = $this->eseguiQuery($query);
+//        return $risultato;
+//        
+//    }
 }
 

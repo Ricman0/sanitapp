@@ -10,6 +10,10 @@
 
 
   RewriteCond %{REQUEST_METHOD} GET 
+  RewriteRule ^(ricercaCliniche|ricercaEsami)$ index.php?controller=$1 [L]
+  RewriteRule ^(registrazione)/(clinica|medico|utente)$ index.php?controller=$1&task=$2 [L]
+
+
   RewriteRule ^(categorie)$ index.php?controller=$1 [L]
   RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
   RewriteRule ^(categorie)/(visualizza)$ index.php?controller=$1&task=$2 [L]
@@ -22,7 +26,7 @@
   RewriteRule ^(logOut|autenticazione|mySanitApp)$ index.php?controller=$1 [L]
   RewriteRule ^(ricerca)/(utente)/(\w+)$ index.php?controller=$1&task=$2&codice=$3 [L]
   RewriteRule ^(impostazioni)/(giorniNonLavorativi)/(\w+)$ index.php?controller=$1&task=$2&clinica=$3 [L]
-  RewriteRule ^(ricercaEsami)$ index.php?controller=$1
+  
   RewriteRule ^(prenotazione)/(esame)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(impostazioni)/(clinica)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(esami|cliniche)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
@@ -30,11 +34,11 @@
   RewriteRule ^(esami)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=all [L]
   RewriteRule ^(esami)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all&parametro3=all [L]
   RewriteRule ^(esami)$ index.php?controller=$1&parametro1=all&parametro2=all&parametro3=all [L]
-  RewriteRule ^(ricercaCliniche)$ index.php?controller=$1 [L]
+  
   RewriteRule ^(cliniche)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3 [L]
   RewriteRule ^(cliniche)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all [L]
   RewriteRule ^(cliniche)$ index.php?controller=$1&parametro1=all&parametro2=all [L]
-  RewriteRule ^(registrazione)/(clinica|medico|utente)$ index.php?controller=$1&task=$2 [L]
+  
   RewriteRule ^(\w+)$ index.php?controller=$1
   RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(impostazioni)/(generali|workingPlan)?$ index.php?controller=$1&task=$2 [L]
@@ -50,6 +54,8 @@
 
 
     RewriteCond %{REQUEST_METHOD} POST
+    RewriteRule ^(registrazione)/(utente|medico|clinica)$ index.php?controller=$1&task=$2 [L] 
+
     RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(referto)/(elimina)$ index.php?controller=$1&task=$2 [L] 
     RewriteRule ^(registrazione)/(conferma)$ index.php?controller=$1&task=$2 [L] 

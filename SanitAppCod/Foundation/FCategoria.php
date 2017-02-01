@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of FCategoria
+ * La classe FCategoria si occupa della gestione della tabella 'categoria'. 
  *
  * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini

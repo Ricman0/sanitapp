@@ -115,7 +115,7 @@ class View extends Smarty {
     }
 
     /**
-     * Metodo che carica un template e lo visualizza
+     * Metodo che carica un template e lo visualizza.
      * 
      * @access public
      * @final

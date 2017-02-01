@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Description of CRicercaEsami
+ * La classe CRicercaEsami si occupa di gestire il caso d'uso della ricerca degli
+ * esami nell'applicazione.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
@@ -14,7 +15,7 @@ class CRicercaEsami {
      * 
      * @access public
      */
-    public function impostaPaginaRicercaEsami()
+    public function impostaPaginaRicercaEsami()                                 //controllato
     {
         $vRicercaEsami = USingleton::getInstance('VRicercaEsami');
         $vRicercaEsami->restituisciFormRicercaEsami();   

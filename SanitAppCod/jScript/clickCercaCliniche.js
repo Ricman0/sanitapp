@@ -1,6 +1,6 @@
 $(document).ready(function() {
     
-    
+    //click sul tasto cliniche della navigationBar
     $('#headerMain').on("click","#cliniche", function(event){
         event.preventDefault();
         inviaController('ricercaCliniche', '#main');

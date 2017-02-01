@@ -41,12 +41,12 @@ class VRegistrazione extends View {
     /**
      * Metodo che consente di impostare la form della registrazione dell'utente.
      * Se è presente l'array $datiValidi alcuni campi della form vengo riempiti dai dati contenuti nell'array,
-     * altrimenti la form presenterà tutti i campi vuoti
+     * altrimenti la form presenterà tutti i campi vuoti.
      * 
      * @access public
-     * @param Array $datiValidi Dati validi di un precedente inserimento
+     * @param array $datiValidi Dati validi di un precedente inserimento        //controllato
      */
-    public function restituisciFormUtente($datiValidi=NULL) 
+    public function restituisciFormUtente($datiValidi=NULL)                     
     {
         if($datiValidi=== NULL)
         {
@@ -66,9 +66,9 @@ class VRegistrazione extends View {
      * altrimenti la form presenterà tutti i campi vuoti
      * 
      * @access public
-     * @param Array $datiValidi Dati validi di un precedente inserimento
+     * @param array $datiValidi Dati validi di un precedente inserimento
      */
-    public function restituisciFormClinica($datiValidi=NULL) 
+    public function restituisciFormClinica($datiValidi=NULL)                    //controllato
     {
         // oss: questi dati validi non possiamo metterli come attributi di questa classe??? 
         
@@ -89,7 +89,7 @@ class VRegistrazione extends View {
      * altrimenti la form presenterà tutti i campi vuoti
      * 
      * @access public
-     * @param Array $datiValidi Dati validi di un precedente inserimento
+     * @param array $datiValidi Dati validi di un precedente inserimento        //controllato
      */
     public function restituisciFormMedico($datiValidi=NULL) 
     {

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Description of FMedico
+ * La classe FMedico si occupa della gestione della tabella 'medico'. 
  *
- * @category Foundation
+ * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class FMedico extends FUser {
@@ -39,55 +39,22 @@ class FMedico extends FUser {
         $valoriAttributiUser = parent::getAttributi($medico);
 
         
-
-       // di default il db è impostato in autocommit
-        // per disabilitare l'autocommit solo per alcune istruzioni non eseguire  SET autocommit=0;
-        // ma eseguire START TRANSACTION
-//        $query = " START TRANSACTION"; "INSERT INTO appUser (Username, Password, Email, Confermato,CodiceConferma,TipoUser) VALUES( " .  $valoriAttributiUser . "'medico')";
-//        "INSERT INTO " . $this->_nomeTabella . " ( ". $this->_attributiTabella .") VALUES( " . $valoriAttributi . ")";
-//     
-//        "COMMIT";
-//        
-        //oppure
-        
         $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'medico')";
         $query2 = "INSERT INTO medico ( CodFiscale, Nome, Cognome, Via, NumCivico, "
                 . "CAP, Username, ProvinciaAlbo, NumIscrizione, Validato) VALUES( " . $valoriAttributi . ")";
        
         try {
-            // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
-
-            // A set of queries; if one fails, an exception should be thrown
              $this->eseguiquery($query1);
              $this->eseguiQuery($query2);
-
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
         }
-
-        //la query da eseguire è la seguente:
-        // INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
-        // eseguo la query
-//        if ($this->eseguiQuery($query)===TRUE)
-//        {
-//            echo " FMedico inseritooo ";
-//            return TRUE;
-//        }
-//        else 
-//        {
-//            echo " FMedico non inseritooo ";
-//            return FALSE;
-//        }
     }
     
     /** 
-     * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
+     * Metodo che consente di ottenere in una stringa tutti i valori degli attibuti necessari
      * per l'inserimento di un medico nel database.
      * 
      * @access public
@@ -159,10 +126,7 @@ class FMedico extends FUser {
         $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
                 . "WHERE appuser.Username='" . $username . "' AND "
                 . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
-//        return $this->eseguiQuery($query);    
-        $risultato = $this->eseguiQuery($query);
-        return $risultato;
-        
+        return $this->eseguiQuery($query);     
     }
     
     
@@ -222,18 +186,11 @@ class FMedico extends FUser {
                 . "WHERE CodFiscale='" . $codFiscale . "'";
         
         try {
-//            // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
-
-             // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($queryLock); 
             $this->eseguiQuery($query);
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }
@@ -258,18 +215,11 @@ class FMedico extends FUser {
                 . "NumIscrizione=" . $numIscrizione . " "
                 . "WHERE CodFiscale='" . $codiceFiscaleMedico . "'";
         try {
-//            // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
-
-             // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($queryLock); 
             $this->eseguiQuery($query);
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }
@@ -299,20 +249,13 @@ class FMedico extends FUser {
                 . "Confermato=" .  $medico->getConfermatoUser() . ", CodiceConferma='" . $medico->getCodiceConfermaUser() . "' "
                 .  " WHERE (Username='" . $medico->getUsernameUser() . "') OR (Email='" . $medico->getEmailUser() .  "')";
        try {
-//            // First of all, let's begin a transaction
             $this->_connessione->begin_transaction();
-
-             // A set of queries; if one fails, an exception should be thrown
             $this->eseguiQuery($queryLock1); 
             $this->eseguiQuery($queryLock2);
             $this->eseguiQuery($query2); 
             $this->eseguiQuery($query1);
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $this->_connessione->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $this->_connessione->rollback();
             throw new XDBException('errore');
         }

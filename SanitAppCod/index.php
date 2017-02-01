@@ -24,6 +24,5 @@ if (PHP_SAPI === 'cli')
     }
 else
     {
-        
         $cHome->impostaPagina(); // gestisce le richieste HTTP
     }

@@ -62,8 +62,10 @@ class VAutenticazione extends View {
      * Metodo che consente di impostare l'header di una qualsiasi pagina.
      * 
      * @access public
+     * @param string $username L'username 
+     * @return array Array contenente il template di log e della navigation bar
      */
-    public function impostaHeader($username=NULL) 
+    public function impostaHeader($username=NULL)                               //controllato
     {
         if($username !== NULL || $username !== FALSE)
         {
@@ -188,12 +190,9 @@ class VAutenticazione extends View {
      * 
      * @access public
      */
-    public function restituisciHomePage() {
-//        $log = $this->prelevaTemplate("log");
-//        $navBar = $this->prelevaTemplate("navigationBar");
+    public function restituisciHomePage() {                                     // controllato
+        // il template log e navigationBar sono impostati dalla funzione controllaUserAutenticatoEImpostaHeader()
         $main = $this->prelevaTemplate("mainRicerca");
-//        $this->assegnaVariabiliTemplate("logIn", $log);
-//        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
         $this->assegnaVariabiliTemplate("mainRicerca", $main);
         $this->visualizzaTemplate("HomePage");
     }

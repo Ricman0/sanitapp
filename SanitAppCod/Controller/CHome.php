@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of CHome
+ * CHome è la classe controller che permette di richiamare i controller appropriate a seconda delle richieste.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
@@ -9,11 +9,11 @@
 class CHome {
 
     /**
-     * Metodo che permette di impostare la pagina dell'applicazione web in base alla richiesta HTTP arrivata.
+     * Metodo che permette di smistare le richieste HTTP in base al metodo HTTP.
      * 
      * @access public
      */
-    public function impostaPagina() {
+    public function impostaPagina() {                                           //controllato
         $vHome = USingleton::getInstance('VHome');
         switch ($vHome->getRequestMethod()) {
             case 'GET': // richieste GET
@@ -65,17 +65,13 @@ class CHome {
      * @access private
      * @param string $controller Il valore del controller 
      */
-    private function smistaControllerGET($controller) {
+    private function smistaControllerGET($controller) {                         //controllato
         $sessione = USingleton::getInstance('USession');
         $loggato = $sessione->leggiVariabileSessione('loggedIn');
         $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
-        $permesso = TRUE;
+        $permesso = TRUE; //variabile che permette di capire se l'utente può accedere alla pagina
         switch ($controller) {
-//            case 'autenticazione':
-//                $cAutenticazione = USingleton::getInstance('CAutenticazione');
-//                $cAutenticazione->autenticaUser();
-//                break;
-
+            
             case 'categorie':
                 if ($tipoUser === 'clinica' || $tipoUser === 'amministratore') {
                     $cCategorie = USingleton::getInstance('CGestisciCategorie');
@@ -189,9 +185,9 @@ class CHome {
                 }
                 break;
 
-            case 'registrazione':
+            case 'registrazione': // GET registrazione                          //utilizzato
                 $cRegistrazione = USingleton::getInstance('CRegistrazione');
-                $cRegistrazione->impostaPaginaRegistrazione(); // oppure echo $cRegistrazione->impostaPaginaRegistrazione(); ma poi devo prelevare il template e non visualizzarlo
+                $cRegistrazione->impostaPaginaRegistrazione(); 
                 break;
 
             case 'ricerca':
@@ -199,12 +195,12 @@ class CHome {
                 $cRicerca->gestisciRicerca();
                 break;
 
-            case 'ricercaCliniche':
+            case 'ricercaCliniche': // GET ricercaCliniche                      //utilizzato
                 $cRicercaCliniche = USingleton::getInstance('CRicercaCliniche');
                 $cRicercaCliniche->impostaPaginaRicercaCliniche();
                 break;
 
-            case 'ricercaEsami': // GET ricercaEsami
+            case 'ricercaEsami': // GET ricercaEsami                            //utilizzato
                 $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
                 $cRicercaEsami->impostaPaginaRicercaEsami();
                 break;
@@ -266,7 +262,7 @@ class CHome {
             }
         }
     }
-
+    
     /**
      * Metodo che consente di gestire la richiesta POST in base al controller.
      * Per cui in base al valore assunto dal controller, verrà eseguita un'azione.
@@ -274,7 +270,7 @@ class CHome {
      * @access private
      * @param string $controller Il valore del controller 
      */
-    private function smistaControllerPOST($controller) {
+    private function smistaControllerPOST($controller) {                        //controllato
         $sessione = USingleton::getInstance('USession');
         $loggato = $sessione->leggiVariabileSessione('loggedIn');
         $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
@@ -349,7 +345,7 @@ class CHome {
 //                $cRegistrazione->inserisciRegistrazione();
                 break;
 
-            case 'ricerca': //POST ricerca
+            case 'ricerca': //POST ricerca                                      //utilizzato
                 $cRicerca = USingleton::getInstance('CRicerca');
                 $cRicerca->gestisciRicerca();
                 break;

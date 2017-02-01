@@ -55,7 +55,7 @@ class CAutenticazione {
      * 
      * @access public
      */
-    public function controllaUserAutenticatoEImpostaHeader() {
+    public function controllaUserAutenticatoEImpostaHeader() {                  //controllato
         $username = NULL;
         $sessione = USingleton::getInstance('USession');
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
