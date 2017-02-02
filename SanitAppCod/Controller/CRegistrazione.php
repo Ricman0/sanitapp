@@ -95,7 +95,7 @@ class CRegistrazione {
                         $this->inviaMailRegistrazioneMedico($codiceODatiValidi);
                     } else {
                         // dati corretti ma errore nel database
-                        return $vRegistrazione->restituisciFormMedico($codiceODatiValidi);
+                        $vRegistrazione->restituisciFormMedico($codiceODatiValidi);
                     }
                 } 
                 catch (XDBException $exc) {
@@ -114,7 +114,7 @@ class CRegistrazione {
                             $this->inviaMailRegistrazioneUtente($codiceODatiValidi);
                         } else {
                             // dati corretti ma errore nel database
-                            return $vRegistrazione->restituisciFormUtente($codiceODatiValidi);
+                            $vRegistrazione->restituisciFormUtente($codiceODatiValidi);
                         }
                     } catch (XDBException $exc) {
                         $vRegistrazione->visualizzaFeedback($exc->getMessage(), TRUE);
@@ -179,7 +179,6 @@ class CRegistrazione {
 
             return $eMedico->inserisciMedicoDB();
         } else {
-
             return $uValidazione->getDatiValidi();
         }
     }
@@ -308,8 +307,9 @@ class CRegistrazione {
         try {
             $eUser = new EUser($username);
             if ($eUser->confermaUser($idConferma) === TRUE) {
-                $messaggio = 'User Confermato';
-                $vRegistrazione->visualizzaFeedback($messaggio);
+                $messaggio[0] = 'User Confermato.';
+                $messaggio[1] = "Per utilizzare l'applicazione effettua di nuovo il login.";
+                $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
             } else {
                 $messaggio = "C'è stato un errore, non è possibile confermare questo account.";
                 $vRegistrazione->visualizzaFeedback($messaggio, TRUE);

@@ -143,7 +143,7 @@ class CRicerca {
                     try {
                         $eUser = new EUser(NULL, NULL, NULL, $dati['PEC']);
                         if ($eUser->getPECUser() !== NULL) {
-                            $risultato = false; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
+                            $risultato = NULL; // in questo modo JQUERY Validation farà comparire la scritta di email esistente
                         }
                     } catch (XUserException $ex) {
                         

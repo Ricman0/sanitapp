@@ -147,6 +147,21 @@ class EUser {
                     //errore da gestire con exception
                     throw new XUserException("User inesistente");
                 }
+            }elseif($username ===NULL && $password===NULL && $email===NULL && $PEC !==NULL){
+                $fUser = USingleton::getInstance('FUser');
+                $daCercare['PEC'] = $PEC;
+                $attributiUser = $fUser->cerca($daCercare);
+                if(is_array($attributiUser) && count($attributiUser)==1)
+                {
+                    $this->_username = $attributiUser[0]['Username'];
+                    $this->_password = $attributiUser[0]['Password'];
+                    $this->_email = $attributiUser[0]['Email'];
+                    $this->_codiceConferma = $attributiUser[0]['CodiceConferma'];
+                    $this->_confermato = $attributiUser[0]['Confermato'];
+                    $this->_bloccato = $attributiUser[0]['Bloccato'];
+                    $this->_tipoUser=$attributiUser[0]['TipoUser'];
+                    $this->_PEC=$attributiUser[0]['PEC'];
+                }
             }
 
         }

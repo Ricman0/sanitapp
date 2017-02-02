@@ -79,6 +79,7 @@ $(document).ready(function () {
 //                $("#loadingModal").hide();
             },
             error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr);
                 alert("Sbagliato click ");
             }
             

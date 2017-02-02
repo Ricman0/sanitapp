@@ -1069,6 +1069,7 @@ function validazioneMedico()
                     CAPMedico:
                             {
                                 required: true,
+                                number: true,
                                 minlength: 5,
                                 maxlength: 5
                             },
@@ -1123,6 +1124,7 @@ function validazioneMedico()
                     numeroIscrizione:
                             {
                                 required: true,
+                                number: true,
                                 rangelength: [6, 6]
                             }
                 },
@@ -1158,6 +1160,7 @@ function validazioneMedico()
                     CAPMedico:
                             {
                                 required: "Inserire il CAP",
+                                number: "Inserire un numero",
                                 minlength: "Il CAP è un numero lungo 5 caratteri",
                                 maxlength: "Il CAP è un numero lungo 5 caratteri"
                             },
@@ -1200,6 +1203,7 @@ function validazioneMedico()
                     numeroIscrizione:
                             {
                                 required: "Inserire il numero di iscrizione",
+                                number: "Inserire un numero",
                                 rangelength: "Deve avere 6 numeri"
                             }
                 },

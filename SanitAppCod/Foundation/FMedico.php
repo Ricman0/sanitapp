@@ -42,7 +42,8 @@ class FMedico extends FUser {
         $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( " .  $valoriAttributiUser . ", 'medico')";
         $query2 = "INSERT INTO medico ( CodFiscale, Nome, Cognome, Via, NumCivico, "
                 . "CAP, Username, ProvinciaAlbo, NumIscrizione, Validato) VALUES( " . $valoriAttributi . ")";
-       
+        print_r($query2);
+        print_r($query1);
         try {
             $this->_connessione->begin_transaction();
              $this->eseguiquery($query1);
