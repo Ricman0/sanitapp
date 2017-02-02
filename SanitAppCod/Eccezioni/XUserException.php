@@ -1,16 +1,17 @@
 <?php
 
-
 /**
- * Classe di eccezioni lanciate dalla classe EUser
- *
+ * Classe XUserException che definisce le eccezioni dell'user.
+ * 
+ * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class XUserException extends Exception{
    
     /**
-     * Costruttore di XUserException
+     * Costruttore di XUserException.
      * 
+     * @access public
      * @param string $messaggio Il messaggio dell'eccezione
      */
     public function __construct($messaggio) {

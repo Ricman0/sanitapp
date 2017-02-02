@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of CPrenotazione
+ * La classe CPrenotazione si occupa della gestione delle prenotazioni.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
@@ -86,7 +86,7 @@ class CPrenotazione {
      * 
      * @access public
      */
-    public function gestisciPrenotazioni() 
+    public function gestisciPrenotazioni()                                      
     {
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
@@ -94,7 +94,7 @@ class CPrenotazione {
         $vPrenotazioni = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazioni->getTask();
         switch ($task) {                
-            case 'visualizza':  // GET prenotazioni/visualizza
+            case 'visualizza':  // GET prenotazioni/visualizza                  //controllato
             $idPrenotazione = $vPrenotazioni->recuperaValore('id');
             if ($idPrenotazione === FALSE)  // GET prenotazioni/visualizza
             {
@@ -600,7 +600,8 @@ class CPrenotazione {
     }
     
     /**
-     * Metodo che consente di visualizzare le prenotazioni. Nel caso ci fossero errori o eccezioni, le gestisce.
+     * Metodo che consente di visualizzare le prenotazioni. 
+     * Nel caso ci fossero errori o eccezioni lanciate dalla funzione visualizzaPrenotazioni(), le gestisce.
      * 
      * @access public
      */

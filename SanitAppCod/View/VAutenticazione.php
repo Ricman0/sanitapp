@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of VAutenticazione
+ * La classe VAutenticazione si occupa di visualizzare i template relativi all'autenticazione dello user.
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini
@@ -10,7 +10,7 @@ class VAutenticazione extends View {
 
     /**
      * @access private
-     * @var Array  $_tastiLaterali I tasti laterali della pagina personale 
+     * @var array  $_tastiLaterali I tasti laterali della pagina personale 
      */
     private $_tastiLaterali;
 
@@ -18,9 +18,9 @@ class VAutenticazione extends View {
      * Metodo per impostare i tasti laterali a seconda del tipo di user.
      * 
      * @access public
-     * @param string $tipoUser tipo dello user
+     * @param string $tipoUser Tipo di user
      */
-    public function setTastiLaterali($tipoUser) 
+    public function setTastiLaterali($tipoUser)                                 //controllato              
     {
         switch ($tipoUser) 
         {
@@ -86,7 +86,7 @@ class VAutenticazione extends View {
      * 
      * @access public
      */
-    public function impostaPaginaRecuperoCredenziali() 
+    public function impostaPaginaRecuperoCredenziali()                          //controllato
     {
         $variabiliHeader = $this->impostaHeader();
         $paginaRecuperoCredenziali = $this->prelevaTemplate('recuperoCredenziali');
@@ -94,16 +94,15 @@ class VAutenticazione extends View {
         $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
         $this->assegnaVariabiliTemplate('main', $paginaRecuperoCredenziali);
         $this->visualizzaTemplate('headerMain');
-        
     }
     
     /**
-     * Metodo che consente di imposate la pagina di conferma.
+     * Metodo che consente di impostare la pagina di conferma.
      * 
      * @access public
      * @param string $username Lo username dell'user
      */
-    public function impostaPaginaConferma($username) 
+    public function impostaPaginaConferma($username)                            //controllato
     {
         $variabiliHeader = $this->impostaHeader();
         $this->assegnaVariabiliTemplate('username', $username);
@@ -114,23 +113,6 @@ class VAutenticazione extends View {
         $this->visualizzaTemplate('headerMain');
     }
     
-    /**
-     * Metodo che permette di impostare il giusto header se l'utente è autenticato.
-     * 
-     * @access public
-     * @param string $username L'username dell'user loggato
-     */
-//    public function impostaHeader($username)
-//    {
-//        $log = $this->prelevaTemplate("logOut");
-//        $navBar = $this->prelevaTemplate("navigationBar");
-//        
-//        $this->assegnaVariabiliTemplate('username', $username);
-//        $this->assegnaVariabiliTemplate("logIn", $log);
-//        $this->assegnaVariabiliTemplate('user', $username);
-//        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
-//    }
-
     /**
      * Metodo che consente di impostare la giusta area personale a seconda del tipo 
      * di user che si è autenticato.
@@ -154,15 +136,15 @@ class VAutenticazione extends View {
      * @access public
      * @param string $errore Stringa che contenente l'errore dell'eccezione
      */
-    public function impostaPaginaLogIn() {
-        $variabiliHeader = $this->impostaHeader();
-        $paginaLog = $this->prelevaTemplate('log');
-        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
-        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
-        $this->assegnaVariabiliTemplate('main', $paginaLog);
-        $this->visualizzaTemplate('headerMain');
-        
-    }
+//    public function impostaPaginaLogIn() {
+//        $variabiliHeader = $this->impostaHeader();
+//        $paginaLog = $this->prelevaTemplate('log');
+//        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+//        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
+//        $this->assegnaVariabiliTemplate('main', $paginaLog);
+//        $this->visualizzaTemplate('headerMain');
+//        
+//    }
     
     /**
      * Metodo che consente di impostare la pagina di Log In.
@@ -170,7 +152,7 @@ class VAutenticazione extends View {
      * @access public
      * @param string $errore Stringa che contenente l'errore dell'eccezione
      */
-    public function impostaLogIn($errore=NULL) {
+    public function impostaLogIn($errore=NULL) {                                //controllato
         $variabiliHeader = $this->impostaHeader();
         $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
         $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
@@ -186,7 +168,7 @@ class VAutenticazione extends View {
     
 
     /**
-     * Metodo che effettua il refresh della pagina e restituisce la home page.
+     * Metodo che restituisce la home page.
      * 
      * @access public
      */
@@ -203,20 +185,17 @@ class VAutenticazione extends View {
      * @access public
      * @param string $username L'username dell'user
      */
-    public function impostaHeaderEPaginaPersonale($username) 
+    public function impostaHeaderEPaginaPersonale($username)                    //controllato
     {
         $variabiliHeader = $this->impostaHeader($username);
         // main
         $this->assegnaVariabiliTemplate("tastiLaterali", $this->_tastiLaterali);
-       
         $areaPersonale = $this->prelevaTemplate("areaPersonaleGenerale");
         $this->assegnaVariabiliTemplate("areaPersonale", $areaPersonale);
-
 //        visualizzo il template 
         $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
         $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
         $this->assegnaVariabiliTemplate('main', $areaPersonale);
-
         $this->visualizzaTemplate('headerMain');
     }
     
@@ -228,26 +207,26 @@ class VAutenticazione extends View {
         
     }
     
-    public function logOut() 
-    {
-        $variabiliHeader = $this->impostaHeader();
-        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
-        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
-        $main = $this->prelevaTemplate('mainRicerca');
-        $this->assegnaVariabiliTemplate('main', $main);
-        $this->visualizzaTemplate('headerMain');
-        
-    }
+//    public function logOut()                        
+//    {
+//        $variabiliHeader = $this->impostaHeader();
+//        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+//        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
+//        $main = $this->prelevaTemplate('mainRicerca');
+//        $this->assegnaVariabiliTemplate('main', $main);
+//        $this->visualizzaTemplate('headerMain');
+//        
+//    }
 
     
     
     /**
-     * Metodo che contente di impostare header per utenti non refistrati e il main con i messaggi passati come parametri.
+     * Metodo che contente di impostare header per utenti non registrati e il main con i messaggi passati come parametri.
      * 
      * @access public
      * @param string|array $messaggio Il messaggio o i messaggi da visualizzare nel main
      */
-    public function impostaHeaderMain($messaggio) 
+    public function impostaHeaderMain($messaggio)                               //controllato
     {
         $variabiliHeader = $this->impostaHeader();
         

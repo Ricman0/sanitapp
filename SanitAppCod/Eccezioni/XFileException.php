@@ -1,20 +1,16 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of XFileException
- *
- * @author Riccardo
+ * Classe XFileException che definisce le eccezioni del file.
+ * 
+ * @package Eccezioni
+ * @author Claudia Di Marco & Riccardo Mantini
  */
 class XFileException extends Exception{
     /**
-     * Costruttore di XFileException
+     * Costruttore di XFileException.
      * 
+     * @access public
      * @param string $messaggio Il messaggio dell'eccezione
      */
     public function __construct($messaggio) {

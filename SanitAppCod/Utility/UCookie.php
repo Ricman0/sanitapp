@@ -145,12 +145,12 @@ class UCookie {
      * Controlla la validità del cookie tentativi.
      * 
      * @access public
-     * @return boolean Ritorna true se ci sono ancora tentativi, false altrimenti
+     * @return boolean TRUE se i tentativi sono < 4, FALSE altrimenti
      */
     public function checkValiditaTentativi() {
 
         if ($this->getCookie("Tentativi") < 4) {
-            return true;
+            return TRUE;
         } else {
             return FALSE;
         }

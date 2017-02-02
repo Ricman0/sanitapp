@@ -1,20 +1,16 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of XEsameException
- *
+ * Classe XEsameException che definisce le eccezioni dell'esame.
+ * 
+ * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class XEsameException extends Exception{
     /**
-     * Costruttore di XEsameException
+     * Costruttore di XEsameException.
      * 
+     * @access public
      * @param string $messaggio Il messaggio dell'eccezione
      */
     public function __construct($messaggio) {

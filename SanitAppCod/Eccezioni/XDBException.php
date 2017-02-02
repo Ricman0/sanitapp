@@ -1,15 +1,17 @@
 <?php
 
 /**
- * Description of XDBException
- *
+ * Classe XDBException che definisce le eccezioni del DB.
+ * 
+ * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class XDBException extends Exception{
     
     /**
-     * Costruttore di XDBException
+     * Costruttore di XDBException.
      * 
+     * @access public
      * @param string $messaggio Il messaggio dell'eccezione
      */
     public function __construct($messaggio) {

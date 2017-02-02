@@ -13,7 +13,7 @@ class CAutenticazione {
      * 
      * @access public
      */
-    public function tryAutenticaUser() {
+    public function tryAutenticaUser() {                                        //controllato
         try {
             $this->autenticaUser();
         } catch (XUserException $e) {
@@ -30,10 +30,10 @@ class CAutenticazione {
     }
 
     /**
-     * Metodo che consente di gestire le eccezioni della funzione autenticaUser()
+     * Metodo che consente di gestire le eccezioni della funzione autenticaUser().
      * 
      * @access private
-     * @param string $errore Il messaggio di errore
+     * @param string $errore Il messaggio di errore                             //controllato
      */
     private function gestisciEccezioneAutenticaUser($errore) {
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
@@ -78,28 +78,27 @@ class CAutenticazione {
     }
 
     /**
-     * Metodo che tenta di autenticare un user, in caso contrario lancia eccezione non gestita.
+     * Metodo che tenta di autenticare un user, in caso contrario lancia eccezione.
      * 
      * @access public
      * @throws DatiLogInException Se i dati di log in non validi o uno dei due campi risulta vuoto
      * @throws XUserException Quando lo user da istanziare non esiste
      * @throws XDBException Se la query per cercare un user non è eseguita con successo
      */
-    public function autenticaUser() {
+    public function autenticaUser() {                                           //controllato
         $sessione = USingleton::getInstance('USession');
         $uCookie = USingleton::getInstance('UCookie');
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         $this->controllaUserAutenticatoEImpostaHeader();
-        if (!empty($username = $vAutenticazione->recuperaValore('usernameLogIn')) && !empty($password = $vAutenticazione->recuperaValore('passwordLogIn'))) { // se non è stato ancora autenticato ma ha inserito di dati di log in
+        $username = $vAutenticazione->recuperaValore('usernameLogIn');
+        $password = $vAutenticazione->recuperaValore('passwordLogIn');
+        if (!empty($username) && !empty($password)) { // se non è stato ancora autenticato ma ha inserito di dati di log in
             $datiLogIn = array('username' => $username, 'password' => $password);
             $validazione = USingleton::getInstance('UValidazione');
             if ($validazione->validaDati($datiLogIn) === TRUE) {
                 $eUser = new EUser($username, $password);
-//                if($eUser->getUsernameUser()!==NULL && $eUser->getPasswordUser()!==NULL)// caso in cui esiste l'user con quella password e quella username
-//                {
-                
                 $uCookie->eliminaCookie('Tentativi');
-                if ($eUser->getConfermatoUser() == TRUE && $eUser->getBloccatoUser() == FALSE) {// user confermato
+                if ($eUser->getConfermatoUser() == TRUE && $eUser->getBloccatoUser() == FALSE) {// user confermato e non bloccato
                     $eUser->attivaSessioneUser($username, $eUser->getTipoUserUser());
                     $vAutenticazione->setTastiLaterali($eUser->getTipoUserUser());
                     $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
@@ -107,180 +106,23 @@ class CAutenticazione {
                 elseif($eUser->getBloccatoUser() == TRUE) {  //user bloccato
                     
                     $messaggio[0] = 'User Bloccato.';
-                    $messaggio[1] = "Per risolver il problema, contatti l'amministretore.";
+                    $messaggio[1] = "Per risolver il problema, contatti l'amministratore.";
                     $vAutenticazione->impostaHeaderMain($messaggio);
                 }
                 else { // user non confermato e non bloccato
                     // ritorna form per effettuare conferma
-                    
                     $vAutenticazione->impostaPaginaConferma($username);
                 }
-//                }
-//                else 
-//                {
-//                    $uCookie->incrementaCookie('Tentativi');  //incremento il cookie Tentativi
-//                    
-//                    if($uCookie->checkValiditaTentativi()) // massimo 3 tentativi
-//                    {
-//                        // pagina di log 
-//                        
-//                        $vAutenticazione->impostaPaginaLogIn();
-//                    }
-//                    else
-//                    {
-//                        // pagina recupero credenziali 
-//                        $uCookie->eliminaCookie('Tentativi');
-//                        $vAutenticazione->impostaPaginaRecuperoCredenziali();
-//                    }
-//                }
             } else { // dati non validi
                 throw new DatiLogInException('Dati inseriti non validi');
-//                $vAutenticazione->impostaPaginaLogIn();
             }
         } else {//campi/o vuoti/o 
             throw new DatiLogInException('Almeno un campo del log in vuoto');
-//            $vAutenticazione->impostaPaginaLogIn();
         }
     }
 
-//        $tastiLaterali = Array();
-//        if($username!==FALSE && $password!==FALSE)
-//        {
-//            
-////            $datiLogIn = array();
-////            $datiLogIn['username'] = $username;
-////            $datiLogIn['password'] = $password;
-//            $datiLogIn = array('username' => $username, 'password' => $password);
-//            $validazione = USingleton::getInstance('UValidazione');
-//            if($validazione->validaDati($datiLogIn) === TRUE)
-//            {
-//                //username e password validi
-//                //cerco nel db se esistono
-//                $fDatabase = USingleton::getInstance('FDatabase');
-//                $username = $fDatabase->trimEscapeStringa($username);
-//                $password = $fDatabase->trimEscapeStringa($password);
-//                $query =  "SELECT Username, Password, 'Utente', "
-//                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
-//                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
-//                    . "FROM utente WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-//                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)); "
-//                    . "SELECT Username, Password, 'Medico', "
-//                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
-//                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
-//                    . "FROM medico WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-//                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE)); "
-//                    . "SELECT Username, Password, 'Clinica',NomeClinica, "
-//                    . "MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE), "
-//                    . "MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE) "
-//                    . "FROM clinica WHERE (MATCH (Username) AGAINST ('$username' IN BOOLEAN MODE) "
-//                    . "AND MATCH (Password) AGAINST ('$password' IN BOOLEAN MODE));";
-//                $risultato = $fDatabase->eseguiQueryMultiple($query);
-//                
-////                foreach($risultato  as $row)
-////                    {
-////                      foreach($row  as $chiave => $valore)
-////                      {
-////                          
-////                          echo $chiave . " " . $valore . " ";
-////                      }
-////                    }
-//                if ($risultato === FALSE)
-//                {
-//                    echo "errore nell'effettuare il log in";
-//                    // incremento il tentativo nel cookie?
-//                    $uTentativi->incrementaCookie();  
-//                    // 3 tentativi
-//                    if($uTentativi < 4)
-//                    {
-//                        // pagina di log in
-//                    }
-//                    else
-//                    {
-//                        // pagina recupero credenziali 
-//                    }
-//                }
-//                else
-//                {
-//                    
-//                    $sessione->impostaVariabileSessione('usernameLogIn', $username);
-//                    $uUsername->impostaCookie('username', $username, time() + 15 * 60);
-//                    $sessione->impostaVariabileSessione('loggedIn', "TRUE");
-//                    /*    usato per capire come è strutturato il risutlato
-//                    foreach($risultato  as $row)
-//                    {
-//                      foreach($row  as $chiave => $valore)
-//                      {
-//                          echo $chiave . " " . $valore . " ";
-//                      }
-//                    }     */
-//                    if(isset($risultato[0]['Utente']))
-//                    {
-//                        $tipo = $risultato[0]['Utente']; 
-//                        $tastiLaterali['prenotazioniAreaPersonaleUtente'] = "Prenotazioni";
-//                        $tastiLaterali['refertiAreaPersonaleUtente'] = "Referti";
-//                        $tastiLaterali['impostazioniAreaPersonaleUtente'] = "Impostazioni";
-//                    }
-//                    if(isset($risultato[0]['Medico']))
-//                    {
-//                        $tipo = $risultato[0]['Medico']; 
-//                        $tastiLaterali['pazientiAreaPersonaleMedico'] = "Pazienti";
-//                        $tastiLaterali['prenotazioniAreaPersonaleMedico'] = "Prenotazioni";
-//                        $tastiLaterali['refertiAreaPersonaleMedico'] = "Referti";
-//                        $tastiLaterali['impostazioniAreaPersonaleMedico'] = "Impostazioni";
-//                    }
-//                    if(isset($risultato[0]['Clinica']))
-//                    {
-//                        $tipo = $risultato[0]['Clinica'];
-//                        $nome = $risultato[0]['NomeClinica'];
-//                        $sessione->impostaVariabileSessione('nomeClinica', $nome);
-//                        $tastiLaterali['serviziAreaPersonaleClinica'] = "Servizi";
-//                        $tastiLaterali['prenotazioniAreaPersonaleClinica'] = "Prenotazioni";
-//                        $tastiLaterali['refertiAreaPersonaleClinica'] = "Referti";
-//                        $tastiLaterali['clientiAreaPersonaleClinica'] = "Clienti";
-//                        $tastiLaterali['impostazioniAreaPersonaleClinica'] = "Impostazioni";
-//                    }
-//                    echo $tipo;
-//                    $sessione->impostaVariabileSessione('tipoUser', $tipo);
-//                    print_r($_SESSION);
-//                    echo " Benvenuto " . $username;
-//                    // mostrare la pagina personale
-//                    
-////                    $vAutenticazione->visualizzaTemplate("areaPersonale");  
-//                }
-//            }            
-//        }
-//        else
-//        {
-//            // il cookie tentativi aumenta di uno e ritorna la form per effettuare il log in
-//            echo "errore ";
-//            $uTentativi->incrementaCookie();
-//            // questo ramo non dovrebbe esserci perchè lato client richiedo necessariamente i due input
-//        }
-//        echo " QWERTY ";
-//        if($sessione->leggiVariabileSessione('loggedIn')==="TRUE" && $sessione->leggiVariabileSessione('usernameLogIn')===$username)
-//        {
-//            $uTentativi->eliminaCookie('Tentativi');
-////            $vAutenticazione->impostaPaginaPersonale($sessione->leggiVariabileSessione('tipoUser'), $tastiLaterali);
-//            $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'), $tastiLaterali);
-//            
-//        }
-//        else 
-//        {
-//            if($uTentativi<4)
-//            {
-//                //pagina Log in
-//                $vAutenticazione->impostaPaginaLogIn();
-//            }
-//            else
-//            {
-//                // recupera Credenziali
-//                $vAutenticazione->impostaPaginaRecuperoCredenziali();
-//            }
-//        }
-//    }
-
     /**
-     * Metodo che consente il log out dell'utente e effettua una refresh della pagina
+     * Metodo che consente il log out dell'utente e effettua una refresh della pagina.
      * 
      * @access public
      */
@@ -289,7 +131,6 @@ class CAutenticazione {
         $sessione->terminaSessione();
         $this->controllaUserAutenticatoEImpostaHeader();
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
-//        $vAutenticazione->logOut();
         $vAutenticazione->restituisciHomePage();
     }
 
@@ -298,7 +139,7 @@ class CAutenticazione {
      * 
      * @access public
      */
-    public function nuovaPassword() {
+    public function nuovaPassword() {                                           //controllato
         $vAutenticazione = USingleton::getInstance('VAutenticazione');
         $uMail = USingleton::getInstance('UMail');
         $dati['email'] = $vAutenticazione->recuperaValore('email');
