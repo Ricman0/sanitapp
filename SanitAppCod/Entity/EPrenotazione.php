@@ -104,7 +104,6 @@ class EPrenotazione {
             }
             else
             {
-                
                 throw new XPrenotazioneException('Prenotazione non trovata');
                 // lancia un errore perchè non ha trovato una prenotazione con quell'id 
             }
@@ -137,9 +136,7 @@ class EPrenotazione {
         }
     }
     
-    /*
-     * Metodi get
-     */
+    // Metodi get
     
     /**
      * Metodo che permette di conoscere l'identificativo della prenotazione.
@@ -208,7 +205,7 @@ class EPrenotazione {
     }
     
     /**
-     * Metodo che permette di conoscere il codice fiscale dell'utente che effettua l'esame
+     * Metodo che permette di conoscere il codice fiscale dell'utente che effettua l'esame.
      * 
      * @access public
      * @return string $_codFisUtenteEffettuaEsame Il codice fiscale dell'utente che effettua l'esame
@@ -242,7 +239,7 @@ class EPrenotazione {
     
     
     /**
-     * Metodo che permette di conoscere la data e l'ora della prenotazione nel formato dd-mm-yyyy hh:mm.
+     * Metodo che permette di conoscere la data e l'ora della prenotazione nel formato yyyy-mm-dd hh:mm.
      * 
      * @access public
      * @return string La data e l'orario della prenotazione 
@@ -269,27 +266,26 @@ class EPrenotazione {
      * @access public
      * @return string $valoriAttributi Una stringa contennete tutti i valori degli attributi
      */
-    public function getValoriAttributi()
-    {
-        $c = $this->getCodFiscaleMedicoPrenotaEsamePrenotazione();
-        $valoriAttributi = "'" . $this->getIDPrenotazionePrenotazione() . "', '" .  $this->getIDEsamePrenotazione() . "', '"
-                . $this->getPartitaIVAClinicaPrenotazione() . "', '" . $this->getTipoPrenotazione() . "', '"
-                . $this->getConfermataPrenotazione() . "', '" . $this->getEseguitaPrenotazione() . "', '"
-                . $this->getCodFiscaleUtenteEffettuaEsamePrenotazione()  . "', ";
-        if ($this->getCodFiscaleUtentePrenotaEsamePrenotazione()=== NULL)
-        {
-            $valoriAttributi =$valoriAttributi .  "'" . $this->getCodFiscaleMedicoPrenotaEsamePrenotazione() . "', NULL ,  '";
-        }
-        else 
-        {
-            $valoriAttributi = $valoriAttributi . "NULL , '". $this->getCodFiscaleUtentePrenotaEsamePrenotazione() . "', '";
-        }
-        $valoriAttributi =$valoriAttributi . $this->getDataEOraPrenotazione() . "'";
-        return $valoriAttributi;
-    }
-    /*
-     * Metodi set
-     */
+//    public function getValoriAttributi()
+//    {
+//        $c = $this->getCodFiscaleMedicoPrenotaEsamePrenotazione();
+//        $valoriAttributi = "'" . $this->getIDPrenotazionePrenotazione() . "', '" .  $this->getIDEsamePrenotazione() . "', '"
+//                . $this->getPartitaIVAClinicaPrenotazione() . "', '" . $this->getTipoPrenotazione() . "', '"
+//                . $this->getConfermataPrenotazione() . "', '" . $this->getEseguitaPrenotazione() . "', '"
+//                . $this->getCodFiscaleUtenteEffettuaEsamePrenotazione()  . "', ";
+//        if ($this->getCodFiscaleUtentePrenotaEsamePrenotazione()=== NULL)
+//        {
+//            $valoriAttributi =$valoriAttributi .  "'" . $this->getCodFiscaleMedicoPrenotaEsamePrenotazione() . "', NULL ,  '";
+//        }
+//        else 
+//        {
+//            $valoriAttributi = $valoriAttributi . "NULL , '". $this->getCodFiscaleUtentePrenotaEsamePrenotazione() . "', '";
+//        }
+//        $valoriAttributi =$valoriAttributi . $this->getDataEOraPrenotazione() . "'";
+//        return $valoriAttributi;
+//    }
+//    
+    // Metodi set
     
     /**
      * Metodo che consente di impostare l'identificativo della prenotazione.
@@ -416,8 +412,7 @@ class EPrenotazione {
     public function aggiungiPrenotazioneDB() 
     {
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-//        return $fPrenotazione->aggiungiPrenotazione($this);
-        return $fPrenotazione->inserisci($this);
+        return $fPrenotazione->inserisci($this);//aggiungiPrenotazione
     }
     
     /**
@@ -431,18 +426,9 @@ class EPrenotazione {
     {
         $this->setConfermataPrenotazione(TRUE);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-//        if ($fPrenotazione->confermaPrenotazione($this->_idPrenotazione) === TRUE) 
         $daModificare['Confermata'] = TRUE;
-        $confermato = $fPrenotazione->update($this->_idPrenotazione, $daModificare);
+        $confermato = $fPrenotazione->update($this->_idPrenotazione, $daModificare); //confermaPrenotazione
         return TRUE;
-//        if ($confermato===TRUE)
-//        {
-//            return TRUE;
-//        } 
-//        else 
-//        {
-//            return FALSE;
-//        }
     }
     
     /**
@@ -455,23 +441,13 @@ class EPrenotazione {
     public function esisteReferto() {
         
         $fReferto = USingleton::getInstance('FReferto');
-//        if($fReferto->cercaReferto($this->_idPrenotazione))
         $daCercare['IDPrenotazione'] = $this->getIDPrenotazionePrenotazione();
-        $fReferto->cerca($daCercare);
-        return TRUE;
-//        if($fReferto->cerca($daCercare))
-//        {
-//            return TRUE;
-//        }
-//        else
-//        {
-//            return FAlSE;
-//        }
-        
+        $fReferto->cerca($daCercare); //cercaReferto
+        return TRUE; 
     }
     
     /**
-     * Metodo che consente di eliminare la prenotazione.
+     * Metodo che consente di eliminare (anche nel DB) la prenotazione se non è stata eseguita.
      * 
      * @access public
      * @return boolean TRUE eliminazione avvenuta con successo, FALSE altrimenti
@@ -483,8 +459,7 @@ class EPrenotazione {
         if($this->_eseguita==FALSE) // se la prenotazione non è stata eseguita allora si può cancellare, altrimenti no.  
         {
             $fPrenotazione = USingleton::getInstance('FPrenotazione');
-//            return $fPrenotazione->eliminaPrenotazione($this->getIDPrenotazionePrenotazione());
-            return $fPrenotazione->elimina($this->getIDPrenotazionePrenotazione());
+            return $fPrenotazione->elimina($this->getIDPrenotazionePrenotazione()); //eliminaPrenotazione
         }
         else
         {
@@ -506,7 +481,6 @@ class EPrenotazione {
         $dataEOra= $data . " " . $ora;
         $this->setDataEOra($dataEOra);
         $daModificare['DataEOra'] = $this->getDataEOraPrenotazione();
-        
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
         return $fPrenotazione->update($this->getIDPrenotazionePrenotazione(), $daModificare);
     }
@@ -515,28 +489,17 @@ class EPrenotazione {
      * Confronta la data della prenotazione con quella odierna.
      * 
      * @access public
-     * @return boolean TRUE se la data di ieri è precedente alla data di prenotazione esame
+     * @return boolean TRUE se la data di ieri è precedente alla data di prenotazione esame, FALSE se la data di ieri è successiva alla data di prenotazione
      */
     public function controllaData()
     {
         $dataPrenotazione = $this->getData(); // recupero la stringa data in formato Y-m-d
         $dataPrenotazione =  substr($dataPrenotazione, 6, 4). '-' . substr($dataPrenotazione, 3,2) . '-' . substr($dataPrenotazione, 0,2);
-       
         $dataPrenotazione = strtotime($dataPrenotazione); // timestamp della data di prenotazione che era string
-        
-//        $dataPrenotazione = strtotime($dataPrenotazione); // la converto in un timestamp
-//        // devo usare il timestamp altrimenti potrebbero esserci problemi nel caso di mesi/ anni diversi 
-//        // ad esempio data di prenotazione 16-03-2013 e la data odierna 11-04-2013
-        
-//        $dataOdierna = strtotime(date('Y-m-d')); // prendo la data odierna in questo modo posso effettuare il confronto
-       
-        
         $dataOdierna = date('Y-m-d'); // data odierna
-        
         $dataOdierna = date_parse_from_format("Y-m-d",  $dataOdierna); // rendo array la data odierna
         // osservazione: dal momento che uso il formato Y-m-d non c'è bisogno di effettuare la conversione in timestamp
         $ieri = mktime ( 0, 0 , 0, $dataOdierna['month'] , $dataOdierna['day']-1, $dataOdierna['year']); // sottraggo un giorno (quindi ) e ottengo ieri in timestamp
-        
         if($ieri < $dataPrenotazione)
         { // se la data di ieri è precedente a quella di prenotazione
             return TRUE;
@@ -544,10 +507,7 @@ class EPrenotazione {
         else
         { // codice da eseguire se la data di ieri è successiva alla data di prenotazione
             return FALSE;
-        }
-         
-        
-        
+        }   
     }
     
     /**
@@ -562,23 +522,17 @@ class EPrenotazione {
     {
         $prenotazioneEseguita = $this->getEseguitaPrenotazione();
         $dataPrenotazione = $this->getData(); // recupero la stringa data in formato Y-m-d
-        
 //        // devo usare il timestamp altrimenti potrebbero esserci problemi nel caso di mesi/ anni diversi 
 //        // ad esempio data di prenotazione 16-03-2013 e la data odierna 11-04-2013
         $dataOdierna = strtotime(date('Y-m-d')); // prendo la data odierna in questo modo posso effettuare il confronto
-       
-       // osservazione: dal momento che uso il formato Y-m-d non c'è bisogno di effettuare la conversione in timestamp
-//        $data = date_parse_from_format("Y-m-d",  $dataPrenotazione);
-//        $data = mktime ( 0, 0 , 0, $data['month'] , $data['day']-1, $data['year']); //ora, minuti, secondi, mesi, giorno, anno
         $data = strtotime($dataPrenotazione);
-        if( $eseguita==='true') // se la dataOdierna è succesiva o uguale a $data 
+        if( $eseguita==='true') 
         {
-            if($dataOdierna >= $data)
+            if($dataOdierna >= $data)// se la dataOdierna è succesiva o uguale a $data 
             {
                 $this->setEseguitaPrenotazione(TRUE);
                 $prenotazioneEseguita = TRUE; 
             }
-              
         }
         else
         {
@@ -587,12 +541,10 @@ class EPrenotazione {
                 $this->setEseguitaPrenotazione(FALSE);
                 $prenotazioneEseguita = FALSE;  
             }
-             
         }
         $this->setEseguitaPrenotazione($prenotazioneEseguita);
         $fPrenotazione = USingleton::getInstance('FPrenotazione');
-//        return $fPrenotazione->modificaPrenotazioneEseguita($this->getIDPrenotazionePrenotazione(), $eseguita);
         $daModificare['Eseguita'] = $prenotazioneEseguita;
-        return $fPrenotazione->update($this->getIDPrenotazionePrenotazione(), $daModificare);
+        return $fPrenotazione->update($this->getIDPrenotazionePrenotazione(), $daModificare); //modificaPrenotazioneEseguita
     }
 }

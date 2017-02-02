@@ -42,11 +42,11 @@ class CRegistrazione {
     }
 
     /**
-     * Metodo che consente di gestire le richieste HTTP POST del controller Registrazione
+     * Metodo che consente di gestire le richieste HTTP POST del controller 'registrazione'.
      * 
      * @access public
      */
-    public function gestisciRegistrazionePOST(){
+    public function gestisciRegistrazionePOST(){                                //controllato
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         if($vRegistrazione->getTask()==='conferma')
         { //POST registrazione/conferma
@@ -64,12 +64,13 @@ class CRegistrazione {
             $this->inserisciRegistrazione();
         }
     }
+    
     /**
-     * Metodo che permette l'inserimento di un utente, medico o clinica nel db
+     * Metodo che permette l'inserimento di un utente, medico o clinica nel DB.
      * 
      * @access public
      */
-    public function inserisciRegistrazione() {
+    public function inserisciRegistrazione() {                                  //controllato
         
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         switch ($vRegistrazione->getTask()) {
@@ -79,8 +80,8 @@ class CRegistrazione {
                         if (is_string($codiceODatiValidi) === TRUE) {//se contiene il codice di conferma
                             $this->inviaMailRegistrazioneClinica($codiceODatiValidi);
                         } else {
-                            // dati corretti ma errore nel database
-                            return $vRegistrazione->restituisciFormClinica($codiceODatiValidi);
+                            //  alcuni dati corretti 
+                            $vRegistrazione->restituisciFormClinica($codiceODatiValidi);
                         }
                     } catch (XDBException $exc) {
                         $vRegistrazione->visualizzaFeedback($exc->getMessage(), TRUE);
@@ -94,8 +95,8 @@ class CRegistrazione {
                     if (is_string($codiceODatiValidi) === TRUE) {//se contiene il codice di conferma
                         $this->inviaMailRegistrazioneMedico($codiceODatiValidi);
                     } else {
-                        // dati corretti ma errore nel database
-                        return $vRegistrazione->restituisciFormMedico($codiceODatiValidi);
+                        // alcuni dati corretti
+                        $vRegistrazione->restituisciFormMedico($codiceODatiValidi);
                     }
                 } 
                 catch (XDBException $exc) {
@@ -107,17 +108,20 @@ class CRegistrazione {
                 }
                 break;
                 
-            case 'utente': {
+            case 'utente': {                                                    //controllato
                     try {
                         $codiceODatiValidi = $this->recuperaDatiECreaUtente();
                         if (is_string($codiceODatiValidi) === TRUE) {//se contiene il codice di conferma
                             $this->inviaMailRegistrazioneUtente($codiceODatiValidi);
                         } else {
-                            // dati corretti ma errore nel database
-                            return $vRegistrazione->restituisciFormUtente($codiceODatiValidi);
+                            // alcuni dati sono corretti
+                            $vRegistrazione->restituisciFormUtente($codiceODatiValidi);
                         }
                     } catch (XDBException $exc) {
                         $vRegistrazione->visualizzaFeedback($exc->getMessage(), TRUE);
+                    }
+                    catch (XMedicoException $exc) {
+                        $vRegistrazione->visualizzaFeedback("C'è stato un errore. Non è stato possibile registrare l'utente.");
                     }
                 }
                 break;
@@ -157,13 +161,15 @@ class CRegistrazione {
     }
 
     /**
-     * Metodo che permette di recuperare i dati dall'array $_POST e utilizza
-     * tali dati per creare e inserire un nuovo medico nel database
+     * Metodo che permette di recuperare i dati inseriti dal medico dall'array $_POST e utilizza
+     * tali dati per creare e inserire un nuovo medico nel database.
      * 
      * @access private
-     * @return mixed Se i dati sono validi il codice di conferma  il medico è stato inserito nel DB. Se i dati non sono validi, i dati validi
+     * @return string|array Se i dati sono validi ritorna il codice di conferma poichè il medico è stato inserito nel DB. Se i dati non sono validi, array contenente i dati validi.
+     * @throws XDBException Errore durante l'esecuzione della query
+     * @throws XMedicoException Se il medico è inesistente
      */
-    private function recuperaDatiECreaMedico() {
+    private function recuperaDatiECreaMedico() {                                //controllato
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         //recupero i dati 
         $datiMedico = $vRegistrazione->recuperaDatiMedico();
@@ -176,7 +182,6 @@ class CRegistrazione {
             // crea utente 
             $eMedico = new EMedico($datiMedico['codiceFiscale'], $datiMedico['username'], ucwords($datiMedico['nome']), ucwords($datiMedico['cognome']), ucwords($datiMedico['via']), $datiMedico['numeroCivico'], $datiMedico['CAP'], $datiMedico['email'], $datiMedico['password'], $datiMedico['PEC'], $datiMedico['provinciaAlbo'], $datiMedico['numeroIscrizione']);
             //eMedico richiama il metodo per creare FMedico poi FMedico aggiunge l'utente nel DB
-
             return $eMedico->inserisciMedicoDB();
         } else {
 
@@ -185,15 +190,15 @@ class CRegistrazione {
     }
 
     /**
-     * Metodo che permette di recuperare i dati dall'array $_POST e utilizza
-     * tali dati per creare e inserire un nuovo utente nel database
+     * Metodo che permette di recuperare i dati inseriti dall'utente dall'array $_POST e utilizza
+     * tali dati per creare e inserire un nuovo utente nel database.
      * 
      * @access private
-     * @return mixed Se i dati sono validi il codice di conferma l'utente è stato inserito nel DB. Se i dati non sono validi, i dati validi
-     * @throws XDBException 
-     * @throws XMedicoException
+     * @return string|array Se i dati sono validi ritorna il codice di conferma poichè l'utente è stato inserito nel DB. Se i dati non sono validi, array contenente i dati validi.
+     * @throws XDBException Errore durante l'esecuzione della query
+     * @throws XMedicoException Se il medico è inesistente
      */
-    private function recuperaDatiECreaUtente() {
+    private function recuperaDatiECreaUtente() {                                //controllato
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         //recupero i dati 
         $datiUtente = $vRegistrazione->recuperaDatiUtente();
@@ -220,13 +225,15 @@ class CRegistrazione {
         }
     }
     
+    
     /**
-     * Invia mail riscontro dell’avvenuta registrazione al medico contenente 
-     * informazioni riepilogative e con link di conferma
+     * Metodo che consente di inviare un'email riscontro dell’avvenuta registrazione al medico contenente 
+     * informazioni riepilogative e link di conferma.
      * 
+     * @access private
      * @param string $codice codice conferma registrazione
      */
-    private function inviaMailRegistrazioneMedico($codice) {
+    private function inviaMailRegistrazioneMedico($codice) {                    //controllato
         
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         $uValidazione = USingleton::getInstance('UValidazione');
@@ -243,12 +250,13 @@ class CRegistrazione {
     }
 
     /**
-     * invia mail riscontro dell’avvenuta registrazione all'utente contenente 
-     * informazioni riepilogative e con link di conferma
+     * Metodo che consente di inviare un'email riscontro dell’avvenuta registrazione all'utente contenente 
+     * informazioni riepilogative e link di conferma.
      * 
+     * @access private
      * @param string $codice codice conferma registrazione
      */
-    private function inviaMailRegistrazioneUtente($codice) {
+    private function inviaMailRegistrazioneUtente($codice) {                    //controllato
 
         $mail = USingleton::getInstance('UMail');
         $uValidazione = USingleton::getInstance('UValidazione');

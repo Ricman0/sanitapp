@@ -1,14 +1,11 @@
 <?php
 
 /**
- * Description of UMail
+ * La classe UMail si occupa della gestione delle mail.
  *
  * @package Utility 
  * @author Claudia Di Marco & Riccardo Mantini
  */
-
-// in __DIR__ è contenuta il percorso della cartella che contiene il file ma Autoloder.php non si trova in include ma in libs 
-// per questo bisogna eliminare include dal path
 
 // in __DIR__ è contenuta il percorso della cartella che contiene il file ma Autoloder.php non si trova in include ma in libs 
 // per questo bisogna eliminare include dal path
@@ -34,7 +31,6 @@ class UMail {
     {
         //se non esiste già un'istanza di PHPMailer, crea un'istanza di PHPMailer
         // il riferimento per tale istanza è $email
-        
         $email = USingleton::getInstance('PHPMailer');
         $config = USingleton::getInstance('Config');
         $emailConfig = $config->getEmailUserConfig();
@@ -57,12 +53,11 @@ class UMail {
         // $this->_email->setLanguage('it','language/'); oppure
         $this->_email->setLanguage('it', "./libs/PHPMailer/language/phpmailer.lang-it.php");
         $this->_email->CharSet = "UTF-8"; // in questo modo anche i caratteri accentati si leggono bene
-        $email->IsHTML(true);//di default, il content-type è text/plain. Dato che voglio inserire dell'html per non far vedere il link cambio il content-type in text/html
-        
+        $email->IsHTML(true);//di default, il content-type è text/plain. Dato che voglio inserire dell'html per non far vedere il link cambio il content-type in text/html   
     }
     
     /**
-     * Metodo che consente di inviare una email 
+     * Metodo che consente di inviare una email. 
      * 
      * @access public
      * @param string $destinatario Indirizzo email del destinatario
@@ -101,12 +96,12 @@ class UMail {
      * i dati inseriti nella form e un link per validare l'account.
      * 
      * @access public
-     * @param string $inserito Il codice per confermare l'account
+     * @param string $codiceConferma Il codice per confermare l'account
+     * @param array $dati I dati relativi all'utente (email, username, nome, cognome, codiceFiscale, indirizzo, CAP)
      * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
-    public function inviaMailRegistrazioneUtente($codiceConferma, $dati)
+    public function inviaMailRegistrazioneUtente($codiceConferma, $dati)        //controllato
     {
-        //@param string $destinatario Il destinatario a cui inviare la mail riepilogativa con link //l'ho eliminato
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
@@ -162,16 +157,16 @@ class UMail {
                
     }
     
-            
-    /**
+     /**
      * Metodo che permette l'invio di una mail al medico contenente
      * i dati inseriti nella form e un link per validare l'account.
      * 
      * @access public
-     * @param string $inserito Il codice per confermare l'account
+     * @param string $codiceConferma Il codice per confermare l'account
+     * @param array $dati I dati relativi al medico (email, PEC, username, nome, cognome, codiceFiscale, via, CAP, provinciaAlbo, numeroIscrizione)
      * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
-    public function inviaMailRegistrazioneMedico($codiceConferma, $dati)
+    public function inviaMailRegistrazioneMedico($codiceConferma, $dati)        //controllato
     {
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($dati['email']);
@@ -191,19 +186,6 @@ class UMail {
                 . " <strong>PEC  :  </strong><span>" . $dati['PEC'] . "</span><br><br>"
                 . " <strong>PROVINCIA ALBO  :  </strong><span>" . $dati['provinciaAlbo'] . "</span><br><br>"
                 . " <strong>NUMERO ISCRIZIONE ALBO  :  </strong><span>" .  $dati['numeroIscrizione'] . "</span><br><br>"
-                
-//                . " <h5>Nome:</h5> " . $dati['nome'] ."\r\n"
-//                . " <h5>Cognome:</h5> ". $dati['cognome'] ."\r\n"
-//                . " <h5>Codice Fiscale:</h5> " . $dati['codiceFiscale'] ."\r\n"
-//                . " <h5>Indirizzo:</h5> " . $dati['via'] ."\r\n"
-//                . " <h5>CAP:</h5> ". $dati['CAP'] ."\r\n"
-//                . " <h5>Email:</h5> ". $dati['email'] . "\r\n"
-//                . " <h5>Username:</h5> ". $dati['username'] ."\r\n"
-//                . " <h5>PEC:</h5> ". $dati['PEC'] ."\r\n"
-//                . " <h5>Provincia Albo:</h5> ". $dati['provinciaAlbo'] ."\r\n"
-//                . " <h5>Iscrizione numero:</h5> ". $dati['numeroIscrizione'] ."<br><br>"
-//                
-                //devo inserire anche il link per la conferma
                 . " Per completare la registrazione, clicca sul link seguente: <br>"
                 . $url . "<br>"
                 . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "

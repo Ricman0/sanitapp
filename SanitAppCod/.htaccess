@@ -55,6 +55,9 @@
 
     RewriteCond %{REQUEST_METHOD} POST
     RewriteRule ^(registrazione)/(utente|medico|clinica)$ index.php?controller=$1&task=$2 [L] 
+    RewriteRule ^(ricerca)/(codice)/(utente|medico)$ index.php?controller=$1&task=$2&tipoUser=$3 [L]
+    RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)$ index.php?controller=$1&task=$2 [L]
+
 
     RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(referto)/(elimina)$ index.php?controller=$1&task=$2 [L] 
@@ -65,8 +68,8 @@
     RewriteRule ^(categorie)/(aggiungi|elimina)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(users)/(blocca|sblocca|valida|conferma|elimina|modifica)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(agenda)$ index.php?controller=$1 [L]
-    RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)$ index.php?controller=$1&task=$2 [L]
-    RewriteRule ^(ricerca)/(codice)/(utente|medico)$ index.php?controller=$1&task=$2&tipoUser=$3 [L]
+    
+    
     RewriteRule ^(prenotazione)/(riepilogo|conferma|elimina|modifica)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(referto)/(upload)$ index.php?controller=referto&task=upload [L]
     RewriteRule ^(prenotazione)/(conferma)/(modifica)$ index.php?controller=$1&task=$2&id=$3 [L]
