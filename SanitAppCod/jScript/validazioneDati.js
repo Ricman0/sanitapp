@@ -576,7 +576,7 @@ function validazioneAlboNum()
 //{
 //    jQuery.validator.addMethod("codiceFiscale", function (valore) {
 //        //espressione regolare per codice fiscale
-//        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+//        var regex = /[a-zA-Z]{6}[0-9]{2}[a-zA-Z]{1}[0-9]{2}[a-zA-Z]{1}[0-9]{3}[a-zA-Z]{1}/;
 //        return valore.match(regex);
 //    }, "Il codice fiscale deve essere del tipo DMRCLD89S42G438S");
 //
@@ -633,7 +633,7 @@ function validazioneCodiceFiscale()
 {
     jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        var regex = /[a-zA-Z]{6}[0-9]{2}[a-zA-Z]{1}[0-9]{2}[a-zA-Z]{1}[0-9]{3}[a-zA-Z]{1}/;
         return valore.match(regex);
     }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
     $("#ricercaUtente").validate({
@@ -823,7 +823,7 @@ function validazioneUtente()
 
     jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        var regex = /[a-zA-Z]{6}[0-9]{2}[a-zA-Z]{1}[0-9]{2}[a-zA-Z]{1}[0-9]{3}[a-zA-Z]{1}/;
         return valore.match(regex);
     }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
 
@@ -1012,7 +1012,7 @@ function validazioneMedico()
 
     jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        var regex = /[a-zA-Z]{6}[0-9]{2}[a-zA-Z]{1}[0-9]{2}[a-zA-Z]{1}[0-9]{3}[a-zA-Z]{1}/;
         return valore.match(regex);
     }, "Il codice fiscale deve essere del tipo DMRCLD89S42G438S");
 
@@ -1789,7 +1789,7 @@ function validazioneModificaUtente() {
 
     jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        var regex = /[a-zA-Z]{6}[0-9]{2}[a-zA-Z]{1}[0-9]{2}[a-zA-Z]{1}[0-9]{3}[a-zA-Z]{1}/;
         return valore.match(regex);
     }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
 
@@ -1977,7 +1977,7 @@ function validazioneModificaMedico() {
 
     jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        var regex = /[a-zA-Z]{6}[0-9]{2}[a-zA-Z]{1}[0-9]{2}[a-zA-Z]{1}[0-9]{3}[a-zA-Z]{1}/;
         return valore.match(regex);
     }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
 
@@ -2193,7 +2193,7 @@ function validazioneModificaClinica() {
 
     jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
-        var regex = /[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}/;
+        var regex = /[a-zA-Z]{6}[0-9]{2}[a-zA-Z]{1}[0-9]{2}[a-zA-Z]{1}[0-9]{3}[a-zA-Z]{1}/;
         return valore.match(regex);
     }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
 

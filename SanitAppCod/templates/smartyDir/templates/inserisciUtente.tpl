@@ -2,9 +2,6 @@
 <hr>
 <form name="inserisciUtente" method="POST" id="inserisciUtente" > 
 
-   <!-- <input type="hidden" name="controller" value="registrazione" />
-    <input type="hidden" name="task" value="utente" />
--->
     <label for="nome" class="elementiForm">Nome</label>
     <input type="text" name="nome" id="nomeUtente" class="elementiForm" placeholder="Mario" value="{if isset($datiValidi.nome)}{$datiValidi.nome}{/if}" required />
     <br>

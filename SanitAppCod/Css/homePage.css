@@ -281,9 +281,9 @@ select.elementiForm, input.elementiForm {
     -webkit-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;  
 }
 
-.upperCase{
+/*.upperCase{
     text-transform: uppercase;
-}
+}*/
 
 button, input[type = 'submit'], input[type='button']
 {
