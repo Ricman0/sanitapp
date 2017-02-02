@@ -299,16 +299,16 @@ class CHome {
                 }
                 break;
 
-//            case 'cliniche':
-//                $cCliniche = USingleton::getInstance('CRicercaCliniche');
-//                $cCliniche->impostaPaginaRisultatoCliniche();
-//                //in $risultato c'è il risultato della query
-//                break;
-//            case 'esami':
-//                $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
-//                $cRicercaEsami->impostaPaginaRisultatoEsami();
-//                break;
-//            
+            case 'cliniche':  //POST cliniche
+                $cCliniche = USingleton::getInstance('CRicercaCliniche');
+                $cCliniche->impostaPaginaRisultatoCliniche();
+                break;
+            
+            case 'esami': //POST esami
+                $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
+                $cRicercaEsami->impostaPaginaRisultatoEsami();
+                break;
+     
             case 'impostazioni': //POST impostazioni
                 if ($loggato) {
                     $cImpostazioni = USingleton::getInstance('CImpostazioni');

@@ -66,30 +66,9 @@ class FEsame extends FDatabase {
      */
     public function cercaEsame($nomeEsame="all", $nomeClinica="all", $luogo="all") 
     {
-        if ($nomeEsame === "all") 
-        {
-            $nomeEsame = "";
-        } 
-        else 
-        {
-            $nomeEsame = str_replace("_", " ", $nomeEsame);
-        }
-        if ($nomeClinica === "all") 
-        {
-            $nomeClinica = "";
-        } 
-        else 
-        {
-            $nomeClinica = str_replace("_", " ", $nomeClinica);
-        }
-        if ($luogo === "all") 
-        {
-            $luogo = "";
-        } 
-        else
-        {
-            $luogo = str_replace("_", " ", $luogo);
-        }
+        $nomeEsame = str_replace("+", " ", $nomeEsame);
+        $nomeClinica = str_replace("+", " ", $nomeClinica);
+        $luogo = str_replace("+", " ", $luogo);
         if (!empty($nomeEsame)) 
         {
             if (!empty($luogo) && !empty($nomeClinica)) 

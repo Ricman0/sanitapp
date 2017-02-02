@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 $(document).ready(function () {
     $('#headerMain').on("click", ".ricercaEsamiCerca", function () {
@@ -15,12 +10,42 @@ $(document).ready(function () {
         //se esiste il div contenutoAreaPersonale
         if ($('#contenutoAreaPersonale').length) {
             ajaxDiv ='#contenutoAreaPersonale';
-          }
-//        if(ajaxDiv!=='#contenutoAreaPersonale') // nel caso in cui non esista div con id contenutoAreaPersonale
-//        {
-//           ajaxDiv = '#main';
-//        }
-        inviaDatiForm(ajaxDiv);
+        }
+        var nomeClinica = (($("input[name=clinica]").val()).toLowerCase()).trim();
+        var nomeEsame = (($("input[name=esame]").val()).toLowerCase()).trim();
+        var luogo = (($("input[name=luogo]").val()).toLowerCase()).trim();
+        var datiPOST = {nomeClinica:nomeClinica, luogo:luogo, nomeEsame: nomeEsame};
+        $.ajax({
+            type: 'POST',
+            url: 'esami',
+            data: datiPOST,
+            success: function(datiRisposta)
+            {
+              $(ajaxDiv).html(datiRisposta);
+              $("#tabellaEsami").tablesorter({
+                      theme: 'blue',
+                      widgets: ["filter"],
+                      widgetOptions: {
+                          // filter_anyMatch replaced! Instead use the filter_external option
+                          // Set to use a jQuery selector (or jQuery object) pointing to the
+                          // external filter (column specific or any match)
+                          filter_external: '.search',
+                          // add a default type search to the first name column
+                          filter_defaultFilter: {1: '~{query}'},
+                          // include column filters
+                          filter_columnFilters: true,
+                          filter_placeholder: {search: 'Search...'},
+                          filter_saveFilters: true,
+                          filter_reset: '.reset'
+                      }
+
+                  });
+              },
+            error: function()
+            {
+              alert("Chiamata fallita, si prega di riprovare...");
+            }
+        });
     });
 });
 

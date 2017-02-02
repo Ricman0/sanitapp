@@ -33,7 +33,7 @@ class CRicercaEsami {
         $fEsami = USingleton::getInstance('FEsame');
         try        
         {
-            $risultato = $fEsami->cercaEsame($vEsami->recuperaValore('parametro1'), $vEsami->recuperaValore('parametro2'), $vEsami->recuperaValore('parametro3'));
+            $risultato = $fEsami->cercaEsame($vEsami->recuperaValore('nomeEsame'), $vEsami->recuperaValore('nomeClinica'), $vEsami->recuperaValore('luogo'));
             if(is_array($risultato) && count($risultato)>0)
             {
                 $vEsami->restituisciPaginaRisultatoEsami($risultato);

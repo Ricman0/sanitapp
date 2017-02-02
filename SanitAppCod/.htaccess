@@ -63,7 +63,7 @@
     RewriteRule ^(ricerca)/(codice)/(utente|medico)$ index.php?controller=$1&task=$2&tipoUser=$3 [L]
     RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(recuperaPassword|autenticazione)$ index.php?controller=$1 [L]
-
+    RewriteRule ^(cliniche|esami)$ index.php?controller=$1 [L]
 
     RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(referto)/(elimina)$ index.php?controller=$1&task=$2 [L] 
