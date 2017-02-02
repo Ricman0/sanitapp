@@ -54,7 +54,8 @@ class CRegistrazione {
             $idConferma = $vRegistrazione->recuperaValore('id');
             if ($idConferma !== FALSE && $username !== FALSE) { 
                 $this->tryConfermaUser($username, $idConferma);
-            } else {
+            }
+            else {
                 $messaggio = "Codice conferma o username non trovato. Non è possibile confermare questo account.";
                 $vRegistrazione->visualizzaFeedback($messaggio);
             }
@@ -78,13 +79,16 @@ class CRegistrazione {
                     try{
                         $codiceODatiValidi = $this->recuperaDatiECreaClinica();
                         if (is_string($codiceODatiValidi) === TRUE) {//se contiene il codice di conferma
-                            $this->inviaMailRegistrazioneClinica($codiceODatiValidi);
+                            $this->inviaMailRegistrazioneClixnica($codiceODatiValidi);
                         } else {
                             //  alcuni dati corretti 
                             $vRegistrazione->restituisciFormClinica($codiceODatiValidi);
                         }
                     } catch (XDBException $exc) {
                         $vRegistrazione->visualizzaFeedback($exc->getMessage(), TRUE);
+                    }
+                    catch (XClinicaException $exc) {
+                        $vRegistrazione->visualizzaFeedback("C'è stato un errore. Non è stato possibile registrare la clinica.", TRUE);
                     }
                 }
                 break;
@@ -103,7 +107,7 @@ class CRegistrazione {
                         $vRegistrazione->visualizzaFeedback($exc->getMessage(), TRUE);
                     }
                 catch (XMedicoException $exc) {
-                        $vRegistrazione->visualizzaFeedback($exc->getMessage(), TRUE);
+                        $vRegistrazione->visualizzaFeedback("C'è stato un errore. Non è stato possibile registrare il medico.", TRUE);
                     }
                 }
                 break;
@@ -133,14 +137,15 @@ class CRegistrazione {
     }
 
     /**
-     * Metodo che permette di recuperare i dati inserirti nella form di registrazione e utilizza
-     * tali dati per creare e inserire una nuova clinica nel database.
+     * Metodo che permette di recuperare i dati inseriti dalla clinica dall'array $_POST e utilizza
+     * tali dati per creare e inserire un nuovo medico nel database.
      * 
      * @access private
-     * @return mixed Se i dati sono validi il codice di conferma la clinica è stata inserita nel DB, FALSE altrimenti. Se i dati non sono validi, i dati validi
-     * @throws XDBException
+     * @return string|array Se i dati sono validi ritorna il codice di conferma poichè la clinica è stato inserita nel DB. Se i dati non sono validi, array contenente i dati validi.
+     * @throws XDBException Errore durante l'esecuzione della query
+     * @throws XMedicoException Se il medico è inesistente
      */
-    private function recuperaDatiECreaClinica() {
+    private function recuperaDatiECreaClinica() {                               //controllato
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         //recupero i dati 
         $datiClinica = $vRegistrazione->recuperaDatiClinica();
@@ -283,12 +288,13 @@ class CRegistrazione {
     }
     
     /**
-     * Invia mail riscontro dell’avvenuta registrazione alla clinica contenente 
-     * informazioni riepilogative e con link di conferma
+     * Metodo che consente di inviare un'email riscontro dell’avvenuta registrazione alla clinica contenente 
+     * informazioni riepilogative e link di conferma.
      * 
+     * @access private
      * @param string $codice codice conferma registrazione
      */
-    private function inviaMailRegistrazioneClinica($codice) {
+    private function inviaMailRegistrazioneClinica($codice) {                   //controllato
         
         $mail = USingleton::getInstance('UMail');
         $uValidazione = USingleton::getInstance('UValidazione');
@@ -305,13 +311,13 @@ class CRegistrazione {
     }
 
     /**
-     * Metodo che consente di confermare un user gestendo anche eventuali eccezioni/errori
+     * Metodo che consente di confermare un user gestendo anche eventuali eccezioni/errori.
      * 
      * @access public
      * @param string $username L'username a cui corrisponde lo user da confermare
      * @param type $idConferma Il codice di conferma
      */
-    public function tryConfermaUser($username, $idConferma) {
+    public function tryConfermaUser($username, $idConferma) {                   //controllato
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         try {
             $eUser = new EUser($username);

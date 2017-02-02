@@ -199,14 +199,17 @@ class UMail {
         return $inviata;
     }
     
-     /**
+    
+    /**
      * Metodo che permette l'invio di una mail alla clinica contenente
      * i dati inseriti nella form e un link per validare l'account.
      * 
      * @access public
+     * @param string $codiceConferma Il codice per confermare l'account
+     * @param array $dati I dati relativi al medico (email, PEC, username, nomeClinica, titolare, partitaIVA, via, cap,localitàClinica, provinciaClinica, telefono)
      * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
-    public function inviaMailRegistrazioneClinica($codiceConferma, $dati)
+    public function inviaMailRegistrazioneClinica($codiceConferma, $dati)       //controllato
     {
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($dati['email']);
@@ -252,8 +255,9 @@ class UMail {
         $inviata = $this->_email->send();
         return $inviata;
     }
+    
     /**
-     * Metodo che restituisce l'errore che si è avuto durante l'invio dell'email 
+     * Metodo che restituisce l'errore che si è avuto durante l'invio dell'email. 
      * 
      * @access public
      */
@@ -265,7 +269,7 @@ class UMail {
     }
     
     /**
-     * Metodo che consente di inviare una mail di memo per la prenotazione ad un utente
+     * Metodo che consente di inviare una mail di memo per la prenotazione ad un utente.
      * 
      * @access public
      * @param array $infoPrenotazione Contiene tutte le informazioni per inviare la mail di memo prenotazione(emailUtente,nomeUtente,cognomeUtente, nomeEsame, nomeClinica, indirizzoClinica, data e ora prenotazione)

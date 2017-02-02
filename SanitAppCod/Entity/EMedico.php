@@ -390,7 +390,7 @@ class EMedico extends EUser {
     public function inserisciMedicoDB() {
         //crea un oggetto fMedico se non è esistente, si collega al DB e lo inserisce
         $fMedico = USingleton::getInstance('FMedico');; 
-        $fMedico->inserisciMedico($this);
+        $fMedico->inserisci($this);
         return parent::getCodiceConfermaUser();
         
     }

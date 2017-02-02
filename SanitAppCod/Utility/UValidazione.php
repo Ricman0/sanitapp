@@ -374,7 +374,7 @@ class UValidazione {
      * @param string $pattern L'espressione regolare che il dato deve soddisfare
      * @param string $chiave  L'indice del dato da validare
      * @param string $valore Il valore da controllare
-     * @param string $stringaErrore La stringa contenente l'errore 
+     * @param string $stringa Errore La stringa contenente l'errore 
      */
     private function validaDato($pattern, $chiave, $valore, $stringaErrore)     //controllato
     {

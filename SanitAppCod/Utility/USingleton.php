@@ -1,8 +1,7 @@
 <?php
 
-/**
- * Description of USingleton
- * Questa classe garantisce che ci sia una sola istanza di 
+/** 
+ * La classe USingleton garantisce che ci sia una sola istanza di 
  * data classe e fornisce un punto di accesso globale a tale istanza.
  *
  * @package Utility
@@ -13,7 +12,7 @@ class USingleton {
     /**
      * @access public
      * @static 
-     * @var Array $instances è Array in cui memorizzare un esemplare/un'istanza di una classe 
+     * @var array $instances è Array in cui memorizzare un esemplare/un'istanza di una classe 
      */
     public static $instances = array(); // attributo di classe
 

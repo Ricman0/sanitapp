@@ -107,12 +107,12 @@ class VRegistrazione extends View {
     /**
      * Metodo che recupera i tutti i dati della clinica dalla form 
      * per poter inserire una nuova clinica. I dati vengono memorizzati
-     * nell'array $datiClinica
+     * nell'array $datiClinica.
      * 
      * @access public
-     * @return Array I dati per memorizzare la clinica
+     * @return array I dati per memorizzare la clinica
      */
-    public function recuperaDatiClinica()
+    public function recuperaDatiClinica()                                       //controllato
     {
         $datiClinica = Array();
         $datiClinica['nomeClinica'] = $this->recuperaValore('nomeClinica');

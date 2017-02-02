@@ -509,12 +509,9 @@ class EClinica extends EUser {
     public function inserisciClinicaDB() {
         //crea un oggetto fClinica se non è esistente, si collega al DB e lo inserisce
         $fClinica = USingleton::getInstance('FClinica');
-        $this->getPasswordUser();
-        if ($fClinica->inserisci($this) === TRUE) {
-            return parent::getCodiceConfermaUser();
-        } else {
-            return FALSE;
-        }
+        $fClinica->inserisci($this); 
+        return parent::getCodiceConfermaUser();
+        
     }
 
     /**

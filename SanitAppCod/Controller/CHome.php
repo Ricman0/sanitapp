@@ -367,15 +367,8 @@ class CHome {
                 }
                 break;
 
-//            case 'validazione':
-//                $cValidazione = USingleton::getInstance('CValidazione');
-//                $cValidazione->gestisciValidazione();                
-//                break;
-
             default:
                 echo "ora non lo so che fargli fare";
-
-//                $vHome->restituisciHomePage();
                 break;
         }
         if (!$permesso) {
