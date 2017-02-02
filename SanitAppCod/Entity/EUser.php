@@ -449,19 +449,21 @@ class EUser {
     /**
      * Genera una password casuale in conformità dalle regole imposte.
      * 
-     * @access private 
+     * @access public
      * @param int $length lunghezza della password
      * @return string la password generata automaticamente
      */
-    private function generatePassword($length = 8) {
+    public function generatePassword($length = 8) {
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $charsLow = 'abcdefghijklmnopqrstuvwxyz';
         $charsUp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $num = '0123456789';
         $count= mb_strlen($chars);
         $countCharsUp = mb_strlen($charsUp);
+        $countCharsLow = mb_strlen($charsLow);
         $countNum = mb_strlen($num);
 
-        for ($i = 0, $result = ''; $i < $length-2; $i++) {
+        for ($i = 0, $result = ''; $i < $length-3; $i++) {
             $index = rand(0, $count - 1);
             $result .= mb_substr($chars, $index, 1);
         }
@@ -470,6 +472,8 @@ class EUser {
         $result .= mb_substr($charsUp, $index, 1);
         $index = rand(0, $countNum - 1);
         $result .= mb_substr($num, $index, 1);
+        $index = rand(0, $countCharsLow - 1);
+        $result .= mb_substr($charsLow, $index, 1);
         return $result;
     }
 }

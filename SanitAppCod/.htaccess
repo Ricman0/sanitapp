@@ -12,6 +12,7 @@
   RewriteCond %{REQUEST_METHOD} GET 
   RewriteRule ^(ricercaCliniche|ricercaEsami)$ index.php?controller=$1 [L]
   RewriteRule ^(registrazione)/(clinica|medico|utente)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(recuperaPassword)$ index.php?controller=$1 [L]
 
 
   RewriteRule ^(categorie)$ index.php?controller=$1 [L]
@@ -57,7 +58,7 @@
     RewriteRule ^(registrazione)/(utente|medico|clinica|conferma)$ index.php?controller=$1&task=$2 [L] 
     RewriteRule ^(ricerca)/(codice)/(utente|medico)$ index.php?controller=$1&task=$2&tipoUser=$3 [L]
     RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)$ index.php?controller=$1&task=$2 [L]
-
+    RewriteRule ^(recuperaPassword)$ index.php?controller=$1 [L]
 
     RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(referto)/(elimina)$ index.php?controller=$1&task=$2 [L] 

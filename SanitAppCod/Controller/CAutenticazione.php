@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of CAutenticazione
+ * La classe CAutenticazione di occupa di gestire il necessario per l'autenticazione degli user.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
@@ -49,6 +49,15 @@ class CAutenticazione {
         }
     }
 
+    /**
+     * Metodo che consente di ottenere la pagina per poter recupera la password.
+     * 
+     * @access public
+     */
+    public function recuperaPasswordPagina() {                                  //controllato
+        $vAutenticazione = USingleton::getInstance('VAutenticazione');
+        $vAutenticazione->visualizzaTemplate('recuperoCredenziali');
+    }
 
     /**
      * Metodo che permette di controllare se un user è autenticato e imposta l'header.
@@ -298,9 +307,10 @@ class CAutenticazione {
             try {
                 $eUser = new EUser(NULL, NULL, $dati['email']);
                 if ($eUser->getEmailUser() !== NULL) { //l'utente esiste
-                    $eUser->modificaPassword();
+                    $password = $eUser->generatePassword();
+                    $eUser->modificaPassword($password);
                     $dati['username'] = $eUser->getUsernameUser();
-                    $dati['password'] = $eUser->getPasswordUser();
+                    $dati['password'] = $password;
                     if ($uMail->inviaMailRecuperaPassword($dati)) {
                         $vAutenticazione->visualizzaFeedback('Ti è stata inviata la nuova password sulla mail.', TRUE);
                     } else {

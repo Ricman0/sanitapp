@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CHome è la classe controller che permette di richiamare i controller appropriate a seconda delle richieste.
+ * CHome è la classe controller che permette di richiamare i controller appropriati a seconda delle richieste.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
@@ -171,9 +171,9 @@ class CHome {
                 }
                 break;
 
-            case 'recuperaPassword':
-                $vAutenticazione = USingleton::getInstance('VAutenticazione');
-                $vAutenticazione->visualizzaTemplate('recuperoCredenziali');
+            case 'recuperaPassword': // GET recuperaPassword                    //controllato
+                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+                $cAutenticazione->recuperaPasswordPagina();
                 break;
 
             case 'referti': // GET referti
@@ -325,7 +325,7 @@ class CHome {
                 }
                 break;
 
-            case 'recuperaPassword':
+            case 'recuperaPassword': //POST recuperaPassword                    //controllato
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->nuovaPassword();
                 break;

@@ -332,7 +332,7 @@ class UMail {
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
-        $this->_email->Subject = "REcupero Password Account SanitApp";
+        $this->_email->Subject = "Recupero Password Account SanitApp";
         
         $testo = "<h4>Ciao " . $dati['username'] . "!</h4>"
                 . " Questa è un'email di recupero password.<br>"

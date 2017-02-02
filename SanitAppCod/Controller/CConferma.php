@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Description of CConferma
- * Controller che si occupa di gestire la conferma degli account
+ * La classe CConferma  si occupa di gestire la conferma degli account.
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 
@@ -66,7 +66,7 @@ class CConferma {
     }
     
     /**
-     * Metodo che permette di ottenere l'username dell'utente/medico/clinica
+     * Metodo che permette di ottenere l'username dell'utente/medico/clinica.
      * 
      * @access private
      * @return string l'username  
