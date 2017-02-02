@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of EMedico
+ * La classe EMedico si occupa della gestione in ram dei medici.
  *
  * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
@@ -25,7 +25,7 @@ class EMedico extends EUser {
     private $_cognome;
 
     /**
-     * @var string $_via La via in cui ha ... il medico
+     * @var string $_via La via in cui ha residenza il medico
      */
     private $_via;
 
@@ -217,7 +217,7 @@ class EMedico extends EUser {
      * Metodo per conoscere se il medico è stato validato. 
      * 
      * @access public
-     * @return boolean True se il medico è stato validato, False altrimenti
+     * @return boolean TRUE se il medico è stato validato, FALSE altrimenti
      */
     public function getValidatoMedico() {
         return $this->_validato;
@@ -416,8 +416,7 @@ class EMedico extends EUser {
         $daModificare['Via']=$datiIndirizzoValidi['Via'];
         $daModificare['NumCivico']=$datiIndirizzoValidi['NumCivico'];
         $daModificare['CAP']=$datiIndirizzoValidi['CAP'];
-        return $fMedico->update($this->getCodFiscaleMedico(), $daModificare);
-//        return $fMedico->modificaIndirizzoCAP($this->getCodFiscaleMedico(), $this->getViaMedico(), $this->getNumCivicoMedico(),  $this->getCAPMedico());
+        return $fMedico->update($this->getCodFiscaleMedico(), $daModificare); //modificaIndirizzoCAP
     }
 
     /**
@@ -426,7 +425,7 @@ class EMedico extends EUser {
      * 
      * @access public
      * @param string $provincia La nuova provincia
-     * @param int $numIscrizione  Il nuovo numero d'iscrizione 
+     * @param string $numIscrizione  Il nuovo numero d'iscrizione 
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      * @throws XDBException Se la query non è stata eseguita con successo
      */
@@ -437,8 +436,7 @@ class EMedico extends EUser {
         $fMedico = USingleton::getInstance('FMedico');
         $daModificare['ProvinciaAlbo'] = $provincia;
         $daModificare['NumIscrizione'] = $numIscrizione;
-        return $fMedico->update($this->getCodFiscaleMedico(), $daModificare); 
-//        return $fMedico->modificaProvAlboENumIscrizione($this->getCodFiscaleMedico(), $provincia, $numIscrizione); 
+        return $fMedico->update($this->getCodFiscaleMedico(), $daModificare); //modificaProvAlboENumIscrizione 
     }
     
     /**
@@ -461,7 +459,6 @@ class EMedico extends EUser {
                 case 'confermato':
                     if($value === 'true')
                     {
-                        
                         $this->setConfermato(TRUE);
                     }
                     else 
@@ -532,6 +529,5 @@ class EMedico extends EUser {
         }
         $fMedico = USingleton::getInstance('FMedico');
         return $fMedico->modificaMedico($this);
-    
     }
 }

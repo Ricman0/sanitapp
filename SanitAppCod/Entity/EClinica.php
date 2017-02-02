@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Descrizione di EClinica
+ * La classe EClinica si occupa della gestione in ram delle cliniche. 
  * 
  * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
@@ -77,7 +77,7 @@ class EClinica extends EUser {
     private $_workingPlan;
 
     /**
-     * @var Array(EEsame) $_esami array che contiente gli esami/servizi che la clinica fornisce
+     * @var array $_esami array che contiente gli esami/servizi che la clinica fornisce
      */
     private $_esami;
     
@@ -85,8 +85,6 @@ class EClinica extends EUser {
      * @var boolean $_validato Indica se la clinica è stata validata dall' amministratore
      */
     private $_validato;
-
-    // costruttore
 
     /**
      * Costruttore della classe EClinica.
@@ -139,10 +137,6 @@ class EClinica extends EUser {
             if ($partitaIVA !== NULL && $username === NULL) {
                 $attributiClinica = $fClinica->cercaClinicaByPartitaIVA($partitaIVA);
             }
-//            elseif($partitaIVA==NULL && $username===NULL)
-//            {
-//                $attributiClinica = $fClinica->cercaClinicaByPEC($partitaIVA);
-//            }
             else {
                 $attributiClinica = $fClinica->cercaClinicaByUsername($username);
             }
@@ -194,85 +188,6 @@ class EClinica extends EUser {
             
             $this->_esami = Array();
         }
-
-//        if($partitaIVA!==NULL && $username!==NULL)
-//        {
-//            $this->_partitaIVA= $partitaIVA;
-//            $this->_nomeClinica = $nomeClinica;
-//            $this->_titolareClinica =$titolareClinica;
-//            $this->_via = $via;
-//            if(isset($numeroCivico))
-//            {
-//                $this->_numeroCivico = $numeroCivico; 
-//            }
-//            else
-//                {
-//                    $this->_numeroCivico = NULL; 
-//                }
-//
-//            $this->_CAP = $cap;
-//            $this->_localita= $localita;
-//            $this->_provincia = $provincia;
-//            $this->_regione = $regione;
-//            $this->_email = $email;
-//            $this->_PEC = $PEC;
-//            $this->_username = $username;
-//            $this->_password = $password;
-//            $this->_telefono = $telefono;
-//            if(isset($capitaleSociale))
-//            {
-//                $this->_capitaleSociale = $capitaleSociale; 
-//            }
-//            else
-//                {
-//                    $this->_capitaleSociale= NULL; 
-//                }
-//            if(isset($workingPlan))
-//            {
-//                $this->_workingPlan = $workingPlan; 
-//            }
-//            
-//            $this->_confermato = FALSE;
-//            $this->_esami = Array();
-//            if(isset($esami))
-//            {
-//                $this->_esami = $esami; 
-//            }
-//        }
-//        else 
-//        {
-//            $fClinica = USingleton::getInstance('FClinica');
-//            if($username!==NULL)
-//            {
-//                $attributiClinica = $fClinica->cercaClinicaByUsername($username);
-//            }
-//            else
-//            {
-//                 $attributiClinica = $fClinica->cercaClinicaByPartitaIVA($partitaIVA);
-//            }
-//            if(is_array($attributiClinica) && count($attributiClinica)==1)
-//            {
-//                $this->_partitaIVA = $attributiClinica[0]["PartitaIVA"];
-//                $this->_nomeClinica = $attributiClinica[0]["NomeClinica"];
-//                $this->_titolareClinica =$attributiClinica[0]["Titolare"];
-//                $this->_via = $attributiClinica[0]["Via"];
-//                $this->_numeroCivico = $attributiClinica[0]["NumCivico"];
-//                $this->_CAP = $attributiClinica[0]["CAP"];
-//                $this->_localita = $attributiClinica[0]["Localita"];
-//                $this->_provincia = $attributiClinica[0]["Provincia"];
-//                $this->_regione = $attributiClinica[0]["Regione"];
-//                $this->_email =$attributiClinica[0]["Email"];
-//                $this->_PEC = $attributiClinica[0]["PEC"];
-//                $this->_username = $attributiClinica[0]["Username"];
-//                $this->_password = $attributiClinica[0]["Password"];
-//                $this->_telefono = $attributiClinica[0]["Telefono"];
-//                $this->_capitaleSociale = $attributiClinica[0]["CapitaleSociale"];
-//                $this->_workingPlan = $attributiClinica[0]["WorkingPlan"]; 
-//                $this->_confermato = $attributiClinica[0]["Confermato"];
-//                $this->_codiceConferma = $attributiClinica[0]["CodiceConferma"];
-//                $this->_esami = Array();
-//            }
-//        }
     }
 
     // metodi get
@@ -524,12 +439,11 @@ class EClinica extends EUser {
         $this->_nomeClinica = $nome;
     }
     
-
     /**
      * Metodo che imposta la città o paese della clinica.
      * 
      * @access public
-     * @param string  Località della clinica
+     * @param string Località della clinica
      */
     public function setLocalitaClinica($localita) {
         $this->_localita= $localita;
@@ -579,7 +493,7 @@ class EClinica extends EUser {
      * Metodo che permette di modificare gli esami/servizi che la clinica offre.
      * 
      * @access public
-     * @param Array $esami Esami/servizi della clinica
+     * @param array $esami Esami/servizi della clinica
      */
     public function setEsamiClinica($esami) {
         $this->_esami = $esami;
@@ -595,12 +509,9 @@ class EClinica extends EUser {
     public function inserisciClinicaDB() {
         //crea un oggetto fClinica se non è esistente, si collega al DB e lo inserisce
         $fClinica = USingleton::getInstance('FClinica');
-//        if ($fClinica->inserisciClinica($this) === TRUE) {
-       $this->getPasswordUser();
+        $this->getPasswordUser();
         if ($fClinica->inserisci($this) === TRUE) {
-  
             return parent::getCodiceConfermaUser();
-
         } else {
             return FALSE;
         }
@@ -617,8 +528,7 @@ class EClinica extends EUser {
     public function salvaWorkingPlanClinica($workingPlan) {
         $fClinica = USingleton::getInstance('FClinica');
         $daModificare['WorkingPlan'] = $workingPlan;
-        return $fClinica->update($this->getPartitaIVAClinica(), $daModificare);
-//        return $fClinica->salvaWorkingPlan($workingPlan, $this->getPartitaIVAClinica());
+        return $fClinica->update($this->getPartitaIVAClinica(), $daModificare); //salvaWorkingPlan
     }
 
     /**
@@ -629,7 +539,6 @@ class EClinica extends EUser {
      * @throws XDBException  Se la query non viene eseguita con successo
      */
     public function cercaReferti() {
-
         $fReferto = USingleton::getInstance("FReferto");
         return $fReferto->cercaRefertiClinica($this->getPartitaIVAClinica());
     }
@@ -858,11 +767,8 @@ class EClinica extends EUser {
         $oraFine = $workingPlanGiorno->End;
         $oraInizioPausa = new DateTime($workingPlanGiorno->BreakStart); 
         $oraFinePausa = new DateTime($workingPlanGiorno->BreakEnd);
-//               $pause = $workingPlanGiorno->Pause;
-//               $pause = json_decode($pause);
         $orariPrenotazioni = Array();
         //converto la stringa $oraInizio in un oggetto Time
-//        $oraInizio = strtotime($oraInizio);
         $oraInizio = new DateTime($oraInizio);
         //converto la stringa $oraFine in un oggetto Time
         $oraFine = new DateTime($oraFine);
@@ -880,7 +786,6 @@ class EClinica extends EUser {
         if ($oraInizioEsame > $oraFine) {
             array_pop($orariPrenotazioni);
         }
-
         // ora che ho tutti gli orari della giornata, cerco gli orari delle prenotazione già effettuate
         $data = $vPrenotazione->recuperaValore('data');
         $fPrenotazioni = USingleton::getInstance('FPrenotazione');
@@ -898,7 +803,7 @@ class EClinica extends EUser {
         } else {
             // errore
         }
-        $orariDisponibili = array_diff($orariPrenotazioni, $orariPrenotati);
+        $orariDisponibili = array_diff($orariPrenotazioni, $orariPrenotati); //Compares array1 against one or more other arrays and returns the values in array1 that are not present in any of the other arrays. 
         return $orari = Array('orari' => $orariDisponibili);
     }
 
@@ -986,57 +891,6 @@ class EClinica extends EUser {
         }
     }
 
-//    public function businessHours() {
-//
-//        $wp = json_decode($this->_workingPlan, true);
-//        print_r($wp);
-//        $giorniLavorativi = Array();
-//        $i=0;
-//        foreach ($wp as $key => $value) {
-//            switch ($key) {
-//                case 'Lunedi':
-//                    if ($value !== NULL) {
-//                        $giorniLavorativi[] = 1;
-//                    }
-//                    break;
-//                case 'Martedi':
-//                    if ($value !== NULL) {
-//                        $giorniLavorativi[] = 2;
-//                    }
-//                    break;
-//                case 'Mercoledi':
-//                    if ($value !== NULL) {
-//                        $giorniLavorativi[] = 3;
-//                        
-//                    }
-//                    break;
-//                case 'Giovedi':
-//                    if ($value !== NULL) {
-//                        $giorniLavorativi[] = 4;
-//                    }
-//                    break;
-//                case 'Venerdi':
-//                    if ($value !== NULL) {
-//                        $giorniLavorativi[] = 5;
-//                    }
-//                    break;
-//                case 'Sabato':
-//                    if ($value !== NULL) {
-//                        $giorniLavorativi[] = 6;
-//                    }
-//                case 'Domenica':
-//                    if ($value !== NULL) {
-//                        $giorniLavorativi[] = 7;
-//                    }
-//                    break;
-//            }
-//        }
-//        
-//        print_r($giorniLavorativi);
-//    }
-
-
-    
     /**
      * Metodo che consente di recuperare appuntamenti e working plan della clinica.
      * 
@@ -1169,8 +1023,7 @@ class EClinica extends EUser {
      */
     public function getCategorieApplicazione() {
         $categorie = USingleton::getInstance('FCategoria');
-        return $listaCategorie = $categorie->cerca();
-//        return $listaCategorie = $categorie->cercaCategorie();
+        return $listaCategorie = $categorie->cerca(); //cercaCategorie
     }
 }
 

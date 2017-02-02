@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of EEsame
+ * La classe EEsame si occupa della gestione in ram degli esami.
  *
+ * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class EEsame 
@@ -38,13 +33,12 @@ class EEsame
     private $_prezzo; 
     
     /**
-     * @var int $_durata Il tempo (in minuti) impiegato per effettuare l'esame
+     * @var string $_durata Il tempo impiegato per effettuare l'esame hh:mm
      */
     private $_durata; 
     
     /**
-     * @var string $_medicoEsame Il medico (o il nome dei medici)che 
-     * effettua l'esame
+     * @var string $_medicoEsame Il medico che effettua l'esame
      */
     private $_medicoEsame; 
     
@@ -68,7 +62,6 @@ class EEsame
     
     /**
      * @var boolean $_eliminato Indica se l'esame p stato eliminato dalla clinica o no. 
-     * 
      */
     private $_eliminato;
     
@@ -84,6 +77,7 @@ class EEsame
      * @param string $durata La durata dell'esame 
      * @param int $numPrestazioniSimultanee Il numero di prestazioni simultanee dell'esame
      * @param string $descrizione Breve descrizione dell'esame
+     * @param string $partitaIVAClinica La partita IVA della clinica
      * @throws XEsameException Se l'esame non esiste
      */
   
@@ -92,7 +86,6 @@ class EEsame
         if(isset($id))
         {
             $fEsame = USingleton::getInstance('FEsame');
-//            $attributiEsame = $fEsame->cercaEsameById($id);
             $daCercare['IDEsame'] = $id;
             $attributiEsame = $fEsame->cerca($daCercare); // cerco l'esam by ID
             if(is_array($attributiEsame) && count($attributiEsame)==1)
@@ -140,8 +133,7 @@ class EEsame
     {
         //crea un oggetto fEsame se non è esistente, si collega al DB e lo inserisce
         $fEsame = USingleton::getInstance('FEsame');
-//        return $fEsame->inserisciEsame($this);   
-        return $fEsame->inserisci($this);   
+        return $fEsame->inserisci($this);   //inserisciEsame
     }
     
     /**
@@ -210,7 +202,7 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce il tempo (in minuti)impiegato per effettuare l'esame.
+     * Metodo che restituisce il tempo impiegato per effettuare l'esame.
      * 
      * @access public
      * @return string La durata dell'esame
@@ -221,7 +213,7 @@ class EEsame
     }
     
     /**
-     * Metodo che restituisce il nominativo del medico che effetua l'esame.
+     * Metodo che restituisce il nominativo del medico che effettua l'esame.
      * 
      * @access public
      * @return string Il medico dell'esame
@@ -299,11 +291,11 @@ class EEsame
     }
     
     /**
-     * Metodo che permette di modificare il tempo (in minuti)impiegato 
+     * Metodo che permette di modificare il tempo impiegato 
      * per effettuare l'esame.
      * 
      * @access public
-     * @return int $durata La durata dell'esame
+     * @return string $durata La durata dell'esame
      */
     public function setDurataEsame($durata)
     {
@@ -348,7 +340,7 @@ class EEsame
      * Metodo che consente di modificare i dati dell'esame.
      * 
      * @access public
-     * @param Array $datiEsame I dati dell'esame da modificare
+     * @param array $datiEsame I dati dell'esame da modificare
      * @return boolean TRUE se la modifica è andata a buon fine, altrimenti lancia l'eccezione
      * @throws XDBException Se la query non è stata eseguita con successo
      */
@@ -386,8 +378,7 @@ class EEsame
             }
         }
         $fEsame = USingleton::getInstance('FEsame');
-        return $fEsame->update($this->getIDEsameEsame(), $daModificare);
-//        return $fEsame->modificaEsame($this);
+        return $fEsame->update($this->getIDEsameEsame(), $daModificare); //modificaEsame
     }
     
     /**
@@ -400,7 +391,6 @@ class EEsame
     public function eliminaEsame() {
         $this->setEliminato(TRUE);
         $fEsame = USingleton::getInstance('FEsame');
-        return $fEsame->elimina($this->getIDEsameEsame());
-//        return $fEsame->eliminaEsame($this->getIDEsameEsame());
+        return $fEsame->elimina($this->getIDEsameEsame()); //eliminaEsame
     }
 }

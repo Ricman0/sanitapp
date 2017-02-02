@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of EPrenotazione
+ * La classe EPrenotazione si occupa della gestione in ram delle prenotazioni. 
  *
  * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
@@ -62,13 +62,6 @@ class EPrenotazione {
      */
     private $_dataEOra;
     
-    /**
-     * 
-     * 
-     * @access public  
-     * @param type $name Description
-     * @throws XPrenotazioneException Se la prenotazione con l'id passato come parametro non è stata trovata
-     */
     /**
      * Costruttore della classe EPrenotazione
      * 

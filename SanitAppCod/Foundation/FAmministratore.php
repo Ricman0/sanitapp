@@ -126,8 +126,7 @@ class FAmministratore extends FUser{
                 . "FROM appuser,utente WHERE (appuser.Username=utente.Username AND "
                 . "appuser.Bloccato=TRUE) LOCK IN SHARE MODE;"; // fine terza query.  //trovo gli utenti
         
-        $risultato = $this->eseguiQueryMultiple($queryMultipla);
-        return $risultato;
+        return $this->eseguiQueryMultiple($queryMultipla);
     }
     
     /**

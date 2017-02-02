@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of EAmministratore
+ * La classe EAmministratore si occupa della gestione in ram dell'amministratore.
  *
+ * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class EAmministratore extends EUser{
@@ -18,7 +13,7 @@ class EAmministratore extends EUser{
     private $_id;
     
     /**
-     * @var int $_telefono contiene il numero dell'amministratore
+     * @var string $_telefono contiene il numero dell'amministratore
      */
     private $_telefono;
     
@@ -32,7 +27,19 @@ class EAmministratore extends EUser{
      */
     private $_cognome;
     
-    
+    /**
+     * Costruttore della classe EAmministratore.
+     * 
+     * @access public
+     * @param string $username Username dell'amministratore
+     * @param string $password La password dell'amministratore
+     * @param string $email L'email dell'amministratore
+     * @param string $PEC La PEC dell'amministratore
+     * @param int $telefono Il telefono dell'amministratore
+     * @param string $nome Il nome dell'amministratore
+     * @param string $cognome Il cognome dell'amministratore
+     * @throws XAmministratoreException Se l'amministratore relativo al codice fiscale immesso non esiste
+     */
     public function __construct($username=NULL, $password=NULL, $email=NULL, $PEC=NULL, $telefono=NULL, $nome=NULL, $cognome= NULL){
         if($password!==NULL && $email!==NULL && $PEC!==NULL)
         {
@@ -71,24 +78,41 @@ class EAmministratore extends EUser{
         
     }
     
+    /**
+     * Metodo che consente di ottenere l'id dell'amministratore.
+     * 
+     * @access public
+     * @return string L'id dell'amministratore
+     */
     public function getIdAmministratoreAmministratore() 
     {
         return $this->_id;
     }
     
+    /**
+     * Metodo che consente di ottenere l'username dell'amministratore.
+     * 
+     * @access public
+     * @return string L'username dell'amministratore
+     */
     public function getUsernameAmministratore() 
     {
         return parent::getUsernameUser();
     }
     
+    /**
+     * Metodo che consente di ottenere il telefono dell'amministratore.
+     * 
+     * @access public
+     * @return string Il telefono dell'amministratore
+     */
     public function getTelefonoAmministratore() 
     {
         return $this->_telefono;
     }
     
-    
     /**
-     * Metodo per conoscere il nome dell'amministratore
+     * Metodo per conoscere il nome dell'amministratore.
      * 
      * @access public
      * @return string Il nome dell'amministratore
@@ -98,8 +122,9 @@ class EAmministratore extends EUser{
     }
 
     /**
-     * Metodo per conoscere il cognome dell'amministratore
+     * Metodo per conoscere il cognome dell'amministratore.
      * 
+     * @access public
      * @return string Il cognome dell'amministratore
      */
     public function getCognomeAmministratore() {
@@ -107,7 +132,7 @@ class EAmministratore extends EUser{
     }
     
     /**
-     * Metodo che permette di modificare il nome dell'amministratore
+     * Metodo che permette di modificare il nome dell'amministratore.
      * 
      * @access public
      * @param string $nome Il nome dell'amministratore
@@ -117,7 +142,7 @@ class EAmministratore extends EUser{
     }
 
     /**
-     * Metodo che permette di modificare il cognome dell'amministratore
+     * Metodo che permette di modificare il cognome dell'amministratore.
      * 
      * @access public
      * @param string $cognome Il cognome dell'amministratore
@@ -130,20 +155,21 @@ class EAmministratore extends EUser{
      * Metodo che consente di trovare tutti gli user dell'applicazione che non sono amministratori.
      * 
      * @access public
-     * @return Array Tutti gli user non amministratori dell'applicazione
+     * @return array Tutti gli user non amministratori dell'applicazione
+     * @throws XDBException Nel caso in cui una query non abbia successo
      */
     public function cercaAppUserNonAmministratori()
     {
         $fAmministratore = USingleton::getInstance('FAmministratore');
-        return $fAmministratore->cercaAppUserNonAmministratori();
-        
+        return $fAmministratore->cercaAppUserNonAmministratori();  
     }
     
     /**
-     * Metodo che consente di trovare tutti gli user dell'applicazione che sono stati bloccati
+     * Metodo che consente di trovare tutti gli user dell'applicazione che sono stati bloccati.
      * 
      * @access public
-     * @return Array User bloccati
+     * @return array User bloccati
+     * @throws XDBException Nel caso in cui una query non abbia successo
      */
     public function cercaAppUserBloccati() 
     {
@@ -155,7 +181,8 @@ class EAmministratore extends EUser{
      * Metodo che consente di trovare tutti gli user dell'applicazione che sono da validare
      * 
      * @access public
-     * @return Array User da validare
+     * @return array User da validare
+     * @throws XDBException Nel caso in cui una query non abbia successo
      */
     public function cercaAppUserDaValidare(){
         $fAmministratore = USingleton::getInstance('FAmministratore');
@@ -167,11 +194,11 @@ class EAmministratore extends EUser{
      * 
      * @access public
      * @param string $idUser Username dell'user
+     * @throws XDBException Nel caso in cui una query non abbia successo
      */
     public function cercaAppUser($idUser) {
         $fAmministratore = USingleton::getInstance('FAmministratore');
         return $fAmministratore->cercaAppUser($idUser); 
-        
     }
     
     /**
@@ -180,13 +207,12 @@ class EAmministratore extends EUser{
      * @access public
      * @param string $idUser L'username dello user da bloccare
      * @return boolean TRUE se è andato a buon fine il blocco dell'user, lancia un XDBException altrimenti
+     * @throws XDBException Nel caso in cui una query non abbia successo
      */
     public function bloccaUser($idUser) {
-//        $fAmministratore = USingleton::getInstance('FAmministratore');
-//        return $fAmministratore->bloccaUser($idUser);
         $fUser = USingleton::getInstance('FUser');
         $daModificare['Bloccato'] = TRUE; 
-        return $fUser->update($idUser, $daModificare);
+        return $fUser->update($idUser, $daModificare);// bloccaUser
     }
     
     /**
@@ -195,13 +221,12 @@ class EAmministratore extends EUser{
      * @access public
      * @param string $idUser L'username dello user da sbloccare
      * @return boolean TRUE se è andato a buon fine lo sblocco dell'user, lancia un XDBException altrimenti
+     * @throws XDBException Nel caso in cui una query non abbia successo
      */
     public function sbloccaUser($idUser) {
-//        $fAmministratore = USingleton::getInstance('FAmministratore');
-//        return $fAmministratore->sbloccaUser($idUser);
         $fUser = USingleton::getInstance('FUser');
         $daModificare['Bloccato'] = FALSE; 
-        return $fUser->update($idUser, $daModificare);
+        return $fUser->update($idUser, $daModificare); //sbloccaUser
     }
     
     /**
@@ -210,11 +235,11 @@ class EAmministratore extends EUser{
      * @access public
      * @param string $idUser L'username dello user da validare
      * @return boolean TRUE se la validazione è andata a buon fine, lancia un XDBException altrimenti
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function validaUser($idUser) {
         $fAmministratore = USingleton::getInstance('FAmministratore');
         $ris = $fAmministratore->validaUser($idUser);
-       
         return $ris ;
     }
     
@@ -224,13 +249,12 @@ class EAmministratore extends EUser{
      * @access public
      * @param string $idUser L'username dello user da confermare
      * @return boolean TRUE se la conferma è andata a buon fine, lancia un XDBException altrimenti
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function confermaUser($idUser) {
-//        $fAmministratore = USingleton::getInstance('FAmministratore');
-//        return $fAmministratore->amministratoreConfermaUser($idUser);
         $fUser = USingleton::getInstance('FUser');
         $daModificare['Confermato'] = TRUE;
-        return $fUser->update($idUser, $daModificare);
+        return $fUser->update($idUser, $daModificare);//amministratoreConfermaUser
     }
     
     /**
@@ -239,25 +263,24 @@ class EAmministratore extends EUser{
      * @access public
      * @param string $idUser L'username dello user da eliminare
      * @return boolean TRUE se l'eliminazione è andata a buon fine, lancia un XDBException altrimenti
+     * @throws XDBException Se la query non è stata eseguita con successo
+     * 
      */
-    public function eliminaUser($idUser) {
-
-//        $fAmministratore = USingleton::getInstance('FAmministratore');
-//        return $fAmministratore->eliminaUser($idUser);
+    public function eliminaUser($idUser) {;
         $fUser = USingleton::getInstance('FUser');
-        return $fUser->elimina($idUser);
+        return $fUser->elimina($idUser); //eliminaUser
     }
     
     /**
      * Metodo che consente all'amministratore di cercare tutte le categorie degli esami dell'applicazione.
      * 
      * @access public
-     * @return Array TLe categorie dell'applicazione
+     * @return array Le categorie dell'applicazione
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function cercaCategorie() {
         $fCategorie = USingleton::getInstance('FCategoria');
-        return $fCategorie->cerca();
-//        return $fCategorie->cercaCategorie(); 
+        return $fCategorie->cerca(); //cercaCategorie
     }
     
     

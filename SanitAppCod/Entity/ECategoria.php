@@ -1,17 +1,20 @@
 <?php
+
 /**
- * Description of ECategoria
+ * La classe ECategoria si occupa della gestione in ram delle categorie.
  *
  * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class ECategoria {
     
-    
+    /**
+     * @var string Il nome della categoria 
+     */
     private $_nome;
     
     /**
-     * Costruttore della classe ECategoria
+     * Costruttore della classe ECategoria.
      * 
      * @access public
      * @param string nome il nome della categoria
@@ -21,7 +24,7 @@ class ECategoria {
     }
     
     /**
-     * Metodo che ritorna il nome della categoria
+     * Metodo che ritorna il nome della categoria.
      * 
      * @access public
      * @return string Il nome della categoria
@@ -39,23 +42,21 @@ class ECategoria {
      */
     public function aggiungiCategoria() {
         $fCategorie = USingleton::getInstance('FCategoria');
-//        return $fCategorie->aggiungiCategoria($this); 
-        return $fCategorie->inserisci($this);
+        return $fCategorie->inserisci($this); //aggiungiCategoria
     }
     
     /**
      * Metodo che consente una categoria se non ci sono esami che rientrano in quella categoria.
      * 
      * @access public
-     * @return mixed string nel caso non sia possibile eliminare la categoria, TRUE se la query è eseguito con successo, altrimenti lancia eccezione
+     * @return string|boolean string nel caso non sia possibile eliminare la categoria, TRUE se la query è eseguito con successo, altrimenti lancia eccezione
      * @throws XDBException  Se la query non viene eseguita con successo
      */
     public function eliminaCategoria() {
         if($this->checkIfCanDelete()===TRUE)
         {
             $fCategorie = USingleton::getInstance('FCategoria');
-//            return $fCategorie->eliminaCategoria($this->getNomeCategoria()); 
-            return $fCategorie->elimina($this->getNomeCategoria()); 
+            return $fCategorie->elimina($this->getNomeCategoria()); //eliminaCategoria
         }
         else
         {
@@ -75,9 +76,8 @@ class ECategoria {
      */
     public function checkIfCanDelete() {
         $fEsami = USingleton::getInstance('FEsame');
-//        $esami = $fEsami->cercaEsamiByCategoria($this->getNomeCategoria());
         $daCercare['NomeCategoria'] = $this->getNomeCategoria(); 
-        $esami = $fEsami->cerca($daCercare);
+        $esami = $fEsami->cerca($daCercare); //cercaEsamiByCategoria
         if(count($esami)>0)
         {
             return FALSE;
@@ -85,9 +85,6 @@ class ECategoria {
         else
         {
             return TRUE;
-            
         }
-    }
-    
-    
+    }  
 }
