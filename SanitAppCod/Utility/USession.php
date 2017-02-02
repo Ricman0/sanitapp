@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of USession
+ * la classe USession si occupa di gestire le sessioni.
  *
  * @package Utility
  * @author Claudia Di Marco & Riccardo Mantini
@@ -25,7 +25,7 @@ class USession {
     }
     
     /**
-     * Metodo che terminare la Sessione
+     * Metodo che permette di terminare la Sessione.
      * 
      * @access public
      */
@@ -40,7 +40,7 @@ class USession {
     }
     
     /**
-     * Metodo che consente di impostare il valore di una variabile di sessione
+     * Metodo che consente di impostare il valore di una variabile di sessione.
      * 
      * @access public
      * @param string $chiave Variabile di sessione da impostare
@@ -77,7 +77,7 @@ class USession {
     
     /**
      * Metodo che consente di controllare se la variabile di sessione 
-     * passata come parametro è vuota o meno
+     * passata come parametro è vuota o meno.
      * 
      * @access public
      * @param string $chiave Variabile di sessione 
@@ -99,7 +99,7 @@ class USession {
     
     /**
      * Metodo che consente di eliminare la variabile di sessione passata come 
-     * parametro se presente
+     * parametro se presente.
      * 
      * @access public
      * @param string $chiave Variabile di sessione da eliminare

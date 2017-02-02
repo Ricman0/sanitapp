@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of UCookie
+ * La classe UCookie si occupa di gestire i cookie.
  *
  * @package Utility
  * @author Claudia Di Marco & Riccardo Mantini
@@ -31,7 +31,7 @@ class UCookie {
     }
 
     /**
-     * Metodo che consente di impostare un cookie
+     * Metodo che consente di impostare un cookie.
      * 
      * @access public
      * @param string $name Nome del cookie
@@ -48,7 +48,7 @@ class UCookie {
 
     /**
      * Metodo che permette di controllare se esiste un cookie con il nome
-     * passato per parametro
+     * passato per parametro.
      * 
      * @access public
      * @param string $name Il nome del cookie
@@ -64,7 +64,7 @@ class UCookie {
 
     /**
      * Metodo che permette di controllare se il cookie con il nome
-     * passato per parametro è vuoto
+     * passato per parametro è vuoto.
      * 
      * @access public
      * @param string $name Il nome del cookie
@@ -80,7 +80,7 @@ class UCookie {
     }
 
     /**
-     * Metodo che restituisce il valore del cookie
+     * Metodo che restituisce il valore del cookie.
      * 
      * @access public
      * @param string $name Il nome del cookie 
@@ -94,7 +94,7 @@ class UCookie {
     }
 
     /**
-     * Metodo che consente di eliminare un cookie esistente
+     * Metodo che consente di eliminare un cookie esistente.
      * 
      * @access public
      * @param string $name Il nome del cookie
@@ -107,7 +107,7 @@ class UCookie {
     }
 
     /**
-     * Metodo che consente di capire se i cookie sono abilitati
+     * Metodo che consente di capire se i cookie sono abilitati.
      * 
      * @access public
      * @return boolean true se sono abilitati, false altrimenti.
@@ -121,10 +121,10 @@ class UCookie {
     }
 
     /**
-     * Metodo che consente di incrementare il cookie "tentativi" nel caso in cui
-     * i dati di log in immessi sono errati.
+     * Metodo che consente di incrementare il cookie. 
      * 
      * @access public
+     * @param string $nomeCookie Il nome del cookie
      */
     public function incrementaCookie($nomeCookie) 
     {
@@ -142,7 +142,9 @@ class UCookie {
     }
 
     /**
-     * Controlla la validità del cookie tentativi
+     * Controlla la validità del cookie tentativi.
+     * 
+     * @access public
      * @return boolean Ritorna true se ci sono ancora tentativi, false altrimenti
      */
     public function checkValiditaTentativi() {
