@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of EUser
+ * La classe EUser si occupa della gestione in ram dell'user.
  *
+ * @package Entity
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class EUser {
@@ -63,15 +58,15 @@ class EUser {
     private $_tipoUser;
     
     /**
-     * Costruttore della classe EUser
+     * Costruttore della classe EUser.
      * 
-     * @param string $email L'email dell'utente
-     * @param type $name Description
-     * @param string $password La password dell'utente
-     * @param string $cod Il codice per confermare l'account
-     * @param string $PEC La pec dell'user
-     * @throws XUserException Quando lo user da istanziare non esiste
+     * @access public
+     * @param string $username L'username dello user
+     * @param string $password La password dello user
+     * @param string $email L'email dello user
+     * @param string $PEC La pec dell'user@throws XUserException Quando lo user da istanziare non esiste
      * @throws XDBException Se la query non è stata eseguita con successo
+     * @throws XUserException Se l'user è inesistente
      */
     public function __construct($username, $password = NULL, $email = NULL, $PEC=NULL) 
     {
@@ -130,8 +125,7 @@ class EUser {
             {
                 $fUser = USingleton::getInstance('FUser');
                 $daCercare['Username'] = $username;
-                $attributiUser = $fUser->cerca($daCercare);
-//                $attributiUser = $fUser->cercaUserByUsername($username);
+                $attributiUser = $fUser->cerca($daCercare); //cercaUserByUsername
                 if(is_array($attributiUser) && count($attributiUser)==1 && password_verify($password.$username, $attributiUser[0]['Password']))
                 {
                     $this->_username = $attributiUser[0]['Username'];
@@ -165,106 +159,24 @@ class EUser {
             }
 
         }
-        
-        
-//        if ($username !== NULL) 
-//        {
-//            $sessione = USingleton::getInstance('USession');
-//            $username = $sessione->leggiVariabileSessione('usernameLogIn');
-//            $fUtente = USingleton::getInstance('FUser');
-//            $risultato = $fUser->cercaUtente($username);
-////            echo "Utente trovato";
-//            if (!is_bool($risultato)) 
-//            {
-////                print_r($risultato);
-//                // esiste quell'utente
-//                $this->setNomeUtente($risultato[0]['Nome']);
-//                $this->setCognomeUtente($risultato[0]['Cognome']);
-//                $this->_codFiscale = $risultato[0]['CodFiscale'];
-//                $this->setViaUtente($risultato[0]['Via']);
-//                if (isset($risultato[0]['NumCivico'])) {
-//                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);
-//                }
-//                $this->setCAPUtente($risultato[0]['CAP']);
-//                $this->setEmailUtente($risultato[0]['Email']);
-//                $this->setUsernameUtente($risultato[0]['Username']);
-//                $this->setPasswordUtente($risultato[0]['Password']);
-//                $this->setConfermatoUtente($risultato[0]['Confermato']);
-//                $this->setCodiceConfermaUser($risultato[0]['CodiceConferma']);
-//                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
-//            }
-//            
-//        } 
-//        else 
-//        {
-//            if ($cf !== NULL && $username !== NULL) 
-//            {
-//                $this->_nome = $nome;
-//                $this->_cognome = $cognome;
-//                $this->_codFiscale = $cf;
-//                $this->_via = $via;
-//                if (isset($numeroCivico)) {
-//                    $this->_numeroCivico = $numeroCivico;
-//                } else {
-//                    $this->_numeroCivico = NULL;
-//                }
-//
-//                $this->_CAP = $cap;
-//                $this->_email = $email;
-//                $this->_username = $username;
-//                $this->_password = $password;
-//                $this->_codiceConferma = $cod;
-//                $this->_confermato = FALSE;
-//                $this->_prenotazioni = new ArrayObject(); // da vedere:array di oggetti o bastava semplicemente Array()??
-//                if (isset($medico)) {
-//                    $this->_medicoCurante = $medico;
-//                } else {
-//                    $this->_medicoCurante = NULL;
-//                }
-//            }
-//            else // cf !== null and username === null
-//            {
-//                
-//            $fUtente = USingleton::getInstance('FUtente');
-//            $risultato = $fUtente->cercaUtenteByCF($cf);
-////            echo "Utente trovato";
-//            if (!is_bool($risultato)) {
-////                print_r($risultato);
-//                // esiste quell'utente
-//                $this->setNomeUtente($risultato[0]['Nome']);
-//                $this->setCognomeUtente($risultato[0]['Cognome']);
-//                $this->_codFiscale = $risultato[0]['CodFiscale'];
-//                $this->setViaUtente($risultato[0]['Via']);
-//                if (isset($risultato[0]['NumCivico'])) {
-//                    $this->setNumCivicoUtente($risultato[0]['NumCivico']);
-//                }
-//                $this->setCAPUtente($risultato[0]['CAP']);
-//                $this->setEmailUtente($risultato[0]['Email']);
-//                $this->setUsernameUtente($risultato[0]['Username']);
-//                $this->setPasswordUtente($risultato[0]['Password']);
-//                $this->setConfermatoUtente($risultato[0]['Confermato']);
-//                $this->setCodiceConfermaUser($risultato[0]['CodiceConferma']);
-//                $this->_medicoCurante = $risultato[0]['CodFiscaleMedico'];
-//            }
-//    
-//            }
-//        }
     }
 
     //metodi get
 
     /**
-     * Metodo per conoscere lo username dell'user
+     * Metodo per conoscere lo username dell'user.
      * 
-     * @return string lo username dell'user
+     * @access public
+     * @return string Lo username dell'user
      */
     public function getUsernameUser() {
         return $this->_username;
     }
 
     /**
-     * Metodo per conoscere la password dell'user
+     * Metodo per conoscere la password dell'user.
      * 
+     * @access public
      * @return string La password dell'user
      */
     public function getPasswordUser() {
@@ -272,8 +184,9 @@ class EUser {
     }
     
     /**
-     * Metodo per conoscere l'email dell'user
+     * Metodo per conoscere l'email dell'user.
      * 
+     * @access public
      * @return string L'email dell'user
      */
     public function getEmailUser() {
@@ -281,8 +194,9 @@ class EUser {
     }
     
     /**
-     * Metodo per conoscere la PEC dell'user
+     * Metodo per conoscere la PEC dell'user.
      * 
+     * @access public
      * @return string La PEC dell'user
      */
     public function getPECUser() {
@@ -290,8 +204,9 @@ class EUser {
     }
     
     /**
-     * Metodo per conoscere il codice di conferma dell'user
+     * Metodo per conoscere il codice di conferma dell'user.
      * 
+     * @access public
      * @return string Il codice dell'user 
      */
     public function getCodiceConfermaUser() {
@@ -299,9 +214,10 @@ class EUser {
     }
 
     /**
-     * Metodo che permette di capire se l'account Ã¨ stato confermato o meno
+     * Metodo che permette di capire se l'account è stato confermato o meno.
      * 
-     * @return boolean TRUE se l'account Ã¨ stato confermato, FALSE altrimenti
+     * @access public
+     * @return boolean TRUE se l'account è stato confermato, FALSE altrimenti
      */
     public function getConfermatoUser() 
     {
@@ -309,9 +225,10 @@ class EUser {
     }
     
     /**
-     * Metodo che permette di capire se l'account Ã¨ stato bloccato o meno
+     * Metodo che permette di capire se l'account è stato bloccato o meno.
      * 
-     * @return boolean TRUE se l'account Ã¨ stato bloccato, FALSE altrimenti
+     * @access public
+     * @return boolean TRUE se l'account è stato bloccato, FALSE altrimenti
      */
     public function getBloccatoUser() 
     {
@@ -319,8 +236,9 @@ class EUser {
     }
     
     /**
-     * Metodo per conoscere il tipo di user
+     * Metodo per conoscere il tipo di user.
      * 
+     * @access public
      * @return string il tipo di user
      */
     public function getTipoUserUser() 
@@ -331,8 +249,9 @@ class EUser {
     //metodi set
 
     /**
-     * Metodo che permette di modificare lo username dell'user
+     * Metodo che permette di modificare lo username dell'user.
      * 
+     * @access public
      * @param string $un Il nuovo username dell'user
      */
     public function setUsername($un) 
@@ -341,8 +260,9 @@ class EUser {
     }
 
     /**
-     * Metodo che permette di modificare la password dell'user
+     * Metodo che permette di modificare la password dell'user.
      * 
+     * @access public
      * @param string $pw La nuova password dell'user
      */
     public function setPassword($pw) 
@@ -351,8 +271,9 @@ class EUser {
     }
 
     /**
-     * Metodo che permette di modificare l'email dell'user
+     * Metodo che permette di modificare l'email dell'user.
      * 
+     * @access public
      * @param string $email L'email dell'user
      */
     public function setEmail($email) 
@@ -361,8 +282,9 @@ class EUser {
     }
     
     /**
-     * Metodo che permette di modificare la PEC dell'user
+     * Metodo che permette di modificare la PEC dell'user.
      * 
+     * @access public
      * @param string $PEC La PEC dell'user
      */
     public function setPEC($PEC) 
@@ -372,8 +294,9 @@ class EUser {
 
    
     /**
-     * Metodo che permette di modificare il codice di conferma dell'user
+     * Metodo che permette di modificare il codice di conferma dell'user.
      * 
+     * @access public
      * @param string $cod Il nuovo codice per la conferma dell'user
      */
     public function setCodiceConfermaUser($cod) 
@@ -381,11 +304,10 @@ class EUser {
         $this->_codiceConferma = $cod;
     }
 
-    
-
     /**
-     * Metodo che permette di impostare la conferma dell'account 
+     * Metodo che permette di impostare la conferma dell'account. 
      * 
+     * @access public
      * @param boolean $confermato Imposta la conferma dell'account 
      */
     public function setConfermato($confermato) 
@@ -394,8 +316,9 @@ class EUser {
     }
     
     /**
-     * Metodo che permette di impostare il blocco dell'account 
+     * Metodo che permette di impostare il blocco dell'account. 
      * 
+     * @access public
      * @param boolean $bloccato Imposta il blocco dell'account 
      */
     public function setBloccato($bloccato) 
@@ -404,9 +327,10 @@ class EUser {
     }
     
     /**
-     * Metodo per impostare il tipo di user
+     * Metodo per impostare il tipo di user.
      * 
-     *  @param string $tipo Il tipo di user
+     * @access public
+     * @param string $tipo Il tipo di user
      */
     public function setTipoUser($tipo) 
     {
@@ -414,32 +338,25 @@ class EUser {
     }
 
     /**
-     * Metodo che permette di inserire un oggetto di tipo EUser nel DB
+     * Metodo che permette di inserire un oggetto di tipo EUser nel DB.
      * 
      * @access public
-     * @return string|Boolean Il codice di conferma se l'utente Ã¨ stato inserito correttamente, altrimenti FALSE (l'utente  non Ã¨ stato inserito correttamente nel DB)
+     * @return string Il codice di conferma se l'utente è stato inserito correttamente nel DB.
      */
-    public function inserisciUserDB() {
-        //crea un oggetto fUser se non Ã¨ esistente, si collega al DB e lo inserisce
-        $fUser = USingleton::getInstance('FUser');
-//        return $fUtente->inserisciUtente($eUtente);
-        if ($fUser->inserisciUser($this) === TRUE) 
-        {
-            //forse ne ho bisogno nella mail di conferma????
-            return $this->getCodiceConfermaUser();
-        } 
-        else 
-        {
-            return FALSE;
-        }
-    }
+//    public function inserisciUserDB() {
+//        //crea un oggetto fUser se non è esistente, si collega al DB e lo inserisce
+//        $fUser = USingleton::getInstance('FUser');
+//        $fUser->inserisciUser($this);
+//        return $this->getCodiceConfermaUser();
+//    }
     
     
     /**
-     * Metodo che consente di cercare se un username Ã¨ giÃ  esistente
+     * Metodo che consente di cercare se un username è già esistente.
      * 
      * @access public
-     * @return boolean TRUE username esistente, FALSE altrimenti
+     * @return boolean TRUE username esistente
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function esisteUsername() 
     {
@@ -448,10 +365,11 @@ class EUser {
     }
     
     /**
-     * Metodo che controlla che uno user cercato esiste. Se esiste lo restituisce atraverso un array
+     * Metodo che controlla che uno user cercato esiste. Se esiste lo restituisce attraverso un array.
      * 
      * @access public
-     * @return Array|boolean Un array contenente Username,TipoUser e Confermato, FALSE se non esiste un utente.
+     * @return array|boolean Un array contenente Username,TipoUser e Confermato, FALSE se non esiste un user.
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function esisteUser() 
     {
@@ -459,9 +377,8 @@ class EUser {
         return $fUser->esisteUserDB($this->_username, $this->_password);
     }
     
-    
     /**
-     * Metodo che consente di impostare le variabili di sessione dello user
+     * Metodo che consente di impostare le variabili di sessione dello user.
      * 
      * @access public
      * @param string $username L'username dell'user
@@ -478,12 +395,12 @@ class EUser {
     
     
     /**
-     * Metodo che consente di confermare l'account di un user  
+     * Metodo che consente di confermare l'account di un user.  
      * 
      * @access public
      * @param string $idConferma Il codice di conferma per effettuare la conferma di un account
-     * @throws XDBException Se la query non Ã¨ stata eseguita con successo
      * @return boolean TRUE User confermato, FALSE altrimenti.
+     * @throws XDBException Se la query non Ã¨ stata eseguita con successo
      */
     public function confermaUser($idConferma) 
     {
@@ -497,24 +414,23 @@ class EUser {
             $fUser = USingleton::getInstance('FUser');
             $daCercare['Username'] = $username;
             $daCercare['CodiceConferma'] = $idConferma;
-            $user = $fUser->cerca($daCercare);
-//            $user = $fUser->cercaUserByUsernameCodiceConferma ($username,$idConferma);
+            $user = $fUser->cerca($daCercare);//cercaUserByUsernameCodiceConferma 
             if(is_array($user) && count($user)===1)
             {
                 $daModificare['Confermato'] = TRUE;
-                return $fUser->update($username, $daModificare);
-//                return $fUser->confermaUser($username);
+                return $fUser->update($username, $daModificare); //confermaUser
             }              
         }
         
     }
     
     /**
-     * Metodo che permette di modificare la password (la modifica avviene anche nel DB)
+     * Metodo che permette di modificare la password (la modifica avviene anche nel DB).
      * 
      * @access public
      * @param string $password password da modificare, se non fornito crea una password automaticamente
-     * @return boolean TRUE modifica effettuata, FALSE altrimenti
+     * @return boolean TRUE modifica effettuata
+     * @throws XDBException Se la query non è eseguita con successo
      */
     public function modificaPassword($password = NULL) 
     {
@@ -526,13 +442,12 @@ class EUser {
         $password = password_hash($password.$username, PASSWORD_BCRYPT);
         $this->setPassword($password);
         $fUser = USingleton::getInstance('FUser');
-//        return $fUser->modificaPassword($this->getUsernameUser(), $this->getPasswordUser());
         $daModificare['Password']= $this->getPasswordUser();
-        return $fUser->update($this->getUsernameUser(), $daModificare);
+        return $fUser->update($this->getUsernameUser(), $daModificare); //modificaPassword
     }
     
     /**
-     * Genera una password casuale in conformità dalle regole imposte 
+     * Genera una password casuale in conformità dalle regole imposte.
      * 
      * @access private 
      * @param int $length lunghezza della password
@@ -557,7 +472,4 @@ class EUser {
         $result .= mb_substr($num, $index, 1);
         return $result;
     }
-
-
-
 }

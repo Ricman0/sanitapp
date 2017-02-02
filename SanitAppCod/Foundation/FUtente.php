@@ -71,31 +71,31 @@ class FUtente extends FUser{
      * @param EUtente $utente L'utente di cui si vogliono ottenere i valori degli attributi 
      * @return string Stringa contenente i valori degli attributi (eccetto prenotazioni) separati da una virgola
      */
-    public function getAttributi($utente) 
-    {
-//        $valoriAttributi = $$utente->getNomeUtente() . ", " . $utente->getCognomeUtente()
-//        . ", " . $utente->getViaUtente(). ", " 
-//        . $utente->getNumCivicoUtente() . ", " . $utente->getCAPUtente() . ", " 
-//        . $utente->getCodFiscaleUtente() . ", " 
-//        .   $utente->getEmailUserUtente() . ", "  . $utente->getUsernameUtente() 
-//        . ", " . $utente->getPasswordUtente() ;
-        $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getCodFiscaleUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getNomeUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getCognomeUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getViaUtente()) . "', "
-                . $utente->getNumCivicoUtente() . ", '"
-                . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
-                . $this->trimEscapeStringa($utente->getUsernameUser()) . "', ";
-        if(NULL !== $utente->getCodFiscaleMedicoUtente())
-        {
-            $valoriAttributi = $valoriAttributi . "'" . $utente->getCodFiscaleMedicoUtente() . "'";
-        }
-        else 
-        {
-            $valoriAttributi = $valoriAttributi . "NULL "; 
-        }     
-        return $valoriAttributi;
-    }
+//    public function getAttributi($utente) 
+//    {
+////        $valoriAttributi = $$utente->getNomeUtente() . ", " . $utente->getCognomeUtente()
+////        . ", " . $utente->getViaUtente(). ", " 
+////        . $utente->getNumCivicoUtente() . ", " . $utente->getCAPUtente() . ", " 
+////        . $utente->getCodFiscaleUtente() . ", " 
+////        .   $utente->getEmailUserUtente() . ", "  . $utente->getUsernameUtente() 
+////        . ", " . $utente->getPasswordUtente() ;
+//        $valoriAttributi = "'" . $this->trimEscapeStringa($utente->getCodFiscaleUtente()) . "', '"
+//                . $this->trimEscapeStringa($utente->getNomeUtente()) . "', '"
+//                . $this->trimEscapeStringa($utente->getCognomeUtente()) . "', '"
+//                . $this->trimEscapeStringa($utente->getViaUtente()) . "', "
+//                . $utente->getNumCivicoUtente() . ", '"
+//                . $this->trimEscapeStringa($utente->getCAPUtente()) . "', '"
+//                . $this->trimEscapeStringa($utente->getUsernameUser()) . "', ";
+//        if(NULL !== $utente->getCodFiscaleMedicoUtente())
+//        {
+//            $valoriAttributi = $valoriAttributi . "'" . $utente->getCodFiscaleMedicoUtente() . "'";
+//        }
+//        else 
+//        {
+//            $valoriAttributi = $valoriAttributi . "NULL "; 
+//        }     
+//        return $valoriAttributi;
+//    }
     
     /**
      * Metodo che permette di controllare se un'email passata per parametro sia
@@ -168,15 +168,14 @@ class FUtente extends FUser{
      * @param string $cf Il codice fiscale dell'utente da cercare
      * @return array|boolean Array contenente l'utente cercato
      */
-//    public function cercaUtenteByCF($cf) 
-//    {
-//        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
-//                . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
-//                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
-//        $risultato = $this->eseguiQuery($query);
-////        echo "count: ". count($risultato);        
-//        return $risultato;
-//    }
+    public function cercaUtenteByCF($cf) 
+    {
+        $query = "SELECT appuser.*, " . $this->_nomeTabella . ".* FROM " . $this->_nomeTabella . ",appuser "
+                . "WHERE " . $this->_nomeTabella. ".codFiscale='" . $cf . "' AND "
+                . "appuser.Username=" . $this->_nomeTabella . ".Username LOCK IN SHARE MODE";
+        $risultato = $this->eseguiQuery($query);     
+        return $risultato;
+    }
     
     
     

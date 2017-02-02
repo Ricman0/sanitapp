@@ -339,10 +339,9 @@ class CHome {
                 }
                 break;
 
-            case 'registrazione': // POST registrazione
+            case 'registrazione': // POST registrazione                         //utilizzato
                 $cRegistrazione = USingleton::getInstance('CRegistrazione');
                 $cRegistrazione->gestisciRegistrazionePOST();
-//                $cRegistrazione->inserisciRegistrazione();
                 break;
 
             case 'ricerca': //POST ricerca                                      //utilizzato
