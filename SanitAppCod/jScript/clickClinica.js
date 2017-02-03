@@ -1346,6 +1346,7 @@ function agendaEventClick(event, jsEvent, view)
     });
     
     $('.modificaNonEseguito').on('click', function () {
+        alert('click');
         // apro un'altra finestra
         $('#contenutoAreaPersonale').append("<div id='altroContenutoEventoNonEseguito' title='Dettaglio evento'><div id='nonEseguito'></div>");
         $('#nonEseguito').append('<p>Per modificare la prenotazione in prenotazione non eseguita, clicca su Non Eseguita</p>');
@@ -1388,6 +1389,7 @@ function agendaEventClick(event, jsEvent, view)
     
     $('.modificaEseguito').on('click', function () {
         // apro un'altra finestra
+         alert('clickdddd');
         $('#contenutoAreaPersonale').append("<div id='altroContenutoEvento' title='Dettaglio evento'><div id='eseguito'></div>");
         $('#eseguito').append('<p>Per modificare la prenotazione in prenotazione eseguita, clicca su Eseguita</p>');
         $("#altroContenutoEvento").dialog({ 
