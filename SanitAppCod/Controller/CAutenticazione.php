@@ -1,7 +1,7 @@
 <?php
 
 /**
- * La classe CAutenticazione di occupa di gestire il necessario per l'autenticazione degli user.
+ * La classe CAutenticazione si occupa di gestire il necessario per l'autenticazione degli user.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini

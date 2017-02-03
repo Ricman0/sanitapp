@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of CImpostazioni
+ * La classe CImpostazioni si occupa di gestire il controller 'impostazioni'.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of CGestioneServizi
+ * La classe CGestisciServizi si occupa di gestire il controller 'servizi'.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
@@ -199,13 +199,10 @@ class CGestisciServizi {
             
             default:
                 // caso in cui si vogliono solo visualizzare i servizi
-//                $esami = USingleton::getInstance('CRicercaEsami');
-//                $esami->
                 $esami = USingleton::getInstance('FEsame');
                 //cerco tutti gli esami della clinica di cui passo il nome
                 $risultato = $esami->cercaEsame("",$nomeClinica,"");
                 $vServizi->visualizzaEsami($risultato);
-                
                 break;
         }
         

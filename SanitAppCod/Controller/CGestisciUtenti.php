@@ -1,13 +1,18 @@
 <?php
 
 /**
- * Description of CGestisciUtenti
+ * La classe CGestisciUtenti si occupa di bloccare automaticamente gli utenti che non hanno effettuato più di 3 prenotazioni.
  *
  * @package Controller
- * @author Claudia
+ * @author Claudia Di Marco & Riccardo Mantini
  */
 class CGestisciUtenti {
     
+    /**
+     * Metodo che consente di bloccare automaticamente gli utenti che non hanno effettuato più di 3 prenotazioni.
+     * 
+     * @access public
+     */
     public function cercaUtentiDaBloccare() {
         // manca il passaggio attraverso l'entity
         $fUtenti = USingleton::getInstance('FUtente');

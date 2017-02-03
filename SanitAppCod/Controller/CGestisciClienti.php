@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of CClienti
+ * La classe CGestisciClienti si occupa di gestire il controller 'clienti'.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini

@@ -1,13 +1,7 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of CGestisciAgenda
+ * La classe CGestisciAgenda si occupa di gestire il controller 'agenda'.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
@@ -31,9 +25,6 @@ class CGestisciAgenda {
             default:// post agenda 
                 $start = $vAgenda->recuperaValore('start');
                 $end = $vAgenda->recuperaValore('end');
-//                $validazione = USingleton::getInstance('UValidazione');
-//                if($validazione->validaDataOraString($start)===TRUE && $validazione->validaDataOraString($end)===TRUE )
-//                {
                 try {
                     $sessione = USingleton::getInstance('USession');
                     $username = $sessione->leggiVariabileSessione('usernameLogIn');
@@ -47,25 +38,13 @@ class CGestisciAgenda {
                 }
                 catch (XClinicaException $ex) {
                     $vAgenda->visualizzaFeedback("C'è stato un errore. Se il problema si ripresenta, contatti l'aministratore.");
-                }
-                    
-//                }
-//                else
-//                {
-//                    $messaggio = "";
-//                    foreach ($validazione->getDatiErrati() as $value) {
-//                        $messaggio = $messaggio . " " . $value;
-//                    }
-//                    $vAgenda ->visualizzaFeedback($messaggio);
-//                }  
-                    
-                
+                } 
                 break;
         }
     }
     
     /**
-     * Metodo che consente di visualizzare l'agenda della clinica gestendo eventuali errori/eccezioni.
+     * Metodo che consente di visualizzare l'agenda della clinica gestendo eventuali errori/eccezioni lanciate dalla funzione visualizzaAgenda().
      * 
      * @access private
      */
