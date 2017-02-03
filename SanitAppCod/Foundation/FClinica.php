@@ -189,23 +189,8 @@ class FClinica extends FUser{
      */
     public function cercaClinica($nome, $luogo)
     {
-        if($nome == "all")
-        {
-            $nome = "";
-        }
-        else
-        {
-            $nome = str_replace("_", " ", $nome);
-        }
-        if($luogo == "all")
-        {
-            $luogo = "";
-        }
-        else
-        {
-            $luogo = str_replace("_", " ", $luogo);
-        }
-        
+        $nome = str_replace("+", " ", $nome);
+        $luogo = str_replace("+", " ", $luogo);
         if(!empty($nome))
         {
             if(!empty($luogo))

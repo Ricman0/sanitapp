@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of CGestisciUser
+ * La classe CGestisciUser si occupa di gestire il controller 'users'.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini

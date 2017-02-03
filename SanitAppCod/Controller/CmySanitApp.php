@@ -1,12 +1,11 @@
 <?php
 
 /**
- * Description of CmySanitApp
+ * La classe CmySanitApp si occupa di gestire la pagina personale di un user.
  *
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
-
 class CmySanitApp {
     
     /**

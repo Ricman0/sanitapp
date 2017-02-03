@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Description of CReferti
+ * La classe CReferti si occupa della gestione dei referti.
  *
  * @package Controller
- * @author Claudia Di Marco & Riccardo Mantini 
+ * @author Claudia Di Marco & Riccardo Mantini
  */
 class CReferti {
 

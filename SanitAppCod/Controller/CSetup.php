@@ -1,7 +1,9 @@
 <?php
+
 /**
- * Description of CSetup
+ * La classe CSetup si occupa di gestire l'istallazione.
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CSetup {

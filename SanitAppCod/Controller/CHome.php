@@ -95,9 +95,9 @@ class CHome {
                 $cCliniche->gestisciCliniche();
                 break;
 
-            case 'contatti':
-                $cContatti = USingleton::getInstance('CContatti');
-                $cContatti->visualizzaContatti();
+            case 'contatti': //GET Contatti 
+                $cInformazioni = USingleton::getInstance('CInformazioni');
+                $cInformazioni->visualizzaContatti();
                 break;
 
             case 'esami': // GET esami
@@ -117,12 +117,12 @@ class CHome {
                 }
                 break;
 
-            case 'info': // GET impostazioni
+            case 'info': // GET info
                 $cInfo = USingleton::getInstance('CInformazioni');
-                $cInfo->visualizzaInfo();
+                $cInfo->visualizzaInfoPagina();
                 break;
 
-            case 'logOut':
+            case 'logOut': //GET logOut
                 if ($loggato) {
                     $cAutenticazione = USingleton::getInstance('CAutenticazione');
                     $cAutenticazione->logOut();
@@ -285,7 +285,7 @@ class CHome {
                 }
                 break;
 
-            case 'autenticazione': //POST  autenticazione
+            case 'autenticazione': //POST  autenticazione                       //utilizzato
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
                 $cAutenticazione->tryAutenticaUser();
                 break;
@@ -299,16 +299,16 @@ class CHome {
                 }
                 break;
 
-//            case 'cliniche':
-//                $cCliniche = USingleton::getInstance('CRicercaCliniche');
-//                $cCliniche->impostaPaginaRisultatoCliniche();
-//                //in $risultato c'è il risultato della query
-//                break;
-//            case 'esami':
-//                $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
-//                $cRicercaEsami->impostaPaginaRisultatoEsami();
-//                break;
-//            
+            case 'cliniche':  //POST cliniche
+                $cCliniche = USingleton::getInstance('CRicercaCliniche');
+                $cCliniche->impostaPaginaRisultatoCliniche();
+                break;
+            
+            case 'esami': //POST esami
+                $cRicercaEsami = USingleton::getInstance('CRicercaEsami');
+                $cRicercaEsami->impostaPaginaRisultatoEsami();
+                break;
+     
             case 'impostazioni': //POST impostazioni
                 if ($loggato) {
                     $cImpostazioni = USingleton::getInstance('CImpostazioni');

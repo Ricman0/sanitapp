@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of CGestisciCategorie
+ /**
+ * La classe CGestisciCategorie si occupa di gestire il controller 'categorie'.
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CGestisciCategorie {

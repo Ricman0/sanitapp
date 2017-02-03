@@ -1,20 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of CGestisciPazienti
+ * La classe CGestisciPazienti si occupa di gestire il controller 'pazienti'.
  *
+ * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class CGestisciPazienti {
 
     /**
-     * Metodo che consente di gestire le richieste GET per il controller pazienti.
+     * Metodo che consente di gestire le richieste GET per il controller 'pazienti'.
      * 
      * @access public
      */

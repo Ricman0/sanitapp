@@ -1,13 +1,7 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of XDatiLogInException
+ * Classe XDatiLogInException che definisce le eccezioni per l'autenticazione dello user.
  *
  * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
@@ -17,6 +11,7 @@ class XDatiLogInException extends Exception{
     /**
      * Costruttore di XDatiLogInException
      * 
+     * @access public
      * @param string $messaggio Il messaggio dell'eccezione
      */
     public function __construct($messaggio) {

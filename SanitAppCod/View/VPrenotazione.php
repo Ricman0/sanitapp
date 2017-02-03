@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of VPrenotazione
+ * La classe VPrenotazione si occupa di visualizzare i template relativi alle prenotazioni.
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini
@@ -47,37 +47,15 @@ class VPrenotazione extends View{
         
         $this->visualizzaTemplate('riepilogoPrenotazione');
     }
-    
-//    public function inviaDate($date) 
-//    {   
-//        echo $this->json_encode($date);  
-//    }
-//    
-//
-//    public function getAzione() 
-//    {
-//        echo "ss";
-//        if (isset($_REQUEST['azione'])) 
-//        {
-//            echo "2";
-//            return $_REQUEST['azione'];
-//        }
-//        else 
-//        {
-//            return FALSE;
-//        }
-//    }
 
-    
-    
-    
     /**
      * Metodo che consente di restituire tutte le prenotazioni associate ad un user.
      * 
      * @access public
+     * @param string $tipoUser Il tipo di user
      * @param array $risultato Il risultato della ricerca delle prenotazioni
      */
-    public function restituisciPaginaRisultatoPrenotazioni($tipoUser, $risultato=NULL) 
+    public function restituisciPaginaRisultatoPrenotazioni($tipoUser, $risultato=NULL) //controllato
     {
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         $this->assegnaVariabiliTemplate('tipoUser', ucfirst($tipoUser));
@@ -135,7 +113,7 @@ class VPrenotazione extends View{
     }
     
     /**
-     * Metodo che consente di visualizzare tutte le informazioni di una prenotazione
+     * Metodo che consente di visualizzare tutte le informazioni di una prenotazione.
      * 
      * @access public
      * @param EPrenotazione $prenotazione La prenotazione di cui si vogliono visualizzare le informazioni
@@ -150,7 +128,7 @@ class VPrenotazione extends View{
      * @param string $cognome Il cognome di chi ha prenotato la visita
      * @param boolean $cancellaPrenota TRUE se è possibile modificare o cambiare la prenotazione, FALSE altrimenti
      */
-    public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto=NULL, $nome, $cognome, $cancellaPrenota) 
+    public function visualizzaInfoPrenotazione($prenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto=NULL, $nome, $cognome, $cancellaPrenota)   //controllato
     {
         $this->assegnaVariabiliTemplate('prenotazione', $prenotazione);        
         $this->assegnaVariabiliTemplate('tipoUser', $tipoUser);

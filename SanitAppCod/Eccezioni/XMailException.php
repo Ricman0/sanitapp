@@ -1,14 +1,8 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of XMailException
- *
+ * Classe XMailException che definisce le eccezioni della mail.
+ * 
  * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
  */
@@ -16,6 +10,7 @@ class XMailException extends Exception{
     /**
      * Costruttore di XMailException 
      * 
+     * @access public
      * @param string $messaggio Il messaggio dell'eccezione
      */
     public function __construct($messaggio) {

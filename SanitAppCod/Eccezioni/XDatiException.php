@@ -1,16 +1,17 @@
 <?php
 
 /**
- * Description of XDatiException
- *
+ * Classe XDatiException che definisce le eccezioni dei dati.
+ * 
  * @package Eccezioni
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class XDatiException extends Exception{
     
     /**
-     * Costruttore di XDatiException
+     * Costruttore di XDatiException.
      * 
+     * @access public
      * @param array $messaggi I messaggi dell'eccezione
      */
     public function __construct($messaggi) {
