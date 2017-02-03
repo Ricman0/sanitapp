@@ -10,7 +10,7 @@
         Il medico che vuole validarsi dovrà fornire l'autorizzazione per 
         l'esercizio della professione sanitaria. <br><br>
         Tutta la documentazione fornita dovra essere inviata all'amministratore tramite 
-        l'utilizzo <br> di posta certificata oppure per via raccomandata. <br> Per le informazioni necessare 
+        l'utilizzo <br> di posta certificata oppure per via raccomandata. <br> Per le informazioni necessarie 
         all'invio dei documenti fare riferimento alla sezione dei contatti.
     </h4>
 </div>

@@ -15,7 +15,7 @@
             <input type="password" id="passwordLogIn" maxlength="10" placeholder="Enter Password" name="passwordLogIn" required>
 
             <button type="submit" id="submitLogIn" class="loginButton sottile">Login</button>
-            <input type="checkbox" checked="checked"> Remember me &nbsp
+            &nbsp &nbsp
 
             <a  id='recuperaPassword'> Password dimenticata?</a>
 
