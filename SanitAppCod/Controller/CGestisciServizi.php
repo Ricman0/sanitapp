@@ -133,6 +133,7 @@ class CGestisciServizi {
     /**
      * Metodo che consente di gestire l'azione richiesta dalla clinica per il controller 'servizi'.
      * 
+     * @param string $azione indica l'azione da svolgere, 'aggiungi', 'visualizza'
      * @access private
      */
     private function gestisciAzione($azione)

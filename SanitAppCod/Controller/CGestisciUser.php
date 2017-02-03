@@ -372,7 +372,11 @@ class CGestisciUser {
         }
     }
     
-    
+    /**
+     * Gestisce gli user bloccati
+     * 
+     * @access public
+     */
     public function gestisciUsersBloccati(){
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
@@ -402,6 +406,11 @@ class CGestisciUser {
         }
     } 
     
+    /**
+     * Gestisce gli user da validare
+     * 
+     * @access public
+     */
     public function gestisciUsersDaValidare(){
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');

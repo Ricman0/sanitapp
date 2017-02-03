@@ -28,8 +28,9 @@ class CHome {
     }
 
     /**
+     * Metodo che permette di selezionare l'azione da svolgere a seconda del parametro passsato
      * 
-     * @param type $argv
+     * @param string $argv Parametro definito nel cronjob può essere 'memo' o 'blocca'
      */
     public function smistaJob($argv) {
         $argument1 = $argv[1];
