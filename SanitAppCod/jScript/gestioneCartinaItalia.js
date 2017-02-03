@@ -23,15 +23,14 @@ $(function () {
 
 function inviaRegione(nomeRegione) {
 
-    var controller = "cliniche";
+    var  nomeClinica = '';
     var luogo = nomeRegione;
-    luogo = luogo.replace("-", "_");
-    luogo = luogo.replace(" ", "_");
-    var url = controller + "/all/" + luogo;
+    luogo = luogo.replace("-", " ");
+    var datiPOST ={nome:nomeClinica, luogo:luogo};
     $.ajax({
-        
-        type: "GET",
-        url: url,
+        type: "POST",
+        url: 'cliniche',
+        data: datiPOST,
         dataType: "html",
         success: function (msg)
         {

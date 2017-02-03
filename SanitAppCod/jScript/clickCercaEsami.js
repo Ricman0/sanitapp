@@ -11,7 +11,11 @@ $(document).ready(function () {
         if ($('#contenutoAreaPersonale').length) {
             ajaxDiv ='#contenutoAreaPersonale';
         }
-        var nomeClinica = (($("input[name=clinica]").val()).toLowerCase()).trim();
+        var  nomeClinica = '';
+        if($("input[name=clinica]").length){
+            nomeClinica = (($("input[name=clinica]").val()).toLowerCase()).trim();
+        }
+         
         var nomeEsame = (($("input[name=esame]").val()).toLowerCase()).trim();
         var luogo = (($("input[name=luogo]").val()).toLowerCase()).trim();
         var datiPOST = {nomeClinica:nomeClinica, luogo:luogo, nomeEsame: nomeEsame};
@@ -49,99 +53,3 @@ $(document).ready(function () {
     });
 });
 
-function inviaDatiForm(ajaxDiv)
-{
-    
-    var controller = $(".controllerFormRicercaEsami").val();
-    var nomeClinica = '';
-    if($("input[name=clinica]").length){
-        nomeClinica = (($("input[name=clinica]").val()).toLowerCase()).trim();
-        nomeClinica = nomeClinica.replace(" ", "_");
-    }
-    var nomeEsame = (($("input[name=esame]").val()).toLowerCase()).trim();
-    nomeEsame = nomeEsame.replace(" ", "_");
-    var luogo = (($("input[name=luogo]").val()).toLowerCase()).trim();
-    luogo = luogo.replace(" ", "_");
-    var url= controller;
-    //nome esame !=0
-    if (nomeEsame.length !== 0)
-    {
-        //nomeClinica e luogo = 0
-        if (nomeClinica.length === 0)
-        {
-            if (luogo.length === 0)
-            {
-                url = url + "/" + nomeEsame;
-            } else
-            {
-                url = url + "/" + nomeEsame + "/all/" + luogo;
-            }
-        } else
-        {
-            if (luogo.length === 0)
-            {
-                url = url + "/" + nomeEsame + "/" + nomeClinica;
-            } else
-            {
-                url = url + "/" + nomeEsame + "/" + nomeClinica + "/" + luogo;
-            }
-        }
-    }
-    //nome esame =0
-    else
-    {
-        if (nomeClinica.length !== 0)
-        {
-            if (luogo.length === 0)
-            {
-                url = url + "/all/" + nomeClinica;
-            } else
-            {
-                url = url + "/all/" + nomeClinica + "/" + luogo;
-            }
-        } else
-        {
-            if (luogo.length !== 0)
-            {
-                url = url + "/all/all/" + luogo;
-            }
-
-        }
-    }
-  
-    $.ajax({
-        //url della risorsa alla quale viene inviata la richiesta
-        // url:  "index.php",
-        url: url,
-        //il tipo di richiesta HTTP da effettuare, di default è GET
-        type: 'GET',
-        dataType: "html",
-        success: function (msg)
-        {
-            $(ajaxDiv).html(msg);
-            $("#tabellaEsami").tablesorter({
-                theme: 'blue',
-                widgets: ["filter"],
-                widgetOptions: {
-                    // filter_anyMatch replaced! Instead use the filter_external option
-                    // Set to use a jQuery selector (or jQuery object) pointing to the
-                    // external filter (column specific or any match)
-                    filter_external: '.search',
-                    // add a default type search to the first name column
-                    filter_defaultFilter: {1: '~{query}'},
-                    // include column filters
-                    filter_columnFilters: true,
-                    filter_placeholder: {search: 'Search...'},
-                    filter_saveFilters: true,
-                    filter_reset: '.reset'
-                }
-
-            });
-        },
-        error: function ()
-        {
-            alert("Chiamata fallita, si prega di riprovare...  ");
-
-        }
-    });
-}

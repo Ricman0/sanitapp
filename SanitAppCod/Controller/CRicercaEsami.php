@@ -1,7 +1,7 @@
 <?php
 
 /**
- * La classe CRicercaEsami si occupa di gestire il caso d'uso della ricerca degli
+ * La classe CRicercaEsami si occupa di gestire gli esami e la ricerca degli
  * esami nell'applicazione.
  *
  * @package Controller

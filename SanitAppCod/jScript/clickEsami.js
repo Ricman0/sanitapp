@@ -1,8 +1,13 @@
 $(document).ready(function () {
     
     $('#headerMain').on("click", "#esami", function (e) {
-//        e.preventDefault();
-        inviaController('ricercaEsami', '#main');
+        var ajaxDiv = '#main';
+        if( $("#contenutoAreaPersonale").length  )
+        {
+            ajaxDiv = '#contenutoAreaPersonale';
+            
+        }
+        inviaController('ricercaEsami', ajaxDiv);
           
     });
     
