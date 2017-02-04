@@ -920,6 +920,10 @@ function validazioneUtente()
                                 required: true,
                                 maxlength: 10,
                                 equalTo: "#passwordUtente"
+                            },
+                    terminiServizio:
+                            {
+                                required:true
                             }
                 },
         messages:
@@ -980,6 +984,10 @@ function validazioneUtente()
                                 required: "Inserire nuovamente la password",
                                 maxlength: "Massimo 10 caratteri",
                                 equalTo: "La password deve essere sempre la stessa"
+                            },
+                    terminiServizio:
+                            {
+                                required:'Necessario leggere e accettare i termini del servizio'
                             }
                 },
         errorPlacement: function (error, element) {
@@ -1126,6 +1134,10 @@ function validazioneMedico()
                                 required: true,
                                 number: true,
                                 rangelength: [6, 6]
+                            },
+                    terminiServizio:
+                            {
+                                required:true
                             }
                 },
         messages:
@@ -1205,6 +1217,10 @@ function validazioneMedico()
                                 required: "Inserire il numero di iscrizione",
                                 number: "Inserire un numero",
                                 rangelength: "Deve avere 6 numeri"
+                            },
+                    terminiServizio:
+                            {
+                                required:'Necessario leggere e accettare i termini del servizio'
                             }
                 },
         errorPlacement: function (error, element) {
@@ -1359,6 +1375,10 @@ function validazioneClinica()
                             {
                                 required: true,
                                 maxlength: 11
+                            },
+                    terminiServizio:
+                            {
+                                required:true
                             }
                 },
         messages:
@@ -1447,6 +1467,10 @@ function validazioneClinica()
                             {
                                 required: "Inserire il capitale sociale della clinica",
                                 maxlength: "La sequenza massima di numeri è 11"
+                            },
+                    terminiServizio:
+                            {
+                                required:'Necessario leggere e accettare i termini del servizio'
                             }
                 },
         errorPlacement: function (error, element) {

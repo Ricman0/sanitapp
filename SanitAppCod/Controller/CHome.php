@@ -172,6 +172,11 @@ class CHome {
                     $permesso = FALSE;
                 }
                 break;
+                
+            case 'privacyPolicy':
+                $cInformazioni = USingleton::getInstance('CInformazioni');
+                $cInformazioni->visualizzaPrivacyPolicy();
+                break;
 
             case 'recuperaPassword': // GET recuperaPassword                    //controllato
                 $cAutenticazione = USingleton::getInstance('CAutenticazione');
@@ -215,7 +220,12 @@ class CHome {
                     $permesso = FALSE;
                 }
                 break;
-
+            
+            case 'terminiServizio':
+                $cInformazioni = USingleton::getInstance('CInformazioni');
+                $cInformazioni->visualizzaTerminiServizio();
+                break;
+                
             case 'users':
                 if ($tipoUser === 'amministratore' || $tipoUser === 'utente') {
                     $cUsers = USingleton::getInstance('CGestisciUser');

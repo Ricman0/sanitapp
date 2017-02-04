@@ -33,4 +33,29 @@ class VInformazioni extends View {
         $this->visualizzaTemplate('contatti');
         
     }
+    
+    /**
+     * Visualizza la pagina della politica della privacy.
+     * 
+     * @access public
+     */
+    public function visualizzaPrivacyPolicy() {
+        $this->visualizzaTemplate('privacyPolicy');
+    }
+    
+    /**
+     * Visualizza la pagina dei termini di servizio.
+     * 
+     * @access public
+     */
+    public function visualizzaTerminiServizio() {
+        // tutta la apgina
+        $log = $this->prelevaTemplate("log");
+        $navBar = $this->prelevaTemplate("navigationBar");
+        $main = $this->prelevaTemplate('terminiServizio');
+        $this->assegnaVariabiliTemplate("logIn", $log);
+        $this->assegnaVariabiliTemplate("navigationBar", $navBar);
+        $this->assegnaVariabiliTemplate("mainRicerca", $main);
+        $this->visualizzaTemplate("HomePage"); 
+    }
 }

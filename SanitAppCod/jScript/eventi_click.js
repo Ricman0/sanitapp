@@ -29,9 +29,21 @@ $(document).ready(function () {
         inviaController('contatti', ajaxDiv);
     });
     
-    $("#headerMain").on("click", "#contatti", function(){
-        inviaController('contatti', '#wrapper');
+    $("#wrapper").on("click", "#privacyPolicy", function(){
+        var ajaxDiv = '#main';
+        if ($('#contenutoAreaPersonale').length) {
+            ajaxDiv ='#contenutoAreaPersonale';
+          }
+        inviaController('privacyPolicy', ajaxDiv);
     });
+    
+    $('#headerMain').on("click", "form span.link", function(){
+        var url = 'terminiServizio';
+        window.open(url, '_blank');
+//        inviaController('terminiServizio', '#main');
+    });
+    
+    
     
     $('#headerMain').on("click", ".mySanitApp", function () {
         

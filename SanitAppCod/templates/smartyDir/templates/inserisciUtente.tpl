@@ -52,6 +52,9 @@
         <br>
         
     </div>
+    <br>
+    <input type="checkbox" id="terminiServizio" name="terminiServizio" /><span class="grassetto">  ACCETTO I <span class="grassetto link cliccabile">TERMINI DEL SERVIZIO</span></span>
+    <br>
     
     <div id="submitUtente" >
         <input type="submit" value="Invia" id="submitRegistrazioneUtente" />
