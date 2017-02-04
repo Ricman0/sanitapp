@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of VmySanitApp
+ * La classe VmySanitApp si occupa di recuperare i dati e visualizzare i template relativi alla pagina personale.
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini

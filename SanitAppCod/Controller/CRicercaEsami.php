@@ -101,23 +101,4 @@ class CRicercaEsami {
                 break;
         }
     }
-    
-    
-    
-//    public function impostaPaginaRisultatoEsami(){
-//        
-//        $vEsami = USingleton::getInstance('VRicercaEsami');
-//        $vEsami->restituisciPaginaRisultatoEsami();
-//        
-//    }
-    
-    public function ritornaEsami() {
-        
-        $vEsami = USingleton::getInstance('VRicercaEsami');
-        $nomeEsame = $vEsami->recuperaValore('esame');
-        $clinica = $vEsami->recuperaValore('clinica');
-        $luogo = $vEsami->recuperaValore('luogo');
-        $fEsami = USingleton::getInstance('FEsame');
-        $fEsami->recuperaEsami($nomeEsame, $clinica, $luogo);
-    }
 }

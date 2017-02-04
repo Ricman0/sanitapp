@@ -101,7 +101,7 @@ class View extends Smarty {
     }
 
     /**
-     * Metodo che permette di assegnare un valore alla variabile presente nel template
+     * Metodo che permette di assegnare un valore alla variabile presente nel template.
      * 
      * @access public
      * @final

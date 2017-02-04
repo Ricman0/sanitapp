@@ -1,13 +1,6 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Config
+ * La classe Config si occupa della configurazione.
  *
  * @package include
  * @author Claudia Di Marco & Riccardo Mantini
@@ -24,27 +17,30 @@ require_once ($dir . '/libs/smartyLib/Autoloader.php');
 class Config {
     
     /**
-     * @var Array Array associativo: come chiavi  i nomi degli attributi 
+     * @var array Array associativo: come chiavi  i nomi degli attributi 
      *            della classe Smarty e come valori i path delle directory
      *            templates, templates_c, configs e cache 
      */
     private $smartyConfig;
     
     /**
-     * @var Array Array associativo: come chiavi username, password, host, dbname
+     * @var array Array associativo: come chiavi username, password, host, dbname
      *            e come valori i rispettivi valori
      */
     private $dbConfig;
     
     /**
-     * @var Array Array associativo: come chiavi header, host, SMTPSecure, 
+     * @var array Array associativo: come chiavi header, host, SMTPSecure, 
      *            port, SMTPAuth, username, password, from, fromname e come 
      *            valori i rispettivi valori
      */
     private $emailConfig;
 
     /**
-     * Inizializza gli array necessari per la configurazione
+     * Construttore di Config.
+     * Inizializza gli array necessari per la configurazione.
+     * 
+     * @access public
      */
     public function __construct() 
     {
@@ -58,7 +54,7 @@ class Config {
      * configurazione di Smarty
      * 
      * @access public
-     * @return Array Array associativo: come chiavi  i nomi degli attributi 
+     * @return array Array associativo: come chiavi  i nomi degli attributi 
      *               della classe Smarty e come valori i path delle directory
      *               templates, templates_c, configs e cache
      */
@@ -69,10 +65,10 @@ class Config {
     
     /**
      * Metodo che restituisce un array contenente il necessario per la 
-     * configurazione del database
+     * configurazione del database.
      * 
      * @access public
-     * @return Array Array associativo: come chiavi username, password, host, dbname
+     * @return array Array associativo: come chiavi username, password, host, dbname
      *               e come valori i rispettivi valori
      */
     public function getDBConfig() 
@@ -81,10 +77,10 @@ class Config {
     }
     /**
      * Metodo che restituisce un array contenente il necessario per la 
-     * configurazione di PHPMailer
+     * configurazione di PHPMailer.
      * 
      * @access public
-     * @return Array L'array contenente come chiavi header, host, SMTPSecure, 
+     * @return array L'array contenente come chiavi header, host, SMTPSecure, 
      *               port, SMTPAuth, username, password, from, fromname e come 
      *               valori i rispettivi valori
      */
@@ -94,7 +90,7 @@ class Config {
     }
 
     /**
-     * Metodo utilizza per modificare la configurazione di Smarty
+     * Metodo utilizza per modificare la configurazione di Smarty.
      * 
      * @access private
      */
@@ -115,7 +111,7 @@ class Config {
 //TRONCARE QUI (NON INSERIRE PARENTESI) SERVE PER L'INIZIALIZZAZIONE DEL FILE CONF
 
     /**
-     * Metodo utilizza per modificare la configurazione del database
+     * Metodo utilizza per modificare la configurazione del database.
      * 
      * @access private
      */
@@ -129,7 +125,7 @@ class Config {
     }
     
     /**
-     * Metodo utilizza per modificare la configurazione di PHPMailer
+     * Metodo utilizza per modificare la configurazione di PHPMailer.
      * 
      * @access private
      */

@@ -1,9 +1,7 @@
-
-
 <?php
 
 /**
- * Description of VRegistrazione
+ * La classe VRegistrazione si occupa di recuperare i dati e visualizzare i template relativi alla registrazione.
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini
@@ -12,7 +10,7 @@ class VRegistrazione extends View {
 
     /**
      * @access private
-     * @var Array I dati validi inseriti precedentemente 
+     * @var array I dati validi inseriti precedentemente 
      */
     private $_datiValidi;
     
@@ -20,7 +18,7 @@ class VRegistrazione extends View {
      * Metodo che consente di impostare i dati validi
      * 
      * @access public
-     * @param Array $dati I dati da impostare in $_datiValidi
+     * @param array $dati I dati da impostare in $_datiValidi
      */
     public function setDatiValidi($dati)
     {
@@ -28,10 +26,10 @@ class VRegistrazione extends View {
     }
     
     /**
-     * Metodo che consente di ottenere sottoforma di Array i dati validi
+     * Metodo che consente di ottenere sottoforma di array i dati validi
      * 
      * @access public
-     * @return Array I dati contenuti in $_datiValidi
+     * @return array I dati contenuti in $_datiValidi
      */
     public function getDatiValidi()
     {
@@ -63,7 +61,7 @@ class VRegistrazione extends View {
     /**
      * Metodo che consente di impostare la form della registrazione clinica.
      * Se è presente l'array $datiValidi alcuni campi della form vengo riempiti dai dati contenuti nell'array,
-     * altrimenti la form presenterà tutti i campi vuoti
+     * altrimenti la form presenterà tutti i campi vuoti.
      * 
      * @access public
      * @param array $datiValidi Dati validi di un precedente inserimento
@@ -86,7 +84,7 @@ class VRegistrazione extends View {
     /**
      * Metodo che consente di impostare la form della registrazione del medico.
      * Se è presente l'array $datiValidi alcuni campi della form vengo riempiti dai dati contenuti nell'array,
-     * altrimenti la form presenterà tutti i campi vuoti
+     * altrimenti la form presenterà tutti i campi vuoti.
      * 
      * @access public
      * @param array $datiValidi Dati validi di un precedente inserimento        //controllato
@@ -181,10 +179,4 @@ class VRegistrazione extends View {
        $datiUtente['password'] = $this->recuperaValore('passwordUtente');
        return $datiUtente;
     }
-    
-//    public function confermaMailInviata($inviata)
-//    {        
-//        $this->assegnaVariabiliTemplate("inviata", $inviata);
-//        $this->visualizzaTemplate('mailInviata');
-//    }
 }

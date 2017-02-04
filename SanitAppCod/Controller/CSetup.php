@@ -11,6 +11,11 @@ class CSetup {
     private $_datiSetup = array();
     private $_datiSetupErrati = array();
 
+    /**
+     * Metodo che consente di impostare la pagina per l'istallazione.
+     * 
+     * @access public
+     */
     public function impostaPagina() {
 
         $view = USingleton::getInstance('VSetup');
@@ -50,7 +55,9 @@ class CSetup {
     }
 
     /**
-     * Il metodo crea la configurazione e la salva su file
+     * Metodo che crea la configurazione e la salva su file.
+     * 
+     * @access public 
      * @return boolean TRUE on success, FALSE altrimenti
      */
     public function creaFileConfig() {

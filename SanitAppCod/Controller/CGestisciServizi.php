@@ -180,16 +180,6 @@ class CGestisciServizi {
                     catch (XDBException $ex) {
                        $vServizi->visualizzaFeedback($ex->getMessage());
                     }
-                    
-                    /*
-                     * commento un momento perchè non so se sia meglio usare l'entity EClinica per cercare tutti gli esami
-                     * 
-                    //cerco tutti gli esami della clinica di cui passo il nome
-                    $esami = USingleton::getInstance('FEsame');
-                    $risultato = $esami->cercaEsame("",$nomeClinica,"");
-                    $vServizi->visualizzaEsami($risultato);
-                     * 
-                     */
                 }
                 else
                 {

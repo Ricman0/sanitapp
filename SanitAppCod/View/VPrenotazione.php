@@ -1,7 +1,7 @@
 <?php
 
 /**
- * La classe VPrenotazione si occupa di visualizzare i template relativi alle prenotazioni.
+ * La classe VPrenotazione si occupa di recuperare i dati e di visualizzare i template relativi alle prenotazioni.
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini

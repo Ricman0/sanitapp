@@ -155,84 +155,8 @@ class CReferti {
         }
     }
 
-//    /**
-//     * Visualizza i referti in base al tipo di utente
-//     * @param string $tipoUser Tipo dell'utente
-//     * @param string $username Username dell'utente
-//     */
-//    private function visualizzaReferti($tipoUser, $username) {
-//        $vReferti = USingleton::getInstance('VReferti');
-//        switch ($tipoUser) {
-//            case 'clinica':
-//                $this->visualizzaRefertiClinica($username, $tipoUser);
-//                break;
-//
-//            case 'medico':
-//                $eMedico = new EMedico(null, $username);
-//                $risultato = $eMedico->cercaReferti();
-//                if (!is_bool($risultato)) {
-//                    $vReferti->restituisciPaginaRisultatoReferti($risultato, $tipoUser);
-//                } else {
-//                    $vReferti->visualizzaFeedback("errore in CReferti VisualizzaReferti in clinica. ");
-//                }
-//                break;
-//
-//            case 'utente':
-//                $this->tryVisualizzaRefertiUtente($username, $tipoUser);
-//                break;
-//
-//            default:
-//                break;
-//        }
-//    }
-//
-//    /**
-//     * Consente di visualizzare i referti di una clinica
-//     * @param string $username Lo username dell'utente
-//     * @param string $tipoUser Il tipo di utente
-//     */
-//    private function visualizzaRefertiClinica($username, $tipoUser) {
-//        $vReferti = USingleton::getInstance('VReferti');
-//        $idPrenotazioneReferto = $vReferti->recuperaValore('id');
-//        if ($idPrenotazioneReferto === FALSE) {    //visualizzo tutti i referti
-//            try {
-//                $eClinica = new EClinica($username);
-//                $referti = $eClinica->cercaReferti();
-//                if (is_array($referti) && count($referti) > 0) {  //ci sono referti da visualizzare
-//                    $vReferti->restituisciPaginaRisultatoReferti($referti, $tipoUser);
-//                } else {
-//                    $vReferti->visualizzaFeedback("Non sono ancora stati caricati referti");
-//                }
-//            } catch (XClinicaException $ex) {
-//                $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
-//            } catch (XDBException $ex) {
-//                $vReferti->visualizzaFeedback("Errore durante il recupero dei referti");
-//            }
-//        } else {    //visualizzo le info di un solo referto
-//            try {
-//                $eReferto = new EReferto($idPrenotazioneReferto);
-//                $ePrenotazione = new EPrenotazione($idPrenotazioneReferto);
-//                $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
-//                $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
-//                $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione());
-//                $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, $tipoUser);
-//            } catch (XRefertoException $ex) {
-//                $vReferti->visualizzaFeedback("Referto inesistente. Non è stato possibile recuperare il referto");
-//            } catch (XPrenotazioneException $ex) {
-//                $vReferti->visualizzaFeedback("Prenotazione inesistente. Non è stato possibile recuperare le informazioni del referto");
-//            } catch (XEsameException $ex) {
-//                $vReferti->visualizzaFeedback("Esame inesistente. Non è stato possibile recuperare le informazioni del referto");
-//            } catch (XClinicaException $ex) {
-//                $vReferti->visualizzaFeedback("Clinica inesistente. Non è stato possibile recuperare le informazioni del referto");
-//            } catch (XUtenteException $ex) {
-//                $vReferti->visualizzaFeedback("Utente inesistente. Non è stato possibile recuperare le informazioni del referto");
-//            }
-//        }
-//    }
-
-
     /**
-     * Richiama la pagina di upload del referto.
+     * Metodo che richiama la pagina di upload del referto.
      * 
      * @access public
      * @param VReferti $vReferti oggetto view 
@@ -253,7 +177,7 @@ class CReferti {
     }
 
     /**
-     * Consente l'upload del referto
+     * Metodo che consente l'upload del referto.
      * 
      * @access private
      */
@@ -295,7 +219,7 @@ class CReferti {
     }
 
     /**
-     * Metodo che consente di visualizzare tutti i referti di un utente
+     * Metodo che consente di visualizzare tutti i referti di un utente.
      * 
      * @access private
      * @param string $username L'username dell'utente di cui si vogliono visualizzare i referti
