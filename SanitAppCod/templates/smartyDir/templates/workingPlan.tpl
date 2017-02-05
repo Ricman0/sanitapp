@@ -5,6 +5,8 @@
             <div class="row-fluid">
                 <div class="col-md-7 working-plan-wrapper">
                     <h3>WORKING PLAN</h3>
+                    <hr>
+                    <br>
                     <p class="help-block">
                         Spunta i giorni lavorativi della tua attività.
                         Aggiungi gli orari di inizio e fine giornata.

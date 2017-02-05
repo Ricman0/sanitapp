@@ -15,12 +15,18 @@
         <br>
         {if $bloccati===TRUE }
             <h3>USER BLOCCATI</h3>
+            <hr>
+            <br>
             <h4>Clicca su una riga della tabella per visualizzare l'user corrispondente.</h4>
         {elseif $daValidare===TRUE}
             <h3>USER DA VALIDARE</h3>
+            <hr>
+            <br>
             <h4>Clicca su una riga della tabella per visualizzare l'user corrispondente.</h4>
         {else}
             <h3>USER</h3>
+            <hr>
+            <br>
             <h4>Clicca su una riga della tabella per visualizzare l'user corrispondente.</h4>
             <h4>Clicca sull'icona successiva per aggiungere un nuovo user.</h4>
             <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiUser" aria-hidden="true" ></i>              
