@@ -2,6 +2,8 @@
     <h3>
         INFORMAZIONI REFERTO 
     </h3>
+    <hr>
+    <br>
     <div>
 
         {if ($tipoUser==='clinica')}

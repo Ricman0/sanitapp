@@ -1,5 +1,8 @@
 <div id="infoUtente">
+    <br>
     <h3>INFORMAZIONE UTENTE</h3>
+    <hr>
+    <br>
     <span class="grassetto">NOME:</span><span>  {$utente->getNomeUtente()}</span>
     <br>
     <span class="grassetto">COGNOME:</span><span>  {$utente->getCognomeUtente()}</span>

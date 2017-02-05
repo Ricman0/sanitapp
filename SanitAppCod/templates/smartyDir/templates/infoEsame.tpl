@@ -54,11 +54,13 @@
 
 
     {else}
+        <h2>ESAME</h2>
+        <hr>
         <div id="infoEsame">
             {if isset($informazioniClinica)}
                 {$informazioniClinica}
             {/if}
-            <h3>INFORMAZIONI ESAME</h3>
+            <h3>INFORMAZIONI</h3>
             <span class="grassetto">NOME:</span><span>  {$esame->getNomeEsameEsame()}</span>
             <br>
             <span class="grassetto">CATEGORIA:</span><span>  {$esame->getNomeCategoriaEsame()}</span>

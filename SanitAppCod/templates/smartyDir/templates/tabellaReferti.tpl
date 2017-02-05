@@ -1,4 +1,5 @@
 <h3>REFERTI</h3>
+<hr>
 <h4>Clicca su una riga della tabella per visualizzare il referto corrispondente.</h4>
 <table id="tabellaReferti" class="tablesorter">
     <thead>

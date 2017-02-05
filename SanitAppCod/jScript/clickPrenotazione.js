@@ -442,6 +442,7 @@ function getGiorniNonLavorativiClinica(partitaIVAClinica)
         },
         error: function(xhr, status, error) 
         {
+            giorniNonLavorativi = '';
             alert(" errore nel ricevere i giorni non lavorativi della clinica ");
             
         }
