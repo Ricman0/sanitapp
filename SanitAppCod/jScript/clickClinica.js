@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     
     $('#headerMain').on("click", ".rigaCliente" , function(){
@@ -6,8 +5,6 @@ $(document).ready(function () {
         clickRiga('clienti', 'visualizza', id, "#contenutoAreaPersonale");
     });
 
-   
-    
     //click sul tasto Agenda 
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
         $('#stampaPrenotazioni').parent().remove();
@@ -982,7 +979,8 @@ function agendaViewDisplay(view, element)
             {
                 case 'basicWeek':
                 case 'agendaWeek':
-                    var currDateStart = agendaView.start;
+//                    var currDateStart = agendaView.start;
+                    var currDateStart = moment(agendaView.start);
                     var currDateStartString = currDateStart.format('YYYY-MM-DD'); // recupero la stringa della data da cui inizia il calendario 
                     var currDateEnd = moment(currDateStartString); // creo un moment dalla stringa
                     currDateEnd = currDateEnd.add(1, 'days'); // aggiungo un giorno
@@ -1020,8 +1018,6 @@ function agendaViewDisplay(view, element)
                                     };
                                     $('#agenda').fullCalendar('renderEvent', pausa, false);
                                 }
-                            
-
                             }
                             currDateStart.add(1, 'days');
                             currDateStartString = currDateStart.format('YYYY-MM-DD');
@@ -1029,7 +1025,6 @@ function agendaViewDisplay(view, element)
                             });
                             
                             
-                        
 //                            // aggiungo un periodoNonDisponibile prima dell'orario lavorativo
 //                            var startClinicaString = currDateStartString + ' ' + workingDay.Start + ':00';// aggiungo l'orario di inizio 
 //                            var startClinica = Date.parse(startClinicaString); // da stringa ad oggetto Date e ritornano i millisecondi tra la stringa passata  e la mezzanotte del 1° Gennaio 1970.
@@ -1099,7 +1094,8 @@ function agendaViewDisplay(view, element)
                     break;
                 
                 case 'month':// visualizzazione mensile
-                    var currDateStart = agendaView.start; // start è una proprietà del View Object
+//                    var currDateStart = agendaView.start; // start è una proprietà del View Object
+                    var currDateStart = moment(agendaView.start); //clono
                     var currDateStartString = currDateStart.format('YYYY-MM-DD'); // recupero la stringa della data da cui inizia il calendario 
                     var currDateEnd = agendaView.end; // l'ultimo giorno visibile della view ed è una proprietà del View Object
                     var currDateEndString = currDateEnd.format('YYYY-MM-DD');
@@ -1112,7 +1108,6 @@ function agendaViewDisplay(view, element)
                     while ( currDateStartMonth < currDateEndMonth) // non metto <= perchè all'interno c'è il foreach di 7 giorni quindi arriva fino all'ultimo giorno
                     {
                         $.each(datiRisposta.workingPlan, function (index, workingDay) {
-                            
                             if (workingDay === null) {
                                 // Aggiungo un giorno non lavorativo dato che workingDay è null
                                 giornoNonLavorativo = {
@@ -1127,7 +1122,7 @@ function agendaViewDisplay(view, element)
                             } 
                             else
                             {
-                                // aggiungo una pausa  se presente
+                                // aggiungo una pausa se presente
                                 var breakStart, breakEnd;
                                 if(typeof(workingDay.BreakStart)!='undefined' && typeof(workingDay.BreakEnd)!='undefined' )
                                 {
@@ -1169,7 +1164,7 @@ function agendaViewDisplay(view, element)
                             currDateTempEndString = currDateTempEnd.format('YYYY-MM-DD');
                             
                         });         
-//                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
+                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
                             currDateStartString = currDateStart.format('YYYY-MM-DD');
                             currDateStartMonth = Date.parse(currDateStartString);
                             
@@ -1341,6 +1336,8 @@ function agendaEventClick(event, jsEvent, view)
             'ok': function() {
               $(this).dialog('close');
               $("#infoEvento").html('');
+              // aggiunto
+              agendaViewDisplay();
             }
         }
     });
