@@ -1333,7 +1333,7 @@ function agendaEventClick(event, jsEvent, view)
         modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
         title: title ,
         buttons: {   
-            'ok': function() {
+            'OK': function() {
               $(this).dialog('close');
               $("#infoEvento").html('');
               // aggiunto
@@ -1367,7 +1367,24 @@ function agendaEventClick(event, jsEvent, view)
                         }
                         else
                         {
-                           alert('Prenotazione non eseguita errore'); 
+                            // apro un'altra finestra
+                            //aggiungo 09:43
+                            $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
+                            $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
+                            $("#erroreAltroContenutoEventoNonEseguito").dialog({ 
+                                modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                title: 'Errore' ,
+                                buttons: {   
+                                   'OK': function() {
+                                        $(this).dialog('close');
+                                    } 
+                                }
+                            });
+                    
+                            
+//                    $("#altroContenutoEventoNonEseguito").dialog('close');
+//alert('Prenotazione non eseguita errore'); 
+                                  
                         }
                         $("#altroContenutoEventoNonEseguito").remove();
                         $("#altroContenutoEventoNonEseguito").dialog('close');
@@ -1409,7 +1426,20 @@ function agendaEventClick(event, jsEvent, view)
                         }
                         else
                         {
-                           alert('Prenotazione eseguita errore'); 
+//                           alert('Prenotazione eseguita errore'); 
+                           //aggiungo 09:43
+                           $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoEseguito' title='Errore'><div id='erroreEseguito'></div>");
+                            $('#erroreEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
+                            $("#erroreAltroContenutoEventoEseguito").dialog({ 
+                                modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                title: 'Errore' ,
+                                buttons: {   
+                                   'OK': function() {
+                                        $(this).dialog('close');
+                                    } 
+                                }
+                            });
+                           
                         }
                         $('#altroContenutoEvento').remove();
                         $("#altroContenutoEvento").dialog('close');
