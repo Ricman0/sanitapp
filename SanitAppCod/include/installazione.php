@@ -1,13 +1,7 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Config
+ * La classe Config si occupa della configurazione.
  *
  * @package include
  * @author Claudia Di Marco & Riccardo Mantini
@@ -21,23 +15,23 @@ array_pop($dir);// elimino l'ultimo elemento (ovvero la parola include)
 $dir = implode(DIRECTORY_SEPARATOR, $dir);// riassemblo il path
 require_once ($dir . '/libs/smartyLib/Autoloader.php');
 
-class config {
+class Config {
     
     /**
-     * @var Array Array associativo: come chiavi  i nomi degli attributi 
+     * @var array Array associativo: come chiavi  i nomi degli attributi 
      *            della classe Smarty e come valori i path delle directory
      *            templates, templates_c, configs e cache 
      */
     private $smartyConfig;
     
     /**
-     * @var Array Array associativo: come chiavi username, password, host, dbname
+     * @var array Array associativo: come chiavi username, password, host, dbname
      *            e come valori i rispettivi valori
      */
     private $dbConfig;
     
     /**
-     * @var Array Array associativo: come chiavi header, host, SMTPSecure, 
+     * @var array Array associativo: come chiavi header, host, SMTPSecure, 
      *            port, SMTPAuth, username, password, from, fromname e come 
      *            valori i rispettivi valori
      */
@@ -58,7 +52,7 @@ class config {
      * configurazione di Smarty
      * 
      * @access public
-     * @return Array Array associativo: come chiavi  i nomi degli attributi 
+     * @return array Array associativo: come chiavi  i nomi degli attributi 
      *               della classe Smarty e come valori i path delle directory
      *               templates, templates_c, configs e cache
      */
@@ -72,7 +66,7 @@ class config {
      * configurazione del database
      * 
      * @access public
-     * @return Array Array associativo: come chiavi username, password, host, dbname
+     * @return array Array associativo: come chiavi username, password, host, dbname
      *               e come valori i rispettivi valori
      */
     public function getDBConfig() 
@@ -84,7 +78,7 @@ class config {
      * configurazione di PHPMailer
      * 
      * @access public
-     * @return Array L'array contenente come chiavi header, host, SMTPSecure, 
+     * @return array L'array contenente come chiavi header, host, SMTPSecure, 
      *               port, SMTPAuth, username, password, from, fromname e come 
      *               valori i rispettivi valori
      */

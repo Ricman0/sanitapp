@@ -3,6 +3,7 @@
 /**
  * La classe CPrenotazione si occupa della gestione delle prenotazioni.
  *
+ * 
  * @package Controller
  * @author Claudia Di Marco & Riccardo Mantini
  */
@@ -446,13 +447,6 @@ class CPrenotazione {
         try {
             $eClinica = new EClinica(NULL, $partitaIVAClinica);
             $workingPlan = $eClinica->getArrayWorkingPlanClinica(); 
-
-    //            $workingPlan = json_decode($workingPlan);
-    //                  print_r($workingPlan);
-    //            //$workingPlan è un oggetto 
-    //            // ora lo rendo un array
-    //            $workingPlan = get_object_vars($workingPlan);
-    //            print_r($workingPlan);
             $nomeGiorno = $vPrenotazione->recuperaValore('giorno');
             if (($workingPlan[$nomeGiorno]) !== NULL) 
             {
@@ -468,134 +462,6 @@ class CPrenotazione {
         catch (XEsameException $ex) {
             $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore si ripresenta, contatti l'amministratore.");
         }
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    // funzione da eliminare una volta visti e catturati tutti gli errori 
-    public function visualizzaPrenotazioneOPrenotazioni() {
-        switch ($tipoUser) 
-                {
-                    case 'utente':
-                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
-                        if ($idPrenotazione === FALSE) 
-                        {
-                            try
-                            {
-                                //visualizza tutte le prenotazioni 
-                                $this->visualizzaPrenotazioniUtente();
-                            }
-                            catch(XUtenteException $e)
-                            {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, TRUE);
-                            }
-                            catch(XDBException $e)
-                            {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, $e->getMessage() );
-                            }                            
-                        } 
-                        else {
-                            // attenzione controllare la progettazione di  Prenotazione
-                            $ePrenotazione = new EPrenotazione($idPrenotazione);
-                            $idEsame = $ePrenotazione->getIDEsamePrenotazione();
-                            $eEsame = new EEsame($idEsame);
-                            $nomeEsame = $eEsame->getNomeEsameEsame();
-                            $medicoEsame = $eEsame->getMedicoEsameEsame();
-                            $partitaIVA = $ePrenotazione->getPartitaIVAClinicaPrenotazione();
-                            $eClinica = new EClinica(NULL, $partitaIVA);
-                            if($ePrenotazione->getTipoPrenotazione()==='U')
-                            {
-                                $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtentePrenotaEsamePrenotazione());
-                                $nome = $eUtente->getNomeUtente();
-                                $cognome = $eUtente->getCognomeUtente();
-                            }
-                            else
-                            {
-                                $eMedico = new EMedico($ePrenotazione->getCodFiscaleMedicoPrenotaEsamePrenotazione());
-                                $nome = $eMedico->getNomeMedico();
-                                $cognome = $eMedico->getCognomeMedico();
-                            }
-                            $eReferto = new EReferto($ePrenotazione->getIDPrenotazionePrenotazione(),$ePrenotazione->getPartitaIVAClinicaPrenotazione(), $ePrenotazione->getIDEsamePrenotazione());
-                            $idReferto = $eReferto->getIDRefertoReferto();
-                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione,  NULL, NULL, $nomeEsame, $medicoEsame,$tipoUser, $eClinica, $idReferto, $nome, $cognome);
-                        }
-                        break;
-                        
-                        case 'medico':
-                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
-                        if ($idPrenotazione === FALSE) 
-                        {
-                            //visualizza tutte le prenotazioni 
-                            $this->visualizzaPrenotazioniMedico();
-                        } 
-                        else 
-                        {
-                            //visualizzare una sola prenotazione
-                           
-                            // attenzione controllare la progettazione di  Prenotazione
-                            $ePrenotazione = new EPrenotazione($idPrenotazione); // potrebbe lanciare PrenotazioneException('Prenotazione non trovata');
-                            $idEsame = $ePrenotazione->getIDEsamePrenotazione();
-                            $eEsame = new EEsame($idEsame); // potrebbe lanciare EsameException('Esame non esistente')
-                            $nomeEsame = $eEsame->getNomeEsameEsame();
-                            $medicoEsame = $eEsame->getMedicoEsameEsame();
-                            $partitaIVA = $ePrenotazione->getPartitaIVAClinicaPrenotazione();
-                            $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare ClinicaException('Clinica inesistente')                      
-                            $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione()); // potrebbe lanciare UtenteException('Utente non esistente')
-                            $nome = $eUtente->getNomeUtente();
-                            $cognome = $eUtente->getCognomeUtente();    
-                            $eReferto = new EReferto($ePrenotazione->getIDPrenotazionePrenotazione(),$ePrenotazione->getPartitaIVAClinicaPrenotazione(), $ePrenotazione->getIDEsamePrenotazione());
-                            $idReferto = $eReferto->getIDRefertoReferto();
-                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nome, $cognome, $nomeEsame, $medicoEsame, $tipoUser, $eClinica, $idReferto, NULL, NULL) ;
-                        }
-                        break;
-
-                    case 'clinica':
-                        
-                        $idPrenotazione = $vPrenotazioni->recuperaValore('id');
-                        if ($idPrenotazione === FALSE) //si vogliono visualizzare tutte le prenotazioni
-                        {
-                            try
-                            {
-                                //visualizza tutte le prenotazioni 
-                                $this->visualizzaPrenotazioniClinica();
-                            }
-                            catch(XClinicaException $e)
-                            {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, TRUE);
-                            }
-                            catch(XDBException $e)
-                            {
-                                $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni($tipoUser, NULL, $e->getMessage() );
-                            }
-                            
-                        }
-                        else // visualizza una sola prenotazione 
-                        {                            
-                            $ePrenotazione = new EPrenotazione($idPrenotazione);
-                            $CFUtente = $ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione();
-                            $eUtente = new EUtente($CFUtente);
-                            $nomeUtente = $eUtente->getNomeUtente();
-                            $cognomeUtente = $eUtente->getCognomeUtente();
-                            $idEsame = $ePrenotazione->getIDEsamePrenotazione();
-                            $eEsame = new EEsame($idEsame);
-                            $nomeEsame = $eEsame->getNomeEsameEsame();
-                            $medicoEsame = $eEsame->getMedicoEsameEsame();
-                            $eReferto = new EReferto($ePrenotazione->getIDPrenotazionePrenotazione(), $ePrenotazione->getPartitaIVAClinicaPrenotazione(),$idEsame);
-                            $idReferto = $eReferto->getIDRefertoReferto();
-                            $vPrenotazioni->visualizzaInfoPrenotazione($ePrenotazione, $nomeUtente, $cognomeUtente, $nomeEsame, $medicoEsame, $tipoUser, NULL, $idReferto, NULL, NULL);
-                        }
-                        break;                        
-                  
-
-                    default:
-                        $vPrenotazioni->restituisciPaginaRisultatoPrenotazioni(NULL, NULL, TRUE);
-                        break;
-                }
         
     }
     

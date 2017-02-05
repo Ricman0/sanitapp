@@ -12,7 +12,7 @@
   RewriteCond %{REQUEST_METHOD} GET 
   RewriteRule ^(ricercaCliniche|ricercaEsami)$ index.php?controller=$1 [L]
   RewriteRule ^(registrazione)/(clinica|medico|utente)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(recuperaPassword|logOut|info|contatti)$ index.php?controller=$1 [L]
+  RewriteRule ^(recuperaPassword|logOut|info|contatti|privacyPolicy|terminiServizio)$ index.php?controller=$1 [L]
   RewriteRule ^(prenotazioni|pazienti|referti|clienti)/(aggiungi|visualizza)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]  
 

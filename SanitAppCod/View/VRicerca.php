@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of VRicerca
+ * La classe VRegistrazione si occupa di recuperare i dati relativi alla ricerca.
  *
+ * @package View
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VRicerca extends View{

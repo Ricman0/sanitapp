@@ -1,7 +1,9 @@
 <div id="divContatti" class="affiancato">
+     <h3>CONTATTI</h3>
+    <hr>
+    <br>
     <i class="fa fa-user fa-5x sanitAppColor centrato block" id="iconaContatti" aria-hidden="true"></i>
-    <h3>CONTATTI</h3>
-    <div id="contattiTelefonici" class="affiancato verticalmenteAllineato margine40" >
+   <div id="contattiTelefonici" class="affiancato verticalmenteAllineato margine40" >
         <i class="fa fa-phone fa-4x sanitAppColor affiancato margine20 verticalmenteAllineato" id="iconaContattiTelefonici" aria-hidden="true"></i>
         <span class="affiancato">
             <p> {if isset($telefono)}<h4>Telefono: </h4> {$telefono} {/if}</p>

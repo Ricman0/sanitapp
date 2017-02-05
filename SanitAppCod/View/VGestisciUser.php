@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of VGestisciUser
+ * La classe VGestisciUser si occupa di recuperare i dati e visualizzare i template relativi alla gestione degli user e delle categorie.
  *
+ * @package View
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VGestisciUser extends View{
@@ -16,10 +11,10 @@ class VGestisciUser extends View{
     
     
     /**
-     * Metodo che permette di visualizzare tutti gli user dell'applicazione fatta eccezione per gli amministratori
+     * Metodo che permette di visualizzare tutti gli user dell'applicazione fatta eccezione per gli amministratori.
      * 
      * @access public
-     * @param Array $risultato Un array di user (non amministratori)
+     * @param array $risultato Un array di user (non amministratori)
      */
     public function visualizzaUserNonAmministratori($risultato) 
     {
@@ -41,7 +36,7 @@ class VGestisciUser extends View{
      * Metodo che consente di visualizzare una tabella di tutti gli user bloccati dell'applicazione.
      * 
      * @access public
-     * @param Array $usersBloccati Gli users bloccati
+     * @param array $usersBloccati Gli users bloccati
      */
     public function visualizzaUserBloccati($usersBloccati) {
         if(count($usersBloccati)>0)
@@ -62,7 +57,7 @@ class VGestisciUser extends View{
      * Metodo che consente di visualizzare una tabella di tutti gli user dell'applicazione che l'amministratore deve validare.
      * 
      * @access public
-     * @param Array $usersDaValidare Gli users da validare
+     * @param array $usersDaValidare Gli users da validare
      */
     public function visualizzaUserDaValidare($usersDaValidare){
         if(count($usersDaValidare)>0)
@@ -82,7 +77,7 @@ class VGestisciUser extends View{
      * Metodo che visualizza tutte le informazione di uno user passato come parametro.
      * 
      * @access public
-     * @param Array $user Lo user di cui si vogliono visualizzare tutte le informazioni
+     * @param array $user Lo user di cui si vogliono visualizzare tutte le informazioni
      */
     public function visualizzaInfoUser($user){
         if ($user['Bloccato']==0)
@@ -128,7 +123,7 @@ class VGestisciUser extends View{
      * Metodo che visualizza tutte le informazione di uno user bloccato passato come parametro.
      * 
      * @access public
-     * @param Array $user Lo user bloccato di cui si vogliono visualizzare tutte le informazioni
+     * @param array $user Lo user bloccato di cui si vogliono visualizzare tutte le informazioni
      */
     public function visualizzaInfoUserBloccato($user) {
         if ($user['Bloccato']==0)
@@ -172,7 +167,7 @@ class VGestisciUser extends View{
      * Metodo che visualizza tutte le informazione di uno user da validare passato come parametro.
      * 
      * @access public
-     * @param Array $user Lo user da validare di cui si vogliono visualizzare tutte le informazioni
+     * @param array $user Lo user da validare di cui si vogliono visualizzare tutte le informazioni
      */
     public function visualizzaInfoUserDaValidare($user) {
         if ($user['Bloccato']==0)
@@ -212,6 +207,12 @@ class VGestisciUser extends View{
         $this->visualizzaTemplate('infoUser');
     }
     
+    /**
+     * Metodo che consente di visualizzare le categorie dell'applicazione.
+     * 
+     * @access public
+     * @param array $categorieEsami Le categorie da visualizzare
+     */
     public function visualizzaCategorie($categorieEsami) {
         
         if(count($categorieEsami)>0)

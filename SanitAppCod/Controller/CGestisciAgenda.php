@@ -70,7 +70,7 @@ class CGestisciAgenda {
     }
     
     /**
-     * Metodo che consente di visualizza l'agenda della clinica.
+     * Metodo che consente di visualizzare l'agenda della clinica.
      * 
      * @access private
      * @throws XClinicaException Se la clinica  è inesistente

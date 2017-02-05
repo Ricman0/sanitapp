@@ -373,7 +373,7 @@ class CGestisciUser {
     }
     
     /**
-     * Gestisce gli user bloccati
+     * Metodo che consente di gestire gli user bloccati.
      * 
      * @access public
      */
@@ -407,7 +407,7 @@ class CGestisciUser {
     } 
     
     /**
-     * Gestisce gli user da validare
+     * Metodo che consente di gestire gli user da validare.
      * 
      * @access public
      */

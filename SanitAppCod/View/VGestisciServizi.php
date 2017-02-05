@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of VGestisciServizi
+ * La classe VGestisciServizi si occupa di recuperare i dati e visualizzare i template relativi alla gestione dei servizi.
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini

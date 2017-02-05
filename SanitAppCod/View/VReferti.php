@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Description of VReferti
+ * La classe VReferti si occupa di recuperare i dati e visualizzare i template relativi ai referti.
  *
  * @package View
- * @author Claudia Di Marco & Riccardo Mantini 
+ * @author Claudia Di Marco & Riccardo Mantini
  */
 class VReferti extends View{
 

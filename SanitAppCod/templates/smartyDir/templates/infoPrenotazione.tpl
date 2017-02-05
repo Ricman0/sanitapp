@@ -42,11 +42,20 @@
         {/if}
             <span class="grassetto">ESAME ESEGUITO:  </span>
             <span> 
-                {if ($prenotazione->getEseguitaPrenotazione()== TRUE)}
-                    <i class="fa fa-check fa-lg verde" aria-hidden="true"></i>
-                {else} 
-                   <i class="fa fa-times fa-lg rosso" aria-hidden="true"></i>
-                {/if}
+                {if ($tipoUser==='clinica')}
+                    {if ($prenotazione->getEseguitaPrenotazione()== TRUE)}
+                        <i class="fa fa-check fa-lg verde modificaNonEseguito cliccabile" aria-hidden="true"></i>
+                    {else} 
+                        <i class="fa fa-times fa-lg rosso modificaEseguito cliccabile" aria-hidden="true"></i>
+                    {/if}
+                {else}
+                    {if ($prenotazione->getEseguitaPrenotazione()== TRUE) }
+                        <i class="fa fa-check fa-lg verde" aria-hidden="true"></i>
+                    {else} 
+                        <i class="fa fa-times fa-lg rosso" aria-hidden="true"></i>
+                    {/if}
+                {/if} 
+                
             </span>
             <br>
         <div>

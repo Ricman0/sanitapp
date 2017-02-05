@@ -1,20 +1,17 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Vhome
+ * La classe Vhome eredita la classe View per la gestione della visualizzazione delle pagine html.
+ * Gestisce e fornisce tutti i template relativi alla home page.
  *
+ * @package View
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VHome extends View {
 
     /**
-     * Metodo che consente di recuperare dall'array $_SERVER il metodo della richiesta HTTP
+     * Metodo che consente di recuperare dall'array $_SERVER il metodo della richiesta HTTP.
+     * 
      * @access public
      * @return string Il metodo HTTP della richiesta
      */
@@ -25,12 +22,12 @@ class VHome extends View {
     
     
     /**
-     * Metodo che consente di impostare l'header di una pagina html
+     * Metodo che consente di impostare l'header di una pagina html,
      * 
      * @access public
      * @param string $log Il nome del template da assegnare alla variabile logIn in HomePage.tpl 
      * @param string $nav Il nome del template da assegnare alla variabile navigationBar in HomePage.tpl 
-     * 
+     * @return array Array contenente log e navBar
      */
     public function impostaHeader($username) 
     {
@@ -48,6 +45,12 @@ class VHome extends View {
         return $variabiliHeader = array("log"=>$log, "navigationBar"=>$navBar);
     }
     
+    /**
+     * Metodo che restituisca la home page.
+     * 
+     * @access public
+     * @param string $username L'username 
+     */
     public function restituisciHomePage($username) 
     {
         $variabiliHeader = $this->impostaHeader($username);
@@ -69,7 +72,9 @@ class VHome extends View {
     }
     
     /**
-     * Manda un messaggio all'utente che tenta di accedere ad un'area per la quale non dispone dei permessi
+     * Manda un messaggio all'utente che tenta di accedere ad un'area per la quale non dispone dei permessi.
+     * 
+     * @access public
      */
     public function senzaPermessi() {
         

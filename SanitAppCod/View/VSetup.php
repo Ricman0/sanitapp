@@ -1,21 +1,16 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of VSetup
+ * La classe VSetup si occupa di recuperare i dati e visualizzare i template relativi al setup.
  *
+ * @package View
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VSetup extends View{
     
     /**
      * @access private
-     * @var Array I dati validi inseriti precedentemente 
+     * @var array I dati validi inseriti precedentemente 
      */
     private $_datiValidi;
     
@@ -23,7 +18,7 @@ class VSetup extends View{
      * Metodo che consente di impostare i dati validi
      * 
      * @access public
-     * @param Array $dati I dati da impostare in $_datiValidi
+     * @param array $dati I dati da impostare in $_datiValidi
      */
     public function setDatiValidi($dati)
     {
@@ -34,7 +29,7 @@ class VSetup extends View{
      * Metodo che consente di ottenere sottoforma di Array i dati validi
      * 
      * @access public
-     * @return Array I dati contenuti in $_datiValidi
+     * @return array I dati contenuti in $_datiValidi
      */
     public function getDatiValidi()
     {
@@ -42,7 +37,7 @@ class VSetup extends View{
     }
 
     /**
-     * Metodo che  restituisce la pagina di installazione dall'applicazione. 
+     * Metodo che restituisce la pagina di installazione dall'applicazione. 
      * 
      * @access public
      */
@@ -53,6 +48,13 @@ class VSetup extends View{
         
     }
     
+    /**
+     * Metodo che consente di recuperare la form di istallazione.
+     * 
+     * @access public
+     * @param array $dati Array contenente i dati validi
+     * @param array $errore  Gli errori
+     */
     public function restituisciFormInstallazione($dati = NULL, $errore= NULL) {
         if(isset($errore)){
             $this->assegnaVariabiliTemplate('errore', $errore);
@@ -67,10 +69,10 @@ class VSetup extends View{
     
      /**
      * Metodo che recupera i tutti i dati di installazione dalla form. I dati vengono memorizzati
-     *  nell'array $datiInstallazione
+     *  nell'array $datiInstallazione.
      * 
      * @access public
-     * @return Array I dati per installare l'applicazione
+     * @return array I dati per installare l'applicazione
      */
     public function recuperaDatiInstallazione()
     {

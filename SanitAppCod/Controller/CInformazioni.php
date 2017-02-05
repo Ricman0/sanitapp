@@ -29,5 +29,27 @@ class CInformazioni {
         $vInformazioni->visualizzaContatti($eAmministratore->getTelefonoAmministratore(), $eAmministratore->getEmailUser(), $eAmministratore->getPECUser());
         
     }
+    
+    /**
+     * Metodo che consente di impostare la pagina per le informazioni relative alla politica della privacy.
+     * 
+     * @access public
+     */
+    public function visualizzaPrivacyPolicy() {
+        $vInformazioni = USingleton::getInstance('VInformazioni');
+        $vInformazioni->visualizzaPrivacyPolicy();
+
+    }
+    
+    /**
+     * Metodo che consente di impostare la pagina per le informazioni relative ai termini di servizio di SanitApp.
+     * 
+     * @access public
+     */
+    public function visualizzaTerminiServizio() {
+        $vInformazioni = USingleton::getInstance('VInformazioni');
+        $vInformazioni->visualizzaTerminiServizio();
+    }
+
 
 }

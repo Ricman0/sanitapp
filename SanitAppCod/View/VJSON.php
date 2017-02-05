@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe che consente di inviare e ricevere dati JSON
+ * Classe che consente di inviare e ricevere dati JSON.
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini

@@ -34,14 +34,15 @@ class VRicercaCliniche extends View{
     }
     
     /**
+     *  Metodo che consente di visualizzare le informazioni di una clinica.
      * 
-     * @param EClinica $clinica 
-     * @return type
+     * @access public
+     * @param EClinica $clinica
      */
     public function visualizzaInfoClinicaOspite($clinica) 
     {
         $this->assegnaVariabiliTemplate('clinica', $clinica);
-        return $this->visualizzaTemplate("infoClinica");
+        $this->visualizzaTemplate("infoClinica");
         
     }
     

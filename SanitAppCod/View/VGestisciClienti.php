@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of VGestisciClienti
+ * La classe VGestisciClienti si occupa di visualizzare i template relativi alla gestione dei clienti.
  *
  * @package View
  * @author Claudia Di Marco & Riccardo Mantini

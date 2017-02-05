@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Description of VImpostazioni
+ * La classe VImpostazioni si occupa di recuperare i dati e visualizzare i template relativi alla gestione delle impostazioni.
  *
+ * @package View
  * @author Claudia Di Marco & Riccardo Mantini
  */
 class VImpostazioni extends View{
     
     /**
-     * Metodo che consente di visualizzare le impostazioni/informazioni del medico
+     * Metodo che consente di visualizzare le impostazioni/informazioni del medico.
      * 
      * @access public
      * @param EMedico $medico Una entità medico
@@ -119,79 +120,8 @@ class VImpostazioni extends View{
         
     }
     
-    
-    
     /**
-     *  Metodo che permette di conoscere il valore di task3 dell'URL
-     * 
-     * @access public
-     * @final
-     * @return mixed Ritorna il valore (stringa) di task3. False altrimenti.
-     */
-    public function getTask3() 
-    {
-        if (isset($_REQUEST['task3'])) 
-            {
-                return $_REQUEST['task3'];
-            } 
-        else 
-            {
-                return false;
-            }
-    }
-    
-    
-//    public function recuperaWorkingPlan() 
-//    {
-//        $giorniSettimanali = Array("Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica");
-//        $workingPlanText = "{";
-//        foreach ($giorniSettimanali as $giorno) 
-//        {
-//            if (isset($_POST[$giorno]))
-//            {
-//               $workingPlanText .=  " " .  $giorno . " : {" .  $giorno . "Start : " . $_POST["$giorno" . "Start"] . ", " . $giorno . "End: " . $_POST["$giorno" . "End"] ;
-//               if($giorno == "Domenica")
-//                {
-//                    $workingPlanText .= "}";
-//                }
-//                else 
-//                {
-//                    $workingPlanText .= " , ";
-//                }
-//            }
-//            else
-//            {
-//                if($giorno==="Domenica")
-//                {
-//                    $workingPlanText .= $giorno . ": NULL}";
-//                }
-//                else 
-//                {
-//                    $workingPlanText .= $giorno . ": NULL, ";
-//                }
-//            }
-//            
-//        }
-//
-//        echo $workingPlanText;
-//        return $workingPlanText;
-//    }
-    
-    /**
-     * Metodo che invia come risposta TRUE se il salvataggio è stato effettuato, FALSE altrimenti
-     * 
-     * @access public
-     * @param boolean $salvato TRUE salvataggio effettuato
-     * @return type Description
-     */
-    public function setSalvato($salvato) 
-    {
-        return $salvato;
-    }
-    
-    
-    /**
-     * Metodo che consente di recuperare le impostazioni del working plan inserite
+     * Metodo che consente di recuperare le impostazioni del working plan inserite.
      * dalla clinica.
      * 
      * @access public
@@ -239,7 +169,7 @@ class VImpostazioni extends View{
     }
     
     /**
-     * Metodo che consente di recuperare tutti i dati relativi alle informazioni utente modificate
+     * Metodo che consente di recuperare tutti i dati relativi alle informazioni utente modificate.
      * 
      * @access public
      * @return array I dati modificati che devono essere salvati nel DB
@@ -262,7 +192,7 @@ class VImpostazioni extends View{
     }
     
     /**
-     * Metodo che consente di recuperare tutti i dati relativi alle credenziali utente modificate
+     * Metodo che consente di recuperare tutti i dati relativi alle credenziali utente modificate.
      * 
      * @access public
      * @return string La password modificata che deve essere salvata nel DB
@@ -270,16 +200,6 @@ class VImpostazioni extends View{
     function recuperaCredenziali() 
     {
         return $this->recuperaValore('password');
-    }
-    
-    /**
-     * Metodo che consente di recuperare il codice fiscale del nuovo medico
-     * 
-     * @access public
-     * @return string Il codice fiscale del nuovo medico
-     */
-    function recuperaCFMedico() 
-    {
-        return $this->recuperaValore('codiceFiscale');
-    }
+    } 
+   
 }
