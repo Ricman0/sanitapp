@@ -942,6 +942,7 @@ function agendaViewDisplay(view, element)
         type: 'POST',
 //            url: 'agenda/visualizza',
         url: 'agenda',
+        
         data: {start: startDataOra, end: endDataOra},
 //        dataType : 'json',
         success: function (datiRisposta)
@@ -1165,6 +1166,7 @@ function agendaViewDisplay(view, element)
  */
 function agendaEventClick(event, jsEvent, view)
 {
+    agendaViewDisplay();
     var title;
    // The Dialog widget fa parte di jQuery UI; 
    // permette di visualizzare il contenuto all'interno di una finestra floating cha hanno un title bar,
@@ -1182,6 +1184,8 @@ function agendaEventClick(event, jsEvent, view)
             title = event.title;
             break;
         default:
+//            agendaViewDisplay();
+            
             var descrizioneAppuntamento = "<p>Cliente: " + event.cliente  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>ID Prenotazione: " + event.id + "</p>";
@@ -1196,6 +1200,7 @@ function agendaEventClick(event, jsEvent, view)
             }
             $("#infoEvento").append(descrizioneAppuntamento);
             title = 'Appuntamento';
+            
             break;
     } 
  
@@ -1205,10 +1210,11 @@ function agendaEventClick(event, jsEvent, view)
         title: title ,
         buttons: {   
             'OK': function() {
-              $(this).dialog('close');
-              $("#infoEvento").html('');
               // aggiunto
               agendaViewDisplay();
+              $(this).dialog('close');
+              $("#infoEvento").html('');
+              
             }
         }
     });
@@ -1234,7 +1240,7 @@ function agendaEventClick(event, jsEvent, view)
                         if(obj==="no")
                         {
                             $('i.modificaNonEseguito').replaceWith("<i class='fa fa-times fa-lg rosso modificaEseguito cliccabile' aria-hidden='true'></i>");
-                            event.eseguito = 0;
+//                            event.eseguito = 0;
                         }
                         else
                         {
@@ -1293,7 +1299,7 @@ function agendaEventClick(event, jsEvent, view)
                         if(obj==="ok")
                         {
                             $('i.modificaEseguito').replaceWith("<i class='fa fa-check fa-lg verde modificaNonEseguito cliccabile' aria-hidden='true'></i>");
-                            event.eseguito = 1;
+//                            event.eseguito = 1;
                         }
                         else
                         {
