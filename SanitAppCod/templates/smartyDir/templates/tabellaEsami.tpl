@@ -2,6 +2,7 @@
     <input type="hidden" name="controller" id="controllerTabella" value={$controller} />
     {if ($controller)==="servizi"}
         <h3>SERVIZI OFFERTI</h3>
+        <hr>
         <h4>Per visualizzare informazioni su un servizio, clicca sulla riga relativa al servizio.</h4>
         <h4>Clicca sull'icona seguente per aggiungere un servizio.</h4>
     {else}
