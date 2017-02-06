@@ -23,11 +23,6 @@ class EPrenotazione {
     private $_idEsame;
     
     /**
-     * @var string $_partitaIVA Partita IVA della clinica in cui si vuole effettuare la prenotazione
-     */
-    private $_partitaIVA;
-    
-    /**
      * @var string $_tipo Il tipo di utente che effettua la prenotazione (M medico, U utente) 
      */
     private $_tipo;
@@ -68,14 +63,13 @@ class EPrenotazione {
      * @access public
      * @param string $id L'id della prenotazione
      * @param string $idEsame L'id dell'esame
-     * @param string $partitaIVAClinica La partita IVA della clinica dove si effettua la prenotazione
      * @param string $tipo Il tipo di prenotazione 'U' per utente, 'M'per medico
      * @param string $codFiscaleUtenteEffettuaEsame Il codice fiscale dell'utente che deve effettuare la prenotazione
      * @param string $codFiscalePrenotaEsame Il codice fiscale del medico o utente che ha prenotato la prenotazione
      * @param string $dataEOra La data e l'ora della prenotazione in formato YYYY-MM-DD hh:mm
      * @throws XPrenotazioneException Se la prenotazione è inesistente
      */
-    public function __construct($id=NULL,$idEsame="",$partitaIVAClinica="", $tipo="", $codFiscaleUtenteEffettuaEsame=NULL,$codFiscalePrenotaEsame=NULL, $dataEOra="" ) 
+    public function __construct($id=NULL,$idEsame="", $tipo="", $codFiscaleUtenteEffettuaEsame=NULL,$codFiscalePrenotaEsame=NULL, $dataEOra="" ) 
     {
         if(isset($id))
         {
@@ -88,7 +82,6 @@ class EPrenotazione {
                 
                 $this->_idPrenotazione = $id;
                 $this->_idEsame = $attributiPrenotazione[0]["IDEsame"];
-                $this->_partitaIVA = $attributiPrenotazione[0]["PartitaIVAClinica"];
                 $this->_tipo = $attributiPrenotazione[0]["Tipo"];  
                 $this->_confermata = $attributiPrenotazione[0]["Confermata"];
                 $this->_eseguita = $attributiPrenotazione[0]["Eseguita"];
@@ -112,7 +105,6 @@ class EPrenotazione {
         {
             $this->_idPrenotazione = uniqid($idEsame);
             $this->_idEsame = $idEsame;
-            $this->_partitaIVA = $partitaIVAClinica;
             if($tipo === "medico")
             {
                 $this->_tipo ="M";
@@ -158,17 +150,6 @@ class EPrenotazione {
     public function getIDEsamePrenotazione() 
     {
         return $this->_idEsame;
-    }
-    
-    /**
-     * Metodo che permette di conoscere la partita IVA della clinica in cui si effettua la prenotazione.
-     * 
-     * @access public
-     * @return string La partita IVA della clinica in cui si effettua la prenotazione
-     */
-    public function getPartitaIVAClinicaPrenotazione()  
-    {
-        return $this->_partitaIVA;
     }
     
     /**
@@ -270,7 +251,7 @@ class EPrenotazione {
 //    {
 //        $c = $this->getCodFiscaleMedicoPrenotaEsamePrenotazione();
 //        $valoriAttributi = "'" . $this->getIDPrenotazionePrenotazione() . "', '" .  $this->getIDEsamePrenotazione() . "', '"
-//                . $this->getPartitaIVAClinicaPrenotazione() . "', '" . $this->getTipoPrenotazione() . "', '"
+//                . $this->getTipoPrenotazione() . "', '"
 //                . $this->getConfermataPrenotazione() . "', '" . $this->getEseguitaPrenotazione() . "', '"
 //                . $this->getCodFiscaleUtenteEffettuaEsamePrenotazione()  . "', ";
 //        if ($this->getCodFiscaleUtentePrenotaEsamePrenotazione()=== NULL)
@@ -307,17 +288,6 @@ class EPrenotazione {
     public function setIdEsamePrenotazione($id) 
     {
         $this->_idEsame = $id;
-    }
-    
-    /**
-     * Metodo che consente di impostare la partita IVA della clinica in cui si effettua la prenotazione.
-     * 
-     * @access public
-     * @param string $partitaIVA La partita IVA della clinica in cui si effettua la prenotazione
-     */
-    public function setPartitaIVAPrenotazione($partitaIVA) 
-    {
-        $this->_partitaIVA = $partitaIVA;
     }
     
     /**

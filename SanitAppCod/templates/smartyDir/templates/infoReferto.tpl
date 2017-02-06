@@ -12,7 +12,7 @@
             <br>
             <span class="grassetto">ID PRENOTAZIONE:</span><span>  {$referto->getIDPrenotazioneReferto()}</span>
             <br>
-            <span class="grassetto">ID ESAME:</span><span>  {$referto->getIDEsameReferto()}</span>
+            <span class="grassetto">ID ESAME:</span><span>  {$prenotazione->getIDEsamePrenotazione()}</span>
             <br>
             
         {/if}

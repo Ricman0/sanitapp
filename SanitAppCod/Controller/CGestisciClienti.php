@@ -78,7 +78,7 @@ class CGestisciClienti {
             }
             else
             {
-                $messaggio = "Non presenti clienti";
+                $messaggio = "Non sono presenti clienti.";
                 $vClienti->visualizzaFeedback($messaggio);
             }
         } 

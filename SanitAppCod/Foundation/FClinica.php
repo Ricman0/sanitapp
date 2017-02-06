@@ -280,8 +280,8 @@ class FClinica extends FUser{
     public function cercaClienti($usernameClinica) 
     {
         $query1=  "SELECT prenotazione.CodFiscaleUtenteEffettuaEsame AS CodFiscale "
-                . "FROM prenotazione, clinica "
-                . "WHERE clinica.PartitaIVA=prenotazione.PartitaIVAClinica AND clinica.Username='" . $usernameClinica . "' LOCK IN SHARE MODE";
+                . "FROM prenotazione, clinica, esame "
+                . "WHERE clinica.PartitaIVA=esame.PartitaIVAClinica  AND esame.IDEsame=prenotazione.IDEsame AND clinica.Username='" . $usernameClinica . "' LOCK IN SHARE MODE";
         $query2 = "SELECT appuser.Email, utente.Nome, utente.Cognome, utente.Via, utente.NumCivico, utente.CAP, utente.CodFiscale  "
                 . "FROM utente, appuser "
                 . "WHERE utente.Username=appuser.Username LOCK IN SHARE MODE";
@@ -311,7 +311,7 @@ class FClinica extends FUser{
 //        $dataOdierna = "2016-11-30";// da eliminare serve solo per vedere se la query funziona
         $query = "SELECT IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, TIME(DataEOra) as Orario, DATE(DataEOra)as Data, esame.Durata, Eseguita "
                 . "FROM prenotazione,esame,utente "
-                . "WHERE prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "' AND "
+                . "WHERE esame.PartitaIVAClinica='" . $partitaIVAClinica . "' AND "
                 . "prenotazione.IDEsame=esame.IDEsame AND "
                 . "prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale AND "
 //                . "DATE(DataEOra)='" . $dataOdierna . "'";

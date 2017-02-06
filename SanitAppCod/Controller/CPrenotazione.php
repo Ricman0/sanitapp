@@ -110,7 +110,7 @@ class CPrenotazione {
                     $nomeEsame = $eEsame->getNomeEsameEsame();
                     $medicoEsame = $eEsame->getMedicoEsameEsame();
                     try{
-                        $eReferto = new EReferto($ePrenotazione->getIDPrenotazionePrenotazione(), $ePrenotazione->getPartitaIVAClinicaPrenotazione(),$idEsame);
+                        $eReferto = new EReferto($ePrenotazione->getIDPrenotazionePrenotazione());
                         $idReferto = $eReferto->getIDRefertoReferto(); 
                     } 
                     catch (XRefertoException $e)
@@ -119,7 +119,7 @@ class CPrenotazione {
                     }
                     if ($tipoUser !== 'clinica')
                     {
-                      $partitaIVA = $ePrenotazione->getPartitaIVAClinicaPrenotazione();
+                      $partitaIVA = $eEsame->getPartitaIVAClinicaEsame();
                       $eClinica = new EClinica(NULL, $partitaIVA);  // potrebbe lanciare XClinicaException('Clinica inesistente')                      
                     }
                     $cancellaPrenota = $ePrenotazione->controllaData();
@@ -405,7 +405,7 @@ class CPrenotazione {
                     $codiceFiscaleUtente = $ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione();
                     $eUtente = new EUtente($codiceFiscaleUtente);
                     $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
-                    $eClinica = new EClinica(NULL, $ePrenotazione->getPartitaIVAClinicaPrenotazione());
+                    $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
                     $datiPerEmail = Array('emailDestinatario' => $eUtente->getEmailUser(), 'nome' => $eUtente->getNomeUtente(),
                         'cognome' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsameEsame(),
                         'nomeClinica' => $eClinica->getNomeClinicaClinica(), 'dataEOra' => $ePrenotazione->getDataEOraPrenotazione());
@@ -610,7 +610,7 @@ class CPrenotazione {
         {
             $idEsame = $ePrenotazione->getIDEsamePrenotazione();
             $eEsame = new EEsame($idEsame);
-            $partitaIVAClinica = $ePrenotazione->getPartitaIVAClinicaPrenotazione();
+            $partitaIVAClinica = $eEsame->getPartitaIVAClinicaEsame();
             $eClinica = new EClinica(NULL, $partitaIVAClinica);
             $nomeEsame = $eEsame->getNomeEsameEsame();
             $durataEsame = $eEsame->getDurataEsame();
@@ -758,7 +758,7 @@ class CPrenotazione {
 
         $ora = $vPrenotazione->recuperaValore('orario');
         $dataEOra = $data . " " . $ora;
-        $ePrenotazione = new EPrenotazione(NULL, $idEsame, $partitaIVAClinica, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
+        $ePrenotazione = new EPrenotazione(NULL, $idEsame, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
         if($risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB()){
             $messaggio = 'Appuntamento registrato con successo';
         }

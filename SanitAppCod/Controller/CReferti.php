@@ -167,8 +167,8 @@ class CReferti {
         $ePrenotazione = new EPrenotazione($idPrenotazione);
         if ($ePrenotazione->getEseguitaPrenotazione()) {
             $idEsame = $ePrenotazione->getIDEsamePrenotazione();
-            $partitaIva = $ePrenotazione->getPartitaIVAClinicaPrenotazione();
             $eEsame = new EEsame($idEsame);
+            $partitaIva = $eEsame->getPartitaIVAClinicaEsame();
             $medicoEsame = $eEsame->getMedicoEsameEsame();
             $vReferti->restituisciPaginaAggiungiReferto($idPrenotazione, $idEsame, $partitaIva, $medicoEsame);
         } else {
@@ -188,7 +188,7 @@ class CReferti {
         if ($uValidazione->validaDatiReferto($infoFile)) {
             $datiReferto = $vReferti->recuperaDatiReferto();
             $file = $vReferti->recuperaFile('referto');
-            $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['partitaIVA'], $datiReferto['idEsame'], $datiReferto['medicoEsame'], $file, $infoFile['fileName']);
+            $eReferto = new EReferto($datiReferto['idPrenotazione'], $datiReferto['medicoEsame'], $file, $infoFile['fileName']);
             if ($eReferto->inserisciReferto()) {
                 $ePrenotazione = new EPrenotazione($datiReferto['idPrenotazione']);
                 $eEsame = new EEsame($datiReferto['idEsame']);

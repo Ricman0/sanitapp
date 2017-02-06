@@ -23,12 +23,6 @@ class EReferto {
     private $_idPrenotazione;
 
     /**
-     *
-     * @var string $_idEsame identificativo dell'esame relativo al referto
-     */
-    private $_idEsame;
-
-    /**
      * @var string $_medicoReferto Cognome e nome del medico che scrive il referto 
      */
     private $_medicoReferto;
@@ -48,12 +42,6 @@ class EReferto {
      * @var date $_dataReferto la data di inserimento del referto
      */
     private $_dataReferto;
-
-    /**
-     *
-     * @var string $_partitaIVAClinica partita iva della clinica che emette il referto
-     */
-    private $_partitaIVAClinica;
     
     /**
      * @var string $_condivisoConUtente Gli user con i quali il referto è stato condiviso 
@@ -70,19 +58,15 @@ class EReferto {
      * 
      * @access public
      * @param string $idPrenotazione L'id della prenotazione a cui si riferisce il referto
-     * @param string $partitaIvaClinica La partita IVA della clinica che inserirsce il referto
-     * @param string $idEsame l'id dell'esame a cui si riferisce il referto
      * @param string $medico Il nominativo del medico che ha scritto il referto
      * @param blob|string $contenuto Il contenuto del referto
      * @param string $fileName Il path del file
      * @throws XRefertoException Se il referto è inesistente
      */
-    public function __construct($idPrenotazione, $partitaIvaClinica = NULL, $idEsame = NULL, $medico = NULL, $contenuto = NULL, $fileName= NULL) {
+    public function __construct($idPrenotazione, $medico = NULL, $contenuto = NULL, $fileName= NULL) {
         if ($medico !== NULL) { //caso nuovo referto
             $this->_IDReferto = $idPrenotazione;
             $this->_idPrenotazione = $idPrenotazione;
-            $this->_idEsame = $idEsame;
-            $this->_partitaIVAClinica = $partitaIvaClinica;
             $this->_medicoReferto = $medico;
             $this->_contenuto = $contenuto;
             $this->_fileName = $fileName;
@@ -97,8 +81,6 @@ class EReferto {
             if (is_array($risultato) && count($risultato) === 1) {
                 $this->_IDReferto = $risultato[0]['IDReferto'];
                 $this->_idPrenotazione = $risultato[0]['IDPrenotazione'];
-                $this->_idEsame = $risultato[0]['IDEsame'];
-                $this->_partitaIVAClinica = $risultato[0]['PartitaIVAClinica'];
                 $this->_medicoReferto = $risultato[0]['MedicoReferto'];
                 $this->_contenuto = $risultato[0]['Contenuto'];
                 $this->_fileName = $risultato[0]['FileName'];
@@ -151,26 +133,6 @@ class EReferto {
      */
     public function getIDPrenotazioneReferto() {
         return $this->_idPrenotazione;
-    }
-
-    /**
-     * Metodo che restituisce l'identificativo dell'esame.
-     * 
-     * @access public
-     * @return string L'id dell'esame
-     */
-    public function getIDEsameReferto() {
-        return $this->_idEsame;
-    }
-
-    /**
-     * Metodo che restituisce la partita iva della clinica.
-     * 
-     * @access public
-     * @return string la partita iva della clinica
-     */
-    public function getPartitaIVAClinicaReferto() {
-        return $this->_partitaIVAClinica;
     }
 
     /**

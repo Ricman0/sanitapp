@@ -240,7 +240,6 @@ INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP,
 CREATE TABLE prenotazione (
   IDPrenotazione varchar(37) NOT NULL,
   IDEsame varchar(24) NOT NULL,
-  PartitaIVAClinica varchar(20) NOT NULL,
   Tipo varchar(1) NOT NULL,
   Confermata tinyint(1) DEFAULT '0',
   Eseguita tinyint(1) DEFAULT '0',
@@ -250,7 +249,6 @@ CREATE TABLE prenotazione (
   DataEOra DATETIME NOT NULL,
   PRIMARY KEY (IDPrenotazione),
   FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame) ON UPDATE CASCADE,
-  FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
   FOREIGN KEY (CodFiscaleUtenteEffettuaEsame) REFERENCES utente (CodFiscale) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (CodFiscaleMedicoPrenotaEsame) REFERENCES medico (CodFiscale) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (CodFiscaleUtentePrenotaEsame) REFERENCES utente (CodFiscale) ON DELETE SET NULL ON UPDATE CASCADE
@@ -260,13 +258,13 @@ CREATE TABLE prenotazione (
 -- Dump dei dati per la tabella `prenotazione`
 --
 
-INSERT INTO prenotazione (IDPrenotazione, IDEsame, PartitaIVAClinica, Tipo, 
+INSERT INTO prenotazione (IDPrenotazione, IDEsame, Tipo, 
 Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsame,
 CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
-(1, 1, '12345', 'M', 1, 1, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
-(2, 1, '12345', 'M', 1, 1, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
-(4, 2, '12345', 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-01-23 12:00:00'),
-(3, 2, '12346', 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00');
+(1, 1, 'M', 1, 1, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
+(2, 1, 'M', 1, 1, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
+(4, 2, 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-01-23 12:00:00'),
+(3, 2, 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00');
 
 -- --------------------------------------------------------
 
@@ -277,8 +275,6 @@ CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
 CREATE TABLE referto (
   IDReferto varchar(37) NOT NULL,
   IDPrenotazione varchar(37) DEFAULT NULL,
-  IDEsame varchar(24) DEFAULT NULL,
-  PartitaIVAClinica varchar(20) DEFAULT NULL,
   FileName varchar(200) NOT NULL,
   Contenuto mediumblob  NOT NULL,
   MedicoReferto varchar(40) NOT NULL,
@@ -286,9 +282,7 @@ CREATE TABLE referto (
   CondivisoConMedico boolean DEFAULT FALSE,
   CondivisoConUtente text DEFAULT NULL,
   PRIMARY KEY (IDReferto),
-  FOREIGN KEY (IDPrenotazione) REFERENCES prenotazione (IDPrenotazione) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame) ON UPDATE CASCADE,
-  FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA) ON UPDATE CASCADE 
+  FOREIGN KEY (IDPrenotazione) REFERENCES prenotazione (IDPrenotazione) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -297,7 +291,7 @@ CREATE TABLE referto (
 -- Dump dei dati per la tabella `referto`
 --
 -- 
--- INSERT INTO referto (IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, 
+-- INSERT INTO referto (IDReferto, IDPrenotazione, 
 -- Contenuto, MedicoReferto, DataReferto) VALUES
 -- (1, 1, 1, '12345', 0x696c207265666572746f20, 'Riga', '2016-04-26');
 

@@ -19,7 +19,7 @@ class FReferto extends FDatabase{
         // imposto il nome della tabella
         $this->_nomeTabella = "referto";
         $this->_nomeColonnaPKTabella = "IDReferto";
-        $this->_attributiTabella = "IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, FileName, " .
+        $this->_attributiTabella = "IDReferto, IDPrenotazione, FileName, " .
                 "Contenuto, MedicoReferto, DataReferto, CondivisoConMedico, CondivisoConUtente";
     }
     
@@ -37,9 +37,9 @@ class FReferto extends FDatabase{
         $query =   "SELECT IDReferto, esame.IDEsame, prenotazione.IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, "
                 . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto, prenotazione.CodFiscaleUtenteEffettuaEsame "
                 . "FROM referto, prenotazione, esame, utente "
-                . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
+                . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
-                . "(referto.PartitaIVAClinica='" . $partitaIVAClinica . "')) LOCK IN SHARE MODE";
+                . "(esame.PartitaIVAClinica='" . $partitaIVAClinica . "')) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
         
     }
@@ -60,9 +60,9 @@ class FReferto extends FDatabase{
         $query =   "SELECT IDReferto, prenotazione.IDPrenotazione, esame.IDEsame, esame.NomeEsame, clinica.NomeClinica,  "
                 . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto "
                 . "FROM referto, prenotazione, esame, clinica "
-                . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
+                . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscale . "') AND "
-                . "(referto.PartitaIVAClinica=clinica.PartitaIVA)) LOCK IN SHARE MODE";
+                . "(esame.PartitaIVAClinica=clinica.PartitaIVA)) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
     
@@ -79,8 +79,8 @@ class FReferto extends FDatabase{
         $query =   "SELECT IDReferto, referto.IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, utente.Nome, utente.Cognome, prenotazione.CodFiscaleUtenteEffettuaEsame, "
                 . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto  "
                 . "FROM referto, prenotazione, esame, utente, clinica "
-                . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (referto.IDEsame=esame.IDEsame) AND "
-                . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND (prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
+                . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (prenotazione.IDEsame=esame.IDEsame) AND "
+                . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND (esame.PartitaIVAClinica=clinica.PartitaIVA) AND "
                 . "(utente.CodFiscaleMedico='" . $cfMedico . "') AND referto.CondivisoConMedico=TRUE) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
@@ -93,17 +93,13 @@ class FReferto extends FDatabase{
      * @param EReferto $referto il referto di cui si vogliono ottenere i valori degli attributi 
      * @return string Stringa contenente i valori degli attributi separati da una virgola
      */
-    private function getAttributi($referto) {        
+    private function getAttributi($referto) {      
         $valoriAttributi = "'" . $referto->getIDRefertoReferto() . "', '" 
-                . $this->trimEscapeStringa($referto->getIDPrenotazioneReferto()) . "', '" 
-                . $this->trimEscapeStringa($referto->getIDEsameReferto()) . "', '" 
-                . $this->trimEscapeStringa($referto->getPartitaIVAClinicaReferto()) . "', '"
+                . $this->trimEscapeStringa($referto->getIDPrenotazioneReferto()) . "', '"
                 . $referto->getFileNameReferto() . "', '"  
                 . $referto->getContenutoReferto() . "', '"  
                 . $this->trimEscapeStringa($referto->getMedicoRefertoReferto()) . "', '" 
                 . $referto->getDataRefertoReferto() . "', ";
-                
-                // manca la partita IVA della clinica;
         
         if ($referto->getCondivisoConMedicoReferto()===TRUE)
                 {
@@ -121,7 +117,7 @@ class FReferto extends FDatabase{
                 {
                      $valoriAttributi = $valoriAttributi .  ", NULL ";
                 }
-                
+                print_r($valoriAttributi);     
        
         return $valoriAttributi;
     }

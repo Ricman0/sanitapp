@@ -21,7 +21,7 @@ class FPrenotazione extends FDatabase{
         $this->_nomeTabella = "prenotazione";
         $this->_nomeColonnaPKTabella = "IDPrenotazione";
         // imposto gli attributiTabella
-        $this->_attributiTabella = "IDPrenotazione, IDEsame, PartitaIVAclinica, " 
+        $this->_attributiTabella = "IDPrenotazione, IDEsame, " 
                 . "Tipo, Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, " 
                 . "CodFiscaleMedicoPrenotaEsame, CodFiscaleUtentePrenotaEsame, "
                 . "DataEOra";
@@ -46,7 +46,7 @@ class FPrenotazione extends FDatabase{
                 . "DATE_FORMAT(DataEOra,'%d-%m-%Y %H:%i') AS DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
-                . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
+                . "(esame.PartitaIVAClinica=clinica.PartitaIVA) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "') "
                 . "AND (IDPrenotazione='" . $idPrenotazione . "')) LOCK IN SHARE MODE";
         }
@@ -58,7 +58,7 @@ class FPrenotazione extends FDatabase{
                 . "DATE_FORMAT(DataEOra,'%d-%m-%Y %H:%i') AS DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
-                . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND "
+                . "(esame.PartitaIVAClinica=clinica.PartitaIVA) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "')) LOCK IN SHARE MODE";
         
             //CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita
@@ -78,7 +78,7 @@ class FPrenotazione extends FDatabase{
         $query =   "SELECT IDPrenotazione, prenotazione.IDEsame, clinica.NomeClinica, esame.NomeEsame, utente.Nome, utente.Cognome, "
                 . "DATE_FORMAT(DataEOra,'%d-%m-%Y %H:%i') AS DataEOra, utente.CodFiscale "
                 . "FROM prenotazione, esame, utente, clinica "
-                . "WHERE ((prenotazione.PartitaIVAClinica=clinica.PartitaIVA) AND (prenotazione.IDEsame=esame.IDEsame) AND "
+                . "WHERE ((esame.PartitaIVAClinica=clinica.PartitaIVA) AND (prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(prenotazione.CodFiscaleMedicoPrenotaEsame='" . $cf . "'))  LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
@@ -100,7 +100,7 @@ class FPrenotazione extends FDatabase{
                 . "FROM prenotazione, esame, utente "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
-                . "(prenotazione.PartitaIVAClinica='" . $partitaIVAClinica . "')) LOCK IN SHARE MODE";
+                . "(esame.PartitaIVAClinica='" . $partitaIVAClinica . "')) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
     
@@ -119,7 +119,7 @@ class FPrenotazione extends FDatabase{
         $query =  "SELECT prenotazione.* "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
-                . "(prenotazione.PartitaIVAClinica=clinica.PartitaIVA)) LOCK IN SHARE MODE";
+                . "(esame.PartitaIVAClinica=clinica.PartitaIVA)) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
     
@@ -139,10 +139,10 @@ class FPrenotazione extends FDatabase{
         $data = strtotime($data);
         //cambio il formato della data per poterlo confrontare con quella nel db
         $data = date("Y-m-d", $data);
-        $query =  "SELECT prenotazione.* "
-                . "FROM prenotazione, esame, clinica "
-                . "WHERE ((prenotazione.IDEsame='" . $idEsame . "') AND "
-                . "(prenotazione.PartitaIVAClinica='" . $partitaIVA . "') AND "
+        $query =  "SELECT prenotazione.*, esame.PartitaIVAClinica "
+                . "FROM prenotazione, esame "
+                . "WHERE ((prenotazione.IDEsame='" . $idEsame . "') AND (esame.IDEsame=prenotazione.IDEsame) AND "
+                . "(esame.PartitaIVAClinica='" . $partitaIVA . "') AND "
                 . "(DATE(DataEOra)='" . $data . "')) LOCK IN SHARE MODE";
         return $this->eseguiQuery($query);
     }
@@ -260,14 +260,14 @@ class FPrenotazione extends FDatabase{
          * durante l'orario di svolgimento dell'esame che vuole andara a prenotare
          */
         $queryMultipla = "SELECT * "
-                . "FROM prenotazione "
-                . "WHERE (IDEsame='" . $idEsame . "' AND "
-                . "PartitaIVAClinica='" . $partitaIVA . "' AND "
+                . "FROM prenotazione, esame "
+                . "WHERE (esame.IDEsame='" . $idEsame . "' AND esame.IDEsame=prenotazione.IDEsame AND "
+                . "esame.PartitaIVAClinica='" . $partitaIVA . "' AND "
                 . "CodFiscaleUtenteEffettuaEsame='" . $cfUtente . "' AND "
                 . "DATE(DataEOra)='" . $data . "') LOCK IN SHARE MODE;"// fine prima query.  //DATE(DataEOra) prendo solo la data di un datetime
                 . "SELECT * "
-                . "FROM prenotazione "
-                . "WHERE (CodFiscaleUtenteEffettuaEsame='" . $cfUtente . "' AND "
+                . "FROM prenotazione, esame "
+                . "WHERE (CodFiscaleUtenteEffettuaEsame='" . $cfUtente . "' AND esame.IDEsame=prenotazione.IDEsame AND "
                 . "DATE(DataEOra)='" . $data . "' AND "
                 . "TIME(DataEOra) BETWEEN  '". $ora . "' AND '" . $ora2 . "') LOCK IN SHARE MODE"; // cerco tra inizio della prenotazione e la fine della prenotazione;
         return $this->eseguiQueryMultiple($queryMultipla);            
