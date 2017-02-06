@@ -1,4 +1,6 @@
 <h3>CATEGORIE DELL'APPLICAZIONE</h3>
+<hr>
+<br>
 <h4>Clicca su una riga per eliminare la categoria corrispondente.</h4>
 <h4>Clicca sull'icona seguente per aggiungere una categoria.</h4>
 <table id="tabellaCategorie" class="tablesorter">

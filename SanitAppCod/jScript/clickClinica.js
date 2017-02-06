@@ -482,274 +482,7 @@ function inviaImpostazioniClinica(id, controller1, task1, task2, ajaxdiv)
     });
 }
 
-/**
- * Metodo che permette di inserire una nuova pausa
- * 
- * @returns {undefined}
- */
-//function formPausa()
-//{
-//    $('#aggiungiPausaButton').prop('disabled', true);
-//    $('#salvaImpostazioniClinica').prop('disabled', true);
-//    var idOraInizio = $.now(); //$.now() ritorna l'istante attuale
-//    var idOraFine =  idOraInizio + 1;
-//    
-//    var tr ='<tr><td class="pausaGiorno"><form><select class="selezioneGiornoPausa" name="value">' +
-//        '<option value="Lunedi" selected="selected">Lunedi</option>' +
-//        '<option value="Martedi">Martedi</option>' +
-//        '<option value="Mercoledi">Mercoledi</option>' +
-//        '<option value="Giovedi">Giovedi</option>' +
-//        '<option value="Venerdi">Venerdi</option>' +
-//        '<option value="Sabato">Sabato</option>' +
-//        '<option value="Domenica">Domenica</option>' +
-//        '</select></form></td>' +
-//        '<td class="pausaInizio"><form><input autocomplete="off" id="' + idOraInizio + '" class="time"></form></td>'+
-//        '<td class="pausaFine"><form><input autocomplete="off" id="' + idOraFine + '" class="time"></form></td>'+
-//        '<td><div id="azioniPausa"><a id="accettaPausa"><i class="fa fa-check fa-lg sanitAppColor"  aria-hidden="true"></i></a> &nbsp'+
-//        '<a id="scartaPausa"><i class="fa fa-ban fa-lg sanitAppColor" aria-hidden="true"></i></a></div></td></tr>';
-//        
-////        $(tr).appendTo('#tabellaPause');
-//        $('#tabellaPause').prepend(tr);
-//        $('.time').timepicker({
-//                stepMinute: 5
-//            });
-//        
-//        
-//    };
-
-
-//    function scartaPausa(param){
-//        $('#aggiungiPausaButton').prop('disabled', false);
-//        $('#salvaImpostazioniClinica').prop('disabled', false);
-//        $(param).closest('tr').remove();  
-//    }
-// accetta pausa è da modificare
-//    function accettaPausa(param){
-//        var oraInizioId= "#" + $(param).closest('tr').find('td.pausaInizio form input').attr('id');
-//        var oraFineId= "#" + $(param).closest('tr').find('td.pausaFine form input').attr('id');
-//
-//        alert(oraInizioId +" " +oraFineId);
-//        if( $(oraFineId).val().length ===0 || $(oraInizioId).val().length ===0  ) 
-//        {
-//            alert("Inserire gli orari");
-//        }
-//        else
-//        {
-//
-//            $('#aggiungiPausaButton').prop('disabled', false);
-//            $('#salvaImpostazioniClinica').prop('disabled', false);
-//            $('option:not(:selected)').prop('disabled', true);
-//            $(oraInizioId).attr('readonly',true).datepicker("option", "showOn", "off");
-//            $(oraFineId).attr('readonly',true).datepicker("option", "showOn", "off");
-//            //aggiunto successivamente
-//            $(".selezioneGiornoPausa > option").each(function() {
-//            alert(this.value);
-//
-//             if ($(this).val().length==0)
-//                            {
-//                                $('.selezioneGiornoPausa').val( '{"Pause":[{"OraInizio":"' 
-//                                        + $(".oraInizio").val() + '","OraFine":"' + $(".oraFine").val() + '" }]}');
-//                            }
-//                            else
-//                            {
-//                                var c = $('.selezioneGiornoPausa').val();
-//                                i = c.length - 2;
-//                                c = c.slice(0, i);
-//                                alert(c);
-//                                c = c + ', {"OraInizio":"' 
-//                                        + $(".oraInizio").val() + '","OraFine":"' + $(".oraFine").val() + '" }]}';
-//                                alert(c);
-//                                $('#LunediPausa').val(c);
-//                            }
-//
-//        });
-//            
-//            switch ($(".selezioneGiornoPausa").val())
-//            {
-//                case 'Lunedi':
-//                    if ($('#LunediPausa').val().length==0)
-//                    {
-//                        $('#LunediPausa').val( '{"Pause":[{"OraInizio":"' 
-//                                + $(".oraInizio").val() + '","OraFine":"' + $(".oraFine").val() + '" }]}');
-//                    }
-//                    else
-//                    {
-//                        var c = $('#LunediPausa').val();
-//                        i = c.length - 2;
-//                        c = c.slice(0, i);
-//                        alert(c);
-//                        c = c + ', {"OraInizio":"' 
-//                                + $(".oraInizio").val() + '","OraFine":"' + $(".oraFine").val() + '" }]}';
-//                        alert(c);
-//                        $('#LunediPausa').val(c);
-//                    }
-//                    
-//                    break;
-//                case 'Martedi':
-//                    if ($('#MartediPausa').val().length==0)
-//                    {
-//                        $('#MartediPausa').val( '{"Pause":[{"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}');
-//                    }
-//                    else
-//                    {
-//                        var c = $('#MartediPausa').val();
-//                        i = c.length - 2;
-//                        c = c.slice(0, i);
-//                        alert(c);
-//                        c = c + ', {"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","oraFine":"' + $("#oraFine").val() + '" }]}';
-//                        alert(c);
-//                        $('#MartediPausa').val(c);
-//                    }
-//                    break;
-//                case 'Mercoledi':
-//                    if ($('#MercolediPausa').val().length==0)
-//                    {
-//                        $('#MercolediPausa').val( '{"Pause":[{"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}');
-//                    }
-//                    else
-//                    {
-//                        var c = $('#MercolediPausa').val();
-//                        i = c.length - 2;
-//                        c = c.slice(0, i);
-//                        alert(c);
-//                        c = c + ', {"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}';
-//                        alert(c);
-//                        $('#MercolediPausa').val(c);
-//                    }
-//                    break;
-//                case 'Giovedi':
-//                    if ($('#GiovediPausa').val().length==0)
-//                    {
-//                        $('#GiovediPausa').val( '{"Pause":[{"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}');
-//                    }
-//                    else
-//                    {
-//                        var c = $('#GiovediPausa').val();
-//                        i = c.length - 2;
-//                        c = c.slice(0, i);
-//                        alert(c);
-//                        c = c + ', {"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}';
-//                        alert(c);
-//                        $('#GiovediPausa').val(c);
-//                    }
-//                    break;
-//                case 'Venerdi':
-//                    if ($('#VenerdiPausa').val().length==0)
-//                    {
-//                        $('#VenerdiPausa').val( '{"Pause":[{"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}');
-//                    }
-//                    else
-//                    {
-//                        var c = $('#VenerdiPausa').val();
-//                        i = c.length - 2;
-//                        c = c.slice(0, i);
-//                        alert(c);
-//                        c = c + ', {"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}';
-//                        alert(c);
-//                        $('#VenerdiPausa').val(c);
-//                    }
-//                    break;
-//                case 'Sabato':
-//                    if ($('#SabatoPausa').val().length==0)
-//                    {
-//                        $('#SabatoPausa').val( '{"Pause":[{"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}');
-//                    }
-//                    else
-//                    {
-//                        var c = $('#SabatoPausa').val();
-//                        i = c.length - 2;
-//                        c = c.slice(0, i);
-//                        alert(c);
-//                        c = c + ', {"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}';
-//                        alert(c);
-//                        $('#SabatoPausa').val(c);
-//                    }
-//                    break;
-//                default:
-//                    if ($('#DomenicaPausa').val().length==0)
-//                    {
-//                        $('#DomenicaPausa').val( '{"Pause":[{"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}');
-//                    }
-//                    else
-//                    {
-//                        var c = $('#DomenicaPausa').val();
-//                        i = c.length - 2;
-//                        c = c.slice(0, i);
-//                        alert(c);
-//                        c = c + ', {"OraInizio":"' 
-//                                + $("#oraInizio").val() + '","OraFine":"' + $("#oraFine").val() + '" }]}';
-//                        alert(c);
-//                        $('#DomenicaPausa').val(c);
-//                    }
-//                    break;       
-//            }
-//            // fine aggiunto successivamente
-//            $("#azioniPausa").html('<a id="eliminaPausa"><i class="fa fa-close fa-lg sanitAppColor"  aria-hidden="true"></i></a>');
-//        
-//        }   
-//    }
-
-
-// elimina pausa è da modificare
-//    function eliminaPausa(param)
-//    {
-////        nomeSelect.options[nomeSelect.selectedIndex].value;
-////        var giorno = giornoPausa.options[giornoPausa.selectedIndex].value;
-////         var giorno = $('#nomeGiornoPausa').val();
-////        var giorno = $(param).closest('#nomeGiornoPausa').;
-////        alert(giorno);
-//        
-////        var inizioPausa =  $(param).closest('tr').closest('#oraInizio').val();
-////        var finePausa =  $(param).closest('tr').closest('#oraFine').val();
-//        var inizioPausa =  $('#oraInizio').val();
-//
-//        var finePausa =  $('#oraFine').val();
-//
-//        var giornoPausa = giorno + "Pausa" ;
-//
-//        giornoPausa = "#" + giornoPausa;
-//
-//        var pauseGiorno =  $(giornoPausa).val();
-//
-////        var obj = $.parseJSON(pauseGiorno);
-//        var obj = JSON.parse(pauseGiorno);
-//        var trovato = "FALSE";
-//        for (i = 0; (i<obj.Pause.length && trovato==="FALSE"); i++) 
-//        { 
-//            if ((obj.Pause[0].OraInizio==inizioPausa )&& (obj.Pause[0].OraFine==finePausa))
-//            {
-//                trovato="TRUE";
-//                if(obj.Pause.length==1)
-//                {
-//                    delete obj.Pause[i];
-//                    $(giornoPausa).val("");
-//                    alert( $(giornoPausa).val());
-//                }
-//                else
-//                {
-//                    delete obj.Pause[i];
-//                    alert(obj.Pause.count);
-//                    alert( $(giornoPausa).val());
-//                }                
-//            }
-//        }
-//        var text = JSON.stringify(obj);
-//        alert(text);
-//        $(giornoPausa).val(text);
-//        
-//        $(param).closest("tr").remove();
-//    }
+ 
 
 
 function inviaDatiEsame(id, controller1, task1, ajaxdiv)
@@ -942,6 +675,7 @@ function agendaViewDisplay(view, element)
         type: 'POST',
 //            url: 'agenda/visualizza',
         url: 'agenda',
+        
         data: {start: startDataOra, end: endDataOra},
 //        dataType : 'json',
         success: function (datiRisposta)
@@ -950,7 +684,9 @@ function agendaViewDisplay(view, element)
             datiRisposta = JSON.parse(datiRisposta);
             // aggiungo appuntamenti all'agenda
             var appuntamentiAgenda = [];// array in cui inserirò tutti gli appuntamenti che voglio visualizzare in agenda
-//            console.log(datiRisposta);
+            var periodiNonDisponibiliAgenda = [];
+            var pauseAgenda = [];
+//              console.log(datiRisposta);
             // ciclo su datiRisposta.appuntamenti(1°paramentro); 2°parametro la funzione che sarà eseguita su ogni oggetto. 
             // La funzione di callback avrà indice e valore associato all'indice che chiamo apputnamento.
             $.each(datiRisposta.appuntamenti, function (indice, appuntamento) {
@@ -973,32 +709,26 @@ function agendaViewDisplay(view, element)
             $('#agenda').fullCalendar('removeEvents'); //rimuove tutti gli eventi dall'agenda se il 2°paramentro (ovvero id appuntamento) è omesso
             $('#agenda').fullCalendar('addEventSource', appuntamentiAgenda);// Aggiunge dinamicamente gli event source
             // .fullCalendar( 'addEventSource', source ) // source può essere Array/URL/Function. Gli eventi sono immediatamente presi dal source e inseriti nel calendario/agenda
-
-
             switch (agendaView.name) // recupero il nome della View
             {
                 case 'basicWeek':
                 case 'agendaWeek':
-//                    var currDateStart = agendaView.start;
-                    var currDateStart = moment(agendaView.start);
-                    var currDateStartString = currDateStart.format('YYYY-MM-DD'); // recupero la stringa della data da cui inizia il calendario 
-                    var currDateEnd = moment(currDateStartString); // creo un moment dalla stringa
-                    currDateEnd = currDateEnd.add(1, 'days'); // aggiungo un giorno
-                    var currDateEndString = currDateEnd.format('YYYY-MM-DD');
+                    var currDateStart = moment(agendaView.start); // eseguo una copia di agendaView.start in modo che se manipolo currDateStart, agendaView.start non si modifica
                     $.each(datiRisposta.workingPlan, function (index, workingDay) {
-
+                        var currDateStartString = currDateStart.format('YYYY-MM-DD');
                         if (workingDay === null) {
-                            // Add a full day unavailable event.
-                            periodoNonDisponibile = {
+                            // aggiungo l'evento che comprende l'intera giornata
+                            var giornoNonLavorativo = {
                                 'title': 'GIORNO NON LAVORATIVO',
                                 'start': currDateStartString,
-                                'end': currDateEndString,
+                                'end': currDateStartString,
                                 'allDay': true,
                                 'color': 'light-grey',
 //                                'color': '#BEBEBE',
                                 'editable': false
                             };
-                            $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, true);
+                            periodiNonDisponibiliAgenda.push(giornoNonLavorativo);
+//                            $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, true);
                         } 
                         else
                             {
@@ -1016,116 +746,42 @@ function agendaViewDisplay(view, element)
                                         'color': 'pink',
                                         'editable': true
                                     };
-                                    $('#agenda').fullCalendar('renderEvent', pausa, false);
+                                    pauseAgenda.push(pausa);
+//                                    $('#agenda').fullCalendar('renderEvent', pausa, false);
                                 }
                             }
-                            currDateStart.add(1, 'days');
-                            currDateStartString = currDateStart.format('YYYY-MM-DD');
-                            currDateEnd.add(1, 'days');
-                            });
-                            
-                            
-//                            // aggiungo un periodoNonDisponibile prima dell'orario lavorativo
-//                            var startClinicaString = currDateStartString + ' ' + workingDay.Start + ':00';// aggiungo l'orario di inizio 
-//                            var startClinica = Date.parse(startClinicaString); // da stringa ad oggetto Date e ritornano i millisecondi tra la stringa passata  e la mezzanotte del 1° Gennaio 1970.
-//                            var startAgendaString = currDateStartString + " " + agendaView.calendar.options.minTime;
-//                            var startDayAgenda = Date.parse(startAgendaString);
-//                            if (startDayAgenda < startClinica)  // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
-//                            {
-////                                agendaView.calendar.options.minTime;
-////                                var minTimeClinica = workingDay.Start + ':00';
-////                                $('#agenda').fullCalendar('option', 'minTime', minTimeClinica);
-//                                //usando le 8 righe seguenti posso inserire un periodo invece con le 2 righe precedenti riadatto l'orario di inizio attività della clinica
-//                                periodoNonDisponibile = {
-//                                    'title': 'CLINICA CHIUSA',
-//                                    'start': startAgendaString,
-//                                    'end': startClinicaString,
-//                                    'allDay': false,
-//                                    'color': 'red'
-//                                };
-//                                $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false);
-//                            }
-//                            // aggiungo un periodo non disponibile al termine dell'orario di lavoro
-//                            var endDayAgendaString = currDateStartString + " " + agendaView.calendar.options.maxTime; // l'ultima data visibile nella view 
-//                            var dataEOraEndString = currDateStartString + ' ' + workingDay.End; //concateno la data end agenda formato string con l'orario di chiusura della clinica
-//                            var dataEOraEnd = Date.parse(dataEOraEndString);
-//                            var endDayAgenda = Date.parse(endDayAgendaString);
-//                            if (endDayAgenda > dataEOraEnd) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
-//                            {
-////                                var maxTimeClinica = workingPlan[nomeGiorno].End + ':00';
-////                                $('#agenda').fullCalendar('option', 'maxTime', maxTimeClinica);
-//
-//                                var periodoNonDisponibile = {
-//                                    'title': 'CLINICA CHIUSA',
-//                                    'start': dataEOraEndString,
-//                                    'end': endDayAgendaString,
-//                                    'allDay': false,
-//                                    'color': 'red'
-//                                };
-//                                $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false);
-//                            }
-
-/* da decommetare se volessimo fare più pause in una giornata
-                            // Aggiungo un periodoNonDisponibile per ogni pausa
-                            var breakStart, breakEnd;
-                            $.each(workingDay.Pausa, function (index, pausaGiornaliera)
-                            {
-                                breakStart = currDateStartString + ' ' + pausaGiornaliera.Start;
-                                breakEnd = currDateStartString + ' ' + pausaGiornaliera.End;
-                                var pausa = {
-                                    'title': 'Pausa',
-                                    'start': breakStart,
-                                    'end': breakEnd,
-                                    'allDay': false,
-                                    'color': 'pink',
-                                    'editable': true
-                                };
-                                $('#agenda').fullCalendar('renderEvent', pausa, false);
-                            });
-                            
-                        }
-                        currDateStart.add(1, 'days');
-                        currDateStartString = currDateStart.format('YYYY-MM-DD');
-                        currDateEnd.add(1, 'days');
-                    });
-                    */
-                    
-
+                            currDateStart.add(1, 'days');});
+                            $('#agenda').fullCalendar('addEventSource', periodiNonDisponibiliAgenda);
+                            $('#agenda').fullCalendar('addEventSource', pauseAgenda);
                     break;
                 
                 case 'month':// visualizzazione mensile
-//                    var currDateStart = agendaView.start; // start è una proprietà del View Object
-                    var currDateStart = moment(agendaView.start); //clono
-                    var currDateStartString = currDateStart.format('YYYY-MM-DD'); // recupero la stringa della data da cui inizia il calendario 
-                    var currDateEnd = agendaView.end; // l'ultimo giorno visibile della view ed è una proprietà del View Object
-                    var currDateEndString = currDateEnd.format('YYYY-MM-DD');
-                    var currDateTempEnd = moment(currDateStartString); // creo un moment dalla stringa //data di fine temporaneo
-                    currDateTempEnd = currDateTempEnd.add(1, 'days'); // aggiungo un giorno
-                    var currDateTempEndString = currDateTempEnd.format('YYYY-MM-DD');
-                    var currDateStartMonth = Date.parse(currDateStartString); // rendo in millisecondi la data di inzio della view mensile
-                    var currDateEndMonth = Date.parse(currDateEndString);
-                    
-                    while ( currDateStartMonth < currDateEndMonth) // non metto <= perchè all'interno c'è il foreach di 7 giorni quindi arriva fino all'ultimo giorno
+                    var currDateStart = moment(agendaView.start); //clono // start è una proprietà del View Object
+                    var currDateEnd = moment(agendaView.end); //clono l'ultimo giorno visibile della view ed è una proprietà del View Object
+                    while(currDateStart.isBefore(currDateEnd, 'day'))
                     {
                         $.each(datiRisposta.workingPlan, function (index, workingDay) {
+                            var currDateStartString = currDateStart.format('YYYY-MM-DD');
                             if (workingDay === null) {
                                 // Aggiungo un giorno non lavorativo dato che workingDay è null
-                                giornoNonLavorativo = {
+                                var giornoNonLavorativo = {
                                     'title': 'GIORNO NON LAVORATIVO',
                                     'start': currDateStartString,
                                     'end': currDateStartString,
                                     'allDay': true,
-                                    'color': '#BEBEBE',
+                                    'color': 'light-grey',
+//                                    'color': '#BEBEBE',
                                     'editable': false
-                                };
-                                $('#agenda').fullCalendar('renderEvent', giornoNonLavorativo, true);
+                                };  
+                                periodiNonDisponibiliAgenda.push(giornoNonLavorativo);
+//                                $('#agenda').fullCalendar('renderEvent', giornoNonLavorativo, true);
                             } 
                             else
                             {
                                 // aggiungo una pausa se presente
                                 var breakStart, breakEnd;
                                 if(typeof(workingDay.BreakStart)!='undefined' && typeof(workingDay.BreakEnd)!='undefined' )
-                                {
+                                {                                    
                                     breakStart = currDateStartString + ' ' + workingDay.BreakStart;
                                     breakEnd = currDateStartString + ' ' + workingDay.BreakEnd;
                                     var pausa = {
@@ -1136,47 +792,22 @@ function agendaViewDisplay(view, element)
                                         'color': 'pink',
                                         'editable': true
                                     };
-                                    $('#agenda').fullCalendar('renderEvent', pausa, false);
-                                }
-                               
-                                
-//                                //Aggiungo una pausa per ogni pausaGiornaliera
-//                                var breakStart, breakEnd;
-//                                $.each(workingDay.Pausa, function (index, pausaGiornaliera)
-//                                {
-//                                    breakStart = currDateStartString + ' ' + pausaGiornaliera.Start;
-//                                    breakEnd = currDateStartString + ' ' + pausaGiornaliera.End;
-//                                    var pausa = {
-//                                        'title': 'Pausa',
-//                                        'start': breakStart,
-//                                        'end': breakEnd,
-//                                        'allDay': false,
-//                                        'color': 'pink',
-//                                        'editable': true
-//                                    };
+                                    pauseAgenda.push(pausa);
 //                                    $('#agenda').fullCalendar('renderEvent', pausa, false);
-//                                }); 
-                            
+                                }
                             }
                             currDateStart.add(1, 'days'); // aggiungo un giorno alla giornata di inizio
-                            currDateStartString = currDateStart.format('YYYY-MM-DD');
-                            currDateTempEnd.add(1, 'days');//aggiungo un giorno alla giornata di fine termporanea
-                            currDateTempEndString = currDateTempEnd.format('YYYY-MM-DD');
-                            
                         });         
                             currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
-                            currDateStartString = currDateStart.format('YYYY-MM-DD');
-                            currDateStartMonth = Date.parse(currDateStartString);
-                            
                     }
+                    $('#agenda').fullCalendar('addEventSource', periodiNonDisponibiliAgenda);
+                    $('#agenda').fullCalendar('addEventSource', pauseAgenda);
                 break;
 
                 default: // il nome della View è agendaDay
-
                     var nomeGiorno = agendaView.start.format('dddd'); // della view prendo il moment start e di questo prendo solo il nome del giorno in formato stringa
                     nomeGiorno = nomeGiorno.replace('ì', "i"); // se il nome del giorno contiene la ì, la sostituisco con i
                     var workingPlan = datiRisposta.workingPlan;
-
                     //se il giorno è non lavorativo
                     if (workingPlan[nomeGiorno] === null) // se il giorno di cui si vuole prendere visione è null (ovvero non lavorativo)
                     {
@@ -1222,17 +853,7 @@ function agendaViewDisplay(view, element)
                         {
                             var maxTimeClinica = workingPlan[nomeGiorno].End + ':00';
                             $('#agenda').fullCalendar('option', 'maxTime', maxTimeClinica);
-
-//                            var periodoNonDisponibile = {
-//                                'title': 'CLINICA CHIUSA',
-//                                'start': dataEOraEndString,
-//                                'end': endDayAgendaString,
-//                                'allDay': false,
-//                                'color': 'red'
-//                            };
-//                            $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false);
                         }
-                        
                         // aggiungo una pausa se presente
                         var breakStart, breakEnd;
                         if(typeof(workingPlan[nomeGiorno].BreakStart)!= "undefined" && typeof(workingPlan[nomeGiorno].BreakEnd)!= "undefined" )
@@ -1249,22 +870,6 @@ function agendaViewDisplay(view, element)
                             };
                             $('#agenda').fullCalendar('renderEvent', pausa, false);
                         }
-//                        // Aggiungo un periodoNonDisponibile per ogni pausa
-//                        var breakStart, breakEnd;
-//                        $.each(workingPlan[nomeGiorno].Pausa, function (index, pausaGiornaliera)
-//                        {
-//                            breakStart = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.Start;
-//                            breakEnd = agendaView.start.format('YYYY-MM-DD') + ' ' + pausaGiornaliera.End;
-//                            var pausa = {
-//                                'title': 'Pausa',
-//                                'start': breakStart,
-//                                'end': breakEnd,
-//                                'allDay': false,
-//                                'color': 'pink',
-//                                'editable': true
-//                            };
-//                            $('#agenda').fullCalendar('renderEvent', pausa, false);
-//                        });
                     }
 
                     break;
@@ -1294,6 +899,7 @@ function agendaViewDisplay(view, element)
  */
 function agendaEventClick(event, jsEvent, view)
 {
+    agendaViewDisplay();
     var title;
    // The Dialog widget fa parte di jQuery UI; 
    // permette di visualizzare il contenuto all'interno di una finestra floating cha hanno un title bar,
@@ -1311,6 +917,8 @@ function agendaEventClick(event, jsEvent, view)
             title = event.title;
             break;
         default:
+//            agendaViewDisplay();
+            
             var descrizioneAppuntamento = "<p>Cliente: " + event.cliente  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>ID Prenotazione: " + event.id + "</p>";
@@ -1325,6 +933,7 @@ function agendaEventClick(event, jsEvent, view)
             }
             $("#infoEvento").append(descrizioneAppuntamento);
             title = 'Appuntamento';
+            
             break;
     } 
  
@@ -1334,10 +943,11 @@ function agendaEventClick(event, jsEvent, view)
         title: title ,
         buttons: {   
             'OK': function() {
-              $(this).dialog('close');
-              $("#infoEvento").html('');
               // aggiunto
               agendaViewDisplay();
+              $(this).dialog('close');
+              $("#infoEvento").html('');
+              
             }
         }
     });
@@ -1363,7 +973,7 @@ function agendaEventClick(event, jsEvent, view)
                         if(obj==="no")
                         {
                             $('i.modificaNonEseguito').replaceWith("<i class='fa fa-times fa-lg rosso modificaEseguito cliccabile' aria-hidden='true'></i>");
-                            event.eseguito = 0;
+//                            event.eseguito = 0;
                         }
                         else
                         {
@@ -1422,7 +1032,7 @@ function agendaEventClick(event, jsEvent, view)
                         if(obj==="ok")
                         {
                             $('i.modificaEseguito').replaceWith("<i class='fa fa-check fa-lg verde modificaNonEseguito cliccabile' aria-hidden='true'></i>");
-                            event.eseguito = 1;
+//                            event.eseguito = 1;
                         }
                         else
                         {
