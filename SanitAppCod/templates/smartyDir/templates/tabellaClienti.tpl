@@ -1,4 +1,5 @@
 <h3>CLIENTI DELLA CLINICA</h3>
+<hr>
 <h4>Clicca su una riga per avere informazioni sul cliente corrispondente</h4>
 <table id="tabellaClienti" class="tablesorter">
     <thead>

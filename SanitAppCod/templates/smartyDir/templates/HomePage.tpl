@@ -93,7 +93,7 @@
             <!--Footer della pagina-->
             <div id="footer">
                 <div class="centrato">
-                    <a id="info" >Informazioni Validazione </a>  |  <a id="contatti" > Contatti</a>  |  <a id="privacyPolicy" > Privacy Policy</a>
+                    <a id="info" class="soloController" >Informazioni Validazione </a>  |  <a id="contatti" class="soloController" > Contatti</a>  |  <a id="privacyPolicy" class="soloController" > Privacy Policy</a>
                 </div>
                 <div class="copyright centrato">©2017 Copyright - SanitApp</div>
             </div>

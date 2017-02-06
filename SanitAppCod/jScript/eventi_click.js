@@ -9,32 +9,15 @@ $(document).ready(function () {
     
     $("#headerMain").on("click", ".homepage", function(){
         inviaController('index.php', '#wrapper');
-//        var History = window.history;
-//        History.pushState(null, 'home', 'index.php');
-    });
-
-    $("#wrapper").on("click", "#info", function(){
-        var ajaxDiv = '#main';
-        if ($('#contenutoAreaPersonale').length) {
-            ajaxDiv ='#contenutoAreaPersonale';
-          }
-        inviaController('info', ajaxDiv);
     });
     
-    $("#wrapper").on("click", "#contatti", function(){
+//la funzione seguente viene usata per il click su contatti, privacyPolicy, informazioniValidazione
+    $("#wrapper").on("click", "a.soloController", function(){
         var ajaxDiv = '#main';
         if ($('#contenutoAreaPersonale').length) {
             ajaxDiv ='#contenutoAreaPersonale';
           }
-        inviaController('contatti', ajaxDiv);
-    });
-    
-    $("#wrapper").on("click", "#privacyPolicy", function(){
-        var ajaxDiv = '#main';
-        if ($('#contenutoAreaPersonale').length) {
-            ajaxDiv ='#contenutoAreaPersonale';
-          }
-        inviaController('privacyPolicy', ajaxDiv);
+        inviaController(this.id, ajaxDiv);
     });
     
     $('#headerMain').on("click", "form span.link", function(){
@@ -42,8 +25,6 @@ $(document).ready(function () {
         window.open(url, '_blank');
 //        inviaController('terminiServizio', '#main');
     });
-    
-    
     
     $('#headerMain').on("click", ".mySanitApp", function () {
         
@@ -88,7 +69,6 @@ $(document).ready(function () {
             data:datiPOST,
             success: function (datiRisposta){
                 $('#main').html(datiRisposta);
-//                $("#loadingModal").hide();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr);
@@ -96,7 +76,6 @@ $(document).ready(function () {
             }
             
         });
-//        inviaControllerTaskPOST('registrazione', 'conferma', datiPOST, '#main');
     });
 
     $('#headerMain').on("click", "#recuperaPassword", function () {
@@ -120,7 +99,6 @@ $(document).ready(function () {
         download(id);
     });
 
-    //$( document ).ready() = $()
     $(function() { 
             $(document).tooltip({
                 items: 'input.error',
@@ -129,15 +107,9 @@ $(document).ready(function () {
                     my: "center bottom",
                     at: "right top"
                   }
-
-//                content: function(){
-//                    return $(this).next('label.error').text();
-//                }
             });
          });
-
 });
-
 
 function inviaController(controller, ajaxdiv)
 {
@@ -185,7 +157,6 @@ function inviaController(controller, ajaxdiv)
     });
 }
 
-
 function clickRiga(controller, task, id, ajaxdiv)
 {
     
@@ -200,12 +171,9 @@ function clickRiga(controller, task, id, ajaxdiv)
         {
             $(ajaxdiv).html(datiRisposta);
             $('#aggiungiPrenotazioneButton').attr('data-codiceFiscale', codiceFiscale);
-        }
-
-        
+        }        
     });
 }
-
 
 /*
  * 
