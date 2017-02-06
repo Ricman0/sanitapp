@@ -79,7 +79,7 @@ class EReferto {
      */
     public function __construct($idPrenotazione, $partitaIvaClinica = NULL, $idEsame = NULL, $medico = NULL, $contenuto = NULL, $fileName= NULL) {
         if ($medico !== NULL) { //caso nuovo referto
-            $this->_IDReferto = uniqid();
+            $this->_IDReferto = $idPrenotazione;
             $this->_idPrenotazione = $idPrenotazione;
             $this->_idEsame = $idEsame;
             $this->_partitaIVAClinica = $partitaIvaClinica;

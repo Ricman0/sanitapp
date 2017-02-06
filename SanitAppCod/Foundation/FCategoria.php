@@ -18,7 +18,7 @@ class FCategoria extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "categoria";
-        $this->_idTabella = "Nome";
+        $this->_nomeColonnaPKTabella = "Nome";
         $this->_attributiTabella = "Nome";
     }
     

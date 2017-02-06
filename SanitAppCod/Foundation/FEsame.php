@@ -18,7 +18,7 @@ class FEsame extends FDatabase {
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "esame";
-        $this->_idTabella = "IDEsame";
+        $this->_nomeColonnaPKTabella = "IDEsame";
         $this->_attributiTabella = "IDEsame, NomeEsame, Descrizione, Prezzo, " .
                 "Durata, MedicoEsame, NumPrestazioniSimultanee, " .
                 "NomeCategoria, PartitaIVAClinica, Eliminato";

@@ -18,7 +18,7 @@ class FReferto extends FDatabase{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "referto";
-        $this->_idTabella = "IDReferto";
+        $this->_nomeColonnaPKTabella = "IDReferto";
         $this->_attributiTabella = "IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, FileName, " .
                 "Contenuto, MedicoReferto, DataReferto, CondivisoConMedico, CondivisoConUtente";
     }

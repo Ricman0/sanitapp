@@ -19,7 +19,7 @@ class FUtente extends FUser{
         parent::__construct();
         // imposto il nome della tabella
         $this->_nomeTabella = "utente";
-        $this->_idTabella = "CodFiscale";
+        $this->_nomeColonnaPKTabella = "CodFiscale";
         $this->_attributiTabella .= "; CodFiscale, Nome, Cognome,  Via, NumCivico, "
                 . "CAP, Username, CodFiscaleMedico";
     }

@@ -110,7 +110,7 @@ class EPrenotazione {
         }
         else
         {
-            $this->_idPrenotazione = uniqid();
+            $this->_idPrenotazione = uniqid($idEsame);
             $this->_idEsame = $idEsame;
             $this->_partitaIVA = $partitaIVAClinica;
             if($tipo === "medico")

@@ -139,7 +139,7 @@ INSERT INTO amministratore (IdAmministratore, Username, Nome, Cognome, Telefono)
 --
 
 CREATE TABLE esame(
-  IDEsame varchar(13) NOT NULL,
+  IDEsame varchar(24) NOT NULL,
   NomeEsame varchar(50) NOT NULL,
   Descrizione varchar(200) DEFAULT NULL,
   Prezzo float NOT NULL,
@@ -147,9 +147,9 @@ CREATE TABLE esame(
   MedicoEsame varchar(40) NOT NULL,
   NumPrestazioniSimultanee smallint(6) NOT NULL,
   NomeCategoria varchar(30) NOT NULL,
-  PartitaIVAClinica varchar(20) NOT NULL,
+  PartitaIVAClinica varchar(11) NOT NULL,
   Eliminato boolean DEFAULT FALSE,
-  PRIMARY KEY (IDEsame,PartitaIVAClinica),
+  PRIMARY KEY (IDEsame),
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
   FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome) ON DELETE NO ACTION ON UPDATE CASCADE
 
@@ -238,8 +238,8 @@ INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP,
 --
 
 CREATE TABLE prenotazione (
-  IDPrenotazione varchar(13) NOT NULL,
-  IDEsame varchar(13) NOT NULL,
+  IDPrenotazione varchar(37) NOT NULL,
+  IDEsame varchar(24) NOT NULL,
   PartitaIVAClinica varchar(20) NOT NULL,
   Tipo varchar(1) NOT NULL,
   Confermata tinyint(1) DEFAULT '0',
@@ -248,7 +248,7 @@ CREATE TABLE prenotazione (
   CodFiscaleMedicoPrenotaEsame varchar(16) DEFAULT NULL,
   CodFiscaleUtentePrenotaEsame varchar(16) DEFAULT NULL,
   DataEOra DATETIME NOT NULL,
-  PRIMARY KEY (IDPrenotazione, IDEsame, PartitaIVAClinica),
+  PRIMARY KEY (IDPrenotazione),
   FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame) ON UPDATE CASCADE,
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
   FOREIGN KEY (CodFiscaleUtenteEffettuaEsame) REFERENCES utente (CodFiscale) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -275,9 +275,9 @@ CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
 --
 
 CREATE TABLE referto (
-  IDReferto varchar(13) NOT NULL,
-  IDPrenotazione varchar(13) DEFAULT NULL,
-  IDEsame varchar(13) DEFAULT NULL,
+  IDReferto varchar(37) NOT NULL,
+  IDPrenotazione varchar(37) DEFAULT NULL,
+  IDEsame varchar(24) DEFAULT NULL,
   PartitaIVAClinica varchar(20) DEFAULT NULL,
   FileName varchar(200) NOT NULL,
   Contenuto mediumblob  NOT NULL,

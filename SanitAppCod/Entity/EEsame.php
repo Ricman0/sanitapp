@@ -87,7 +87,7 @@ class EEsame
         {
             $fEsame = USingleton::getInstance('FEsame');
             $daCercare['IDEsame'] = $id;
-            $attributiEsame = $fEsame->cerca($daCercare); // cerco l'esam by ID
+            $attributiEsame = $fEsame->cerca($daCercare); // cerco l'esame by ID
             if(is_array($attributiEsame) && count($attributiEsame)==1)
             { 
                 $this->_idEsame = $id;
@@ -108,7 +108,7 @@ class EEsame
         }
         else
         {
-            $this->_idEsame = uniqid();
+            $this->_idEsame = uniqid($partitaIVAClinica);
             $this->_nomeEsame = $nomeEsame;
             $this->_medicoEsame = $medico;
             $this->_nomeCategoria = $nomeCategoria;  

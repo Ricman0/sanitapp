@@ -44,9 +44,9 @@ class FDatabase {
     
     /**
      * @access protected
-     * @var string $_idTabella contiene la chiave primaria della tabella
+     * @var string $_nomeColonnaPKTabella contiene la chiave primaria della tabella
      */
-    protected $_idTabella;
+    protected $_nomeColonnaPKTabella;
     
     /**
      * Costruttore della classe FDatabase
@@ -81,9 +81,9 @@ class FDatabase {
      * @access public
      * @return string La chiave della tabella
      */
-    public function getIDTabella() 
+    public function getNomeColonnaPKTabella() 
     {
-        return $this->_idTabella;
+        return $this->_nomeColonnaPKTabella;
     }
     
     /**
@@ -463,15 +463,15 @@ class FDatabase {
     public function elimina($id) {
         
         $queryLock = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE (" . $this->getIDTabella() . "='" . $id . "') FOR UPDATE " ;
+                " WHERE (" . $this->getNomeColonnaPKTabella() . "='" . $id . "') FOR UPDATE " ;
         if($this->_nomeTabella === 'esame')
         {
             $query = "UPDATE " . $this->_nomeTabella . " SET Eliminato=TRUE "
-                . "WHERE (" . $this->getIDTabella() . "='" . $id. "')";
+                . "WHERE (" . $this->getNomeColonnaPKTabella() . "='" . $id. "')";
         }
         else
         {
-            $query = "DELETE FROM " . $this->_nomeTabella . " WHERE (" . $this->getIDTabella() . "='" . $id . "') ";
+            $query = "DELETE FROM " . $this->_nomeTabella . " WHERE (" . $this->getNomeColonnaPKTabella() . "='" . $id . "') ";
         }
 
 //        //elimino referto??
@@ -506,7 +506,7 @@ class FDatabase {
     public function update($id, $daModificare ) {
      
         $queryLock = "SELECT * FROM " . $this->_nomeTabella .
-            " WHERE (" . $this->_idTabella . "='" . $id . "') FOR UPDATE " ;
+            " WHERE (" . $this->_nomeColonnaPKTabella . "='" . $id . "') FOR UPDATE " ;
         
         $setQuery  = ' SET ';
         
@@ -525,7 +525,7 @@ class FDatabase {
             }                
         }
         
-        $query = "UPDATE " . $this->_nomeTabella . $setQuery . " WHERE (" . $this->_idTabella . "='" . $id . "')";
+        $query = "UPDATE " . $this->_nomeTabella . $setQuery . " WHERE (" . $this->_nomeColonnaPKTabella . "='" . $id . "')";
         
         try {
             // inzia la transazione
