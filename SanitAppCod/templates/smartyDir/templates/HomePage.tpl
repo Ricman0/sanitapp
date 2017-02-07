@@ -2,7 +2,7 @@
 <html>
     <head> 
         <link rel="stylesheet" type="text/css" href="./Css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="./Css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="./Font/font-awesome/css/font-awesome.css">
         <link rel="stylesheet" type="text/css" href="./Css/homePage.css">
         <link rel="stylesheet" type="text/css" href="./Css/logo.css">
         <link rel="icon" href="./Immagini/favicon.ico" />       
