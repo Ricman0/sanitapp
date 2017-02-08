@@ -257,7 +257,7 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che ritorna l'intero indirizzo della clinica (via, numero civico, località e provincia).
+     * Metodo che ritorna l'intero indirizzo della clinica (via, numero civico, localita e provincia).
      * 
      * @access public
      * @return string l'indirizzo della clinica
@@ -979,8 +979,8 @@ class EClinica extends EUser {
                 case 'CAP':
                     $this->setCAPClinica($value);
                     break;
-                case 'località':
-                case 'localitàClinica':
+                case 'localita':
+                case 'localitaClinica':
                     $this->setLocalitaClinica($value);
                     break;
                 case 'provincia':

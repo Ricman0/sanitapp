@@ -164,8 +164,8 @@ $(document).ready(function(){
                     {
                         var CapLocalitàProvincia = indirizzo[2].trim().split(" ");
                         $( '#modificaUser' + tipoUser).append("<input type='text' name='CAP"  + "' class='elementiForm' id='CAP"   + "' value='" + CapLocalitàProvincia[0].trim() +"' /><br>");
-                        $( '#modificaUser' + tipoUser).append("<label for='località"   + "' class='elementiForm'>LOCALITÁ: </label>");
-                        $( '#modificaUser' + tipoUser).append("<input type='text' name='località" +"' class='elementiForm' id='località"   + "' value='" + CapLocalitàProvincia[1].trim() +"' /><br>");
+                        $( '#modificaUser' + tipoUser).append("<label for='localita"   + "' class='elementiForm'>LOCALITÁ: </label>");
+                        $( '#modificaUser' + tipoUser).append("<input type='text' name='localita" +"' class='elementiForm' id='localita"   + "' value='" + CapLocalitàProvincia[1].trim() +"' /><br>");
                         $( '#modificaUser' + tipoUser).append("<label for='provincia"   + "' class='elementiForm'>PROVINCIA: </label>");
                         $( '#modificaUser' + tipoUser).append("<input type='text' name='provincia"  +"' class='elementiForm' id='provincia"   + "' value='" + CapLocalitàProvincia[2].trim() +"' /><br>");
                     } 

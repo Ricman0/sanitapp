@@ -447,7 +447,7 @@ function validazioneInformazioni()
                                     minlength: 5,
                                     maxlength: 5
                                 },
-                        localitàClinica:
+                        localitaClinica:
                                 {
                                     required: true,
                                     maxlength: 40
@@ -491,9 +491,9 @@ function validazioneInformazioni()
                                     minlength: "Il CAP è un numero lungo 5",
                                     maxlength: "Il CAP è un numero lungo 5"
                                 },
-                        localitàClinica:
+                        localitaClinica:
                                 {
-                                    required: "Inserire la località della clinica",
+                                    required: "Inserire la localita della clinica",
                                     maxlength: "La sequenza massima di caratteri è 40"
                                 },
                         provinciaClinica:
@@ -1312,7 +1312,7 @@ function validazioneClinica()
                                 minlength: 5,
                                 maxlength: 5
                             },
-                    localitàClinica:
+                    localitaClinica:
                             {
                                 required: true,
                                 maxlength: 40
@@ -1416,9 +1416,9 @@ function validazioneClinica()
                                 minlength: "La sequenza minima di numeri è 5",
                                 maxlength: "La sequenza massima di numeri è 5"
                             },
-                    localitàClinica:
+                    localitaClinica:
                             {
-                                required: "Inserire la località della clinica",
+                                required: "Inserire la localita della clinica",
                                 maxlength: "La sequenza massima di caratteri è 40"
                             },
                     provinciaClinica:
@@ -2296,7 +2296,7 @@ function validazioneModificaClinica() {
                                 number: true,
                                 min: 0
                             },
-                    località:
+                    localita:
                             {
                                 required: true,
                                 maxlength: 40
@@ -2382,9 +2382,9 @@ function validazioneModificaClinica() {
                                 minlength: "Il CAP è un numero lungo 5",
                                 maxlength: "Il CAP è un numero lungo 5"
                             },
-                    località:
+                    localita:
                             {
-                                required: "Inserire la località della clinica",
+                                required: "Inserire la localita della clinica",
                                 maxlength: "La sequenza massima di caratteri è 40"
                             },
                     provincia:

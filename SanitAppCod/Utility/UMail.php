@@ -206,7 +206,7 @@ class UMail {
      * 
      * @access public
      * @param string $codiceConferma Il codice per confermare l'account
-     * @param array $dati I dati relativi al medico (email, PEC, username, nomeClinica, titolare, partitaIVA, via, cap,localitàClinica, provinciaClinica, telefono)
+     * @param array $dati I dati relativi al medico (email, PEC, username, nomeClinica, titolare, partitaIVA, via, cap,localitaClinica, provinciaClinica, telefono)
      * @return boolean TRUE email inviata correttamente, FALSE altrimenti
      */
     public function inviaMailRegistrazioneClinica($codiceConferma, $dati)       //controllato
@@ -224,7 +224,7 @@ class UMail {
                 . " <strong>PARTITA IVA  :  </strong><span>" . $dati['partitaIVA'] . "</span><br><br>"
                 . " <strong>INDIRIZZO  :  </strong><span>" .  $dati['via'] . ", " . $dati['numeroCivico'] .  "</span><br><br>"
                 . " <strong>CAP  :  </strong><span>" . $dati['cap'] . "</span><br><br>"
-                . " <strong>LOCALITÁ  :  </strong><span>" . $dati['localitàClinica'] . "</span><br><br>"
+                . " <strong>LOCALITÁ  :  </strong><span>" . $dati['localitaClinica'] . "</span><br><br>"
                 . " <strong>PROVINCIA  :  </strong><span>" . $dati['provinciaClinica'] . "</span><br><br>"
                 . " <strong>EMAIL  :  </strong><span>" . $dati['email'] . "</span><br><br>"
                 . " <strong>USERNAME  :  </strong><span>" . $dati['username'] . "</span><br><br>"
@@ -236,7 +236,7 @@ class UMail {
 //                . " <h5>Partita IVA:</h5> " . $dati['partitaIVA'] ."\n"
 //                . " <h5>Indirizzo:</h5> " . $dati['via'] ."\n"
 //                . " <h5>CAP:</h5> " . $dati['cap'] ."\n"
-//                . " <h5>Località:</h5> " . $dati['localitàClinica'] . "\n"
+//                . " <h5>Località:</h5> " . $dati['localitaClinica'] . "\n"
 //                . " <h5>Provincia:</h5> " . $dati['provinciaClinica'] . "\n"
 //                . " <h5>Email:</h5> ". $dati['email'] . "\n"
 //                . " <h5>Username:</h5> ". $dati['username'] ."\n"

@@ -2,7 +2,7 @@
 <html>
     <head> 
         <link rel="stylesheet" type="text/css" href="./Css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="./Css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="./Fonts/font-awesome/css/font-awesome.css">
         <link rel="stylesheet" type="text/css" href="./Css/homePage.css">
         <link rel="stylesheet" type="text/css" href="./Css/logo.css">
         <link rel="icon" href="./Immagini/favicon.ico" />       
@@ -20,27 +20,27 @@
         <link rel='stylesheet' href='./Css/tabelle.css' />
         <link rel='stylesheet' href='plugins/tablesorter/theme.blue.css' />
 
-        <script type="text/javascript" src="./plugins/jquery-1.12.4.js"></script>
-        <script type="text/javascript" src="./plugins/jquery-ui/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="./plugins/jquery-ui/datepicker-it.js"></script>        
-        <script type="text/javascript" src="./plugins/jquery.validate.js"></script>
-        <script type="text/javascript" src="./plugins/additional-methods.min.js"></script>
-        <script type="text/javascript" src="./plugins/tablesorter/jquery.tablesorter.js"></script>
-        <script type="text/javascript" src="./plugins/tablesorter/jquery.tablesorter.widgets.js"></script>
-        <script type="text/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>
+        <script type="application/javascript" src="./plugins/jquery-1.12.4.js"></script>
+        <script type="application/javascript" src="./plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script type="application/javascript" src="./plugins/jquery-ui/datepicker-it.js"></script>        
+        <script type="application/javascript" src="./plugins/jquery.validate.js"></script>
+        <script type="application/javascript" src="./plugins/additional-methods.min.js"></script>
+        <script type="application/javascript" src="./plugins/tablesorter/jquery.tablesorter.js"></script>
+        <script type="application/javascript" src="./plugins/tablesorter/jquery.tablesorter.widgets.js"></script>
+        <script type="application/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>
 
-        <script type="text/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
-        <script type="text/javascript" src="./jScript/eventi_click.js"></script>
-        <script type="text/javascript" src="./jScript/clickLogIn.js"></script>
-        <script type="text/javascript" src="./jScript/clickEsami.js"></script>
-        <script type="text/javascript" src="./jScript/clickCercaCliniche.js"></script>
-        <script type="text/javascript" src="./jScript/clickCercaEsami.js"></script>
-        <script type="text/javascript" src="./jScript/validazioneDati.js"></script>
-        <script type="text/javascript" src="./jScript/clickClinica.js"></script>
-        <script type="text/javascript" src="./jScript/clickUtente.js"></script>
-        <script type="text/javascript" src="./jScript/clickMedico.js"></script>
-        <script type="text/javascript" src="./jScript/clickPrenotazione.js"></script>
-        <script type="text/javascript" src="./jScript/clickAmministratore.js"></script>
+        <script type="application/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
+        <script type="application/javascript" src="./jScript/eventi_click.js"></script>
+        <script type="application/javascript" src="./jScript/clickLogIn.js"></script>
+        <script type="application/javascript" src="./jScript/clickEsami.js"></script>
+        <script type="application/javascript" src="./jScript/clickCercaCliniche.js"></script>
+        <script type="application/javascript" src="./jScript/clickCercaEsami.js"></script>
+        <script type="application/javascript" src="./jScript/validazioneDati.js"></script>
+        <script type="application/javascript" src="./jScript/clickClinica.js"></script>
+        <script type="application/javascript" src="./jScript/clickUtente.js"></script>
+        <script type="application/javascript" src="./jScript/clickMedico.js"></script>
+        <script type="application/javascript" src="./jScript/clickPrenotazione.js"></script>
+        <script type="application/javascript" src="./jScript/clickAmministratore.js"></script>
         <script src='plugins/moment.js'></script>
         <script src='plugins/fullcalendar/fullcalendar.js'></script>
         <script src='plugins/fullcalendar/locale/it.js'></script>
@@ -57,7 +57,7 @@
 
         <meta charset="UTF-8">
         
-        <script type="text/javascript" src="./jScript/adaptive-image.js"></script>-->
+        <script type="application/javascript" src="./jScript/adaptive-image.js"></script>-->
 
     </head>
 

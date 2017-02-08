@@ -193,9 +193,9 @@ class UValidazione {
                             . "Minimo 2 e massimo 50";
                     break;
                 
-                case 'localitàClinica':
+                case 'localitaClinica':
                     $pattern = '/^[a-zA-Zàèìùò\s]{1,40}$/';
-                    $stringaErrore = "La località in cui si trova la clinica "
+                    $stringaErrore = "La localita in cui si trova la clinica "
                             . "deve essere una sequenza di caratteri. "
                             . "Massimo 40 numero";
                     break;

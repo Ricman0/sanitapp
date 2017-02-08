@@ -29,8 +29,8 @@
                         <label for="CAP" class="elementiForm">CAP :</label>
                         <input type="text" name="CAP" class="elementiForm" maxlength="5" value="{$clinica->getCAPClinica()}" />
                         <br>
-                        <label for="localitàClinica" class="elementiForm">Località :</label>
-                        <input type="text" name="localitàClinica" class="elementiForm" value="{$clinica->getLocalitaClinica()}" />
+                        <label for="localitaClinica" class="elementiForm">Località :</label>
+                        <input type="text" name="localitaClinica" class="elementiForm" value="{$clinica->getLocalitaClinica()}" />
                         <br>
                         <label for="provinciaClinica" class="elementiForm">Provincia  :</label>
                        <!-- <select type="text" name="provinciaAlbo" class="elementiForm" id="provinciaAlbo" value="{$clinica->getProvinciaClinica()}" required > -->
@@ -168,8 +168,8 @@
                     <label for="CAP" class="elementiForm">CAP :</label>
                     <input type="text" name="CAP" class="elementiForm" maxlength="5" value="{$clinica->getCAPClinica()}" readonly />
                     <br>
-                    <label for="localitàClinica" class="elementiForm">Località :</label>
-                    <input type="text" name="localitàClinica" class="elementiForm" value="{$clinica->getLocalitaClinica()}" readonly />
+                    <label for="localitaClinica" class="elementiForm">Località :</label>
+                    <input type="text" name="localitaClinica" class="elementiForm" value="{$clinica->getLocalitaClinica()}" readonly />
                     <br>
                     <label for="provinciaClinica" class="elementiForm">Provincia  :</label>
                     <input type="text" name="provinciaClinica" class="elementiForm" value="{$clinica->getProvinciaClinica()}" readonly />
