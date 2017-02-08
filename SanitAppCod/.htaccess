@@ -17,6 +17,9 @@
   AddOutputFilterByType DEFLATE application/javascript
 
 
+RewriteCond %{SERVER_PORT} 80 
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
 # evitare di iniettare del codice php con il metodo proc/self/environ.
 #evitare di permettere di trasformare una LFI (Inclusione di file locali,  
 #vulnerabilità che permette all’attaccante di includere in una pagina,
