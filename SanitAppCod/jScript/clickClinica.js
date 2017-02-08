@@ -5,11 +5,16 @@ $(document).ready(function () {
         clickRiga('clienti', 'visualizza', id, "#contenutoAreaPersonale");
     });
 
+    $('#headerMain').on("click", "#prova", function () {
+        agendaViewDisplay();
+    });
+
     //click sul tasto Agenda 
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
         $('#stampaPrenotazioni').parent().remove();
         $('#contenutoAreaPersonale').empty(); // elimino tutti gli elementi interni al div contenutoAreaPersonale
-        $('#contenutoAreaPersonale').append("<h1>Appuntamenti</h1>");
+        $('#contenutoAreaPersonale').append("<h2>APPUNTAMENTI</h2>");
+        $('#contenutoAreaPersonale').append("<input type='button' value='PROVA' id='prova' />");
         $('#contenutoAreaPersonale').append("<div id='agenda'></div>");// aggiungo il div agenda per inserire fullcalendar
         $('#contenutoAreaPersonale').append("<div id='contenutoEvento' title='Dettaglio evento'><div id='infoEvento'></div>");
                
@@ -719,7 +724,7 @@ function agendaViewDisplay(view, element)
                         if (workingDay === null) {
                             // aggiungo l'evento che comprende l'intera giornata
                             var giornoNonLavorativo = {
-                                'title': 'GIORNO NON LAVORATIVO',
+                                'title': 'CLINICA CHIUSA',
                                 'start': currDateStartString,
                                 'end': currDateStartString,
                                 'allDay': true,
@@ -765,7 +770,7 @@ function agendaViewDisplay(view, element)
                             if (workingDay === null) {
                                 // Aggiungo un giorno non lavorativo dato che workingDay è null
                                 var giornoNonLavorativo = {
-                                    'title': 'GIORNO NON LAVORATIVO',
+                                    'title': 'CLINICA CHIUSA',
                                     'start': currDateStartString,
                                     'end': currDateStartString,
                                     'allDay': true,
@@ -798,7 +803,7 @@ function agendaViewDisplay(view, element)
                             }
                             currDateStart.add(1, 'days'); // aggiungo un giorno alla giornata di inizio
                         });         
-                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
+//                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
                     }
                     $('#agenda').fullCalendar('addEventSource', periodiNonDisponibiliAgenda);
                     $('#agenda').fullCalendar('addEventSource', pauseAgenda);
@@ -899,7 +904,7 @@ function agendaViewDisplay(view, element)
  */
 function agendaEventClick(event, jsEvent, view)
 {
-    agendaViewDisplay();
+    
     var title;
    // The Dialog widget fa parte di jQuery UI; 
    // permette di visualizzare il contenuto all'interno di una finestra floating cha hanno un title bar,
@@ -917,8 +922,7 @@ function agendaEventClick(event, jsEvent, view)
             title = event.title;
             break;
         default:
-//            agendaViewDisplay();
-            
+            agendaViewDisplay();
             var descrizioneAppuntamento = "<p>Cliente: " + event.cliente  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>ID Prenotazione: " + event.id + "</p>";

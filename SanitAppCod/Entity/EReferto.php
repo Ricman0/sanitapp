@@ -146,7 +146,7 @@ class EReferto {
     }
     
     /**
-     * Metodo che restituisce il path del referto.
+     * Metodo che restituisce il path del referto..
      * 
      * @access public
      * @return string Il path del referto
@@ -156,7 +156,7 @@ class EReferto {
     }
 
     /**
-     * Metodo che restituisce il referto
+     * Metodo che restituisce il referto.
      * 
      * @access public
      * @return blob
@@ -166,14 +166,21 @@ class EReferto {
     }
 
     /**
-     * Metodo che restituisce la data del referto
+     * Metodo che restituisce la data del referto.
      * 
      * @access public
-     * @return date|string la data del referto 
+     * @param boolean $formatoData  Se TRUE resituisce la data nel formato dd-mm-yyyy, altrimenti nel formato yyyy-mm-dd
+     * @return string La data del referto 
      */
-    public function getDataRefertoReferto() {
-        return $this->_dataReferto;
+    public function getDataRefertoReferto($formatoData=FALSE) {
+        $data =  $this->_dataReferto;
+        if($formatoData===TRUE)
+        {
+            $data = substr($data, 8,2) . '-' . substr($data, 5,2) . '-' . substr($data, 0,4);
+        }
+        return $data;
     }
+    
 
     /**
      * Metodo che imposta gli user con i quali il referto è stato condiviso. 

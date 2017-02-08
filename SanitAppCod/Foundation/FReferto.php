@@ -34,13 +34,17 @@ class FReferto extends FDatabase{
     public function cercaRefertiClinica($partitaIVAClinica) 
     {
         
-        $query =   "SELECT IDReferto, esame.IDEsame, prenotazione.IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, "
-                . "DATE_FORMAT(DataReferto,'%d-%m-%Y') AS DataReferto, prenotazione.CodFiscaleUtenteEffettuaEsame "
+        $query =   "SELECT referto.IDReferto, esame.IDEsame, prenotazione.IDPrenotazione, esame.NomeEsame, utente.Nome, utente.Cognome, "
+                . "DATE_FORMAT(referto.DataReferto,'%d-%m-%Y') AS DataReferto, prenotazione.CodFiscaleUtenteEffettuaEsame "
                 . "FROM referto, prenotazione, esame, utente "
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(esame.PartitaIVAClinica='" . $partitaIVAClinica . "')) LOCK IN SHARE MODE";
-        return $this->eseguiQuery($query);
+        print_r($query);
+        $risultato =  $this->eseguiQuery($query);
+        print_r($risultato);
+        return $risultato;
+//        return $this->eseguiQuery($query);
         
     }
     

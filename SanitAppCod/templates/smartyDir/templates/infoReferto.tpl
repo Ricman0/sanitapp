@@ -35,7 +35,7 @@
         
         <span class="grassetto">DATA E ORA PRENOTAZIONE:</span><span>  {$prenotazione->getDataEOraPrenotazione()}</span>
         <br>
-        <span class="grassetto">DATA REFERTO:</span><span>  {$referto->getDataRefertoReferto()}</span>
+        <span class="grassetto">DATA REFERTO:</span><span>  {$referto->getDataRefertoReferto(TRUE)}</span>
         <br>
         <span class="grassetto">MEDICO:</span><span>  {$referto->getMedicoRefertoReferto()}</span>
         <br>
