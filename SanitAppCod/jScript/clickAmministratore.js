@@ -162,12 +162,12 @@ $(document).ready(function(){
                     $( '#modificaUser' + tipoUser).append("<label for='CAP"   + "' class='elementiForm'>CAP: </label>");
                     if (tipoUser === 'Clinica')
                     {
-                        var CapLocalitàProvincia = indirizzo[2].trim().split(" ");
-                        $( '#modificaUser' + tipoUser).append("<input type='text' name='CAP"  + "' class='elementiForm' id='CAP"   + "' value='" + CapLocalitàProvincia[0].trim() +"' /><br>");
+                        var CapLocalitaProvincia = indirizzo[2].trim().split(" ");
+                        $( '#modificaUser' + tipoUser).append("<input type='text' name='CAP"  + "' class='elementiForm' id='CAP"   + "' value='" + CapLocalitaProvincia[0].trim() +"' /><br>");
                         $( '#modificaUser' + tipoUser).append("<label for='localita"   + "' class='elementiForm'>LOCALITÁ: </label>");
-                        $( '#modificaUser' + tipoUser).append("<input type='text' name='localita" +"' class='elementiForm' id='localita"   + "' value='" + CapLocalitàProvincia[1].trim() +"' /><br>");
+                        $( '#modificaUser' + tipoUser).append("<input type='text' name='localita" +"' class='elementiForm' id='localita"   + "' value='" + CapLocalitaProvincia[1].trim() +"' /><br>");
                         $( '#modificaUser' + tipoUser).append("<label for='provincia"   + "' class='elementiForm'>PROVINCIA: </label>");
-                        $( '#modificaUser' + tipoUser).append("<input type='text' name='provincia"  +"' class='elementiForm' id='provincia"   + "' value='" + CapLocalitàProvincia[2].trim() +"' /><br>");
+                        $( '#modificaUser' + tipoUser).append("<input type='text' name='provincia"  +"' class='elementiForm' id='provincia"   + "' value='" + CapLocalitaProvincia[2].trim() +"' /><br>");
                     } 
                     else
                     {
