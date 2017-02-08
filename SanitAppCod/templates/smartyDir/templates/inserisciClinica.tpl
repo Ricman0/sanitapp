@@ -47,8 +47,8 @@
     <input type="text" name="CAPClinica" class="elementiForm" id="CAPClinica" maxlength="5" placeholder="65017" value="{if isset($datiValidi.cap)}{$datiValidi.cap}{/if}" required />
 
     <br>
-    <label for="localitàClinica" class="elementiForm">Località</label>
-    <input type="text" name="localitàClinica" class="elementiForm" id="localitàClinica" placeholder="Penne" value="{if isset($datiValidi.localitaClinica)}{$datiValidi.localitaClinica}{/if}" required />
+    <label for="localitaClinica" class="elementiForm">Località</label>
+    <input type="text" name="localitaClinica" class="elementiForm" id="localitaClinica" placeholder="Penne" value="{if isset($datiValidi.localitaClinica)}{$datiValidi.localitaClinica}{/if}" required />
 
     <br>
     <label for="provinciaClinica" class="elementiForm">Provincia</label>

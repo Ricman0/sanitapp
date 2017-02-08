@@ -184,7 +184,7 @@ class VImpostazioni extends View{
         {
             $dati['capitaleSociale'] = $this->recuperaValore('capitaleSociale');
             $dati['telefono'] = $this->recuperaValore('telefono');
-            $dati['localitàClinica'] = $this->recuperaValore('localitàClinica');
+            $dati['localitaClinica'] = $this->recuperaValore('localitaClinica');
             $dati['provinciaClinica'] = $this->recuperaValore('provinciaClinica');
             $dati['titolare'] = $this->recuperaValore('titolare');
         }

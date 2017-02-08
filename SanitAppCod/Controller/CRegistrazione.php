@@ -156,7 +156,7 @@ class CRegistrazione {
         // se i dati sono validi
         if ($uValidazione->getValidati() === TRUE) {
             // crea la clinica
-            $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], ucwords($datiClinica['nomeClinica']), $datiClinica['password'], $datiClinica['email'], ucwords($datiClinica['titolare']), ucwords($datiClinica['via']), $datiClinica['numeroCivico'], $datiClinica['cap'], ucwords($datiClinica['localitàClinica']), $datiClinica['provinciaClinica'], $datiClinica['PEC'], $datiClinica['telefono'], $datiClinica['capitaleSociale']);
+            $eClinica = new EClinica($datiClinica['username'], $datiClinica['partitaIVA'], ucwords($datiClinica['nomeClinica']), $datiClinica['password'], $datiClinica['email'], ucwords($datiClinica['titolare']), ucwords($datiClinica['via']), $datiClinica['numeroCivico'], $datiClinica['cap'], ucwords($datiClinica['localitaClinica']), $datiClinica['provinciaClinica'], $datiClinica['PEC'], $datiClinica['telefono'], $datiClinica['capitaleSociale']);
             //eClinica richiama il metodo per creare FClinica poi FClinica aggiunge l'utente nel DB
             return $eClinica->inserisciClinicaDB(); // "ritorno" il codice di conferma
         } else {

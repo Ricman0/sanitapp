@@ -119,7 +119,7 @@ class VRegistrazione extends View {
         $datiClinica['via'] = $this->recuperaValore('indirizzoClinica');
         $datiClinica['numeroCivico'] = $this->recuperaValore('numeroCivicoClinica');
         $datiClinica['cap'] = $this->recuperaValore('CAPClinica');
-        $datiClinica['localitàClinica'] = $this->recuperaValore('localitàClinica');
+        $datiClinica['localitaClinica'] = $this->recuperaValore('localitaClinica');
         $datiClinica['provinciaClinica'] = $this->recuperaValore('provinciaClinica');
         $datiClinica['email'] = $this->recuperaValore('email');
         $datiClinica['username'] = $this->recuperaValore('username');
