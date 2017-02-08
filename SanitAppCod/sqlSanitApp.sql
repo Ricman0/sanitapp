@@ -17,7 +17,7 @@ USE sanitapp;
 -- Struttura della tabella `user`
 --
 
-CREATE TABLE appUser (
+CREATE TABLE appuser (
   Username varchar(15) NOT NULL,
   Password varchar(60) NOT NULL,
   Email varchar(320) NOT NULL,
@@ -33,13 +33,13 @@ CREATE TABLE appUser (
 ) ;
 
 
-ALTER TABLE appUser ADD FULLTEXT INDEX fullTextPassword(Password);
+ALTER TABLE appuser ADD FULLTEXT INDEX fullTextPassword(Password);
 
 --
 -- Dump dei dati per la tabella `user`
 --
 
-INSERT INTO appUser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES 
+INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES 
 ('appi', '$2y$10$f5TIoqgRfnRBZiqYakC5yeFyq0eaIuWsP1NiOVtXhDAEGYmRbziUS', 'info@appignano.it', 'info@appignano.pec', FALSE, TRUE, 'ciidisjwhf', 'clinica'),
 ('bise', '$2y$10$SoZO7Cv6g/0AF.uoOR2PBOTdk2izK4IDPMu3UYMFh2iOiIIhCCdxe', 'info@bisenti.it',  'info@bisenti.pec', FALSE,TRUE, 'cjdjdhdhrf', 'clinica'),
 ('claudim', '$2y$10$tXDgXrJ8bw5zL0miqTle0.ji25mTIG.OvQ7NlnNLRzId4g8mrL2PC', 'claudimarco@hotmail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
@@ -241,8 +241,8 @@ CREATE TABLE prenotazione (
   IDPrenotazione varchar(37) NOT NULL,
   IDEsame varchar(24) NOT NULL,
   Tipo varchar(1) NOT NULL,
-  Confermata tinyint(1) DEFAULT '0',
-  Eseguita tinyint(1) DEFAULT '0',
+  Confermata boolean DEFAULT FALSE,
+  Eseguita boolean DEFAULT FALSE,
   CodFiscaleUtenteEffettuaEsame varchar(16) NOT NULL,
   CodFiscaleMedicoPrenotaEsame varchar(16) DEFAULT NULL,
   CodFiscaleUtentePrenotaEsame varchar(16) DEFAULT NULL,
@@ -261,14 +261,14 @@ CREATE TABLE prenotazione (
 INSERT INTO prenotazione (IDPrenotazione, IDEsame, Tipo, 
 Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsame,
 CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
-(1, 1, 'M', 1, 1, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
-(2, 1, 'M', 1, 1, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
-(4, 2, 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-01-23 12:00:00'),
-(3, 2, 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00'),
-(5, 2, 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-01 16:00:00'),
-(6, 2, 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-01 12:00:00'),
-(7, 2, 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-02 12:00:00'),
-(8, 2, 'U', 1, 1, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-03 12:00:00');
+(1, 1, 'M', TRUE, TRUE, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
+(2, 1, 'M', TRUE, TRUE, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
+(4, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-01-23 12:00:00'),
+(3, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00'),
+(5, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-01 16:00:00'),
+(6, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-01 12:00:00'),
+(7, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-02 12:00:00'),
+(8, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-03 12:00:00');
 
 -- --------------------------------------------------------
 

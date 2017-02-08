@@ -43,7 +43,7 @@ class FPrenotazione extends FDatabase{
         {
             // si vuole visualizzare una prenotazione dell'utente
             $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "
-                . "DATE_FORMAT(DataEOra,'%d-%m-%Y %H:%i') AS DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
+                . "DATE_FORMAT(DataEOra,'%d-%m-%Y %H:%i') AS DataEOra, CASE WHEN prenotazione.Eseguita=FALSE THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(esame.PartitaIVAClinica=clinica.PartitaIVA) AND "
@@ -55,14 +55,14 @@ class FPrenotazione extends FDatabase{
             // solo il codice fiscale quindi si vogliono visualizzare tutte le 
             //prenotazioni di un utente
             $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "
-                . "DATE_FORMAT(DataEOra,'%d-%m-%Y %H:%i') AS DataEOra, CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
+                . "DATE_FORMAT(DataEOra,'%d-%m-%Y %H:%i') AS DataEOra, CASE WHEN prenotazione.Eseguita=FALSE THEN 'NO' ELSE 'SI' END AS Eseguita, esame.MedicoEsame "
                 . "FROM prenotazione, esame, clinica "
                 . "WHERE ((prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(esame.PartitaIVAClinica=clinica.PartitaIVA) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame='" . $codiceFiscaleUtente . "')) LOCK IN SHARE MODE";
         
-            //CASE WHEN prenotazione.Eseguita=0 THEN 'NO' ELSE 'SI' END AS Eseguita
-            // quando Eseguita=0 ovvero è false, rimpliazza lo zero con NO, altrimenti con SI
+            //CASE WHEN prenotazione.Eseguita=FALSE THEN 'NO' ELSE 'SI' END AS Eseguita
+            // quando Eseguita=FALSE, rimpliazza lo zero con NO, altrimenti con SI
         }
         return $this->eseguiQuery($query);
     }

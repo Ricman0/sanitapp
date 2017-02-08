@@ -408,9 +408,9 @@ class FDatabase {
      */
     public function inserisci($oggetto) 
     {
-        $nomeClasse = substr((get_class($oggetto)), 1);
-        $nomeClassePadre = get_parent_class($oggetto); 
-        if(($nomeClassePadre==='EUser'))
+        $nomeClasse = strtolower(substr((get_class($oggetto)), 1));
+        $nomeClassePadre = strtolower(get_parent_class($oggetto)); 
+        if(($nomeClassePadre==='euser'))
         {
             $nomeClassePadre =  substr($nomeClassePadre,1);
             $attributiPadreFiglio = $this->getAttributiTabella();
@@ -418,7 +418,7 @@ class FDatabase {
             $attributiPadre = $attributi[0];
             $attributiFiglio = $attributi[1];
             $valoriAttributiPadre = $this->getValoriAttributi($oggetto, $attributiPadre , $nomeClassePadre);
-            $nomeClassePadre = strtolower($nomeClassePadre);
+//            $nomeClassePadre = strtolower($nomeClassePadre);
             if($nomeClassePadre ==='user')
             {
                 $nomeClassePadre = 'appuser';

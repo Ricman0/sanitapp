@@ -400,7 +400,7 @@ class EUser {
      * @access public
      * @param string $idConferma Il codice di conferma per effettuare la conferma di un account
      * @return boolean TRUE User confermato, FALSE altrimenti.
-     * @throws XDBException Se la query non Ã¨ stata eseguita con successo
+     * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function confermaUser($idConferma) 
     {

@@ -753,7 +753,6 @@ class CPrenotazione {
                 break;
         }
         $idEsame = $vPrenotazione->recuperaValore('id');
-        $partitaIVAClinica = $vPrenotazione->recuperaValore('clinica');
         $data = $vPrenotazione->recuperaValore('data');
 
         $ora = $vPrenotazione->recuperaValore('orario');

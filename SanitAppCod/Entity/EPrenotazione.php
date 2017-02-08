@@ -111,7 +111,7 @@ class EPrenotazione {
                 $this->_codFisUtentePrenotaEsame = NULL;
                 $this->_codFisMedicoPrenotaEsame = $codFiscalePrenotaEsame; 
                 
-                $this->_confermata = 'FALSE';
+                $this->_confermata = FALSE;
             }
             else
             {
@@ -121,7 +121,7 @@ class EPrenotazione {
                 $this->_confermata = TRUE;
             }           
             
-            $this->_eseguita = 'FALSE';
+            $this->_eseguita = FALSE;
             $this->_codFisUtenteEffettuaEsame = $codFiscaleUtenteEffettuaEsame;
             $this->setDataEOra($dataEOra);
             
