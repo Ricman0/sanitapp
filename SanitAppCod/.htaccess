@@ -11,10 +11,10 @@
   SetEnv TZ Europe/Rome
 
   # comprimere testo, html, javascript, css, xml per ottimizzare i tempi di caricamento
-  AddOutputFilterByType DEFLATE text/html
-  AddOutputFilterByType DEFLATE text/css
-  AddOutputFilterByType DEFLATE application/x-javascript
-  AddOutputFilterByType DEFLATE application/javascript
+#  AddOutputFilterByType DEFLATE text/html
+#  AddOutputFilterByType DEFLATE text/css
+#  AddOutputFilterByType DEFLATE application/x-javascript
+#  AddOutputFilterByType DEFLATE application/javascript
 
 
 # evitare di iniettare del codice php con il metodo proc/self/environ.
