@@ -4,17 +4,12 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         clickRiga('clienti', 'visualizza', id, "#contenutoAreaPersonale");
     });
-
-    $('#headerMain').on("click", "#prova", function () {
-        agendaViewDisplay();
-    });
-
+    
     //click sul tasto Agenda 
     $('#headerMain').on("click", "#agendaAreaPersonaleClinica", function () {
         $('#stampaPrenotazioni').parent().remove();
         $('#contenutoAreaPersonale').empty(); // elimino tutti gli elementi interni al div contenutoAreaPersonale
         $('#contenutoAreaPersonale').append("<h2>APPUNTAMENTI</h2>");
-        $('#contenutoAreaPersonale').append("<input type='button' value='PROVA' id='prova' />");
         $('#contenutoAreaPersonale').append("<div id='agenda'></div>");// aggiungo il div agenda per inserire fullcalendar
         $('#contenutoAreaPersonale').append("<div id='contenutoEvento' title='Dettaglio evento'><div id='infoEvento'></div>");
                
@@ -830,29 +825,35 @@ function agendaViewDisplay(view, element)
                         // aggiungo un periodoNonDisponibile prima dell'orario lavorativo
                         var startDayAgendaString = agendaView.start.format('YYYY-MM-DD'); // la data di start della view 
                         var dataEOraStartString = startDayAgendaString + ' ' + workingPlan[nomeGiorno].Start;// aggiungo l'orario di inizio 
-                        var dataEOraStart = Date.parse(dataEOraStartString); // da stringa ad oggetto Date e ritornano i millisecondi tra la stringa passata  e la mezzanotte del 1° Gennaio 1970.
+                        
+//                       var dataEOraStart = Date.parse(dataEOraStartString); // da stringa ad oggetto Date e ritornano i millisecondi tra la stringa passata  e la mezzanotte del 1° Gennaio 1970.
+                        var dataEOraStart = moment(dataEOraStartString, 'YYYY-MM-DD hh:mm');
                         startDayAgendaString = startDayAgendaString + " " + agendaView.calendar.options.minTime;
-                        var startDayAgenda = Date.parse(startDayAgendaString);
+//                        var startDayAgenda = Date.parse(startDayAgendaString);
+                        var startDayAgenda = moment(startDayAgendaString, 'YYYY-MM-DD hh:mm:ss');
                         // aggiungo un periodo non disponibile al termine dell'orario di lavoro
                         var endDayAgendaString = agendaView.start.format('YYYY-MM-DD') + " " + agendaView.calendar.options.maxTime; // l'ultima data visibile nella view 
                         var dataEOraEndString = agendaView.start.format('YYYY-MM-DD') + ' ' + workingPlan[nomeGiorno].End; //concateno la data end agenda formato string con l'orario di chiusura della clinica
-                        var dataEOraEnd = Date.parse(dataEOraEndString);
-                        var endDayAgenda = Date.parse(endDayAgendaString);
+//                        var dataEOraEnd = Date.parse(dataEOraEndString);
+//                        var endDayAgenda = Date.parse(endDayAgendaString);
+                        var endDayAgenda = moment(endDayAgendaString, 'YYYY-MM-DD hh:mm:ss');
+                        var dataEOraEnd = moment(dataEOraEndString, 'YYYY-MM-DD hh:mm');
                         if(navigator.appName == 'Microsoft Internet Explorer')
                         {
                             alert('microsoft');
-                            if (startDayAgenda < dataEOraStart)  // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
+                            if (startDayAgenda.isBefore(dataEOraStart, 'minute')) 
                             {
                                 var periodoNonDisponibile = {
                                     'title': 'CLINICA CHIUSA',
                                     'start': startDayAgendaString,
                                     'end': dataEOraStartString,
                                     'allDay': false,
-                                    'color': '#BEBEBE'
+                                    'color': 'grey'
                                 };
                                 $('#agenda').fullCalendar('addEventSource', periodoNonDisponibile);
                             }
-                            if (endDayAgenda > dataEOraEnd) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
+                           
+                             if (endDayAgenda.isAfter(dataEOraEnd, 'minute')) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
                             {
                                 var periodoNonDisponibile = {
                                     'title': 'CLINICA CHIUSA',
@@ -869,7 +870,8 @@ function agendaViewDisplay(view, element)
                         {
                             alert('altro');
                             
-                            if (startDayAgenda < dataEOraStart)  // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
+//                            if (startDayAgenda < dataEOraStart)  // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
+                            if (startDayAgenda.isBefore(dataEOraStart, 'minute')) 
                             {
                                 //                        agendaView.calendar.options.minTime
                                 var minTimeClinica = workingPlan[nomeGiorno].Start + ':00';
@@ -884,9 +886,7 @@ function agendaViewDisplay(view, element)
     //                            };
     //                            $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, false);
                             }
-
-                            
-                            if (endDayAgenda > dataEOraEnd) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
+                            if (endDayAgenda.isAfter(dataEOraEnd, 'minute')) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
                             {
                                 var maxTimeClinica = workingPlan[nomeGiorno].End + ':00';
                                 $('#agenda').fullCalendar('option', 'maxTime', maxTimeClinica);
