@@ -312,6 +312,21 @@ function dialogBox() {
     });
 
 }
+/**
+ * Controlle se il browser utilizzato è IE oppure no
+ * @returns {Boolean} true se il browser è IE, false altrimenti
+ */
+function checkInternetExplorer(){
+    var ms_ie = false;
+    var ua = window.navigator.userAgent;
+    var old_ie = ua.indexOf('MSIE ');
+    var new_ie = ua.indexOf('Trident/');
+
+    if ((old_ie > -1) || (new_ie > -1)) {
+        ms_ie = true;
+    }
+    return ms_ie;
+}
 
 //function createView(stateObject, pushHistory) {
 ////	document.getElementById('contentBox').innerHTML = '<h1>'+stateObject.title+'</h1>'+boxcontent[stateObject.contentId];
