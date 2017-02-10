@@ -66,3 +66,12 @@ and open the template in the editor.
 #agenda{
     padding: 3%;
 }
+
+.periodoNonDisponibile{
+    background-image: url('../Immagini/unavailable.jpg');
+}
+
+.pausa{
+    background-image: url('../Immagini/break.jpg');
+    border-color: green !important;
+}

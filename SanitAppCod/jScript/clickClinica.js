@@ -723,7 +723,8 @@ function agendaViewDisplay(view, element)
                                 'start': currDateStartString,
                                 'end': currDateStartString,
                                 'allDay': true,
-                                'color': 'light-grey',
+                                'className': 'periodoNonDisponibile',
+//                                'color': 'light-grey',
 //                                'color': '#BEBEBE',
                                 'editable': false
                             };
@@ -743,7 +744,8 @@ function agendaViewDisplay(view, element)
                                         'start': breakStart,
                                         'end': breakEnd,
                                         'allDay': false,
-                                        'color': 'pink',
+//                                        'color': 'green',
+                                        'className': 'pausa',
                                         'editable': true
                                     };
                                     pauseAgenda.push(pausa);
@@ -769,7 +771,8 @@ function agendaViewDisplay(view, element)
                                     'start': currDateStartString,
                                     'end': currDateStartString,
                                     'allDay': true,
-                                    'color': 'light-grey',
+                                    'className': 'periodoNonDisponibile',
+//                                    'color': 'light-grey',
 //                                    'color': '#BEBEBE',
                                     'editable': false
                                 };  
@@ -789,8 +792,9 @@ function agendaViewDisplay(view, element)
                                         'start': breakStart,
                                         'end': breakEnd,
                                         'allDay': false,
-                                        'color': 'pink',
-                                        'editable': true
+//                                        'color': 'green',
+                                        'editable': true,
+                                        'className': 'pausa'
                                     };
                                     pauseAgenda.push(pausa);
 //                                    $('#agenda').fullCalendar('renderEvent', pausa, false);
@@ -798,7 +802,7 @@ function agendaViewDisplay(view, element)
                             }
                             currDateStart.add(1, 'days'); // aggiungo un giorno alla giornata di inizio
                         });         
-//                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
+                            currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
                     }
                     $('#agenda').fullCalendar('addEventSource', periodiNonDisponibiliAgenda);
                     $('#agenda').fullCalendar('addEventSource', pauseAgenda);
@@ -816,7 +820,8 @@ function agendaViewDisplay(view, element)
                             'start': $('#agenda').fullCalendar('getView').start,
                             'end': $('#agenda').fullCalendar('getView').end,
                             'allDay': false,
-                            'color': c
+//                            'color': '#BEBEBE',
+                            'className': 'periodoNonDisponibile'
                         };
                         $('#agenda').fullCalendar('renderEvent', periodoNonDisponibile, true);
                     } 
@@ -838,37 +843,37 @@ function agendaViewDisplay(view, element)
 //                        var endDayAgenda = Date.parse(endDayAgendaString);
                         var endDayAgenda = moment(endDayAgendaString, 'YYYY-MM-DD hh:mm:ss');
                         var dataEOraEnd = moment(dataEOraEndString, 'YYYY-MM-DD hh:mm');
-                        if(navigator.appName == 'Microsoft Internet Explorer')
-                        {
-                            alert('microsoft');
-                            if (startDayAgenda.isBefore(dataEOraStart, 'minute')) 
-                            {
-                                var periodoNonDisponibile = {
-                                    'title': 'CLINICA CHIUSA',
-                                    'start': startDayAgendaString,
-                                    'end': dataEOraStartString,
-                                    'allDay': false,
-                                    'color': 'grey'
-                                };
-                                $('#agenda').fullCalendar('addEventSource', periodoNonDisponibile);
-                            }
-                           
-                             if (endDayAgenda.isAfter(dataEOraEnd, 'minute')) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
-                            {
-                                var periodoNonDisponibile = {
-                                    'title': 'CLINICA CHIUSA',
-                                    'start': endDayAgendaString,
-                                    'end': dataEOraEndString,
-                                    'allDay': false,
-                                    'color': '#BEBEBE'
-                                };
-                                $('#agenda').fullCalendar('addEventSource', periodoNonDisponibile);
-                            }
-                            
-                        }
-                        else
-                        {
-                            alert('altro');
+//                        if(navigator.appName == 'Microsoft Internet Explorer')
+//                        {
+//                            alert('microsoft');
+//                            if (startDayAgenda.isBefore(dataEOraStart, 'minute')) 
+//                            {
+//                                var periodoNonDisponibile = {
+//                                    'title': 'CLINICA CHIUSA',
+//                                    'start': startDayAgendaString,
+//                                    'end': dataEOraStartString,
+//                                    'allDay': false,
+//                                    'color': 'grey'
+//                                };
+//                                $('#agenda').fullCalendar('addEventSource', periodoNonDisponibile);
+//                            }
+//                           
+//                             if (endDayAgenda.isAfter(dataEOraEnd, 'minute')) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
+//                            {
+//                                var periodoNonDisponibile = {
+//                                    'title': 'CLINICA CHIUSA',
+//                                    'start': endDayAgendaString,
+//                                    'end': dataEOraEndString,
+//                                    'allDay': false,
+//                                    'color': '#BEBEBE'
+//                                };
+//                                $('#agenda').fullCalendar('addEventSource', periodoNonDisponibile);
+//                            }
+//                            
+//                        }
+//                        else
+//                        {
+//                            alert('altro');
                             
 //                            if (startDayAgenda < dataEOraStart)  // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
                             if (startDayAgenda.isBefore(dataEOraStart, 'minute')) 
@@ -891,7 +896,7 @@ function agendaViewDisplay(view, element)
                                 var maxTimeClinica = workingPlan[nomeGiorno].End + ':00';
                                 $('#agenda').fullCalendar('option', 'maxTime', maxTimeClinica);
                             }
-                        }
+//                        }
                         // aggiungo una pausa se presente
                         var breakStart, breakEnd;
                         if(typeof(workingPlan[nomeGiorno].BreakStart)!= "undefined" && typeof(workingPlan[nomeGiorno].BreakEnd)!= "undefined" )
@@ -903,8 +908,9 @@ function agendaViewDisplay(view, element)
                                 'start': breakStart,
                                 'end': breakEnd,
                                 'allDay': false,
-                                'color': 'pink',
-                                'editable': true
+//                                'color': 'green',
+                                'editable': true,
+                                'className': 'pausa'
                             };
                             $('#agenda').fullCalendar('renderEvent', pausa, false);
                         }
