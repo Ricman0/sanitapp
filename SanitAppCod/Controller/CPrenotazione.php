@@ -70,8 +70,33 @@ class CPrenotazione {
                     $this->tryModificaPrenotazione();
                     break;
                 
+                case 'ricerca': //GET prenotazione/ricerca
+                    $id = $vPrenotazione->recuperaValore('id'); 
+                    $vJSON = USingleton::getInstance('VJSON');
+                    if(isset($id))// GET prenotazione/ricerca/idPrenotazione
+                    {
+                        try{
+                            $ePrenotazione = new EPrenotazione($id);
+                            $daInviare = array();
+                            $daInviare['Eseguito'] = $ePrenotazione->getEseguitaPrenotazione();
+                            $vJSON->inviaDatiJSON($daInviare);
+                        }catch (XPrenotazioneException $ex) {
+                            // prenotazione mancante
+                            $vJSON->inviaDatiJSON(FALSE);
+                            
+                        }
+                        catch (XDBException $ex) {
+                            // problemi nel db
+                             $vJSON->inviaDatiJSON(FALSE);
+                        }
+                    }
+                    else {//errore
+                         $vJSON->inviaDatiJSON(FALSE);
+                        }
+                    
+                    break;
+                    
                 default:
-                    echo "errore";
                     break;
             }
         } 

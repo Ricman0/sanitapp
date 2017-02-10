@@ -680,6 +680,7 @@ function agendaViewDisplay(view, element)
         type: 'POST',
 //            url: 'agenda/visualizza',
         url: 'agenda',
+        async: false,
         
         data: {start: startDataOra, end: endDataOra},
 //        dataType : 'json',
@@ -922,12 +923,30 @@ function agendaEventClick(event, jsEvent, view)
             title = event.title;
             break;
         default:
-            agendaViewDisplay();
+//            agendaViewDisplay();
+//            cercaAppuntamento();
+            $.ajax({
+                type:'GET',
+                url: 'prenotazione/ricerca/' + event.id,
+                async: false,
+                success:function(datiRisposta)
+                {  
+                    if(datiRisposta != 'FALSE' )
+                    {
+                        var risposta = JSON.parse(datiRisposta);
+                        alert(risposta['Eseguito']);
+                        event.eseguito = risposta['Eseguito'];
+                    }
+                }
+            })
             var descrizioneAppuntamento = "<p>Cliente: " + event.cliente  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Esame: " + event.esame  + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>ID Prenotazione: " + event.id + "</p>";
             descrizioneAppuntamento = descrizioneAppuntamento + "<p>Start: " + event.start.format('HH:mm')  + "</p><p>End: " + event.end.format('HH:mm') + "</p>" ;
-            if(event.eseguito==false)//lasciare due uguali(==)non tre(===)
+           alert('a');
+            alert((event.eseguito));
+           
+            if(event.eseguito==false )//lasciare due uguali(==)non tre(===)
             {
                descrizioneAppuntamento = descrizioneAppuntamento + "<p>Eseguito: <i class='fa fa-times fa-lg rosso modificaEseguito cliccabile' aria-hidden='true'></i></p>";
             }
@@ -982,7 +1001,6 @@ function agendaEventClick(event, jsEvent, view)
                         else
                         {
                             // apro un'altra finestra
-                            //aggiungo 09:43
                             $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
                             $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
                             $("#erroreAltroContenutoEventoNonEseguito").dialog({ 

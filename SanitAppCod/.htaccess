@@ -16,9 +16,9 @@
 #  AddOutputFilterByType DEFLATE application/x-javascript
 #  AddOutputFilterByType DEFLATE application/javascript
 
-
-RewriteCond %{SERVER_PORT} 80 
-RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+#
+#RewriteCond %{SERVER_PORT} 80 
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
 # evitare di iniettare del codice php con il metodo proc/self/environ.
 #evitare di permettere di trasformare una LFI (Inclusione di file locali,  
@@ -88,7 +88,7 @@ Options All -Indexes
   RewriteRule ^(ricerca)/(utente)/(\w+)$ index.php?controller=$1&task=$2&codice=$3 [L]
   RewriteRule ^(impostazioni)/(giorniNonLavorativi)/(\w+)$ index.php?controller=$1&task=$2&clinica=$3 [L]
   
-  RewriteRule ^(prenotazione)/(esame)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(prenotazione)/(esame|ricerca)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(impostazioni)/(clinica)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(esami|cliniche)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(esami)/(\w+)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=$4 [L]

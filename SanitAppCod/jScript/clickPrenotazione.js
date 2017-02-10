@@ -428,10 +428,7 @@ function getGiorniNonLavorativiClinica(partitaIVAClinica)
         {        
 //            alert(datiRisposta);
             try{
-                
                 giorniNonLavorativi = JSON.parse(datiRisposta);
-                
-                
             }
             catch (error)
             {
