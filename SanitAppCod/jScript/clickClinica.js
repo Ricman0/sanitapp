@@ -92,6 +92,9 @@ $(document).ready(function () {
         inviaControllerTask('impostazioni', 'workingPlan', "#contenutoAreaPersonale");
     });
     
+    
+    
+    
     $('#headerMain').on("click", "#modificaInformazioniClinica", function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGenerali");
     });
@@ -279,6 +282,9 @@ $(document).ready(function () {
             }
     });
     
+    $('#headerMain').on("click", "#annullaImpostazioniClinica", function () {
+        inviaController('mySanitApp', '#main');
+    });
     
 //    $('#headerMain').on("click", "#aggiungiPausaButton", function () {
 //        formPausa();
