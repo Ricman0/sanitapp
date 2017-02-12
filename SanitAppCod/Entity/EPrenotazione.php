@@ -459,7 +459,7 @@ class EPrenotazione {
      * Confronta la data della prenotazione con quella odierna.
      * 
      * @access public
-     * @return boolean TRUE se la data di l'altro ieri è precedente alla data di prenotazione esame, FALSE se la data di l'altro ieri è successiva alla data di prenotazione
+     * @return boolean TRUE se la data di odierna è precedente alla vigilia della data di prenotazione esame, FALSE altrimenti.
      */
     public function controllaData()
     {
@@ -472,12 +472,12 @@ class EPrenotazione {
         // osservazione: dal momento che uso il formato Y-m-d non c'è bisogno di effettuare la conversione in timestamp
 //        $laltroieri = mktime ( 0, 0 , 0, $dataOdierna['month'] , $dataOdierna['day']-2, $dataOdierna['year']); // sottraggo un giorno (quindi ) e ottengo l'altro ieri in timestamp
         if($dataOdierna < $dataPrenotazioneMenoUnGiorno)
-        { // se la data di l'altro ieri è precedente a quella di prenotazione
+        { // se la data odierna è precedente a quella di prenotazione meno un giorno
             
             return TRUE;
         }
         else
-        { // codice da eseguire se la data di l'altro ieri  è successiva alla data di prenotazione
+        { 
             return FALSE;
         }   
     }

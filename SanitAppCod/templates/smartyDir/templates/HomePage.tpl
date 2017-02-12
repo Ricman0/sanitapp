@@ -45,20 +45,6 @@
         <script src='plugins/fullcalendar/fullcalendar.js'></script>
         <script src='plugins/fullcalendar/locale/it.js'></script>
 
-
-
-        <!--<img src="./Immagini/cartinaItalia.gif" />-->
-
-
-
-
-        <!--inserisco meta viewport per ottenere una nav bar responsive
-        <meta name="viewport" content="width=device-width" initial-scale=1  maximum-scale=1>    
-
-        <meta charset="UTF-8">
-        
-        <script type="application/javascript" src="./jScript/adaptive-image.js"></script>-->
-
     </head>
 
     <body>

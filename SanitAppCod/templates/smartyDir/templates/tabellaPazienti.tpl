@@ -31,7 +31,7 @@
         </tbody>
     </table>
  {else}
-     <h4>Non sono presenti pazienti</h4>
+     <h4>Non sono presenti pazienti.</h4>
         <p>Per aggiungere un paziente, clicca sul tasto aggiungi</p>
         <br>
             {if isset($tastoAggiungi)}
