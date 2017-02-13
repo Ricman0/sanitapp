@@ -81,7 +81,6 @@ $(document).ready(function(){
     
     });
   
-  
     $('#headerMain').on('click', '#iconaAggiungiCategoria', function(){
         $('#iconaAggiungiCategoria').siblings().remove(); // elimino tutti i fratelli di iconaAggiungiUser
         //aggiungo i tasti dopo l'icona aggiungi (come fratelli non come figli)
@@ -100,6 +99,8 @@ $(document).ready(function(){
         $( "#iconaAggiungiCategoria" ).after( "<h4>Clicca su 'Annulla' per annullare l'inserimento di una nuova categoria.</h4>");
         $( "#iconaAggiungiCategoria" ).after( "<h4>Clicca su 'Aggiungi' per aggiungere una nuova categoria.</h4>");
         $( "#iconaAggiungiCategoria" ).after( "<h4>Inserisci i dati per aggiungere una nuova categoria.</h4>");
+        $( "#iconaAggiungiCategoria" ).after( "<hr><br>");
+        $( "#iconaAggiungiCategoria" ).after( "<h3>AGGIUNGI CATEGORIA ESAMI</h3>");
         // elimino il tasto + di aggiungi categoria
         $( "#iconaAggiungiCategoria" ).remove();
         validazioneCategoria();

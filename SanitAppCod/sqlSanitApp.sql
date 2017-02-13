@@ -1,6 +1,5 @@
 /**
  * Author:  Claudia Di Marco & Riccardo Mantini
- * Created: 20-ago-2016
  */
 
 DROP DATABASE IF EXISTS sanitapp;
