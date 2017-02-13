@@ -259,41 +259,43 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
                 var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
                 // recupero i giorniNonLavorativi (in formato JSON) dalla clinica  e poi li rendo un oggetto javascript
                 var giorniNonLavorativi = getGiorniNonLavorativiClinica(partitaIVAClinica);
-                // aggiungo il datapicker calendario 
-                $("#calendarioPrenotazioneEsame").datepicker({
-                    firstDay:1, //ogni settimana inizia da Lunedì
-                    dateFormat: "dd-mm-yy", //formato della data
-                    regional: "it", //italia
-                    
-//                    beforeShowDay:disabilitaGiorniNonLavorativi
-                    beforeShowDay: function (date){
-                        return [disabilitaGiorniNonLavorativi(date, giorniNonLavorativi)];
-                    },
-                    minDate: 1, // la minima data selezionabile ovvero domani
-                    
-                    /* funzione chiamata quando il datepicker è selezionato. 
-                    * La funzione ha come parametri la data (come testo) selezionata  e l'istanza del datepicker
-                    */
-                    onSelect: function(dateText, inst) { 
-                    $('#nextPrenotazioneEsame').hide();
-                    var data = dateText; //the first parameter of this function
-                    //aggiungo la data selezionata nell'attributo data-data del tasto nextPrenotazioneEsame in questo modo ho la data della prenotazione
-                    $('#nextPrenotazioneEsame').attr('data-data', data);
-                    // richiamo il metodo getDate() della dataSelezionata del datapicker                     
-                    var dataObject = $(this).datepicker( 'getDate' ); //the getDate method
-                    //Formatta la data dataObject in un valore stringa in base al formato specificato come primo parametro. 
-                    // in questo caso giorno
-                    var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
-                    nomeGiorno = nomeGiorno.replace('ì','i');
-                    // prendi il valore dell'input nascosto (in prenotazioneEsame.tpl) idEsame 
-                    // e memorizzalo nella variabile idEsame
-                    var idEsame = $("#idEsame").val();
-                    // cerca le date diposnibili per quella data e quel nome giorno per quell'esame in quella clinica
-                    orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
-                    
-                    
-                    }
-                });
+                if(typeof(giorniNonLavorativi)!=='undefined')
+                {
+                    // aggiungo il datapicker calendario 
+                    $("#calendarioPrenotazioneEsame").datepicker({
+                        firstDay:1, //ogni settimana inizia da Lunedì
+                        dateFormat: "dd-mm-yy", //formato della data
+                        regional: "it", //italia
+
+    //                    beforeShowDay:disabilitaGiorniNonLavorativi
+                        beforeShowDay: function (date){
+                            return [disabilitaGiorniNonLavorativi(date, giorniNonLavorativi)];
+                        },
+                        minDate: 1, // la minima data selezionabile ovvero domani
+
+                        /* funzione chiamata quando il datepicker è selezionato. 
+                        * La funzione ha come parametri la data (come testo) selezionata  e l'istanza del datepicker
+                        */
+                        onSelect: function(dateText, inst) { 
+                        $('#nextPrenotazioneEsame').hide();
+                        var data = dateText; //the first parameter of this function
+                        //aggiungo la data selezionata nell'attributo data-data del tasto nextPrenotazioneEsame in questo modo ho la data della prenotazione
+                        $('#nextPrenotazioneEsame').attr('data-data', data);
+                        // richiamo il metodo getDate() della dataSelezionata del datapicker                     
+                        var dataObject = $(this).datepicker( 'getDate' ); //the getDate method
+                        //Formatta la data dataObject in un valore stringa in base al formato specificato come primo parametro. 
+                        // in questo caso giorno
+                        var nomeGiorno =$.datepicker.formatDate('DD', dataObject);
+                        nomeGiorno = nomeGiorno.replace('ì','i');
+                        // prendi il valore dell'input nascosto (in prenotazioneEsame.tpl) idEsame 
+                        // e memorizzalo nella variabile idEsame
+                        var idEsame = $("#idEsame").val();
+                        // cerca le date diposnibili per quella data e quel nome giorno per quell'esame in quella clinica
+                        orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
+                        }
+                    });
+                }
+                
             }
             else // se l'user è un medico il codice fiscale dell'utente per cui vuole prenotare non è definito
             {
