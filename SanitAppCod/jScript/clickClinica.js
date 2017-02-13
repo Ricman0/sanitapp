@@ -488,9 +488,6 @@ function inviaImpostazioniClinica(id, controller1, task1, task2, ajaxdiv)
     });
 }
 
- 
-
-
 function inviaDatiEsame(id, controller1, task1, ajaxdiv)
 {
 

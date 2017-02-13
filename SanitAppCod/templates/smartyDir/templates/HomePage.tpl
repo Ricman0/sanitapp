@@ -30,7 +30,8 @@
         <script type="application/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>
 
         <script type="application/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
-        <script type="application/javascript" src="./jScript/eventi_click.js"></script>
+        <script type="application/javascript" src="./jScript/funzioniGeneriche.js"></script>
+        <script type="application/javascript" src="./jScript/clickHomePage.js"></script>
         <script type="application/javascript" src="./jScript/clickLogIn.js"></script>
         <script type="application/javascript" src="./jScript/clickEsami.js"></script>
         <script type="application/javascript" src="./jScript/clickCercaCliniche.js"></script>

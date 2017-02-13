@@ -250,66 +250,9 @@ $(document).ready(function(){
         $(this).val($(this).prop('checked')); // assegno al valore del checkbox il valore della proprietà checked
     
     });
-//   
-    
-//    $('#headerMain').on("change", "#modificaUserClinica >input[type='text']" , function(){
-//        
-//        
-//        
-//        var valoreNuovo = $(this).val();
-//        var idElementoInput = $(this).attr("id");
-//        var nomeFunzioneDaRichiamare = "valida" + idElementoInput ;
-//        // vorrei richiamre una funzione il cui nome viene passato come stringa
-////        eval(nomeFunzioneDaRichiamare);
-//        
-////        [nomeFunzioneDaRichiamare]();
-//        var valoreLabel = $("label[for='" + idElementoInput + "']").val().trim();
-//        valoreLabel = valoreLabel.substring(0,1).toUpperCase() + valoreLabel.slice(1);
-//        $("label[for='" + idElementoInput + "']").wrap( "<form id='" + idElementoInput + "Form'></form>" );
-//        $( this ).insertAfter( "label[for='" + idElementoInput + "']" );
-//        $(this).after("<input type='submit' value='Modifica "+ valoreLabel + "' id='submitModifica" + idElementoInput + "'>  ");
-//    });
-//    
-    
+  
 });
 
 
 
-function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
-{
-    $.ajax({
-        type: 'POST',
-        url: controller + '/' + task ,
-        data: datiPOST,
-        success: function (datiRisposta)
-        {
-            if(controller==='referto' && task === 'condividi' && datiPOST.condividiConMedico!==null)
-            {
-                $('#messaggioDialogBox').empty();
-                if(datiRisposta == "\"OK\"")
-                {
-                    $('#messaggioDialogBox').text('Referto condiviso con il proprio medico curante');
-                }
-                else if(datiRisposta == "\"NO\"")
-                {
-                    $('#messaggioDialogBox').text('Referto NON condiviso con il proprio medico curante');
-                }
-                else
-                {
-                    $('#messaggioDialogBox').text('Errore!!');
-                }
-                    
-                dialogBox();
-            }
-            else
-            {
-                $(ajaxdiv).html(datiRisposta);
-                $("#loadingModal").hide();
-            }
-        },
-        error: function ()
-        {
-            alert("Sbagliato click ");
-        }
-    });
-}
+
