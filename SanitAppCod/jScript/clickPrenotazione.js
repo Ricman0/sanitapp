@@ -487,7 +487,7 @@ function orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data)
                     {       
                         // aggiungo alla colonna i-esima il valore value   
                         $("#colonna" + i).append( '<span class="orarioDisponibile">' + value + '</span> &nbsp');
-                        if(Number.isInteger(j/11)) // se j/11 è senza resto quindi un intero
+                        if((j%11)===0) // se j/11 è senza resto quindi un intero
                         {
                             i++; //incrementa i
                             // aggiungi una colonna nel div orariDispoinibili

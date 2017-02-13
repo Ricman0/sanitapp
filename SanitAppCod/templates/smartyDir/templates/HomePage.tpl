@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head> 
+        
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        
         <link rel="stylesheet" type="text/css" href="./Css/normalize.css">
         <link rel="stylesheet" type="text/css" href="./Fonts/font-awesome/css/font-awesome.css">
         <link rel="stylesheet" type="text/css" href="./Css/homePage.css">
