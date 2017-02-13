@@ -59,9 +59,8 @@ class VPrenotazione extends View{
     {
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         $this->assegnaVariabiliTemplate('tipoUser', ucfirst($tipoUser));
-        if(isset($risultato) && count($risultato)>0)
-            {
-                $this->assegnaVariabiliTemplate('prenotazioni', TRUE);                
+        if(isset($risultato))
+            {             
                 $this->assegnaVariabiliTemplate('prenotazioni', TRUE);
                 $this->assegnaVariabiliTemplate('dati', $risultato);
             }

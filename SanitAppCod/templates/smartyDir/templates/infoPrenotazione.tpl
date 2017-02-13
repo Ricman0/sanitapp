@@ -15,7 +15,8 @@
                 <br>
             {/if}
         {/if}
-
+        <span class="grassetto">ID PRENOTAZIONE:</span><span>  {$prenotazione->getIDPrenotazionePrenotazione() }</span>
+        <br>
         <span class="grassetto">ESAME:</span><span>  {$nomeEsame}</span>
         <br>
         <span class="grassetto">DATA E ORA:</span><span>  {$prenotazione->getDataEOraPrenotazione()}</span>

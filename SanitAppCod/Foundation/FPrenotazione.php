@@ -33,13 +33,14 @@ class FPrenotazione extends FDatabase{
      * @access public
      * @param string $codiceFiscaleUtente Codice fiscale dell'utente di cui si vuole
      * cercare tutte le prenotazioni
+     * @param string $idPrenotazione L'id della prenotazione da cercare
      * @return array Il risultato della query
      * @throws XDBException Se la query non è stata eseguita con successo
      * 
      */
     public function cercaPrenotazioni($codiceFiscaleUtente, $idPrenotazione=NULL)
     {
-        if($idPrenotazione!==NULL && $idPrenotazione!==FALSE)//posso togliere questa seconda condizione ma metto != FALSE poichè magari recuperaValore('id') può non contenere l'id e per qualche motivo c'è un errore
+        if($idPrenotazione!==NULL && $idPrenotazione!==FALSE)
         {
             // si vuole visualizzare una prenotazione dell'utente
             $query =  "SELECT IDPrenotazione, esame.NomeEsame, clinica.NomeClinica, "

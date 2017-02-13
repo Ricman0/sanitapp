@@ -57,6 +57,7 @@
             </div>
         </fieldset>
         <input type="submit" id="salvaImpostazioniClinica" value="Salva" />
+        <input type="button" id="annullaImpostazioniClinica" value="Annulla" />
         <br>
     </form>
 </div>

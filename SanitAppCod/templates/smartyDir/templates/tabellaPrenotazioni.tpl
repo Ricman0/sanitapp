@@ -5,7 +5,6 @@
     <h4>Clicca sull'icona successiva per aggiungere una prenotazione.</h4>
     <table id="tabellaPrenotazioni" class="tablesorter">
     <thead>
-        <th>ID Prenotazione</th>
         {if ($tipoUser==='Utente')}
         <th>Nome Esame</th>
         <th>Nome Clinica</th>
@@ -13,12 +12,14 @@
         <th>Medico Esame</th>
         {else}
             {if ($tipoUser==='Medico')}
+                <th>ID Prenotazione</th>
                 <th>Nome Esame</th>
                 <th>Nome Clinica</th>
                 <th>Nome </th>
                 <th>Cognome</th>
                 <th>Codice Fiscale</th>
             {else}
+                <th>ID Prenotazione</th>
                 <th>ID Esame</th>
                 <th>Esame</th>
                 <th>Nome </th>
@@ -38,7 +39,6 @@
         {if ($tipoUser==='Utente')}
             {foreach from=$dati item=curr_row}
                 <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione cliccabile">
-                    <td>{$curr_row['IDPrenotazione']}</td>
                     <td>{$curr_row['NomeEsame']}</td>
                     <td>{$curr_row['NomeClinica']}</td>                     
                     <td>{$curr_row['Eseguita']}</td>
@@ -79,7 +79,7 @@
     </tbody>
 </table>
 {else}
-        <h3>Non sono presenti prenotazioni</h3>
+        <h3>Non sono presenti prenotazioni.</h3>
         <p>Per aggiungere una prenotazione, clicca sul tasto aggiungi</p>
         <br>
             {if isset($tastoAggiungi)}

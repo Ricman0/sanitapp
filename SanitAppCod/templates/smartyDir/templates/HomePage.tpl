@@ -34,7 +34,8 @@
         <script type="application/javascript" src="./plugins/jquery-ui-timepicker/jquery-ui-timepicker-addon.js"></script>
 
         <script type="application/javascript" src="./jScript/gestioneCartinaItalia.js"></script>
-        <script type="application/javascript" src="./jScript/eventi_click.js"></script>
+        <script type="application/javascript" src="./jScript/funzioniGeneriche.js"></script>
+        <script type="application/javascript" src="./jScript/clickHomePage.js"></script>
         <script type="application/javascript" src="./jScript/clickLogIn.js"></script>
         <script type="application/javascript" src="./jScript/clickEsami.js"></script>
         <script type="application/javascript" src="./jScript/clickCercaCliniche.js"></script>
@@ -48,20 +49,6 @@
         <script src='plugins/moment.js'></script>
         <script src='plugins/fullcalendar/fullcalendar.js'></script>
         <script src='plugins/fullcalendar/locale/it.js'></script>
-
-
-
-        <!--<img src="./Immagini/cartinaItalia.gif" />-->
-
-
-
-
-        <!--inserisco meta viewport per ottenere una nav bar responsive
-        <meta name="viewport" content="width=device-width" initial-scale=1  maximum-scale=1>    
-
-        <meta charset="UTF-8">
-        
-        <script type="application/javascript" src="./jScript/adaptive-image.js"></script>-->
 
     </head>
 
