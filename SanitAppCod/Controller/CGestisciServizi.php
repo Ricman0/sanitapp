@@ -43,16 +43,25 @@ class CGestisciServizi {
                 {
                     try {
                         $eClinica = new EClinica($username);
-                        $eEsame = new EEsame(NULL, ucwords($datiEsame['nome']), ucwords($datiEsame['medico']),
-                        $datiEsame['categoria'], $datiEsame['prezzo'], 
-                        $datiEsame['durata'], $datiEsame['numPrestazioniSimultanee'], 
-                        ucfirst($datiEsame['descrizione']), $eClinica->getPartitaIVAClinica());
-                        $eEsame->inserisciEsameDB();
-                        $messaggio = 'Servizio inserito con successo.';
+                        $nomeEsame = ucwords($datiEsame['nome']);
+                        $nomeClinica = $eClinica->getNomeClinicaClinica();
+                        if(!$eClinica->esisteEsame($nomeEsame, $nomeClinica))
+                        {
+                            $eEsame = new EEsame(NULL, $nomeEsame, ucwords($datiEsame['medico']),
+                            $datiEsame['categoria'], $datiEsame['prezzo'], 
+                            $datiEsame['durata'], $datiEsame['numPrestazioniSimultanee'], 
+                            ucfirst($datiEsame['descrizione']), $eClinica->getPartitaIVAClinica());
+                            $eEsame->inserisciEsameDB();
+                            $messaggio = 'Servizio inserito con successo.'; 
+                        }
+                        else
+                        {
+                            $messaggio = 'Servizio non inserito perchè già esistente.'; 
+                        }  
                     } 
                     catch (XDBException $ex) {
-//                        $messaggio = $ex->getMessage();   
-                        $messaggio = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
+                        $messaggio[0] = $ex->getMessage();   
+                        $messaggio[1] = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
                     }
                     catch (XClinicaException $ex) {
                         $messaggio = $ex->getMessage();                 

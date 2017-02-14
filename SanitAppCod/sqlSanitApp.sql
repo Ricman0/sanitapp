@@ -169,7 +169,7 @@ ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(NomeEsame);
 
 INSERT INTO esame (IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, 
 NumPrestazioniSimultanee, NomeCategoria, PartitaIVAClinica, Eliminato) VALUES
-(1, 'Raggi Braccio', 'Raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345', FALSE),
+('1234558a33077a8a99', 'Raggi Braccio', 'Raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345', FALSE),
 ('1234558a2bdb2a242f', 'Analisi del sangue', 'Analisi del sangue', 34, '00:15:00', 'Licia Verdi', 1, 'Analisi', '12345', FALSE),
 ('1234558a2e69645366', 'Ecografia Addome', 'L’ecografia addome completo/addominale è una metodica diagnostica non invasiva che, utilizzando gli ultrasuoni emessi da una sonda appoggiata sulla pelle del paziente, consente di visualizzare e studiare tutti gli organi dell’addomee i principali vasi sanguigni che si trovano nella cavità addominale.', 45, '00:45:00', 'Luigi Neri', 1, 'Ecografia', '12345', FALSE),
 (2, 'Raggi Piede', 'Raggi al piede', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345', FALSE);
@@ -268,8 +268,8 @@ CREATE TABLE prenotazione (
 INSERT INTO prenotazione (IDPrenotazione, IDEsame, Tipo, 
 Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsame,
 CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
-(1, 1, 'M', TRUE, TRUE, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
-(2, 1, 'M', TRUE, TRUE, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
+(1, '1234558a33077a8a99', 'M', TRUE, TRUE, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
+(2, '1234558a33077a8a99', 'M', TRUE, TRUE, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
 (4, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-01-23 12:00:00'),
 (3, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00'),
 (5, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-01 16:00:00'),
