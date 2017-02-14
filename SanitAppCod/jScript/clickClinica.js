@@ -501,6 +501,10 @@ function inviaDatiEsame(id, controller1, task1, ajaxdiv)
         success: function (msg)
         {
             $(ajaxdiv).html(msg);
+            
+        },
+        complete:function (){
+            validazioneEsame(); 
         },
         error: function ()
         {

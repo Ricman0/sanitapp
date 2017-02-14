@@ -36,10 +36,10 @@ function inviaController(controller, ajaxdiv)
         },
         complete: function()
         {
-             if(controller === 'recuperaPassword') 
-             {
+            if(controller === 'recuperaPassword') 
+            {
                 validazione(controller);
-             }
+            }
         }
     });
 }
@@ -344,6 +344,20 @@ function inviaDatiRegistrazione(id, controller, task, ajaxdiv)
         complete: function()
         {
             $("#loadingModal").hide();
+            switch(task)
+            {
+                case 'clinica':
+                    validazioneClinica();
+                    break;
+                    
+                case 'medico':
+                    validazioneMedico();
+                    break;
+                    
+                case 'utente':
+                    validazioneUtente();
+                    break;
+            }
         }
     });
 }
