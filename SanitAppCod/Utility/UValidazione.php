@@ -438,20 +438,17 @@ class UValidazione {
      * @param string $pattern L'espressione regolare che il dato deve soddisfare
      * @param string $chiave  L'indice del dato da validare
      * @param string $valore Il valore da controllare
-     * @param string $stringa Errore La stringa contenente l'errore 
+     * @param string $stringaErrore La stringa contenente l'errore 
      */
     private function validaDato($pattern, $chiave, $valore, $stringaErrore)     //controllato
     {
-        echo $chiave . " ";
         if (preg_match($pattern, $valore)) 
         {
-            echo 'si';
             $this->_datiErrati[$chiave] = FALSE;
             $this->_datiValidi[$chiave] = $valore;
         } 
         else
         {
-            echo 'no';
             $this->_datiErrati[$chiave] = $stringaErrore;
             $this->_validati = FALSE;
         }

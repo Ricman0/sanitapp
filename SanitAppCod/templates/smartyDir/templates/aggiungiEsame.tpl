@@ -4,9 +4,6 @@
 <h4>Clicca su 'Annulla' per annullare l'operazione.</h4>
 <form name="aggiungiEsame" method="post" id="aggiungiEsame"> 
 
-    <input type="hidden" name="controller" value="servizi"/>
-    <input type="hidden" name="task" value="aggiungi"/>
-
     <label for="nomeEsame" class="elementiForm">Nome</label>
     <input type="text" name="nomeEsame" id="nomeEsame" class="elementiForm" placeholder="Raggi Schiena" value="{if isset($datiValidi.nome)}{$datiValidi.nome}{/if}" required />
     <br>
@@ -19,11 +16,11 @@
     <select  name="categoriaEsame" id="categoriaEsame" class="elementiForm" required>
             
         {foreach from=$categorie item=curr_row}
-            <option value={$curr_row['Nome']}>{$curr_row['Nome']}</option>
+            <option value="{$curr_row['Nome']}">{$curr_row['Nome']}</option>
         {/foreach}
         
         {if isset($datiValidi.categoria)}
-             <option selected value="{$datiValidi.categoria}">{$datiValidi.categoria}</option>
+            <option selected value="{$datiValidi.categoria}">{$datiValidi.categoria}</option>
         {else}
             <option disabled selected value=""> -- select an option -- </option>
         {/if}

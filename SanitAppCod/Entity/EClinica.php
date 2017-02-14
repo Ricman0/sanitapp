@@ -727,6 +727,26 @@ class EClinica extends EUser {
         $this->_esami = $fEsami->cercaEsame(NULL, $this->_nomeClinica, NULL);
         return $this->_esami;
     }
+    
+    /**
+     * Metodo che consente di sapere se un esame è presente nella clinica.
+     * 
+     * @access public
+     * @param string $nomeEsame Il nome dell'esame da cercare
+     * @param string $nomeClinica Il nome della clinica in cui cercre l'esame
+     * @return boolean TRUE Esame esistente, FALSE altrimenti
+     * @throws XDBException  Se la query non viene eseguita con successo
+     */
+    public function esisteEsame($nomeEsame,$nomeClinica ) {
+        $esiste = FALSE;
+        $fEsami = USingleton::getInstance('FEsame');
+        $risultato = $fEsami->cercaEsame($nomeEsame, $nomeClinica); 
+        if(is_array($risultato) && count($risultato)>1)
+        {
+            $esiste = TRUE;
+        }
+        return $esiste;
+    }
 
     /**
      * Metodo che consente di ottenere i giorni non lavorativi della clinica.

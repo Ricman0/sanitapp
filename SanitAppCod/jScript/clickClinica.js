@@ -500,7 +500,7 @@ function inviaImpostazioniClinica(id, controller1, task1, task2, ajaxdiv)
 function inviaDatiEsame(id, controller1, task1, ajaxdiv)
 {
 
-    //recupera tutti i valori del form automaticamente
+    //recupera tutti i valori del form automaticamente 
     var dati = $(id).serialize();
     $.ajax({
         type: "POST",

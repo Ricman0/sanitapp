@@ -64,7 +64,7 @@ class FEsame extends FDatabase {
      * @return array Se la query è stata eseguita con successo.
      * @throws XDBException Se la query non è stata eseguita con successo
      */
-    public function cercaEsame($nomeEsame="all", $nomeClinica="all", $luogo="all") 
+    public function cercaEsame($nomeEsame=NULL, $nomeClinica=NULL, $luogo=NULL) 
     {
         $nomeEsame = str_replace("+", " ", $nomeEsame);
         $nomeClinica = str_replace("+", " ", $nomeClinica);
@@ -182,6 +182,8 @@ class FEsame extends FDatabase {
         return $risultato;
     }
 
+    
+    
     /**
      * Metodo che permette di cercare tutti gli esami che possiedono una determinata categoria.
      * 
