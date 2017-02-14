@@ -16,9 +16,9 @@ class CPrenotazione {
      */
     public function gestisciPrenotazione() {
         $orari = Array();
-        $date;
+        $date;   // è usato??
+        
         $sessione = USingleton::getInstance('USession');
-        $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $tipoUser = $sessione->leggiVariabileSessione('tipoUser');
         $vPrenotazione = USingleton::getInstance('VPrenotazione');
         $task = $vPrenotazione->getTask();
@@ -221,7 +221,7 @@ class CPrenotazione {
                 break;
                 
             
-            case 'riepilogo':
+            case 'riepilogo':   //controllato
                 $vPrenotazione = USingleton::getInstance('VPrenotazione');
                 try
                 {

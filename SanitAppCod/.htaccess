@@ -1,5 +1,5 @@
 # imposto php 5.6
-AddHandler application/x-httpd-php56 .php
+#AddHandler application/x-httpd-php56 .php
 <IfModule mod_rewrite.c>
 
   RewriteEngine On
@@ -68,12 +68,20 @@ Options All -Indexes
 
 #
   RewriteCond %{REQUEST_METHOD} GET 
-  RewriteRule ^(ricercaCliniche|ricercaEsami)$ index.php?controller=$1 [L]
-  RewriteRule ^(registrazione)/(clinica|medico|utente)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(recuperaPassword|logOut|info|contatti|privacyPolicy|terminiServizio)$ index.php?controller=$1 [L]
+  RewriteRule ^(impostazioni)/(giorniNonLavorativi)/(\w+)$ index.php?controller=$1&task=$2&clinica=$3 [L]
+  RewriteRule ^(impostazioni)/(giorniNonLavorativi)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&clinica=$3 [L]
+  RewriteRule ^(impostazioni)/(visualizza)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(prenotazione)/(conferma|modifica)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L] 
+  RewriteRule ^(prenotazione)/(esame)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(prenotazioni|pazienti|referti|clienti)/(aggiungi|visualizza)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]  
-
+  RewriteRule ^(prenotazioni|servizi|pazienti|esami)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(recuperaPassword|logOut|info|contatti|privacyPolicy|terminiServizio)$ index.php?controller=$1 [L]
+  RewriteRule ^(registrazione)/(clinica|medico|utente)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(ricercaCliniche|ricercaEsami)$ index.php?controller=$1 [L]
+  
+   
+ 
+  
 
 
 
@@ -88,7 +96,7 @@ Options All -Indexes
   RewriteRule ^(agenda)/(visualizza)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(autenticazione|mySanitApp)$ index.php?controller=$1 [L]
   RewriteRule ^(ricerca)/(utente)/(\w+)$ index.php?controller=$1&task=$2&codice=$3 [L]
-  RewriteRule ^(impostazioni)/(giorniNonLavorativi)/(\w+)$ index.php?controller=$1&task=$2&clinica=$3 [L]
+  
   
   RewriteRule ^(prenotazione)/(esame|ricerca)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(impostazioni)/(clinica)$ index.php?controller=$1&task=$2 [L]
@@ -122,6 +130,8 @@ Options All -Indexes
     RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(recuperaPassword|autenticazione)$ index.php?controller=$1 [L]
     RewriteRule ^(cliniche|esami)$ index.php?controller=$1 [L]
+
+
 
     RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(referto)/(elimina)$ index.php?controller=$1&task=$2 [L] 

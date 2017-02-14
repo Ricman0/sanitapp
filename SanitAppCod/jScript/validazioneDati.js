@@ -1746,7 +1746,7 @@ function validazioneEsame()
 //                    descrizioneEsame:
 //                            {
 //                                required: true,
-//                                maxlenght: 200
+//                                maxlenght: 600
 //                            }
 
                 },
@@ -1788,7 +1788,7 @@ function validazioneEsame()
 //                    descrizioneEsame:
 //                            {
 //                                required: "Inserisci una breve descrizione",
-//                                maxlenght:"Max 200 caratteri"
+//                                maxlenght:"Max 600 caratteri"
 //                        
 //                            }
                 },

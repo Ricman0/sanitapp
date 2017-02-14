@@ -1,4 +1,7 @@
 <div id='divAggiungiPrenotazione'>
+    <h3>PRENOTAZIONE ESAME</h3>
+    <hr>
+    <br>
     {if $tipoUser!== 'clinica'}
     <span class="grassetto">Prenotazione presso la Clinica:</span><span> {$nomeClinica}</span>
     {/if}

@@ -13,10 +13,12 @@ class VGestisciServizi extends View{
      * 
      * @access public
      * @param array $listaCategorie Tutte le categorie per gli esami/servizi presenti nell'applicazione
+     * @param array $datiEsamiValidi I dati validi inseriti per aggiungere un nuovo esame
      */
-    public function restituisciFormAggiungiServizi($listaCategorie)
+    public function restituisciFormAggiungiServizi($listaCategorie, $datiEsamiValidi=NULL)
     {
         $this->assegnaVariabiliTemplate('categorie', $listaCategorie);
+        $this->assegnaVariabiliTemplate('datiValidi', $datiEsamiValidi);
         $this->visualizzaTemplate('aggiungiEsame'); 
     }
     

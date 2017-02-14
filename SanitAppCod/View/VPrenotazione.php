@@ -20,6 +20,20 @@ class VPrenotazione extends View{
         $this->visualizzaTemplate('prenotazioneEliminata');
     }
     
+    /**
+     * Metodo che consente di visualizzare la pagina di riepilogo della prenotazione che si vuole modificare o semplicemente prenotare.
+     * 
+     * @access public
+     * @param array $errore Array di contenente strighe da visualizzare in caso di errori
+     * @param EEsame $eEsame L'esame che si vuole prenotare
+     * @param EClinica $eClinica La clinica presso cui si vuole prenotare l'esame
+     * @param EUtente $eUtente L'utente intestatario della prenotazione
+     * @param string $data La data della prenotazione
+     * @param string $orario L'orario della prenotazione 
+     * @param string $codice Il codice fiscale dell'utente che modifica la prenotazione
+     * @param boolena $modifica TRUE se si intende modificare la prenotazione, FALSE altrimenti
+     * @param string $idPrenotazione L'id della prenotazione
+     */
     public function restituisciPaginaRiepilogoPrenotazione($errore, $eEsame=NULL, $eClinica=NULL, $eUtente=NULL, $data=NULL, $orario=NULL, $codice=NULL, $modifica=FALSE, $idPrenotazione=NULL)
     {
         
@@ -41,8 +55,7 @@ class VPrenotazione extends View{
         {
             $this->assegnaVariabiliTemplate('messaggio', $errore);
             $feedbackTpl = $this->prelevaTemplate('feedbacks');
-            $this->assegnaVariabiliTemplate('feedbacks', $feedbackTpl);
-            
+            $this->assegnaVariabiliTemplate('feedbacks', $feedbackTpl);  
         }
         
         $this->visualizzaTemplate('riepilogoPrenotazione');

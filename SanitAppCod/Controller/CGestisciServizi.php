@@ -29,7 +29,7 @@ class CGestisciServizi {
     public function gestisciServiziPost() 
     {
         $sessione = USingleton::getInstance('USession');
-        
+        $username = $sessione->leggiVariabileSessione('usernameLogIn');
         $vServizi = USingleton::getInstance('VGestisciServizi');
         $task = $vServizi->getTask();
         switch ($task) {
@@ -38,11 +38,10 @@ class CGestisciServizi {
                 $vServizi = USingleton::getInstance('VGestisciServizi');
                 $datiEsame = $vServizi->recuperaDatiEsame(); // recupero i dati dell'esame/servizio
                 //valido dati immessi attraverso UValidazione
-                $validazione = USingleton::getInstance('UValidazione');
-                if($validazione->validaDatiEsame($datiEsame)===TRUE)
+                $uValidazione = USingleton::getInstance('UValidazione');
+                if($uValidazione->validaDatiEsame($datiEsame)===TRUE)
                 {
                     try {
-                        $username = $sessione->leggiVariabileSessione('usernameLogIn');
                         $eClinica = new EClinica($username);
                         $eEsame = new EEsame(NULL, ucwords($datiEsame['nome']), ucwords($datiEsame['medico']),
                         $datiEsame['categoria'], $datiEsame['prezzo'], 
@@ -63,6 +62,20 @@ class CGestisciServizi {
                     }
                     $vServizi->visualizzaFeedback($messaggio);
 
+                }
+                else
+                {
+                    try {
+                        $eClinica = new EClinica($username);
+                        $listaCategorie = $eClinica->getCategorieApplicazione();
+                        $datiEsameValidi = $uValidazione->getDatiValidi();
+                        $vServizi->restituisciFormAggiungiServizi($listaCategorie, $datiEsameValidi);
+                    } catch (XCategoriaException $ex) {
+                        $messaggio = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
+                        $vServizi->visualizzaFeedback($messaggio);
+                    }
+                    
+//                    
                 }
                 break;
             
@@ -91,9 +104,9 @@ class CGestisciServizi {
                 }
                 else 
                 {
-                   
-                    $messaggio = "C'è stato un errore, non è stato possibile modificare l'esame.";
-                    $vServizi->visualizzaTemplate($messaggio);
+                    $messaggio = "C'è stato un errore. Non è stato possibile modificare il servizio.";
+                    $vServizi->visualizzaFeedback($messaggio);
+                    
                      
                 }
                 break;

@@ -106,7 +106,7 @@ class UMail {
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Conferma Account SanitApp";// = $subject;
-        $url = "http://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
+        $url = "https://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
         $url = "<html><a href=" . $url . "'>Conferma</a></html>";
         
         $testo = "<h4>Ciao " . $dati['nome'] . ", Benvenuto in SanitApp!</h4>"
@@ -171,7 +171,7 @@ class UMail {
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
-        $url = "http://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
+        $url = "https://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
         $url = "<html><a href=" . $url . "'>Conferma</a></html>";
         $this->_email->Subject = "Account SanitApp";// = $subject;
         $testo = "<h4>Benvenuto in SanitApp Dott." . $dati['cognome'] . "!</h4>"
@@ -215,7 +215,7 @@ class UMail {
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Account SanitApp";// = $subject;
-        $url = "http://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
+        $url = "https://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
         $url = "<html><a href=" . $url . "'>Conferma</a></html>";
         $testo = " <h4>Benvenuto in SanitApp clinica " . $dati['nomeClinica'] . "!</h4>"
                 . " Questa è un'email riepilogativa dei dati che ha inserito. <br><br>"
