@@ -150,7 +150,12 @@ class CImpostazioni {
                     }
                     else
                     {
-                        $vImpostazioni->visualizzaFeedback("C'è stato un errore. Working Plan non salvato.");
+                        $messaggio[0]= "C'è stato un errore. Working Plan non salvato.";
+                        $messaggio[1]= "Ricontrolla i dati inseriti.";
+                        $messaggio[2]= " Ricorda che l'orario di inizio pausa deve essere maggiore dell'orario di apertura e inferiore all'orario di chiusura. ";
+                        $messaggio[3]= " Ricorda che l'orario di fine pausa deve essere maggiore dell'orario di inizio pausa e inferiore all'orario di chiusura. ";
+                        $messaggio[4]= " Ricorda che si vuole inserire una pausa, è necessario che entrambi gli orari devono essere inseriti. ";
+                        $vImpostazioni->visualizzaFeedback($messaggio);
                     }
                     
                 }

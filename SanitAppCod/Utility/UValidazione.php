@@ -251,7 +251,7 @@ class UValidazione {
         $this->setValidati(TRUE);
         $pattern = '/^[0-2]{1}[0-9]{1}:([0-5]{1}[0-9]{1})$/';
         $stringaErrore =  "Deve essere un tempo valido ";
-        
+        print_r($workingPlanArray);
         foreach ($workingPlanArray as $workingPlanGiorno) {
             $start = '';
             $end = '';
@@ -264,53 +264,112 @@ class UValidazione {
                     switch ($chiave)
                     {
                         case 'Start':
-                            if($this->getValidati())
-                            {
-                                $start = strtotime($valore);
-                            }
+                            $start = strtotime($valore);
                             break;
 
                         case 'End':
-                            if($this->getValidati() && $start!=='')
-                            {
-                                $end = strtotime($valore);
-                                if($end < $start) // start deve essere minore di end per essere valido
-                                {
-                                    $this->setValidati(FALSE);
-                                }
-                            }
-                            else
-                            {
-                                $this->setValidati(FALSE);
-                            }
+                             $end = strtotime($valore);
+                            
                             break;
 
                         case 'BreakStart':
-                            if($this->getValidati() && $start!=='' && $end!=='')
-                            {
-                               $breakStart = strtotime($valore);
-                                if($breakStart < $start &&  $breakStart > $end) // start deve essere minore di breakStart e breakstart minore di end per essere valido
-                                {
-                                    $this->setValidati(FALSE);
-                                } 
-                            }
+                            $breakStart = strtotime($valore);
+                                
                             break;
 
                         case 'BreakEnd':
-                        if($this->getValidati() && $breakStart!=='' && $end!=='')
-                        {
-                           $breakEnd = strtotime($valore);
-                            if($breakEnd < $breakStart &&  $breakEnd > $end) // breakEnd deve essere maggiore di breakStart e breakend minore di end per essere valido
-                            {
-                                $this->setValidati(FALSE);
-                            } 
-                        }
-                        break;
-
+                            $breakEnd = strtotime($valore);
+                            break;
                     }
+                    
                 }
+            if($this->getValidati() && $start!=='' && $end!=='')
+                    {
+                        if($end < $start) // start deve essere minore di end per essere valido
+                        {
+                            $this->setValidati(FALSE);
+                        }
+                    }
+                    else
+                    {
+                        $this->setValidati(FALSE);
+                    }
+                    if($this->getValidati() && $start!=='' && $end!=='' && $breakEnd!=='')
+                    {
+                        if($breakStart < $start &&  $breakStart > $end) // start deve essere minore di breakStart e breakstart minore di end per essere valido
+                        {
+                            $this->setValidati(FALSE);
+                        } 
+                    }
+                    else
+                    {
+                        $this->setValidati(FALSE);
+                    }
+                    if($this->getValidati() && $breakStart!=='' && $end!=='')
+                    {
+                        if($breakEnd < $breakStart &&  $breakEnd > $end) // breakEnd deve essere maggiore di breakStart e breakend minore di end per essere valido
+                        {
+                            $this->setValidati(FALSE);
+                        } 
+                    }
+                    else
+                    {
+                        $this->setValidati(FALSE);
+                    }
+                    
+//                foreach ($workingPlanGiorno as $chiave => $valore) {
+//                    $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
+//                    switch ($chiave)
+//                    {
+//                        case 'Start':
+//                            if($this->getValidati())
+//                            {
+//                                $start = strtotime($valore);
+//                            }
+//                            break;
+//
+//                        case 'End':
+//                            if($this->getValidati() && $start!=='')
+//                            {
+//                                $end = strtotime($valore);
+//                                if($end < $start) // start deve essere minore di end per essere valido
+//                                {
+//                                    $this->setValidati(FALSE);
+//                                }
+//                            }
+//                            else
+//                            {
+//                                $this->setValidati(FALSE);
+//                            }
+//                            break;
+//
+//                        case 'BreakStart':
+//                            if($this->getValidati() && $start!=='' && $end!=='')
+//                            {
+//                               $breakStart = strtotime($valore);
+//                                if($breakStart < $start &&  $breakStart > $end) // start deve essere minore di breakStart e breakstart minore di end per essere valido
+//                                {
+//                                    $this->setValidati(FALSE);
+//                                } 
+//                            }
+//                            break;
+//
+//                        case 'BreakEnd':
+//                        if($this->getValidati() && $breakStart!=='' && $end!=='')
+//                        {
+//                           $breakEnd = strtotime($valore);
+//                            if($breakEnd < $breakStart &&  $breakEnd > $end) // breakEnd deve essere maggiore di breakStart e breakend minore di end per essere valido
+//                            {
+//                                $this->setValidati(FALSE);
+//                            } 
+//                        }
+//                        break;
+//
+//                    }
+//                }
             }
         }
+        print_r($this->_validati);
         return $this->_validati;
     }
     
@@ -379,13 +438,16 @@ class UValidazione {
      */
     private function validaDato($pattern, $chiave, $valore, $stringaErrore)     //controllato
     {
+        echo $chiave . " ";
         if (preg_match($pattern, $valore)) 
         {
+            echo 'si';
             $this->_datiErrati[$chiave] = FALSE;
             $this->_datiValidi[$chiave] = $valore;
         } 
         else
         {
+            echo 'no';
             $this->_datiErrati[$chiave] = $stringaErrore;
             $this->_validati = FALSE;
         }
