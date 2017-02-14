@@ -1,5 +1,6 @@
 {if !isset($feedbacks)}
     <h3>RIEPILOGO PRENOTAZIONE</h3>
+    <hr>
     <div>
         {if isset($idPrenotazione)}
             <span class="grassetto">ID PRENOTAZIONE:</span><span>  {$idPrenotazione}</span>

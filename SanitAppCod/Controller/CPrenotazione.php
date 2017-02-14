@@ -677,15 +677,15 @@ class CPrenotazione {
         }
         $idEsame = $vPrenotazione->recuperaValore('id');
         $data = $vPrenotazione->recuperaValore('data');
-
         $ora = $vPrenotazione->recuperaValore('orario');
         $dataEOra = $data . " " . $ora;
         $ePrenotazione = new EPrenotazione(NULL, $idEsame, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
-        if($risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB()){
-            $messaggio = 'Appuntamento registrato con successo';
+        $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB();
+        if($risultatoQuery){
+            $messaggio = 'Appuntamento registrato con successo.';
         }
         else{
-            $messaggio = "C'è stato un problema, il tuo appuntamento non è stato registrato";
+            $messaggio = "C'è stato un problema, il tuo appuntamento non è stato registrato.";
         }                    
         $vPrenotazione->visualizzaFeedback($messaggio);
 //                    $vPrenotazione->appuntamentoAggiunto($risultatoQuery);

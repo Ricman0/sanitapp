@@ -72,6 +72,7 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
             $(ajaxdiv).html(datiRisposta);
             $('.tablesorter').tablesorter({
                 theme: 'blue',
+                dateFormat: "ddmmyyyy",
                 widgets: ["filter"],
                 widgetOptions: {
                     // filter_anyMatch replaced! Instead use the filter_external option

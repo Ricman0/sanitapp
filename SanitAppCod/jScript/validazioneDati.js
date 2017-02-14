@@ -83,226 +83,329 @@ function validazione(task1, controller1, task2)
  * Funzione che consente di validare il working plan della clinica
  * @return {undefined}
  */
-function validaWorkingPlan()
-{  
-//    var LunediBreakStart = $('#LunediBreakStart');
-//    var LunediBreakEnd = $('#LunediBreakEnd');
-//
-//    $.timepicker.datetimeRange(
-//            LunediBreakStart,
-//            LunediBreakEnd,
-//            {
-//                    minInterval: (1000*5), // 5 minuti
-////                    dateFormat: 'dd M yy', 
-//                    timeFormat: 'HH:mm',
-//                    start: {}, // start picker options
-//                    end: {} // end picker options					
-//            }
-//    );
-//    
-//    var LunediStart = $('#LunediStart');
-//    var LunediEnd = $('#LunediEnd');
-//
-//    $.timepicker.datetimeRange(
-//            LunediStart,
-//            LunediEnd,
-//            {
-//                    minInterval: (1000*5), // 5 minuti
-//                    dateFormat: 'dd M yy', 
-//                    timeFormat: 'HH:mm',
-//                    start: {}, // start picker options
-//                    end: {} // end picker options					
-//            }
-//    );
-    //jQuery.validator.addMethod(nomeMetodo, funzione, messaggio);
-    //funzione ritorna true se un elemento è valido. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
-    //funzione(valore, elemento, parametri) // valore (di tipo string) =valore corrente del ; elemento = elemento da validare; parametri
-//    value/valore
-//    Type: String
-//    the current value of the validated element
-//    element
-//    Type: Element
-//    the element to be validated
-//    params
-//    Type: Object
-//    parameters specified for the method, e.g. for min: 5, the parameter is 5, for range: [1, 5] it's [1, 5]
-    jQuery.validator.addMethod("greaterThan", 
-        function(valore, elemento, params) {
-            if(valore ==='' && $(params).val() ==='')
-            {
-                $(this).removeAttr('title').removeClass('error');
-                return true;
-            }
-            if($(params).val() !=='')
-            {
-                valore = '2017-01-27 ' + valore;
-                var valore2 = '2017-01-27 ' + $(params).val();
-                if (!/Invalid|NaN/.test(new Date(valore))) {
-                    if(new Date(valore) > new Date(valore2))
-                    {
-                        $(this).removeAttr('title').removeClass('error');
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                if(isNaN(valore) || Number(valore))
-                {
-                    return false;
-                }
-                else
-                {
-                    $(this).removeAttr('title').removeClass('error');
-                    return true;
-                }
-            }
-            
-        },'Deve essere maggiore di {0}.');
-        
-        jQuery.validator.addMethod("lessThan", 
-        function(valore, elemento, params) {
-            if(valore ==='' && $(params).val() ==='')
-            {
-                $(this).removeAttr('title').removeClass('error');
-                return true;
-            }
-            if($(params).val() !=='')
-            {
-                valore = '2017-01-27 ' + valore;
-                var valore2 = '2017-01-27 ' + $(params).val();
-                if (!/Invalid|NaN/.test(new Date(valore))) {
-                    if(new Date(valore) < new Date(valore2))
-                    {
-                        $(this).removeAttr('title').removeClass('error');
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                if(isNaN(valore) || Number(valore))
-                {
-                    return false;
-                }
-                else
-                {
-                    $(this).removeAttr('title').removeClass('error');
-                    return true;
-                }
-            }
-            
-        },'Deve essere minore di {0}.');
-
+function validaWorkingPlan(){
     $('#workingPlan').validate({
-//        rules:
-//                {
-//                    LunediEnd:
-//                            {
-//                                greaterThan: '#LunediStart'
-//                            },
-//                    MartediEnd:
-//                            {
-//                                greaterThan: '#MartediStart'
-//                            },
-//                    MercolediEnd:
-//                            {
-//                                greaterThan: '#MercolediStart'
-//                            },
-//                    GiovediEnd:
-//                            {
-//                                greaterThan: '#GiovediStart'
-//                            },
-//                    VenerdiEnd:
-//                            {
-//                                greaterThan: '#VenerdiStart'
-//                            },
-//                    SabatoEnd:
-//                            {
-//                                greaterThan: '#SabatoStart'
-//                            },
-//                    DomenicaEnd:
-//                            {
-//                                greaterThan: '#DomenicaStart'
-//                            },
-////                    LunediBreakStart:
+        rules:{
+            LunediStart: {
+                required : '#Lunedi:checked'
+            },
+            LunediEnd: {
+                required : '#Lunedi:checked'
+            },
+            MartediStart: {
+                required : '#Martedi:checked'
+            },
+            MartediEnd: {
+                required : '#Martedi:checked'
+            },
+            MercolediStart: {
+                required : '#Mercoledi:checked'
+            },
+            MercolediEnd: {
+                required : '#Mercoledi:checked'
+            },
+            GiovediStart: {
+                required : '#Giovedi:checked'
+            },
+            GiovediEnd: {
+                required : '#Giovedi:checked'
+            },
+            VenerdiStart: {
+                required : '#Venerdi:checked'
+            },
+            VenerdiEnd: {
+                required : '#Venerdi:checked'
+            },
+            SabatoStart: {
+                required : '#Sabato:checked'
+            },
+            SabatoEnd: {
+                required : '#Sabato:checked'
+            },
+            DomenicaStart: {
+                required : '#Domenica:checked'
+            },
+            DomenicaEnd: {
+                required : '#Domenica:checked'
+            }
+        },
+        messages:{
+            LunediStart: {
+                required : 'Inserire campo'
+            },
+            LunediEnd: {
+                required : 'Inserire campo'
+            },
+            MartediStart: {
+                required : 'Inserire campo'
+            },
+            MartediEnd: {
+                required : 'Inserire campo'
+            },
+            MercolediStart: {
+                required : 'Inserire campo'
+            },
+            MercolediEnd: {
+                required : 'Inserire campo'
+            },
+            GiovediStart: {
+                required : 'Inserire campo'
+            },
+            GiovediEnd: {
+                required : 'Inserire campo'
+            },
+            VenerdiStart: {
+                required : 'Inserire campo'
+            },
+            VenerdiEnd: {
+                required : 'Inserire campo'
+            },
+            SabatoStart: {
+                required : 'Inserire campo'
+            },
+            SabatoEnd: {
+                required : 'Inserire campo'
+            },
+            DomenicaStart: {
+                required : 'Inserire campo'
+            },
+            DomenicaEnd: {
+                required : 'Inserire campo'
+            }
+        
+        },
+        errorPlacement: function (error, element) {
+            $(element).attr('title', error.text());
+        },
+        unhighlight: function (element) {
+            $(element).removeAttr('title').removeClass('error');
+        },
+        submitHandler: function(){
+            inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
+        }
+        
+    });
+};
+//function validaWorkingPlan()
+//{  
+////    var LunediBreakStart = $('#LunediBreakStart');
+////    var LunediBreakEnd = $('#LunediBreakEnd');
+////
+////    $.timepicker.datetimeRange(
+////            LunediBreakStart,
+////            LunediBreakEnd,
+////            {
+////                    minInterval: (1000*5), // 5 minuti
+//////                    dateFormat: 'dd M yy', 
+////                    timeFormat: 'HH:mm',
+////                    start: {}, // start picker options
+////                    end: {} // end picker options					
+////            }
+////    );
+////    
+////    var LunediStart = $('#LunediStart');
+////    var LunediEnd = $('#LunediEnd');
+////
+////    $.timepicker.datetimeRange(
+////            LunediStart,
+////            LunediEnd,
+////            {
+////                    minInterval: (1000*5), // 5 minuti
+////                    dateFormat: 'dd M yy', 
+////                    timeFormat: 'HH:mm',
+////                    start: {}, // start picker options
+////                    end: {} // end picker options					
+////            }
+////    );
+//    //jQuery.validator.addMethod(nomeMetodo, funzione, messaggio);
+//    //funzione ritorna true se un elemento è valido. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
+//    //funzione(valore, elemento, parametri) // valore (di tipo string) =valore corrente del ; elemento = elemento da validare; parametri
+////    value/valore
+////    Type: String
+////    the current value of the validated element
+////    element
+////    Type: Element
+////    the element to be validated
+////    params
+////    Type: Object
+////    parameters specified for the method, e.g. for min: 5, the parameter is 5, for range: [1, 5] it's [1, 5]
+////    jQuery.validator.addMethod("greaterThan", 
+////        function(valore, elemento, params) {
+////            if(valore ==='' && $(params).val() ==='')
+////            {
+////                $(this).removeAttr('title').removeClass('error');
+////                return true;
+////            }
+////            if($(params).val() !=='')
+////            {
+////                valore = '2017-01-27 ' + valore;
+////                var valore2 = '2017-01-27 ' + $(params).val();
+////                if (!/Invalid|NaN/.test(new Date(valore))) {
+////                    if(new Date(valore) > new Date(valore2))
+////                    {
+////                        $(this).removeAttr('title').removeClass('error');
+////                        return true;
+////                    }
+////                    else
+////                    {
+////                        return false;
+////                    }
+////                }
+////            }
+////            else
+////            {
+////                if(isNaN(valore) || Number(valore))
+////                {
+////                    return false;
+////                }
+////                else
+////                {
+////                    $(this).removeAttr('title').removeClass('error');
+////                    return true;
+////                }
+////            }
+////            
+////        },'Deve essere maggiore di {0}.');
+////        
+////        jQuery.validator.addMethod("lessThan", 
+////        function(valore, elemento, params) {
+////            if(valore ==='' && $(params).val() ==='')
+////            {
+////                $(this).removeAttr('title').removeClass('error');
+////                return true;
+////            }
+////            if($(params).val() !=='')
+////            {
+////                valore = '2017-01-27 ' + valore;
+////                var valore2 = '2017-01-27 ' + $(params).val();
+////                if (!/Invalid|NaN/.test(new Date(valore))) {
+////                    if(new Date(valore) < new Date(valore2))
+////                    {
+////                        $(this).removeAttr('title').removeClass('error');
+////                        return true;
+////                    }
+////                    else
+////                    {
+////                        return false;
+////                    }
+////                }
+////            }
+////            else
+////            {
+////                if(isNaN(valore) || Number(valore))
+////                {
+////                    return false;
+////                }
+////                else
+////                {
+////                    $(this).removeAttr('title').removeClass('error');
+////                    return true;
+////                }
+////            }
+////            
+////        },'Deve essere minore di {0}.');
+//
+//    $('#workingPlan').validate({
+////        rules:
+////                {
+////                    LunediEnd:
 ////                            {
 ////                                greaterThan: '#LunediStart'
 ////                            },
-////                    MartediBreakStart:
+////                    MartediEnd:
 ////                            {
 ////                                greaterThan: '#MartediStart'
 ////                            },
-////                    MercolediBreakStart:
+////                    MercolediEnd:
 ////                            {
 ////                                greaterThan: '#MercolediStart'
 ////                            },
-////                    GiovediBreakStart:
+////                    GiovediEnd:
 ////                            {
 ////                                greaterThan: '#GiovediStart'
 ////                            },
-////                    VenerdiBreakStart:
+////                    VenerdiEnd:
 ////                            {
 ////                                greaterThan: '#VenerdiStart'
 ////                            },
-////                    SabatoBreakStart:
+////                    SabatoEnd:
 ////                            {
 ////                                greaterThan: '#SabatoStart'
 ////                            },
-////                    DomenicaBreakStart:
+////                    DomenicaEnd:
+////                            {
+////                                greaterThan: '#DomenicaStart'
+////                            },
+//////                    LunediBreakStart:
+//////                            {
+//////                                greaterThan: '#LunediStart'
+//////                            },
+//////                    MartediBreakStart:
+//////                            {
+//////                                greaterThan: '#MartediStart'
+//////                            },
+//////                    MercolediBreakStart:
+//////                            {
+//////                                greaterThan: '#MercolediStart'
+//////                            },
+//////                    GiovediBreakStart:
+//////                            {
+//////                                greaterThan: '#GiovediStart'
+//////                            },
+//////                    VenerdiBreakStart:
+//////                            {
+//////                                greaterThan: '#VenerdiStart'
+//////                            },
+//////                    SabatoBreakStart:
+//////                            {
+//////                                greaterThan: '#SabatoStart'
+//////                            },
+//////                    DomenicaBreakStart:
+//////                            {
+//////                                greaterThan: '#DomenicaBreakStart'
+//////                            },
+//////                    LunediBreakEnd:
+//////                            {
+//////                                greaterThan: '#LunediBreakStart'
+//////                            },
+//////                    MartediBreakEnd:
+//////                            {
+//////                                greaterThan: '#MartediBreakStart'
+//////                            },
+//////                    MercolediBreakEnd:
+//////                            {
+//////                                greaterThan: '#MercolediBreakStart'
+//////                            },
+//////                    GiovediBreakEnd:
+//////                            {
+//////                                greaterThan: '#GiovediBreakStart'
+//////                            },
+//////                    VenerdiBreakEnd:
+//////                            {
+//////                                greaterThan: '#VenerdiBreakStart'
+//////                            },
+//////                    SabatoBreakEnd:
+////                            {
+////                                greaterThan: '#SabatoBreakStart'
+////                            },
+////                    DomenicaBreakEnd:
 ////                            {
 ////                                greaterThan: '#DomenicaBreakStart'
-////                            },
-////                    LunediBreakEnd:
-////                            {
-////                                greaterThan: '#LunediBreakStart'
-////                            },
-////                    MartediBreakEnd:
-////                            {
-////                                greaterThan: '#MartediBreakStart'
-////                            },
-////                    MercolediBreakEnd:
-////                            {
-////                                greaterThan: '#MercolediBreakStart'
-////                            },
-////                    GiovediBreakEnd:
-////                            {
-////                                greaterThan: '#GiovediBreakStart'
-////                            },
-////                    VenerdiBreakEnd:
-////                            {
-////                                greaterThan: '#VenerdiBreakStart'
-////                            },
-////                    SabatoBreakEnd:
-//                            {
-//                                greaterThan: '#SabatoBreakStart'
-//                            },
-//                    DomenicaBreakEnd:
-//                            {
-//                                greaterThan: '#DomenicaBreakStart'
-//                            }
-//                },
-        
-//        errorPlacement: function (error, element) {
-//            $(element).attr('title', error.text());
-//        },
-//        unhighlight: function (element) {
-//            $(element).removeAttr('title').removeClass('error');
-//        },
-        submitHandler: function ()
-        {
-            inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
-        }
-    });
-}
+////                            }
+////                },
+//        
+////        errorPlacement: function (error, element) {
+////            $(element).attr('title', error.text());
+////        },
+////        unhighlight: function (element) {
+////            $(element).removeAttr('title').removeClass('error');
+////        },
+//        submitHandler: function ()
+//        {
+//            inviaImpostazioniClinica('#workingPlan', 'impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
+//        }
+//    });
+//}
 
 
 /**
@@ -1508,90 +1611,90 @@ function validazioneImpostazioniClinica()
                     messages: {required: "Inserire orario"}
                 }
     });
-
-    $("workingPlan").validate({
-//        messages:
-//                {
-//                    LunedìStart:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    MartedìStart:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    MercoledìStart:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    GiovedìStart:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    VenerdìStart:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    SabatoStart:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    DomenicaStart:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    LunedìEnd:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    MartedìEnd:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    MercoledìEnd:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    GiovedìEnd:
-//                            {
-//                                required: true,
-//                                time: true
-//                            },
-//                    VenerdìEnd:
-//                            {
-//                                required: true
-//                            },
-//                    SabatoEnd:
-//                            {
-//                                required: true
-//                            },
-//                    DomenicaEnd:
-//                            {
-//                                required: true
-//                            } 
-//                },
-        errorPlacement: function (error, element) {
-            $(element).attr('title', error.text());
-        },
-        unhighlight: function (element) {
-            $(element).removeAttr('title').removeClass('error');
-        },
-        submitHandler: function ()
-        {
-            // inviaDatiEsame si trova in clickGestisciServizi.js
-            inviaImpostazioniClinica('#aggiungiEsame', 'servizi', 'aggiungi', '#main');
-        }
-    });
+//
+//    $("workingPlan").validate({
+////        messages:
+////                {
+////                    LunedìStart:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    MartedìStart:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    MercoledìStart:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    GiovedìStart:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    VenerdìStart:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    SabatoStart:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    DomenicaStart:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    LunedìEnd:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    MartedìEnd:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    MercoledìEnd:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    GiovedìEnd:
+////                            {
+////                                required: true,
+////                                time: true
+////                            },
+////                    VenerdìEnd:
+////                            {
+////                                required: true
+////                            },
+////                    SabatoEnd:
+////                            {
+////                                required: true
+////                            },
+////                    DomenicaEnd:
+////                            {
+////                                required: true
+////                            } 
+////                },
+//        errorPlacement: function (error, element) {
+//            $(element).attr('title', error.text());
+//        },
+//        unhighlight: function (element) {
+//            $(element).removeAttr('title').removeClass('error');
+//        },
+//        submitHandler: function ()
+//        {
+//            // inviaDatiEsame si trova in clickGestisciServizi.js
+//            inviaImpostazioniClinica('#aggiungiEsame', 'servizi', 'aggiungi', '#main');
+//        }
+//    });
 }
 
 function validazioneEsame()
