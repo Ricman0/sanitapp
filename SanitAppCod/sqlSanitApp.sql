@@ -67,7 +67,13 @@ INSERT INTO categoria (Nome) VALUES
 ('Analisi'),
 ('Raggi'),
 ('Tac'),
-('Visita Preliminare');
+('Visita Preliminare'),
+('Visita Specialistica'),
+('Ecografia'),
+('Screening'),
+('Vaccino'),
+('Prove allergiche'),
+('Risonanza');
 
 -- --------------------------------------------------------
 
@@ -140,7 +146,7 @@ INSERT INTO amministratore (IdAmministratore, Username, Nome, Cognome, Telefono)
 CREATE TABLE esame(
   IDEsame varchar(24) NOT NULL,
   NomeEsame varchar(50) NOT NULL,
-  Descrizione varchar(200) DEFAULT NULL,
+  Descrizione varchar(600) DEFAULT NULL,
   Prezzo float NOT NULL,
   Durata time NOT NULL,
   MedicoEsame varchar(40) NOT NULL,
@@ -164,6 +170,8 @@ ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(NomeEsame);
 INSERT INTO esame (IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, 
 NumPrestazioniSimultanee, NomeCategoria, PartitaIVAClinica, Eliminato) VALUES
 (1, 'Raggi Braccio', 'Raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345', FALSE),
+('1234558a2bdb2a242f', 'Analisi del sangue', 'Analisi del sangue', 34, '00:15:00', 'Licia Verdi', 1, 'Analisi', '12345', FALSE),
+('1234558a2e69645366', 'Ecografia Addome', 'L’ecografia addome completo/addominale è una metodica diagnostica non invasiva che, utilizzando gli ultrasuoni emessi da una sonda appoggiata sulla pelle del paziente, consente di visualizzare e studiare tutti gli organi dell’addomee i principali vasi sanguigni che si trovano nella cavità addominale.', 45, '00:45:00', 'Luigi Neri', 1, 'Ecografia', '12345', FALSE),
 (2, 'Raggi Piede', 'Raggi al piede', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345', FALSE);
 
 -- --------------------------------------------------------

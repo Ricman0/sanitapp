@@ -259,7 +259,7 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
                 var partitaIVAClinica = $("#partitaIVAClinicaPrenotazioneEsame").val();
                 // recupero i giorniNonLavorativi (in formato JSON) dalla clinica  e poi li rendo un oggetto javascript
                 var giorniNonLavorativi = getGiorniNonLavorativiClinica(partitaIVAClinica);
-                if(typeof(giorniNonLavorativi)!=='undefined')
+//                if(typeof(giorniNonLavorativi)!=='undefined')
                 {
                     // aggiungo il datapicker calendario 
                     $("#calendarioPrenotazioneEsame").datepicker({

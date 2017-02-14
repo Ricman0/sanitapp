@@ -70,12 +70,6 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
         success: function (datiRisposta)
         {
             $(ajaxdiv).html(datiRisposta);
-            if(controller1==='servizi' && task1==='aggiungi')
-            {
-                $('#aggiungiEsame').before("<h3>AGGIUNGI SERVIZIO</h3>");
-                $('#contenutoAreaPersonale > h3').after("<h4>Clicca su 'Annulla' per annullare l'operazione.</h4>");
-                $('#contenutoAreaPersonale > h3').after("<h4>Riempi il seguente form e clicca su 'Aggiungi' per aggiungere un nuovo servizio alla tua clinica.</h4>");
-            }
             $('.tablesorter').tablesorter({
                 theme: 'blue',
                 widgets: ["filter"],

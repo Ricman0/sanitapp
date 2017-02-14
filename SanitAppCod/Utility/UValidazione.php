@@ -216,6 +216,7 @@ class UValidazione {
                     break;
                 
                 default:
+                    $this->_validati = FALSE;
                     break;  
             }
             $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
@@ -335,10 +336,14 @@ class UValidazione {
                 case 'nome':
                 case 'medico':
                 case 'medicoResponsabile':
-                case 'descrizione':
                 case 'categoria':
-                    $pattern = '/^[a-zA-Zàèìùò\s]+$/' ;
+                    $pattern = '/^([a-zA-Zèéàòùì,-;\._:\/’]|\s)*$/' ;
                     $stringaErrore = "Il " . $chiave . " deve essere una sequenza di caratteri. Minimo 2 e massimo 20";
+                    break;
+                
+                case 'descrizione':
+                    $pattern = '/^([a-zA-Zèéàòùì,-;\._:\/’]|\s)*$/' ;
+                    $stringaErrore = "La " . $chiave . " deve essere una sequenza di caratteri. Massimo 600";
                     break;
                 
                 case 'prezzo':
@@ -357,9 +362,8 @@ class UValidazione {
                     $stringaErrore = "Il " . $chiave . " deve essere una sequenza di massimo 2 numeri";
                     break;
                 
-                
                 default:
-                    echo "c'è qualcosa di sbagliato UValidazione validaDatiUtente";
+                    $this->_validati = FALSE;
                     break;  
             }
             $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
