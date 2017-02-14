@@ -41,13 +41,13 @@ class EUser {
     private $_codiceConferma;
 
     /**
-     * @var boolean $_confermato permette di capire se l'account dell'user Ã¨ 
+     * @var boolean $_confermato permette di capire se l'account dell'user è  
      * stato confermato(TRUE) o meno         
      */
     private $_confermato;
     
     /**
-     * @var boolean $_bloccato permette di capire se l'account dell'user Ã¨ 
+     * @var boolean $_bloccato permette di capire se l'account dell'user è 
      * stato bloccato(TRUE) o meno         
      */
     private $_bloccato;

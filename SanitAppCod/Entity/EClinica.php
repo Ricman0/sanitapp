@@ -77,12 +77,13 @@ class EClinica extends EUser {
     private $_workingPlan;
 
     /**
-     * @var array $_esami array che contiente gli esami/servizi che la clinica fornisce
+     * @var array $_esami array che contiente gli esami/servizi che la clinica fornisce. 
+     * Realizza l'aggregazione con la classe EEsame.
      */
     private $_esami;
     
     /**
-     * @var boolean $_validato Indica se la clinica è stata validata dall' amministratore
+     * @var boolean $_validato Indica se la clinica è stata validata dall'amministratore
      */
     private $_validato;
 
@@ -490,7 +491,7 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare gli esami/servizi che la clinica offre.
+     * Metodo che permette di impostare gli esami/servizi che la clinica offre.
      * 
      * @access public
      * @param array $esami Esami/servizi della clinica

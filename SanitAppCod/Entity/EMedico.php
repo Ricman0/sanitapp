@@ -54,6 +54,17 @@ class EMedico extends EUser {
      */
     private $_numIscrizione;
     
+    /**
+     * @var array $_pazienti Array che contiente i pazienti del medico. 
+     * Realizza l'aggregazione con la classe EUtente.
+     */
+    private $_pazienti;
+    
+    /**
+     * @var array $_prenotazioni Array che contiente le prenotazione effettuate dal medico. 
+     * Realizza aggregazione con la classe EUtente.
+     */
+    private $_prenotazioni = Array();
     
 
     /**
@@ -114,6 +125,8 @@ class EMedico extends EUser {
                 $this->setProvinciaAlboMedico($attributiMedico[0]['ProvinciaAlbo']);
                 $this->setnumIscrizioneMedico($attributiMedico[0]['NumIscrizione']);
                 $this->setValidatoMedico($attributiMedico[0]['Validato']);
+                $this->_pazienti = Array();
+                $this->_prenotazioni = Array();
             } 
             else {
                 //il medico cercato non esiste 
@@ -137,6 +150,8 @@ class EMedico extends EUser {
             $this->_provinciaAlbo = $provinciaAlbo;
             $this->_numIscrizione = $numIscrizione;
             $this->_validato = $validato;
+            $this->_pazienti = Array();
+            $this->_prenotazioni = Array();
             parent::setTipoUser('medico');
         }
     }
@@ -234,6 +249,26 @@ class EMedico extends EUser {
     }
 
     /**
+     * Metodo per conoscere i pazienti del medico.
+     * 
+     * @access public
+     * @return array I pazienti del medico
+     */
+    public function getPazientiMedico() {
+        return $this->_pazienti;
+    }
+    
+    /**
+     * Metodo per conoscere le prenotazioni effettuate dal medico per i pazienti.
+     * 
+     * @access public
+     * @return array Le prenotazione del medico
+     */
+    public function getPrenotazioniMedico() {
+        return $this->_prenotazioni;
+    }
+    
+    /**
      * Metodo per conoscere la provincia dell'albo a cui è iscritto il medico.
      * 
      * @access public
@@ -245,6 +280,26 @@ class EMedico extends EUser {
 
     //metodi set
 
+    /**
+     * Metodo che permette di impostare i pazienti del medico.
+     * 
+     * @access public
+     * @param array $pazienti Pazienti del medico
+     */
+    public function setPazientiMedico($pazienti) {
+        $this->_pazienti = $pazienti;
+    }
+    
+    /**
+     * Metodo che permette di impostare le prenotazione prenotate dal medico.
+     * 
+     * @access public
+     * @param array $prenotazioni Prenotazioni del medico
+     */
+    public function setPrenotazioniMedico($prenotazioni ) {
+        $this->_pazienti = $prenotazioni ;
+    }
+    
     /**
      * Metodo che permette di modificare il nome del medico.
      * 

@@ -14,13 +14,20 @@ class ECategoria {
     private $_nome;
     
     /**
+     * @var array Gli esami che appartengono alla categoria.
+     * Realizza l'associazione/aggregazione con la classe ECategoria.
+     */
+    private $_esami = Array();
+    
+    /**
      * Costruttore della classe ECategoria.
      * 
      * @access public
      * @param string nome il nome della categoria
      */
     public function __construct($nome) {
-        $this->_nome = $nome;    
+        $this->_nome = $nome;  
+        $this->_esami = Array();
     }
     
     /**
@@ -32,6 +39,37 @@ class ECategoria {
     public function getNomeCategoria() {
         return $this->_nome;
     }
+    
+    /**
+     * Metodo che ritorna gli esami associati alla categoria.
+     * 
+     * @access public
+     * @return array Esami associati alla categoria
+     */
+    public function getEsamiCategoria() {
+        return $this->_esami;
+    }
+    
+    /**
+     * Metodo che ritorna il nome della categoria.
+     * 
+     * @access public
+     * @return string Il nome della categoria
+     */
+    public function setNomeCategoria() {
+        return $this->_nome;
+    }
+    
+    /**
+     * Metodo che imposta gli esami associati alla categoria.
+     * 
+     * @access public
+     * @param array $esami Esami associati alla categoria
+     */
+    public function setEsamiCategoria($esami) {
+        $this->_esami = $esami;
+    }
+    
     
     /**
      * Metodo che consente di aggiungere una categoria.

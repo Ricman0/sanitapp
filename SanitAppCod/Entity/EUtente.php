@@ -43,14 +43,22 @@ class EUtente extends EUser {
 
     /**
      * @var array $_prenotazioni array(EPrenotazione) che contiente le 
-     *                           prenotazioni a nome dell'utente
+     * prenotazioni a nome dell'utente.Realizza l'aggragazione/associazione con la classe EPrenotazione.
      */
     private $_prenotazioni;
     
     /**
-     * @var string $_medicoCurante, variabile che contiente il codice fiscale del medico curante dell'utente
+     * @var string $_medicoCurante, variabile che contiente il codice fiscale del medico curante dell'utente.
+     * Realizza l'associazione 'cura' con la classe EMedico.
      */
     private $_medicoCurante;
+    
+    /**
+     * @var array $_prenotazioniEffettuate array(EPrenotazione) che contiente le 
+     * prenotazioni che l'utente ha prenotato. Realizza l'aggragazione/associazione con la classe EPrenotazione.
+     */
+    public $_prenotazioniEffettuate = Array();
+	
 
     /**
      * Costruttore della classe EUtente.
@@ -98,6 +106,8 @@ class EUtente extends EUser {
                 $this->setNumCivicoUtente($attributiUtente[0]['NumCivico']);
                 $this->setCAPUtente($attributiUtente[0]['CAP']);
                 $this->setMedicoCurante($attributiUtente[0]['CodFiscaleMedico']);
+                $this->_prenotazioniEffettuate = Array();
+                $this->_prenotazioni = Array();
             } 
             else 
             {
@@ -123,6 +133,8 @@ class EUtente extends EUser {
             $this->_prenotazioni = new ArrayObject(); 
             $this->_medicoCurante = $medico;
             parent::setTipoUser('utente');
+            $this->_prenotazioniEffettuate = Array();
+            $this->_prenotazioni = Array();
         }
     }
 
@@ -217,6 +229,16 @@ class EUtente extends EUser {
     public function getPrenotazioniUtente() {
         return $this->_prenotazioni;
     }
+    
+    /**
+     * Metodo per conoscere le prenotazioni prenotate dall'utente.
+     * 
+     * @access public
+     * @return array Le prenotazioni prenotate dall'utente
+     */
+    public function getPrenotazioniEffettuateUtente() {
+        return $this->_prenotazioniEffettuate;
+    }
 
     //metodi set
 
@@ -299,7 +321,27 @@ class EUtente extends EUser {
     public function setMedicoCurante($medico) {
         $this->_medicoCurante = $medico;
     }
+    
+    /**
+     * Metodo che permette di impostare le prenotazioni prenotate dall'utente.
+     * 
+     * @access public
+     * @param array $prenotazioni Prenotazioni prenotate dall'utente
+     */
+    public function setPrenotazioniEffettuateUtente($prenotazioni ) {
+        $this->_prenotazioniEffettuate = $prenotazioni ;
+    }
 
+    /**
+     * Metodo che permette di impostare le prenotazioni dell'utente.
+     * 
+     * @access public
+     * @param array $prenotazioni Prenotazioni dell'utente
+     */
+    public function setPrenotazioniUtente($prenotazioni ) {
+        $this->_prenotazioni = $prenotazioni ;
+    }
+    
     /**
      * Metodo che permette di inserire un oggetto di tipo EUtente nel DB.
      * 

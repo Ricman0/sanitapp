@@ -17,8 +17,8 @@ class EReferto {
     private $_IDReferto;
 
     /**
-     *
      * @var string id della prenotazione realtiva all referto
+     * Realizza l'associazione con la classe EPrenotazione.
      */
     private $_idPrenotazione;
 
