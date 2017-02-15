@@ -93,8 +93,6 @@ class CGestisciServizi {
                 $datiEsame = $vServizi->recuperaDatidaValidare();
                 $uValidazione = USingleton::getInstance('UValidazione');
                 $validato = $uValidazione->validaDatiEsame($datiEsame);
-                print_r($datiEsame);
-                print_r($validato);
                 if($validato === TRUE)
                 {
                     

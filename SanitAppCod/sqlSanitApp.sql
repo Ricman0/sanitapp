@@ -167,12 +167,13 @@ ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(NomeEsame);
 -- Dump dei dati per la tabella `esame`
 --
 
--- INSERT INTO esame (IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, 
--- NumPrestazioniSimultanee, NomeCategoria, PartitaIVAClinica, Eliminato) VALUES
--- ('1234558a33077a8a99', 'Raggi Braccio', 'Raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345', FALSE),
--- ('1234558a2bdb2a242f', 'Analisi del sangue', 'Analisi del sangue', 34, '00:15:00', 'Licia Verdi', 1, 'Analisi', '12345', FALSE),
--- ('1234558a2e69645366', 'Ecografia Addome', 'L’ecografia addome completo/addominale è una metodica diagnostica non invasiva che, utilizzando gli ultrasuoni emessi da una sonda appoggiata sulla pelle del paziente, consente di visualizzare e studiare tutti gli organi dell’addomee i principali vasi sanguigni che si trovano nella cavità addominale.', 45, '00:45:00', 'Luigi Neri', 1, 'Ecografia', '12345', FALSE),
--- (2, 'Raggi Piede', 'Raggi al piede', 30, '00:15:00', 'Riga', 1, 'Raggi', '12345', FALSE);
+INSERT INTO esame (IDEsame, NomeEsame, Descrizione, Prezzo, Durata, MedicoEsame, 
+NumPrestazioniSimultanee, NomeCategoria, PartitaIVAClinica, Eliminato) VALUES
+('0120030405058a33077a8a99', 'Raggi Braccio', 'Raggi al braccio', 30, '00:15:00', 'Riga', 1, 'Raggi', '01200304050', FALSE),
+('0120030405058a2bdb2a242f', 'Analisi del sangue', 'Analisi del sangue', 34, '00:15:00', 'Licia Verdi', 1, 'Analisi', '01200304050', FALSE),
+('0120030405058a2e69645366', 'Ecografia Addome', 'L’ecografia addome completo/addominale è una metodica diagnostica non invasiva che, utilizzando gli ultrasuoni emessi da una sonda appoggiata sulla pelle del paziente, consente di visualizzare e studiare tutti gli organi dell’addomee i principali vasi sanguigni che si trovano nella cavità addominale.', 45, '00:45:00', 'Luigi Neri', 1, 'Ecografia', '01200304050', FALSE),
+('0120030405058a4ccf59b242', 'Raggi Piede', 'Raggi al piede', 30, '00:15:00', 'Riga', 1, 'Raggi', '01200304050', FALSE),
+('0120030405058a4ccf59b247', 'Vaccino Meningococco', 'Vaccino per la meningite di tipo C.', 40, '00:10:00', 'Rita Nervo' ,1, 'Vaccino', '01200304050', FALSE);
 
 -- --------------------------------------------------------
 
