@@ -158,8 +158,7 @@ class CReferti {
     /**
      * Metodo che richiama la pagina di upload del referto.
      * 
-     * @access public
-     * @param VReferti $vReferti oggetto view 
+     * @access private
      * @param string $idPrenotazione id della prenotazione a cui associare il referto
      */
     private function aggiuntaReferto($idPrenotazione) {
