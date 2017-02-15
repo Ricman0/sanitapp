@@ -9,21 +9,21 @@
 class EUser {
 
     /**
-     * @var string $_email, variabile di tipo string, che contiente l'indirizzo 
+     * @var string $_email, variabile di tipo string, che contiene l'indirizzo 
      *             di posta elettronica dell'user. Ã© valido come username per 
      *             l'accesso al sistema
      */
     private $_email;
 
     /**
-     * @var string $_PEC, variabile di tipo string, che contiente l'indirizzo 
+     * @var string $_PEC, variabile di tipo string, che contiene l'indirizzo 
      *             di posta elettronica certificata dell'user. Ã© valido come username per 
      *             l'accesso al sistema
      */
     private $_PEC;
     
     /**
-     * @var string $_password, variabile di tipo string, che contiente la
+     * @var string $_password, variabile di tipo string, che contiene la
      *             password che l'user inserisce per accedere al sistema
      */
     private $_password;
@@ -35,7 +35,7 @@ class EUser {
     private $_username;
 
     /**
-     * @var string $_codiceConferma, variabile che contiente il codice per confermare 
+     * @var string $_codiceConferma, variabile che contiene il codice per confermare 
      * l'account dell'user
      */
     private $_codiceConferma;

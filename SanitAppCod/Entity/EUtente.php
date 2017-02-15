@@ -9,55 +9,61 @@
 class EUtente extends EUser {
 
     /**
-     * @var string $_nome, variabile di tipo string, che contiente il nome dell'utente
+     * @var string $_nome, variabile di tipo string, che contiene il nome dell'utente
      */
     private $_nome;
 
     /**
-     * @var string $_cognome, variabile di tipo string, che contiente il cognome dell'utente
+     * @var string $_cognome, variabile di tipo string, che contiene il cognome dell'utente
      */
     private $_cognome;
 
     /**
-     * @var string $_codFiscale, variabile di tipo string, che contiente il 
+     * @var string $_codFiscale, variabile di tipo string, che contiene il 
      *             codice fiscale dell'utente
      */
     private $_codFiscale;
 
     /**
-     * @var string $_via, variabile di tipo string, che contiente l'indirizzo 
+     * @var string $_via, variabile di tipo string, che contiene l'indirizzo 
      *             in cui risiede l'utente
      */
     private $_via;
 
     /**
-     * @var int $_numeroCivico, variabile di tipo intero, che contiente il numero
+     * @var int $_numeroCivico, variabile di tipo intero, che contiene il numero
      *          civico in cui risiede l'utente
      */
     private $_numeroCivico;
 
     /**
-     * @var string $_CAP, variabile che contiente il CAP in cui risiede l'utente
+     * @var string $_CAP, variabile che contiene il CAP in cui risiede l'utente
      */
     private $_CAP;
 
     /**
-     * @var array $_prenotazioni array(EPrenotazione) che contiente le 
-     * prenotazioni a nome dell'utente.Realizza l'aggragazione/associazione con la classe EPrenotazione.
+     * @var array $_prenotazioni array(EPrenotazione) che contiene le 
+     * prenotazioni a nome dell'utente.Realizza l'aggregazione con la classe EPrenotazione.
      */
     private $_prenotazioni;
     
     /**
-     * @var string $_medicoCurante, variabile che contiente il codice fiscale del medico curante dell'utente.
+     * @var string $_medicoCurante, variabile che contiene il codice fiscale del medico curante dell'utente.
      * Realizza l'associazione 'cura' con la classe EMedico.
      */
     private $_medicoCurante;
     
     /**
-     * @var array $_prenotazioniEffettuate array(EPrenotazione) che contiente le 
-     * prenotazioni che l'utente ha prenotato. Realizza l'aggragazione/associazione con la classe EPrenotazione.
+     * @var array $_prenotazioniEffettuate array(EPrenotazione) che contiene le 
+     * prenotazioni che l'utente ha prenotato. Realizza l'aggregazione con la classe EPrenotazione.
      */
-    public $_prenotazioniEffettuate = Array();
+    private $_prenotazioniEffettuate;
+    
+    /**
+     * @var array $_referti array(EReferto) che contiene i referti dell'utente. 
+     * Realizza l'aggregazione con la classe EReferto.
+     */
+    private $_referti;
 	
 
     /**
@@ -108,6 +114,7 @@ class EUtente extends EUser {
                 $this->setMedicoCurante($attributiUtente[0]['CodFiscaleMedico']);
                 $this->_prenotazioniEffettuate = Array();
                 $this->_prenotazioni = Array();
+                $this->_referti= Array();
             } 
             else 
             {
@@ -135,6 +142,7 @@ class EUtente extends EUser {
             parent::setTipoUser('utente');
             $this->_prenotazioniEffettuate = Array();
             $this->_prenotazioni = Array();
+            $this->_referti= Array();
         }
     }
 

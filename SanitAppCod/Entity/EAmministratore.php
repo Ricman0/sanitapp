@@ -8,7 +8,7 @@
  */
 class EAmministratore extends EUser{
     /**
-     * @var int $_id contiente l'id dell'amministratore
+     * @var int $_id contiene l'id dell'amministratore
      */
     private $_id;
     
@@ -18,12 +18,12 @@ class EAmministratore extends EUser{
     private $_telefono;
     
     /**
-     * @var string $_nome, variabile di tipo string,  che contiente il nome dell'amministratore
+     * @var string $_nome, variabile di tipo string,  che contiene il nome dell'amministratore
      */
     private $_nome;
 
     /**
-     * @var string $_cognome, variabile di tipo string,  che contiente il cognome dell'amministratore
+     * @var string $_cognome, variabile di tipo string,  che contiene il cognome dell'amministratore
      */
     private $_cognome;
     

@@ -66,7 +66,7 @@ class EEsame
     private $_eliminato;
     
     /**
-     * @var array $_prenotazioni array(EPrenotazione) che contiente le 
+     * @var array $_prenotazioni array(EPrenotazione) che contiene le 
      * prenotazioni relativa all'esame. Realizza l'associazione con la classe EPrenotazione.
      */
     private $_prenotazioni = Array();

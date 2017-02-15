@@ -55,16 +55,22 @@ class EMedico extends EUser {
     private $_numIscrizione;
     
     /**
-     * @var array $_pazienti Array che contiente i pazienti del medico. 
+     * @var array $_pazienti Array che contiene i pazienti del medico. 
      * Realizza l'aggregazione con la classe EUtente.
      */
     private $_pazienti;
     
     /**
-     * @var array $_prenotazioni Array che contiente le prenotazione effettuate dal medico. 
+     * @var array $_prenotazioni Array che contiene le prenotazione effettuate dal medico. 
      * Realizza aggregazione con la classe EUtente.
      */
-    private $_prenotazioni = Array();
+    private $_prenotazioni;
+    
+    /**
+     * @var array $_referti array(EReferto) che contiene i referti condivisi con il medico. 
+     * Realizza l'aggregazione con la classe EReferto.
+     */
+    private $_referti;
     
 
     /**
@@ -127,6 +133,7 @@ class EMedico extends EUser {
                 $this->setValidatoMedico($attributiMedico[0]['Validato']);
                 $this->_pazienti = Array();
                 $this->_prenotazioni = Array();
+                $this->_referti = Array();
             } 
             else {
                 //il medico cercato non esiste 
@@ -152,6 +159,7 @@ class EMedico extends EUser {
             $this->_validato = $validato;
             $this->_pazienti = Array();
             $this->_prenotazioni = Array();
+            $this->_referti = Array();
             parent::setTipoUser('medico');
         }
     }
