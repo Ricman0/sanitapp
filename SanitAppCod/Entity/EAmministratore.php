@@ -28,6 +28,18 @@ class EAmministratore extends EUser{
     private $_cognome;
     
     /**
+     * @var array Le categorie gestite dall'amministratore.
+     * Realizza l'associazione con la classe ECategoria.
+     */
+    private $_categorie = Array();
+    
+    /**
+     * @var array Gli users gestiti dall'amministratore.
+     * Realizza l'associazione con la classe EUser.
+     */
+    private $_user = Array();
+    
+    /**
      * Costruttore della classe EAmministratore.
      * 
      * @access public
@@ -50,6 +62,8 @@ class EAmministratore extends EUser{
             $this->_telefono = $telefono;
             $this->_nome = $nome;
             $this->_cognome = $cognome;
+            $this->_categorie = Array();
+            $this->_user = Array();
         }
         else
         {
@@ -68,7 +82,9 @@ class EAmministratore extends EUser{
                 $this->_id = $attributiAmministratore[0]['IdAmministratore']; // nel db è autoincrement
                 $this->_telefono = $attributiAmministratore[0]['Telefono'];
                 $this->_nome = $attributiAmministratore[0]['Nome'];
-                $this->_cognome = $attributiAmministratore[0]['Cognome'];   
+                $this->_cognome = $attributiAmministratore[0]['Cognome'];
+                $this->_categorie = Array();
+                $this->_user = Array();
             }
             else
             {
@@ -282,6 +298,65 @@ class EAmministratore extends EUser{
         $fCategorie = USingleton::getInstance('FCategoria');
         return $fCategorie->cerca(); //cercaCategorie
     }
+    
+    /**
+     * Metodo che consente di aggiungere una categoria.
+     * 
+     * @access public
+     * @param string $nomeCategoria Il nome della categoria da inserire
+     * @return boolean TRUE se la query è stata eseguita con successo, in caso contrario lancerà l'eccezione.
+     * @throws XDBException Se la query non è stata eseguita con successo
+     */
+    public function aggiungiCategoria($nomeCategoria) {
+        $eCategoria = new ECategoria($nomeCategoria);
+        $fCategorie = USingleton::getInstance('FCategoria');
+        return $fCategorie->inserisci($eCategoria); //aggiungiCategoria
+    }
+    
+    /**
+     * Metodo che consente di eliminare una categoria se non ci sono esami per tale categoria.
+     * 
+     * @access public
+     * @param string $nomeCategoria Il nome della categoria da eliminare
+     * @return string|boolean string nel caso non sia possibile eliminare la categoria, TRUE se la query è eseguito con successo, altrimenti lancia eccezione
+     * @throws XDBException  Se la query non viene eseguita con successo
+     */
+    public function eliminaCategoria($nomeCategoria) {
+        if($this->checkIfCanDelete($nomeCategoria)===TRUE)
+        {
+            $fCategorie = USingleton::getInstance('FCategoria');
+            return $fCategorie->elimina($nomeCategoria); //eliminaCategoria
+        }
+        else
+        {
+            $messaggio = 'Non è possibile eliminare la categoria poichè ci sono esami per questa categoria.';
+            return $messaggio;
+        }
+        
+    }
+    
+    /**
+     * Metodo che consente di controllare se una categoria può essere cancellata.
+     * 
+     * @access public
+     * @param string $nomeCategoria Il nome della categoria da controllare
+     * @return boolean FALSE se la categoria non può essere cancellata poichè 
+     *          esiste un esame appartenente a quella categoria, TRUE se può essere cancellata, altrimenti lancia un'eccezione
+     * @throws XDBException Se la query non è eseguita con successo
+     */
+    public function checkIfCanDelete($nomeCategoria) {
+        $fEsami = USingleton::getInstance('FEsame');
+        $daCercare['NomeCategoria'] = $nomeCategoria; 
+        $esami = $fEsami->cerca($daCercare); //cercaEsamiByCategoria
+        if(count($esami)>0)
+        {
+            return FALSE;
+        }
+        else
+        {
+            return TRUE;
+        }
+    } 
     
     
 }
