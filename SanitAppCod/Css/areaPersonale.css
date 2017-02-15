@@ -67,18 +67,21 @@ and open the template in the editor.
     padding: 3%;
 }
 
+/*
+
+*/
 .periodoNonDisponibile{
     background-image: url('../Immagini/unavailable.jpg');
 }
 
 .pausa{
-    background-image: url('../Immagini/break.jpg');
-/*    background: repeating-linear-gradient(
-  45deg,
-  #606dbc,
-  #606dbc 10px,
-  #465298 10px,
-  #465298 20px
-);*/
+    /*background-image: url('../Immagini/break.jpg');*/
+    background: repeating-linear-gradient(
+        45deg,
+        #ff0000,
+        #ff0000 10px,
+        #465298 10px,
+        #465298 20px
+    );
     border-color: green !important;
 }

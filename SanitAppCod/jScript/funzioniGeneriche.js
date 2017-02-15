@@ -105,6 +105,18 @@ function inviaControllerTask(controller1, task1, ajaxdiv)
                 $('.rigaUserDaValidare').removeClass('rigaUser'); // elimino la lcasse rigaUser.
                 // in questo modo non ho lo stesso click sulle righe delle diverse tabelle
             }
+            if (controller1==='clienti' && task1==='visualizza')
+            {
+                if($('#tornaAreaPersonaleButton').length){
+                    $('#tornaAreaPersonaleButton').parent().prepend("<h3>CLIENTI DELLA CLINICA</h3><hr><br>");
+                }
+            }
+            if (controller1==='referti' && task1==='visualizza')
+            {
+                if($('#tornaAreaPersonaleButton').length){
+                    $('#tornaAreaPersonaleButton').parent().prepend("<h3>REFERTI</h3><hr><br>");
+                }
+            }
             
             
         },

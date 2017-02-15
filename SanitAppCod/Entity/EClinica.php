@@ -206,8 +206,10 @@ class EClinica extends EUser {
             $this->_workingPlan = $workingPlan;
             $this->_validato = $validato;
             parent::setTipoUser('clinica');
-            
             $this->_esami = Array();
+            $this->_prenotazioni = Array();
+            $this->_referti = Array();
+            $this->_clienti = Array();
         }
     }
 
@@ -216,13 +218,19 @@ class EClinica extends EUser {
      * Metodo per conoscere il working plan della clinica in un array. 
      * 
      * @access public
-     * @return array Il working plan della clinica 
+     * @return array|NULL Il working plan della clinica o NULL nel caso in cui il working plan non è impostato
      */
     public function getArrayWorkingPlanClinica() {
-        $workingPlan = json_decode($this->_workingPlan);
-        //$workingPlan è un oggetto 
-        // ora lo rendo un array
-        $workingPlan = get_object_vars($workingPlan);
+        
+        $workingPlan = NULL;
+        if(isset($this->_workingPlan))
+        {
+            $workingPlan = json_decode($this->_workingPlan);
+            //$workingPlan è un oggetto 
+            // ora lo rendo un array
+            $workingPlan = get_object_vars($workingPlan);
+        }
+        
         return $workingPlan;
     }
 

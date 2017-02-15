@@ -50,9 +50,11 @@
             <p>{$errore}</p>
         {/if}
     {else}
-        <h4>Non sono ancora presenti esami</h4>
+        <h3>SERVIZI OFFERTI</h3>
+        <hr>
         <br>
-        <h4>Clicca sull'icona seguente per aggiungere un nuovo servizio che la clinica offrirà</h4>
-        <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungi" aria-hidden="true" ></i>
+        <h3>Non sono ancora presenti esami.</h3>
+        <h3>Clicca sull'icona seguente per aggiungere un nuovo servizio che la clinica offrirà.</h3>
+        <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungi{$controller}" aria-hidden="true" ></i>
     {/if}
 {/if}

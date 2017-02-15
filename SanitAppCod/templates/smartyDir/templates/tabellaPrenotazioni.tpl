@@ -79,11 +79,12 @@
     </tbody>
 </table>
 {else}
-        <h3>Non sono presenti prenotazioni.</h3>
-        <p>Per aggiungere una prenotazione, clicca sul tasto aggiungi</p>
-        <br>
-            {if isset($tastoAggiungi)}
-                <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiPrenotazione{$tipoUser}" aria-hidden="true" ></i>               
-            {/if}
-        <br>
+    <br>
+    <h3>Non sono presenti prenotazioni.</h3>
+    <h3>Per aggiungere una prenotazione, clicca sul tasto aggiungi.</h3>
+    <br>
+        {if isset($tastoAggiungi)}
+            <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiPrenotazione{$tipoUser}" aria-hidden="true" ></i>               
+        {/if}
+    <br>
 {/if}

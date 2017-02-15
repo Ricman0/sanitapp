@@ -1,7 +1,7 @@
 <h3>CLIENTI DELLA CLINICA</h3>
 <hr>
 <br>
-<h4>Clicca su una riga per avere informazioni sul cliente corrispondente</h4>
+<h4>Clicca su una riga per avere informazioni sul cliente corrispondente.</h4>
 <table id="tabellaClienti" class="tablesorter">
     <thead>
         <th>Codice Fiscale</th>
@@ -20,7 +20,6 @@
                 <td>{$curr_row['Via']}, {$curr_row['NumCivico']}</td>
                 <td>{$curr_row['CAP']}</td>
                 <td>{$curr_row['Email']}</td>
-                
             </tr>
         {/foreach}
     </tbody>

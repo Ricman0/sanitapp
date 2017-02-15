@@ -92,9 +92,12 @@ class CGestisciServizi {
                 $vServizi = USingleton::getInstance('VGestisciServizi');
                 $datiEsame = $vServizi->recuperaDatidaValidare();
                 $uValidazione = USingleton::getInstance('UValidazione');
-                $validato = $uValidazione->validaDati($datiEsame);
+                $validato = $uValidazione->validaDatiEsame($datiEsame);
+                print_r($datiEsame);
+                print_r($validato);
                 if($validato === TRUE)
                 {
+                    
                     try {
                         $idEsame = $datiEsame['idEsame'];
                         $eEsame = new EEsame($idEsame);
@@ -194,7 +197,10 @@ class CGestisciServizi {
                         {
                             $vServizi->visualizzaEsami($servizi);//i servizi cercati vengono visualizzati
                         }
-                        
+                        else
+                        {
+                            $vServizi->visualizzaEsami();
+                        }  
                     } 
                     catch (XClinicaException $ex) {
                         $vServizi->visualizzaFeedback($ex->getMessage());                       
