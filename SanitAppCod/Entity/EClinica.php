@@ -77,12 +77,31 @@ class EClinica extends EUser {
     private $_workingPlan;
 
     /**
-     * @var array $_esami array che contiente gli esami/servizi che la clinica fornisce
+     * @var array $_esami array che contiene gli esami/servizi che la clinica fornisce. 
+     * Realizza l'aggregazione con la classe EEsame.
      */
     private $_esami;
     
     /**
-     * @var boolean $_validato Indica se la clinica è stata validata dall' amministratore
+     * @var array $_prenotazioni array che contiene le prenotazioni presso la clinica. 
+     * Realizza l'aggregazione con la classe EPrenotazione.
+     */
+    private $_prenotazioni;
+    
+    /**
+     * @var array $_referti array che contiene i referti della clinica fornisce. 
+     * Realizza l'aggregazione con la classe EReferto.
+     */
+    private $_referti;
+    
+     /**
+     * @var array $_clienti array che contiene i clienti della clinica . 
+     * Realizza l'aggregazione con la classe EUtente.
+     */
+    private $_clienti;
+    
+    /**
+     * @var boolean $_validato Indica se la clinica è stata validata dall'amministratore
      */
     private $_validato;
 
@@ -129,9 +148,9 @@ class EClinica extends EUser {
             $this->_workingPlan = $workingPlan;
             $this->_validato = $validato;
             $this->_esami = Array();
-            if (isset($esami)) {
-                $this->_esami = $esami;
-            }
+            $this->_prenotazioni = Array();
+            $this->_referti = Array();
+            $this->_clienti = Array();
         } elseif ($partitaIVA !== NULL || $username !== NULL) {
             $fClinica = USingleton::getInstance('FClinica');
             if ($partitaIVA !== NULL && $username === NULL) {
@@ -163,8 +182,10 @@ class EClinica extends EUser {
                 parent::setConfermato($attributiClinica[0]["Confermato"]);
                 parent::setCodiceConfermaUser($attributiClinica[0]["CodiceConferma"]);
                 $this->setValidatoClinica($attributiClinica[0]["Validato"]);
-               
                 $this->_esami = Array();
+                $this->_prenotazioni = Array();
+                $this->_referti = Array();
+                $this->_clienti = Array();
             } else {
                 throw new XClinicaException('Clinica inesistente. ');
             }
@@ -490,7 +511,7 @@ class EClinica extends EUser {
     }
 
     /**
-     * Metodo che permette di modificare gli esami/servizi che la clinica offre.
+     * Metodo che permette di impostare gli esami/servizi che la clinica offre.
      * 
      * @access public
      * @param array $esami Esami/servizi della clinica

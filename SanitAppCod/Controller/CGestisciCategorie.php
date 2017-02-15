@@ -71,8 +71,8 @@ class CGestisciCategorie {
                         $uValidazione = USingleton::getInstance('UValidazione');
                         if($uValidazione->validaCategoria($nomeCategoria)===TRUE)
                         {
-                            $eCategoria = new ECategoria($nomeCategoria);
-                            if($eCategoria->aggiungiCategoria())
+                            $eAmministratore = new EAmministratore($username);
+                            if($eAmministratore->aggiungiCategoria($nomeCategoria))
                             {
                                 $vUsers->visualizzaFeedback('Categoria aggiunta.');
                             }
@@ -101,8 +101,8 @@ class CGestisciCategorie {
                 if($nomeCategoria !== FALSE)
                 {
                     try {
-                            $eCategoria = new ECategoria($nomeCategoria);
-                            $eliminatoOMessaggio = $eCategoria->eliminaCategoria();
+                            $eAmministratore = new EAmministratore($username);
+                            $eliminatoOMessaggio = $eAmministratore->eliminaCategoria($nomeCategoria);
                             if($eliminatoOMessaggio === TRUE)
                             {
                                 $vUsers->visualizzaFeedback('Categoria eliminata.');

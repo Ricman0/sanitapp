@@ -954,7 +954,7 @@ function agendaViewDisplay(view, element)
  * 
  * @param Event event Oggetto evento che contiene le informazioni dell'evento (data, titolo, ecc)
  * @param {type} jsEvent jsEvent tiene l'evento nativo JavaScript con informazioni di basso livello come ad esempio coordinate click.
- * @param View view contiente la corrente View Object
+ * @param View view contiene la corrente View Object
  * @return {undefined}
  */
 function agendaEventClick(event, jsEvent, view)

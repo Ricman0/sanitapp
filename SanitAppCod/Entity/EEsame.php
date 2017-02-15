@@ -66,6 +66,13 @@ class EEsame
     private $_eliminato;
     
     /**
+     * @var array $_prenotazioni array(EPrenotazione) che contiene le 
+     * prenotazioni relativa all'esame. Realizza l'associazione con la classe EPrenotazione.
+     */
+    private $_prenotazioni = Array();
+    
+    
+    /**
      * Costruttore di EEsame
      * 
      * @access public
@@ -100,6 +107,7 @@ class EEsame
                 $this->_descrizione = $attributiEsame[0]["Descrizione"];
                 $this->_partitaIVAClinica= $attributiEsame[0]["PartitaIVAClinica"];
                 $this->_eliminato= $attributiEsame[0]["Eliminato"];
+                $this->_prenotazioni = Array();
             }
             else
             {
@@ -118,6 +126,7 @@ class EEsame
             $this->_descrizione = $descrizione;
             $this->_partitaIVAClinica = $partitaIVAClinica;
             $this->_eliminato ='FALSE';
+            $this->_prenotazioni = Array();
             
         }
     }
@@ -247,6 +256,16 @@ class EEsame
     }
     
     /**
+     * Metodo per conoscere le prenotazioni associate all'esame.
+     * 
+     * @access public
+     * @return array Le prenotazioni relative l'esame
+     */
+    public function getPrenotazioniEsame() {
+        return $this->_prenotazioni;
+    }
+    
+    /**
      * Metodo che permette la modifica del nome dell'esame.
      * 
      * @access public
@@ -334,6 +353,16 @@ class EEsame
     public function setNomeCategoriaEsame($nomeCategoria)
     {
         $this->_nomeCategoria= $nomeCategoria;
+    }
+    
+    /**
+     * Metodo che permette di impostare le prenotazioni relative all'esame.
+     * 
+     * @access public
+     * @param array $prenotazioni Prenotazioni relative all'esame
+     */
+    public function setPrenotazioniEsame($prenotazioni ) {
+        $this->_prenotazioni = $prenotazioni ;
     }
     
     /**

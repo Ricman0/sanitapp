@@ -31,25 +31,21 @@ class CGestisciClienti {
                         $this->tryVisualizzaClientiClinica($username);// cerca e visualizza clienti
                     }
                     else
-                        {
-                            // si cerca un solo cliente
-                            try {
-                               $eUtente = new EUtente($cf);
-                               $vClienti->visualizzaInfoUtente($eUtente);
-                            } 
-                            catch (XUtenteException $ex) {
-                                $vClienti->visualizzaFeedback('Utente inesistente. Non è stato possibile recuperare le informazioni richieste');
-                            }
-                            
-//                                $futente = USingleton::getInstance('FUtente');
-//                                $utenteCercato = $futente->cercaUtenteByCF($cf);
-//                                $vClienti->visualizzaInfoUtente($utenteCercato[0]);
+                    {
+                        // si cerca un solo cliente
+                        try {
+                           $eUtente = new EUtente($cf);
+                           $vClienti->visualizzaInfoUtente($eUtente);
+                        } 
+                        catch (XUtenteException $ex) {
+                            $vClienti->visualizzaFeedback('Utente inesistente. Non è stato possibile recuperare le informazioni richieste');
                         }
+                    }
                     
                 }
                 else
                 {
-                    $vClienti->visualizzaFeedback('Errore');
+                    $vClienti->visualizzaFeedback('Errore.');
                 }
                 break;
 
