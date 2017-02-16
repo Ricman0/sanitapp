@@ -976,7 +976,7 @@ class EClinica extends EUser {
                 case 'confermato':
                     if($value === 'true')
                     {
-                        $this->setConfermato(TRUE);
+                        $this->setConfermato('TRUE');
                     }
                     else 
                     {
@@ -986,7 +986,7 @@ class EClinica extends EUser {
                 case 'validato':
                     if($value === 'true')
                     {
-                        $this->setValidatoClinica(TRUE);
+                        $this->setValidatoClinica('TRUE');
                     }
                     else 
                     {
@@ -996,7 +996,7 @@ class EClinica extends EUser {
                 case 'bloccato':
                     if($value === 'true')
                     {
-                        $this->setBloccato(TRUE);
+                        $this->setBloccato('TRUE');
                     }
                     else
                     {
@@ -1038,6 +1038,7 @@ class EClinica extends EUser {
                     $this->trovaRegione($value);
                     break;
                 case 'PEC':
+                case 'pec':
                     $this->setPEC($value);
                     break;
                 case 'telefono':
@@ -1049,7 +1050,7 @@ class EClinica extends EUser {
                 case 'passwordClinica':
                     if(!empty($value))
                     {
-                        $this->setPassword($value);
+                        $this->modificaPassword($value);
                     }
                     break;
                 default:

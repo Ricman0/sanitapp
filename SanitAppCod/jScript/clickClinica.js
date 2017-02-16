@@ -99,6 +99,19 @@ $(document).ready(function () {
         clickModificaImpostazioni('impostazioni', 'modifica', 'informazioni', "#informazioniGenerali");
     });
     
+    
+    $('#headerMain').on("change", "#workingPlan input[type='checkbox']", function () {
+        if($(this).is(':not(checked)'))
+        {
+            var valoreID = $(this).attr('id');
+            $('#' + valoreID + 'Start' ).val('');
+            $('#' + valoreID + 'End' ).val('');
+            $('#' + valoreID + 'BreakStart' ).val('');
+            $('#' + valoreID + 'BreakEnd' ).val('');
+        }
+    });
+    
+    
 //    $('#headerMain').on("click", "#salvaImpostazioniClinica", function () {
 //        inviaImpostazioniClinica('#workingPlan','#giornoPausa','#inizioPausa','#finePausa','impostazioni', 'clinica', 'workingPlan', "#contenutoAreaPersonale");
 //    });

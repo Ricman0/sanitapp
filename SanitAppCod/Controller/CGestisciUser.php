@@ -33,7 +33,7 @@ class CGestisciUser {
                         $vUsers->visualizzaFeedback('Amministratore inesistente.');
                     }
                     catch (XDBException $ex) {
-                        $vUsers->visualizzaFeedback("C'è stato un errore");
+                        $vUsers->visualizzaFeedback("C'è stato un errore.");
                     }
                     
                 }
@@ -128,19 +128,19 @@ class CGestisciUser {
                     $eAmministratore = new EAmministratore($username);
                     if($eAmministratore->bloccaUser($idUser)===TRUE)
                         {
-                            $messaggio = "User bloccato";   
+                            $messaggio = "User bloccato.";   
                         }
                     else
                         {
-                            $messaggio = "C'è stato un errore. User non bloccato"; 
+                            $messaggio = "C'è stato un errore. User non bloccato."; 
                         }
                     $vUsers->visualizzaFeedback($messaggio);
                 } catch (XAmministratoreException $ex) {
-                    $messaggio = "Amministratore inesistente. Non è stato possibile eseguire il blocco dell'user";
+                    $messaggio = "Amministratore inesistente. Non è stato possibile eseguire il blocco dell'user.";
                     $vUsers->visualizzaFeedback($messaggio);
                 }
                 catch (XDBException $ex) {
-                   $vUsers->visualizzaFeedback($ex->getMessage());
+                   $vUsers->visualizzaFeedback("C'è stato un errore. User non bloccato.");
                 }
                 
                 break;
@@ -154,38 +154,39 @@ class CGestisciUser {
                         }
                     else
                         {
-                            $messaggio = "C'è stato un errore. User non sbloccato"; 
+                            $messaggio = "C'è stato un errore. User non sbloccato."; 
                         }
                     $vUsers->visualizzaFeedback($messaggio);
                     
                 } catch (XAmministratoreException $ex) {
-                    $messaggio = "Amministratore inesistente. Non è stato possibile eseguire lo sblocco dell'user";
+                    $messaggio = "Amministratore inesistente. Non è stato possibile eseguire lo sblocco dell'user.";
                     $vUsers->visualizzaFeedback($messaggio);
                 }
                 catch (XDBException $ex) {
-                   $vUsers->visualizzaFeedback($ex->getMessage());
+                   $vUsers->visualizzaFeedback("C'è stato un errore. User non sbloccato.");
                 }
                 
                 break;
             
             case 'valida':
                 try {
+                    $tipoUser = $vUsers->recuperaValore('tipo');
                     $eAmministratore = new EAmministratore($username);
-                    if($eAmministratore->validaUser($idUser)===TRUE)
+                    if($eAmministratore->validaUser($idUser, $tipoUser)===TRUE)
                         {
-                            $messaggio = "User validato";   
+                            $messaggio = "User validato.";   
                         }
                     else
                         {
-                            $messaggio = "C'è stato un errore. User non validato"; 
+                            $messaggio = "C'è stato un errore. User non validato."; 
                         }
                     $vUsers->visualizzaFeedback($messaggio);
                 } catch (XAmministratoreException $ex) {
-                    $messaggio = "Amministratore inesistente. Non è stato possibile eseguire la validazione dell'user";
+                    $messaggio = "Amministratore inesistente. Non è stato possibile eseguire la validazione dell'user.";
                     $vUsers->visualizzaFeedback($messaggio);
                 }
                 catch (XDBException $ex) {
-                   $vUsers->visualizzaFeedback($ex->getMessage());
+                   $vUsers->visualizzaFeedback("C'è stato un errore. Non è stato possibile eseguire la validazione dell'user.");
                 }
                
                 
@@ -196,20 +197,20 @@ class CGestisciUser {
                     $eAmministratore = new EAmministratore($username);
                     if($eAmministratore->confermaUser($idUser)===TRUE)
                         {
-                            $messaggio = "User confermato";   
+                            $messaggio = "User confermato.";   
                         }
                     else
                         {
-                            $messaggio = "C'è stato un errore. User non confermato"; 
+                            $messaggio = "C'è stato un errore. User non confermato."; 
                         }
                     $vUsers->visualizzaFeedback($messaggio);
                     
                 } catch (XAmministratoreException $ex) {
-                    $messaggio = "Amministratore inesistente. Non è stato possibile eseguire la conferma dell'user";
+                    $messaggio = "Amministratore inesistente. Non è stato possibile eseguire la conferma dell'user.";
                     $vUsers->visualizzaFeedback($messaggio);
                 }
                 catch (XDBException $ex) {
-                   $vUsers->visualizzaFeedback($ex->getMessage());
+                   $vUsers->visualizzaFeedback("C'è stato un errore. Non è stato possibile eseguire la conferma dell'user.");
                 }
                 
                 break;
@@ -222,20 +223,20 @@ class CGestisciUser {
                         $eAmministratore = new EAmministratore($username);
                         if($eAmministratore->eliminaUser($idUser)===TRUE)
                             {
-                                $messaggio = "User eliminato";   
+                                $messaggio = "User eliminato.";   
                             }
                         else
                             {
-                                $messaggio = "C'è stato un errore. User non eliminato"; 
+                                $messaggio = "C'è stato un errore. User non eliminato."; 
                             }
                         $vUsers->visualizzaFeedback($messaggio);
 
                     } catch (XAmministratoreException $ex) {
-                        $messaggio = "Amministratore inesistente. Non è stato possibile eseguire l'eliminazione dell'user";
+                        $messaggio = "Amministratore inesistente. Non è stato possibile eseguire l'eliminazione dell'user.";
                         $vUsers->visualizzaFeedback($messaggio);
                     }
                     catch (XDBException $ex) {
-                       $vUsers->visualizzaFeedback($ex->getMessage());
+                       $vUsers->visualizzaFeedback("C'è stato un errore. Non è stato possibile eseguire l'eliminazione dell'user.");
                     }
                 }
                 else // tipoUserDa eliminare è clinica. per ora la nostra applicazione non permette l'eliminazione della clinica.
@@ -244,26 +245,24 @@ class CGestisciUser {
                     $vUsers->visualizzaFeedback($messaggio);
                 }
                 break;
+                
             case 'modifica':
                 $vUsers= USingleton::getInstance('VGestisciUser');
                 $uValidazione = USingleton::getInstance('UValidazione');
                 $datiDaValidare = $vUsers->recuperaDatidaValidare();
-               
                 $validato = $uValidazione->validaDati($datiDaValidare);
                 if( $validato===TRUE)
                 {
-                    
                     $tipoUser = $datiDaValidare['tipoUser'];
-                   
                     switch ($tipoUser) {
                         case 'Utente':
-                            
+                           
                             try {
                                 $eUtente = new EUtente( NULL, $datiDaValidare['username']);
                                 
                                 $eUtente->modificaUtente($datiDaValidare);
                                 
-                                $vUsers->visualizzaFeedback("Modifica all'utente effettuata");
+                                $vUsers->visualizzaFeedback("Modifica all'utente effettuata.");
                             } 
                             catch (XUtenteException $ex) 
                             {
@@ -272,7 +271,7 @@ class CGestisciUser {
                                     
                                     $eUtente = new EUtente( $datiDaValidare['codiceFiscale']);
                                     $eUtente->modificaUtente($datiDaValidare);
-                                    $vUsers->visualizzaFeedback("Modifica all'utente effettuata");
+                                    $vUsers->visualizzaFeedback("Modifica all'utente effettuata.");
                                 }catch (XUtenteException $ex) 
                                 {
                                     $messaggio[0] = "C'è stato un errore, non è stato possibile modificare l'utente.";
@@ -296,7 +295,7 @@ class CGestisciUser {
                                 
                                 $eMedico->modificaMedico($datiDaValidare);
                                 
-                                $vUsers->visualizzaFeedback("Modifica al medico effettuata");
+                                $vUsers->visualizzaFeedback("Modifica al medico effettuata.");
                             } 
                             catch (XDBException $ex)
                             {
@@ -311,7 +310,7 @@ class CGestisciUser {
                                 try{
                                     $eMedico = new EMedico( $datiDaValidare['codiceFiscale']);
                                     $eMedico->modificaMedico($datiDaValidare);
-                                    $vUsers->visualizzaFeedback("Modifica al medico effettuata");
+                                    $vUsers->visualizzaFeedback("Modifica al medico effettuata.");
                                 }catch (XMedicoException $ex) 
                                 {
                                     $messaggio[0] = "C'è stato un errore, non è stato possibile modificare il medico.";
@@ -327,17 +326,12 @@ class CGestisciUser {
                                 }
                                 
                             }
-                            
-                            
-                            
                             break;
                         default:// Clinica
                             try {
-                                $eClinica = new EClinica( $datiDaValidare['username']);
-                                
+                                $eClinica = new EClinica($datiDaValidare['username']);
                                 $eClinica->modificaClinica($datiDaValidare);
-                                
-                                $vUsers->visualizzaFeedback("Modifica alla clinica effettuata");
+                                $vUsers->visualizzaFeedback("Modifica alla clinica effettuata.");
                             } 
                             catch (XClinicaException $ex) 
                             {
@@ -345,7 +339,7 @@ class CGestisciUser {
                                 try{
                                     $eClinica = new EClinica(NULL, $datiDaValidare['partitaIva']);
                                     $eClinica->modificaClinica($datiDaValidare);
-                                    $vUsers->visualizzaFeedback("Modifica alla clinica effettuata");
+                                    $vUsers->visualizzaFeedback("Modifica alla clinica effettuata.");
                                 }catch (XClinicaException $ex) 
                                 {
                                     $messaggio[0] = "C'è stato un errore, non è stato possibile modificare la clinica.";
@@ -366,7 +360,7 @@ class CGestisciUser {
                 else
                     {
                         $messaggio[0] = "C'è stato un errore, non è stato possibile modificare l'utente.";
-                        $vUsers->visualizzaTemplate($messaggio);
+                        $vUsers->visualizzaFeedback($messaggio);
                     }
                 break;
         }

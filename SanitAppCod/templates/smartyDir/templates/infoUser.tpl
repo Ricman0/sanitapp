@@ -61,7 +61,7 @@
 
     {if $tastoValidato===TRUE}
         {if ($tipoUser!=='utente'  &&  $user.Validato==='NO')}
-            <input type="button" id="validaUser" value="Valida User" data-username="{$user.Username}" />        
+            <input type="button" id="validaUser" value="Valida User" data-username="{$user.Username}" data-tipoUser="{$tipoUser}" />        
         {/if}
     {/if}
 

@@ -2321,6 +2321,12 @@ function validazioneModificaClinica() {
         return valore.match(regex);
     }, "Inserire da 6 a 10 caratteri che contengano almeno un numero, una lettera \n\
         maiuscola,una lettera minuscola");
+    
+    jQuery.validator.addMethod("partitaIVA", function (valore) {
+        //espressione regolare per la partita IVA 
+        var regex = /[0-9]{11}/;
+        return valore.match(regex);
+    }, "La partita IVA deve essere una sequenza di 11 numeri");
 
     jQuery.validator.addMethod("codiceFiscale", function (valore) {
         //espressione regolare per codice fiscale
