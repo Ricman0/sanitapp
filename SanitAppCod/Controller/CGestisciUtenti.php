@@ -19,7 +19,7 @@ class CGestisciUtenti {
         $utentiApp = $fUtenti->getUtentiNonBloccati();
         foreach ($utentiApp as $utente) 
         {
-            $codiceFiscaleUtenteDaControllare = $utente['CodFiscale'];
+            $codiceFiscaleUtenteDaControllare = strtoupper($utente['CodFiscale']);
             $dataOdierna = date("Y-m-d");
             $eUtente = new EUtente($codiceFiscaleUtenteDaControllare);
             $eUtente->controllaSeBloccare($dataOdierna);

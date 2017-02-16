@@ -92,6 +92,7 @@ class EUtente extends EUser {
                 //caso in cui possiedo l'username ma non il codice fiscale
                 $attributiUtente = $fUtente->cercaUtente($username);
             } elseif ($cf !== NULL && $username === NULL) {
+                $cf = strtoupper($cf);
                 //caso in cui possiedo l'username ma non il codice fiscale
                 $attributiUtente = $fUtente->cercaUtenteByCF($cf);
             }
@@ -129,7 +130,7 @@ class EUtente extends EUser {
             
             $this->_nome = $nome;
             $this->_cognome = $cognome;
-            $this->_codFiscale = $cf;
+            $this->_codFiscale = strtoupper($cf);
             $this->_via = $via;
             if (isset($numeroCivico)) {
                 $this->_numeroCivico = $numeroCivico;
@@ -277,7 +278,7 @@ class EUtente extends EUser {
      * @param string $codFiscale Il codice fiscale dell'utente
      */
     public function setCodiceFiscaleUtente($codFiscale) {
-        $this->_codFiscale = $codFiscale;
+        $this->_codFiscale = strtoupper($codFiscale);
     }
 
     /**

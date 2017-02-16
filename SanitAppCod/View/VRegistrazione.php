@@ -143,7 +143,7 @@ class VRegistrazione extends View {
         $datiMedico = Array();
         $datiMedico['nome'] = $this->recuperaValore('nomeMedico');
         $datiMedico['cognome'] = $this->recuperaValore('cognomeMedico'); 
-        $datiMedico['codiceFiscale'] = $this->recuperaValore('codiceFiscale');
+        $datiMedico['codiceFiscale'] = strtoupper($this->recuperaValore('codiceFiscale'));
         $datiMedico['via'] = $this->recuperaValore('indirizzoMedico');
         $datiMedico['numeroCivico'] = $this->recuperaValore('numeroCivicoMedico');  
         $datiMedico['CAP'] = $this->recuperaValore('CAPMedico');
@@ -170,7 +170,7 @@ class VRegistrazione extends View {
        $datiUtente = Array();    
        $datiUtente['nome'] = $this->recuperaValore('nome');
        $datiUtente['cognome'] = $this->recuperaValore('cognome'); 
-       $datiUtente['codiceFiscale'] = $this->recuperaValore('codiceFiscale');
+       $datiUtente['codiceFiscale'] = strtoupper($this->recuperaValore('codiceFiscale'));
        $datiUtente['indirizzo'] =$this->recuperaValore('indirizzo');
        $datiUtente['numeroCivico'] = $this->recuperaValore('numeroCivico');  
        $datiUtente['CAP'] = $this->recuperaValore('CAP');

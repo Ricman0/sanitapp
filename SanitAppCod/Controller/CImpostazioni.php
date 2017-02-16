@@ -166,7 +166,7 @@ class CImpostazioni {
                 if($task2 === 'medico')
                 {
                     try {
-                        $codiceMedico['codiceFiscale'] = $vImpostazioni->recuperaValore('codice');
+                        $codiceMedico['codiceFiscale'] = strtoupper($vImpostazioni->recuperaValore('codice'));
                         $uValidazione = USingleton::getInstance('UValidazione');
                         $uValidazione->validaDati($codiceMedico);
                         if($uValidazione->getValidati()===TRUE)
@@ -333,7 +333,7 @@ class CImpostazioni {
      */
     public function modificaMedicoCurante($username) {
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
-        $dati = $vImpostazioni->recuperaValore('codiceFiscale');
+        $dati = strtoupper($vImpostazioni->recuperaValore('codiceFiscale'));
         $arrayDati['codiceFiscale'] = $dati;
         $uValidazione = USingleton::getInstance('UValidazione');
         if ($uValidazione->validaDati($arrayDati)) {// se i dati sono validi

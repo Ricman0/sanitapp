@@ -20,7 +20,7 @@ class CRicerca {
         $dati = Array();
         switch ($task) {
             case 'utente': //POST ricerca/utente
-                $dati['codiceFiscale'] = $vRicerca->recuperaValore('codiceFiscaleRicercaUtente');
+                $dati['codiceFiscale'] = strtoupper($vRicerca->recuperaValore('codiceFiscaleRicercaUtente'));
                 $uValidazione = USingleton::getInstance('UValidazione');
                 //imposto il risutlato della ricerca a NULL così che vada bene per il remote di JQUERY VALIDATION
                 $risultato = NULL;
@@ -44,7 +44,7 @@ class CRicerca {
             case 'codice': //POST ricerca/codice                                //utilizzato
                 switch ($vRicerca->recuperaValore('tipoUser')) {
                     case 'utente':
-                        $dati['codiceFiscale'] = $vRicerca->recuperaValore('codiceFiscale');
+                        $dati['codiceFiscale'] = strtoupper($vRicerca->recuperaValore('codiceFiscale'));
                         $uValidazione = USingleton::getInstance('UValidazione');
                         $risultato = TRUE;
                         if ($uValidazione->validaDati($dati)) {
@@ -61,7 +61,7 @@ class CRicerca {
                         break;
 
                     case 'medico':
-                        $dati['codiceFiscale'] = $vRicerca->recuperaValore('codiceFiscale');
+                        $dati['codiceFiscale'] = strtoupper($vRicerca->recuperaValore('codiceFiscale'));
                         $inverti = $vRicerca->recuperaValore('inverti');
                         $uValidazione = USingleton::getInstance('UValidazione');
                         $risultato = TRUE;

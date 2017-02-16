@@ -205,7 +205,7 @@ CREATE TABLE medico (
 --
 
 INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username, ProvinciaAlbo, NumIscrizione, Validato) VALUES
-('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Via Acquaventina', '31', '65017', 'claudim', 'PESCARA', '123456', TRUE) 
+('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Via Acquaventina', 31, '65017', 'claudim', 'PESCARA', '123456', TRUE); 
 -- ('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Via Acquaventina', 30, '65017', 'claudim','PESCARA', 546474, TRUE),
 -- ('DMTNNA89S42G438S', 'Anna', 'Di Matteo', 'Via Acquaventina', 30, '65017', 'annadimatteo','PESCARA', 546064, TRUE);
 
@@ -239,7 +239,7 @@ ALTER TABLE utente ADD FULLTEXT INDEX fullTextCodFiscaleUtente(CodFiscale);
 
  INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, 
   Username,  CodFiscaleMedico) VALUES
-('MNTRCR89H21A488L', 'Riccardo', 'Mantini', 'Via Del Carmine', '31', '64034', 'ricman', 'DMRCLD89S42G438S');
+('MNTRCR89H21A488L', 'Riccardo', 'Mantini', 'Via Del Carmine', 31, '64034', 'ricman', 'DMRCLD89S42G438S');
 -- ('DMTNNA89S42G438S', ' Anna', ' Di Matteo', ' Acquaventina', 30, '65017', 'annadima', 'DMRCLD89S42G438S'),
 -- ('MNTRCR89H21A488L', 'Riccardo', 'Mantini', 'Del Carmine', 31, '64034', 'ricman', 'DMRCLD89S42G438S');
 

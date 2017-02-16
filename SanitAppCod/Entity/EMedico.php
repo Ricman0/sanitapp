@@ -108,6 +108,7 @@ class EMedico extends EUser {
             //elseif ($cf !== NULL && $username === NULL) {
             else{  
             //caso in cui possiedo il codice fiscale ma non l'username 
+                $cf = strtoupper($cf);
                 $attributiMedico = $fMedico->cercaMedicoByCF($cf);
 
             }
@@ -146,7 +147,7 @@ class EMedico extends EUser {
             parent::__construct($username, $password, $email, $PEC);
             $this->_nome = $nome;
             $this->_cognome = $cognome;
-            $this->_codFiscale = $cf;
+            $this->_codFiscale = strtoupper($cf);
             $this->_via = $via;
             if (isset($numeroCivico)) {
                 $this->_numeroCivico = $numeroCivico;
@@ -335,7 +336,7 @@ class EMedico extends EUser {
      * @param string $codFiscale Il codice fiscale del medico
      */
     public function setCodiceFiscaleMedico($codFiscale) {
-        $this->_codFiscale = $codFiscale;
+        $this->_codFiscale = strtoupper($codFiscale);
     }
 
     /**
