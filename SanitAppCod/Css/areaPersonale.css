@@ -67,6 +67,9 @@ and open the template in the editor.
     padding: 3%;
 }
 
+/*
+
+*/
 .periodoNonDisponibile{
     background-image: url('../Immagini/unavailable.jpg');
     border-color: darkgray !important;
@@ -83,4 +86,5 @@ and open the template in the editor.
   #547a82 20px
 );*/
     /*border-color: rgb(151,204,188) !important;*/
+
 }

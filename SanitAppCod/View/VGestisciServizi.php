@@ -28,10 +28,18 @@ class VGestisciServizi extends View{
      * @access public
      * @param array $risultato Gli esami da visualizzare
      */
-    public function visualizzaEsami($risultato)
+    public function visualizzaEsami($risultato=NULL)
     {
         $this->assegnaVariabiliTemplate('dati', $risultato);
-        $this->assegnaVariabiliTemplate('esami', TRUE);
+        if(isset($risultato))
+        {
+            $this->assegnaVariabiliTemplate('esami', TRUE);
+        }
+        else
+        {
+            $this->assegnaVariabiliTemplate('esami', NULL);
+        }
+        
         $this->assegnaVariabiliTemplate('controller', "servizi");
         $this->assegnaVariabiliTemplate('tastoAggiungi', TRUE);
         $this->visualizzaTemplate('tabellaEsami');

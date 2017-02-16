@@ -422,6 +422,17 @@ class UValidazione {
                     $stringaErrore = "Il " . $chiave . " deve essere una sequenza di massimo 2 numeri";
                     break;
                 
+                case 'idClinica':
+                    $pattern = '/^[0-9]{11}$/' ;
+                    $stringaErrore = "La partita IVA deve essere una sequenza di 11 numeri";
+                    break;
+                
+                case 'idEsame':
+                    $pattern = '/^[a-zA-Z0-9]{24}$/';
+                    $stringaErrore = "L'id dell'esame deve essere una stringa alfanumerica ";
+                    break;
+                    
+                    
                 default:
                     $this->_validati = FALSE;
                     break;  
@@ -445,6 +456,7 @@ class UValidazione {
     {
         if (preg_match($pattern, $valore)) 
         {
+            
             $this->_datiErrati[$chiave] = FALSE;
             $this->_datiValidi[$chiave] = $valore;
         } 

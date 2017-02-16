@@ -40,9 +40,7 @@ class FReferto extends FDatabase{
                 . "WHERE ((referto.IDPrenotazione=prenotazione.IDPrenotazione) AND (prenotazione.IDEsame=esame.IDEsame) AND "
                 . "(prenotazione.CodFiscaleUtenteEffettuaEsame=utente.CodFiscale) AND "
                 . "(esame.PartitaIVAClinica='" . $partitaIVAClinica . "')) LOCK IN SHARE MODE";
-        print_r($query);
         $risultato =  $this->eseguiQuery($query);
-        print_r($risultato);
         return $risultato;
 //        return $this->eseguiQuery($query);
         

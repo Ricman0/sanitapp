@@ -79,7 +79,7 @@ class CRegistrazione {
                     try{
                         $codiceODatiValidi = $this->recuperaDatiECreaClinica();
                         if (is_string($codiceODatiValidi) === TRUE) {//se contiene il codice di conferma
-                            $this->inviaMailRegistrazioneClixnica($codiceODatiValidi);
+                            $this->inviaMailRegistrazioneClinica($codiceODatiValidi);
                         } else {
                             //  alcuni dati corretti 
                             $vRegistrazione->restituisciFormClinica($codiceODatiValidi);
