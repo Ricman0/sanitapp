@@ -39,7 +39,7 @@ ALTER TABLE appuser ADD FULLTEXT INDEX fullTextPassword(Password);
 --
 
 INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES 
-('appi', '$2y$10$f9a3b0SA9pGL4yeFQtQ3bODP0mIxtHeGuxgGNvOD08g2g2icazvSe', 'info@appignano.it', 'info@appignano.pec', FALSE, FALSE, 'bf145eb094228deba0b5048970afeb73', 'clinica'),
+('appi', '$2y$10$f9a3b0SA9pGL4yeFQtQ3bODP0mIxtHeGuxgGNvOD08g2g2icazvSe', 'info@appignano.it', 'info@appignano.pec', FALSE, TRUE, 'bf145eb094228deba0b5048970afeb73', 'clinica'),
 ('bise', '$2y$10$SoZO7Cv6g/0AF.uoOR2PBOTdk2izK4IDPMu3UYMFh2iOiIIhCCdxe', 'info@bisenti.it',  'info@bisenti.pec', FALSE,TRUE, 'cjdjdhdhrf', 'clinica'),
 -- ('claudim', '$2y$10$tXDgXrJ8bw5zL0miqTle0.ji25mTIG.OvQ7NlnNLRzId4g8mrL2PC', 'claudimarco@hotmail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
 -- ('ricman', '$2y$10$XPh.cbdQCFT.xNzZVYdUee/ofH1K8wDQkEj1VtCrQgY2sW8C0YHOW', 'onizuka-89@hotmail.it', NULL,FALSE,TRUE, 'cjdjdehahah', 'utente'),
