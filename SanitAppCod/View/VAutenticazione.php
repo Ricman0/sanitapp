@@ -239,4 +239,20 @@ class VAutenticazione extends View {
         $this->visualizzaTemplate('headerMain');
     }
    
+    /**
+     * Visualizza la pagina delle informazioni su come validarsi.
+     * 
+     * @access public
+     */
+    public function infoValidazione() {
+        $variabiliHeader = $this->impostaHeader();
+        // main
+        $this->assegnaVariabiliTemplate('messaggio', TRUE);
+        $main = $this->prelevaTemplate("infoValidazione");
+//        visualizzo il template 
+        $this->assegnaVariabiliTemplate('log', $variabiliHeader['log']);
+        $this->assegnaVariabiliTemplate('navigationBar', $variabiliHeader['navigationBar']);
+        $this->assegnaVariabiliTemplate('main', $main);
+        $this->visualizzaTemplate('headerMain');
+    }
 }

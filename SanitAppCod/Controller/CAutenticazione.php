@@ -101,7 +101,38 @@ class CAutenticazione {
                 if ($eUser->getConfermatoUser() == TRUE && $eUser->getBloccatoUser() == FALSE) {// user confermato e non bloccato
                     $eUser->attivaSessioneUser($username, $eUser->getTipoUserUser());
                     $vAutenticazione->setTastiLaterali($eUser->getTipoUserUser());
-                    $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
+                    if($eUser->getTipoUserUser()==='clinica')
+                    {
+                        $eClinica = new EClinica($username);
+                        if($eClinica->getValidatoClinica()==TRUE)
+                        {
+                            $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
+                        }
+                        else
+                        {
+                            // mostra pagina validazione;
+                            $eClinica->terminaSessioneUser();
+                            $vAutenticazione->infoValidazione();
+                        }
+                    }
+                    elseif($eUser->getTipoUserUser()==='medico')
+                    {
+                        $eMedico = new EMedico(NULL, $username);
+                        if($eMedico->getValidatoMedico()==TRUE)
+                        {
+                            $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
+                        }
+                        else
+                        {
+                            // mostra pagina validazione;
+                            $eMedico->terminaSessioneUser();
+                            $vAutenticazione->infoValidazione();
+                        }
+                    }
+                    else{
+                        $vAutenticazione->impostaHeaderEPaginaPersonale($sessione->leggiVariabileSessione('usernameLogIn'));
+                    }
+                    
                 } //user non confermato o bloccato ma esistente nel DB
                 elseif($eUser->getBloccatoUser() == TRUE) {  //user bloccato
                     

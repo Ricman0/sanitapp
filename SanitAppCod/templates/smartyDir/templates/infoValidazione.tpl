@@ -2,6 +2,10 @@
     <h3>INFORMAZIONI VALIDAZIONE</h3>
     <hr>
     <br>
+    {if isset($messaggio)}
+        <h4>User non autenticato poichè non sei ancora validato.</h4>
+        <h4>Segui le istruzioni seguenti per autenticarti.</h4>
+    {/if}
     <h4> La validazione del medico o della clinica avviene fornendo all'amministratore la <br>
         documentazione necessaria a verificare la veridicità delle informazioni fornite 
         durante la registrazione.<br><br>

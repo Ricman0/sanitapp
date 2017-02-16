@@ -393,6 +393,20 @@ class EUser {
 
     }
     
+    /**
+     * Metodo che consente di eliminare le variabili di sessione dello user.
+     * 
+     * @access public
+     */
+    public function terminaSessioneUser() 
+    {
+        $sessione = USingleton::getInstance('USession');
+        $sessione->eliminaVariabileSessione('usernameLogIn');
+        $sessione->eliminaVariabileSessione('loggedIn');
+        $sessione->eliminaVariabileSessione('tipoUser');
+        $sessione->terminaSessione();
+    }
+    
     
     /**
      * Metodo che consente di confermare l'account di un user.  
