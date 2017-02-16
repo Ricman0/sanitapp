@@ -259,14 +259,27 @@ class FAmministratore extends FUser{
      * @final
      * @access public
      * @param string $username L'username dell'account da validare
+     * @param string $tipoUser Il tipo fi user da validare (medico o clinica)
      * @return boolean TRUE se l'account è stato validato
      * @throws XDBException Se la query non è stata eseguita con successo
      */
-    final public function validaUser($username) 
+    final public function validaUser($username, $tipoUser) 
     {
-        $queryLock1 = "SELECT * FROM clinica, medico " . 
-                " WHERE medico.Username= '" . $username . "' OR clinica.Username= '" . $username . "'  FOR UPDATE" ;
-        $query = "UPDATE clinica, medico SET medico.Validato=TRUE, clinica.Validato=TRUE WHERE medico.Username= '" . $username . "' OR clinica.Username= '" . $username . "'";
+        $queryLock1;
+        $query;
+        if($tipoUser==='clinica')
+        {
+            $queryLock1 = "SELECT * FROM clinica " . 
+                " WHERE clinica.Username= '" . $username . "'  FOR UPDATE " ;
+            $query = "UPDATE clinica SET clinica.Validato=TRUE WHERE clinica.Username= '" . $username . "'";
+        }
+        else
+        {
+            $queryLock1 = "SELECT * FROM medico " . 
+                " WHERE medico.Username= '" . $username . "' FOR UPDATE" ;
+            $query = "UPDATE medico SET medico.Validato=TRUE WHERE medico.Username= '" . $username . "'";
+        }
+        
         try {
            $this->_connessione->begin_transaction();
             $this->eseguiQuery($queryLock1);

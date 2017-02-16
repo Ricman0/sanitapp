@@ -250,12 +250,13 @@ class EAmministratore extends EUser{
      * 
      * @access public
      * @param string $idUser L'username dello user da validare
+     * @param string $tipoUser Il tipo di user (medico o clinica)
      * @return boolean TRUE se la validazione è andata a buon fine, lancia un XDBException altrimenti
      * @throws XDBException Se la query non è stata eseguita con successo
      */
-    public function validaUser($idUser) {
+    public function validaUser($idUser, $tipoUser) {
         $fAmministratore = USingleton::getInstance('FAmministratore');
-        $ris = $fAmministratore->validaUser($idUser);
+        $ris = $fAmministratore->validaUser($idUser,$tipoUser);
         return $ris ;
     }
     

@@ -47,7 +47,8 @@ $(document).ready(function(){
     
     $('#headerMain').on('click', '#validaUser', function(){
         var username = $(this).attr('data-username');
-        var datiPOST = {id:username };
+        var tipoUser = $(this).attr('data-tipoUser');
+        var datiPOST = {id:username, tipo: tipoUser};
         inviaControllerTaskPOST('users', 'valida', datiPOST, '#contenutoAreaPersonale');
     });
     
@@ -219,6 +220,7 @@ $(document).ready(function(){
         }
         else
         {
+            alert('a');
             validazioneModificaClinica();
         }
     });

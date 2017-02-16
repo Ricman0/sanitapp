@@ -338,8 +338,8 @@ class FClinica extends FUser{
         $query1 = "UPDATE " . $this->_nomeTabella . " SET PartitaIVA='" . $clinica->getPartitaIVAClinica() . "', NomeClinica='" . $clinica->getNomeClinicaClinica() . "', Titolare='" . $clinica->getTitolareClinica() . "', "
                 . "Via='" . $clinica->getViaClinica() . "', "
                 . "NumCivico='" . $clinica->getNumCivicoClinica() . "', CAP='" . $clinica->getCAPClinica() . "', "
-                . " Localita='" . $clinica->getLocalitaClinica() . "', Provincia='" . $clinica->getProvinciaClinica() . "', Regione='" . $clinica->getRegioneClinica() . "', Username='"
-                . $clinica->getUsernameUser() . "', Telefono='" . $clinica->getTelefonoClinica() . "', CapitaleSociale='" 
+                . " Localita='" . $clinica->getLocalitaClinica() . "', Provincia='" . $clinica->getProvinciaClinica() . "', Regione='" . $clinica->getRegioneClinica() . "', "
+                ." Telefono='" . $clinica->getTelefonoClinica() . "', CapitaleSociale='" 
                 . $clinica->getCapitaleSocialeClinica() . "', WorkingPlan='" . $clinica->getWorkingPlanClinica() . "', Validato=" . $clinica->getValidatoClinica() . " WHERE (Username='" . $clinica->getUsernameUser() . "') OR (PartitaIVA='" . $clinica->getPartitaIVAClinica() .  "')";
 
         $query2 = "UPDATE appUser SET Username='" . $clinica->getUsernameUser() . "', Password='"
@@ -348,11 +348,11 @@ class FClinica extends FUser{
                 .  " WHERE (Username='" . $clinica->getUsernameUser() . "') OR (Email='" . $clinica->getEmailUser() .  "')";
         
         try {
-           $this->_connessione->begin_transaction();
-           $this->eseguiQuery($queryLock1);
-           $this->eseguiQuery($queryLock2);
-            $this->eseguiQuery($query1);
+            $this->_connessione->begin_transaction();
+            $this->eseguiQuery($queryLock2);
+            $this->eseguiQuery($queryLock1);
             $this->eseguiQuery($query2);
+            $this->eseguiQuery($query1);
             return $this->_connessione->commit();
         } catch (Exception $e) {
             $this->_connessione->rollback();

@@ -108,7 +108,7 @@ class UValidazione {
             switch ($chiave) 
             {
                 case "username":                
-                    $pattern = '/^[0-9a-zA-Z\_\-\.\$]{2,15}$/';
+                    $pattern = '/^[0-9a-zA-Z\_\-\.\$]{4,15}$/';
                     $stringaErrore = "Il" . $chiave . "deve essere una sequenza alfanumerica";
                     break;
                 
@@ -128,6 +128,7 @@ class UValidazione {
                     break;
                 
                 case 'partitaIVA':
+                case 'partitaIva':
                     $pattern = '/^[0-9]{11}$/' ;
                     $stringaErrore = "La partita IVA deve essere una sequenza di 11 numeri";
                     break;
@@ -160,6 +161,7 @@ class UValidazione {
                 case "email":
                 case "emailAdmin":
                 case 'PEC':
+                case 'pec':
                       $pattern= "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/";
 //                    $pattern = '/^(?!(?:(?:\\x22?\\x5C[\\x00-\\x7E]\\x22?)|(?:\\x22?[^\\x5C\\x22]\\x22?)){255,})(?!(?:(?:\\x22?\\x5C[\\x00-\\x7E]\\x22?)|(?:\\x22?[^\\x5C\\x22]\\x22?)){65,}@)(?:(?:[\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2F-\\x39\\x3D\\x3F\\x5E-\\x7E]+)|(?:\\x22(?:[\\x01-\\x08\\x0B\\x0C\\x0E-\\x1F\\x21\\x23-\\x5B\\x5D-\\x7F]|(?:\\x5C[\\x00-\\x7F]))*\\x22))(?:\\.(?:(?:[\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2F-\\x39\\x3D\\x3F\\x5E-\\x7E]+)|(?:\\x22(?:[\\x01-\\x08\\x0B\\x0C\\x0E-\\x1F\\x21\\x23-\\x5B\\x5D-\\x7F]|(?:\\x5C[\\x00-\\x7F]))*\\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-+[a-z0-9]+)*\\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-+[a-z0-9]+)*)|(?:\\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\\]))$/iD';
 //                    $pattern = '/^[a-zA-Z0-9\.\_\-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/';
@@ -186,7 +188,8 @@ class UValidazione {
                     $pattern = '/^[a-z^[0-9a-zA-Zàèìùò\s]{1,20}$/' ;
                     $stringaErrore = "Il nome della clinica deve essere una sequenza di caratteri. Minimo 1 e massimo 20";
                     break;
-                    
+                
+                case 'titolareClinica':
                 case 'titolare':
                     $pattern = '/^[a-zA-Zàèìùò\s]{2,50}$/' ;
                     $stringaErrore = "Il titolare della clinica deve essere una "
@@ -194,6 +197,7 @@ class UValidazione {
                             . "Minimo 2 e massimo 50";
                     break;
                 
+                case 'localita':
                 case 'localitaClinica':
                     $pattern = '/^[a-zA-Zàèìùò\s]{1,40}$/';
                     $stringaErrore = "La localita in cui si trova la clinica "
@@ -201,8 +205,9 @@ class UValidazione {
                             . "Massimo 40 numero";
                     break;
                 
+                case 'provincia':
                 case 'provinciaClinica':
-                    $pattern = '/^[A-Z\s]{1,20}$/';
+                    $pattern = '/^[a-zA-Z\s]{1,20}$/';
                     $stringaErrore = "La provincia deve essere una sequenza di caratteri";
                     break;
                 
@@ -215,6 +220,19 @@ class UValidazione {
                     $pattern = '/^[0-9\.\,]{1,11}$/';
                     $stringaErrore = "Il" . $chiave . "deve essere una sequenza di numeri";
                     break;
+                
+                case 'confermato':
+                case 'validato':
+                case 'bloccato':
+                    $pattern = '/^(true|false)$/';
+                    $stringaErrore = $chiave . "deve essere true o false";
+                    break;
+                
+                case 'tipoUser':
+                    $pattern = '/^(medico|clinica|utente|amministratore|Medico|Clinica|Utente|Amministratore)$/';
+                    $stringaErrore = $chiave . "deve essere true o false";
+                    break;
+                    
                 
                 default:
                     $this->_validati = FALSE;
@@ -454,9 +472,9 @@ class UValidazione {
      */
     private function validaDato($pattern, $chiave, $valore, $stringaErrore)     //controllato
     {
+        
         if (preg_match($pattern, $valore)) 
         {
-            
             $this->_datiErrati[$chiave] = FALSE;
             $this->_datiValidi[$chiave] = $valore;
         } 
