@@ -72,16 +72,19 @@ and open the template in the editor.
 */
 .periodoNonDisponibile{
     background-image: url('../Immagini/unavailable.jpg');
+    border-color: darkgray !important;
 }
 
 .pausa{
+    background-color: #355c7d;
     /*background-image: url('../Immagini/break.jpg');*/
-    background: repeating-linear-gradient(
-        45deg,
-        #ff0000,
-        #ff0000 10px,
-        #465298 10px,
-        #465298 20px
-    );
-    border-color: green !important;
+/*    background: repeating-linear-gradient(
+  45deg,
+  #355c7d,
+  #355c7d 10px,
+  #547a82 10px,
+  #547a82 20px
+);*/
+    /*border-color: rgb(151,204,188) !important;*/
+
 }
