@@ -1,4 +1,4 @@
-<h4>RISULTATO DELLA RICERCA</h4>
+<h3>RISULTATO DELLA RICERCA</h3>
 <hr>
 <br>
 <table id="tabellaCliniche" class="tablesorter">

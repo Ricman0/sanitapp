@@ -326,9 +326,6 @@ class CGestisciUser {
                                 }
                                 
                             }
-                            
-                            
-                            
                             break;
                         default:// Clinica
                             try {

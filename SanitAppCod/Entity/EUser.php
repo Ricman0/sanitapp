@@ -260,14 +260,14 @@ class EUser {
     }
 
     /**
-     * Metodo che permette di modificare la password dell'user.
+     * Metodo che permette di modificare la password dell'user, ma la password non viene crittografata.
      * 
      * @access public
      * @param string $pw La nuova password dell'user
      */
     public function setPassword($pw) 
     {
-        $this->_password = $pw;
+        $this->_password =  $pw;
     }
 
     /**

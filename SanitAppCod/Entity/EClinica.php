@@ -1050,7 +1050,7 @@ class EClinica extends EUser {
                 case 'passwordClinica':
                     if(!empty($value))
                     {
-                        $this->setPassword($value);
+                        $this->modificaPassword($value);
                     }
                     break;
                 default:
