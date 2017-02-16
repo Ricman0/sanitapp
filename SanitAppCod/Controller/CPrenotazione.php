@@ -336,16 +336,16 @@ class CPrenotazione {
                     $mail = USingleton::getInstance('UMail'); 
                     if($mail->inviaEmailPrenotazioneCancellata($datiPerEmail))
                     {
-                        $messaggio[1]= "L'utente è stato avvisato con un'email dell'avvenuta eliminazione della prenotazione";                      
+                        $messaggio[1]= "L'utente è stato avvisato con un'email dell'avvenuta eliminazione della prenotazione.";                      
                     }
                     else 
                     {
-                        $messaggio[1]="Ci spiace, non è stato possibile inviare un'email all'utente";
-                        $messaggio[2]="Contatti l'utente per avvertirlo dell'avvenuta eliminazione della prenotazione";               
+                        $messaggio[1]="Ci spiace, non è stato possibile inviare un'email all'utente.";
+                        $messaggio[2]="Contatti l'utente per avvertirlo dell'avvenuta eliminazione della prenotazione.";               
                     }
                 }
 //                $vPrenotazione->prenotazioneEliminata(TRUE, TRUE);
-                $messaggio[0] = 'La prenotazione è stata eliminata con successo';
+                $messaggio[0] = 'La prenotazione è stata eliminata con successo.';
                 $vPrenotazione->visualizzaFeedback($messaggio);
             } else {
                 $vPrenotazione->visualizzaFeedback("C'è stato un errore. Non è stato possibile eliminare la prenotazione.");
@@ -656,36 +656,55 @@ class CPrenotazione {
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
         switch ($tipo) {
             case 'utente':
-                $eUtente = new EUtente(NULL, $username);
-                $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
+                $eUtente = new EUtente(NULL, $username);                
                 $codFiscalePrenotaEsame = $eUtente->getCodFiscaleUtente();
                 break;
 
             case 'medico':
                 $eMedico = new EMedico(NULL, $username);
                 $codFiscalePrenotaEsame = $eMedico->getCodFiscaleMedico();
-                $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
                 break;
 
             case 'clinica':
                 $codFiscalePrenotaEsame = $vPrenotazione->recuperaValore('codice');
-                $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
 
                 break;
             default:
                 break;
         }
+        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
+        if (!isset($eUtente)) {
+            $eUtente = new EUtente($codFiscaleUtenteEffettuaEsame);
+        }
         $idEsame = $vPrenotazione->recuperaValore('id');
+        $eEsame = new EEsame($idEsame);
+        $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
         $data = $vPrenotazione->recuperaValore('data');
         $ora = $vPrenotazione->recuperaValore('orario');
         $dataEOra = $data . " " . $ora;
         $ePrenotazione = new EPrenotazione(NULL, $idEsame, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
         $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB();
         if($risultatoQuery){
-            $messaggio = 'Appuntamento registrato con successo.';
+            $messaggio[0] = 'Appuntamento registrato con successo.';
+            $datiPerEmail = Array('email' => $eUtente->getEmailUser(), 'nomeUtente' => $eUtente->getNomeUtente(),
+                        'cognomeUtente' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsameEsame(),
+                        'nomeClinica' => $eClinica->getNomeClinicaClinica(), 'data' => $data, 'ora' => $ora, 'indirizzoClinica' => $eClinica->getIndirizzoClinica());
+            $mail = USingleton::getInstance('UMail'); 
+                    if($mail->inviaEmailPrenotazione($datiPerEmail))
+                    {
+                        if($tipo !=='utente'){
+                            $messaggio[1]= "L'utente è stato avvisato con un'email dell'avvenuta prenotazione.";    
+                        }
+                    }
+                    else 
+                    {
+                        $messaggio[1]="Ci spiace, non è stato possibile inviare un'email all'utente.";
+                        $messaggio[2]="Contatti l'utente per avvertirlo dell'avvenuta prenotazione.";               
+                    }
+            
         }
         else{
-            $messaggio = "C'è stato un problema, il tuo appuntamento non è stato registrato.";
+            $messaggio[0] = "C'è stato un problema, il tuo appuntamento non è stato registrato.";
         }                    
         $vPrenotazione->visualizzaFeedback($messaggio);
 //                    $vPrenotazione->appuntamentoAggiunto($risultatoQuery);

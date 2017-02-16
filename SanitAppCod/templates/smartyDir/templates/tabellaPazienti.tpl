@@ -31,8 +31,9 @@
         </tbody>
     </table>
  {else}
-     <h4>Non sono presenti pazienti.</h4>
-        <p>Per aggiungere un paziente, clicca sul tasto aggiungi</p>
+     <br>
+     <h3>Non sono presenti pazienti.</h3>
+        <h3>Per aggiungere un paziente, clicca sul tasto aggiungi</h3>
         <br>
             {if isset($tastoAggiungi)}
                 <i class="fa fa-plus-circle fa-2x tastoAggiungi" id="iconaAggiungiPaziente" aria-hidden="true" ></i>               

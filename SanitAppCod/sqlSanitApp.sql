@@ -41,9 +41,11 @@ ALTER TABLE appuser ADD FULLTEXT INDEX fullTextPassword(Password);
 INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES 
 ('appi', '$2y$10$f9a3b0SA9pGL4yeFQtQ3bODP0mIxtHeGuxgGNvOD08g2g2icazvSe', 'info@appignano.it', 'info@appignano.pec', FALSE, TRUE, 'bf145eb094228deba0b5048970afeb73', 'clinica'),
 ('bise', '$2y$10$SoZO7Cv6g/0AF.uoOR2PBOTdk2izK4IDPMu3UYMFh2iOiIIhCCdxe', 'info@bisenti.it',  'info@bisenti.pec', FALSE,TRUE, 'cjdjdhdhrf', 'clinica'),
+('ricman', '$2y$10$DJX0Vb/mFUi64QMBFWIGlOZwgeXVipewdDbUjs8S4JcbaX6XfcLka', 'onizuka-89@hotmail.it', NULL, FALSE, TRUE, 'f79ebe26b19eb881a495490bbc314427', 'utente'),
 -- ('claudim', '$2y$10$tXDgXrJ8bw5zL0miqTle0.ji25mTIG.OvQ7NlnNLRzId4g8mrL2PC', 'claudimarco@hotmail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
 -- ('ricman', '$2y$10$XPh.cbdQCFT.xNzZVYdUee/ofH1K8wDQkEj1VtCrQgY2sW8C0YHOW', 'onizuka-89@hotmail.it', NULL,FALSE,TRUE, 'cjdjdehahah', 'utente'),
-('ricla', '$2y$10$PVNVAf5wFfLJSHB/PBv2COam15ec7HJ4OlSeMVTzvo6WxboR/SID6', 'mantini.riccardo@gmail.com', NULL,FALSE,TRUE, 'cjdjdehahag', 'amministratore');
+('ricla', '$2y$10$PVNVAf5wFfLJSHB/PBv2COam15ec7HJ4OlSeMVTzvo6WxboR/SID6', 'mantini.riccardo@gmail.com', NULL,FALSE,TRUE, 'cjdjdehahag', 'amministratore'),
+('claudim', '$2y$10$4A54BVonrOOOkM7O5SKWb.OaRUVW2EINjHuz6a5fD2OIDYn7t7eMW', 'claudimarco@hotmail.it', 'claudimarco@hotmail.it', FALSE, TRUE, '30c4c0a8eb9f1e5bed37984c53630b67', 'medico');
 -- ('annadima', '$2y$10$q40th0aKO8zCM5yENXm2q.HNvhIAMf/9hLQUNRljgtGZp9ESUsI3m', 'annadima@alice.it',NULL,FALSE,TRUE, 'annasjdjdhdhrf', 'utente'),
 -- ('annadimatteo', '$2y$10$q40th0aKO8zCM5yENXm2q.HNvhIAMf/9hLQUNRljgtGZp9ESUsI3m', 'annadima@aliceyjyjyjjg.it',NULL,FALSE,TRUE, 'annasjdjdhdhsjjsjjsrf', 'medico');
 
@@ -202,7 +204,8 @@ CREATE TABLE medico (
 -- Dump dei dati per la tabella `medico`
 --
 
--- INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username, ProvinciaAlbo, NumIscrizione, Validato) VALUES
+INSERT INTO medico (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, Username, ProvinciaAlbo, NumIscrizione, Validato) VALUES
+('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Via Acquaventina', '31', '65017', 'claudim', 'PESCARA', '123456', TRUE) 
 -- ('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Via Acquaventina', 30, '65017', 'claudim','PESCARA', 546474, TRUE),
 -- ('DMTNNA89S42G438S', 'Anna', 'Di Matteo', 'Via Acquaventina', 30, '65017', 'annadimatteo','PESCARA', 546064, TRUE);
 
@@ -234,8 +237,9 @@ ALTER TABLE utente ADD FULLTEXT INDEX fullTextCodFiscaleUtente(CodFiscale);
 -- Dump dei dati per la tabella `utente`
 --
 
--- INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, 
---  Username,  CodFiscaleMedico) VALUES
+ INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, 
+  Username,  CodFiscaleMedico) VALUES
+('MNTRCR89H21A488L', 'Riccardo', 'Mantini', 'Via Del Carmine', '31', '64034', 'ricman', 'DMRCLD89S42G438S');
 -- ('DMTNNA89S42G438S', ' Anna', ' Di Matteo', ' Acquaventina', 30, '65017', 'annadima', 'DMRCLD89S42G438S'),
 -- ('MNTRCR89H21A488L', 'Riccardo', 'Mantini', 'Del Carmine', 31, '64034', 'ricman', 'DMRCLD89S42G438S');
 

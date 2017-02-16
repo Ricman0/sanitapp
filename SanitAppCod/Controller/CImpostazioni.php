@@ -333,7 +333,7 @@ class CImpostazioni {
      */
     public function modificaMedicoCurante($username) {
         $vImpostazioni = USingleton::getInstance('VImpostazioni');
-        $dati = $vImpostazioni->recuperaCFMedico();
+        $dati = $vImpostazioni->recuperaValore('codiceFiscale');
         $arrayDati['codiceFiscale'] = $dati;
         $uValidazione = USingleton::getInstance('UValidazione');
         if ($uValidazione->validaDati($arrayDati)) {// se i dati sono validi

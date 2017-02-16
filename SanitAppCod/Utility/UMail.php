@@ -300,6 +300,34 @@ class UMail {
     }
     
     /**
+     * Metodo che consente di inviare una mail di riepilogo prenotazione.
+     * 
+     * @access public
+     * @param array $infoPrenotazione Contiene tutte le informazioni per inviare la mail di riepilogo prenotazione(emailUtente,nomeUtente,cognomeUtente, nomeEsame, nomeClinica, indirizzoClinica, data e ora prenotazione)
+     * @return boolean TRUE email inviata correttamente, FALSE altrimenti
+     */
+    public function inviaEmailPrenotazione($infoPrenotazione) 
+    {
+        //aggiunge l'indirizzo email a cui inviare l'email ("to:")
+        $this->_email->addAddress($infoPrenotazione['email']);
+        // imposto l'oggetto dell'email
+        $this->_email->Subject = 'Riepilogo prenotazione ' .$infoPrenotazione['nomeEsame']. ' del ' . $infoPrenotazione['data'];// = $subject;
+        $testo = 'Gentile ' . $infoPrenotazione['nomeUtente'] . ' ' . $infoPrenotazione['cognomeUtente'] . ",<br>"
+                . 'ha prenotato <h4>il giorno ' . $infoPrenotazione['data'] . ' alle ore ' 
+                . $infoPrenotazione['ora'] . "</h4> per <h4>l'esame " . $infoPrenotazione['nomeEsame'] 
+                . '</h4> presso <h4>la clinica ' . $infoPrenotazione['nomeClinica'] . '</h4> indirizzo: ' 
+                . $infoPrenotazione['indirizzoClinica'] . '.<br><br>'
+                . 'Inoltre, le ricordiamo che può disdire la prenotazione fino alla mezzanotte del giorno prima.<br>'
+                . "Qualora non si presenti all'appuntamento, la clinica segnerà la prenotazione come non eseguita.<br>"
+                . "Dopo 3 prenotazioni non eseguite, il sistema bloccherà l'account.<br><br> "
+                . "Saluti,<br>"
+                . "SANITAPP";
+        $this->_email->Body = $testo;
+        $inviata = $this->_email->send();
+        return $inviata;
+    }
+    
+    /**
      * Metodo che consente di inviare una mail come notifica di inserimento di un referto.
      * 
      * @access public

@@ -169,7 +169,7 @@ function inviaControllerTaskPOST(controller,task, datiPOST, ajaxdiv)
     });
 }
 
-function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
+function clickModificaImpostazioni(controller, task, task2, ajaxdiv, funzione)
 {
     $.ajax({
         type: 'GET',
@@ -240,6 +240,10 @@ function clickModificaImpostazioni(controller, task, task2, ajaxdiv)
         complete: function ()
         {
             validazione(task, controller, task2);
+            if (controller==='impostazioni' && task==='modifica' && task2==='medico'){
+                funzione();
+            }
+                
         }
     });
 }

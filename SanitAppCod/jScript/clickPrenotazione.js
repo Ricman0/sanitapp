@@ -195,6 +195,7 @@ function taskPrenotazione(controller, task, ajaxDiv)
  */
 function confermaPrenotazione(controller, task, ajaxDiv)
 {
+        $('#loadingModal').show();
         var codice = $('#confermaPrenotazione').attr('data-codice');
         var clinica = $('#confermaPrenotazione').attr('data-idClinica');
         var idEsame = $('#confermaPrenotazione').attr('data-idEsame');
@@ -212,6 +213,9 @@ function confermaPrenotazione(controller, task, ajaxDiv)
             error: function(xhr, status, error) 
             {
                 alert(" errore nella conferma prenotazione ");
+            },
+            complete: function(){
+                $('#loadingModal').hide();
             }
         });
 }

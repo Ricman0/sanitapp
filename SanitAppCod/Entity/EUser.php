@@ -139,7 +139,7 @@ class EUser {
                 else // utente non  esistente
                 { 
                     //errore da gestire con exception
-                    throw new XUserException("User inesistente");
+                    throw new XUserException("User inesistente o password errata");
                 }
             }elseif($username ===NULL && $password===NULL && $email===NULL && $PEC !==NULL){
                 $fUser = USingleton::getInstance('FUser');
