@@ -69,16 +69,18 @@ and open the template in the editor.
 
 .periodoNonDisponibile{
     background-image: url('../Immagini/unavailable.jpg');
+    border-color: darkgray !important;
 }
 
 .pausa{
-    background-image: url('../Immagini/break.jpg');
+    background-color: #355c7d;
+    /*background-image: url('../Immagini/break.jpg');*/
 /*    background: repeating-linear-gradient(
   45deg,
-  #606dbc,
-  #606dbc 10px,
-  #465298 10px,
-  #465298 20px
+  #355c7d,
+  #355c7d 10px,
+  #547a82 10px,
+  #547a82 20px
 );*/
-    border-color: green !important;
+    /*border-color: rgb(151,204,188) !important;*/
 }
