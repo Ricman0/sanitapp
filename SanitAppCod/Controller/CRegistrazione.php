@@ -244,7 +244,7 @@ class CRegistrazione {
         $mail = USingleton::getInstance('UMail');
         if ($mail->inviaMailRegistrazioneMedico($codice, $uValidazione->getDatiValidi()) === TRUE) {
             $messaggio[0] = "Un'email è stata inviata all'indirizzo email inserito nella form. ";
-            $messaggio[1] = "Per confermare la registrazione clicca sul link contenuto nella mail.";
+            $messaggio[1] =  "Per confermare la registrazione inserisci il codice di conferma al prossimo accesso.";
             $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
         } else {
             $messaggio[0] = "C'è stato un errore durante l'invio della mail riepilogativa. ";
@@ -267,7 +267,7 @@ class CRegistrazione {
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         if ($mail->inviaMailRegistrazioneUtente($codice, $uValidazione->getDatiValidi()) === TRUE) {
             $messaggio[0] = "Un'email è stata inviata all'indirizzo email inserito nella form. ";
-            $messaggio[1] = "Per confermare la registrazione clicca sul link contenuto nella mail.";
+            $messaggio[1] =  "Per confermare la registrazione inserisci il codice di conferma al prossimo accesso.";
             $sessione = USingleton::getInstance('USession');
             if ($sessione->leggiVariabileSessione('tipoUser') === 'medico') {
                 $vRegistrazione->visualizzaFeedback($messaggio);
@@ -300,7 +300,7 @@ class CRegistrazione {
         $vRegistrazione = USingleton::getInstance('VRegistrazione');
         if ($mail->inviaMailRegistrazioneClinica($codice, $uValidazione->getDatiValidi()) === TRUE) {
             $messaggio[0] = "Un'email è stata inviata all'indirizzo email inserito nella form. ";
-            $messaggio[1] = "Per confermare la registrazione clicca sul link contenuto nella mail.";
+            $messaggio[1] = "Per confermare la registrazione inserisci il codice di conferma al prossimo accesso.";
             $vRegistrazione->visualizzaFeedback($messaggio, TRUE);
         } else {
             $messaggio[0] = "C'è stato un errore durante l'invio della mail riepilogativa. ";

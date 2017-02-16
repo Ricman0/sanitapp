@@ -106,8 +106,8 @@ class UMail {
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Conferma Account SanitApp";// = $subject;
-        $url = "https://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
-        $url = "<html><a href=" . $url . "'>Conferma</a></html>";
+//        $url = "https://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
+//        $url = "<html><a href=" . $url . "'>Conferma</a></html>";
         
         $testo = "<h4>Ciao " . $dati['nome'] . ", Benvenuto in SanitApp!</h4>"
                 . " Questa è un'email riepilogativa dei dati che hai inserito: <br><br>"
@@ -118,9 +118,10 @@ class UMail {
                 . " <strong>CAP  :  </strong><span>" . $dati['CAP'] . "</span><br><br>"
                 . " <strong>EMAIL  :  </strong><span>" . $dati['email'] . "</span><br><br>"
                 . " <strong>USERNAME  :  </strong><span>" . $dati['username'] . "</span><br><br>"
-                . " Per completare la registrazione, clicca sul link seguente: <br>"
-                . $url . "<br>"
-                . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
+//                . " Per completare la registrazione, clicca sul link seguente: <br>"
+//                . $url . "<br>"
+                . " Per completare la registrazione, "
+                . "copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
                 . "subito dopo aver effettuato il primo accesso <br><br>"
                 . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. <br><br>"   
                 . "Saluti,<br>"
@@ -171,8 +172,8 @@ class UMail {
         //aggiunge l'indirizzo email a cui inviare l'email ("to:")
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
-        $url = "https://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
-        $url = "<html><a href=" . $url . "'>Conferma</a></html>";
+//        $url = "https://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
+//        $url = "<html><a href=" . $url . "'>Conferma</a></html>";
         $this->_email->Subject = "Account SanitApp";// = $subject;
         $testo = "<h4>Benvenuto in SanitApp Dott." . $dati['cognome'] . "!</h4>"
                 . " Questa è un'email riepilogativa dei dati che ha inserito. <br><br>"
@@ -186,9 +187,10 @@ class UMail {
                 . " <strong>PEC  :  </strong><span>" . $dati['PEC'] . "</span><br><br>"
                 . " <strong>PROVINCIA ALBO  :  </strong><span>" . $dati['provinciaAlbo'] . "</span><br><br>"
                 . " <strong>NUMERO ISCRIZIONE ALBO  :  </strong><span>" .  $dati['numeroIscrizione'] . "</span><br><br>"
-                . " Per completare la registrazione, clicca sul link seguente: <br>"
-                . $url . "<br>"
-                . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
+//                . " Per completare la registrazione, clicca sul link seguente: <br>"
+//                . $url . "<br>"
+                . " Per completare la registrazione, "
+                . "copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
                 . "subito dopo aver effettuato il primo accesso <br><br>"
                 . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. <br><br>"
                 . "Saluti,<br>"
@@ -215,8 +217,8 @@ class UMail {
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Account SanitApp";// = $subject;
-        $url = "https://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
-        $url = "<html><a href=" . $url . "'>Conferma</a></html>";
+//        $url = "https://sanitapp.altervista.org/registrazione/conferma/" . $dati['username'] . "/". $codiceConferma;
+//        $url = "<html><a href=" . $url . "'>Conferma</a></html>";
         $testo = " <h4>Benvenuto in SanitApp clinica " . $dati['nomeClinica'] . "!</h4>"
                 . " Questa è un'email riepilogativa dei dati che ha inserito. <br><br>"
                 . " <strong>NOME DELLA CLINICA  :  </strong><span>" . $dati['nomeClinica'] . "</span><br><br>"
@@ -243,9 +245,10 @@ class UMail {
 //                . " <h5>PEC:</h5> ". $dati['PEC'] ."\n"
 //                . " <h5>Telefono:</h5> ". $dati['telefono'] ."<br><br>"
                 //devo inserire anche il link per la conferma
-                . " Per completare la registrazione, clicca sul link seguente: <br>"
-                . $url . "<br>"
-                . "oppure copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
+//                . " Per completare la registrazione, clicca sul link seguente: <br>"
+//                . $url . "<br>"
+                . " Per completare la registrazione, "
+                . "copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
                 . "subito dopo aver effettuato il primo accesso <br><br>"
                 . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. <br><br>"
                 . "Saluti,<br>"
