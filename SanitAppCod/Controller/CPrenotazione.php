@@ -30,17 +30,28 @@ class CPrenotazione {
                 $idPrenotazione = $vPrenotazione->recuperaValore('id') ;
                 if($idPrenotazione !== FALSE && $tipoUser==='utente')
                 {
-                    $ePrenotazione = new EPrenotazione($idPrenotazione);
-                    if($ePrenotazione->confermaPrenotazione()===TRUE)
-                    {
-                        $vJSON = USingleton::getInstance('VJSON');
-                        $vJSON->inviaDatiJSON(TRUE);
+                    try {
+                        $ePrenotazione = new EPrenotazione($idPrenotazione);
+                        if($ePrenotazione->confermaPrenotazione()===TRUE)
+                        {
+                            $vJSON = USingleton::getInstance('VJSON');
+                            $vJSON->inviaDatiJSON(TRUE);
+                        }
+                        else
+                        {
+                            $vJSON = USingleton::getInstance('VJSON');
+                            $vJSON->inviaDatiJSON(FALSE);
+                        }
+                    } catch (XPrenotazioneException $ex) {
+                            $vJSON = USingleton::getInstance('VJSON');
+                            $vJSON->inviaDatiJSON(FALSE);
                     }
-                    else
-                    {
-                        $vJSON = USingleton::getInstance('VJSON');
-                        $vJSON->inviaDatiJSON(FALSE);
+                    catch (XDBException $ex) {
+                            $vJSON = USingleton::getInstance('VJSON');
+                            $vJSON->inviaDatiJSON(FALSE);
                     }
+                
+                    
                     
                 }
                 break;
@@ -61,6 +72,9 @@ class CPrenotazione {
                             $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
                         }
                         catch (XClinicaException $ex) {
+                            $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
+                        }
+                        catch (XDBException $ex) {
                             $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
                         }
                     }
@@ -138,23 +152,40 @@ class CPrenotazione {
 //            case 'aggiungi':
 //                $vPrenotazioni->restituisciPaginaAggiungiPrenotazione();
 //                break;
-                    case 'aggiungi':
-                        switch ($tipoUser) 
-                        {
-                            case 'clinica':
-                                $eClinica = new EClinica($username);
-                                $nomeClinica = $eClinica->getNomeClinicaClinica();
-                                // visualizzo una pagina per cercare il cliente o l'utente registrato del sistema per cui in seguito vorrò effettuare una prenotazione
-                                $vPrenotazioni->impostaPaginaCercaUtente($nomeClinica, 'clinica');
-                                break;
+            case 'aggiungi':
+                switch ($tipoUser) 
+                {
+                    case 'clinica':
+                        try {
+                            $eClinica = new EClinica($username);
+                            $nomeClinica = $eClinica->getNomeClinicaClinica();
+                            // visualizzo una pagina per cercare il cliente o l'utente registrato del sistema per cui in seguito vorrò effettuare una prenotazione
+                            $vPrenotazioni->impostaPaginaCercaUtente($nomeClinica, 'clinica');
                             
-                            case 'medico':
-                                $eMedico= new EMedico(NULL, $username);
-                                $vPrenotazioni->impostaPaginaCercaUtente($eMedico->getCodFiscaleMedico(), 'medico');
-                            
-                            default:
-                                break;
+                        } catch (XClinicaException $ex) {
+                            $vPrenotazioni->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
                         }
+                        catch (XDBException $ex) {
+                            $vPrenotazioni->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
+                        }
+                        
+                        break;
+
+                    case 'medico':
+                        try {
+                            $eMedico= new EMedico(NULL, $username);
+                            $vPrenotazioni->impostaPaginaCercaUtente($eMedico->getCodFiscaleMedico(), 'medico');
+                        } catch (XMedicoException $ex) {
+                            $vPrenotazioni->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
+                        }
+                        catch (XDBException $ex) {
+                            $vPrenotazioni->visualizzaFeedback("C'è stato un errore. Se l'errore persiste, contatti l'amministratore.");
+                        }
+                        
+
+                    default:
+                        break;
+                }
             default:
                 break;
         }
@@ -386,6 +417,9 @@ class CPrenotazione {
         catch (XEsameException $ex) {
             $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore si ripresenta, contatti l'amministratore.");
         }
+        catch (XDBException $ex) {
+            $vPrenotazione->visualizzaFeedback("C'è stato un errore. Se l'errore si ripresenta, contatti l'amministratore.");
+        }
         
     }
     
@@ -569,17 +603,17 @@ class CPrenotazione {
             }
             catch (XEsameException $ex) 
             {
-                $messaggio = "Esame inesistente"; // Se l'esame non esiste
+                $messaggio = "Esame inesistente."; // Se l'esame non esiste
                 $vPrenotazione->visualizzaFeedback($messaggio);
             }
             catch (XClinicaException $ex) 
             {
-                $messaggio = "Clinica inesistente"; // Se la clinica non esiste
+                $messaggio = "Clinica inesistente."; // Se la clinica non esiste
                 $vPrenotazione->visualizzaFeedback($messaggio);
             }
-            catch (XClinicaException $ex) 
+            catch (XDBException $ex) 
             {
-                $messaggio = "Clinica inesistente"; // Se la clinica non esiste
+                $messaggio = "C'è stato un errore."; // Se la clinica non esiste
                 $vPrenotazione->visualizzaFeedback($messaggio);
             }
         }                    
@@ -654,7 +688,8 @@ class CPrenotazione {
         $sessione = USingleton::getInstance('USession');
         $tipo = $sessione->leggiVariabileSessione('tipoUser');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        switch ($tipo) {
+        try {
+            switch ($tipo) {
             case 'utente':
                 $eUtente = new EUtente(NULL, $username);                
                 $codFiscalePrenotaEsame = $eUtente->getCodFiscaleUtente();
@@ -671,43 +706,60 @@ class CPrenotazione {
                 break;
             default:
                 break;
-        }
-        $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
-        if (!isset($eUtente)) {
-            $eUtente = new EUtente($codFiscaleUtenteEffettuaEsame);
-        }
-        $idEsame = $vPrenotazione->recuperaValore('id');
-        $eEsame = new EEsame($idEsame);
-        $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
-        $data = $vPrenotazione->recuperaValore('data');
-        $ora = $vPrenotazione->recuperaValore('orario');
-        $dataEOra = $data . " " . $ora;
-        $ePrenotazione = new EPrenotazione(NULL, $idEsame, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
-        $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB();
-        if($risultatoQuery){
-            $messaggio[0] = 'Appuntamento registrato con successo.';
-            $datiPerEmail = Array('email' => $eUtente->getEmailUser(), 'nomeUtente' => $eUtente->getNomeUtente(),
-                        'cognomeUtente' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsameEsame(),
-                        'nomeClinica' => $eClinica->getNomeClinicaClinica(), 'data' => $data, 'ora' => $ora, 'indirizzoClinica' => $eClinica->getIndirizzoClinica());
-            $mail = USingleton::getInstance('UMail'); 
-                    if($mail->inviaEmailPrenotazione($datiPerEmail))
-                    {
-                        if($tipo !=='utente'){
-                            $messaggio[1]= "L'utente è stato avvisato con un'email dell'avvenuta prenotazione.";    
+            }
+            $codFiscaleUtenteEffettuaEsame = $vPrenotazione->recuperaValore('codice');
+            if (!isset($eUtente)) {
+                $eUtente = new EUtente($codFiscaleUtenteEffettuaEsame);
+            }
+            $idEsame = $vPrenotazione->recuperaValore('id');
+            $eEsame = new EEsame($idEsame);
+            $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
+            $data = $vPrenotazione->recuperaValore('data');
+            $ora = $vPrenotazione->recuperaValore('orario');
+            $dataEOra = $data . " " . $ora;
+            $ePrenotazione = new EPrenotazione(NULL, $idEsame, $tipo, $codFiscaleUtenteEffettuaEsame, $codFiscalePrenotaEsame, $dataEOra);
+            $risultatoQuery = $ePrenotazione->aggiungiPrenotazioneDB();
+            if($risultatoQuery){
+                $messaggio[0] = 'Appuntamento registrato con successo.';
+                $datiPerEmail = Array('email' => $eUtente->getEmailUser(), 'nomeUtente' => $eUtente->getNomeUtente(),
+                            'cognomeUtente' => $eUtente->getCognomeUtente(), 'nomeEsame' => $eEsame->getNomeEsameEsame(),
+                            'nomeClinica' => $eClinica->getNomeClinicaClinica(), 'data' => $data, 'ora' => $ora, 'indirizzoClinica' => $eClinica->getIndirizzoClinica());
+                $mail = USingleton::getInstance('UMail'); 
+                        if($mail->inviaEmailPrenotazione($datiPerEmail))
+                        {
+                            if($tipo !=='utente'){
+                                $messaggio[1]= "L'utente è stato avvisato con un'email dell'avvenuta prenotazione.";    
+                            }
                         }
-                    }
-                    else 
-                    {
-                        $messaggio[1]="Ci spiace, non è stato possibile inviare un'email all'utente.";
-                        $messaggio[2]="Contatti l'utente per avvertirlo dell'avvenuta prenotazione.";               
-                    }
-            
-        }
-        else{
+                        else 
+                        {
+                            $messaggio[1]="Ci spiace, non è stato possibile inviare un'email all'utente.";
+                            $messaggio[2]="Contatti l'utente per avvertirlo dell'avvenuta prenotazione.";               
+                        }
+
+            }
+            else{
+                $messaggio[0] = "C'è stato un problema, il tuo appuntamento non è stato registrato.";
+            }                    
+            $vPrenotazione->visualizzaFeedback($messaggio);
+    //                    $vPrenotazione->appuntamentoAggiunto($risultatoQuery);
+        } catch (XUserException $ex) {
             $messaggio[0] = "C'è stato un problema, il tuo appuntamento non è stato registrato.";
-        }                    
-        $vPrenotazione->visualizzaFeedback($messaggio);
-//                    $vPrenotazione->appuntamentoAggiunto($risultatoQuery);
+            $vPrenotazione->visualizzaFeedback($messaggio);
+        }
+        catch (XEsameException $ex) {
+            $messaggio[0] = "C'è stato un problema, il tuo appuntamento non è stato registrato.";
+            $vPrenotazione->visualizzaFeedback($messaggio);
+        }
+        catch (XPrenotazioneException $ex) {
+            $messaggio[0] = "C'è stato un problema, il tuo appuntamento non è stato registrato.";
+            $vPrenotazione->visualizzaFeedback($messaggio);
+        }
+        catch (XDBException $ex) {
+            $messaggio[0] = "C'è stato un problema, il tuo appuntamento non è stato registrato.";
+            $vPrenotazione->visualizzaFeedback($messaggio);
+        }
+        
     }
     
     /**
