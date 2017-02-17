@@ -306,19 +306,21 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
                 $("#nextPrenotazioneEsame").hide();
                 $("p").hide();
                 $('h3').hide();
+                $('hr').hide();
                 $('span').hide();
-                $("#divAggiungiPrenotazione").prepend("<form id='ricercaUtente'></form>");//aggiungo la form 
-                $("<label for='codiceFiscaleRicercaUtente' class='elementiForm'>Codice Fiscale</label>").appendTo('#ricercaUtente');
-                $('#ricercaUtente').append("<input type='text' name='codiceFiscaleRicercaUtente' id='codiceFiscaleRicercaUtente' class='elementiForm' placeholder='DMRCLD89S42G438S' required />");
-                $('#ricercaUtente').append("<br>");
-                $('#ricercaUtente').append("<div id='submitDivRicercaUtente' ></div>");
-                $('#submitDivRicercaUtente').append("<input type='submit' value='OK' id='submitRicercaUtente' />");
+                $("#divAggiungiPrenotazione").prepend("<form id='ricercaUtente' class='daEliminare'></form>");//aggiungo la form 
+                $("<label for='codiceFiscaleRicercaUtente' class='elementiForm daEliminare'>Codice Fiscale</label>").appendTo('#ricercaUtente');
+                $('#ricercaUtente').append("<input type='text' name='codiceFiscaleRicercaUtente' id='codiceFiscaleRicercaUtente' class='elementiForm daEliminare' placeholder='DMRCLD89S42G438S' required />");
+                $('#ricercaUtente').append("<br class='daEliminare'>");
+                $('#ricercaUtente').append("<div class='daEliminare' id='submitDivRicercaUtente' ></div>");
+                $('#submitDivRicercaUtente').append("<input type='submit' value='OK' id='submitRicercaUtente' class='daEliminare' />");
                 
-                $("#divAggiungiPrenotazione").prepend("<br>");
-                $("#divAggiungiPrenotazione").prepend("<span>Ricorda che puoi effettuare la prenotazione solo se l'utente è già registrato in SanitApp</span>");
-                $("#divAggiungiPrenotazione").prepend("<br>");
-                $("#divAggiungiPrenotazione").prepend("<span>Inserisci il codice fiscale dell'utente per cui vuoi effettuare la prenotazione</span>");
-                $("#divAggiungiPrenotazione").prepend("<h4>Aggiungi una prenotazione</h4>");                             
+                $("#divAggiungiPrenotazione").prepend("<br class='daEliminare'>");
+                $("#divAggiungiPrenotazione").prepend("<span class='daEliminare'>Ricorda che puoi effettuare la prenotazione solo se l'utente è già registrato in SanitApp</span>");
+                $("#divAggiungiPrenotazione").prepend("<br class='daEliminare'>");
+                $("#divAggiungiPrenotazione").prepend("<span class='daEliminare'>Inserisci il codice fiscale dell'utente per cui vuoi effettuare la prenotazione</span>");
+                 
+                $("#divAggiungiPrenotazione").prepend("<h3 class='daEliminare'>AGGIUNGI UNA PRENOTAZIONE</h3><hr class='daEliminare'><br class='daEliminare'>");                             
                 validazioneCodiceFiscale();
                 
 
