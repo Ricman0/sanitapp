@@ -40,9 +40,9 @@
                     <input type="button" id="modificaIndirizzoMedico" value="Modifica Indirizzo" />  
                     <br>
                 {/if}
-                <h4>
-                    Informazioni Professionali
-                </h4>
+                <h3>
+                    INFORMAZIONI PROFESSIONALI
+                </h3>
                 {if isset($modifica)}
                     <form id="formModificaAlboNum">
                         <label for="ProvinciaAlbo" class="elementiForm">Provincia Albo :</label>
