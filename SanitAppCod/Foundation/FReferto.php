@@ -118,8 +118,7 @@ class FReferto extends FDatabase{
                 else
                 {
                      $valoriAttributi = $valoriAttributi .  ", NULL ";
-                }
-                print_r($valoriAttributi);     
+                }    
        
         return $valoriAttributi;
     }

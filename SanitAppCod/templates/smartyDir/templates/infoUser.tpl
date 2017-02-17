@@ -1,5 +1,6 @@
 <h3>INFORMAZIONI</h3>
-
+<hr>
+<br>
 <span class="grassetto">USERNAME:</span><span>  {$user.Username}</span>
 <br>
 <span class="grassetto">EMAIL:</span><span>  {$user.Email}</span>

@@ -819,6 +819,7 @@ function validazioneCodiceFiscale()
                 $('#nextPrenotazioneEsame').attr('data-codiceFiscale', codiceFiscale); //aggiungo il codice fiscale al button nex in prenotazione/esame/idEsame
                 $("p").show();
                 $('h3').show();
+                $('hr').show();
                 $('span').show();
                 $('#codiceFiscaleRicercaUtente').prop('readonly', true);
                 $('#submitRicercaUtente').hide();
@@ -843,6 +844,7 @@ function validazioneCodiceFiscale()
                         var idEsame = $("#idEsame").val();
                         orariDisponibili(partitaIVAClinica, idEsame, nomeGiorno, data);
                     }});
+                $('.daEliminare').remove();
             }
         }
     });

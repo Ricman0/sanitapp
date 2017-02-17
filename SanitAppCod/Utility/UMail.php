@@ -142,9 +142,11 @@ class UMail {
     public function inviaEmailPrenotazioneCancellata($datiPerMail){
         $this->_email->addAddress($datiPerMail['emailDestinatario']);
         $this->_email->Subject = "Prenotazione Cancellata";
-        $body = "Gentile " . ucfirst($datiPerMail['nome']) . " " . ucfirst($datiPerMail['cognome']) . ", "
-                . "la informiamo che la prenotazione per l'esame " . $datiPerMail['nomeEsame'] 
-                . " per il " . $datiPerMail['dataEOra'] . " presso la clinica " . $datiPerMail['nomeClinica'] . " è stata cancellata"; 
+        $body = "Gentile " . ucfirst($datiPerMail['nome']) . " " . ucfirst($datiPerMail['cognome']) . ",<br> "
+                . "la informiamo che la prenotazione per l'esame <strong>" . $datiPerMail['nomeEsame'] 
+                . "</strong> per il <strong>" . $datiPerMail['dataEOra'] . "</strong> presso la clinica <strong>" . $datiPerMail['nomeClinica'] . "</strong> è stata cancellata.<br><br>"
+                . "Saluti,<br>"
+                . "SANITAPP";
         $this->_email->Body = $body;
         $inviata = $this->_email->send();
         if ($inviata === TRUE)
@@ -341,7 +343,7 @@ class UMail {
         // imposto l'oggetto dell'email
         $this->_email->Subject = 'Notifica referto ';// = $subject;
         $testo = 'Gentile ' . $datiNotifica['nomeUtente'] . ' ' . $datiNotifica['cognomeUtente'] . ",<br>"
-                . "la informiamo che è stato inserito un suo referto per l'esame " . $datiNotifica['nomeEsame'] . " eseguito il giorno " . $datiNotifica['data'] . ' alle ore ' 
+                . "la informiamo che è stato inserito un suo <strong>referto</strong> per l'esame " . $datiNotifica['nomeEsame'] . " eseguito il giorno " . $datiNotifica['data'] . ' alle ore ' 
                 . $datiNotifica['ora'] . ".<br><br>"
                 . "Saluti,<br>SanitApp";
         $this->_email->Body = $testo;

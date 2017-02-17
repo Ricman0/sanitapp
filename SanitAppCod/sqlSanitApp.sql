@@ -270,10 +270,11 @@ CREATE TABLE prenotazione (
 -- Dump dei dati per la tabella `prenotazione`
 --
 
--- INSERT INTO prenotazione (IDPrenotazione, IDEsame, Tipo, 
--- Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsame,
--- CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
--- (1, '1234558a33077a8a99', 'M', TRUE, TRUE, 'DMTNNA89S42G438S', 'DMRCLD89S42G438S', NULL, '2016-10-17 09:30:00'),
+INSERT INTO prenotazione (IDPrenotazione, IDEsame, Tipo, 
+Confermata, Eseguita, CodFiscaleUtenteEffettuaEsame, CodFiscaleMedicoPrenotaEsame,
+CodFiscaleUtentePrenotaEsame, DataEOra) VALUES
+('0120030405058a4ccf59b24758a6c74c84b01', '0120030405058a4ccf59b247', 'U', TRUE, FALSE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-17 09:00:00'),
+('0120030405058a4ccf59b24758a6c74c84b51', '0120030405058a4ccf59b247', 'U', TRUE, FALSE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-02-28 09:00:00');
 -- (2, '1234558a33077a8a99', 'M', TRUE, TRUE, 'MNTRCR89H21A488L', 'DMRCLD89S42G438S', NULL, '2016-10-17 10:00:00'),
 -- (4, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2017-01-23 12:00:00'),
 -- (3, 2, 'U', TRUE, TRUE, 'MNTRCR89H21A488L', NULL, 'MNTRCR89H21A488L', '2016-11-29 12:00:00'),
