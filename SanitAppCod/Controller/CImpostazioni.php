@@ -172,8 +172,8 @@ class CImpostazioni {
                         if($uValidazione->getValidati()===TRUE)
                         {
                             $eUtente = new EUtente(NULL, $username);
-                            $eUtente->aggiungiMedicoCurante($codiceMedico);
-                            $eMedico = new EMedico($codiceMedico);
+                            $eUtente->aggiungiMedicoCurante($codiceMedico['codiceFiscale']);
+                            $eMedico = new EMedico($codiceMedico['codiceFiscale']);
                             $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
                         }
                         else

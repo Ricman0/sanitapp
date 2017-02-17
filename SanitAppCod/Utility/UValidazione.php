@@ -169,7 +169,7 @@ class UValidazione {
                     break;                    
                
                 case 'provinciaAlbo':
-                    $pattern = '/^[A-Z]{2,22}$/';
+                    $pattern = '/^[a-zA-Z\-\s\'\/’]{1,22}$/';
                     $stringaErrore = "La provincia dell'albo a cui si è iscritti deve essere del tipo PESCARA";
                     break;
                 
@@ -207,7 +207,7 @@ class UValidazione {
                 
                 case 'provincia':
                 case 'provinciaClinica':
-                    $pattern = '/^[a-zA-Z\s]{1,20}$/';
+                    $pattern = '/^[a-zA-Z\-\s\'\/’]{1,22}$/';
                     $stringaErrore = "La provincia deve essere una sequenza di caratteri";
                     break;
                 

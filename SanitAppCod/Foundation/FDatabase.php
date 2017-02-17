@@ -508,7 +508,6 @@ class FDatabase {
             " WHERE (" . $this->_nomeColonnaPKTabella . "='" . $id . "') FOR UPDATE " ;
         
         $setQuery  = ' SET ';
-        
         foreach ($daModificare as $attributo => $valore) {
             if(gettype($valore)==='string')
                 {
