@@ -228,6 +228,11 @@ class View extends Smarty {
         return $infoFile;
     }
     
+    /**
+     * Consente di recuperare in modo sicuro il contenuto di un file dall'array $_FILES
+     * @param string $indice La chiave relativa al file da cercare
+     * @return string I dati letti dal file
+     */
      public function recuperaFile($indice) {
         $file = addslashes(file_get_contents($_FILES[$indice]['tmp_name']));
         return $file;
