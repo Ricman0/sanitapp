@@ -42,6 +42,7 @@ INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, Codic
 ('appi', '$2y$10$f9a3b0SA9pGL4yeFQtQ3bODP0mIxtHeGuxgGNvOD08g2g2icazvSe', 'info@appignano.it', 'info@appignano.pec', FALSE, TRUE, 'bf145eb094228deba0b5048970afeb73', 'clinica'),
 ('bise', '$2y$10$SoZO7Cv6g/0AF.uoOR2PBOTdk2izK4IDPMu3UYMFh2iOiIIhCCdxe', 'info@bisenti.it',  'info@bisenti.pec', FALSE,TRUE, 'cjdjdhdhrf', 'clinica'),
 ('ricman', '$2y$10$DJX0Vb/mFUi64QMBFWIGlOZwgeXVipewdDbUjs8S4JcbaX6XfcLka', 'onizuka-89@hotmail.it', NULL, FALSE, TRUE, 'f79ebe26b19eb881a495490bbc314427', 'utente'),
+('clau', '$2y$10$nbhhUPzHplLeALa0fehaVOxxplxAVkLiP6nCDvptlMgjVpxi0c7Ie', 'claudia.dimarco89@gmail.com', NULL, FALSE, FALSE, 'edbc6990b6c17ce9a0a15464030e5a26', 'utente'),
 -- ('claudim', '$2y$10$tXDgXrJ8bw5zL0miqTle0.ji25mTIG.OvQ7NlnNLRzId4g8mrL2PC', 'claudimarco@hotmail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
 -- ('ricman', '$2y$10$XPh.cbdQCFT.xNzZVYdUee/ofH1K8wDQkEj1VtCrQgY2sW8C0YHOW', 'onizuka-89@hotmail.it', NULL,FALSE,TRUE, 'cjdjdehahah', 'utente'),
 ('ricla', '$2y$10$PVNVAf5wFfLJSHB/PBv2COam15ec7HJ4OlSeMVTzvo6WxboR/SID6', 'mantini.riccardo@gmail.com', NULL,FALSE,TRUE, 'cjdjdehahag', 'amministratore'),
@@ -239,7 +240,8 @@ ALTER TABLE utente ADD FULLTEXT INDEX fullTextCodFiscaleUtente(CodFiscale);
 
  INSERT INTO utente (CodFiscale, Nome, Cognome, Via, NumCivico, CAP, 
   Username,  CodFiscaleMedico) VALUES
-('MNTRCR89H21A488L', 'Riccardo', 'Mantini', 'Via Del Carmine', 31, '64034', 'ricman', 'DMRCLD89S42G438S');
+('MNTRCR89H21A488L', 'Riccardo', 'Mantini', 'Via Del Carmine', 31, '64034', 'ricman', 'DMRCLD89S42G438S'),
+('DMRCLD89S42G438S', 'Claudia', 'Di Marco', 'Via Acquaventina', 30, '65017', 'clau', 'DMRCLD89S42G438S');
 -- ('DMTNNA89S42G438S', ' Anna', ' Di Matteo', ' Acquaventina', 30, '65017', 'annadima', 'DMRCLD89S42G438S'),
 -- ('MNTRCR89H21A488L', 'Riccardo', 'Mantini', 'Del Carmine', 31, '64034', 'ricman', 'DMRCLD89S42G438S');
 

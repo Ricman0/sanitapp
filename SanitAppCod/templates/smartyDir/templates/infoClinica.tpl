@@ -1,6 +1,6 @@
 <div id="infoClinica">
     <h3>INFORMAZIONI CLINICA</h3>
-    <br>
+    
     <div>
         <span class="grassetto">NOME:</span><span>  {$clinica->getNomeClinicaClinica()}</span>
         <br>
@@ -16,4 +16,5 @@
     {if !isset($buttonEsami)}
         <input type="button" id="esamiClinicaButton" value="Esami" data-nomeClinica="{$clinica->getNomeClinicaClinica()}"  data-idClinica="{$clinica->getPartitaIVAClinica()}"  />
     {/if}
+    <br>
 </div>

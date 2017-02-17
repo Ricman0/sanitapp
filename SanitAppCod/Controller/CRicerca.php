@@ -29,11 +29,14 @@ class CRicerca {
                     // ora controllo che l'utente sia presente nel sistema
                     try {
                         $eUtente = new EUtente($dati['codiceFiscale']);
-                        if ($eUtente->getCodFiscaleUtente() !== NULL) {
-                            //in questo caso è stato creato un utente dal codice fiscale
-                            // quindi il risultato sarà TRUE
-                            $risultato = TRUE;
-                        }
+                        if ($eUtente->getCodFiscaleUtente() !== NULL &&  $eUtente->getConfermatoUser())
+                            {
+                            
+                                //in questo caso è stato creato un utente dal codice fiscale
+                                // quindi il risultato sarà TRUE
+                            
+                                $risultato = TRUE;
+                            }
                     } catch (Exception $ex) {//$risultato=NULL;
                     }
                     

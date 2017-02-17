@@ -145,10 +145,10 @@ class CAutenticazione {
                     $vAutenticazione->impostaPaginaConferma($username);
                 }
             } else { // dati non validi
-                throw new DatiLogInException('Dati inseriti non validi');
+                throw new DatiLogInException('Dati inseriti non validi.');
             }
         } else {//campi/o vuoti/o 
-            throw new DatiLogInException('Almeno un campo del log in vuoto');
+            throw new DatiLogInException('Almeno un campo del log in vuoto.');
         }
     }
 

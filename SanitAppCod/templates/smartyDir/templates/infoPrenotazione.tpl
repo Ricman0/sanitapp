@@ -84,7 +84,7 @@
         <input type="button" id="aggiungiRefertoButton" value="Aggiungi Referto" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
     {/if}
     <br>      
-    {if ($cancellaPrenota===TRUE)}
+    {if ($cancellaPrenota===TRUE) && ($prenotazione->getEseguitaPrenotazione()== FALSE) }
         <input type="button" id="cancellaPrenotazione" value="Cancella Prenotazione" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
         <input type="button" id="modificaPrenotazione" value="Modifica Prenotazione" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
     {/if}

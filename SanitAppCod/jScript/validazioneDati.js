@@ -738,7 +738,7 @@ function validazioneCodiceFiscale()
         //espressione regolare per codice fiscale
         var regex = /[a-zA-Z]{6}[0-9]{2}[a-zA-Z]{1}[0-9]{2}[a-zA-Z]{1}[0-9]{3}[a-zA-Z]{1}/;
         return valore.match(regex);
-    }, "Il codice fiscale deve essee del tipo DMRCLD89S42G438S");
+    }, "Il codice fiscale deve essere del tipo DMRCLD89S42G438S");
     $("#ricercaUtente").validate({
         rules:
                 {
@@ -763,7 +763,7 @@ function validazioneCodiceFiscale()
                                 required: "Inserire il codice fiscale",
                                 maxlength: "Il codice fiscale è lungo 16 caratteri",
                                 minlength: "Il codice fiscale è lungo 16 caratteri",
-                                remote: "Utente non esistente, inserire un codice fiscale di un utente già registrato"
+                                remote: "Utente non esistente o non confermato, inserire un codice fiscale di un utente già registrato o già confermato."
                             }
                 },
         errorPlacement: function (error, element) {

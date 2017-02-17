@@ -122,7 +122,7 @@ class UMail {
 //                . $url . "<br>"
                 . " Per completare la registrazione, "
                 . "copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
-                . "subito dopo aver effettuato il primo accesso <br><br>"
+                . "subito dopo aver effettuato il primo accesso. <br><br>"
                 . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. <br><br>"   
                 . "Saluti,<br>"
                 . "SANITAPP";
@@ -193,7 +193,7 @@ class UMail {
 //                . $url . "<br>"
                 . " Per completare la registrazione, "
                 . "copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
-                . "subito dopo aver effettuato il primo accesso <br><br>"
+                . "subito dopo aver effettuato il primo accesso. <br><br>"
                 . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. <br><br>"
                 . "Saluti,<br>"
                 . "SANITAPP";   
@@ -234,24 +234,9 @@ class UMail {
                 . " <strong>USERNAME  :  </strong><span>" . $dati['username'] . "</span><br><br>"
                 . " <strong>PEC  :  </strong><span>" . $dati['PEC'] . "</span><br><br>"
                 . " <strong>TELEFONO  :  </strong><span>" .  $dati['telefono'] . "</span><br><br>"
-                
-//                . " <h5>Nome della clinica:</h5> " . $dati['nomeClinica'] ."\n"
-//                . " <h5>Titolare:</h5> ". $dati['titolare'] ."\n"
-//                . " <h5>Partita IVA:</h5> " . $dati['partitaIVA'] ."\n"
-//                . " <h5>Indirizzo:</h5> " . $dati['via'] ."\n"
-//                . " <h5>CAP:</h5> " . $dati['cap'] ."\n"
-//                . " <h5>Località:</h5> " . $dati['localitaClinica'] . "\n"
-//                . " <h5>Provincia:</h5> " . $dati['provinciaClinica'] . "\n"
-//                . " <h5>Email:</h5> ". $dati['email'] . "\n"
-//                . " <h5>Username:</h5> ". $dati['username'] ."\n"
-//                . " <h5>PEC:</h5> ". $dati['PEC'] ."\n"
-//                . " <h5>Telefono:</h5> ". $dati['telefono'] ."<br><br>"
-                //devo inserire anche il link per la conferma
-//                . " Per completare la registrazione, clicca sul link seguente: <br>"
-//                . $url . "<br>"
                 . " Per completare la registrazione, "
                 . "copia e incolla il seguente codice ". $codiceConferma . " nella pagina di conferma "
-                . "subito dopo aver effettuato il primo accesso <br><br>"
+                . "subito dopo aver effettuato il primo accesso. <br><br>"
                 . " Nel caso in cui non ti sei registrato su SanitApp, ignora questa mail. <br><br>"
                 . "Saluti,<br>"
                 . "SANITAPP";   
