@@ -145,7 +145,15 @@ class EClinica extends EUser {
             $this->_regione = $this->trovaRegione($provincia);
             $this->_telefono = $telefono;
             $this->_capitaleSociale = $capitaleSociale;
-            $this->_workingPlan = $workingPlan;
+                if(!isset($workingPlan))
+                {
+                    $this->_workingPlan ='{"Lunedi":NULL,"Martedi":NULL,"Mercoledi":NULL,"Giovedi":NULL,"Venerdi":NULL,"Sabato":NULL,"Domenica":NULL}';
+                }
+                else
+                {
+                    $this->_workingPlan = $workingPlan;
+                }
+            
             $this->_validato = $validato;
             $this->_esami = Array();
             $this->_prenotazioni = Array();

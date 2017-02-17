@@ -133,13 +133,13 @@ class CImpostazioni {
                     $workingPlanArray = json_decode($workingPlanText);
                     $uValidazione = USingleton::getInstance('UValidazione');
                     $uValidazione->validaWorkingPlan($workingPlanArray);
-                    if($uValidazione->getValidati() )
+                    if($uValidazione->getValidati())
                     {
                         try {
                             $eClinica = new EClinica($username);
                             $salvato = $eClinica->salvaWorkingPlanClinica($workingPlanText);
                             if ($salvato) {
-                                $vImpostazioni->visualizzaFeedback('Working Plan salvato con successo');
+                                $vImpostazioni->visualizzaFeedback('Working Plan salvato con successo.');
                             }
                         } catch (XClinicaException $ex) {
                             $vImpostazioni->visualizzaFeedback("Clinica Inesistente. Working Plan non salvato.");

@@ -271,7 +271,6 @@ class UValidazione {
         $this->setValidati(TRUE);
         $pattern = '/^[0-2]{1}[0-9]{1}:([0-5]{1}[0-9]{1})$/';
         $stringaErrore =  "Deve essere un tempo valido ";
-        print_r($workingPlanArray);
         foreach ($workingPlanArray as $workingPlanGiorno) {
             $start = '';
             $end = '';
@@ -281,50 +280,38 @@ class UValidazione {
             {
                 foreach ($workingPlanGiorno as $chiave => $valore) {
                     $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
-                    switch ($chiave)
+                    if($valore!== NULL)
                     {
-                        case 'Start':
-                            $start = strtotime($valore);
-                            break;
+                        switch ($chiave)
+                        {
+                            case 'Start':
 
-                        case 'End':
-                             $end = strtotime($valore);
-                            
-                            break;
+                                $start = strtotime($valore);
+                                break;
 
-                        case 'BreakStart':
-                            $breakStart = strtotime($valore);
-                                
-                            break;
+                            case 'End':
+                                $end = strtotime($valore);
+                                break;
 
-                        case 'BreakEnd':
-                            $breakEnd = strtotime($valore);
-                            break;
+                            case 'BreakStart':
+                                $breakStart = strtotime($valore);
+                                break;
+
+                            case 'BreakEnd':
+                                $breakEnd = strtotime($valore);
+                                break;
+                        }
                     }
                     
                 }
-            if($this->getValidati() && $start!=='' && $end!=='')
-                    {
-                        if($end < $start) // start deve essere minore di end per essere valido
-                        {
-                            $this->setValidati(FALSE);
-                        }
-                    }
-                    else
+                
+                if($this->getValidati() && !is_string($start) && !is_string($end) && !is_string($breakEnd) && !is_string($breakStart) )
+                {
+                    
+                    if($breakStart < $start &&  $breakStart > $end) // start deve essere minore di breakStart e breakstart minore di end per essere valido
                     {
                         $this->setValidati(FALSE);
-                    }
-                    if($this->getValidati() && $start!=='' && $end!=='' && $breakEnd!=='')
-                    {
-                        if($breakStart < $start &&  $breakStart > $end) // start deve essere minore di breakStart e breakstart minore di end per essere valido
-                        {
-                            $this->setValidati(FALSE);
-                        } 
-                    }
-                    else
-                    {
-                        $this->setValidati(FALSE);
-                    }
+                    } 
                     if($this->getValidati() && $breakStart!=='' && $end!=='')
                     {
                         if($breakEnd < $breakStart &&  $breakEnd > $end) // breakEnd deve essere maggiore di breakStart e breakend minore di end per essere valido
@@ -332,10 +319,22 @@ class UValidazione {
                             $this->setValidati(FALSE);
                         } 
                     }
-                    else
+                }
+                elseif($this->getValidati() && !is_string($start) && !is_string($end))
+                {
+                    if($end < $start) // start deve essere minore di end per essere valido
                     {
                         $this->setValidati(FALSE);
                     }
+                    if((is_string($breakEnd) && !is_string($breakStart)) || (!is_string($breakEnd) && is_string($breakStart)) )
+                    {
+                        $this->setValidati(FALSE);
+                    }
+                }
+                else
+                {
+                    $this->setValidati(FALSE);
+                }
                     
 //                foreach ($workingPlanGiorno as $chiave => $valore) {
 //                    $this->validaDato($pattern, $chiave, $valore, $stringaErrore);
@@ -389,7 +388,6 @@ class UValidazione {
 //                }
             }
         }
-        print_r($this->_validati);
         return $this->_validati;
     }
     
