@@ -485,6 +485,75 @@ $(document).ready(function () {
         });
     });
     
+ $('#headerMain').on('click','#esameEseguito', function(){
+        var idPreno = $(this).data('idprenotazione');
+        $.ajax({
+                      type:'POST',
+                      url: 'prenotazione/modifica/' + idPreno,
+                      data:{eseguita: false},
+                      success: function (datiRisposta)
+                      {
+                        var obj = JSON.parse(datiRisposta);
+                        if(obj==="no")
+                        {
+                            clickRiga('prenotazioni', 'visualizza', idPreno, '#contenutoAreaPersonale');
+                        }
+                        else
+                        {
+                            // apro un'altra finestra
+                            $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
+                            $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
+                            $("#erroreAltroContenutoEventoNonEseguito").dialog({ 
+                                modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                title: 'Errore' ,
+                                buttons: {   
+                                   'OK': function() {
+                                        $(this).dialog('close');
+                                    } 
+                                }
+                            });                                  
+                        }
+                        $("#altroContenutoEventoNonEseguito").remove();
+                        $("#altroContenutoEventoNonEseguito").dialog('close');
+                        $("#eseguito").html('');
+                      }
+                  });
+    });
+    
+  $('#headerMain').on('click','#esameNonEseguito', function(){
+        var idPreno = $(this).data('idprenotazione');
+        $.ajax({
+                      type:'POST',
+                      url: 'prenotazione/modifica/' + idPreno,
+                      data:{eseguita: true},
+                      success: function (datiRisposta)
+                      {
+                        var obj = JSON.parse(datiRisposta);
+                        if(obj==="ok")
+                        {
+                           clickRiga('prenotazioni', 'visualizza', idPreno, '#contenutoAreaPersonale');
+                        }
+                        else
+                        {
+                            // apro un'altra finestra
+                            $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
+                            $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
+                            $("#erroreAltroContenutoEventoNonEseguito").dialog({ 
+                                modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                title: 'Errore' ,
+                                buttons: {   
+                                   'OK': function() {
+                                        $(this).dialog('close');
+                                    } 
+                                }
+                            });                                  
+                        }
+                        $("#altroContenutoEventoNonEseguito").remove();
+                        $("#altroContenutoEventoNonEseguito").dialog('close');
+                        $("#eseguito").html('');
+                      }
+                  });
+    });      
     
 });
 
@@ -1147,6 +1216,5 @@ function agendaEventClick(event, jsEvent, view)
         });
         
     });
-
 }
-   
+
