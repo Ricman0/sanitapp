@@ -343,7 +343,7 @@ function confermaPrenotazioneUtente(controller, task, id, ajaxDiv)
             if (datiRisposta === true)
             {
                 $('#divConfermaPrenotazioneUtente').empty();// svuoto il div 
-                $('#divConfermaPrenotazioneUtente').text('Prenotazione: Confermata');// aggiungo il testo Confermata al div
+                $('#divConfermaPrenotazioneUtente').append("<span class='grassetto'>PRENOTAZIONE:  </span>Confermata");// aggiungo il testo Confermata al div
 
             }
 //            $(ajaxDiv).html(datiRisposta);

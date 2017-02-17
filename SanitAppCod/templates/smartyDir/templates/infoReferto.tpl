@@ -6,7 +6,7 @@
     <br>
     <div>
 
-        {if ($tipoUser==='clinica')}
+        {if ($tipoUser==='clinica' || $tipoUser==='utente' )}
             
             <span class="grassetto">ID REFERTO:</span><span>  {$referto->getIDRefertoReferto()}</span>
             <br>

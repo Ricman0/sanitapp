@@ -12,15 +12,15 @@
         <th>Medico Esame</th>
         {else}
             {if ($tipoUser==='Medico')}
-                <th>ID Prenotazione</th>
+               <!-- <th>ID Prenotazione</th> -->
                 <th>Nome Esame</th>
                 <th>Nome Clinica</th>
                 <th>Nome </th>
                 <th>Cognome</th>
                 <th>Codice Fiscale</th>
             {else}
-                <th>ID Prenotazione</th>
-                <th>ID Esame</th>
+            <!--    <th>ID Prenotazione</th>
+                <th>ID Esame</th> -->
                 <th>Esame</th>
                 <th>Nome </th>
                 <th>Cognome</th>                
@@ -50,9 +50,10 @@
             {if ($tipoUser==='Medico')}
                 {foreach from=$dati item=curr_row}
                     <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione cliccabile">
-                        <td>{$curr_row['IDPrenotazione']}</td>
-                        <td>{$curr_row['IDEsame']}</td>
+                       <!-- <td>{$curr_row['IDPrenotazione']}</td>
+                        <td>{$curr_row['IDEsame']}</td> -->
                         <td>{$curr_row['NomeEsame']}</td>
+                        <td>{$curr_row['NomeClinica']}</td>
                         <td>{$curr_row['Nome']}</td>
                         <td>{$curr_row['Cognome']}</td>
                         <td>{$curr_row['CodFiscale']}</td>                        
@@ -62,8 +63,8 @@
             {else}
                 {foreach from=$dati item=curr_row}
                     <tr id="{$curr_row['IDPrenotazione']}" class="rigaPrenotazione cliccabile">
-                        <td>{$curr_row['IDPrenotazione']}</td>
-                        <td>{$curr_row['IDEsame']}</td>
+                       <!-- <td>{$curr_row['IDPrenotazione']}</td>
+                        <td>{$curr_row['IDEsame']}</td> -->
                         <td>{$curr_row['NomeEsame']}</td>
                         <td>{$curr_row['Nome']}</td>
                         <td>{$curr_row['Cognome']}</td>

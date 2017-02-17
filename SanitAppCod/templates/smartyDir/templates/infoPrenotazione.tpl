@@ -34,7 +34,8 @@
                     Confermata 
                 {else} 
 
-                    Non Confermata  
+                    Non Confermata 
+                    <br>
                     <input type="button" id="confermaPrenotazioneUtente" value="Conferma Prenotazione" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
                 {/if}
             </div>
