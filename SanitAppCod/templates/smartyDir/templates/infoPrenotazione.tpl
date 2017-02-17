@@ -1,4 +1,6 @@
 <div id="infoPrenotazione">
+    <br>
+    <br>
     <h3>
         INFORMAZIONI PRENOTAZIONE 
     </h3>
@@ -45,9 +47,9 @@
             <span> 
                 {if ($tipoUser==='clinica')}
                     {if ($prenotazione->getEseguitaPrenotazione()== TRUE)}
-                        <i class="fa fa-check fa-lg verde modificaNonEseguito cliccabile" aria-hidden="true"></i>
+                        <i id="esameEseguito" class="fa fa-check fa-lg verde modificaNonEseguito cliccabile" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" aria-hidden="true"></i>
                     {else} 
-                        <i class="fa fa-times fa-lg rosso modificaEseguito cliccabile" aria-hidden="true"></i>
+                        <i id="esameNonEseguito" class="fa fa-times fa-lg rosso modificaEseguito cliccabile" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" aria-hidden="true"></i>
                     {/if}
                 {else}
                     {if ($prenotazione->getEseguitaPrenotazione()== TRUE) }
@@ -62,7 +64,6 @@
         <div>
             {if isset($idReferto)}
                 <span class="grassetto">CODICE REFERTO:  </span><span>{$idReferto}</span> 
-                <br>
                 <input type="button" id="scaricaRefertoButton" class="scaricaReferto" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
             {/if}
         </div> 
@@ -84,7 +85,7 @@
         <input type="button" id="aggiungiRefertoButton" value="Aggiungi Referto" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
     {/if}
     <br>      
-    {if ($cancellaPrenota===TRUE) && ($prenotazione->getEseguitaPrenotazione()== FALSE) }
+    {if ($cancellaPrenota===TRUE && $prenotazione->getEseguitaPrenotazione()== FALSE)}
         <input type="button" id="cancellaPrenotazione" value="Cancella Prenotazione" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
         <input type="button" id="modificaPrenotazione" value="Modifica Prenotazione" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
     {/if}
