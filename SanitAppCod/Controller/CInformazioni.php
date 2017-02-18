@@ -24,9 +24,19 @@ class CInformazioni {
      * @access public
      */
     public function visualizzaContatti() {
-        $eAmministratore = new EAmministratore();
-        $vInformazioni = USingleton::getInstance('VInformazioni');
-        $vInformazioni->visualizzaContatti($eAmministratore->getTelefonoAmministratore(), $eAmministratore->getEmailUser(), $eAmministratore->getPECUser());
+        try{
+            $eAmministratore = new EAmministratore();
+            $vInformazioni = USingleton::getInstance('VInformazioni');
+            $vInformazioni->visualizzaContatti($eAmministratore->getTelefonoAmministratore(), $eAmministratore->getEmailUser(), $eAmministratore->getPECUser());    
+        } 
+        catch (XAmministratoreException $e)
+        {
+            $vInformazioni->visualizzaFeedback('Si è verificato un errore. Non è possibile visualizzare i contatti.'); 
+        }
+        catch (XDBException $e)
+        {
+             $vInformazioni->visualizzaFeedback('Si è verificato un errore. Non è possibile visualizzare i contatti.'); 
+        }
         
     }
     
