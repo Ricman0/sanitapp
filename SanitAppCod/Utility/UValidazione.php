@@ -271,7 +271,6 @@ class UValidazione {
         $this->setValidati(TRUE);
         $pattern = '/^[0-2]{1}[0-9]{1}:([0-5]{1}[0-9]{1})$/';
         $stringaErrore =  "Deve essere un tempo valido ";
-        print_r($workingPlanArray);
         foreach ($workingPlanArray as $workingPlanGiorno) {
             $start = '';
             $end = '';
@@ -389,7 +388,6 @@ class UValidazione {
 //                }
             }
         }
-        print_r($this->_validati);
         return $this->_validati;
     }
     
