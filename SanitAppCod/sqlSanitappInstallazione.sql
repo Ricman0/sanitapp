@@ -1,12 +1,10 @@
 /**
  * Author:  Claudia Di Marco & Riccardo Mantini
- * Created: 2-gen-2017
  */
 
-
-DROP DATABASE IF EXISTS sanitapp2;
-CREATE DATABASE sanitapp2;
-USE sanitapp2;
+DROP DATABASE IF EXISTS sanitapp;
+CREATE DATABASE sanitapp;
+USE sanitapp;
 
 --
 -- Database: `sanitapp`
@@ -18,9 +16,9 @@ USE sanitapp2;
 -- Struttura della tabella `user`
 --
 
-CREATE TABLE appUser (
+CREATE TABLE appuser (
   Username varchar(15) NOT NULL,
-  Password varchar(10) NOT NULL,
+  Password varchar(60) NOT NULL,
   Email varchar(320) NOT NULL,
   PEC varchar(320) DEFAULT NULL,
   Bloccato boolean DEFAULT FALSE,
@@ -34,12 +32,7 @@ CREATE TABLE appUser (
 ) ;
 
 
-ALTER TABLE appUser ADD FULLTEXT INDEX fullTextPassword(Password);
-
---
--- Dump dei dati per la tabella `user`
---
-
+ALTER TABLE appuser ADD FULLTEXT INDEX fullTextPassword(Password);
 
 -- --------------------------------------------------------
 
@@ -52,16 +45,6 @@ CREATE TABLE categoria (
   Nome varchar(30) NOT NULL,
   PRIMARY KEY (Nome)
 );
-
---
--- Dump dei dati per la tabella `categoria`
---
-
-INSERT INTO categoria (Nome) VALUES
-('Analisi'),
-('Raggi'),
-('Tac'),
-('Visita Preliminare');
 
 -- --------------------------------------------------------
 
@@ -85,7 +68,7 @@ CREATE TABLE clinica (
   WorkingPlan text DEFAULT NULL,
   Validato boolean DEFAULT FALSE,
   PRIMARY KEY (PartitaIVA),
-  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE
+  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -99,11 +82,6 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 
 
 --
--- Dump dei dati per la tabella `clinica`
---
-
-
---
 -- Struttura della tabella `amministratore`
 --
 
@@ -114,8 +92,10 @@ CREATE TABLE amministratore (
   Cognome varchar(20) NOT NULL,
   Telefono varchar(10) DEFAULT NULL,
   PRIMARY KEY (IdAmministratore),
-  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE
+  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+INSERT INTO amministratore (IdAmministratore, Username, Nome, Cognome, Telefono) VALUES (NULL, 'ricla', 'Riccardo', 'Claudia', '0858279642');
 
 -- --------------------------------------------------------
 
@@ -124,27 +104,24 @@ CREATE TABLE amministratore (
 --
 
 CREATE TABLE esame(
-  IDEsame varchar(13) NOT NULL,
+  IDEsame varchar(24) NOT NULL,
   NomeEsame varchar(50) NOT NULL,
-  Descrizione varchar(200) DEFAULT NULL,
+  Descrizione varchar(600) DEFAULT NULL,
   Prezzo float NOT NULL,
   Durata time NOT NULL,
   MedicoEsame varchar(40) NOT NULL,
   NumPrestazioniSimultanee smallint(6) NOT NULL,
   NomeCategoria varchar(30) NOT NULL,
-  PartitaIVAClinica varchar(20) NOT NULL,
-  PRIMARY KEY (IDEsame,PartitaIVAClinica),
+  PartitaIVAClinica varchar(11) NOT NULL,
+  Eliminato boolean DEFAULT FALSE,
+  PRIMARY KEY (IDEsame),
   FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
-  FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome) ON DELETE NO ACTION
+  FOREIGN KEY (NomeCategoria) REFERENCES categoria (Nome) ON DELETE NO ACTION ON UPDATE CASCADE
 
 );
 
 ALTER TABLE esame ADD FULLTEXT INDEX fullTextEsame(NomeEsame);
 
-
---
--- Dump dei dati per la tabella `esame`
---
 
 -- --------------------------------------------------------
 
@@ -161,17 +138,11 @@ CREATE TABLE medico (
   CAP varchar(5) NOT NULL,
   Username varchar(15) NOT NULL,
   ProvinciaAlbo varchar (22) NOT NULL,
-  NumIscrizione smallint(6) NOT NULL,
+  NumIscrizione varchar(6) NOT NULL,
   Validato boolean DEFAULT FALSE,
   PRIMARY KEY (CodFiscale),
-  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE
+  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-
-
---
--- Dump dei dati per la tabella `medico`
---
 
 
 -- --------------------------------------------------------
@@ -191,17 +162,12 @@ CREATE TABLE utente (
   Username varchar(15) NOT NULL,
   CodFiscaleMedico varchar(21) DEFAULT NULL,
   PRIMARY KEY (CodFiscale),
-  FOREIGN KEY (CodFiscaleMedico) REFERENCES medico (CodFiscale) ON DELETE SET NULL,
-  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE
+  FOREIGN KEY (CodFiscaleMedico) REFERENCES medico (CodFiscale) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 
 ALTER TABLE utente ADD FULLTEXT INDEX fullTextCodFiscaleUtente(CodFiscale);
-
---
--- Dump dei dati per la tabella `utente`
---
-
 
 
 --
@@ -209,27 +175,21 @@ ALTER TABLE utente ADD FULLTEXT INDEX fullTextCodFiscaleUtente(CodFiscale);
 --
 
 CREATE TABLE prenotazione (
-  IDPrenotazione varchar(13) NOT NULL,
-  IDEsame varchar(13) NOT NULL,
-  PartitaIVAClinica varchar(20) NOT NULL,
+  IDPrenotazione varchar(37) NOT NULL,
+  IDEsame varchar(24) NOT NULL,
   Tipo varchar(1) NOT NULL,
-  Confermata tinyint(1) DEFAULT '0',
-  Eseguita tinyint(1) DEFAULT '0',
+  Confermata boolean DEFAULT FALSE,
+  Eseguita boolean DEFAULT FALSE,
   CodFiscaleUtenteEffettuaEsame varchar(16) NOT NULL,
   CodFiscaleMedicoPrenotaEsame varchar(16) DEFAULT NULL,
   CodFiscaleUtentePrenotaEsame varchar(16) DEFAULT NULL,
   DataEOra DATETIME NOT NULL,
-  PRIMARY KEY (IDPrenotazione, IDEsame, PartitaIVAClinica),
-  FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame),
-  FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA),
-  FOREIGN KEY (CodFiscaleUtenteEffettuaEsame) REFERENCES utente (CodFiscale) ON DELETE CASCADE,
-  FOREIGN KEY (CodFiscaleMedicoPrenotaEsame) REFERENCES medico (CodFiscale) ON DELETE SET NULL,
-  FOREIGN KEY (CodFiscaleUtentePrenotaEsame) REFERENCES utente (CodFiscale) ON DELETE SET NULL
+  PRIMARY KEY (IDPrenotazione),
+  FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame) ON UPDATE CASCADE,
+  FOREIGN KEY (CodFiscaleUtenteEffettuaEsame) REFERENCES utente (CodFiscale) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (CodFiscaleMedicoPrenotaEsame) REFERENCES medico (CodFiscale) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (CodFiscaleUtentePrenotaEsame) REFERENCES utente (CodFiscale) ON DELETE SET NULL ON UPDATE CASCADE
 );
-
---
--- Dump dei dati per la tabella `prenotazione`
---
 
 
 -- --------------------------------------------------------
@@ -239,28 +199,15 @@ CREATE TABLE prenotazione (
 --
 
 CREATE TABLE referto (
-  IDReferto varchar(13) NOT NULL,
-  IDPrenotazione varchar(13) DEFAULT NULL,
-  IDEsame varchar(13) DEFAULT NULL,
-  PartitaIVAClinica varchar(20) DEFAULT NULL,
+  IDReferto varchar(37) NOT NULL,
+  IDPrenotazione varchar(37) DEFAULT NULL,
   FileName varchar(200) NOT NULL,
   Contenuto mediumblob  NOT NULL,
   MedicoReferto varchar(40) NOT NULL,
   DataReferto date NOT NULL,
+  CondivisoConMedico boolean DEFAULT FALSE,
+  CondivisoConUtente text DEFAULT NULL,
   PRIMARY KEY (IDReferto),
-  FOREIGN KEY (IDPrenotazione) REFERENCES prenotazione (IDPrenotazione) ON DELETE CASCADE,
-  FOREIGN KEY (IDEsame) REFERENCES esame (IDEsame),
-  FOREIGN KEY (PartitaIVAClinica) REFERENCES clinica (PartitaIVA) 
+  FOREIGN KEY (IDPrenotazione) REFERENCES prenotazione (IDPrenotazione) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
-
---
--- Dump dei dati per la tabella `referto`
---
--- 
--- INSERT INTO referto (IDReferto, IDPrenotazione, IDEsame, PartitaIVAClinica, 
--- Contenuto, MedicoReferto, DataReferto) VALUES
--- (1, 1, 1, '12345', 0x696c207265666572746f20, 'Riga', '2016-04-26');
-
--- --------------------------------------------------------
