@@ -279,26 +279,6 @@ class EReferto {
 //            return $fReferto->condividiConMedico($this->getIDRefertoReferto(), $this->getCondivisoConMedicoReferto() );
         }
         
-//        $condivisoConMedico = $this->getCondivisoConMedicoReferto();
-//        if(isset($condivisoCon))// se in precedenza è stato impostato user con cui condividere il referto
-//        {
-//            $condivisoCon = json_decode($condivisoCon);
-////            print_r($condivisoCon);
-//        }
-//        if(isset($medico))
-//        {
-//            // se già l'ha condiviso con il medico??????
-//            $condivisoCon['Medico'] = $medico;                        
-//        }
-//        else
-//        {
-//            
-//        }
-//        $condivisoCon = json_encode($condivisoCon);
-////        print_r($condivisoCon);
-//        $this->setCondivisoConReferto($condivisoCon);
-//        $fReferto = USingleton::getInstance('FReferto');
-//        return $fReferto->condividiCon($this->getIDRefertoReferto(), $condivisoCon );
     }
     
 }

@@ -127,13 +127,9 @@ class FDatabase {
             $messaggioErrore = $this->_connessione->connect_error;
             die('Errore di connessione ('.mysqli_connect_errno().')'.$messaggioErrore);
            
-            //oppure 
-            // echo 'Errore di connessione ('.$this->_connessione->connect_errno.')'.$messaggioErrore;
-            //return false; 
         }
         else
         {
-//            echo 'Connessione stabilita ' . $this->_connessione->host_info . "\n";
             //imposto il set di caratteri utf8 per la connessione
             $this->_connessione->query("SET NAMES 'utf8'");
             return true; 
@@ -439,7 +435,6 @@ class FDatabase {
             } catch (Exception $e) {
                 // un'eccezione è lanciata, per cui dobbiamo fare il rollback della transazione
                 $this->_connessione->rollback();
-//                print_r($e->getMessage());
                 throw new XDBException("Inserimento fallito, contattare l'amministratore.");
             }
         }

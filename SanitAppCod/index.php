@@ -1,7 +1,9 @@
 <?php
+
 /**
  * SanitApp application
  **/
+
 require_once __DIR__ . '/include/SPL Autoload.php';
 require_once __DIR__ . '/include/Config.php';
 
@@ -14,6 +16,3 @@ if (version_compare(PHP_VERSION,SANITAPP_MINIMUM_PHP_VERSION, '<'))
 
 $cSetup =  USingleton::getInstance('CSetup');
 $cSetup->impostaPagina();
-
-
-

@@ -20,7 +20,6 @@ $(document).ready(function() {
             ajaxDiv = '#contenutoAreaPersonale';
             
         }
-        alert(ajaxDiv);
         var nomeClinica = $('#nomeClinicaFormRicercaCliniche').val().toLowerCase().trim();;
         var luogoClinica = $('#luogoClinicaFormRicercaCliniche').val().toLowerCase().trim();;
         var datiPOST = {nome:nomeClinica, luogo:luogoClinica};

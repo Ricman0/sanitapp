@@ -220,7 +220,6 @@ $(document).ready(function(){
         }
         else
         {
-            alert('a');
             validazioneModificaClinica();
         }
     });

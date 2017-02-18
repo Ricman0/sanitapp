@@ -481,7 +481,7 @@ $(document).ready(function () {
             },
             error: function ()
             {
-                alert("Sbagliato click ");
+                alert("click sbagliato ");
             }
         });
     });
@@ -950,39 +950,7 @@ function agendaViewDisplay(view, element)
 //                        var endDayAgenda = Date.parse(endDayAgendaString);
                         var endDayAgenda = moment(endDayAgendaString, 'YYYY-MM-DD hh:mm:ss');
                         var dataEOraEnd = moment(dataEOraEndString, 'YYYY-MM-DD hh:mm');
-//                        if(navigator.appName == 'Microsoft Internet Explorer')
-//                        {
-//                            alert('microsoft');
-//                            if (startDayAgenda.isBefore(dataEOraStart, 'minute')) 
-//                            {
-//                                var periodoNonDisponibile = {
-//                                    'title': 'CLINICA CHIUSA',
-//                                    'start': startDayAgendaString,
-//                                    'end': dataEOraStartString,
-//                                    'allDay': false,
-//                                    'color': 'grey'
-//                                };
-//                                $('#agenda').fullCalendar('addEventSource', periodoNonDisponibile);
-//                            }
-//                           
-//                             if (endDayAgenda.isAfter(dataEOraEnd, 'minute')) // se il termine del calendario è > dell'orario di chiusura della clinica allora aggiungo un nuovo periodo non disponibile  
-//                            {
-//                                var periodoNonDisponibile = {
-//                                    'title': 'CLINICA CHIUSA',
-//                                    'start': endDayAgendaString,
-//                                    'end': dataEOraEndString,
-//                                    'allDay': false,
-//                                    'color': '#BEBEBE'
-//                                };
-//                                $('#agenda').fullCalendar('addEventSource', periodoNonDisponibile);
-//                            }
-//                            
-//                        }
-//                        else
-//                        {
-//                            alert('altro');
-                            
-//                            if (startDayAgenda < dataEOraStart)  // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
+                         // se lo start del calendario è < dell'ora di inzio del giorno lavorativo, allora quel tempo è non disponibile quindi aggiungo un altro periodo non disponibile
                             if (startDayAgenda.isBefore(dataEOraStart, 'minute')) 
                             {
                                 //                        agendaView.calendar.options.minTime
@@ -1079,7 +1047,6 @@ function agendaEventClick(event, jsEvent, view)
                     if(datiRisposta != 'FALSE' )
                     {
                         var risposta = JSON.parse(datiRisposta);
-                        alert(risposta['Eseguito']);
                         event.eseguito = risposta['Eseguito'];
                     }
                 }
@@ -1117,7 +1084,6 @@ function agendaEventClick(event, jsEvent, view)
     });
     
     $('.modificaNonEseguito').on('click', function () {
-        alert('click');
         // apro un'altra finestra
         $('#contenutoAreaPersonale').append("<div id='altroContenutoEventoNonEseguito' title='Dettaglio evento'><div id='nonEseguito'></div>");
         $('#nonEseguito').append('<p>Per modificare la prenotazione in prenotazione non eseguita, clicca su Non Eseguita</p>');
@@ -1156,7 +1122,6 @@ function agendaEventClick(event, jsEvent, view)
                     
                             
 //                    $("#altroContenutoEventoNonEseguito").dialog('close');
-//alert('Prenotazione non eseguita errore'); 
                                   
                         }
                         $("#altroContenutoEventoNonEseguito").remove();
@@ -1176,7 +1141,6 @@ function agendaEventClick(event, jsEvent, view)
     
     $('.modificaEseguito').on('click', function () {
         // apro un'altra finestra
-         alert('clickdddd');
         $('#contenutoAreaPersonale').append("<div id='altroContenutoEvento' title='Dettaglio evento'><div id='eseguito'></div>");
         $('#eseguito').append('<p>Per modificare la prenotazione in prenotazione eseguita, clicca su Eseguita</p>');
         $("#altroContenutoEvento").dialog({ 

@@ -322,41 +322,7 @@ function prenotazione(controller, task, id, codiceFiscale, ajaxDiv)
                  
                 $("#divAggiungiPrenotazione").prepend("<h3 class='daEliminare'>AGGIUNGI UNA PRENOTAZIONE</h3><hr class='daEliminare'><br class='daEliminare'>");                             
                 validazioneCodiceFiscale();
-                
-
-
             }
-            
-//             $( "#calendarioPrenotazioneEsame .selector" ).datepicker( "dialog", "15/10/2015" );
-           
-
-
- 
-//            $.getJSON({
-//                
-//            })
-//            $("#calendarioPrenotazioneEsame").fullCalendar({
-//                header:{
-//                    left: '',
-//                    center: 'title',
-//                    right:'today prev, next, '
-//                }
-////                events: {
-////                url: '/myfeed.php',
-////                type: 'POST',
-////                data: {
-////                    custom_param1: 'something',
-////                    custom_param2: 'somethingelse'
-////                },
-////                error: function() {
-////                    alert('there was an error while fetching events!');
-////                },
-////                color: 'yellow',   // a non-ajax option
-////                textColor: 'black' // a non-ajax option
-//        }
-//
-//    });  
-        
         },
         error:function()
         {
@@ -404,16 +370,7 @@ function disabilitaGiorniNonLavorativi(date, giorniNonLavorativi)
             disabilitato = false; // imposto a false la variabile disabilitato in questo modo la funzione tornerà false e disabiliterà il giorno sul datepicker
             return false; // avendo trovato il giorno da disabilitare, esco dal ciclo each con return false
         }
-        
-//if(key === giornoData)
-//            {
-//                alert(giornoData + key );
-//                return [false] ; 
-//            }
-//        else
-//            {
-//                return[true];
-//            }           
+            
         });
         return disabilitato;
 }
@@ -434,7 +391,6 @@ function getGiorniNonLavorativiClinica(partitaIVAClinica)
 //        dataType: "json",
         success:function(datiRisposta)
         {        
-//            alert(datiRisposta);
             try{
                 giorniNonLavorativi = JSON.parse(datiRisposta);
             }
