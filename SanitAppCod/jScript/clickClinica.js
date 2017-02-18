@@ -26,6 +26,7 @@ $(document).ready(function () {
             slotLabelFormat: 'HH:mm',
             slotEventOverlap:true,
             timeFormat: 'HH:mm',
+            timezone: "local",
             theme: true,
             defaultView: 'agendaDay',
             minTime: "00:00:00",
@@ -820,7 +821,7 @@ function agendaViewDisplay(view, element)
                                 'title': 'CLINICA CHIUSA',
                                 'start': currDateStartString,
                                 'end': currDateStartString,
-                                'allDay': true,
+//                                'allDay': true,
                                 'className': 'periodoNonDisponibile',
 //                                'color': 'light-grey',
 //                                'color': '#BEBEBE',
@@ -860,6 +861,7 @@ function agendaViewDisplay(view, element)
                     var currDateEnd = moment(agendaView.end); //clono l'ultimo giorno visibile della view ed è una proprietà del View Object
                     while(currDateStart.isBefore(currDateEnd, 'day'))
                     {
+                        var togliGiorno= true;
                         $.each(datiRisposta.workingPlan, function (index, workingDay) {
                             var currDateStartString = currDateStart.format('YYYY-MM-DD');
                             if (workingDay === null) {
@@ -868,7 +870,7 @@ function agendaViewDisplay(view, element)
                                     'title': 'CLINICA CHIUSA',
                                     'start': currDateStartString,
                                     'end': currDateStartString,
-                                    'allDay': true,
+//                                    'allDay': true,
                                     'className': 'periodoNonDisponibile',
 //                                    'color': 'light-grey',
 //                                    'color': '#BEBEBE',
@@ -897,10 +899,17 @@ function agendaViewDisplay(view, element)
                                     pauseAgenda.push(pausa);
 //                                    $('#agenda').fullCalendar('renderEvent', pausa, false);
                                 }
+                                else
+                                {
+                                   togliGiorno=false; 
+                                }
                             }
                             currDateStart.add(1, 'days'); // aggiungo un giorno alla giornata di inizio
-                        });         
+                        });     
+                        if(togliGiorno)
+                        {
                             currDateStart.add(-1, 'days'); // aggiungo un giorno alla giornata di inizio
+                        }
                     }
                     $('#agenda').fullCalendar('addEventSource', periodiNonDisponibiliAgenda);
                     $('#agenda').fullCalendar('addEventSource', pauseAgenda);
@@ -1049,7 +1058,7 @@ function agendaEventClick(event, jsEvent, view)
    switch(event.title) 
    {
         case 'CLINICA CHIUSA':
-            var descrizione = "<p>La clinica resterà chiusa tutta la giornata</p>";
+            var descrizione = "<p>La clinica resterà chiusa tutta la giornata.</p>";
             $("#infoEvento").append(descrizione);
             title = event.title;
             break;

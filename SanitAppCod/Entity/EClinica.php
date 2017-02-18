@@ -147,13 +147,12 @@ class EClinica extends EUser {
             $this->_capitaleSociale = $capitaleSociale;
                 if(!isset($workingPlan))
                 {
-                    $this->_workingPlan ='{"Lunedi":NULL,"Martedi":NULL,"Mercoledi":NULL,"Giovedi":NULL,"Venerdi":NULL,"Sabato":NULL,"Domenica":NULL}';
+                    $this->_workingPlan ='{"Lunedi":null,"Martedi":null,"Mercoledi":null,"Giovedi":null,"Venerdi":null,"Sabato":null,"Domenica":null}';
                 }
                 else
                 {
                     $this->_workingPlan = $workingPlan;
                 }
-            
             $this->_validato = $validato;
             $this->_esami = Array();
             $this->_prenotazioni = Array();
