@@ -1,0 +1,133 @@
+# # av:php5-engine
+AddHandler av-php56 .php
+
+<IfModule mod_rewrite.c>
+
+  RewriteEngine On
+  #RewriteCond %{HTTP_HOST} ^www.sanitapp.altervista.org$ [OR] 
+  #RewriteCond %{HTTP_HOST} ^sanitapp.altervista.org$ 
+#Specificare una homepage predefinita (index page) 
+  DirectoryIndex index.php 
+  RewriteBase /
+
+  #imposto il fuso orario (TimeZone) 
+  SetEnv TZ Europe/Rome
+
+  # comprimere testo, html, javascript, css, xml per ottimizzare i tempi di caricamento
+#  AddOutputFilterByType DEFLATE text/html
+#  AddOutputFilterByType DEFLATE text/css
+#  AddOutputFilterByType DEFLATE application/x-javascript
+#  AddOutputFilterByType DEFLATE application/javascript
+
+#
+#RewriteCond %{SERVER_PORT} 80 
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# evitare di iniettare del codice php con il metodo proc/self/environ.
+#evitare di permettere di trasformare una LFI (Inclusione di file locali,  
+#vulnerabilitÃ  che permette allâ€™attaccante di includere in una pagina,
+# un secondo file facente parte del sistema remoto in questione.) in RCE (Esecuzione 
+#di codice da remoto, una vulnerabilitÃ  che, per lâ€™appunto, permette ad un 
+#attaccante di eseguire codice arbitrario sulla macchina vittima.) tramite /PROC/SELF/ENVIRON.
+#http://hacktivhate.altervista.org/blag/trasformare-lfi-rce-tramite-proc-self-environ/
+#http://d1966.blogspot.it/2012/10/iniettare-codice-php-metodo.html
+#RewriteCond %{QUERY_STRING} proc/self/environ [OR] 
+
+# Block out any script trying to set a mosConfig value through the URL
+#Deny access to http://example.com/page?query_string if query_string contains the string foo. 
+RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|\%3D) [OR] 
+
+# Block out any script trying to base64_encode crap to send via URL 
+RewriteCond %{QUERY_STRING} base64_encode.*(.*) [OR] 
+
+# Block out any script that includes a <script> tag in URL 
+#NC = no case sensitive 
+RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR] 
+
+# Block out any script trying to set a PHP GLOBALS variable via URL 
+RewriteCond %{QUERY_STRING} GLOBALS(=|[|\%[0-9A-Z]{0,2}) [OR] 
+
+# Block out any script trying to modify a _REQUEST variable via URL 
+RewriteCond %{QUERY_STRING} _REQUEST(=|[|\%[0-9A-Z]{0,2}) 
+
+# Send all blocked request to homepage with 403 Forbidden error
+#RewriteRule ^(.*)$ index.php [F,L]
+
+# impedisce lâ€™accesso ad utenti esterni al file .htaccess
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+# disabilita la visualizzazione della cartella
+#impedire al server di mostrare lâ€™indice dei files presenti nelle cartelle del server web.
+Options All -Indexes
+
+# proteggi le cartelle disabilitando l'esecuzione di script
+#AddHandler cgi-script .php .pl .py .jsp .asp .htm .shtml .sh .cgi
+#Options -ExecCGI
+
+#
+  RewriteCond %{REQUEST_METHOD} GET
+  RewriteRule ^(agenda)/(visualizza)$ index.php?controller=$1&task=$2 [L] 
+  RewriteRule ^(categorie)/(visualizza)$ index.php?controller=$1&task=$2 [L] 
+  RewriteRule ^(clienti)/(visualizza)/([[:alnum:]]{16})$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(impostazioni)/(giorniNonLavorativi)/(\w+)$ index.php?controller=$1&task=$2&clinica=$3 [L]
+  RewriteRule ^(impostazioni)/(giorniNonLavorativi)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&clinica=$3 [L]
+  RewriteRule ^(impostazioni)/(visualizza)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(impostazioni)/(generali|workingPlan|clinica)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
+  RewriteRule ^(impostazioni)/(modifica)/(informazioni|medico|alboNum|credenziali)?$ index.php?controller=$1&task=$2&task2=$3 [L]
+  RewriteRule ^(pazienti)/(aggiungi)$ index.php?controller=$1&task=$2 [L]  
+  RewriteRule ^(prenotazione)/(conferma|modifica)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]  
+  RewriteRule ^(prenotazione)/(esame|ricerca)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]  
+  RewriteRule ^(prenotazioni|pazienti|referti|clienti)/(aggiungi|visualizza)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(prenotazioni|servizi|pazienti|esami)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+#RewriteRule ^(pazienti)/(visualizza)/([[:alnum:]]{16})?$ index.php?controller=$1&task=$2&id=$3 [L]  
+  RewriteRule ^(prenotazioni|referti|impostazioni)/(visualizza)$ index.php?controller=$1&task=$2 [L]   
+  RewriteRule ^(esami|cliniche)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(recuperaPassword|logOut|info|contatti|privacyPolicy|terminiServizio)$ index.php?controller=$1 [L]
+  RewriteRule ^(registrazione)/(clinica|medico|utente)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(ricerca)/(utente)/(\w+)$ index.php?controller=$1&task=$2&codice=$3 [L]  
+  RewriteRule ^(ricercaCliniche|ricercaEsami|categorie|autenticazione|mySanitApp)$ index.php?controller=$1 [L]
+  RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]  
+  RewriteRule ^(users)/(visualizza|bloccati|daValidare|medico)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(users|usersBloccati|usersDaValidare)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(referti)/(aggiungi|visualizza|download)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(prenotazione)/(\w+)/(\w+)/(\w+)/([\d-]+)?$ index.php?controller=$1&clinica=$2&id=$3&giorno=$4&data=$5 [L]
+    #RewriteRule ^(servizi)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+
+#RewriteRule ^(registrazione)/(conferma)/([[:alnum:]]+)/([[:alnum:]]{32})$ index.php?controller=$1&task=$2&username=$3&id=$4 [L]
+RewriteRule ^(esami)/(\w+)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=$4 [L]
+  RewriteRule ^(esami)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=all [L]
+  RewriteRule ^(esami)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all&parametro3=all [L]
+  RewriteRule ^(esami)$ index.php?controller=$1&parametro1=all&parametro2=all&parametro3=all [L]
+  
+  RewriteRule ^(cliniche)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3 [L]
+  RewriteRule ^(cliniche)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all [L]
+  RewriteRule ^(cliniche)$ index.php?controller=$1&parametro1=all&parametro2=all [L]
+ RewriteRule ^(\w+)?$ index.php?controller=$1
+  
+  
+    RewriteCond %{REQUEST_METHOD} POST
+    RewriteRule ^(registrazione)/(utente|medico|clinica|conferma)$ index.php?controller=$1&task=$2 [L] 
+    RewriteRule ^(ricerca)/(codice)/(utente|medico)$ index.php?controller=$1&task=$2&tipoUser=$3 [L]
+    RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)$ index.php?controller=$1&task=$2 [L]
+    RewriteRule ^(recuperaPassword|autenticazione)$ index.php?controller=$1 [L]
+    RewriteRule ^(cliniche|esami|agenda)$ index.php?controller=$1 [L]
+    RewriteRule ^(categorie)/(aggiungi|elimina)$ index.php?controller=$1&task=$2 [L]
+    RewriteRule ^(users)/(blocca|sblocca|valida|conferma|elimina|modifica)$ index.php?controller=$1&task=$2 [L]
+    RewriteRule ^(referto)/(elimina|upload|condividi)$ index.php?controller=$1&task=$2 [L]  
+    RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
+    RewriteRule ^(impostazioni)/(modifica)/(informazioni|medico|alboNum|credenziali)$ index.php?controller=$1&task=$2&task2=$3 [L]
+    RewriteRule ^(impostazioni)/(clinica)/(workingPlan|credenziali|informazioni)$ index.php?controller=$1&task=$2&task2=$3 [L]
+    RewriteRule ^(servizi)/(modifica|elimina)$ index.php?controller=$1&task=$2 [L]
+    RewriteRule ^(prenotazione)/(riepilogo|conferma|elimina|modifica)$ index.php?controller=$1&task=$2 [L]
+    RewriteRule ^(prenotazione)/(conferma)/(modifica)$ index.php?controller=$1&task=$2&id=$3 [L]
+    
+
+   RewriteRule ^(\w+)/(\w+)/(\w+)?$ index.php
+    RewriteRule ^(\w+)/(\w+)?$ index.php
+    RewriteRule ^(\w+)?$ index.php
+    
+</IfModule>

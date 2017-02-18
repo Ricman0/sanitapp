@@ -1,0 +1,86 @@
+
+/* 
+    Created on : 15-lug-2016, 8.02.22
+    Author     : Claudia Di Marco & Riccardo Mantini
+*/
+
+.informazioniClinica div, .indirizzoClinica div, .autenticazione div, .orario div, .submit {
+    display: flex;
+    justify-content: center;
+}
+
+div label {
+    line-height: 50px;
+}
+
+.submit input{
+    background-color: rgb(11, 190, 210);
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    color: #ffffff;
+    height: 40px;
+    width: 100px;
+    position: relative;
+    right: 55px;
+}
+
+.nomeClinica {
+    position: relative;
+    right: 21px;
+}
+
+.titolare {
+    position: relative;
+    right: 14px;
+}
+
+.PEC {
+    position: relative;
+    right: 27px;
+}
+
+.telefono {
+    position: relative;
+    right: 9px;
+}
+
+.capitaleSociale {
+    position: relative;
+    right: -22px;
+}
+
+.indirizzo {
+    position: relative;
+    right: 8px;
+}
+
+.numeroCivicoClinica {
+    position: relative;
+    right: -17px;
+}
+
+.CAP {
+    position: relative;
+    right: 25px;
+}
+
+.orarioAperturaMattina {
+    position: relative;
+    right: -57px;
+}
+
+.orarioAperturaPomeriggio {
+    position: relative;
+    right: -72px;
+}
+
+.orarioChiusuraMattina {
+    position: relative;
+    right: -58px;
+}
+
+.orarioChiusuraPomeriggio {
+    position: relative;
+    right: -72px;
+}

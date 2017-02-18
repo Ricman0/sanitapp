@@ -1,0 +1,90 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14-lug-2016, 15.40.22
+    Author     : Claudia Di Marco & Riccardo Mantini
+*/
+
+
+/*
+.informazioni div,.indirizzo div , .accesso div, .submit input {
+    justify-content: baseline;
+    display: flex;
+    margin-left: 500px;
+}*/
+
+.informazioni div, .indirizzo div, .accesso div, .submit {
+    display: flex;
+    justify-content: center;
+}
+div label {
+    position: relative;
+    right: 10px;
+    top: 17px;
+}
+.nome {
+    position: relative;
+    right: 33px;
+}
+
+#indirizzo {
+    position: relative;
+    right: 21px;
+}
+
+#labelIndirizzo {
+    position: relative;
+    right: 32px;
+}
+
+.CAP {
+    position: relative;
+    right: 43px;
+}
+
+.email {
+    position: relative;
+    right: 35px;
+}
+.cognome {
+    position: relative;
+    right: 19px;
+}
+
+.password {
+    position: relative;
+    right: 20px;
+}
+
+div label {
+    position: relative;
+    right: 10px;
+    top: 17px;
+}
+.submit input {
+    background-color: rgb(11, 190, 210);
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    color: #ffffff;
+    height: 40px;
+    width: 100px;
+    position: relative;
+    right: 55px;
+}
+
+/*
+.infomazioni div > input 
+{
+    padding:8px;
+    border: 1px solid #E5E5E5;
+    width: 200px;
+    color: black;
+    box-shadow: rga(0, 0, 0, 0.1) 0px 0px 8px;
+    -moz-box-shadow: rga(0, 0, 0, 0.1)0px 0px 8px;
+    -webkit-box-shadow: rga(0, 0, 0, 0.1) 0px 0px 8px; 
+}
+*/
