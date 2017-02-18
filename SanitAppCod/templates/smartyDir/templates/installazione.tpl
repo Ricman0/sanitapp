@@ -7,7 +7,6 @@
         <link rel="stylesheet" type="text/css" href="./Css/logo.css">
         <link rel="icon" href="./Immagini/favicon.ico" />
 
-        <link rel="stylesheet" type="text/css" href="./Css/footer.css">
         <link rel="stylesheet" type="text/css" href="./plugins/jquery-ui/jquery-ui.min.css"/>
 
         <script type="text/javascript" src="./plugins/jquery-1.12.4.js"></script>
@@ -15,7 +14,8 @@
         <script type="text/javascript" src="./plugins/jquery-ui/datepicker-it.js"></script>        
         <script type="text/javascript" src="./plugins/jquery.validate.js"></script>
 
-        <script type="text/javascript" src="./jScript/eventi_click.js"></script>
+        <script type="text/javascript" src="./jScript/funzioniGeneriche.js"></script>
+        <script type="text/javascript" src="./jScript/clickHomePage.js"></script>
         <script type="text/javascript" src="./jScript/validazioneSetup.js"></script>
 
     </head>

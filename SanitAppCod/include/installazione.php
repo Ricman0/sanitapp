@@ -106,3 +106,4 @@ class Config {
         $this->smartyConfig['cache_dir'] = $dir . '/templates/smartyDir/cache/';
     }
     
+    

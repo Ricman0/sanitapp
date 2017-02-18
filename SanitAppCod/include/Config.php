@@ -1,4 +1,5 @@
 <?php
+
 /**
  * La classe Config si occupa della configurazione.
  *
@@ -9,7 +10,7 @@
     
 // in __DIR__ è contenuta il percorso della cartella che contiene il file ma Autoloder.php non si trova in include ma in libs 
 // per questo bisogna eliminare include dal path
-$dir = explode(DIRECTORY_SEPARATOR, __DIR__); // tutte le parole che conpongono il path vengono memorizzate in un elemento dell'array $dir
+$dir = explode(DIRECTORY_SEPARATOR, __DIR__); // tutte le parole che compongono il path vengono memorizzate in un elemento dell'array $dir
 array_pop($dir);// elimino l'ultimo elemento (ovvero la parola include)
 $dir = implode(DIRECTORY_SEPARATOR, $dir);// riassemblo il path
 require_once ($dir . '/libs/smartyLib/Autoloader.php');
@@ -37,10 +38,7 @@ class Config {
     private $emailConfig;
 
     /**
-     * Construttore di Config.
-     * Inizializza gli array necessari per la configurazione.
-     * 
-     * @access public
+     * Inizializza gli array necessari per la configurazione
      */
     public function __construct() 
     {
@@ -65,7 +63,7 @@ class Config {
     
     /**
      * Metodo che restituisce un array contenente il necessario per la 
-     * configurazione del database.
+     * configurazione del database
      * 
      * @access public
      * @return array Array associativo: come chiavi username, password, host, dbname
@@ -77,7 +75,7 @@ class Config {
     }
     /**
      * Metodo che restituisce un array contenente il necessario per la 
-     * configurazione di PHPMailer.
+     * configurazione di PHPMailer
      * 
      * @access public
      * @return array L'array contenente come chiavi header, host, SMTPSecure, 
@@ -90,7 +88,7 @@ class Config {
     }
 
     /**
-     * Metodo utilizza per modificare la configurazione di Smarty.
+     * Metodo utilizza per modificare la configurazione di Smarty
      * 
      * @access private
      */
@@ -107,50 +105,24 @@ class Config {
         $this->smartyConfig['config_dir'] = $dir . '/templates/smartyDir/configs/';
         $this->smartyConfig['cache_dir'] = $dir . '/templates/smartyDir/cache/';
     }
-
-//TRONCARE QUI (NON INSERIRE PARENTESI) SERVE PER L'INIZIALIZZAZIONE DEL FILE CONF
-
-    /**
-     * Metodo utilizza per modificare la configurazione del database.
-     * 
-     * @access private
-     */
-    private function setDBConfig() 
-    {
-        //ricontrollare
-        $this->dbConfig['username'] = 'root';
-        $this->dbConfig['password'] = 'pippo';
-        $this->dbConfig['host'] = 'localhost';
-        $this->dbConfig['dbname'] = 'SanitApp';
-    }
     
-    /**
-     * Metodo utilizza per modificare la configurazione di PHPMailer.
-     * 
-     * @access private
-     */
-    private function setEmailConfig() 
-    {
-        // da ricontrollare quando inseriremo UMail
-        $this->emailConfig['header'] = 'From:SanitApp <sanitapp@site.com>';
-        
-        /*
-         * This sets up STMP-Server as method to send out email(s).
-         * Host = "smtp.example.com"; 
-         * Setting smtp.example.com as the SMTP server. 
-         * Just replace it with your own SMTP server address. 
-         * You can even specify more then one: just separate them with a 
-         * semicolon (;): "smtp.example.com;smtp2.example.com".
-         *  If the first one fails, the second one will be used, instead.
-         */
-        $this->emailConfig['host'] = 'smtp.live.com';// da inserire
-        $this->emailConfig['SMTPSecure'] = 'tls';
-        $this->emailConfig['port'] = 587;
-        $this->emailConfig['SMTPAuth'] = TRUE;
-        $this->emailConfig['username'] = 'onizuka-89@hotmail.it';// da inserire
-        $this->emailConfig['password'] = 'viadelcarmine31';// da inserire
-        $this->emailConfig['from'] = 'onizuka-89@hotmail.it'; // da cambiare
-        $this->emailConfig['fromname'] = 'SanitApp';
-    }
+    
+ private function setDBConfig() {
+$this->dbConfig['username'] ='root';
+$this->dbConfig['password'] ='pippo';
+$this->dbConfig['host'] ='localhost';
+$this->dbConfig['dbname'] ='sanitapp';
 }
 
+ private function setEmailConfig(){
+$this->emailConfig['header']= 'From:SanitApp <sanitapp@site.com>';
+$this->emailConfig['host']='smtp.live.com';
+$this->emailConfig['SMTPSecure']='tls';
+$this->emailConfig['port']=587;
+$this->emailConfig['SMTPAuth']=TRUE;
+$this->emailConfig['username']='onizuka-89@hotmail.it';
+$this->emailConfig['password']='viadelcarmine31';
+$this->emailConfig['from']='onizuka-89@hotmail.it';
+$this->emailConfig['fromname']='SanitApp';
+}
+}

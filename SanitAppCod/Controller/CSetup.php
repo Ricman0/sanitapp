@@ -44,7 +44,7 @@ class CSetup {
                     }
                 } else {
                     $datiValidi = $validazione->getDatiValidi();
-                    $view->restituisciFormInstallazione($datiValidi);
+                    $view->restituisciFormInstallazione($datiValidi, 'Dati non validi');
                 }
 
                 break;
@@ -64,22 +64,22 @@ class CSetup {
 
         $file = fopen('./include/installazione.php', 'r+');
         fread($file, filesize('./include/installazione.php') - 2);
-        $metodo_set = "private function setDBconfig() {\n" .
-                "$" . "this->dbconfig['username'] ='" . $this->_datiSetup['userDb'] . "';\n" .
-                "$" . "this->dbconfig['password'] ='" . $this->_datiSetup['passwordDb'] . "';\n" .
-                "$" . "this->dbconfig['host'] ='" . $this->_datiSetup['host'] . "';\n" .
-                "$" . "this->dbconfig['dbname'] ='sanitapp';\n" .
+        $metodo_set = "\n private function setDBConfig() {\n" .
+                "$" . "this->dbConfig['username'] ='" . $this->_datiSetup['userDb'] . "';\n" .
+                "$" . "this->dbConfig['password'] ='" . $this->_datiSetup['passwordDb'] . "';\n" .
+                "$" . "this->dbConfig['host'] ='" . $this->_datiSetup['host'] . "';\n" .
+                "$" . "this->dbConfig['dbname'] ='sanitapp';\n" .
                 "}\n" .
                 "\n private function setEmailConfig(){\n" .
-                "$" . "this->emailconfig['header']= 'From:SanitApp <sanitapp@site.com>';\n" .
-                "$" . "this->emailconfig['host']='" . $this->_datiSetup['smtp'] . "';\n" .
-                "$" . "this->emailconfig['SMTPSecure']='tls';\n" .
-                "$" . "this->emailconfig['port']=587;\n" .
-                "$" . "this->emailconfig['SMTPAuth']=TRUE;\n" .
-                "$" . "this->emailconfig['username']='" . $this->_datiSetup['email'] . "';\n" .
-                "$" . "this->emailconfig['password']='" . $this->_datiSetup['passwordEmail'] . "';\n" .
-                "$" . "this->emailconfig['from']='" . $this->_datiSetup['email'] . "';\n" .
-                "$" . "this->emailconfig['fromname']='SanitApp';\n" .
+                "$" . "this->emailConfig['header']= 'From:SanitApp <sanitapp@site.com>';\n" .
+                "$" . "this->emailConfig['host']='" . $this->_datiSetup['smtp'] . "';\n" .
+                "$" . "this->emailConfig['SMTPSecure']='tls';\n" .
+                "$" . "this->emailConfig['port']=587;\n" .
+                "$" . "this->emailConfig['SMTPAuth']=TRUE;\n" .
+                "$" . "this->emailConfig['username']='" . $this->_datiSetup['email'] . "';\n" .
+                "$" . "this->emailConfig['password']='" . $this->_datiSetup['passwordEmail'] . "';\n" .
+                "$" . "this->emailConfig['from']='" . $this->_datiSetup['email'] . "';\n" .
+                "$" . "this->emailConfig['fromname']='SanitApp';\n" .
                 "}\n" .
                 "}";
 
@@ -94,7 +94,7 @@ class CSetup {
  * @return bool TRUE on success, FALSE altrimenti
  */
     public function inserisciAdmin() {
-        $conn = new mysqli($this->_datiSetup['host'], $this->_datiSetup['userDb'], $this->_datiSetup['passwordDb'], 'sanitapp2');
+        $conn = new mysqli($this->_datiSetup['host'], $this->_datiSetup['userDb'], $this->_datiSetup['passwordDb'], 'sanitapp');
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);

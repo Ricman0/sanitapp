@@ -146,6 +146,15 @@ class UValidazione {
                     $stringaErrore = "L'" . $chiave . " deve essere una sequenza di caratteri. Massimo 30";
                     break;
                 
+                case 'passwordDb':
+                case 'passwordEmail':
+                case 'userDb':
+                case 'host':
+                case 'smtp':
+                    $pattern = '/^.*$/' ;
+                    $stringaErrore = "L'" . $chiave . " deve essere una sequenza di caratteri.";
+                    break;
+                
                 case 'numeroCivico':
                 case 'NumCivico':
                     $pattern = '/^[0-9]{1,6}$/';

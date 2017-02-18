@@ -95,8 +95,6 @@ CREATE TABLE amministratore (
   FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO amministratore (IdAmministratore, Username, Nome, Cognome, Telefono) VALUES (NULL, 'ricla', 'Riccardo', 'Claudia', '0858279642');
-
 -- --------------------------------------------------------
 
 --
