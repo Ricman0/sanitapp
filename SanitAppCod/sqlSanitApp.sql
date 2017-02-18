@@ -46,6 +46,8 @@ INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, Codic
 -- ('claudim', '$2y$10$tXDgXrJ8bw5zL0miqTle0.ji25mTIG.OvQ7NlnNLRzId4g8mrL2PC', 'claudimarco@hotmail.it', 'clau@dim.pec.it',FALSE,TRUE, 'cwjwjhrf', 'medico'),
 -- ('ricman', '$2y$10$XPh.cbdQCFT.xNzZVYdUee/ofH1K8wDQkEj1VtCrQgY2sW8C0YHOW', 'onizuka-89@hotmail.it', NULL,FALSE,TRUE, 'cjdjdehahah', 'utente'),
 ('ricla', '$2y$10$PVNVAf5wFfLJSHB/PBv2COam15ec7HJ4OlSeMVTzvo6WxboR/SID6', 'mantini.riccardo@gmail.com', NULL,FALSE,TRUE, 'cjdjdehahag', 'amministratore'),
+('semprein', '$2y$10$/NJZob1aHIH0z1/Rsrqdgup5OPftgE2YXlLxrXH1TGs.KBt89dRpm', 'sempre@informakj.it', 'sempreinforma@pec.it', FALSE, TRUE, '3dd81934c69eac48d193f4c5c9d6eb0b', 'clinica'),
+('contro', '$2y$10$ww51LBgK5LpK7OQ30OA3h.0DemdJ3OWoMEulN0qmPff51clbFAV5i', 'controllati@khy.it', 'infocontrollati@pec.it', FALSE, TRUE, 'c567cf850592f3ac71f5fcc1ba132a40', 'clinica'),
 ('claudim', '$2y$10$4A54BVonrOOOkM7O5SKWb.OaRUVW2EINjHuz6a5fD2OIDYn7t7eMW', 'claudimarco@hotmail.it', 'claudimarco@hotmail.it', FALSE, TRUE, '30c4c0a8eb9f1e5bed37984c53630b67', 'medico');
 -- ('annadima', '$2y$10$q40th0aKO8zCM5yENXm2q.HNvhIAMf/9hLQUNRljgtGZp9ESUsI3m', 'annadima@alice.it',NULL,FALSE,TRUE, 'annasjdjdhdhrf', 'utente'),
 -- ('annadimatteo', '$2y$10$q40th0aKO8zCM5yENXm2q.HNvhIAMf/9hLQUNRljgtGZp9ESUsI3m', 'annadima@aliceyjyjyjjg.it',NULL,FALSE,TRUE, 'annasjdjdhdhsjjsjjsrf', 'medico');
@@ -119,10 +121,12 @@ ALTER TABLE clinica ADD FULLTEXT INDEX fullTextCAPClinica(CAP);
 
 INSERT INTO clinica (PartitaIVA, NomeClinica, Titolare, Via, NumCivico, CAP, Localita,
 Provincia, Regione, Username, Telefono, CapitaleSociale, WorkingPlan, Validato) VALUES
-('01200304050', 'Appignano', 'Riccardo', 'Del Carmine', 2, '65017', 'Penne', 'Pescara', 'Abruzzo', 'appi',  '0851111111', 10000,
-'{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}', TRUE),
-('00123004600', 'Bisenti', 'Lucio', 'Del Corso', 87, '65017','Penne', 'Pescara' , 'Abruzzo', 'bise', '0852222222', 126780,   
-'{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null,"tempoLimite":""}',TRUE);
+('01200304050', 'Appignano', 'Riccardo', 'Del Carmine', 2, '65017', 'Penne', 'PESCARA', 'ABRUZZO', 'appi',  '0851111111', 10000,
+'{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null}', TRUE),
+('00123004600', 'Bisenti', 'Lucio', 'Del Corso', 87, '65017','Penne', 'PESCARA' , 'ABRUZZO', 'bise', '0852222222', 126780,   
+'{"Lunedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Martedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Mercoledi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Giovedi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Venerdi":{"Start":"09:00","End":"18:00","BreakStart":"13:00","BreakEnd":"14:00"},"Sabato":null,"Domenica":null}',TRUE),
+('12300987667', 'SempreInForma', 'Antonio Ferri', 'Via Ravizza', 23, '20149', 'Milano', 'MILANO', 'LOMBARDIA', 'semprein', '0234356789', '12000', '{"Lunedi":null,"Martedi":null,"Mercoledi":null,"Giovedi":null,"Venerdi":null,"Sabato":null,"Domenica":null}', TRUE),
+('23400050660', 'Controllati', 'Mario Rossi', 'Via Camillo Benso Di Cavour', 12, '10123', 'Torino', 'TORINO', 'PIEMONTE', 'contro', '0112345678', '320000', '{"Lunedi":null,"Martedi":null,"Mercoledi":null,"Giovedi":null,"Venerdi":null,"Sabato":null,"Domenica":null}', TRUE);
 
 --
 -- Struttura della tabella `amministratore`

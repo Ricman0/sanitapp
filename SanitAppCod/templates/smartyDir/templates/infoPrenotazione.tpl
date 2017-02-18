@@ -34,7 +34,8 @@
                     Confermata 
                 {else} 
 
-                    Non Confermata  
+                    Non Confermata 
+                    <br>
                     <input type="button" id="confermaPrenotazioneUtente" value="Conferma Prenotazione" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
                 {/if}
             </div>
@@ -64,6 +65,7 @@
         <div>
             {if isset($idReferto)}
                 <span class="grassetto">CODICE REFERTO:  </span><span>{$idReferto}</span> 
+                <br>
                 <input type="button" id="scaricaRefertoButton" class="scaricaReferto" value="Scarica Referto" data-idPrenotazione="{$prenotazione->getIDPrenotazionePrenotazione()}" />
             {/if}
         </div> 

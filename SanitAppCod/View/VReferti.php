@@ -65,7 +65,6 @@ class VReferti extends View{
      * @param string $tipoUser Il tipo utente
      */
     public function visualizzaInfoReferto($referto, $prenotazione, $esame, $utente, $clinica, $tipoUser) {
-        
         $this->assegnaVariabiliTemplate('esame', $esame);
         $this->assegnaVariabiliTemplate('utente', $utente);
         $this->assegnaVariabiliTemplate('referto', $referto);

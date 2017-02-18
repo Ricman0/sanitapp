@@ -299,10 +299,10 @@ class CReferti {
                 }
             } 
             catch (XMedicoException $ex) {
-                $vReferti->visualizzaFeedback('Medico inestistente. Non è stato possibile recuperare i referti');
+                $vReferti->visualizzaFeedback('Medico inestistente. Non è stato possibile recuperare i referti.');
             }
             catch (XDBException $ex) {
-                $vReferti->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperare i referti");
+                $vReferti->visualizzaFeedback("C'è stato un errore. Non è stato possibile recuperare i referti.");
             } 
         }
         else 
@@ -313,22 +313,22 @@ class CReferti {
                 $eEsame = new EEsame($ePrenotazione->getIDEsamePrenotazione());
                 $eClinica = new EClinica(NULL, $eEsame->getPartitaIVAClinicaEsame());
                 $eUtente = new EUtente($ePrenotazione->getCodFiscaleUtenteEffettuaEsamePrenotazione());
-                $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, 'clinica');
+                $vReferti->visualizzaInfoReferto($eReferto, $ePrenotazione, $eEsame, $eUtente, $eClinica, 'medico');
             } 
             catch (XRefertoException $ex) {
                 $vReferti->visualizzaFeedback("Referto inesistente. Non è stato possibile recuperare il referto");
             }
             catch (XPrenotazioneException $ex) {
-                $vReferti->visualizzaFeedback("Prenotazione inesistente. Non è stato possibile recuperare le informazioni del referto");
+                $vReferti->visualizzaFeedback("Prenotazione inesistente. Non è stato possibile recuperare le informazioni del referto.");
             }
             catch (XEsameException $ex) {
-                $vReferti->visualizzaFeedback("Esame inesistente. Non è stato possibile recuperare le informazioni del referto");
+                $vReferti->visualizzaFeedback("Esame inesistente. Non è stato possibile recuperare le informazioni del referto.");
             }
             catch (XClinicaException $ex) {
-                $vReferti->visualizzaFeedback("Clinica inesistente. Non è stato possibile recuperare le informazioni del referto");
+                $vReferti->visualizzaFeedback("Clinica inesistente. Non è stato possibile recuperare le informazioni del referto.");
             }
             catch (XUtenteException $ex) {
-                $vReferti->visualizzaFeedback("Utente inesistente. Non è stato possibile recuperare le informazioni del referto");
+                $vReferti->visualizzaFeedback("Utente inesistente. Non è stato possibile recuperare le informazioni del referto.");
             }
         }
     }
