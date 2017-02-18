@@ -1,0 +1,101 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8-lug-2016, 15.18.38
+    Author     : Claudia Di Marco & Riccardo Mantini
+*/
+
+/*
+=========================
+======Contact Form=======
+=========================
+*/
+
+.formInserisci
+{
+    display:inline-block;
+}
+
+form+div
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+/*
+.formInserisci {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}*/
+
+label{
+    align-items: center;
+    padding-top:15px;
+}
+
+.submit input
+{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(11, 190, 210);
+    color:#FFFFFF;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+#inserisciUtente input
+{
+    width: 200px;
+    color: #999999;
+    box-shadow: rga(0, 0, 0, 0.1) 0px 0px 8px;
+    -moz-box-shadow: rga(0, 0, 0, 0.1)0px 0px 8px;
+    -webkit-box-shadow: rga(0, 0, 0, 0.1) 0px 0px 8px; 
+}
+
+#numeroCivico
+{
+    width: 50px;
+    height: 15px;
+}
+/*
+
+
+input:hover,input:focus
+{
+    border-color: 1px solid #C9C9C9;
+    box-shadow: rga(0, 0, 0, 0.2) 0px 0px 8px;
+    -moz-box-shadow: rga(0, 0, 0, 0.2) 0px 0px 8px;
+    -webkit-box-shadow: rga(0, 0, 0, 0.2) 0px 0px 8px;
+}
+
+input:invalid { 
+     border: 1px solid red;
+} 
+
+
+.formInserisci label
+{
+    margin-left: 10 px;
+    color:#999999;
+    padding: 50px 200px;
+    font-size: 16px;
+    font-style: Verdana, Tahoma, sans-serif;
+    margin-bottom: 20px;
+    color:black;
+    
+}
+/*
+=========================
+======Submit Button======
+=========================
+*/
+
+
+

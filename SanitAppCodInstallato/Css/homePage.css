@@ -1,0 +1,491 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+
+/* 
+    Created on : 11-giu-2016, 9.20.47
+    Author     : Claudia Di Marco & Riccardo Mantini
+*/
+
+/* css per i link */
+.link{
+    color: rgb(11, 190, 210);
+}
+
+/* css per toggle switch*/
+/*.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+ Rounded sliders 
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}*/
+
+/**
+Css per stampare le prenotazioni giornaliere
+*/
+#stampaPrenotazioni{
+    float: right!important;
+}
+
+@media print {
+  body * {
+    visibility: hidden; /* tutti gli elementi all'interno di body vengono nascosti*/
+  }
+  
+  #agenda, #agenda * {
+    visibility: visible; /*rendo visibile il div agenda e tutti gli elementi al suo interno*/
+  }
+  
+  #agenda {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+
+
+/* css per loading icon*/
+.loading{
+    margin: 15% auto;
+    /*display: none;*/
+    border: 10px solid #f3f3f3 ; /* Light grey oppure metto transparent */
+    border-top: 10px solid rgb(11, 190, 210);  /*con border top prendo solo il lato top del quadrato*/
+    border-radius: 50%; /* 25% dell'intero quadrato(div)  e lo rendo curvo */
+    width: 100px;
+    height: 100px;
+/*    animation-name: spin;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;*/
+   animation: spin 4s  linear infinite;
+   -webkit-animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+
+/*fine css per loading icon*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+span.grassetto {
+    font-weight: bold;
+}
+
+html,body{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    min-height: 600px;
+    min-width: 800px;
+    width: 100%;
+
+}
+
+fieldset.noBordo{
+    border: none;
+}
+
+.margine20{
+    margin: 20px !important;
+}
+
+.margine40{
+    margin: 40px !important;
+}
+
+#wrapper {
+    background-color: rgb(255, 255, 255);
+    font-family: Verdana,sans-serif;
+    text-decoration: none;
+    padding: 0;
+    margin:2px auto; 
+    text-align: center;
+    min-height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.header{
+
+    width: 100%;
+    height:7em; 
+    line-height:7em;
+    min-width: 800px;
+}
+
+.headerSottile{
+    width: 100%;
+    min-width: 800px;
+    line-height: 5em;
+    height: 5em;
+}
+
+#main{
+    /*padding: 10px 4% 30px 10%;*/
+    min-width: 970px;
+    min-height: 450px;
+    margin: auto;
+    width: 100%;
+    box-sizing: border-box;
+    
+}
+
+#footer{
+    position:relative;
+    bottom:0;
+    width:100%;
+    height:auto;   /* Height of the footer */
+    font-size: 12px;
+    color: #999999;
+    justify-content: center;
+    width: 100%;
+    border-top: solid ;
+    border-top-width: 1px;
+    border-top-color: #999999;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.copyright{
+    display: inline-block !important;
+}
+
+a{
+    cursor: pointer;
+    outline: none;
+}
+
+.ricerca{
+    margin: 10px 0px;
+}
+
+label.ricerca
+{
+    display:block;
+}
+
+form{
+    box-sizing: border-box;
+}
+
+.elementiForm{
+    margin: 10px;
+}
+label.elementiForm {
+    display: inline-block;
+    width: 16%;
+    min-width: 150px;
+}
+
+#refertoPath{
+  width: 50%;
+}
+
+.nuovaRiga{
+    display: block;
+}
+
+select.elementiForm, input.elementiForm {
+    display:inline;
+    font-size: 15px; 
+    padding:8px;
+    min-width: 200px;
+    width: 20%;
+    box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.1)0px 0px 8px;  
+}
+
+/*.upperCase{
+    text-transform: uppercase;
+}*/
+
+button, input[type = 'submit'], input[type='button']
+{
+    color:white;
+    background-color:rgb(11, 190, 210);
+    border-radius: 4px;
+    border:none;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+.tasti{
+font-family: Verdana,sans-serif, FontAwesome; 
+    text-align: center;
+    color:white;
+    background-color:rgb(11, 190, 210);
+    border-radius: 4px;
+    border:none;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    margin: 20px auto;
+    cursor: pointer;
+    width: auto;
+}
+
+button.sottile{
+    margin: 0;
+    
+}
+
+.error{
+    border-color: red !important;
+}
+
+input.time 
+{
+    width: 150px;
+}
+
+button:disabled, input[type = 'submit' ]:disabled, input[type='button']:disabled{
+    
+    opacity: 0.50;
+    cursor:not-allowed;
+    
+}
+
+.sanitAppColor{
+    color:rgb(11, 190, 210);
+}
+
+button:hover, input[type = 'submit']:hover, input[type='button']:hover
+{
+    background-color:rgb(10, 170, 220);
+}
+
+input, select{
+    border: 1px solid #E5E5E5;
+    border-radius: 3px;
+    padding: 7px;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    box-sizing: border-box;
+
+}
+hr{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0));
+
+}
+
+hr.icon:after{
+    content:" ";
+    display: inline-block;
+    position: relative;
+    top: -2.1em;
+    font-size: 1.5em;
+    padding: 19px 1.75em;
+    background: #fff url(../Immagini/logoSanitApp.png) no-repeat scroll center;
+    background-size: 50px 60px;
+    height: 50px;
+    
+/*    content:" ";
+    display: inline-block;
+    position: relative;
+    top: -0.5em;
+    font-size: 1.7em;
+    padding: 19px 1.75em;
+    background: #fff url(../Immagini/logoSanitApp.png) no-repeat scroll center;
+    background-size: 90px 40px;
+    height: 2px;*/
+
+}
+
+.centrato{
+    margin: auto;
+    float: none;
+}
+
+.affiancato
+{
+    display: inline-block;
+    margin: auto;
+}
+
+.verticalmenteAllineato{
+    vertical-align: middle;
+}
+
+#dateEOrariDisponibili{
+    display: inline-flex;
+}
+
+#calendarioPrenotazioneEsame{
+    margin-right: 10%;
+}
+
+.colonna{
+    width: 60px;
+    float: left;
+}
+
+.block{
+    display: block;
+}
+
+#orariDisponibili{
+    width: 400px;
+}
+
+.orarioSelezionato {
+    border-radius: 15px;
+    color: #0aaadc;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.orarioDisponibile {
+    display: inline-block;
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 1px;
+}
+
+.orarioDisponibile:hover{
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#logNavBar{
+    line-height: 0em;
+}
+
+.normalSize{
+    padding: auto;
+    margin: 10px;
+    width: 250px;
+    line-height: 40px;
+    
+}
+
+.cliccabile{
+    cursor: pointer;
+}
+
+.rosso{
+    color: red;
+}
+
+.verde{
+    color: green;
+}
+.grigio{
+    color: #444444;
+}
+
+.bordo
+{
+    border: 1px solid;
+    border-color: rgb(11,190,210);
+    border-radius: 10px;
+}
+
+#logInForm2{
+    width: 350px;
+}
+
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+
+.fc-time-grid-container{
+    height: auto !important;
+}
