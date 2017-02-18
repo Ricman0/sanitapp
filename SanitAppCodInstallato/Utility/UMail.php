@@ -351,7 +351,7 @@ class UMail {
         $this->_email->addAddress($dati['email']);
         // imposto l'oggetto dell'email
         $this->_email->Subject = "Recupero Password Account SanitApp";
-        
+        $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
         $testo = "<h4>Ciao " . $dati['username'] . "!</h4>"
                 . " Questa è un'email di recupero password.<br>"
                 
@@ -362,7 +362,8 @@ class UMail {
                 . "Saluti,<br>"
                 . "SANITAPP";
         $this->_email->Body = $testo;
-        $inviata = $this->_email->send();
+//        $inviata = $this->_email->send();
+        $inviata = mail($dati['email'], "Recupero Password Account SanitApp", $testo, $headers);
         return $inviata;
     }
 }
