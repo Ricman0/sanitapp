@@ -67,87 +67,64 @@ Options All -Indexes
 #Options -ExecCGI
 
 #
-  RewriteCond %{REQUEST_METHOD} GET 
+  RewriteCond %{REQUEST_METHOD} GET
+  RewriteRule ^(agenda)/(visualizza)$ index.php?controller=$1&task=$2 [L] 
+  RewriteRule ^(categorie)/(visualizza)$ index.php?controller=$1&task=$2 [L] 
+  RewriteRule ^(clienti)/(visualizza)/([[:alnum:]]{16})$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(impostazioni)/(giorniNonLavorativi)/(\w+)$ index.php?controller=$1&task=$2&clinica=$3 [L]
   RewriteRule ^(impostazioni)/(giorniNonLavorativi)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&clinica=$3 [L]
   RewriteRule ^(impostazioni)/(visualizza)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(prenotazione)/(conferma|modifica)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L] 
-  RewriteRule ^(prenotazione)/(esame)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+  RewriteRule ^(impostazioni)/(generali|workingPlan|clinica)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
+  RewriteRule ^(impostazioni)/(modifica)/(informazioni|medico|alboNum|credenziali)?$ index.php?controller=$1&task=$2&task2=$3 [L]
+  RewriteRule ^(pazienti)/(aggiungi)$ index.php?controller=$1&task=$2 [L]  
+  RewriteRule ^(prenotazione)/(conferma|modifica)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]  
+  RewriteRule ^(prenotazione)/(esame|ricerca)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]  
   RewriteRule ^(prenotazioni|pazienti|referti|clienti)/(aggiungi|visualizza)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(prenotazioni|servizi|pazienti|esami)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
+#RewriteRule ^(pazienti)/(visualizza)/([[:alnum:]]{16})?$ index.php?controller=$1&task=$2&id=$3 [L]  
+  RewriteRule ^(prenotazioni|referti|impostazioni)/(visualizza)$ index.php?controller=$1&task=$2 [L]   
+  RewriteRule ^(esami|cliniche)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(recuperaPassword|logOut|info|contatti|privacyPolicy|terminiServizio)$ index.php?controller=$1 [L]
   RewriteRule ^(registrazione)/(clinica|medico|utente)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(ricercaCliniche|ricercaEsami)$ index.php?controller=$1 [L]
-  
-   
- 
-  
-
-
-
-  RewriteRule ^(categorie)$ index.php?controller=$1 [L]
-  RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
-  RewriteRule ^(categorie)/(visualizza)$ index.php?controller=$1&task=$2 [L]
+  RewriteRule ^(ricerca)/(utente)/(\w+)$ index.php?controller=$1&task=$2&codice=$3 [L]  
+  RewriteRule ^(ricercaCliniche|ricercaEsami|categorie|autenticazione|mySanitApp)$ index.php?controller=$1 [L]
+  RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]  
   RewriteRule ^(users)/(visualizza|bloccati|daValidare|medico)$ index.php?controller=$1&task=$2 [L]
   RewriteRule ^(users|usersBloccati|usersDaValidare)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
-  RewriteRule ^(clienti)/(visualizza)/([[:alnum:]]{16})$ index.php?controller=$1&task=$2&id=$3 [L]
-  RewriteRule ^(registrazione)/(conferma)/([[:alnum:]]+)/([[:alnum:]]{32})$ index.php?controller=$1&task=$2&username=$3&id=$4 [L]
-  RewriteRule ^(pazienti)/(aggiungi)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(agenda)/(visualizza)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(autenticazione|mySanitApp)$ index.php?controller=$1 [L]
-  RewriteRule ^(ricerca)/(utente)/(\w+)$ index.php?controller=$1&task=$2&codice=$3 [L]
-  
-  
-  RewriteRule ^(prenotazione)/(esame|ricerca)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
-  RewriteRule ^(impostazioni)/(clinica)$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(esami|cliniche)/(visualizza)/([[:alnum:]]+)$ index.php?controller=$1&task=$2&id=$3 [L]
-  RewriteRule ^(esami)/(\w+)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=$4 [L]
-  RewriteRule ^(esami)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=all [L]
-  RewriteRule ^(esami)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all&parametro3=all [L]
-  RewriteRule ^(esami)$ index.php?controller=$1&parametro1=all&parametro2=all&parametro3=all [L]
-  
-  RewriteRule ^(cliniche)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3 [L]
-  RewriteRule ^(cliniche)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all [L]
-  RewriteRule ^(cliniche)$ index.php?controller=$1&parametro1=all&parametro2=all [L]
-  
-  RewriteRule ^(\w+)$ index.php?controller=$1
-  RewriteRule ^(servizi)/(cancella|aggiungi|modifica|disabilita|visualizza)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(impostazioni)/(generali|workingPlan)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(prenotazioni|referti|impostazioni)/(visualizza)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(impostazioni)/(modifica)/(informazioni|medico|alboNum|credenziali)?$ index.php?controller=$1&task=$2&task2=$3 [L]
-  RewriteRule ^(prenotazioni|pazienti|referti|clienti)/(aggiungi|visualizza)?$ index.php?controller=$1&task=$2 [L]
-  RewriteRule ^(prenotazioni|servizi|pazienti)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]  
-  RewriteRule ^(prenotazione)/(conferma|modifica)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
-  RewriteRule ^(pazienti)/(visualizza)/([[:alnum:]]{16})?$ index.php?controller=$1&task=$2&id=$3 [L]
-  RewriteRule ^(servizi)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(referti)/(aggiungi|visualizza|download)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
   RewriteRule ^(prenotazione)/(\w+)/(\w+)/(\w+)/([\d-]+)?$ index.php?controller=$1&clinica=$2&id=$3&giorno=$4&data=$5 [L]
+    #RewriteRule ^(servizi)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
 
-
+#RewriteRule ^(registrazione)/(conferma)/([[:alnum:]]+)/([[:alnum:]]{32})$ index.php?controller=$1&task=$2&username=$3&id=$4 [L]
+#RewriteRule ^(esami)/(\w+)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=$4 [L]
+  #RewriteRule ^(esami)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=all [L]
+  #RewriteRule ^(esami)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all&parametro3=all [L]
+  #RewriteRule ^(esami)$ index.php?controller=$1&parametro1=all&parametro2=all&parametro3=all [L]
+  
+  #RewriteRule ^(cliniche)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3 [L]
+  #RewriteRule ^(cliniche)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all [L]
+ # RewriteRule ^(cliniche)$ index.php?controller=$1&parametro1=all&parametro2=all [L]
+  
+  
     RewriteCond %{REQUEST_METHOD} POST
     RewriteRule ^(registrazione)/(utente|medico|clinica|conferma)$ index.php?controller=$1&task=$2 [L] 
     RewriteRule ^(ricerca)/(codice)/(utente|medico)$ index.php?controller=$1&task=$2&tipoUser=$3 [L]
     RewriteRule ^(ricerca)/(utente|partitaIVA|username|email|PEC|NumeroIscrizione)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(recuperaPassword|autenticazione)$ index.php?controller=$1 [L]
-    RewriteRule ^(cliniche|esami)$ index.php?controller=$1 [L]
-
-
-
-    RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
-    RewriteRule ^(referto)/(elimina)$ index.php?controller=$1&task=$2 [L] 
-     
-    RewriteRule ^(referto)/(condividi)$ index.php?controller=$1&task=$2 [L]
-    RewriteRule ^(servizi)/(modifica|elimina)$ index.php?controller=$1&task=$2 [L]
+    RewriteRule ^(cliniche|esami|agenda)$ index.php?controller=$1 [L]
     RewriteRule ^(categorie)/(aggiungi|elimina)$ index.php?controller=$1&task=$2 [L]
     RewriteRule ^(users)/(blocca|sblocca|valida|conferma|elimina|modifica)$ index.php?controller=$1&task=$2 [L]
-    RewriteRule ^(agenda)$ index.php?controller=$1 [L]
-  
-    RewriteRule ^(prenotazione)/(riepilogo|conferma|elimina|modifica)$ index.php?controller=$1&task=$2 [L]
-    RewriteRule ^(referto)/(upload)$ index.php?controller=referto&task=upload [L]
-    RewriteRule ^(prenotazione)/(conferma)/(modifica)$ index.php?controller=$1&task=$2&id=$3 [L]
+    RewriteRule ^(referto)/(elimina|upload|condividi)$ index.php?controller=$1&task=$2 [L]  
+    RewriteRule ^(impostazioni)/(aggiungi)/(medico)$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(impostazioni)/(modifica)/(informazioni|medico|alboNum|credenziali)$ index.php?controller=$1&task=$2&task2=$3 [L]
     RewriteRule ^(impostazioni)/(clinica)/(workingPlan|credenziali|informazioni)$ index.php?controller=$1&task=$2&task2=$3 [L]
-    RewriteRule ^(\w+)/(\w+)/(\w+)?$ index.php
+    RewriteRule ^(servizi)/(modifica|elimina)$ index.php?controller=$1&task=$2 [L]
+    RewriteRule ^(prenotazione)/(riepilogo|conferma|elimina|modifica)$ index.php?controller=$1&task=$2 [L]
+    RewriteRule ^(prenotazione)/(conferma)/(modifica)$ index.php?controller=$1&task=$2&id=$3 [L]
+    
+
+   RewriteRule ^(\w+)/(\w+)/(\w+)?$ index.php
     RewriteRule ^(\w+)/(\w+)?$ index.php
     RewriteRule ^(\w+)?$ index.php
     
