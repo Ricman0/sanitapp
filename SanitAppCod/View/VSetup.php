@@ -44,8 +44,7 @@ class VSetup extends View{
     public function restituisciPaginaInstallazione() {
         $formInstallazione = $this->prelevaTemplate('formInstallazione');
         $this->assegnaVariabiliTemplate('contenuto', $formInstallazione);
-        $this->visualizzaTemplate('installazione');
-        
+        $this->visualizzaTemplate('installazione');        
     }
     
     /**

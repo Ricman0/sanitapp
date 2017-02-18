@@ -31,11 +31,11 @@ class CSetup {
                         if ($this->inserisciAdmin()) {
                             if (!is_bool($this->creaFileConfig())) {
 
-                                unlink('./include/config.php') or die("erorre cancellazione");
-                                rename('./include/installazione.php', './include/config.php') or die("Errore nel rinominare il file");
+                                unlink('./include/Config.php') or die("erorre cancellazione");
+                                rename('./include/installazione.php', './include/Config.php') or die("Errore nel rinominare il file.");
                                 unlink('index.php');
                                 rename('site.php', 'index.php');
-                                $view->visualizzaFeedback('Installazione completata. Puoi iniziare ad utilizzare Sanitapp', TRUE);
+                                $view->visualizzaFeedback('Installazione completata. Puoi iniziare ad utilizzare Sanitapp.', TRUE);
                             }
                         }
                     } else {
@@ -68,7 +68,7 @@ class CSetup {
                 "$" . "this->dbconfig['username'] ='" . $this->_datiSetup['userDb'] . "';\n" .
                 "$" . "this->dbconfig['password'] ='" . $this->_datiSetup['passwordDb'] . "';\n" .
                 "$" . "this->dbconfig['host'] ='" . $this->_datiSetup['host'] . "';\n" .
-                "$" . "this->dbconfig['dbname'] ='sanitapp2';\n" .
+                "$" . "this->dbconfig['dbname'] ='sanitapp';\n" .
                 "}\n" .
                 "\n private function setEmailConfig(){\n" .
                 "$" . "this->emailconfig['header']= 'From:SanitApp <sanitapp@site.com>';\n" .
@@ -83,7 +83,7 @@ class CSetup {
                 "}\n" .
                 "}";
 
-        $scrittura = fputs($file, $metodo_set);
+        $scrittura = fputs($file, $metodo_set); //fputs ritorna un intero 
         fclose($file);
 
         return $scrittura;
@@ -118,26 +118,23 @@ class CSetup {
                 . $this->_datiSetup['cognome'] . "', '" . $this->_datiSetup['telefono'] . "')";
 
         try {
-            // First of all, let's begin a transaction
             $conn->begin_transaction();
 
-            // A set of queries; if one fails, an exception should be thrown
             $conn->query($query1);
             $conn->query($query2);
 
-            // If we arrive here, it means that no exception was thrown
-            // i.e. no query has failed, and we can commit the transaction
             return $conn->commit();
         } catch (Exception $e) {
-            // An exception has been thrown
-            // We must rollback the transaction
             $conn->rollback();
             die("Errore mysql: " . $conn->error);
         }
     }
 
     /**
-     * Il metodo carica il database 
+     * Il metodo carica il database.
+     * 
+     * @access public
+     * @param string $file Nome del file sql da caricare 
      * @return mixed 
      */
     public function caricaDbDaFile($file) {
@@ -146,12 +143,12 @@ class CSetup {
         if ($conn->connect_error) {
             switch ($conn->connect_errno) {
                 case '2002':
-                    $this->_datiSetupErrati['host'] = "Connessione al database fallita: host sconosciuto";
+                    $this->_datiSetupErrati['host'] = "Connessione al database fallita: host sconosciuto.";
                     unset($this->_datiSetup['host']);
                     break;
 
                 case '1045':
-                    $this->_datiSetupErrati['userDb'] = "Connessione al database fallita: user o password database errati";
+                    $this->_datiSetupErrati['userDb'] = "Connessione al database fallita: user o password database errati.";
                     unset($this->_datiSetup['userDb']);
                     break;
 
