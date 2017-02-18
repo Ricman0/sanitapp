@@ -153,9 +153,7 @@ class CHome {
                 break;
 
             case 'prenotazione': // GET prenotazione
-//                echo " prenotazione ";
                 if ($tipoUser === 'clinica' || $tipoUser === 'medico' || $tipoUser === 'utente') {
-//                    echo " loggato in prenotazione ";
                         $cPrenotazione = USingleton::getInstance('CPrenotazione');
                         $cPrenotazione->gestisciPrenotazione();
                     
@@ -380,7 +378,10 @@ class CHome {
                 break;
 
             default:
-                echo "ora non lo so che fargli fare";
+                $cAutenticazione = USingleton::getInstance('CAutenticazione');
+                $cAutenticazione->controllaUserAutenticatoEImpostaHeader();
+                $vAutenticazione = USingleton::getInstance('VAutenticazione');
+                $vAutenticazione->restituisciHomePage();
                 break;
         }
         if (!$permesso) {

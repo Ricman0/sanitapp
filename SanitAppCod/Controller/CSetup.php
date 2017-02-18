@@ -144,8 +144,6 @@ class CSetup {
 
         $conn = @new mysqli($this->_datiSetup['host'], $this->_datiSetup['userDb'], $this->_datiSetup['passwordDb']);
         if ($conn->connect_error) {
-//            print_r($conn->connect_errno);
-//            print_r($conn->connect_error);
             switch ($conn->connect_errno) {
                 case '2002':
                     $this->_datiSetupErrati['host'] = "Connessione al database fallita: host sconosciuto";

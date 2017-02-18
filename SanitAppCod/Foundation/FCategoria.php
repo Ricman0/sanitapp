@@ -22,53 +22,6 @@ class FCategoria extends FDatabase{
         $this->_attributiTabella = "Nome";
     }
     
-     /**
-     * Metodo che consente di ottenere in una stringa tutti gli attibuti necessari
-     * per l'inserimento di una categoria nel database.
-     * 
-     * @access private
-     * @param ECategoria $categoria la Categoria di cui si vogliono ottenere i valori degli attributi 
-     * @return string Stringa contenente i valori degli attributi separati da una virgola
-     */
-//    public function getAttributi($categoria) 
-//    {
-//        print_r($categoria);
-//        $valoriAttributi = '';
-//        $x = get_object_vars($categoria);
-//        print_r($x);
-//        foreach ($categoria as $key => $value) {
-//            if(empty($valoriAttributi))
-//            {
-//                $valoriAttributi = "'";
-//                if(is_string($value))
-//                {
-//                    $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($value) . "'";
-//                }
-//                else
-//                {
-//                    $valoriAttributi = $valoriAttributi . $this->trim($value) . "'";
-//                }
-//                 
-//            }
-//            else 
-//            {
-//                $valoriAttributi = ", '";
-//                if(is_string($value))
-//                {
-//                    $valoriAttributi = $valoriAttributi . $this->trimEscapeStringa($value) . "'";
-//                }
-//                else
-//                {
-//                    $valoriAttributi = $valoriAttributi . $this->trim($value) . "'";
-//                }
-//            }
-            
-//        }
-//        print_r($valoriAttributi);
-        
-//        $valoriAttributi = "'" . $this->trimEscapeStringa($categoria->getNome()) . "'";
-//        return $valoriAttributi;
-//    }
     
     /**
      * Metodo che permette di ottenere tutte le categorie.

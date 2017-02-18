@@ -120,27 +120,7 @@ class FUtente extends FUser{
             return FALSE;
         }
     }
-    
-    /**
-     * Metodo che consente di eliminare un utente dal database
-     * 
-     * @param string $cf Codice fiscale dell'utente da eliminare
-     * @return boolean True se l'utente è stato eliminato, False altrimenti
-     */
-//    public function eliminaUtente($cf)
-//    {
-//        $query = "DELETE FROM Utente WHERE CodFiscale = ".$cf;
-//        $eliminato = $this->_connessione->query($query);
-//        if($eliminato === TRUE)
-//        {
-//            echo "Utente eliminato correttamente dal database";
-//        }
-//        else 
-//        {
-//            echo "Si è verificato un errore durante l'eliminazione" .$this->_connessione->error;
-//        }
-//        return $eliminato;
-//    }
+   
     
     /**
      * Metodo che consente di trovare un utente passando come parametro lo username
