@@ -25,8 +25,11 @@ $(document).ready(function () {
             data: datiPOST,
             success: function(datiRisposta)
             {
-              $(ajaxDiv).html(datiRisposta);
-              $("#tabellaEsami").tablesorter({
+                $(ajaxDiv).html(datiRisposta);
+                if ($('#tornaHomePageButton').length &&  $('#contenutoAreaPersonale').length) {
+                    $('#tornaHomePageButton').replaceWith("<input class='mySanitApp' id='tornaAreaPersonaleButton' value='OK' type='button'>");
+                }
+                $("#tabellaEsami").tablesorter({
                       theme: 'blue',
                       widgets: ["filter"],
                       widgetOptions: {
