@@ -111,7 +111,7 @@ class CSetup {
         }
 
         $query1 = "INSERT INTO appuser (Username, Password, Email, PEC, Bloccato, Confermato, CodiceConferma, TipoUser) VALUES( '"
-                . $this->_datiSetup['username'] . "', '" . $this->_datiSetup['password'] . "', '"
+                . $this->_datiSetup['username'] . "', '" . password_hash($this->_datiSetup['password'].$this->_datiSetup['username'], PASSWORD_BCRYPT) . "', '"
                 . $this->_datiSetup['emailAdmin'] . "', '" . $this->_datiSetup['PEC'] . "', FALSE, TRUE, '" . md5($this->_datiSetup['username'] . $this->_datiSetup['emailAdmin'] . date('mY')) . "', 'amministratore')";
         $query2 = "INSERT INTO amministratore (IdAmministratore, Username, Nome, Cognome, Telefono) VALUES("
                 . "NULL, '" . $this->_datiSetup['username'] . "', '" . $this->_datiSetup['nome'] . "', '"
