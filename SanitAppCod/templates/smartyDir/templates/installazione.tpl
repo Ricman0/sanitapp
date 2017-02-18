@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head> 
+        
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        
         <link rel="stylesheet" type="text/css" href="./Css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="./Css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="./Fonts/font-awesome/css/font-awesome.css">
         <link rel="stylesheet" type="text/css" href="./Css/homePage.css">
         <link rel="stylesheet" type="text/css" href="./Css/logo.css">
         <link rel="icon" href="./Immagini/favicon.ico" />
@@ -11,7 +15,6 @@
 
         <script type="text/javascript" src="./plugins/jquery-1.12.4.js"></script>
         <script type="text/javascript" src="./plugins/jquery-ui/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="./plugins/jquery-ui/datepicker-it.js"></script>        
         <script type="text/javascript" src="./plugins/jquery.validate.js"></script>
 
         <script type="text/javascript" src="./jScript/funzioniGeneriche.js"></script>

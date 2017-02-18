@@ -105,6 +105,7 @@ Options All -Indexes
   #RewriteRule ^(cliniche)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3 [L]
   #RewriteRule ^(cliniche)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all [L]
  # RewriteRule ^(cliniche)$ index.php?controller=$1&parametro1=all&parametro2=all [L]
+ RewriteRule ^(\w+)?$ index.php?controller=$1
   
   
     RewriteCond %{REQUEST_METHOD} POST
