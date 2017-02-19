@@ -137,7 +137,7 @@ class CAutenticazione {
                 elseif($eUser->getBloccatoUser() == TRUE) {  //user bloccato
                     
                     $messaggio[0] = 'User Bloccato.';
-                    $messaggio[1] = "Per risolver il problema, contatti l'amministratore.";
+                    $messaggio[1] = "Per risolvere il problema, contatti l'amministratore.";
                     $vAutenticazione->impostaHeaderMain($messaggio);
                 }
                 else { // user non confermato e non bloccato
