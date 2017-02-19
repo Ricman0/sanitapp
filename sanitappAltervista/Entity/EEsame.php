@@ -125,7 +125,7 @@ class EEsame
             $this->_numeroPrestazioniSimultanee = $numPrestazioniSimultanee;
             $this->_descrizione = $descrizione;
             $this->_partitaIVAClinica = $partitaIVAClinica;
-            $this->_eliminato ='FALSE';
+            $this->_eliminato =FALSE;
             $this->_prenotazioni = Array();
             
         }
