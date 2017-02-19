@@ -24,9 +24,10 @@ class CInformazioni {
      * @access public
      */
     public function visualizzaContatti() {
+        $vInformazioni = USingleton::getInstance('VInformazioni');
+        
         try{
             $eAmministratore = new EAmministratore();
-            $vInformazioni = USingleton::getInstance('VInformazioni');
             $vInformazioni->visualizzaContatti($eAmministratore->getTelefonoAmministratore(), $eAmministratore->getEmailUser(), $eAmministratore->getPECUser());    
         } 
         catch (XAmministratoreException $e)
