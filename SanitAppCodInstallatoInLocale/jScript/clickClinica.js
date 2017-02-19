@@ -494,25 +494,43 @@ $(document).ready(function () {
                       data:{eseguita: false},
                       success: function (datiRisposta)
                       {
-                        var obj = JSON.parse(datiRisposta);
-                        if(obj==="no")
-                        {
-                            clickRiga('prenotazioni', 'visualizza', idPreno, '#contenutoAreaPersonale');
+                        try
+                            {
+                            var obj = JSON.parse(datiRisposta);
+                            if(obj==="no")
+                            {
+                                clickRiga('prenotazioni', 'visualizza', idPreno, '#contenutoAreaPersonale');
+                            }
+                            else
+                            {
+                                // apro un'altra finestra
+                                $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
+                                $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
+                                $("#erroreAltroContenutoEventoNonEseguito").dialog({ 
+                                    modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                    title: 'Errore' ,
+                                    buttons: {   
+                                       'OK': function() {
+                                            $(this).dialog('close');
+                                        } 
+                                    }
+                                });
+                            }
                         }
-                        else
-                        {
+                        catch(errore){
                             // apro un'altra finestra
-                            $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
-                            $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
-                            $("#erroreAltroContenutoEventoNonEseguito").dialog({ 
-                                modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
-                                title: 'Errore' ,
-                                buttons: {   
-                                   'OK': function() {
-                                        $(this).dialog('close');
-                                    } 
-                                }
-                            });                                  
+                                $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
+                                $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
+                                $("#erroreAltroContenutoEventoNonEseguito").dialog({ 
+                                    modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                    title: 'Errore' ,
+                                    buttons: {   
+                                       'OK': function() {
+                                            $(this).dialog('close');
+                                        } 
+                                    }
+                                });
+                            
                         }
                         $("#altroContenutoEventoNonEseguito").remove();
                         $("#altroContenutoEventoNonEseguito").dialog('close');
@@ -529,7 +547,9 @@ $(document).ready(function () {
                       data:{eseguita: true},
                       success: function (datiRisposta)
                       {
+                        try{
                         var obj = JSON.parse(datiRisposta);
+                        
                         if(obj==="ok")
                         {
                            clickRiga('prenotazioni', 'visualizza', idPreno, '#contenutoAreaPersonale');
@@ -548,6 +568,22 @@ $(document).ready(function () {
                                     } 
                                 }
                             });                                  
+                        }
+                        }
+                        catch(errore){
+                            // apro un'altra finestra
+                            $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
+                            $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
+                            $("#erroreAltroContenutoEventoNonEseguito").dialog({ 
+                                modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                title: 'Errore' ,
+                                buttons: {   
+                                   'OK': function() {
+                                        $(this).dialog('close');
+                                    } 
+                                }
+                            });
+                            
                         }
                         $("#altroContenutoEventoNonEseguito").remove();
                         $("#altroContenutoEventoNonEseguito").dialog('close');
@@ -861,7 +897,7 @@ function agendaViewDisplay(view, element)
                     var currDateEnd = moment(agendaView.end); //clono l'ultimo giorno visibile della view ed è una proprietà del View Object
                     while(currDateStart.isBefore(currDateEnd, 'day'))
                     {
-                        var togliGiorno= false;
+                        var togliGiorno= true;
                         $.each(datiRisposta.workingPlan, function (index, workingDay) {
                             var currDateStartString = currDateStart.format('YYYY-MM-DD');
                             if (workingDay === null) {
@@ -1099,7 +1135,10 @@ function agendaEventClick(event, jsEvent, view)
                       data:{eseguita: false},
                       success: function (datiRisposta)
                       {
+                          
+                        try{
                         var obj = JSON.parse(datiRisposta);
+                        alert(obj);
                         if(obj==="no")
                         {
                             $('i.modificaNonEseguito').replaceWith("<i class='fa fa-times fa-lg rosso modificaEseguito cliccabile' aria-hidden='true'></i>");
@@ -1123,6 +1162,22 @@ function agendaEventClick(event, jsEvent, view)
                             
 //                    $("#altroContenutoEventoNonEseguito").dialog('close');
                                   
+                        }
+                        }
+                        catch(errore){
+                            // apro un'altra finestra
+                                $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
+                                $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
+                                $("#erroreAltroContenutoEventoNonEseguito").dialog({ 
+                                    modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                    title: 'Errore' ,
+                                    buttons: {   
+                                       'OK': function() {
+                                            $(this).dialog('close');
+                                        } 
+                                    }
+                                });
+                            
                         }
                         $("#altroContenutoEventoNonEseguito").remove();
                         $("#altroContenutoEventoNonEseguito").dialog('close');
@@ -1155,6 +1210,7 @@ function agendaEventClick(event, jsEvent, view)
                       data:{eseguita: true},
                       success: function (datiRisposta)
                       {
+                        try{
                         var obj = JSON.parse(datiRisposta);
                         if(obj==="ok")
                         {
@@ -1174,6 +1230,22 @@ function agendaEventClick(event, jsEvent, view)
                                 }
                             });
                            
+                        }
+                        }
+                        catch(errore){
+                            // apro un'altra finestra
+                                $('#contenutoAreaPersonale').append("<div id='erroreAltroContenutoEventoNonEseguito' title='Errore'><div id='erroreNonEseguito'></div>");
+                                $('#erroreNonEseguito').append('<p>Non è possibile effettuare la modifica.</p>');
+                                $("#erroreAltroContenutoEventoNonEseguito").dialog({ 
+                                    modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                    title: 'Errore' ,
+                                    buttons: {   
+                                       'OK': function() {
+                                            $(this).dialog('close');
+                                        } 
+                                    }
+                                });
+                            
                         }
                         $('#altroContenutoEvento').remove();
                         $("#altroContenutoEvento").dialog('close');
