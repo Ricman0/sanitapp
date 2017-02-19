@@ -207,22 +207,5 @@ class VGestisciUser extends View{
         $this->visualizzaTemplate('infoUser');
     }
     
-    /**
-     * Metodo che consente di visualizzare le categorie dell'applicazione.
-     * 
-     * @access public
-     * @param array $categorieEsami Le categorie da visualizzare
-     */
-    public function visualizzaCategorie($categorieEsami) {
-        
-        if(count($categorieEsami)>0)
-        {
-            $this->assegnaVariabiliTemplate('dati', $categorieEsami);
-            $this->visualizzaTemplate('tabellaCategorie');
-        }
-        else
-        {
-            $this->visualizzaFeedback('Non è stata impostata nessuna categoria'); 
-        }
-    }
+   
 }

@@ -69,16 +69,6 @@
                 <!-- Main della pagina-->
 
                 <div id="main">
-                    <noscript>
-                        <div class="noscript">
-                                    JavaScript non attivo!
-                                    <br>
-                                    L'applicazione non funziona senza Javascript attivo.
-                                    <br>
-                                    Riattivalo accedendo alle impostazioni del browser se vuoi usufruire dei nostri servizi.
-                        </div>
-                    </noscript> 
-                    <br>
                     {$mainRicerca}
                 </div> 
 

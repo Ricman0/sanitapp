@@ -17,19 +17,19 @@ class CGestisciCategorie {
         
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        $vUsers = USingleton::getInstance('VGestisciUser');
-        $task = $vUsers->getTask();
+        $vCategorie = USingleton::getInstance('VGestisciCategorie');
+        $task = $vCategorie->getTask();
         if($task ==='visualizza')
         { //get categorie/visualizza      visualizza tutte le categorie dell'applicazione
             try {
                 $eAmministratore = new EAmministratore($username);
                 $categorieEsami = $eAmministratore->cercaCategorie();
-                $vUsers->visualizzaCategorie($categorieEsami);
+                $vCategorie->visualizzaCategorie($categorieEsami);
             } catch (XAmministratoreException $ex) {
-                $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+                $vCategorie->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
             }
             catch (XDBException $ex) {
-                $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+                $vCategorie->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
             }
         }
         else // get categorie
@@ -40,10 +40,10 @@ class CGestisciCategorie {
                 $vJSON = USingleton::getInstance('VJSON');
                 $vJSON->inviaDatiJSON($categorieEsami);
             } catch (XClinicaException $ex) {
-                $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+                $vCategorie->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
             }
             catch (XDBException $ex) {
-                $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
+                $vCategorie->visualizzaFeedback('Si è verificato un errore. Non è stato possibile visualizzare le categorie.'); 
             }
         }
         
@@ -60,11 +60,11 @@ class CGestisciCategorie {
         
         $sessione = USingleton::getInstance('USession');
         $username = $sessione->leggiVariabileSessione('usernameLogIn');
-        $vUsers = USingleton::getInstance('VGestisciUser');
-        $task = $vUsers->getTask();
+        $vCategorie = USingleton::getInstance('VGestisciCategorie');
+        $task = $vCategorie->getTask();
         switch ($task) {
             case 'aggiungi':
-                $nomeCategoria = $vUsers->recuperaValore('nomeCategoria');
+                $nomeCategoria = $vCategorie->recuperaValore('nomeCategoria');
                 if($nomeCategoria !== FALSE)
                 {
                     try {
@@ -74,30 +74,30 @@ class CGestisciCategorie {
                             $eAmministratore = new EAmministratore($username);
                             if($eAmministratore->aggiungiCategoria($nomeCategoria))
                             {
-                                $vUsers->visualizzaFeedback('Categoria aggiunta.');
+                                $vCategorie->visualizzaFeedback('Categoria aggiunta.');
                             }
          
                         }
                         else
                         {
                             // dati non validi
-                            $vUsers->visualizzaFeedback('Si è verificato un errore durante la validazione del nome della categoria. Non è stato possibile aggiungere la nuova categoria nel sistema.'); 
+                            $vCategorie->visualizzaFeedback('Si è verificato un errore durante la validazione del nome della categoria. Non è stato possibile aggiungere la nuova categoria nel sistema.'); 
                         }
                         
                        
                     } 
                     catch (XAmministratoreException $ex) {
-                        $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile aggiungere la nuova categoria nel sistema.'); 
+                        $vCategorie->visualizzaFeedback('Si è verificato un errore. Non è stato possibile aggiungere la nuova categoria nel sistema.'); 
                     }
                     catch (XDBException $ex) {
-                        $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile aggiungere la nuova categoria nel sistema.'); 
+                        $vCategorie->visualizzaFeedback('Si è verificato un errore. Non è stato possibile aggiungere la nuova categoria nel sistema.'); 
                     }
                 }
 
                 break;
             
             case 'elimina':
-                $nomeCategoria = $vUsers->recuperaValore('id');
+                $nomeCategoria = $vCategorie->recuperaValore('id');
                 if($nomeCategoria !== FALSE)
                 {
                     try {
@@ -105,18 +105,18 @@ class CGestisciCategorie {
                             $eliminatoOMessaggio = $eAmministratore->eliminaCategoria($nomeCategoria);
                             if($eliminatoOMessaggio === TRUE)
                             {
-                                $vUsers->visualizzaFeedback('Categoria eliminata.');
+                                $vCategorie->visualizzaFeedback('Categoria eliminata.');
                             }
                             else 
                             {
-                                $vUsers->visualizzaFeedback($eliminatoOMessaggio); 
+                                $vCategorie->visualizzaFeedback($eliminatoOMessaggio); 
                             }
                     } 
                     catch (XCategoriaException $ex) {
-                        $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile eliminare la categoria dal sistema.'); 
+                        $vCategorie->visualizzaFeedback('Si è verificato un errore. Non è stato possibile eliminare la categoria dal sistema.'); 
                     }
                     catch (XDBException $ex) {
-                        $vUsers->visualizzaFeedback('Si è verificato un errore. Non è stato possibile eliminare la categoria dal nel sistema.'); 
+                        $vCategorie->visualizzaFeedback('Si è verificato un errore. Non è stato possibile eliminare la categoria dal nel sistema.'); 
                     }
                 }
                 break;
