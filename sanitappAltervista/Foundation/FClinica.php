@@ -187,10 +187,12 @@ class FClinica extends FUser{
      * @return array Se la query è stata eseguita con successo
      * @throws XDBException Se la query non è stata eseguita con successo
      */
-    public function cercaClinica($nome, $luogo)
+    public function cercaClinica($nome=NULL, $luogo=NULL)
     {
         $nome = str_replace("+", " ", $nome);
         $luogo = str_replace("+", " ", $luogo);
+        $nome = str_replace("all", "", $nome);
+        $luogo = str_replace("all", "", $luogo);
         if(!empty($nome))
         {
             if(!empty($luogo))

@@ -102,9 +102,9 @@ Options All -Indexes
   RewriteRule ^(esami)/(\w+)$ index.php?controller=$1&nomeEsame=$2&nomeClinica=all&luogo=all [L]
   RewriteRule ^(esami)$ index.php?controller=$1&nomeEsame=all&nomeClinica=all&luogo=all [L]
   
-  RewriteRule ^(cliniche)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3 [L]
-  RewriteRule ^(cliniche)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all [L]
-  RewriteRule ^(cliniche)$ index.php?controller=$1&parametro1=all&parametro2=all [L]
+   RewriteRule ^(cliniche)/(\w+)/(\w+)$ index.php?controller=$1&nome=$2&luogo=$3 [L]
+  RewriteRule ^(cliniche)/(\w+)$ index.php?controller=$1&nome=$2&luogo=all [L]
+  RewriteRule ^(cliniche)$ index.php?controller=$1&nome=all&luogo=all [L]
  RewriteRule ^(\w+)?$ index.php?controller=$1
   
   
