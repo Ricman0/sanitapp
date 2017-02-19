@@ -510,8 +510,8 @@ class EPrenotazione {
         {
             if($dataOdierna >= $data)
             {
-                $this->setEseguitaPrenotazione(FALSE);
-                $prenotazioneEseguita = FALSE;  
+                $this->setEseguitaPrenotazione(0);
+                $prenotazioneEseguita = 0;  
             }
         }
         $this->setEseguitaPrenotazione($prenotazioneEseguita);

@@ -291,6 +291,7 @@ class CPrenotazione {
                 {
                     try {
                         $eseguita = $vPrenotazione->recuperaValore('eseguita');
+                       
                         $ePrenotazione = new EPrenotazione($id);
                         $risultato = $ePrenotazione->modificaEseguitaPrenotazione($eseguita);
                         $vJSON = USingleton::getInstance('VJSON');
@@ -317,7 +318,7 @@ class CPrenotazione {
                         
                     }
                     catch (XDBException  $ex) {
-                        $vPrenotazione->visualizzaFeedback('Si è verificato un errore. Non è stato posssibile modificare la prenotazione');
+                        $vPrenotazione->visualizzaFeedback('Si è verificato un errore. Non è stato possibile modificare la prenotazione');
                         
                     }
                     

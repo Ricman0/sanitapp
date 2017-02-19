@@ -507,14 +507,24 @@ class FDatabase {
             if(gettype($valore)==='string')
                 {
                     $valore = $this->trimEscapeStringa($valore);
+                    if($setQuery === ' SET ')
+                    {
+
+                        $setQuery .= $attributo . "='" . $valore . "' ";
+                    }
+                    else
+                    {
+                        $setQuery .=  ", " . $attributo . "='" . $valore . "' ";
+                    }   
                 }
             if($setQuery === ' SET ')
             {
-                $setQuery .= $attributo . "='" . $valore . "' ";
+                
+                $setQuery .= $attributo . "=" . $valore . " ";
             }
             else
             {
-                $setQuery .=  ", " . $attributo . "='" . $valore . "' ";
+                $setQuery .=  ", " . $attributo . "=" . $valore . " ";
             }                
         }
         
