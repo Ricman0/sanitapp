@@ -537,6 +537,7 @@ class FDatabase {
             
             // inzia la transazione
             $this->_connessione->begin_transaction();
+            
 //            echo $query;
 //            echo $queryLock;
             // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata

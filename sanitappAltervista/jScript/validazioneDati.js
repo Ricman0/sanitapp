@@ -1597,22 +1597,23 @@ function validazioneClinica()
     });
 }
 
-
-function validazioneImpostazioniClinica()
-{
-    jQuery.validator.addMethod("time", function (valore) {
-        //espressione regolare per la durata
-        var regex = /([0-2][0-3]):([0-5]\d):([0-5]\d)/;
-        return valore.match(regex);
-    }, "La durata è nel formato hh:mm:ss");
-    $.validator.addClassRules({
-        time:
-                {
-                    required: true,
-                    time: true,
-                    messages: {required: "Inserire orario"}
-                }
-    });
+//
+//function validazioneImpostazioniClinica()
+//{
+//    jQuery.validator.addMethod("time", function (valore) {
+//        //espressione regolare per la durata
+//        var regex = /([0-2][0-3]):([0-5]\d):([0-5]\d)/;
+//        return valore.match(regex);
+//    }, "La durata è nel formato hh:mm:ss");
+//    
+//    $.validator.addClassRules({
+//        time:
+//                {
+//                    required: true,
+//                    time: true,
+//                    messages: {required: "Inserire orario"}
+//                }
+//    });
 //
 //    $("workingPlan").validate({
 ////        messages:
@@ -1697,7 +1698,7 @@ function validazioneImpostazioniClinica()
 //            inviaImpostazioniClinica('#aggiungiEsame', 'servizi', 'aggiungi', '#main');
 //        }
 //    });
-}
+//}
 
 function validazioneEsame()
 {
