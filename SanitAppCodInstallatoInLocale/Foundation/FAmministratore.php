@@ -179,7 +179,7 @@ class FAmministratore extends FUser{
      */
     public function bloccaUser($username) {
         
-        $queryLock1 = "SELECT * FROM appUser " . 
+        $queryLock1 = "SELECT * FROM appuser " . 
                 " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
         
         $query = "UPDATE appuser SET Bloccato=TRUE 
@@ -212,7 +212,7 @@ class FAmministratore extends FUser{
      * @throws XDBException Se la query non è stata eseguita con successo
      */
     public function sbloccaUser($username) {
-        $queryLock1 = "SELECT * FROM appUser " . 
+        $queryLock1 = "SELECT * FROM appuser " . 
                 " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
         $query = "UPDATE appuser SET Bloccato=FALSE 
                 WHERE Username= '" . $username . "'" ;
@@ -238,7 +238,7 @@ class FAmministratore extends FUser{
      */
     final public function amministratoreConfermaUser($username) 
     {
-        $queryLock1 = "SELECT * FROM appUser " . 
+        $queryLock1 = "SELECT * FROM appuser " . 
                 " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
         $query = "UPDATE appuser SET Confermato=TRUE 
                 WHERE Username= '" . $username . "'" ;
@@ -303,9 +303,9 @@ class FAmministratore extends FUser{
      */
     public function eliminaUser($username) {
         
-        $queryLock1 = "SELECT * FROM appUser " . 
+        $queryLock1 = "SELECT * FROM appuser " . 
                 " WHERE  (Username='" . $username . "')  FOR UPDATE" ;
-        $query = "DELETE FROM appUser WHERE appUser.Username= '" . $username . "'";
+        $query = "DELETE FROM appuser WHERE appuser.Username= '" . $username . "'";
         try {
            $this->_connessione->begin_transaction();
             $this->eseguiQuery($queryLock1);

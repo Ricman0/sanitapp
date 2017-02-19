@@ -68,7 +68,7 @@ CREATE TABLE clinica (
   WorkingPlan text DEFAULT NULL,
   Validato boolean DEFAULT FALSE,
   PRIMARY KEY (PartitaIVA),
-  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (Username) REFERENCES appuser (Username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -92,7 +92,7 @@ CREATE TABLE amministratore (
   Cognome varchar(20) NOT NULL,
   Telefono varchar(10) DEFAULT NULL,
   PRIMARY KEY (IdAmministratore),
-  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (Username) REFERENCES appuser (Username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- --------------------------------------------------------
@@ -139,7 +139,7 @@ CREATE TABLE medico (
   NumIscrizione varchar(6) NOT NULL,
   Validato boolean DEFAULT FALSE,
   PRIMARY KEY (CodFiscale),
-  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (Username) REFERENCES appuser (Username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -161,7 +161,7 @@ CREATE TABLE utente (
   CodFiscaleMedico varchar(21) DEFAULT NULL,
   PRIMARY KEY (CodFiscale),
   FOREIGN KEY (CodFiscaleMedico) REFERENCES medico (CodFiscale) ON DELETE SET NULL ON UPDATE CASCADE,
-  FOREIGN KEY (Username) REFERENCES appUser (Username) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (Username) REFERENCES appuser (Username) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 

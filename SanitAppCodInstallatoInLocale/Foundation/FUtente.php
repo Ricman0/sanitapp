@@ -257,14 +257,14 @@ class FUtente extends FUser{
         
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella .
                 " WHERE  (Username='" . $utente->getUsernameUser() . "') OR (CodFiscale='" . $utente->getCodFiscaleUtente() .  "') FOR UPDATE" ;
-        $queryLock2 = "SELECT * FROM appUser " . 
+        $queryLock2 = "SELECT * FROM appuser " . 
                 " WHERE  (Username='" . $utente->getUsernameUser() . "') OR (Email='" . $utente->getEmailUser() .  "') FOR UPDATE" ;
         $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $utente->getCodFiscaleUtente() .  "', Nome='"
                 . $utente->getNomeUtente() . "', Cognome='" . $utente->getCognomeUtente() . "', Via='" . $utente->getViaUtente() . "', "
                 . "NumCivico='" . $utente->getNumCivicoUtente() . "', CAP='" . $utente->getCAPUtente() . "', Username='"
                 . $utente->getUsernameUser() . "' WHERE (Username='" . $utente->getUsernameUser() . "') OR (CodFiscale='" . $utente->getCodFiscaleUtente() .  "')";
 
-        $query2 = "UPDATE appUser SET Username='" . $utente->getUsernameUser() . "', Password='"
+        $query2 = "UPDATE appuser SET Username='" . $utente->getUsernameUser() . "', Password='"
                 . $utente->getPasswordUser() . "', Email='" . $utente->getEmailUser() . "', Bloccato=" . $utente->getBloccatoUser() . ", "
                 . "Confermato=" .  $utente->getConfermatoUser() . ", CodiceConferma='" . $utente->getCodiceConfermaUser() . "' "
                 .  " WHERE (Username='" . $utente->getUsernameUser() . "') OR (Email='" . $utente->getEmailUser() .  "')";
