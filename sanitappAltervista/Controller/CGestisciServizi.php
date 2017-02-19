@@ -59,15 +59,16 @@ class CGestisciServizi {
                             $messaggio = 'Servizio non inserito perchè già esistente.'; 
                         }  
                     } 
-                    catch (XDBException $ex) {
-                        $messaggio[0] = $ex->getMessage();   
-                        $messaggio[1] = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
+                    catch (XDBException $ex) {  
+                        $messaggio = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
                     }
                     catch (XClinicaException $ex) {
-                        $messaggio = $ex->getMessage();                 
+                        //$messaggio = $ex->getMessage(); 
+                        $messaggio = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
                     }
                     catch (XEsameException $ex) {
-                        $messaggio = $ex->getMessage();                 
+                        //$messaggio = $ex->getMessage(); 
+                        $messaggio = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
                     }
                     $vServizi->visualizzaFeedback($messaggio);
 
