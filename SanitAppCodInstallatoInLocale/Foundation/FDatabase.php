@@ -506,6 +506,7 @@ class FDatabase {
         foreach ($daModificare as $attributo => $valore) {
             if(gettype($valore)==='string')
                 {
+                
                     $valore = $this->trimEscapeStringa($valore);
                     if($setQuery === ' SET ')
                     {
@@ -517,22 +518,27 @@ class FDatabase {
                         $setQuery .=  ", " . $attributo . "='" . $valore . "' ";
                     }   
                 }
-            if($setQuery === ' SET ')
-            {
-                
-                $setQuery .= $attributo . "=" . $valore . " ";
-            }
-            else
-            {
-                $setQuery .=  ", " . $attributo . "=" . $valore . " ";
-            }                
+                else{
+                    if($setQuery === ' SET ')
+                    {
+
+                        $setQuery .= $attributo . "=" . $valore . " ";
+                    }
+                    else
+                    {
+                        $setQuery .=  ", " . $attributo . "=" . $valore . " ";
+                    }  
+                }
         }
         
         $query = "UPDATE " . $this->_nomeTabella . $setQuery . " WHERE (" . $this->_nomeColonnaPKTabella . "='" . $id . "')";
         
         try {
+            
             // inzia la transazione
             $this->_connessione->begin_transaction();
+//            echo $query;
+//            echo $queryLock;
             // le query che devono essere eseguite nella transazione. se una fallisce, un'exception è lanciata
             $this->eseguiquery($queryLock);
             $this->eseguiQuery($query);
