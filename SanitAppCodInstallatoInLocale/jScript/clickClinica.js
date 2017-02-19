@@ -861,7 +861,7 @@ function agendaViewDisplay(view, element)
                     var currDateEnd = moment(agendaView.end); //clono l'ultimo giorno visibile della view ed è una proprietà del View Object
                     while(currDateStart.isBefore(currDateEnd, 'day'))
                     {
-                        var togliGiorno= true;
+                        var togliGiorno= false;
                         $.each(datiRisposta.workingPlan, function (index, workingDay) {
                             var currDateStartString = currDateStart.format('YYYY-MM-DD');
                             if (workingDay === null) {
