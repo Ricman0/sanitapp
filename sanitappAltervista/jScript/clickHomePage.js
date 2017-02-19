@@ -84,7 +84,12 @@ $(document).ready(function () {
 
     $('#headerMain').on("click", "#esamiClinicaButton", function () {
         var nomeClinica = $("#esamiClinicaButton").attr('data-nomeClinica');
-        inviaController('esami/all/'+nomeClinica, '#main');
+        var ajaxDiv = '#main';
+        //se esiste il div contenutoAreaPersonale
+        if ($('#contenutoAreaPersonale').length) {
+            ajaxDiv ='#contenutoAreaPersonale';
+        }
+        inviaController('esami/all/'+nomeClinica, ajaxDiv);
     });
     
     $('#headerMain').on("click", ".rigaClinica", function () {
