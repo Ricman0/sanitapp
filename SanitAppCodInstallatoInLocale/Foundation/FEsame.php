@@ -69,6 +69,9 @@ class FEsame extends FDatabase {
         $nomeEsame = str_replace("+", " ", $nomeEsame);
         $nomeClinica = str_replace("+", " ", $nomeClinica);
         $luogo = str_replace("+", " ", $luogo);
+        $nomeEsame = str_replace("all", " ", $nomeEsame);
+        $nomeClinica = str_replace("all", " ", $nomeClinica);
+        $luogo = str_replace("all", " ", $luogo);
         if (!empty($nomeEsame)) 
         {
             if (!empty($luogo) && !empty($nomeClinica)) 

@@ -97,10 +97,10 @@ Options All -Indexes
     #RewriteRule ^(servizi)/(visualizza)/([[:alnum:]]+)?$ index.php?controller=$1&task=$2&id=$3 [L]
 
 #RewriteRule ^(registrazione)/(conferma)/([[:alnum:]]+)/([[:alnum:]]{32})$ index.php?controller=$1&task=$2&username=$3&id=$4 [L]
-RewriteRule ^(esami)/(\w+)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=$4 [L]
-  RewriteRule ^(esami)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3&parametro3=all [L]
-  RewriteRule ^(esami)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all&parametro3=all [L]
-  RewriteRule ^(esami)$ index.php?controller=$1&parametro1=all&parametro2=all&parametro3=all [L]
+  RewriteRule ^(esami)/(\w+)/(\w+)/(\w+)$ index.php?controller=$1&nomeEsame=$2&nomeClinica=$3&luogo=$4 [L]
+  RewriteRule ^(esami)/(\w+)/(\w+)$ index.php?controller=$1&nomeEsame=$2&nomeClinica=$3&luogo=all [L]
+  RewriteRule ^(esami)/(\w+)$ index.php?controller=$1&nomeEsame=$2&nomeClinica=all&luogo=all [L]
+  RewriteRule ^(esami)$ index.php?controller=$1&nomeEsame=all&nomeClinica=all&luogo=all [L]
   
   RewriteRule ^(cliniche)/(\w+)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=$3 [L]
   RewriteRule ^(cliniche)/(\w+)$ index.php?controller=$1&parametro1=$2&parametro2=all [L]
