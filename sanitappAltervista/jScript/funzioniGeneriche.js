@@ -8,6 +8,9 @@ function inviaController(controller, ajaxdiv)
         success: function (datiRisposta)
         {
             $(ajaxdiv).html(datiRisposta);
+            if ($('#tornaHomePageButton').length &&  $('#contenutoAreaPersonale').length) {
+                    $('#tornaHomePageButton').replaceWith("<input class='mySanitApp' id='tornaAreaPersonaleButton' value='OK' type='button'>");
+            }
             $('.tablesorter').tablesorter({
                 theme: 'blue',
                 widgets: ["filter"],
