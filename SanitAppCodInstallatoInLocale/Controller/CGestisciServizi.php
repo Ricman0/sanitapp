@@ -60,13 +60,13 @@ class CGestisciServizi {
                         }  
                     } 
                     catch (XDBException $ex) { 
-                        $messaggio "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
+                        $messaggio = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";
                     }
                     catch (XClinicaException $ex) {
-                        $messaggio "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";                 
+                        $messaggio = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";                 
                     }
                     catch (XEsameException $ex) {
-                       $messaggio "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";                 
+                       $messaggio = "C'è stato un errore. Non è stato possibile aggiungere il nuovo servizio.";                 
                     }
                     $vServizi->visualizzaFeedback($messaggio);
 

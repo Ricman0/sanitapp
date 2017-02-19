@@ -487,8 +487,10 @@ $(document).ready(function () {
     });
     
  $('#headerMain').on('click','#esameEseguito', function(){
-        var idPreno = $(this).data('idprenotazione');
-        $.ajax({
+        if(!$('#scaricaRefertoButton').length)
+        {
+            var idPreno = $(this).data('idprenotazione');
+            $.ajax({
                       type:'POST',
                       url: 'prenotazione/modifica/' + idPreno,
                       data:{eseguita: false},
@@ -537,6 +539,23 @@ $(document).ready(function () {
                         $("#eseguito").html('');
                       }
                   });
+        }else{
+            $('#contenutoAreaPersonale').append("<div id='errore' title='Errore'><div id='erroreReferto'></div>");
+                                $('#erroreReferto').append('<p>Non è possibile effettuare la modifica, esiste già un referto.</p>');
+                                $("#errore").dialog({ 
+                                    modal: true, //impostato a true impesdisce l'interazione con il resto della pagina  mentre è attiva la dialog box 
+                                    title: 'Errore' ,
+                                    buttons: {   
+                                       'OK': function() {
+                                            $(this).dialog('close');
+                                        } 
+                                    }
+                                });
+                            
+                        
+                        $("#altroContenutoEventoNonEseguito").remove();
+                        $("#altroContenutoEventoNonEseguito").dialog('close');
+        }
     });
     
   $('#headerMain').on('click','#esameNonEseguito', function(){
@@ -1138,7 +1157,6 @@ function agendaEventClick(event, jsEvent, view)
                           
                         try{
                         var obj = JSON.parse(datiRisposta);
-                        alert(obj);
                         if(obj==="no")
                         {
                             $('i.modificaNonEseguito').replaceWith("<i class='fa fa-times fa-lg rosso modificaEseguito cliccabile' aria-hidden='true'></i>");

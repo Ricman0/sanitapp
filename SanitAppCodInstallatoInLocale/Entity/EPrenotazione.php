@@ -500,18 +500,32 @@ class EPrenotazione {
         $data = strtotime($dataPrenotazione);
         if( $eseguita==='true') 
         {
-            if($dataOdierna >= $data)// se la dataOdierna è succesiva o uguale a $data 
+            if($dataOdierna >= $data )// se la dataOdierna è succesiva o uguale a $data 
             {
                 $this->setEseguitaPrenotazione(TRUE);
-                $prenotazioneEseguita = TRUE; 
+                $prenotazioneEseguita = TRUE;  
             }
         }
         else
         {
             if($dataOdierna >= $data)
             {
-                $this->setEseguitaPrenotazione(0);
-                $prenotazioneEseguita = 0;  
+                try{
+                    $eReferto = new EReferto($this->getIDPrenotazionePrenotazione());
+                    $this->setEseguitaPrenotazione(TRUE);
+                    $prenotazioneEseguita = TRUE; 
+                }
+                catch (XDBException $e)
+                {
+                    $this->setEseguitaPrenotazione(0);
+                    $prenotazioneEseguita = 0; 
+                }
+                catch (XRefertoException $e){
+                    $this->setEseguitaPrenotazione(0);
+                    $prenotazioneEseguita = 0; 
+                }
+//                $this->setEseguitaPrenotazione(0);
+//                $prenotazioneEseguita = 0;  
             }
         }
         $this->setEseguitaPrenotazione($prenotazioneEseguita);
