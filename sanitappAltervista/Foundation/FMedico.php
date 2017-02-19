@@ -235,7 +235,7 @@ class FMedico extends FUser {
     public function modificaMedico($medico) {
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella 
                 ." WHERE (Username='" . $medico->getUsernameUser() . "') OR (CodFiscale='" . $medico->getCodFiscaleMedico() .  "') FOR UPDATE" ;
-        $queryLock2 = "SELECT * FROM appUser " 
+        $queryLock2 = "SELECT * FROM appuser " 
                 ." WHERE (Username='" . $medico->getUsernameUser() . "') OR (Email='" . $medico->getEmailUser() .  "') FOR UPDATE" ;
         $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $medico->getCodFiscaleMedico() .  "', Nome='"
                 . $medico->getNomeMedico() . "', Cognome='" . $medico->getCognomeMedico() . "', Via='" . $medico->getViaMedico() . "', "
@@ -243,7 +243,7 @@ class FMedico extends FUser {
                 . $medico->getUsernameUser() . "', ProvinciaAlbo='" . $medico->getProvinciaAlboMedico() . "', NumIscrizione='" 
                 . $medico->getNumIscrizioneMedico() . "', Validato=" . $medico->getValidatoMedico() . " WHERE (Username='" . $medico->getUsernameUser() . "') OR (CodFiscale='" . $medico->getCodFiscaleMedico() .  "')";
 
-        $query2 = "UPDATE appUser SET Username='" . $medico->getUsernameUser() . "', Password='"
+        $query2 = "UPDATE appuser SET Username='" . $medico->getUsernameUser() . "', Password='"
                 . $medico->getPasswordUser() . "', Email='" . $medico->getEmailUser() . "', Bloccato=" . $medico->getBloccatoUser() . ", "
                 . "Confermato=" .  $medico->getConfermatoUser() . ", CodiceConferma='" . $medico->getCodiceConfermaUser() . "' "
                 .  " WHERE (Username='" . $medico->getUsernameUser() . "') OR (Email='" . $medico->getEmailUser() .  "')";

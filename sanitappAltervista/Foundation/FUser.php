@@ -1,7 +1,7 @@
 <?php
 
 /**
- * La classe FUser si occupa della gestione della tabella 'appUser'.
+ * La classe FUser si occupa della gestione della tabella 'appuser'.
  *
  * @package Foundation
  * @author Claudia Di Marco & Riccardo Mantini
