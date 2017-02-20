@@ -256,7 +256,7 @@ class FUtente extends FUser{
     public function modificaUtente($utente) {
         
         $queryLock1 = "SELECT * FROM " . $this->_nomeTabella .
-                " WHERE  (Username='" . $utente->getUsernameUser() . "') OR (CodFiscale='" . $utente->getCodFiscaleUtente() .  "') FOR UPDATE" ;
+                " WHERE  (Username='" . $utente->getUsernameUser() . "') OR (CodFiscale='" . $utente->getCodFiscaleUtente() .  "') FOR UPDATE " ;
         $queryLock2 = "SELECT * FROM appuser " . 
                 " WHERE  (Username='" . $utente->getUsernameUser() . "') OR (Email='" . $utente->getEmailUser() .  "') FOR UPDATE" ;
         $query1 = "UPDATE " . $this->_nomeTabella . " SET CodFiscale='" . $utente->getCodFiscaleUtente() .  "', Nome='"
@@ -273,8 +273,9 @@ class FUtente extends FUser{
            $this->_connessione->begin_transaction();
             $this->eseguiQuery($queryLock1);
             $this->eseguiQuery($queryLock2);
-            $this->eseguiQuery($query1);
             $this->eseguiQuery($query2);
+            $this->eseguiQuery($query1);
+            
             return $this->_connessione->commit();
         } catch (Exception $e) {
             $this->_connessione->rollback();
