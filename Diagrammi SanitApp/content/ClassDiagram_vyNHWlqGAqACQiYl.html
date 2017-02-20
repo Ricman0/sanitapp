@@ -1,0 +1,534 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Class Diagram - Controller Class Diagram</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		SanitApp	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Class Diagram - Controller Class Diagram		</span>
+		<a onclick="javascript: showVpLink('SanitAppDoc1.vpp://diagram/vyNHWlqGAqACQiYl', 'Controller Class Diagram\nSanitAppDoc1.vpp://diagram/vyNHWlqGAqACQiYl', 'Controller Class Diagram', this); return false;" style="padding-left: 16px; font-size: 12px" href="#">
+			<img src="../images/icons/link.png" border="0"> link</a>
+	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|44.0|242.0|246.0|120.0|Class_SyGHWlqGAqACQgom.html|Class_SyGHWlqGAqACQgom.html|aKNHWlqGAqACQiYp" id="optionaKNHWlqGAqACQiYp">CAutenticazione : Class</option>
+<option value="shape|44.0|40.0|130.0|64.0|Class_EqGHWlqGAqACQgo7.html|Class_EqGHWlqGAqACQgo7.html|aKNHWlqGAqACQiYr" id="optionaKNHWlqGAqACQiYr">CGestisciAgenda : Class</option>
+<option value="shape|203.0|40.0|138.0|86.0|Class_CqGHWlqGAqACQgpD.html|Class_CqGHWlqGAqACQgpD.html|6KNHWlqGAqACQiYt" id="option6KNHWlqGAqACQiYt">CGestisciCategorie : Class</option>
+<option value="shape|679.0|321.0|162.0|50.0|Class_KqGHWlqGAqACQgpJ.html|Class_KqGHWlqGAqACQgpJ.html|GKNHWlqGAqACQiYv" id="optionGKNHWlqGAqACQiYv">CGestisciClienti : Class</option>
+<option value="shape|662.0|591.0|133.0|64.0|Class_OqGHWlqGAqACQgpQ.html|Class_OqGHWlqGAqACQgpQ.html|GKNHWlqGAqACQiYx" id="optionGKNHWlqGAqACQiYx">CGestisciPazienti : Class</option>
+<option value="shape|365.0|40.0|123.0|64.0|Class_xqGHWlqGAqACQgpY.html|Class_xqGHWlqGAqACQgpY.html|mKNHWlqGAqACQiYz" id="optionmKNHWlqGAqACQiYz">CGestisciServizi : Class</option>
+<option value="shape|470.0|415.0|153.0|78.0|Class_VqGHWlqGAqACQgph.html|Class_VqGHWlqGAqACQgph.html|mKNHWlqGAqACQiY1" id="optionmKNHWlqGAqACQiY1">CGestisciUser : Class</option>
+<option value="shape|662.0|754.0|144.0|40.0|Class_TqGHWlqGAqACQgpr.html|Class_TqGHWlqGAqACQgpr.html|mKNHWlqGAqACQiY3" id="optionmKNHWlqGAqACQiY3">CGestisciUtenti : Class</option>
+<option value="shape|44.0|137.0|139.0|78.0|Class_bqGHWlqGAqACQgpv.html|Class_bqGHWlqGAqACQgpv.html|WKNHWlqGAqACQiY5" id="optionWKNHWlqGAqACQiY5">CHome : Class</option>
+<option value="shape|356.0|137.0|162.0|134.0|Class_waGHWlqGAqACQgp8.html|Class_waGHWlqGAqACQgp8.html|WKNHWlqGAqACQiY7" id="optionWKNHWlqGAqACQiY7">CImpostazioni : Class</option>
+<option value="shape|341.0|304.0|171.0|84.0|Class_WaGHWlqGAqACQgqU.html|Class_WaGHWlqGAqACQgqU.html|2KNHWlqGAqACQiY9" id="option2KNHWlqGAqACQiY9">CInformazioni : Class</option>
+<option value="shape|362.0|809.0|154.0|57.0|Class_haGHWlqGAqACQgqe.html|Class_haGHWlqGAqACQgqe.html|2KNHWlqGAqACQiY_" id="option2KNHWlqGAqACQiY_">CmySanitApp : Class</option>
+<option value="shape|37.0|626.0|253.0|218.0|Class_ZaGHWlqGAqACQgqi.html|Class_ZaGHWlqGAqACQgqi.html|OKNHWlqGAqACQiZB" id="optionOKNHWlqGAqACQiZB">CPrenotazione : Class</option>
+<option value="shape|44.0|415.0|165.0|148.0|Class_XaGHWlqGAqACQgrD.html|Class_XaGHWlqGAqACQgrD.html|OKNHWlqGAqACQiZD" id="optionOKNHWlqGAqACQiZD">CReferti : Class</option>
+<option value="shape|247.0|421.0|178.0|162.0|Class_E6GHWlqGAqACQgrd.html|Class_E6GHWlqGAqACQgrd.html|uKNHWlqGAqACQiZF" id="optionuKNHWlqGAqACQiZF">CRegistrazione : Class</option>
+<option value="shape|209.0|156.0|104.0|40.0|Class_x6GHWlqGAqACQgr4.html|Class_x6GHWlqGAqACQgr4.html|.KNHWlqGAqACQiZH" id="option.KNHWlqGAqACQiZH">CRicerca : Class</option>
+<option value="shape|349.0|626.0|192.0|64.0|Class_Z6GHWlqGAqACQgr8.html|Class_Z6GHWlqGAqACQgr8.html|.KNHWlqGAqACQiZJ" id="option.KNHWlqGAqACQiZJ">CRicercaCliniche : Class</option>
+<option value="shape|349.0|710.0|180.0|64.0|Class_F6GHWlqGAqACQgsE.html|Class_F6GHWlqGAqACQgsE.html|BKNHWlqGAqACQiZL" id="optionBKNHWlqGAqACQiZL">CRicercaEsami : Class</option>
+<option value="shape|708.0|86.0|104.0|110.0|Class_V6GHWlqGAqACQgsM.html|Class_V6GHWlqGAqACQgsM.html|BKNHWlqGAqACQiZN" id="optionBKNHWlqGAqACQiZN">CSetup : Class</option>
+<option value="shape|0.0|2.0|905.0|981.0|Package_4yGHWlqGAqACQgok.html|Package_4yGHWlqGAqACQgok.html|sKNHWlqGAqACQiYn" id="optionsKNHWlqGAqACQiYn">Controller : Package</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Controller_Class_Diagram.png" usemap="#diagram_map" class="Image" width="909" height="987"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="44, 242, 290, 362" coords2="44, 242, 290, 362" shape="rect" alt="CAutenticazione:Class" id="areadiagram_map_aKNHWlqGAqACQiYp" href="Class_SyGHWlqGAqACQgom.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','44, 242, 290, 362',new Array('CAutenticazione.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CAutenticazione.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '44, 242, 290, 362'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="44, 40, 174, 104" coords2="44, 40, 174, 104" shape="rect" alt="CGestisciAgenda:Class" id="areadiagram_map_aKNHWlqGAqACQiYr" href="Class_EqGHWlqGAqACQgo7.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','44, 40, 174, 104',new Array('CGestisciAgenda.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CGestisciAgenda.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '44, 40, 174, 104'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="203, 40, 341, 126" coords2="203, 40, 341, 126" shape="rect" alt="CGestisciCategorie:Class" id="areadiagram_map_6KNHWlqGAqACQiYt" href="Class_CqGHWlqGAqACQgpD.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','203, 40, 341, 126',new Array('CGestisciCategorie.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CGestisciCategorie.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '203, 40, 341, 126'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="679, 321, 841, 371" coords2="679, 321, 841, 371" shape="rect" alt="CGestisciClienti:Class" id="areadiagram_map_GKNHWlqGAqACQiYv" href="Class_KqGHWlqGAqACQgpJ.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','679, 321, 841, 371',new Array('CGestisciClienti.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CGestisciClienti.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '679, 321, 841, 371'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="662, 591, 795, 655" coords2="662, 591, 795, 655" shape="rect" alt="CGestisciPazienti:Class" id="areadiagram_map_GKNHWlqGAqACQiYx" href="Class_OqGHWlqGAqACQgpQ.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','662, 591, 795, 655',new Array('CGestisciPazienti.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CGestisciPazienti.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '662, 591, 795, 655'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="365, 40, 488, 104" coords2="365, 40, 488, 104" shape="rect" alt="CGestisciServizi:Class" id="areadiagram_map_mKNHWlqGAqACQiYz" href="Class_xqGHWlqGAqACQgpY.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','365, 40, 488, 104',new Array('CGestisciServizi.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CGestisciServizi.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '365, 40, 488, 104'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="470, 415, 623, 493" coords2="470, 415, 623, 493" shape="rect" alt="CGestisciUser:Class" id="areadiagram_map_mKNHWlqGAqACQiY1" href="Class_VqGHWlqGAqACQgph.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','470, 415, 623, 493',new Array('CGestisciUser.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CGestisciUser.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '470, 415, 623, 493'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="662, 754, 806, 794" coords2="662, 754, 806, 794" shape="rect" alt="CGestisciUtenti:Class" id="areadiagram_map_mKNHWlqGAqACQiY3" href="Class_TqGHWlqGAqACQgpr.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','662, 754, 806, 794',new Array('CGestisciUtenti.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CGestisciUtenti.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '662, 754, 806, 794'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="44, 137, 183, 215" coords2="44, 137, 183, 215" shape="rect" alt="CHome:Class" id="areadiagram_map_WKNHWlqGAqACQiY5" href="Class_bqGHWlqGAqACQgpv.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','44, 137, 183, 215',new Array('CHome.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CHome.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '44, 137, 183, 215'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="356, 137, 518, 271" coords2="356, 137, 518, 271" shape="rect" alt="CImpostazioni:Class" id="areadiagram_map_WKNHWlqGAqACQiY7" href="Class_waGHWlqGAqACQgp8.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','356, 137, 518, 271',new Array('CImpostazioni.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CImpostazioni.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '356, 137, 518, 271'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="341, 304, 512, 388" coords2="341, 304, 512, 388" shape="rect" alt="CInformazioni:Class" id="areadiagram_map_2KNHWlqGAqACQiY9" href="Class_WaGHWlqGAqACQgqU.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','341, 304, 512, 388',new Array('CInformazioni.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CInformazioni.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '341, 304, 512, 388'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="362, 809, 516, 866" coords2="362, 809, 516, 866" shape="rect" alt="CmySanitApp:Class" id="areadiagram_map_2KNHWlqGAqACQiY_" href="Class_haGHWlqGAqACQgqe.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','362, 809, 516, 866',new Array('CmySanitApp.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CmySanitApp.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '362, 809, 516, 866'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="37, 626, 290, 844" coords2="37, 626, 290, 844" shape="rect" alt="CPrenotazione:Class" id="areadiagram_map_OKNHWlqGAqACQiZB" href="Class_ZaGHWlqGAqACQgqi.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','37, 626, 290, 844',new Array('CPrenotazione.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CPrenotazione.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '37, 626, 290, 844'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="44, 415, 209, 563" coords2="44, 415, 209, 563" shape="rect" alt="CReferti:Class" id="areadiagram_map_OKNHWlqGAqACQiZD" href="Class_XaGHWlqGAqACQgrD.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','44, 415, 209, 563',new Array('CReferti.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CReferti.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '44, 415, 209, 563'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="247, 421, 425, 583" coords2="247, 421, 425, 583" shape="rect" alt="CRegistrazione:Class" id="areadiagram_map_uKNHWlqGAqACQiZF" href="Class_E6GHWlqGAqACQgrd.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','247, 421, 425, 583',new Array('CRegistrazione.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CRegistrazione.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '247, 421, 425, 583'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="209, 156, 313, 196" coords2="209, 156, 313, 196" shape="rect" alt="CRicerca:Class" id="areadiagram_map_.KNHWlqGAqACQiZH" href="Class_x6GHWlqGAqACQgr4.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','209, 156, 313, 196',new Array('CRicerca.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CRicerca.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '209, 156, 313, 196'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="349, 626, 541, 690" coords2="349, 626, 541, 690" shape="rect" alt="CRicercaCliniche:Class" id="areadiagram_map_.KNHWlqGAqACQiZJ" href="Class_Z6GHWlqGAqACQgr8.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','349, 626, 541, 690',new Array('CRicercaCliniche.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CRicercaCliniche.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '349, 626, 541, 690'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="349, 710, 529, 774" coords2="349, 710, 529, 774" shape="rect" alt="CRicercaEsami:Class" id="areadiagram_map_BKNHWlqGAqACQiZL" href="Class_F6GHWlqGAqACQgsE.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','349, 710, 529, 774',new Array('CRicercaEsami.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CRicercaEsami.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '349, 710, 529, 774'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="708, 86, 812, 196" coords2="708, 86, 812, 196" shape="rect" alt="CSetup:Class" id="areadiagram_map_BKNHWlqGAqACQiZN" href="Class_V6GHWlqGAqACQgsM.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','708, 86, 812, 196',new Array('CSetup.php*file:////Users/Claudia/Desktop/Progetto web Claudia Di Marco e Riccardo Mantini/SanitApp/Controller/CSetup.php'),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array()),showReferenceIcon('diagram', '708, 86, 812, 196'),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 2, 905, 983" coords2="0, 2, 905, 983" shape="rect" alt="Controller:Package" id="areadiagram_map_sKNHWlqGAqACQiYn" href="Package_4yGHWlqGAqACQgok.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_SyGHWlqGAqACQgom.html" class="ItemLink">CAutenticazione : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_EqGHWlqGAqACQgo7.html" class="ItemLink">CGestisciAgenda : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_CqGHWlqGAqACQgpD.html" class="ItemLink">CGestisciCategorie : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_KqGHWlqGAqACQgpJ.html" class="ItemLink">CGestisciClienti : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_OqGHWlqGAqACQgpQ.html" class="ItemLink">CGestisciPazienti : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_xqGHWlqGAqACQgpY.html" class="ItemLink">CGestisciServizi : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_VqGHWlqGAqACQgph.html" class="ItemLink">CGestisciUser : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_TqGHWlqGAqACQgpr.html" class="ItemLink">CGestisciUtenti : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_bqGHWlqGAqACQgpv.html" class="ItemLink">CHome : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_waGHWlqGAqACQgp8.html" class="ItemLink">CImpostazioni : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_WaGHWlqGAqACQgqU.html" class="ItemLink">CInformazioni : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_haGHWlqGAqACQgqe.html" class="ItemLink">CmySanitApp : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_ZaGHWlqGAqACQgqi.html" class="ItemLink">CPrenotazione : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_XaGHWlqGAqACQgrD.html" class="ItemLink">CReferti : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_E6GHWlqGAqACQgrd.html" class="ItemLink">CRegistrazione : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_x6GHWlqGAqACQgr4.html" class="ItemLink">CRicerca : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_Z6GHWlqGAqACQgr8.html" class="ItemLink">CRicercaCliniche : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_F6GHWlqGAqACQgsE.html" class="ItemLink">CRicercaEsami : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Class_V6GHWlqGAqACQgsM.html" class="ItemLink">CSetup : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Package.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Package.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Package_4yGHWlqGAqACQgok.html" class="ItemLink">Controller : Package</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		SanitApp	</div>
+</body>
+</html>

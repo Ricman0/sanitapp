@@ -1,0 +1,1027 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Use Case Diagram - Use Case Diagram</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		SanitApp	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Use Case Diagram - Use Case Diagram		</span>
+		<a onclick="javascript: showVpLink('SanitAppDoc1.vpp://diagram/FuCu2lqGAqACSgqa', 'Use Case Diagram\nSanitAppDoc1.vpp://diagram/FuCu2lqGAqACSgqa', 'Use Case Diagram', this); return false;" style="padding-left: 16px; font-size: 12px" href="#">
+			<img src="../images/icons/link.png" border="0"> link</a>
+	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|126.0|534.0|130.0|53.0|ShapeEditorShape_eGTREFqFYFAUA4kD.html|ShapeEditorShape_eGTREFqFYFAUA4kD.html|6oSu2lqGAqACSgyP" id="option6oSu2lqGAqACSgyP">Unnamed Freehand Shape : Freehand Shape</option>
+<option value="shape|216.0|571.0|112.0|112.0|ShapeEditorShape_jaTREFqFYFAUA4j7.html|ShapeEditorShape_jaTREFqFYFAUA4j7.html|bISu2lqGAqACSgyL" id="optionbISu2lqGAqACSgyL">Unnamed Freehand Shape : Freehand Shape</option>
+<option value="shape|48.0|117.0|30.0|60.0|Actor_XUhMoFqFYFAUA22r.html|Actor_XUhMoFqFYFAUA22r.html|O_Cu2lqGAqACSgto" id="optionO_Cu2lqGAqACSgto">utente : Actor</option>
+<option value="shape|48.0|240.0|30.0|60.0|Actor_a0hMoFqFYFAUA22w.html|Actor_a0hMoFqFYFAUA22w.html|DAiu2lqGAqACSguZ" id="optionDAiu2lqGAqACSguZ">medico : Actor</option>
+<option value="shape|48.0|484.0|30.0|60.0|Actor_R0hMoFqFYFAUA221.html|Actor_R0hMoFqFYFAUA221.html|hgiu2lqGAqACSgud" id="optionhgiu2lqGAqACSgud">Amministratore : Actor</option>
+<option value="shape|48.0|362.0|30.0|60.0|Actor_eMhMoFqFYFAUA23c.html|Actor_eMhMoFqFYFAUA23c.html|60iu2lqGAqACSgvN" id="option60iu2lqGAqACSgvN">clinica : Actor</option>
+<option value="shape|48.0|0.0|30.0|60.0|Actor_dMhMoFqFYFAUA23h.html|Actor_dMhMoFqFYFAUA23h.html|0Miu2lqGAqACSgvR" id="option0Miu2lqGAqACSgvR">Utente non registrato : Actor</option>
+<option value="shape|649.0|148.0|168.0|40.0|UseCase_z0hMoFqFYFAUA226.html|UseCase_z0hMoFqFYFAUA226.html|xQiu2lqGAqACSguh" id="optionxQiu2lqGAqACSguh">Gestione proprie prenotazioni : Use Case</option>
+<option value="shape|527.0|10.0|93.0|40.0|UseCase_nMhMoFqFYFAUA23m.html|UseCase_nMhMoFqFYFAUA23m.html|zMiu2lqGAqACSgvV" id="optionzMiu2lqGAqACSgvV">Registrazione : Use Case</option>
+<option value="shape|649.0|50.0|190.0|40.0|UseCase_yshMoFqFYFAUA232.html|UseCase_yshMoFqFYFAUA232.html|viiu2lqGAqACSgvi" id="optionviiu2lqGAqACSgvi">Visualizzare informazioni e servizi : Use Case</option>
+<option value="shape|601.0|473.0|161.0|40.0|UseCase_1shMoFqFYFAUA24G.html|UseCase_1shMoFqFYFAUA24G.html|_aiu2lqGAqACSgvv" id="option_aiu2lqGAqACSgvv">Validazione clinica e medico : Use Case</option>
+<option value="shape|234.0|100.0|147.0|40.0|UseCase_gchMoFqFYFAUA24U.html|UseCase_gchMoFqFYFAUA24U.html|F2iu2lqGAqACSgv8" id="optionF2iu2lqGAqACSgv8">Prenotazione degli esami : Use Case</option>
+<option value="shape|596.0|265.0|251.0|40.0|UseCase_echMoFqFYFAUA24i.html|UseCase_echMoFqFYFAUA24i.html|0Biu2lqGAqACSgwJ" id="option0Biu2lqGAqACSgwJ">Visualizzazione e prenotazione esami paziente : Use Case</option>
+<option value="shape|631.0|364.0|161.0|40.0|UseCase_7chMoFqFYFAUA24w.html|UseCase_7chMoFqFYFAUA24w.html|DJiu2lqGAqACSgwW" id="optionDJiu2lqGAqACSgwW">Gestione prenotazioni clienti : Use Case</option>
+<option value="shape|300.0|444.0|118.0|40.0|UseCase_88hMoFqFYFAUA24_.html|UseCase_88hMoFqFYFAUA24_.html|1Viu2lqGAqACSgwj" id="option1Viu2lqGAqACSgwj">Gestione dei servizi : Use Case</option>
+<option value="shape|476.0|519.0|123.0|40.0|UseCase_Z8hMoFqFYFAUA25M.html|UseCase_Z8hMoFqFYFAUA25M.html|o9iu2lqGAqACSgww" id="optiono9iu2lqGAqACSgww">Gestione degli utenti : Use Case</option>
+<option value="shape|299.0|225.0|187.0|40.0|UseCase_P8hMoFqFYFAUA25a.html|UseCase_P8hMoFqFYFAUA25a.html|Kziu2lqGAqACSgw9" id="optionKziu2lqGAqACSgw9">Consultazione dei referti condivisi : Use Case</option>
+<option value="shape|497.0|200.0|100.0|40.0|UseCase_aChMoFqFYFAUA25q.html|UseCase_aChMoFqFYFAUA25q.html|Q7iu2lqGAqACSgxK" id="optionQ7iu2lqGAqACSgxK">Gestione referti : Use Case</option>
+<option value="shape|462.0|324.0|115.0|40.0|UseCase_9ChMoFqFYFAUA254.html|UseCase_9ChMoFqFYFAUA254.html|eXiu2lqGAqACSgxX" id="optioneXiu2lqGAqACSgxX">Gestione dei referti : Use Case</option>
+<option value="shape|501.0|422.0|98.0|40.0|UseCase_EihMoFqFYFAUA26G.html|UseCase_EihMoFqFYFAUA26G.html|4viu2lqGAqACSgxk" id="option4viu2lqGAqACSgxk">Gestione clienti : Use Case</option>
+<option value="shape|574.0|108.0|110.0|40.0|UseCase__ihMoFqFYFAUA26U.html|UseCase__ihMoFqFYFAUA26U.html|d_iu2lqGAqACSgxx" id="optiond_iu2lqGAqACSgxx">Eseguire ricerche : Use Case</option>
+<option value="shape|283.0|301.0|125.0|40.0|UseCase_7ihMoFqFYFAUA26i.html|UseCase_7ihMoFqFYFAUA26i.html|8QSu2lqGAqACSgx." id="option8QSu2lqGAqACSgx.">Gestione dei pazienti : Use Case</option>
+<option value="shape|277.0|559.0|141.0|40.0|UseCase_zlCxEFqFYFAUA4lI.html|UseCase_zlCxEFqFYFAUA4lI.html|ToSu2lqGAqACSgyT" id="optionToSu2lqGAqACSgyT">Gestione delle categorie : Use Case</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Use_Case_Diagram.png" usemap="#diagram_map" class="Image" width="851" height="687"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="78.0, 147.2369, 78.0, 161.2369, 78.0, 161.2369, 649.0, 174.7631, 649.0, 174.7631, 649.0, 160.7631, 649.0, 160.7631, 78.0, 147.2369" coords2="78.0, 147.2369, 78.0, 161.2369, 78.0, 161.2369, 649.0, 174.7631, 649.0, 174.7631, 649.0, 160.7631, 649.0, 160.7631, 78.0, 147.2369" shape="poly" alt=":Association" id="areadiagram_map_o0Su2lqGAqACSg0k" href="Association_KShMoFqFYFAUA26w.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 23.0, 78.0, 37.0, 527.0, 37.0, 527.0, 23.0" coords2="78.0, 23.0, 78.0, 37.0, 527.0, 37.0, 527.0, 23.0" shape="poly" alt=":Association" id="areadiagram_map_DMSu2lqGAqACSg05" href="Association_dShMoFqFYFAUA26_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 23.611206, 78.0, 37.611206, 78.0, 37.611206, 649.0, 76.388794, 649.0, 62.388794, 78.0, 23.611206" coords2="78.0, 23.611206, 78.0, 37.611206, 78.0, 37.611206, 649.0, 76.388794, 649.0, 62.388794, 78.0, 23.611206" shape="poly" alt=":Association" id="areadiagram_map_7sSu2lqGAqACSg1H" href="Association_nShMoFqFYFAUA27O.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="601.0, 486.2394, 78.0, 498.7606, 78.0, 498.7606, 78.0, 512.76056, 78.0, 512.76056, 601.0, 500.2394, 601.0, 500.2394, 601.0, 486.2394" coords2="601.0, 486.2394, 78.0, 498.7606, 78.0, 498.7606, 78.0, 512.76056, 78.0, 512.76056, 601.0, 500.2394, 601.0, 500.2394, 601.0, 486.2394" shape="poly" alt=":Association" id="areadiagram_map_g8Su2lqGAqACSg1V" href="Association_YyhMoFqFYFAUA27d.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="234.0, 112.49711, 78.0, 145.86127, 78.0, 145.86127, 78.0, 160.28902, 78.0, 160.28902, 234.0, 126.92486, 234.0, 112.49711" coords2="234.0, 112.49711, 78.0, 145.86127, 78.0, 145.86127, 78.0, 160.28902, 78.0, 160.28902, 234.0, 126.92486, 234.0, 112.49711" shape="poly" alt=":Association" id="areadiagram_map_UCSu2lqGAqACSg1j" href="Association_KyhMoFqFYFAUA27s.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 253.46469, 78.0, 253.46469, 78.0, 253.46469, 78.0, 253.46469, 78.0, 253.46469, 78.0, 267.4647, 78.0, 267.4647, 596.0, 291.5353, 596.0, 291.5353, 596.0, 277.5353, 596.0, 277.5353, 78.0, 253.46469" coords2="78.0, 253.46469, 78.0, 253.46469, 78.0, 253.46469, 78.0, 253.46469, 78.0, 253.46469, 78.0, 267.4647, 78.0, 267.4647, 596.0, 291.5353, 596.0, 291.5353, 596.0, 277.5353, 596.0, 277.5353, 78.0, 253.46469" shape="poly" alt=":Association" id="areadiagram_map_.iSu2lqGAqACSg1x" href="Association_JyhMoFqFYFAUA277.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="631.0, 377.13962, 78.0, 384.86038, 78.0, 384.86038, 78.0, 398.86038, 78.0, 398.86038, 631.0, 391.13962, 631.0, 391.13962, 631.0, 377.13962" coords2="631.0, 377.13962, 78.0, 384.86038, 78.0, 384.86038, 78.0, 398.86038, 78.0, 398.86038, 631.0, 391.13962, 631.0, 391.13962, 631.0, 377.13962" shape="poly" alt=":Association" id="areadiagram_map_DSSu2lqGAqACSg1_" href="Association_TyhMoFqFYFAUA28K.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 384.22595, 78.0, 399.48334, 78.0, 399.48334, 300.0, 469.78333, 300.0, 469.78333, 300.0, 454.8201, 300.0, 454.8201, 78.0, 384.22595" coords2="78.0, 384.22595, 78.0, 399.48334, 78.0, 399.48334, 300.0, 469.78333, 300.0, 469.78333, 300.0, 454.8201, 300.0, 454.8201, 78.0, 384.22595" shape="poly" alt=":Association" id="areadiagram_map_fySu2lqGAqACSg2N" href="Association_fyhMoFqFYFAUA28Z.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 499.64594, 78.0, 513.64594, 78.0, 513.64594, 476.0, 539.35406, 476.0, 539.35406, 476.0, 525.35406, 476.0, 525.35406, 78.0, 499.64594" coords2="78.0, 499.64594, 78.0, 513.64594, 78.0, 513.64594, 476.0, 539.35406, 476.0, 539.35406, 476.0, 525.35406, 476.0, 525.35406, 78.0, 499.64594" shape="poly" alt=":Association" id="areadiagram_map_oqSu2lqGAqACSg2b" href="Association_MKhMoFqFYFAUA28o.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="299.0, 238.6224, 78.0, 252.3776, 78.0, 252.3776, 78.0, 266.3776, 78.0, 266.3776, 299.0, 252.6224, 299.0, 252.6224, 299.0, 238.6224" coords2="299.0, 238.6224, 78.0, 252.3776, 78.0, 252.3776, 78.0, 266.3776, 78.0, 266.3776, 299.0, 252.6224, 299.0, 252.6224, 299.0, 238.6224" shape="poly" alt=":Association" id="areadiagram_map_MaSu2lqGAqACSg2p" href="Association_lKhMoFqFYFAUA29G.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 146.26605, 78.0, 160.58257, 78.0, 160.58257, 497.0, 226.8922, 497.0, 226.8922, 497.0, 212.57568, 497.0, 212.57568, 78.0, 146.26605" coords2="78.0, 146.26605, 78.0, 160.58257, 78.0, 160.58257, 497.0, 226.8922, 497.0, 226.8922, 497.0, 212.57568, 497.0, 212.57568, 78.0, 146.26605" shape="poly" alt=":Association" id="areadiagram_map_K6Su2lqGAqACSg23" href="Association_7KhMoFqFYFAUA29V.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="462.0, 338.07462, 78.0, 383.92538, 78.0, 383.92538, 78.0, 397.92538, 78.0, 397.92538, 462.0, 352.07462, 462.0, 352.07462, 462.0, 338.07462" coords2="462.0, 338.07462, 78.0, 383.92538, 78.0, 383.92538, 78.0, 397.92538, 78.0, 397.92538, 462.0, 352.07462, 462.0, 352.07462, 462.0, 338.07462" shape="poly" alt=":Association" id="areadiagram_map_OGSu2lqGAqACSg3F" href="Association_YqhMoFqFYFAUA29k.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 385.97958, 78.0, 399.97958, 78.0, 399.97958, 501.0, 446.02042, 501.0, 446.02042, 501.0, 432.02042, 501.0, 432.02042, 78.0, 385.97958" coords2="78.0, 385.97958, 78.0, 399.97958, 78.0, 399.97958, 501.0, 446.02042, 501.0, 446.02042, 501.0, 432.02042, 501.0, 432.02042, 78.0, 385.97958" shape="poly" alt=":Association" id="areadiagram_map_JmSu2lqGAqACSg3T" href="Association_iqhMoFqFYFAUA29z.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 22.251396, 78.0, 36.564247, 574.0, 114.15084, 574.0, 108.0, 606.5714, 108.0, 607.0, 105.0, 78.0, 22.251396" coords2="78.0, 22.251396, 78.0, 36.564247, 574.0, 114.15084, 574.0, 108.0, 606.5714, 108.0, 607.0, 105.0, 78.0, 22.251396" shape="poly" alt=":Association" id="areadiagram_map_9WSu2lqGAqACSg3h" href="Association_2qhMoFqFYFAUA2_C.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="381.0, 113.33962, 381.0, 127.33962, 381.0, 127.33962, 574.0, 134.62263, 574.0, 134.62263, 574.0, 120.62264, 381.0, 113.33962" coords2="381.0, 113.33962, 381.0, 127.33962, 381.0, 127.33962, 574.0, 134.62263, 574.0, 134.62263, 574.0, 120.62264, 381.0, 113.33962" shape="poly" alt=":Include" id="areadiagram_map_QOSu2lqGAqACSg3v" href="Include_FqhMoFqFYFAUA2_R.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 252.56735, 78.0, 266.9592, 78.0, 266.9592, 283.0, 307.12244, 283.0, 307.12244, 283.0, 301.0, 314.7143, 301.0, 315.0, 299.0, 78.0, 252.56735" coords2="78.0, 252.56735, 78.0, 266.9592, 78.0, 266.9592, 283.0, 307.12244, 283.0, 307.12244, 283.0, 301.0, 314.7143, 301.0, 315.0, 299.0, 78.0, 252.56735" shape="poly" alt=":Association" id="areadiagram_map_hOSu2lqGAqACSg30" href="Association_rqhMoFqFYFAUA2_X.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 497.9528, 78.0, 513.05554, 78.0, 513.05554, 277.0, 568.3333, 277.0, 568.3333, 277.0, 559.0, 296.83078, 559.0, 78.0, 497.9528" coords2="78.0, 497.9528, 78.0, 513.05554, 78.0, 513.05554, 277.0, 568.3333, 277.0, 568.3333, 277.0, 559.0, 296.83078, 559.0, 78.0, 497.9528" shape="poly" alt=":Association" id="areadiagram_map_luSu2lqGAqACSg4C" href="Association_0gqxEFqFYFAUA4lc.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;margin-right:0;color:#000000;font-weight:normal;margin-left:0;font-size:11px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-right:0pt;margin-left:0pt;margin-top:0pt;margin-bottom:.0001pt;&amp;quot;&amp;gt;
+      Aggiungere o eliminare categorie,
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="277, 559, 418, 599" coords2="277, 559, 418, 599" shape="rect" alt="Gestione delle categorie:Use Case" id="areadiagram_map_ToSu2lqGAqACSgyT" href="UseCase_zlCxEFqFYFAUA4lI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="126, 534, 256, 587" coords2="126, 534, 256, 587" shape="rect" alt=":Freehand Shape" id="areadiagram_map_6oSu2lqGAqACSgyP" href="ShapeEditorShape_eGTREFqFYFAUA4kD.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="216, 571, 328, 683" coords2="216, 571, 328, 683" shape="rect" alt=":Freehand Shape" id="areadiagram_map_bISu2lqGAqACSgyL" href="ShapeEditorShape_jaTREFqFYFAUA4j7.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;margin-right:0;color:#000000;font-weight:normal;margin-left:0;font-size:11px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-right:0pt;margin-left:0pt;margin-top:0pt;margin-bottom:.0001pt;&amp;quot;&amp;gt;
+      Il medico pu&amp;#242; inserire un nuovo utente che diventer&amp;#224; proprio paziente, 
+      effettuare per lui prenotazioni.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="283, 301, 408, 341" coords2="283, 301, 408, 341" shape="rect" alt="Gestione dei pazienti:Use Case" id="areadiagram_map_8QSu2lqGAqACSgx." href="UseCase_7ihMoFqFYFAUA26i.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Eseguire ricerche per consentire la scelta della clinica pi&amp;#249; adatta alle 
+      proprie esigenze per effettuare il proprio esame diagnostico.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="574, 108, 684, 148" coords2="574, 108, 684, 148" shape="rect" alt="Eseguire ricerche:Use Case" id="areadiagram_map_d_iu2lqGAqACSgxx" href="UseCase__ihMoFqFYFAUA26U.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;margin-right:0;color:#000000;font-weight:normal;margin-left:0;font-size:11px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-right:0pt;margin-left:0pt;margin-top:0pt;margin-bottom:.0001pt;&amp;quot;&amp;gt;
+      Visualizzazione dei pazienti e delle informazioni di unn singolo cliente.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="501, 422, 599, 462" coords2="501, 422, 599, 462" shape="rect" alt="Gestione clienti:Use Case" id="areadiagram_map_4viu2lqGAqACSgxk" href="UseCase_EihMoFqFYFAUA26G.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Caricamento del risultato dell'esame prenotato ed effettuato.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="462, 324, 577, 364" coords2="462, 324, 577, 364" shape="rect" alt="Gestione dei referti:Use Case" id="areadiagram_map_eXiu2lqGAqACSgxX" href="UseCase_9ChMoFqFYFAUA254.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Possibilit&amp;#224; di visualizzare tutti i referti, scaricare ogni singolo 
+      referto e condividerlo con il proprio medico curante.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="497, 200, 597, 240" coords2="497, 200, 597, 240" shape="rect" alt="Gestione referti:Use Case" id="areadiagram_map_Q7iu2lqGAqACSgxK" href="UseCase_aChMoFqFYFAUA25q.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Possibilit&amp;#224; di poter leggere i referti dei propri pazienti in qualsiasi 
+      momento.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="299, 225, 486, 265" coords2="299, 225, 486, 265" shape="rect" alt="Consultazione dei referti condivisi:Use Case" id="areadiagram_map_Kziu2lqGAqACSgw9" href="UseCase_P8hMoFqFYFAUA25a.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Bloccare/sbloccare/modificare un user dell'applicazione.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="476, 519, 599, 559" coords2="476, 519, 599, 559" shape="rect" alt="Gestione degli utenti:Use Case" id="areadiagram_map_o9iu2lqGAqACSgww" href="UseCase_Z8hMoFqFYFAUA25M.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Gestire i servizi offerti ai propri clienti della clinica (aggiungere, 
+      modificare, cancellare).
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="300, 444, 418, 484" coords2="300, 444, 418, 484" shape="rect" alt="Gestione dei servizi:Use Case" id="areadiagram_map_1Viu2lqGAqACSgwj" href="UseCase_88hMoFqFYFAUA24_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Inserire, cancellare, modificare, visualizzare le prenotazioni.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="631, 364, 792, 404" coords2="631, 364, 792, 404" shape="rect" alt="Gestione prenotazioni clienti:Use Case" id="areadiagram_map_DJiu2lqGAqACSgwW" href="UseCase_7chMoFqFYFAUA24w.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Il medico prenota l'esame per conto del paziente e pu&amp;#242; visualizzare 
+      tutte le prenotazioni che egli ha effettuato per i propri pazienti.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="596, 265, 847, 305" coords2="596, 265, 847, 305" shape="rect" alt="Visualizzazione e prenotazione esami paziente:Use Case" id="areadiagram_map_0Biu2lqGAqACSgwJ" href="UseCase_echMoFqFYFAUA24i.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Prenotazione degli esami
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="234, 100, 381, 140" coords2="234, 100, 381, 140" shape="rect" alt="Prenotazione degli esami:Use Case" id="areadiagram_map_F2iu2lqGAqACSgv8" href="UseCase_gchMoFqFYFAUA24U.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Valida la clinica e il medico evitando la possibilit&amp;#224; di registrazioni 
+      di finti medici e cliniche sull&amp;#8217;applicazione.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="601, 473, 762, 513" coords2="601, 473, 762, 513" shape="rect" alt="Validazione clinica e medico:Use Case" id="areadiagram_map__aiu2lqGAqACSgvv" href="UseCase_1shMoFqFYFAUA24G.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Visualizzare informazioni per contattare l'amministratore del sistema; 
+      per inviare i dati per validare il proprio account, visualizzare 
+      informazioni delle cliniche e dei servizi offerti dalle cliniche 
+      presenti sull&amp;#8217;applicazione.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="649, 50, 839, 90" coords2="649, 50, 839, 90" shape="rect" alt="Visualizzare informazioni e servizi:Use Case" id="areadiagram_map_viiu2lqGAqACSgvi" href="UseCase_yshMoFqFYFAUA232.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Registrazione per possedere un account nel sistema ed usufruire dei 
+      privilegi forniti in base alla tipologia di user.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="527, 10, 620, 50" coords2="527, 10, 620, 50" shape="rect" alt="Registrazione:Use Case" id="areadiagram_map_zMiu2lqGAqACSgvV" href="UseCase_nMhMoFqFYFAUA23m.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Utente che non &amp;#232; ancora registrato sull'applicazione
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="48, 0, 78, 60" coords2="48, 0, 78, 60" shape="rect" alt="Utente non registrato:Actor" id="areadiagram_map_0Miu2lqGAqACSgvR" href="Actor_dMhMoFqFYFAUA23h.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Clinica che eroga diversi servizi/esami
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="48, 362, 78, 422" coords2="48, 362, 78, 422" shape="rect" alt="clinica:Actor" id="areadiagram_map_60iu2lqGAqACSgvN" href="Actor_eMhMoFqFYFAUA23c.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Possibilit&amp;#224; di annullare o annullare una prenotazione effettuata e non 
+      ancora eseguita.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="649, 148, 817, 188" coords2="649, 148, 817, 188" shape="rect" alt="Gestione proprie prenotazioni:Use Case" id="areadiagram_map_xQiu2lqGAqACSguh" href="UseCase_z0hMoFqFYFAUA226.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Colui che gestisce gli utenti e valida medico e clinica
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="48, 484, 78, 544" coords2="48, 484, 78, 544" shape="rect" alt="Amministratore:Actor" id="areadiagram_map_hgiu2lqGAqACSgud" href="Actor_R0hMoFqFYFAUA221.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Medico curante di diversi pazienti
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="48, 240, 78, 300" coords2="48, 240, 78, 300" shape="rect" alt="medico:Actor" id="areadiagram_map_DAiu2lqGAqACSguZ" href="Actor_a0hMoFqFYFAUA22w.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Un paziente con un problema di salute che vuole effettuare un esame 
+      clinico
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="48, 117, 78, 177" coords2="48, 117, 78, 177" shape="rect" alt="utente:Actor" id="areadiagram_map_O_Cu2lqGAqACSgto" href="Actor_XUhMoFqFYFAUA22r.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/FreehandShapes.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/FreehandShapes.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ShapeEditorShape_eGTREFqFYFAUA4kD.html" class="ItemLink">N/A : Freehand Shape</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/FreehandShapes.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/FreehandShapes.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ShapeEditorShape_jaTREFqFYFAUA4j7.html" class="ItemLink">N/A : Freehand Shape</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_XUhMoFqFYFAUA22r.html" class="ItemLink">utente : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Un paziente con un problema di salute che vuole effettuare un esame 
+      clinico
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_a0hMoFqFYFAUA22w.html" class="ItemLink">medico : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Medico curante di diversi pazienti
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_R0hMoFqFYFAUA221.html" class="ItemLink">Amministratore : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Colui che gestisce gli utenti e valida medico e clinica
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_eMhMoFqFYFAUA23c.html" class="ItemLink">clinica : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Clinica che eroga diversi servizi/esami
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_dMhMoFqFYFAUA23h.html" class="ItemLink">Utente non registrato : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Utente che non &#232; ancora registrato sull'applicazione
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_z0hMoFqFYFAUA226.html" class="ItemLink">Gestione proprie prenotazioni : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Possibilit&#224; di annullare o annullare una prenotazione effettuata e non 
+      ancora eseguita.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_nMhMoFqFYFAUA23m.html" class="ItemLink">Registrazione : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Registrazione per possedere un account nel sistema ed usufruire dei 
+      privilegi forniti in base alla tipologia di user.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_yshMoFqFYFAUA232.html" class="ItemLink">Visualizzare informazioni e servizi : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Visualizzare informazioni per contattare l'amministratore del sistema; 
+      per inviare i dati per validare il proprio account, visualizzare 
+      informazioni delle cliniche e dei servizi offerti dalle cliniche 
+      presenti sull&#8217;applicazione.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_1shMoFqFYFAUA24G.html" class="ItemLink">Validazione clinica e medico : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Valida la clinica e il medico evitando la possibilit&#224; di registrazioni 
+      di finti medici e cliniche sull&#8217;applicazione.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_gchMoFqFYFAUA24U.html" class="ItemLink">Prenotazione degli esami : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Prenotazione degli esami
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_echMoFqFYFAUA24i.html" class="ItemLink">Visualizzazione e prenotazione esami paziente : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Il medico prenota l'esame per conto del paziente e pu&#242; visualizzare 
+      tutte le prenotazioni che egli ha effettuato per i propri pazienti.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_7chMoFqFYFAUA24w.html" class="ItemLink">Gestione prenotazioni clienti : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Inserire, cancellare, modificare, visualizzare le prenotazioni.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_88hMoFqFYFAUA24_.html" class="ItemLink">Gestione dei servizi : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Gestire i servizi offerti ai propri clienti della clinica (aggiungere, 
+      modificare, cancellare).
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_Z8hMoFqFYFAUA25M.html" class="ItemLink">Gestione degli utenti : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Bloccare/sbloccare/modificare un user dell'applicazione.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_P8hMoFqFYFAUA25a.html" class="ItemLink">Consultazione dei referti condivisi : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Possibilit&#224; di poter leggere i referti dei propri pazienti in qualsiasi 
+      momento.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_aChMoFqFYFAUA25q.html" class="ItemLink">Gestione referti : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Possibilit&#224; di visualizzare tutti i referti, scaricare ogni singolo 
+      referto e condividerlo con il proprio medico curante.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_9ChMoFqFYFAUA254.html" class="ItemLink">Gestione dei referti : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Caricamento del risultato dell'esame prenotato ed effettuato.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_EihMoFqFYFAUA26G.html" class="ItemLink">Gestione clienti : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="margin-right:0;color:#000000;font-weight:normal;margin-left:0;font-size:11px;font-family:Dialog;">
+    <p style="margin-right:0pt;margin-left:0pt;margin-top:0pt;margin-bottom:.0001pt;">
+      Visualizzazione dei pazienti e delle informazioni di unn singolo cliente.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase__ihMoFqFYFAUA26U.html" class="ItemLink">Eseguire ricerche : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Eseguire ricerche per consentire la scelta della clinica pi&#249; adatta alle 
+      proprie esigenze per effettuare il proprio esame diagnostico.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_7ihMoFqFYFAUA26i.html" class="ItemLink">Gestione dei pazienti : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="margin-right:0;color:#000000;font-weight:normal;margin-left:0;font-size:11px;font-family:Dialog;">
+    <p style="margin-right:0pt;margin-left:0pt;margin-top:0pt;margin-bottom:.0001pt;">
+      Il medico pu&#242; inserire un nuovo utente che diventer&#224; proprio paziente, 
+      effettuare per lui prenotazioni.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_zlCxEFqFYFAUA4lI.html" class="ItemLink">Gestione delle categorie : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="margin-right:0;color:#000000;font-weight:normal;margin-left:0;font-size:11px;font-family:Dialog;">
+    <p style="margin-right:0pt;margin-left:0pt;margin-top:0pt;margin-bottom:.0001pt;">
+      Aggiungere o eliminare categorie,
+    </p>
+  </body></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		SanitApp	</div>
+</body>
+</html>
