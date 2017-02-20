@@ -540,7 +540,7 @@ class EUtente extends EUser {
                 case 'passwordUtente':
                     if(!empty($value))
                     {
-                        $this->setPassword($value);
+                        $this->modificaPassword($value);
                     }
                     break;
                 default:
