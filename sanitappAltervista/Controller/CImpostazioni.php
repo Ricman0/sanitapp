@@ -441,9 +441,17 @@ class CImpostazioni {
                             $eUtente = new EUtente(NULL, $username);
                             $CFMedicoCurante = $eUtente->getCodFiscaleMedicoUtente();
                             if (isset($CFMedicoCurante)) {
-                                $eMedico = new EMedico($CFMedicoCurante);
-                            }
-                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                        $eMedico = new EMedico($CFMedicoCurante);
+                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
+                    }
+                    else
+                    {
+                        $vImpostazioni->visualizzaImpostazioniUtente($eUtente, NULL);
+                    }
+//                            if (isset($CFMedicoCurante)) {
+//                                $eMedico = new EMedico($CFMedicoCurante);
+//                            }
+//                            $vImpostazioni->visualizzaImpostazioniUtente($eUtente, $eMedico);
             //                                $vJSON = USingleton::getInstance('VJSON');
             //                              $vJSON->inviaDatiJSON(TRUE);
                         }

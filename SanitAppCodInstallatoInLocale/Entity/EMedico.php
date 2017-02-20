@@ -580,7 +580,7 @@ class EMedico extends EUser {
                 case 'passwordMedico':
                     if(!empty($value))
                     {
-                        $this->setPassword($value);
+                        $this->modificaPassword($value);
                     }
                     break;
                 default:

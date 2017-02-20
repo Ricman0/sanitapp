@@ -241,7 +241,7 @@ class EAmministratore extends EUser{
      */
     public function sbloccaUser($idUser) {
         $fUser = USingleton::getInstance('FUser');
-        $daModificare['Bloccato'] = FALSE; 
+        $daModificare['Bloccato'] = 0; 
         return $fUser->update($idUser, $daModificare); //sbloccaUser
     }
     

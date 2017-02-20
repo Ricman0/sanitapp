@@ -494,7 +494,7 @@ class EUtente extends EUser {
                     $this->setCodiceConfermaUser($value);
                     break;
                 case 'confermato':
-                    if($value === true || $value === TRUE ||  $value === 'SI')
+                    if($value === true || $value === TRUE ||  $value === 'SI' || $value === 'true')
                     {
                         $this->setConfermato(TRUE);
                     }
@@ -505,7 +505,7 @@ class EUtente extends EUser {
                     
                     break;
                 case 'bloccato':
-                    if($value === 'SI' || $value === TRUE   || $value === true)
+                    if($value === 'SI' || $value === TRUE   || $value === true || $value === 'true')
                         
                     {
                         $dataOdierna = date ("Y/m/d");
@@ -540,7 +540,7 @@ class EUtente extends EUser {
                 case 'passwordUtente':
                     if(!empty($value))
                     {
-                        $this->setPassword($value);
+                        $this->modificaPassword($value);
                     }
                     break;
                 default:
