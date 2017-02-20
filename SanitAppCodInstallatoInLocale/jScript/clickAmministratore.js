@@ -121,7 +121,7 @@ $(document).ready(function(){
     
     $('#headerMain').on('click', '#modificaUser', function(){
         // modifico il 'titolo' da INFORMAZIONI a MODIFICA USER
-        $('#contenutoAreaPersonale').find('h3').replaceWith("<h3>MODIFICA USER</h3><hr>");
+        $('#contenutoAreaPersonale').find('h3').replaceWith("<h3>MODIFICA USER</h3>");
         var tipoUser = $(this).attr('data-tipoUser');
         tipoUser = tipoUser[0].toUpperCase() + tipoUser.slice(1); //in questo modo ho la prima lettera di tipoUser maiuscola
 
