@@ -1,5 +1,0 @@
-Eliminazione contenuti database esistente
-Dump error: ERROR 1044 (42000) at line 5: Access denied for user 'sanitapp'@'localhost' to database 'sanitapp'
-
-Status: restore_error
-=====
