@@ -473,6 +473,10 @@ class EUtente extends EUser {
         if(count($prenotazioniNonEffettuate)>=3)
         {
             $this->setBloccato(TRUE);
+            $id = $this->getUsernameUtente();
+            $daModificare['Bloccato'] = TRUE;
+            $fUser = USingleton::getInstance('FUser');
+            $fUser = update($id, $daModificare);
         }
     }
     
@@ -508,8 +512,9 @@ class EUtente extends EUser {
                     if($value === 'SI' || $value === TRUE   || $value === true || $value === 'true')
                         
                     {
-                        $dataOdierna = date ("Y/m/d");
-                        $this->controllaSeBloccare($dataOdierna);
+//                        $dataOdierna = date ("Y/m/d");
+                        $this->setBloccato(TRUE);
+//                        $this->controllaSeBloccare($dataOdierna);
                     }
                     else
                     {

@@ -376,7 +376,7 @@ class UValidazione {
                     break;
                 
                 case 'descrizione':
-                    $pattern = '/^([a-zA-Zèéàòùì,-;\._:\/’\(\)]|\s)*$/' ;
+                    $pattern = '/^([a-zA-Zèéàòùì,-;\'\._:\/’\(\)]|\s)*$/' ;
                     $stringaErrore = "La " . $chiave . " deve essere una sequenza di caratteri. Massimo 600";
                     break;
                 
